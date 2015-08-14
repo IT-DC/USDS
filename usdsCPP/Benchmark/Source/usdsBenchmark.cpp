@@ -4,7 +4,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	int test_counts = 1;
+	int test_counts = 1000000;
 	int test_size = 2;
 	
 	BaseTest* Tests;

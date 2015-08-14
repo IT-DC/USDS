@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include\Protobuf;$(ProjectDir)Include;$(ProjectDir)Include\BSON\boost-1_58;$(ProjectDir)Include\ASN\OSS;$(ProjectDir)Include\ASN\;$(ProjectDir)Include\BSON\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Develop\Protobuf\Include;$(ProjectDir)Include;D:\Develop\boost\Include\boost-1_58;D:\Develop\OSS\Include;$(ProjectDir)Include\ASN\;$(ProjectDir)Include\BSON\;D:\Develop\rapidjson\Include;D:\Develop\mongo\Include</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(IntDir)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
@@ -67,7 +67,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)Lib\Protobuf\Debug\libprotobuf.lib;$(ProjectDir)Lib\BSON\MongoDB\*.lib;$(ProjectDir)Lib\BSON\Boost\*.lib;$(ProjectDir)Lib\ASN\cpptoed.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d:\Develop\protobuf\Lib\Debug\libprotobuf.lib;d:\Develop\mongo\Lib\*.lib;d:\Develop\boost\Lib\*.lib;d:\Develop\OSS\Lib\cpptoed.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>$(ProjectDir)log\$(Configuration)\$(MSBuildProjectName).log</Path>
@@ -82,7 +82,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Include\Protobuf\;$(ProjectDir)Include\BSON\;$(ProjectDir)Include\BSON\boost-1_58\;$(ProjectDir)Include\ASN\OSS\;$(ProjectDir)Include\ASN\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;D:\Develop\protobuf\Include;D:\Develop\mongo\Include;D:\Develop\boost\Include\boost-1_58;D:\Develop\OSS\Include;$(ProjectDir)Include\ASN\;D:\Develop\rapidjson\Include;$(ProjectDir)Include\BSON</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <CompileAsManaged>false</CompileAsManaged>
@@ -92,7 +92,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(ProjectDir)Lib\Protobuf\Release\libprotobuf.lib;$(ProjectDir)Lib\BSON\MongoDB\mongoclient.lib;$(ProjectDir)Lib\BSON\Boost\*.lib;$(ProjectDir)Lib\ASN\cpptoed.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d:\Develop\protobuf\Lib\Release\libprotobuf.lib;d:\Develop\mongo\Lib\mongoclient.lib;d:\Develop\boost\Lib\*.lib;d:\Develop\OSS\Lib\cpptoed.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <HeapReserveSize>
       </HeapReserveSize>
     </Link>

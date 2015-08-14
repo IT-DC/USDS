@@ -2,9 +2,9 @@
 #define JSON_TEST
 
 #include "baseTest.h"
-#include "JSON\rapidjson\writer.h"
-#include "JSON\rapidjson\stringbuffer.h"
-#include "JSON\rapidjson\reader.h"
+#include "rapidjson\writer.h"
+#include "rapidjson\stringbuffer.h"
+#include "rapidjson\reader.h"
 
 #include <iostream>
 

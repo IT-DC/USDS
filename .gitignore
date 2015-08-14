@@ -1,0 +1,13 @@
+*.log
+usdsCPP/BasicParser/Debug/BasicParser.tlog/unsuccessfulbuild
+*.user
+*.exe
+*.ilk
+*.pdb
+usdsCPP/BasicParser/Release/BasicParser.tlog/unsuccessfulbuild
+*.dll
+*.idb
+*.obj
+*.tlog
+*.suo
+*.sdf
