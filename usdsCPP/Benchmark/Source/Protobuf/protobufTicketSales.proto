@@ -1,0 +1,16 @@
+message ProtobufTicketSales {
+	required int32 ShiftNumber = 1;
+	required fixed32 CashRegister = 2;
+	required fixed64 start_Shift = 3;
+	required fixed64 end_Shift = 4;
+	
+	message ProtobufVoucher {
+		required int32 voucher_number = 1;
+		required double summ = 2;
+		required string goods_name = 3;
+		required fixed64 time_of_sell = 4;
+		required bool status = 5;
+	}
+
+	repeated ProtobufVoucher vouchers = 5;
+}

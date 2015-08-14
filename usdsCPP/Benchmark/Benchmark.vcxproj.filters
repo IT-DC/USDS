@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Protobuf Test">
+      <UniqueIdentifier>{56fa3574-4ca4-4c73-904b-e2c9d2fd7429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Protobuf Test">
+      <UniqueIdentifier>{dc0950eb-58cd-45a5-8ed1-357a60ece3f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\XML Test">
+      <UniqueIdentifier>{f0088f39-2c50-45cf-ad2f-a2d7bf89a92f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\XML Test">
+      <UniqueIdentifier>{542d5029-3ff3-4ccb-b0dc-2f461cca36dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\JSON Test">
+      <UniqueIdentifier>{cef2c778-80ea-4873-a341-dbcce1670b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\JSON Test">
+      <UniqueIdentifier>{7dd0e23c-ced1-4aec-be5b-640bf5e34c05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BSON Test">
+      <UniqueIdentifier>{d38cdd53-76e8-4355-905d-2a2f2adf53f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BSON Test">
+      <UniqueIdentifier>{19480f21-a3d6-4668-a13f-8db0df38b0b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ASN.1 Test">
+      <UniqueIdentifier>{59690f60-9d3a-4cb4-a32b-0fed523af509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ASN.1 Test">
+      <UniqueIdentifier>{60761926-6ebf-4b71-9522-1c6379178967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\USDS SAX Test">
+      <UniqueIdentifier>{aa832fa3-2daf-48c7-bdc4-48d974acc9f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\USDS SAX Test">
+      <UniqueIdentifier>{aed5c9f9-2290-4a6c-a03b-a01d15185ed1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\USDS DOM Test">
+      <UniqueIdentifier>{3ed1c4e7-d208-4fef-b952-0ddef98e78ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\USDS DOM Test">
+      <UniqueIdentifier>{01415bbe-e0dd-44a0-a6b6-fc324398afba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\usdsBenchmark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ticketSales.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\baseTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Protobuf\protobufTicketSales.cpp">
+      <Filter>Source Files\Protobuf Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\USDS\usdsDeserializer.cpp">
+      <Filter>Source Files\USDS SAX Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\USDS\usdsSerializer.cpp">
+      <Filter>Source Files\USDS SAX Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\USDS\usdsTest.cpp">
+      <Filter>Source Files\USDS SAX Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Protobuf\protobufTest.cpp">
+      <Filter>Source Files\Protobuf Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\XML\tinyxml2.cpp">
+      <Filter>Source Files\XML Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\XML\xmlTest.cpp">
+      <Filter>Source Files\XML Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\JSON\jsonTest.cpp">
+      <Filter>Source Files\JSON Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BSON\bsonTest.cpp">
+      <Filter>Source Files\BSON Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ASN\asn_bench.cpp">
+      <Filter>Source Files\ASN.1 Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ASN\asnTest.cpp">
+      <Filter>Source Files\ASN.1 Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\USDS DOM\usdsDomTest.cpp">
+      <Filter>Source Files\USDS DOM Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\USDS DOM\usdsDomParser.cpp">
+      <Filter>Source Files\USDS DOM Test</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\usdsBenchmark.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\baseTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ticketSales.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Protobuf\protobufTicketSales.h">
+      <Filter>Header Files\Protobuf Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Protobuf\protobufTest.h">
+      <Filter>Header Files\Protobuf Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\USDS\usdsDeserializer.h">
+      <Filter>Header Files\USDS SAX Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\USDS\usdsSerializer.h">
+      <Filter>Header Files\USDS SAX Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\USDS\usdsTest.h">
+      <Filter>Header Files\USDS SAX Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\XML\tinyxml2.h">
+      <Filter>Header Files\XML Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\XML\xmlTest.h">
+      <Filter>Header Files\XML Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\JSON\jsonTest.h">
+      <Filter>Header Files\JSON Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\BSON\bsonTest.h">
+      <Filter>Header Files\BSON Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ASN\asn_bench.h">
+      <Filter>Header Files\ASN.1 Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ASN\asnTest.h">
+      <Filter>Header Files\ASN.1 Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\USDS DOM\usdsDomTest.h">
+      <Filter>Header Files\USDS DOM Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\USDS DOM\usdsDomParser.h">
+      <Filter>Header Files\USDS DOM Test</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

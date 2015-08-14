@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{56EF51A6-42DB-4FE5-89DD-161093E22B52}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Benchmark</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)tmp\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)tmp\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include\Protobuf;$(ProjectDir)Include;$(ProjectDir)Include\BSON\boost-1_58;$(ProjectDir)Include\ASN\OSS;$(ProjectDir)Include\ASN\;$(ProjectDir)Include\BSON\</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <XMLDocumentationFileName>
+      </XMLDocumentationFileName>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(ProjectDir)Lib\Protobuf\Debug\libprotobuf.lib;$(ProjectDir)Lib\BSON\MongoDB\*.lib;$(ProjectDir)Lib\BSON\Boost\*.lib;$(ProjectDir)Lib\ASN\cpptoed.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <BuildLog>
+      <Path>$(ProjectDir)log\$(Configuration)\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Include\Protobuf\;$(ProjectDir)Include\BSON\;$(ProjectDir)Include\BSON\boost-1_58\;$(ProjectDir)Include\ASN\OSS\;$(ProjectDir)Include\ASN\</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>$(ProjectDir)Lib\Protobuf\Release\libprotobuf.lib;$(ProjectDir)Lib\BSON\MongoDB\mongoclient.lib;$(ProjectDir)Lib\BSON\Boost\*.lib;$(ProjectDir)Lib\ASN\cpptoed.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <HeapReserveSize>
+      </HeapReserveSize>
+    </Link>
+    <BuildLog>
+      <Path>$(ProjectDir)log\$(Configuration)\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\ASN\asnTest.cpp" />
+    <ClCompile Include="Source\ASN\asn_bench.cpp" />
+    <ClCompile Include="Source\baseTest.cpp" />
+    <ClCompile Include="Source\BSON\bsonTest.cpp" />
+    <ClCompile Include="Source\JSON\jsonTest.cpp" />
+    <ClCompile Include="Source\Protobuf\protobufTest.cpp" />
+    <ClCompile Include="Source\Protobuf\protobufTicketSales.cpp" />
+    <ClCompile Include="Source\ticketSales.cpp" />
+    <ClCompile Include="Source\USDS DOM\usdsDomParser.cpp" />
+    <ClCompile Include="Source\USDS DOM\usdsDomTest.cpp" />
+    <ClCompile Include="Source\usdsBenchmark.cpp" />
+    <ClCompile Include="Source\USDS\usdsDeserializer.cpp" />
+    <ClCompile Include="Source\USDS\usdsSerializer.cpp" />
+    <ClCompile Include="Source\USDS\usdsTest.cpp" />
+    <ClCompile Include="Source\XML\tinyxml2.cpp" />
+    <ClCompile Include="Source\XML\xmlTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\ASN\asnTest.h" />
+    <ClInclude Include="Include\ASN\asn_bench.h" />
+    <ClInclude Include="Include\baseTest.h" />
+    <ClInclude Include="Include\BSON\bsonTest.h" />
+    <ClInclude Include="Include\JSON\jsonTest.h" />
+    <ClInclude Include="Include\Protobuf\protobufTest.h" />
+    <ClInclude Include="Include\Protobuf\protobufTicketSales.h" />
+    <ClInclude Include="Include\ticketSales.h" />
+    <ClInclude Include="Include\USDS DOM\usdsDomParser.h" />
+    <ClInclude Include="Include\USDS DOM\usdsDomTest.h" />
+    <ClInclude Include="Include\usdsBenchmark.h" />
+    <ClInclude Include="Include\USDS\usdsDeserializer.h" />
+    <ClInclude Include="Include\USDS\usdsSerializer.h" />
+    <ClInclude Include="Include\USDS\usdsTest.h" />
+    <ClInclude Include="Include\XML\tinyxml2.h" />
+    <ClInclude Include="Include\XML\xmlTest.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
