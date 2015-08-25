@@ -44,5 +44,8 @@
     <ClCompile Include="Source\usdsErrors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="usdsBinaryInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

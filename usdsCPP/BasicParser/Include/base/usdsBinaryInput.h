@@ -1,6 +1,8 @@
 #ifndef USDS_BINARY_INPUT
 #define USDS_BINARY_INPUT
 
+#include <string>
+
 #include "base\usdsErrors.h"
 
 namespace usds
@@ -11,17 +13,17 @@ namespace usds
 		BinaryInput();
 		~BinaryInput();
 
-
+		void setBinary(unsigned char* buff, size_t size) throw(...);
 
 		void clean();		// it does not release memory in buffer
 
 		// deserialization
-		inline int readUVarint();
-		inline int readInt();
-		inline long long readLong();
-		inline double readDouble();
-		inline int readUTF8String(char* value, int max_size);
-		inline bool readBool();
+		inline unsigned long long readUVarint() throw(...);
+		inline int readInt() throw(...);
+		inline long long readLong() throw(...);
+		inline double readDouble() throw(...);
+		inline void readString(unsigned char* buff, int size) throw(...);
+		inline bool readBool() throw(...);
 
 	private:
 		// Buffer for USDS input document

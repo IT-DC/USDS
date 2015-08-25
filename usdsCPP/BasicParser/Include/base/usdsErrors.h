@@ -9,7 +9,13 @@ namespace usds
 	{
 		// Binary Output: 001xxx
 		BIN_OUT_BUFFER_OVERFLOW = 1001,
-		BIN_OUT_ALLOCATE_ERROR = 1002
+		BIN_OUT_ALLOCATE_ERROR = 1002,
+		// Binary Input: 002xxx
+		BIN_IN_NULL_BUFF = 2001,
+		BIN_IN_NULL_SIZE = 2002,
+		BIN_IN_BUFF_OVERFLOW = 2003,
+		BIN_IN_BEEG_UVARINT = 2004
+
 
 
 	};
