@@ -16,6 +16,9 @@
     <Filter Include="Header Files\Base">
       <UniqueIdentifier>{3458fc91-dfb6-4a8b-97d2-d2fd90830b87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Tags">
+      <UniqueIdentifier>{82f3aca8-60ab-48db-b977-f59c94e92ab7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsBasicParser.h">
@@ -32,6 +35,21 @@
     </ClInclude>
     <ClInclude Include="Include\base\usdsBinaryOutput.h">
       <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\usdsDictionary.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\tags\dicBaseTag.h">
+      <Filter>Header Files\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\tags\dicStructTag.h">
+      <Filter>Header Files\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\tags\usdsTypes.h">
+      <Filter>Header Files\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\tags\dicStructFields.h">
+      <Filter>Header Files\Tags</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

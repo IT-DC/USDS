@@ -3,6 +3,7 @@
 
 #include "base\usdsErrors.h"
 #include "base\usdsObjectPool.h"
+#include "base\usdsDictionary.h"
 #include "base\usdsBinaryInput.h"
 #include "base\usdsBinaryOutput.h"
 
@@ -49,7 +50,7 @@ namespace usds
 		bool in_head_included;
 		bool in_dictionary_included;
 
-		ObjectPool objects;
+		Dictionary dict;
 		BinaryInput usds_input;
 		BinaryOutput usds_output;
 		

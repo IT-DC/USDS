@@ -4,11 +4,11 @@
 namespace usds
 {
 	// Memory allocator, pattern "Object Pull"
-	class ObjectPool
+	class DictionaryObjectPool
 	{
 	public:
-		ObjectPool();
-		~ObjectPool();
+		DictionaryObjectPool();
+		~DictionaryObjectPool();
 
 		
 

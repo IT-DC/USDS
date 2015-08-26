@@ -68,8 +68,13 @@
   <ItemGroup>
     <ClInclude Include="Include\base\usdsBinaryInput.h" />
     <ClInclude Include="Include\base\usdsBinaryOutput.h" />
+    <ClInclude Include="Include\base\usdsDictionary.h" />
     <ClInclude Include="Include\base\usdsErrors.h" />
     <ClInclude Include="Include\base\usdsObjectPool.h" />
+    <ClInclude Include="Include\tags\dicBaseTag.h" />
+    <ClInclude Include="Include\tags\dicStructFields.h" />
+    <ClInclude Include="Include\tags\dicStructTag.h" />
+    <ClInclude Include="Include\tags\usdsTypes.h" />
     <ClInclude Include="Include\usdsBasicParser.h" />
   </ItemGroup>
   <ItemGroup>
