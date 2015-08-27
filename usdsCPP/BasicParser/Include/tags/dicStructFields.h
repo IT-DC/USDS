@@ -4,12 +4,16 @@
 #include <string>
 #include <vector>
 
-#include "tags\usdsTypes.h"
 #include "base\usdsErrors.h"
 #include "base\usdsBinaryOutput.h"
 
+#include "tags\usdsTypes.h"
+#include "tags\dicStructTag.h"
+
 namespace usds
 {
+	class DicStructTag;
+
 	class DicBaseField
 	{
 	public:
@@ -137,6 +141,6 @@ namespace usds
 
 	};
 
-}
+};
 
 #endif

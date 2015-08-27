@@ -50,3 +50,17 @@ void BasicParser::getDictionaryVersion(int* major, int* minor)
 
 
 };
+
+//====================================================================================================================
+// Dictionary constructors
+
+void BasicParser::initDictionaryFromText(const char* text_dictionary, int size) throw(...)
+try 
+{
+	dict.initFromText(text_dictionary, size);
+}
+catch (ErrorMessage& msg)
+{
+	msg.addMessage("BasicParser::initDictionaryFromText");
+	throw msg;
+};

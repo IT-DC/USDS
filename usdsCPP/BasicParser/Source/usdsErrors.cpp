@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-errorMessage::errorMessage(errorCode err_code, std::string* err_message, const char* err_path)
+ErrorMessage::ErrorMessage(errorCode err_code, std::string* err_message, const char* err_path)
 {
 	level = 0;
 	code = err_code;
@@ -15,7 +15,7 @@ errorMessage::errorMessage(errorCode err_code, std::string* err_message, const c
 	
 };
 
-void errorMessage::addMessage(std::string* err_message, const char* err_path)
+void ErrorMessage::addMessage(std::string* err_message, const char* err_path)
 {
 	level++;
 	full_message.append(level, '\t');
@@ -29,7 +29,7 @@ void errorMessage::addMessage(std::string* err_message, const char* err_path)
 
 };
 
-void errorMessage::addMessage(const char* err_path)
+void ErrorMessage::addMessage(const char* err_path)
 {
 	level++;
 	full_message.append(level, '\t');

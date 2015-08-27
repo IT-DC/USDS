@@ -41,7 +41,7 @@ namespace usds
 
 	enum usdsEncodes
 	{
-		NONE = 0,
+		NO_ENCODE = 0,
 		UTF8 = 2,
 		UTF16 = 3,
 		UTF32 = 4,
@@ -49,6 +49,6 @@ namespace usds
 
 	};
 
-}
+};
 
 #endif

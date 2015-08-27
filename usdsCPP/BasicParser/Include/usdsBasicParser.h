@@ -20,6 +20,9 @@ namespace usds
 		void getUsdsVersion(int* major, int* minor);
 		void getDictionaryVersion(int* major, int* minor);
 
+		// Dictionary constructor
+		void initDictionaryFromText(const char* text_dictionary, int size) throw(...);
+
 		// Serialization
 		void addHead();
 		void addDictionary();

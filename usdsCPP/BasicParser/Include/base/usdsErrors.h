@@ -14,18 +14,20 @@ namespace usds
 		BIN_IN_NULL_BUFF = 2001,
 		BIN_IN_NULL_SIZE = 2002,
 		BIN_IN_BUFF_OVERFLOW = 2003,
-		BIN_IN_BEEG_UVARINT = 2004
+		BIN_IN_BEEG_UVARINT = 2004,
+		// Dictionary Text Parser: 003xxx
+		DIC_TEXT_PARSER_UNKNOWN_TOKEN = 3001
 
 
 
 	};
 
 	// For exceptions
-	class errorMessage
+	class ErrorMessage
 	{
 	public:
-		errorMessage(errorCode err_code, std::string* err_message, const char* err_path);
-		~errorMessage() {};
+		ErrorMessage(errorCode err_code, std::string* err_message, const char* err_path);
+		~ErrorMessage() {};
 
 		void addMessage(std::string* err_message, const char* err_path);
 		void addMessage(const char* err_path);

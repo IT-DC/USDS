@@ -19,6 +19,9 @@
     <Filter Include="Header Files\Tags">
       <UniqueIdentifier>{82f3aca8-60ab-48db-b977-f59c94e92ab7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Base">
+      <UniqueIdentifier>{b2aad85f-086c-43bb-9e7e-e917c9048bdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsBasicParser.h">
@@ -51,19 +54,31 @@
     <ClInclude Include="Include\tags\dicStructFields.h">
       <Filter>Header Files\Tags</Filter>
     </ClInclude>
+    <ClInclude Include="Include\base\usdsDictionaryBaseParser.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\usdsDictionaryTextParser.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\usdsBasicParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="usdsBinaryInput.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
     <ClCompile Include="Source\usdsBinaryOutput.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\usdsDictionary.cpp">
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="Source\usdsErrors.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="usdsBinaryInput.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\usdsDictionaryTextParser.cpp">
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

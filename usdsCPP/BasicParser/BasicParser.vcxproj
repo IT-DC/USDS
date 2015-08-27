@@ -69,8 +69,10 @@
     <ClInclude Include="Include\base\usdsBinaryInput.h" />
     <ClInclude Include="Include\base\usdsBinaryOutput.h" />
     <ClInclude Include="Include\base\usdsDictionary.h" />
+    <ClInclude Include="Include\base\usdsDictionaryBaseParser.h" />
     <ClInclude Include="Include\base\usdsErrors.h" />
     <ClInclude Include="Include\base\usdsObjectPool.h" />
+    <ClInclude Include="Include\base\usdsDictionaryTextParser.h" />
     <ClInclude Include="Include\tags\dicBaseTag.h" />
     <ClInclude Include="Include\tags\dicStructFields.h" />
     <ClInclude Include="Include\tags\dicStructTag.h" />
@@ -80,7 +82,9 @@
   <ItemGroup>
     <ClCompile Include="Source\usdsBasicParser.cpp" />
     <ClCompile Include="Source\usdsBinaryOutput.cpp" />
+    <ClCompile Include="Source\usdsDictionary.cpp" />
     <ClCompile Include="Source\usdsErrors.cpp" />
+    <ClCompile Include="Source\usdsDictionaryTextParser.cpp" />
     <ClCompile Include="usdsBinaryInput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

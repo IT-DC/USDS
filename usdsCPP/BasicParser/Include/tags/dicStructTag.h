@@ -3,13 +3,22 @@
 
 #include <string>
 
-#include "tags\dicBaseTag.h"
 #include "tags\usdsTypes.h"
+#include "tags\dicBaseTag.h"
 #include "tags\dicStructFields.h"
+
 #include "base\usdsErrors.h"
 
 namespace usds
 {
+	class DicBaseField;
+	class DicIntField;
+	class DicLongField;
+	class DicDoubleField;
+	class DicUVarintField;
+	class DicStringField;
+	class DicArrayField;
+
 	class DicStructTag : public DicBaseTag
 	{
 	public:
@@ -34,7 +43,7 @@ namespace usds
 		DicStringField* addStringField(const char* name, int id, bool optional) throw(...);
 		DicStringField* addStringField(const char* name, int id, const char* default_value) throw(...);
 
-		DicStringField* addStringField(const char* name, int id, usdsTypes element_type, int size, bool optional) throw(...);
+		DicArrayField* addArrayField(const char* name, int id, usdsTypes element_type, int size, bool optional) throw(...);
 
 	private:
 
@@ -49,5 +58,5 @@ namespace usds
 
 
 
-}
+};
 #endif

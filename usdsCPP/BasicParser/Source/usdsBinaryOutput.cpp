@@ -14,7 +14,7 @@ BinaryOutput::BinaryOutput() throw(...)
 	{
 		std::string mess("Can't allocate memory for output buffer. The size: ");
 		mess += out_default_doc_size;
-		throw errorMessage(BIN_OUT_ALLOCATE_ERROR, &mess, "BinaryOutput::BinaryOutput()");
+		throw ErrorMessage(BIN_OUT_ALLOCATE_ERROR, &mess, "BinaryOutput::BinaryOutput()");
 	};
 	out_buff_last_pos = out_usds_buff + out_default_doc_size;
 	out_buff_current_pos = out_usds_buff;
@@ -131,7 +131,7 @@ try {
 	out_buff_current_pos[0] = 1;
 	out_buff_current_pos++;
 }
-catch (errorMessage& err)
+catch (ErrorMessage& err)
 {
 	err.addMessage("BinaryOutput::writeUVarint(unsigned long long)");
 	throw err;
@@ -188,7 +188,7 @@ try {
 	out_buff_current_pos++;
 	
 }
-catch (errorMessage& err)
+catch (ErrorMessage& err)
 {
 	err.addMessage("BinaryOutput::writeUVarint(unsigned int)");
 	throw err;
@@ -200,7 +200,7 @@ try {
 	memcpy(out_buff_current_pos, &value, 4);
 	out_buff_current_pos += 4;
 }
-catch (errorMessage& err)
+catch (ErrorMessage& err)
 {
 	err.addMessage("BinaryOutput::writeInt");
 	throw err;
@@ -213,7 +213,7 @@ try {
 	out_buff_current_pos += 8;
 
 }
-catch (errorMessage& err)
+catch (ErrorMessage& err)
 {
 	err.addMessage("BinaryOutput::writeInt");
 	throw err;
@@ -226,7 +226,7 @@ try {
 	out_buff_current_pos += 8;
 	
 }
-catch (errorMessage& err)
+catch (ErrorMessage& err)
 {
 	err.addMessage("BinaryOutput::writeInt");
 	throw err;
@@ -240,7 +240,7 @@ try {
 	out_buff_current_pos += size;
 
 }
-catch (errorMessage& err)
+catch (ErrorMessage& err)
 {
 	err.addMessage("BinaryOutput::writeInt");
 	throw err;
@@ -256,7 +256,7 @@ try {
 	out_buff_current_pos++;
 
 }
-catch (errorMessage& err)
+catch (ErrorMessage& err)
 {
 	err.addMessage("BinaryOutput::writeInt");
 	throw err;
@@ -284,7 +284,7 @@ inline void BinaryOutput::checkSize(size_t min_increase)  throw(...)
 		mess += buff_current_size;
 		mess += ", buffer minimal increas: ";
 		mess += min_increase;
-		throw errorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, "BinaryOutput::resizeArray");
+		throw ErrorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, "BinaryOutput::resizeArray");
 	};
 
 	// Create new array and copy data
@@ -297,7 +297,7 @@ inline void BinaryOutput::checkSize(size_t min_increase)  throw(...)
 	{
 		std::string mess("Can't reallocate memory for output buffer. New size: ");
 		mess += new_size;
-		throw errorMessage(BIN_OUT_ALLOCATE_ERROR, &mess, "BinaryOutput::resizeArray");
+		throw ErrorMessage(BIN_OUT_ALLOCATE_ERROR, &mess, "BinaryOutput::resizeArray");
 	}
 
 	memcpy(new_usds_buff, out_usds_buff, doc_current_size);

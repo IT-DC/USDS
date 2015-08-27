@@ -33,5 +33,5 @@ namespace usds
 
 	};
 
-}
+};
 #endif
