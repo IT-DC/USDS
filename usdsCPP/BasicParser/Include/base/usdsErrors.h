@@ -2,6 +2,7 @@
 #define USDS_ERRORS
 
 #include <string>
+#include <sstream>
 
 namespace usds
 {
@@ -16,7 +17,9 @@ namespace usds
 		BIN_IN_BUFF_OVERFLOW = 2003,
 		BIN_IN_BEEG_UVARINT = 2004,
 		// Dictionary Text Parser: 003xxx
-		DIC_TEXT_PARSER_UNKNOWN_TOKEN = 3001
+		DIC_TEXT_PARSER_UNKNOWN_TOKEN = 3001,
+		DIC_TEXT_PARSER_UNSUPPORTABLE_ENCODE = 3002,
+		DIC_TEXT_PARSER_CONVERT_ENCODE = 3003
 
 
 
@@ -26,18 +29,32 @@ namespace usds
 	class ErrorMessage
 	{
 	public:
-		ErrorMessage(errorCode err_code, std::string* err_message, const char* err_path);
+		ErrorMessage(errorCode err_code, wchar_t* err_message);
+		ErrorMessage(errorCode err_code, std::wstringstream* err_message);
+		ErrorMessage(errorCode err_code, wchar_t* err_message, wchar_t* err_path);
+		ErrorMessage(errorCode err_code, std::wstringstream* err_message, wchar_t* err_path);
 		~ErrorMessage() {};
 
-		void addMessage(std::string* err_message, const char* err_path);
-		void addMessage(const char* err_path);
-		int getCode() { return code; };
+		void addMessage(wchar_t* err_message);
+		void addMessage(std::wstringstream* err_message);
+		void addMessage(wchar_t* err_message, wchar_t* err_path);
+		void addMessage(std::wstringstream* err_message, wchar_t* err_path);
+
+		void setMessage(wchar_t* err_message);
+		void setMessage(std::wstringstream* err_message);
+
+		void setPath(wchar_t* err_path);
+		void addPath(wchar_t* err_path);
+
+		errorCode getCode() { return code; };
+		const wchar_t* getMessage() { return message.c_str(); };
+		const wchar_t* getFullMessage() { return fullMessage.c_str(); };
 
 	private:
 		errorCode code;
-		std::string message;
-		std::string full_message;
-		rsize_t level;
+		std::wstring message;
+		std::wstring fullMessage;
+		int level;
 		
 	};
 		

@@ -7,6 +7,7 @@ Dictionary::Dictionary()
 	dictionaryID = 0;
 	majorVersion = 0;
 	minorVersion = 0;
+	dictionaryEncode = NO_ENCODE;
 
 };
 Dictionary::~Dictionary()
@@ -39,18 +40,19 @@ void Dictionary::finalizeDictionary() throw(...)
 };
 //====================================================================================================================
 // Create dictionary from objects
-void Dictionary::initFromText(const char * text_dictionary, int size) throw(...)
+void Dictionary::initFromText(const char * text_dictionary, int size, usdsEncodes encode) throw(...)
 try
 {
 	DictionaryTextParser* textParser = 0;
-	textParser = new DictionaryTextParser(text_dictionary, size);
+	textParser = new DictionaryTextParser(text_dictionary, size, encode);
+	dictionaryEncode = encode;
 
 	initDictionary(textParser);
 
 }
 catch (ErrorMessage& msg)
 {
-	msg.addMessage("Dictionary::initFromText");
+	msg.addPath(L"Dictionary::initFromText");
 	throw msg;
 };
 
@@ -76,6 +78,6 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	msg.addMessage("Dictionary::initDictionary");
+	msg.addPath(L"Dictionary::initDictionary");
 	throw msg;
 };

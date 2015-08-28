@@ -4,12 +4,16 @@
 #include "base\usdsErrors.h"
 #include "base\usdsDictionaryBaseParser.h"
 
+#include "tags\usdsTypes.h"
+
+#include <Windows.h>
+
 namespace usds
 {
 	class DictionaryTextParser : public DictionaryBaseParser
 	{
 	public:
-		DictionaryTextParser(const char* text, int size);
+		DictionaryTextParser(const char* text, int size, usdsEncodes encode) throw(...);
 		~DictionaryTextParser();
 
 		dictionaryTokens readFirstToken() throw(...);
@@ -19,10 +23,8 @@ namespace usds
 
 
 	private:
-		const char* dictionaryText;
-		int dictionarySize;
+		std::wstringstream dictionaryText;
 
-		const char* currentPosition;
 		dictionaryTokens lastToken;
 			
 	};

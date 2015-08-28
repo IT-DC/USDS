@@ -54,13 +54,13 @@ void BasicParser::getDictionaryVersion(int* major, int* minor)
 //====================================================================================================================
 // Dictionary constructors
 
-void BasicParser::initDictionaryFromText(const char* text_dictionary, int size) throw(...)
+void BasicParser::initDictionaryFromText(const char* text_dictionary, int size, usdsEncodes encode) throw(...)
 try 
 {
-	dict.initFromText(text_dictionary, size);
+	dict.initFromText(text_dictionary, size, encode);
 }
 catch (ErrorMessage& msg)
 {
-	msg.addMessage("BasicParser::initDictionaryFromText");
+	msg.addPath(L"BasicParser::initDictionaryFromText");
 	throw msg;
 };
