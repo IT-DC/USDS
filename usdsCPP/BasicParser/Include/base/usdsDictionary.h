@@ -24,12 +24,12 @@ namespace usds
 		DicStructTag* addStructTag(const char* name, int id, bool root) throw (...);
 		void finalizeDictionary() throw(...);
 
-		void initFromText(const char * text_dictionary, int size, usdsEncodes encode) throw(...);
+		void initFromText(const char * text_dictionary, int size) throw(...);
 
 
 	private:
 
-		void initDictionary(DictionaryBaseParser* parser) throw(...);
+		//void initDictionary(DictionaryBaseParser* parser) throw(...);
 
 		int dictionaryID;
 		unsigned char majorVersion;

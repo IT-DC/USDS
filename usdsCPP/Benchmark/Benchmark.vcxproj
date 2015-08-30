@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Develop\Protobuf\Include;$(ProjectDir)Include;D:\Develop\boost\Include\boost-1_58;D:\Develop\OSS\Include;$(ProjectDir)Include\ASN\;$(ProjectDir)Include\BSON\;D:\Develop\rapidjson\Include;D:\Develop\mongo\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Develop\Protobuf\Include;$(ProjectDir)Include;D:\Develop\boost\Include\boost-1_58;D:\Develop\OSS\Include;$(ProjectDir)Include\ASN\;$(ProjectDir)Include\BSON\;D:\Develop\rapidjson\Include;D:\Develop\mongo\Include;D:\Develop\USDS\usdsCPP\BasicParser\Include</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(IntDir)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
@@ -67,7 +67,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d:\Develop\protobuf\Lib\Debug\libprotobuf.lib;d:\Develop\mongo\Lib\*.lib;d:\Develop\boost\Lib\*.lib;d:\Develop\OSS\Lib\cpptoed.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d:\Develop\protobuf\Lib\Debug\libprotobuf.lib;d:\Develop\mongo\Lib\*.lib;d:\Develop\boost\Lib\*.lib;d:\Develop\OSS\Lib\cpptoed.lib;d:\Develop\USDS\usdsCPP\BasicParser\bin\Debug_Win32\BasicParser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>$(ProjectDir)log\$(Configuration)\$(MSBuildProjectName).log</Path>
@@ -109,6 +109,7 @@
     <ClCompile Include="Source\Protobuf\protobufTest.cpp" />
     <ClCompile Include="Source\Protobuf\protobufTicketSales.cpp" />
     <ClCompile Include="Source\ticketSales.cpp" />
+    <ClCompile Include="Source\USDS Basic\usdsBasicTest.cpp" />
     <ClCompile Include="Source\USDS DOM\usdsDomParser.cpp" />
     <ClCompile Include="Source\USDS DOM\usdsDomTest.cpp" />
     <ClCompile Include="Source\usdsBenchmark.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="Include\Protobuf\protobufTest.h" />
     <ClInclude Include="Include\Protobuf\protobufTicketSales.h" />
     <ClInclude Include="Include\ticketSales.h" />
+    <ClInclude Include="Include\USDS Basic\usdsBasicTest.h" />
     <ClInclude Include="Include\USDS DOM\usdsDomParser.h" />
     <ClInclude Include="Include\USDS DOM\usdsDomTest.h" />
     <ClInclude Include="Include\usdsBenchmark.h" />

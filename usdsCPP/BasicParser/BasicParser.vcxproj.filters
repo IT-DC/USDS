@@ -65,19 +65,22 @@
     <ClCompile Include="Source\usdsBasicParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="usdsBinaryInput.cpp">
+    <ClCompile Include="Source\Base\usdsBinaryOutput.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Source\usdsBinaryOutput.cpp">
+    <ClCompile Include="Source\Base\usdsDictionary.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Source\usdsDictionary.cpp">
+    <ClCompile Include="Source\Base\usdsDictionaryTextParser.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Source\usdsErrors.cpp">
+    <ClCompile Include="Source\Base\usdsErrors.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Source\usdsDictionaryTextParser.cpp">
+    <ClCompile Include="Source\Base\usdsBinaryInput.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Base\usdsObjecPool.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
   </ItemGroup>

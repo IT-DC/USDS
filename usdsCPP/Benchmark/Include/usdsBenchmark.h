@@ -10,6 +10,7 @@
 #include "bsonTest.h"
 #include "ASN\asnTest.h"
 #include "USDS DOM\usdsDomTest.h"
+#include "USDS Basic\usdsBasicTest.h"
 
 
 #endif

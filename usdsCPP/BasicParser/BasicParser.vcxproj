@@ -19,7 +19,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -38,7 +38,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)bin\$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(ProjectDir)tmp\$(Configuration)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -49,6 +52,9 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <BuildLog>
+      <Path>$(ProjectDir)log\$(Configuration)\$(MSBuildProjectName).log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -80,12 +86,13 @@
     <ClInclude Include="Include\usdsBasicParser.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Base\usdsBinaryInput.cpp" />
+    <ClCompile Include="Source\Base\usdsBinaryOutput.cpp" />
+    <ClCompile Include="Source\Base\usdsDictionary.cpp" />
+    <ClCompile Include="Source\Base\usdsDictionaryTextParser.cpp" />
+    <ClCompile Include="Source\Base\usdsErrors.cpp" />
+    <ClCompile Include="Source\Base\usdsObjecPool.cpp" />
     <ClCompile Include="Source\usdsBasicParser.cpp" />
-    <ClCompile Include="Source\usdsBinaryOutput.cpp" />
-    <ClCompile Include="Source\usdsDictionary.cpp" />
-    <ClCompile Include="Source\usdsErrors.cpp" />
-    <ClCompile Include="Source\usdsDictionaryTextParser.cpp" />
-    <ClCompile Include="usdsBinaryInput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -55,6 +55,12 @@
     <Filter Include="Source Files\USDS DOM Test">
       <UniqueIdentifier>{01415bbe-e0dd-44a0-a6b6-fc324398afba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\USDS Basic Test">
+      <UniqueIdentifier>{01305811-5c01-4325-8c98-9e194d530758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\USDS Basic Test">
+      <UniqueIdentifier>{355f1aad-10cd-48a5-948b-dec5896b4020}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\usdsBenchmark.cpp">
@@ -105,6 +111,9 @@
     <ClCompile Include="Source\USDS DOM\usdsDomParser.cpp">
       <Filter>Source Files\USDS DOM Test</Filter>
     </ClCompile>
+    <ClCompile Include="Source\USDS Basic\usdsBasicTest.cpp">
+      <Filter>Source Files\USDS Basic Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsBenchmark.h">
@@ -154,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="Include\USDS DOM\usdsDomParser.h">
       <Filter>Header Files\USDS DOM Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\USDS Basic\usdsBasicTest.h">
+      <Filter>Header Files\USDS Basic Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

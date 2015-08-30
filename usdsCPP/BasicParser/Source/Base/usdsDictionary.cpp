@@ -40,14 +40,13 @@ void Dictionary::finalizeDictionary() throw(...)
 };
 //====================================================================================================================
 // Create dictionary from objects
-void Dictionary::initFromText(const char * text_dictionary, int size, usdsEncodes encode) throw(...)
+void Dictionary::initFromText(const char * text_dictionary, int size) throw(...)
 try
 {
 	DictionaryTextParser* textParser = 0;
-	textParser = new DictionaryTextParser(text_dictionary, size, encode);
-	dictionaryEncode = encode;
+//	textParser = new DictionaryTextParser(text_dictionary, size, encode);
 
-	initDictionary(textParser);
+	//initDictionary(textParser);
 
 }
 catch (ErrorMessage& msg)
@@ -56,7 +55,7 @@ catch (ErrorMessage& msg)
 	throw msg;
 };
 
-void Dictionary::initDictionary(DictionaryBaseParser* parser) throw(...)
+/*void Dictionary::initDictionary(DictionaryBaseParser* parser) throw(...)
 try
 {
 	// try to read Head
@@ -80,4 +79,4 @@ catch (ErrorMessage& msg)
 {
 	msg.addPath(L"Dictionary::initDictionary");
 	throw msg;
-};
+};*/
