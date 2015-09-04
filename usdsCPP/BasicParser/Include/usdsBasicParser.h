@@ -6,6 +6,7 @@
 #include "base\usdsDictionary.h"
 #include "base\usdsBinaryInput.h"
 #include "base\usdsBinaryOutput.h"
+#include "internalParsers\usdsDictionaryTextParser.h"
 
 namespace usds
 {
@@ -54,8 +55,10 @@ namespace usds
 		bool in_dictionary_included;
 
 		Dictionary dict;
-		BinaryInput usds_input;
-		BinaryOutput usds_output;
+		BinaryInput usdsInput;
+		BinaryOutput usdsOutput;
+
+		DictionaryTextParser dictTextParser;
 		
 
 

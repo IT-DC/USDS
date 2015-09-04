@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Develop\Protobuf\Include;$(ProjectDir)Include;D:\Develop\boost\Include\boost-1_58;D:\Develop\OSS\Include;$(ProjectDir)Include\ASN\;$(ProjectDir)Include\BSON\;D:\Develop\rapidjson\Include;D:\Develop\mongo\Include;D:\Develop\USDS\usdsCPP\BasicParser\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Develop\Protobuf\Include;$(ProjectDir)Include;D:\Develop\boost\Include\boost-1_58;D:\Develop\OSS\Include;$(ProjectDir)Include\ASN\;$(ProjectDir)Include\BSON\;D:\Develop\rapidjson\Include;D:\Develop\mongo\Include;$(SolutionDir)BasicParser\Include</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>$(IntDir)$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>

@@ -47,7 +47,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Include\internalParsers</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -75,24 +75,37 @@
     <ClInclude Include="Include\base\usdsBinaryInput.h" />
     <ClInclude Include="Include\base\usdsBinaryOutput.h" />
     <ClInclude Include="Include\base\usdsDictionary.h" />
-    <ClInclude Include="Include\base\usdsDictionaryBaseParser.h" />
     <ClInclude Include="Include\base\usdsErrors.h" />
     <ClInclude Include="Include\base\usdsObjectPool.h" />
-    <ClInclude Include="Include\base\usdsDictionaryTextParser.h" />
+    <ClInclude Include="Include\internalParsers\FlexLexer.h" />
+    <ClInclude Include="Include\internalParsers\usdsDictionaryTextParser.h" />
     <ClInclude Include="Include\tags\dicBaseTag.h" />
     <ClInclude Include="Include\tags\dicStructFields.h" />
     <ClInclude Include="Include\tags\dicStructTag.h" />
     <ClInclude Include="Include\tags\usdsTypes.h" />
     <ClInclude Include="Include\usdsBasicParser.h" />
+    <ClInclude Include="Source\DictionaryTextParser\bisonDictionaryTextParser.h" />
+    <ClInclude Include="Source\DictionaryTextParser\location.hh" />
+    <ClInclude Include="Source\DictionaryTextParser\position.hh" />
+    <ClInclude Include="Source\DictionaryTextParser\stack.hh" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Base\usdsBinaryInput.cpp" />
     <ClCompile Include="Source\Base\usdsBinaryOutput.cpp" />
     <ClCompile Include="Source\Base\usdsDictionary.cpp" />
-    <ClCompile Include="Source\Base\usdsDictionaryTextParser.cpp" />
     <ClCompile Include="Source\Base\usdsErrors.cpp" />
     <ClCompile Include="Source\Base\usdsObjecPool.cpp" />
+    <ClCompile Include="Source\DictionaryTextParser\bisonDictionaryTextParser.cpp" />
+    <ClCompile Include="Source\DictionaryTextParser\flexDictionaryTextScanner.cpp" />
     <ClCompile Include="Source\usdsBasicParser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\DictionaryTextParser\bisonDictionaryTextParser.y">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="Source\DictionaryTextParser\flexDictionaryTextScanner.l">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

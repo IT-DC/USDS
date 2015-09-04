@@ -58,8 +58,9 @@ void BasicParser::initDictionaryFromText(const char* text_dictionary, int size, 
 try 
 {
 	if (encode != UTF8)
-		throw ErrorMessage(BASIC_PARSER_UNSUPPORTABLE_ENCODE, L"Unsupportable encode for dictionary");
-	dict.initFromText(text_dictionary, size);
+		throw ErrorMessage(BASIC_PARSER_UNSUPPORTABLE_ENCODE, L"Unsupportable encode for text dictionary");
+
+	dictTextParser.parse(text_dictionary, &dict);
 }
 catch (ErrorMessage& msg)
 {

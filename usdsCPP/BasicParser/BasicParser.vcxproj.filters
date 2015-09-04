@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Base">
       <UniqueIdentifier>{b2aad85f-086c-43bb-9e7e-e917c9048bdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Dictionary Text Parser">
+      <UniqueIdentifier>{8a6a2890-5924-4115-abec-e84a2faf9198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Internal Parsers">
+      <UniqueIdentifier>{aebf2beb-2d2a-423d-862d-5f26928374c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsBasicParser.h">
@@ -54,11 +60,23 @@
     <ClInclude Include="Include\tags\dicStructFields.h">
       <Filter>Header Files\Tags</Filter>
     </ClInclude>
-    <ClInclude Include="Include\base\usdsDictionaryBaseParser.h">
-      <Filter>Header Files\Base</Filter>
+    <ClInclude Include="Include\internalParsers\usdsDictionaryTextParser.h">
+      <Filter>Header Files\Internal Parsers</Filter>
     </ClInclude>
-    <ClInclude Include="Include\base\usdsDictionaryTextParser.h">
-      <Filter>Header Files\Base</Filter>
+    <ClInclude Include="Source\DictionaryTextParser\bisonDictionaryTextParser.h">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DictionaryTextParser\location.hh">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DictionaryTextParser\position.hh">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DictionaryTextParser\stack.hh">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\internalParsers\FlexLexer.h">
+      <Filter>Header Files\Internal Parsers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -71,9 +89,6 @@
     <ClCompile Include="Source\Base\usdsDictionary.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Base\usdsDictionaryTextParser.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Base\usdsErrors.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
@@ -83,5 +98,19 @@
     <ClCompile Include="Source\Base\usdsObjecPool.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Source\DictionaryTextParser\flexDictionaryTextScanner.cpp">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DictionaryTextParser\bisonDictionaryTextParser.cpp">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\DictionaryTextParser\bisonDictionaryTextParser.y">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </None>
+    <None Include="Source\DictionaryTextParser\flexDictionaryTextScanner.l">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </None>
   </ItemGroup>
 </Project>
