@@ -58,10 +58,6 @@ namespace usds
 		BinaryInput usdsInput;
 		BinaryOutput usdsOutput;
 
-		DictionaryTextParser dictTextParser;
-		
-
-
 	};
 
 };

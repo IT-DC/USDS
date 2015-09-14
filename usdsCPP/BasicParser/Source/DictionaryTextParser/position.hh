@@ -51,7 +51,7 @@
 # endif
 
 /* Line 36 of location.cc  */
-#line 12 "bisonDictionaryTextParser.y"
+#line 13 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 36 of location.cc  */
 #line 58 "position.hh"
@@ -167,7 +167,7 @@ namespace usds {
   }
 
 /* Line 148 of location.cc  */
-#line 12 "bisonDictionaryTextParser.y"
+#line 13 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 148 of location.cc  */
 #line 174 "position.hh"

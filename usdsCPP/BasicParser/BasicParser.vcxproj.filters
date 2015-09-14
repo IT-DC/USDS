@@ -63,9 +63,6 @@
     <ClInclude Include="Include\internalParsers\usdsDictionaryTextParser.h">
       <Filter>Header Files\Internal Parsers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DictionaryTextParser\bisonDictionaryTextParser.h">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
-    </ClInclude>
     <ClInclude Include="Source\DictionaryTextParser\location.hh">
       <Filter>Source Files\Dictionary Text Parser</Filter>
     </ClInclude>
@@ -75,8 +72,11 @@
     <ClInclude Include="Source\DictionaryTextParser\stack.hh">
       <Filter>Source Files\Dictionary Text Parser</Filter>
     </ClInclude>
-    <ClInclude Include="Include\internalParsers\FlexLexer.h">
-      <Filter>Header Files\Internal Parsers</Filter>
+    <ClInclude Include="Source\DictionaryTextParser\flexDictionaryTextScanner.h">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DictionaryTextParser\bisonDictionaryTextParser.hh">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +101,10 @@
     <ClCompile Include="Source\DictionaryTextParser\flexDictionaryTextScanner.cpp">
       <Filter>Source Files\Dictionary Text Parser</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DictionaryTextParser\bisonDictionaryTextParser.cpp">
+    <ClCompile Include="Source\DictionaryTextParser\usdsDictionaryTextParser.cpp">
+      <Filter>Source Files\Dictionary Text Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DictionaryTextParser\bisonDictionaryTextParser.cc">
       <Filter>Source Files\Dictionary Text Parser</Filter>
     </ClCompile>
   </ItemGroup>

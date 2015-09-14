@@ -67,7 +67,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d:\Develop\protobuf\Lib\Debug\libprotobuf.lib;d:\Develop\mongo\Lib\*.lib;d:\Develop\boost\Lib\*.lib;d:\Develop\OSS\Lib\cpptoed.lib;d:\Develop\USDS\usdsCPP\BasicParser\bin\Debug_Win32\BasicParser.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d:\Develop\protobuf\Lib\Debug\libprotobuf.lib;d:\Develop\mongo\Lib\*.lib;d:\Develop\boost\Lib\*.lib;d:\Develop\OSS\Lib\cpptoed.lib;$(SolutionDir)BasicParser\bin\Debug_Win32\BasicParser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>$(ProjectDir)log\$(Configuration)\$(MSBuildProjectName).log</Path>

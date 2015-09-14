@@ -11,23 +11,23 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 	try
 	{
 		parser = new BasicParser();
-		const char* dict = "USDS Dictionary ID=888 v.1.0	\
-															\
-							1: struct I						\
-							{								\
-								1: varint n;				\
-								2: double s;				\
-								3: string(utf-8) g;			\
-								4: long t;					\
-								5: bool b;					\
-							};								\
-							2: root struct S				\
-							{								\
-								1: varint n;				\
-								2: int m;					\
-								3: long s;					\
-								4: long e;					\
-								5: array<I> v;				\
+		const char* dict = "USDS Dictionary ID=888 v.1.0	\n\
+															\n\
+							1: struct I						\n\
+							{								\n\
+								1: varint n;				\n\
+								2: double s;				\n\
+								3: string(utf-8) g;			\n\
+								4: long t;					\n\
+								5: bool b;					\n\
+							};								\n\
+							2: root struct S				\n\
+							{								\n\
+								1: varint n;				\n\
+								2: int m;					\n\
+								3: long s;					\n\
+								4: long e;					\n\
+								5: array<I> v;				\n\
 							};";
 		parser->initDictionaryFromText(dict, strlen(dict), UTF8);
 	}

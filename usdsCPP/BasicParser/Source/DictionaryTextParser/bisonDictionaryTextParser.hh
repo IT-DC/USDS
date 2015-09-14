@@ -31,14 +31,14 @@
    version 2.2 of Bison.  */
 
 /**
- ** \file bisonDictionaryTextParser.h
+ ** \file bisonDictionaryTextParser.hh
  ** Define the usds::parser class.
  */
 
 /* C++ LALR(1) parser skeleton written by Akim Demaille.  */
 
-#ifndef YY_DICTIONARY_TEXT_BISONDICTIONARYTEXTPARSER_H_INCLUDED
-# define YY_DICTIONARY_TEXT_BISONDICTIONARYTEXTPARSER_H_INCLUDED
+#ifndef YY_DICTIONARY_TEXT_BISONDICTIONARYTEXTPARSER_HH_INCLUDED
+# define YY_DICTIONARY_TEXT_BISONDICTIONARYTEXTPARSER_HH_INCLUDED
 
 
 
@@ -56,15 +56,15 @@
 #   define DICTIONARY_TEXTDEBUG 0
 #  endif
 # else /* ! defined YYDEBUG */
-#  define DICTIONARY_TEXTDEBUG 0
+#  define DICTIONARY_TEXTDEBUG 1
 # endif /* ! defined YYDEBUG */
 #endif  /* ! defined DICTIONARY_TEXTDEBUG */
 
 /* Line 33 of lalr1.cc  */
-#line 12 "bisonDictionaryTextParser.y"
+#line 13 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 33 of lalr1.cc  */
-#line 68 "bisonDictionaryTextParser.h"
+#line 68 "bisonDictionaryTextParser.hh"
 
   /// A Bison parser.
   class BisonDictionaryTextParser
@@ -75,7 +75,7 @@ namespace usds {
     union semantic_type
     {
 /* Line 33 of lalr1.cc  */
-#line 18 "bisonDictionaryTextParser.y"
+#line 23 "bisonDictionaryTextParser.y"
 
     int  			integerVal;
     double 			doubleVal;
@@ -83,7 +83,7 @@ namespace usds {
 
 
 /* Line 33 of lalr1.cc  */
-#line 87 "bisonDictionaryTextParser.h"
+#line 87 "bisonDictionaryTextParser.hh"
     };
 #else
     typedef DICTIONARY_TEXTSTYPE semantic_type;
@@ -104,7 +104,7 @@ namespace usds {
     typedef token::yytokentype token_type;
 
     /// Build a parser object.
-    BisonDictionaryTextParser (class Dictionary* dict_yyarg, class DictionaryTextParser* scanner_yyarg);
+    BisonDictionaryTextParser (class Dictionary* dict_yyarg, class FlexDictionaryTextScanner* scanner_yyarg);
     virtual ~BisonDictionaryTextParser ();
 
     /// Parse.
@@ -211,10 +211,13 @@ namespace usds {
     /// For a rule, its RHS length.
     static const unsigned char yyr2_[]; 
 
-#if DICTIONARY_TEXTDEBUG
+    /// Convert the symbol name \a n to a form suitable for a diagnostic.
+    static std::string yytnamerr_ (const char *n);
+
+
     /// For a symbol, its name in clear.
     static const char* const yytname_[];
-
+#if DICTIONARY_TEXTDEBUG
     /// A type to store symbol numbers and -1.
     typedef signed char rhs_number_type;
     /// A `-1'-separated list of the rules' RHS.
@@ -267,14 +270,14 @@ namespace usds {
 
     /* User arguments.  */
     class Dictionary* dict;
-    class DictionaryTextParser* scanner;
+    class FlexDictionaryTextScanner* scanner;
   };
 /* Line 33 of lalr1.cc  */
-#line 12 "bisonDictionaryTextParser.y"
+#line 13 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 33 of lalr1.cc  */
-#line 277 "bisonDictionaryTextParser.h"
+#line 280 "bisonDictionaryTextParser.hh"
 
 
 
-#endif /* !YY_DICTIONARY_TEXT_BISONDICTIONARYTEXTPARSER_H_INCLUDED  */
+#endif /* !YY_DICTIONARY_TEXT_BISONDICTIONARYTEXTPARSER_HH_INCLUDED  */

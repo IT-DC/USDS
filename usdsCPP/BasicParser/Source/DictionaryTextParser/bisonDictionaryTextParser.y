@@ -1,19 +1,24 @@
 %{
 	#include "base\usdsDictionary.h"
-	#include "usdsDictionaryTextParser.h"
+	#include "flexDictionaryTextScanner.h"
 	#include <string>
 	
 %}
 
 %require "2.4.3"
 %skeleton "lalr1.cc"
+%debug
 %defines
 %define api.prefix dictionary_text
 %define namespace "usds"
 %define parser_class_name "BisonDictionaryTextParser"
+%locations
+
 
 %parse-param {class Dictionary* dict}
-%parse-param {class DictionaryTextParser* scanner}
+%parse-param {class FlexDictionaryTextScanner* scanner}
+
+%error-verbose
 
 %union {
     int  			integerVal;
@@ -41,8 +46,8 @@ dictionary: USDS_Dictionary_ID '=' INTEGER 'v' '.' INTEGER '.' INTEGER
 
 %%
 
-void yyerror(char *s) {
-  
+void usds::BisonDictionaryTextParser::error(const usds::BisonDictionaryTextParser::location_type &loc, const std::string &msg)
+{
+	std::cout << loc << ":" << msg << std::endl;
 }
-
 

@@ -38,25 +38,25 @@
 #line 1 "bisonDictionaryTextParser.y"
 
 	#include "base\usdsDictionary.h"
-	#include "usdsDictionaryTextParser.h"
+	#include "flexDictionaryTextScanner.h"
 	#include <string>
 	
 
 /* Line 279 of lalr1.cc  */
-#line 47 "bisonDictionaryTextParser.c"
+#line 47 "bisonDictionaryTextParser.cc"
 
 
-#include "bisonDictionaryTextParser.h"
+#include "bisonDictionaryTextParser.hh"
 
 /* User implementation prologue.  */
 /* Line 285 of lalr1.cc  */
-#line 29 "bisonDictionaryTextParser.y"
+#line 34 "bisonDictionaryTextParser.y"
 
 #undef yylex
 #define yylex scanner->scan
 
 /* Line 285 of lalr1.cc  */
-#line 60 "bisonDictionaryTextParser.c"
+#line 60 "bisonDictionaryTextParser.cc"
 
 
 # ifndef YY_NULL
@@ -149,13 +149,51 @@ do {					\
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 /* Line 353 of lalr1.cc  */
-#line 12 "bisonDictionaryTextParser.y"
+#line 13 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 353 of lalr1.cc  */
-#line 156 "bisonDictionaryTextParser.c"
+#line 156 "bisonDictionaryTextParser.cc"
+
+  /* Return YYSTR after stripping away unnecessary quotes and
+     backslashes, so that it's suitable for yyerror.  The heuristic is
+     that double-quoting is unnecessary unless the string contains an
+     apostrophe, a comma, or backslash (other than backslash-backslash).
+     YYSTR is taken from yytname.  */
+  std::string
+  BisonDictionaryTextParser::yytnamerr_ (const char *yystr)
+  {
+    if (*yystr == '"')
+      {
+        std::string yyr = "";
+        char const *yyp = yystr;
+
+        for (;;)
+          switch (*++yyp)
+            {
+            case '\'':
+            case ',':
+              goto do_not_strip_quotes;
+
+            case '\\':
+              if (*++yyp != '\\')
+                goto do_not_strip_quotes;
+              /* Fall through.  */
+            default:
+              yyr += *yyp;
+              break;
+
+            case '"':
+              return yyr;
+            }
+      do_not_strip_quotes: ;
+      }
+
+    return yystr;
+  }
+
 
   /// Build a parser object.
-  BisonDictionaryTextParser::BisonDictionaryTextParser (class Dictionary* dict_yyarg, class DictionaryTextParser* scanner_yyarg)
+  BisonDictionaryTextParser::BisonDictionaryTextParser (class Dictionary* dict_yyarg, class FlexDictionaryTextScanner* scanner_yyarg)
     :
 #if DICTIONARY_TEXTDEBUG
       yydebug_ (false),
@@ -341,7 +379,7 @@ namespace usds {
     if (yychar == yyempty_)
       {
         YYCDEBUG << "Reading a token: ";
-        yychar = yylex (&yylval);
+        yychar = yylex (&yylval, &yylloc);
       }
 
     /* Convert token to internal form.  */
@@ -426,7 +464,7 @@ namespace usds {
       {
           case 2:
 /* Line 670 of lalr1.cc  */
-#line 36 "bisonDictionaryTextParser.y"
+#line 41 "bisonDictionaryTextParser.y"
     {
 
 }
@@ -434,7 +472,7 @@ namespace usds {
 
 
 /* Line 670 of lalr1.cc  */
-#line 438 "bisonDictionaryTextParser.c"
+#line 476 "bisonDictionaryTextParser.cc"
       default:
         break;
       }
@@ -638,9 +676,97 @@ namespace usds {
 
   // Generate an error message.
   std::string
-  BisonDictionaryTextParser::yysyntax_error_ (int, int)
+  BisonDictionaryTextParser::yysyntax_error_ (int yystate, int yytoken)
   {
-    return YY_("syntax error");
+    std::string yyres;
+    // Number of reported tokens (one for the "unexpected", one per
+    // "expected").
+    size_t yycount = 0;
+    // Its maximum.
+    enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
+    // Arguments of yyformat.
+    char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
+
+    /* There are many possibilities here to consider:
+       - If this state is a consistent state with a default action, then
+         the only way this function was invoked is if the default action
+         is an error action.  In that case, don't check for expected
+         tokens because there are none.
+       - The only way there can be no lookahead present (in yytoken) is
+         if this state is a consistent state with a default action.
+         Thus, detecting the absence of a lookahead is sufficient to
+         determine that there is no unexpected or expected token to
+         report.  In that case, just report a simple "syntax error".
+       - Don't assume there isn't a lookahead just because this state is
+         a consistent state with a default action.  There might have
+         been a previous inconsistent state, consistent state with a
+         non-default action, or user semantic action that manipulated
+         yychar.
+       - Of course, the expected token list depends on states to have
+         correct lookahead information, and it depends on the parser not
+         to perform extra reductions after fetching a lookahead from the
+         scanner and before detecting a syntax error.  Thus, state
+         merging (from LALR or IELR) and default reductions corrupt the
+         expected token list.  However, the list is correct for
+         canonical LR with one exception: it will still contain any
+         token that will not be accepted due to an error action in a
+         later state.
+    */
+    if (yytoken != yyempty_)
+      {
+        yyarg[yycount++] = yytname_[yytoken];
+        int yyn = yypact_[yystate];
+        if (!yy_pact_value_is_default_ (yyn))
+          {
+            /* Start YYX at -YYN if negative to avoid negative indexes in
+               YYCHECK.  In other words, skip the first -YYN actions for
+               this state because they are default actions.  */
+            int yyxbegin = yyn < 0 ? -yyn : 0;
+            /* Stay within bounds of both yycheck and yytname.  */
+            int yychecklim = yylast_ - yyn + 1;
+            int yyxend = yychecklim < yyntokens_ ? yychecklim : yyntokens_;
+            for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+              if (yycheck_[yyx + yyn] == yyx && yyx != yyterror_
+                  && !yy_table_value_is_error_ (yytable_[yyx + yyn]))
+                {
+                  if (yycount == YYERROR_VERBOSE_ARGS_MAXIMUM)
+                    {
+                      yycount = 1;
+                      break;
+                    }
+                  else
+                    yyarg[yycount++] = yytname_[yyx];
+                }
+          }
+      }
+
+    char const* yyformat = YY_NULL;
+    switch (yycount)
+      {
+#define YYCASE_(N, S)                         \
+        case N:                               \
+          yyformat = S;                       \
+        break
+        YYCASE_(0, YY_("syntax error"));
+        YYCASE_(1, YY_("syntax error, unexpected %s"));
+        YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
+        YYCASE_(3, YY_("syntax error, unexpected %s, expecting %s or %s"));
+        YYCASE_(4, YY_("syntax error, unexpected %s, expecting %s or %s or %s"));
+        YYCASE_(5, YY_("syntax error, unexpected %s, expecting %s or %s or %s or %s"));
+#undef YYCASE_
+      }
+
+    // Argument number.
+    size_t yyi = 0;
+    for (char const* yyp = yyformat; *yyp; ++yyp)
+      if (yyp[0] == '%' && yyp[1] == 's' && yyi < yycount)
+        {
+          yyres += yytnamerr_ (yyarg[yyi++]);
+          ++yyp;
+        }
+      else
+        yyres += *yyp;
+    return yyres;
   }
 
 
@@ -730,7 +856,7 @@ namespace usds {
          0,     2,     8
   };
 
-#if DICTIONARY_TEXTDEBUG
+
   /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
      First, the terminals, then, starting at \a yyntokens_, nonterminals.  */
   const char*
@@ -740,7 +866,7 @@ namespace usds {
   "'v'", "'.'", "$accept", "dictionary", YY_NULL
   };
 
-
+#if DICTIONARY_TEXTDEBUG
   /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
   const BisonDictionaryTextParser::rhs_number_type
   BisonDictionaryTextParser::yyrhs_[] =
@@ -761,7 +887,7 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yyrline_[] =
   {
-         0,    35,    35
+         0,    40,    40
   };
 
   // Print the state stack on the debug stream.
@@ -847,16 +973,16 @@ namespace usds {
   const BisonDictionaryTextParser::token_number_type BisonDictionaryTextParser::yyundef_token_ = 2;
 
 /* Line 1141 of lalr1.cc  */
-#line 12 "bisonDictionaryTextParser.y"
+#line 13 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 1141 of lalr1.cc  */
-#line 854 "bisonDictionaryTextParser.c"
+#line 980 "bisonDictionaryTextParser.cc"
 /* Line 1142 of lalr1.cc  */
-#line 42 "bisonDictionaryTextParser.y"
+#line 47 "bisonDictionaryTextParser.y"
 
 
-void yyerror(char *s) {
-  
+void usds::BisonDictionaryTextParser::error(const usds::BisonDictionaryTextParser::location_type &loc, const std::string &msg)
+{
+	std::cout << loc << ":" << msg << std::endl;
 }
-
 

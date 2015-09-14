@@ -47,7 +47,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Include\internalParsers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source\FlexLexer</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -77,14 +77,14 @@
     <ClInclude Include="Include\base\usdsDictionary.h" />
     <ClInclude Include="Include\base\usdsErrors.h" />
     <ClInclude Include="Include\base\usdsObjectPool.h" />
-    <ClInclude Include="Include\internalParsers\FlexLexer.h" />
     <ClInclude Include="Include\internalParsers\usdsDictionaryTextParser.h" />
     <ClInclude Include="Include\tags\dicBaseTag.h" />
     <ClInclude Include="Include\tags\dicStructFields.h" />
     <ClInclude Include="Include\tags\dicStructTag.h" />
     <ClInclude Include="Include\tags\usdsTypes.h" />
     <ClInclude Include="Include\usdsBasicParser.h" />
-    <ClInclude Include="Source\DictionaryTextParser\bisonDictionaryTextParser.h" />
+    <ClInclude Include="Source\DictionaryTextParser\bisonDictionaryTextParser.hh" />
+    <ClInclude Include="Source\DictionaryTextParser\flexDictionaryTextScanner.h" />
     <ClInclude Include="Source\DictionaryTextParser\location.hh" />
     <ClInclude Include="Source\DictionaryTextParser\position.hh" />
     <ClInclude Include="Source\DictionaryTextParser\stack.hh" />
@@ -95,8 +95,9 @@
     <ClCompile Include="Source\Base\usdsDictionary.cpp" />
     <ClCompile Include="Source\Base\usdsErrors.cpp" />
     <ClCompile Include="Source\Base\usdsObjecPool.cpp" />
-    <ClCompile Include="Source\DictionaryTextParser\bisonDictionaryTextParser.cpp" />
+    <ClCompile Include="Source\DictionaryTextParser\bisonDictionaryTextParser.cc" />
     <ClCompile Include="Source\DictionaryTextParser\flexDictionaryTextScanner.cpp" />
+    <ClCompile Include="Source\DictionaryTextParser\usdsDictionaryTextParser.cpp" />
     <ClCompile Include="Source\usdsBasicParser.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -59,7 +59,8 @@ try
 {
 	if (encode != UTF8)
 		throw ErrorMessage(BASIC_PARSER_UNSUPPORTABLE_ENCODE, L"Unsupportable encode for text dictionary");
-
+	
+	DictionaryTextParser dictTextParser;
 	dictTextParser.parse(text_dictionary, &dict);
 }
 catch (ErrorMessage& msg)
