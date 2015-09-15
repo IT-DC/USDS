@@ -18,6 +18,8 @@ namespace usds
 		BIN_IN_BEEG_UVARINT = 2004,
 		// Basic Parser
 		BASIC_PARSER_UNSUPPORTABLE_ENCODE = 3001,
+		// Text Dictionary Parser
+		TEXT_DICTIONARY_PARSER_ERROR = 4001
 
 
 
@@ -31,8 +33,9 @@ namespace usds
 		ErrorMessage(errorCode err_code, wchar_t* err_message);
 		ErrorMessage(errorCode err_code, std::wstringstream* err_message);
 		ErrorMessage(errorCode err_code, wchar_t* err_message, wchar_t* err_path);
+		ErrorMessage(errorCode err_code, std::stringstream* err_message_utf8, wchar_t* err_path);
 		ErrorMessage(errorCode err_code, std::wstringstream* err_message, wchar_t* err_path);
-		~ErrorMessage() {};
+		~ErrorMessage();
 
 		void addMessage(wchar_t* err_message);
 		void addMessage(std::wstringstream* err_message);
@@ -47,7 +50,9 @@ namespace usds
 
 		errorCode getCode() { return code; };
 		const wchar_t* getMessage() { return message.c_str(); };
+		const char* getMessageUTF8();
 		const wchar_t* getFullMessage() { return fullMessage.c_str(); };
+		const char* getFullMessageUTF8();
 
 	private:
 		errorCode code;
@@ -55,6 +60,10 @@ namespace usds
 		std::wstring fullMessage;
 		int level;
 		
+		char* utf8Message;
+		char* utf8FullMessage;
+		
+
 	};
 		
 };

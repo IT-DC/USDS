@@ -75,7 +75,7 @@ namespace usds {
     union semantic_type
     {
 /* Line 33 of lalr1.cc  */
-#line 23 "bisonDictionaryTextParser.y"
+#line 24 "bisonDictionaryTextParser.y"
 
     int  			integerVal;
     double 			doubleVal;
@@ -96,7 +96,10 @@ namespace usds {
       /* Tokens.  */
    enum yytokentype {
      USDS_Dictionary_ID = 258,
-     INTEGER = 259
+     INTEGER = 259,
+     USDS_STRUCT = 260,
+     USDS_VARINT = 261,
+     USDS_NAME = 262
    };
 
     };
@@ -104,7 +107,7 @@ namespace usds {
     typedef token::yytokentype token_type;
 
     /// Build a parser object.
-    BisonDictionaryTextParser (class Dictionary* dict_yyarg, class FlexDictionaryTextScanner* scanner_yyarg);
+    BisonDictionaryTextParser (class Dictionary* dict_yyarg, class FlexDictionaryTextScanner* scanner_yyarg, std::stringstream* error_message_yyarg);
     virtual ~BisonDictionaryTextParser ();
 
     /// Parse.
@@ -271,12 +274,13 @@ namespace usds {
     /* User arguments.  */
     class Dictionary* dict;
     class FlexDictionaryTextScanner* scanner;
+    std::stringstream* error_message;
   };
 /* Line 33 of lalr1.cc  */
 #line 13 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 33 of lalr1.cc  */
-#line 280 "bisonDictionaryTextParser.hh"
+#line 284 "bisonDictionaryTextParser.hh"
 
 
 

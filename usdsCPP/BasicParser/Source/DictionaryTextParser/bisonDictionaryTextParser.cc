@@ -50,7 +50,7 @@
 
 /* User implementation prologue.  */
 /* Line 285 of lalr1.cc  */
-#line 34 "bisonDictionaryTextParser.y"
+#line 42 "bisonDictionaryTextParser.y"
 
 #undef yylex
 #define yylex scanner->scan
@@ -193,14 +193,15 @@ namespace usds {
 
 
   /// Build a parser object.
-  BisonDictionaryTextParser::BisonDictionaryTextParser (class Dictionary* dict_yyarg, class FlexDictionaryTextScanner* scanner_yyarg)
+  BisonDictionaryTextParser::BisonDictionaryTextParser (class Dictionary* dict_yyarg, class FlexDictionaryTextScanner* scanner_yyarg, std::stringstream* error_message_yyarg)
     :
 #if DICTIONARY_TEXTDEBUG
       yydebug_ (false),
       yycdebug_ (&std::cerr),
 #endif
       dict (dict_yyarg),
-      scanner (scanner_yyarg)
+      scanner (scanner_yyarg),
+      error_message (error_message_yyarg)
   {
   }
 
@@ -464,15 +465,23 @@ namespace usds {
       {
           case 2:
 /* Line 670 of lalr1.cc  */
-#line 41 "bisonDictionaryTextParser.y"
+#line 52 "bisonDictionaryTextParser.y"
     {
+		std::cout << "USDS_Dictionary_ID\n";
+	}
+    break;
 
-}
+  case 4:
+/* Line 670 of lalr1.cc  */
+#line 60 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Struct\n";
+	}
     break;
 
 
 /* Line 670 of lalr1.cc  */
-#line 476 "bisonDictionaryTextParser.cc"
+#line 485 "bisonDictionaryTextParser.cc"
       default:
         break;
       }
@@ -772,12 +781,13 @@ namespace usds {
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-  const signed char BisonDictionaryTextParser::yypact_ninf_ = -5;
+  const signed char BisonDictionaryTextParser::yypact_ninf_ = -12;
   const signed char
   BisonDictionaryTextParser::yypact_[] =
   {
-        -3,    -4,     2,    -1,    -5,    -2,     0,     1,     3,     4,
-      -5
+        -3,   -11,     2,    -1,   -12,    -9,    -8,     1,    -7,     4,
+     -12,     3,     5,     0,     6,     7,   -12,     9,    10,   -12,
+      13,    11,    14,     8,   -12,    12,    15,   -12
   };
 
   /* YYDEFACT[S] -- default reduction number in state S.  Performed when
@@ -787,21 +797,22 @@ namespace usds {
   BisonDictionaryTextParser::yydefact_[] =
   {
          0,     0,     0,     0,     1,     0,     0,     0,     0,     0,
-       2
+       2,     0,     0,     0,     0,     0,     3,     0,     0,     4,
+       0,     0,     0,     0,     5,     0,     0,     6
   };
 
   /* YYPGOTO[NTERM-NUM].  */
   const signed char
   BisonDictionaryTextParser::yypgoto_[] =
   {
-        -5,    -5
+       -12,   -12,   -12,   -12,   -12,   -12
   };
 
   /* YYDEFGOTO[NTERM-NUM].  */
   const signed char
   BisonDictionaryTextParser::yydefgoto_[] =
   {
-        -1,     2
+        -1,     2,    11,    14,    20,    22
   };
 
   /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -811,16 +822,18 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yytable_[] =
   {
-         1,     3,     4,     5,     6,     8,     0,     7,    10,     0,
-       9
+         1,     3,     4,     5,     6,     8,     7,     9,    10,    13,
+      15,    12,    17,     0,    25,    16,    18,    21,    19,    26,
+       0,    23,     0,    24,     0,     0,    27
   };
 
   /* YYCHECK.  */
   const signed char
   BisonDictionaryTextParser::yycheck_[] =
   {
-         3,     5,     0,     4,     6,     4,    -1,     7,     4,    -1,
-       7
+         3,    12,     0,     4,    13,     4,    14,    14,     4,     4,
+      10,     8,     5,    -1,     6,     9,     7,     4,     8,     7,
+      -1,    10,    -1,     9,    -1,    -1,    11
   };
 
   /* STOS_[STATE-NUM] -- The (internal number of the) accessing
@@ -828,8 +841,9 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yystos_[] =
   {
-         0,     3,     9,     5,     0,     4,     6,     7,     4,     7,
-       4
+         0,     3,    16,    12,     0,     4,    13,    14,     4,    14,
+       4,    17,     8,     4,    18,    10,     9,     5,     7,     8,
+      19,     4,    20,    10,     9,     6,     7,    11
   };
 
 #if DICTIONARY_TEXTDEBUG
@@ -838,7 +852,8 @@ namespace usds {
   const unsigned short int
   BisonDictionaryTextParser::yytoken_number_[] =
   {
-         0,   256,   257,   258,   259,    61,   118,    46
+         0,   256,   257,   258,   259,   260,   261,   262,   123,   125,
+      58,    59,    61,   118,    46
   };
 #endif
 
@@ -846,14 +861,14 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yyr1_[] =
   {
-         0,     8,     9
+         0,    15,    17,    16,    19,    18,    20
   };
 
   /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
   const unsigned char
   BisonDictionaryTextParser::yyr2_[] =
   {
-         0,     2,     8
+         0,     2,     0,    12,     0,     8,     5
   };
 
 
@@ -862,8 +877,10 @@ namespace usds {
   const char*
   const BisonDictionaryTextParser::yytname_[] =
   {
-    "$end", "error", "$undefined", "USDS_Dictionary_ID", "INTEGER", "'='",
-  "'v'", "'.'", "$accept", "dictionary", YY_NULL
+    "$end", "error", "$undefined", "USDS_Dictionary_ID", "INTEGER",
+  "USDS_STRUCT", "USDS_VARINT", "USDS_NAME", "'{'", "'}'", "':'", "';'",
+  "'='", "'v'", "'.'", "$accept", "dictionary", "$@1", "tag", "$@2",
+  "fields", YY_NULL
   };
 
 #if DICTIONARY_TEXTDEBUG
@@ -871,8 +888,10 @@ namespace usds {
   const BisonDictionaryTextParser::rhs_number_type
   BisonDictionaryTextParser::yyrhs_[] =
   {
-         9,     0,    -1,     3,     5,     4,     6,     7,     4,     7,
-       4,    -1
+        16,     0,    -1,    -1,     3,    12,     4,    13,    14,     4,
+      14,     4,    17,     8,    18,     9,    -1,    -1,     4,    10,
+       5,     7,     8,    19,    20,     9,    -1,     4,    10,     6,
+       7,    11,    -1
   };
 
   /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
@@ -880,14 +899,14 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yyprhs_[] =
   {
-         0,     0,     3
+         0,     0,     3,     4,    17,    18,    27
   };
 
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
   const unsigned char
   BisonDictionaryTextParser::yyrline_[] =
   {
-         0,    40,    40
+         0,    52,    52,    51,    60,    59,    67
   };
 
   // Print the state stack on the debug stream.
@@ -931,17 +950,15 @@ namespace usds {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     7,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     5,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     6,     2,
+       2,     2,     2,     2,     2,     2,    14,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    10,    11,
+       2,    12,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    13,     2,
+       2,     2,     2,     8,     2,     9,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -952,7 +969,10 @@ namespace usds {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     1,     2,     3,     4
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
+       5,     6,     7
     };
     if ((unsigned int) t <= yyuser_token_number_max_)
       return translate_table[t];
@@ -961,28 +981,34 @@ namespace usds {
   }
 
   const int BisonDictionaryTextParser::yyeof_ = 0;
-  const int BisonDictionaryTextParser::yylast_ = 10;
-  const int BisonDictionaryTextParser::yynnts_ = 2;
+  const int BisonDictionaryTextParser::yylast_ = 26;
+  const int BisonDictionaryTextParser::yynnts_ = 6;
   const int BisonDictionaryTextParser::yyempty_ = -2;
   const int BisonDictionaryTextParser::yyfinal_ = 4;
   const int BisonDictionaryTextParser::yyterror_ = 1;
   const int BisonDictionaryTextParser::yyerrcode_ = 256;
-  const int BisonDictionaryTextParser::yyntokens_ = 8;
+  const int BisonDictionaryTextParser::yyntokens_ = 15;
 
-  const unsigned int BisonDictionaryTextParser::yyuser_token_number_max_ = 259;
+  const unsigned int BisonDictionaryTextParser::yyuser_token_number_max_ = 262;
   const BisonDictionaryTextParser::token_number_type BisonDictionaryTextParser::yyundef_token_ = 2;
 
 /* Line 1141 of lalr1.cc  */
 #line 13 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 1141 of lalr1.cc  */
-#line 980 "bisonDictionaryTextParser.cc"
+#line 1000 "bisonDictionaryTextParser.cc"
 /* Line 1142 of lalr1.cc  */
-#line 47 "bisonDictionaryTextParser.y"
+#line 72 "bisonDictionaryTextParser.y"
 
+//=================================================================================================
 
 void usds::BisonDictionaryTextParser::error(const usds::BisonDictionaryTextParser::location_type &loc, const std::string &msg)
 {
-	std::cout << loc << ":" << msg << std::endl;
+	*error_message << "Error in Text Dictionary!\n";
+	*error_message << loc.begin.column;
+	*error_message << ".";
+	*error_message << loc.begin.line;
+	*error_message << ": ";
+	*error_message << msg;
 }
 

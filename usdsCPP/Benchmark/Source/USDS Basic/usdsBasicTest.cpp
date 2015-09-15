@@ -8,33 +8,38 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 	TestData = new TicketSales(size, true);
 	CleanData = new TicketSales(size, false);
 
+	parser = 0;
+
 	try
 	{
 		parser = new BasicParser();
 		const char* dict = "USDS Dictionary ID=888 v.1.0	\n\
-															\n\
-							1: struct I						\n\
-							{								\n\
-								1: varint n;				\n\
-								2: double s;				\n\
-								3: string(utf-8) g;			\n\
-								4: long t;					\n\
-								5: bool b;					\n\
-							};								\n\
-							2: root struct S				\n\
-							{								\n\
-								1: varint n;				\n\
-								2: int m;					\n\
-								3: long s;					\n\
-								4: long e;					\n\
-								5: array<I> v;				\n\
-							};";
+						   	{								\n\
+								1: struct I					\n\
+								{							\n\
+									1: varint n;			\n\
+									2: double s;			\n\
+									3: string(utf-8) g;		\n\
+									4: long t;				\n\
+									5: bool b;				\n\
+								};							\n\
+								2: root struct S			\n\
+								{							\n\
+									1: varint n;			\n\
+									2: int m;				\n\
+									3: long s;				\n\
+									4: long e;				\n\
+									5: array<I> v;			\n\
+								};							\n\
+							}";
 		parser->initDictionaryFromText(dict, strlen(dict), UTF8);
 	}
 	catch (ErrorMessage& msg)
 	{
+		parser = 0;
 		int code = msg.getCode();
-		const wchar_t* mess = msg.getFullMessage();
+		const char* mess = msg.getFullMessageUTF8();
+		std::cout << "USDS Basic parser did not created!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
 	};
 
 	usds_data = 0;
@@ -43,14 +48,16 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 
 UsdsBasicTest::~UsdsBasicTest()
 {
-	delete parser;
+	if(parser !=0)
+		delete parser;
 	delete TestData;
 	delete CleanData;
 };
 
 int UsdsBasicTest::serializationTest()
 {
-	
+	if (parser == 0)
+		return -1;
 	/*
 	UsdsTicketSales* handle = parser->addUsdsTicketSales();
 	handle->shiftNumber = TestData->getShiftNumber();

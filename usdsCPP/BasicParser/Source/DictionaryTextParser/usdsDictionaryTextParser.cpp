@@ -10,9 +10,15 @@ void DictionaryTextParser::parse(const char* text_dict, Dictionary* dict) throw 
 	input << text_dict;
 	FlexDictionaryTextScanner scanner(&input, &output);
 	
-	BisonDictionaryTextParser parser(dict, &scanner);
+	std::stringstream errors;
+	errors.clear();
+
+	BisonDictionaryTextParser parser(dict, &scanner, &errors);
+		
 	int ret = parser.parse();
-//	if (ret != 0)
+
+	if (ret != 0)
+		throw ErrorMessage(TEXT_DICTIONARY_PARSER_ERROR, &errors, L"DictionaryTextParser::parse");
 
 
 };

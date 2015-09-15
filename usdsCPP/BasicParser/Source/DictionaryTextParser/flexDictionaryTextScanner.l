@@ -24,6 +24,8 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* the manual says "somewhat more optimized" */
 %option batch
 
+%s TAG
+
 %%
 %{
     // reset location
@@ -31,21 +33,54 @@ typedef BisonDictionaryTextParser::token_type token_type;
 %}
 
 "USDS Dictionary ID"	{
-							std::cout << "USDS Dictionary ID" << std::endl;
 							return (token::USDS_Dictionary_ID);
 						}
+						
+"struct"				{
+							return (token::USDS_STRUCT);
+						}
+
+"varint"				{
+							return (token::USDS_VARINT);
+						}
+						
+<TAG>[a-zA-Z]+			{
+							return (token::USDS_NAME);
+						}
+						
 [0-9]+					{
-							std::cout << "INTEGER" << std::endl;
 							return token::INTEGER;
 						}
 
+"{"						{
+							BEGIN(TAG);
+							return '{';
+						}
+
+"}"						{
+							
+							return '}';
+						}
+
+"="						{
+							return '=';
+						}
+
+":"						{
+							return ':';
+						}
+
+";"						{
+							return ';';
+						}
+
+						
 [ \t\r]+				{yylloc->step();}
 
-\n 						{ yylloc->lines(yyleng); yylloc->step(); }
+\n 						{yylloc->lines(yyleng); yylloc->step();}
 
-. {
-	std::cout << *yytext << std::endl;
-    return static_cast<token_type>(*yytext);
-}
+. 						{
+							return static_cast<token_type>(*yytext);
+						}
 
 %%
