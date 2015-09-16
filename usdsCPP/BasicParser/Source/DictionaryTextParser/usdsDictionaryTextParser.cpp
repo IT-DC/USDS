@@ -14,7 +14,7 @@ void DictionaryTextParser::parse(const char* text_dict, Dictionary* dict) throw 
 	errors.clear();
 
 	BisonDictionaryTextParser parser(dict, &scanner, &errors);
-		
+	
 	int ret = parser.parse();
 
 	if (ret != 0)

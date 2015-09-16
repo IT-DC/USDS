@@ -50,7 +50,7 @@
 
 /* User implementation prologue.  */
 /* Line 285 of lalr1.cc  */
-#line 42 "bisonDictionaryTextParser.y"
+#line 56 "bisonDictionaryTextParser.y"
 
 #undef yylex
 #define yylex scanner->scan
@@ -465,7 +465,7 @@ namespace usds {
       {
           case 2:
 /* Line 670 of lalr1.cc  */
-#line 52 "bisonDictionaryTextParser.y"
+#line 66 "bisonDictionaryTextParser.y"
     {
 		std::cout << "USDS_Dictionary_ID\n";
 	}
@@ -473,15 +473,112 @@ namespace usds {
 
   case 4:
 /* Line 670 of lalr1.cc  */
-#line 60 "bisonDictionaryTextParser.y"
+#line 73 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Last tag\n";
+	}
+    break;
+
+  case 5:
+/* Line 670 of lalr1.cc  */
+#line 77 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Next tag\n";
+	}
+    break;
+
+  case 6:
+/* Line 670 of lalr1.cc  */
+#line 84 "bisonDictionaryTextParser.y"
     {
 		std::cout << "Struct\n";
 	}
     break;
 
+  case 8:
+/* Line 670 of lalr1.cc  */
+#line 89 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Root struct\n";
+	}
+    break;
+
+  case 10:
+/* Line 670 of lalr1.cc  */
+#line 99 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Last field\n";
+	
+	}
+    break;
+
+  case 11:
+/* Line 670 of lalr1.cc  */
+#line 104 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Next field\n";
+	}
+    break;
+
+  case 19:
+/* Line 670 of lalr1.cc  */
+#line 113 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Boolean field\n";
+	}
+    break;
+
+  case 20:
+/* Line 670 of lalr1.cc  */
+#line 120 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Int field\n";
+	}
+    break;
+
+  case 21:
+/* Line 670 of lalr1.cc  */
+#line 127 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Long field\n";
+	}
+    break;
+
+  case 22:
+/* Line 670 of lalr1.cc  */
+#line 134 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Double field\n";
+	}
+    break;
+
+  case 23:
+/* Line 670 of lalr1.cc  */
+#line 141 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "Varint field\n";
+	}
+    break;
+
+  case 24:
+/* Line 670 of lalr1.cc  */
+#line 148 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "'Array of tags' field\n";
+	}
+    break;
+
+  case 25:
+/* Line 670 of lalr1.cc  */
+#line 155 "bisonDictionaryTextParser.y"
+    {
+		std::cout << "String field\n";
+	}
+    break;
+
 
 /* Line 670 of lalr1.cc  */
-#line 485 "bisonDictionaryTextParser.cc"
+#line 582 "bisonDictionaryTextParser.cc"
       default:
         break;
       }
@@ -781,13 +878,18 @@ namespace usds {
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-  const signed char BisonDictionaryTextParser::yypact_ninf_ = -12;
+  const signed char BisonDictionaryTextParser::yypact_ninf_ = -19;
   const signed char
   BisonDictionaryTextParser::yypact_[] =
   {
-        -3,   -11,     2,    -1,   -12,    -9,    -8,     1,    -7,     4,
-     -12,     3,     5,     0,     6,     7,   -12,     9,    10,   -12,
-      13,    11,    14,     8,   -12,    12,    15,   -12
+         6,   -11,    13,     8,   -19,    11,    10,    -5,    12,   -19,
+       2,    14,     3,     5,    14,     0,   -19,   -19,     9,    15,
+      16,     7,    17,   -19,   -19,    19,    19,    18,    20,    19,
+     -19,   -19,   -19,   -19,   -19,   -19,   -19,    21,    -7,    22,
+     -19,    23,    24,    25,    28,    29,    30,     4,     1,   -19,
+     -19,    27,    31,    32,    33,    34,    39,    35,   -19,   -19,
+     -19,   -19,   -19,    36,    37,    40,    41,    38,    42,   -19,
+     -19
   };
 
   /* YYDEFACT[S] -- default reduction number in state S.  Performed when
@@ -796,23 +898,30 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yydefact_[] =
   {
-         0,     0,     0,     0,     1,     0,     0,     0,     0,     0,
-       2,     0,     0,     0,     0,     0,     3,     0,     0,     4,
-       0,     0,     0,     0,     5,     0,     0,     6
+         0,     0,     0,     0,     1,     0,     0,     0,     0,     2,
+       0,     0,     0,     0,     4,     0,     3,     5,     0,     0,
+       0,     0,     0,     6,     8,     0,     0,     0,     0,    10,
+      12,    13,    14,    15,    16,    17,    18,     0,     0,     0,
+      11,     0,     0,     0,     0,     0,     0,     0,     0,     7,
+       9,     0,     0,     0,     0,     0,     0,     0,    19,    20,
+      21,    22,    23,     0,     0,     0,     0,     0,     0,    24,
+      25
   };
 
   /* YYPGOTO[NTERM-NUM].  */
   const signed char
   BisonDictionaryTextParser::yypgoto_[] =
   {
-       -12,   -12,   -12,   -12,   -12,   -12
+       -19,   -19,   -19,    45,   -19,   -19,   -19,   -18,   -19,   -19,
+     -19,   -19,   -19,   -19,   -19,   -19
   };
 
   /* YYDEFGOTO[NTERM-NUM].  */
   const signed char
   BisonDictionaryTextParser::yydefgoto_[] =
   {
-        -1,     2,    11,    14,    20,    22
+        -1,     2,    10,    13,    14,    25,    26,    28,    29,    30,
+      31,    32,    33,    34,    35,    36
   };
 
   /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -822,18 +931,26 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yytable_[] =
   {
-         1,     3,     4,     5,     6,     8,     7,     9,    10,    13,
-      15,    12,    17,     0,    25,    16,    18,    21,    19,    26,
-       0,    23,     0,    24,     0,     0,    27
+        42,    43,    44,    45,    46,    18,    47,    48,    37,     1,
+       3,    40,    19,     4,     5,     6,     7,     8,     9,    11,
+      12,    20,    15,    16,    23,    27,    57,    56,     0,     0,
+       0,    21,    22,     0,    24,     0,     0,    38,    39,    41,
+      51,    52,    49,    50,    53,    54,    55,    58,     0,     0,
+      64,    59,    60,    61,    62,    63,    67,    68,    69,    17,
+      65,     0,    70,    66
   };
 
   /* YYCHECK.  */
   const signed char
   BisonDictionaryTextParser::yycheck_[] =
   {
-         3,    12,     0,     4,    13,     4,    14,    14,     4,     4,
-      10,     8,     5,    -1,     6,     9,     7,     4,     8,     7,
-      -1,    10,    -1,     9,    -1,    -1,    11
+         7,     8,     9,    10,    11,     5,    13,    14,    26,     3,
+      21,    29,    12,     0,     6,     4,     6,    22,     6,    17,
+       6,    12,    19,    18,    17,     6,    25,    23,    -1,    -1,
+      -1,    16,    16,    -1,    17,    -1,    -1,    19,    18,    18,
+      16,    16,    20,    20,    16,    16,    16,    20,    -1,    -1,
+      15,    20,    20,    20,    20,    16,    16,    16,    20,    14,
+      24,    -1,    20,    26
   };
 
   /* STOS_[STATE-NUM] -- The (internal number of the) accessing
@@ -841,9 +958,14 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yystos_[] =
   {
-         0,     3,    16,    12,     0,     4,    13,    14,     4,    14,
-       4,    17,     8,     4,    18,    10,     9,     5,     7,     8,
-      19,     4,    20,    10,     9,     6,     7,    11
+         0,     3,    28,    21,     0,     6,     4,     6,    22,     6,
+      29,    17,     6,    30,    31,    19,    18,    30,     5,    12,
+      12,    16,    16,    17,    17,    32,    33,     6,    34,    35,
+      36,    37,    38,    39,    40,    41,    42,    34,    19,    18,
+      34,    18,     7,     8,     9,    10,    11,    13,    14,    20,
+      20,    16,    16,    16,    16,    16,    23,    25,    20,    20,
+      20,    20,    20,    16,    15,    24,    26,    16,    16,    20,
+      20
   };
 
 #if DICTIONARY_TEXTDEBUG
@@ -852,8 +974,9 @@ namespace usds {
   const unsigned short int
   BisonDictionaryTextParser::yytoken_number_[] =
   {
-         0,   256,   257,   258,   259,   260,   261,   262,   123,   125,
-      58,    59,    61,   118,    46
+         0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
+     265,   266,   267,   268,   269,   270,   271,   123,   125,    58,
+      59,    61,    46,    60,    62,    40,    41
   };
 #endif
 
@@ -861,14 +984,18 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yyr1_[] =
   {
-         0,    15,    17,    16,    19,    18,    20
+         0,    27,    29,    28,    30,    30,    32,    31,    33,    31,
+      34,    34,    35,    35,    35,    35,    35,    35,    35,    36,
+      37,    38,    39,    40,    41,    42
   };
 
   /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
   const unsigned char
   BisonDictionaryTextParser::yyr2_[] =
   {
-         0,     2,     0,    12,     0,     8,     5
+         0,     2,     0,    11,     1,     2,     0,     9,     0,    10,
+       1,     2,     1,     1,     1,     1,     1,     1,     1,     5,
+       5,     5,     5,     5,     8,     8
   };
 
 
@@ -877,10 +1004,14 @@ namespace usds {
   const char*
   const BisonDictionaryTextParser::yytname_[] =
   {
-    "$end", "error", "$undefined", "USDS_Dictionary_ID", "INTEGER",
-  "USDS_STRUCT", "USDS_VARINT", "USDS_NAME", "'{'", "'}'", "':'", "';'",
-  "'='", "'v'", "'.'", "$accept", "dictionary", "$@1", "tag", "$@2",
-  "fields", YY_NULL
+    "$end", "error", "$undefined", "USDS_Dictionary_ID",
+  "DICTIONARY_VERSION", "ROOT_TAG", "INTEGER_NUMBER", "TYPE_BOOLEAN",
+  "TYPE_INT", "TYPE_LONG", "TYPE_DOUBLE", "TYPE_VARINT", "TYPE_STRUCT",
+  "TYPE_ARRAY", "TYPE_STRING", "STRING_ENCODE", "FIELD_NAME", "'{'", "'}'",
+  "':'", "';'", "'='", "'.'", "'<'", "'>'", "'('", "')'", "$accept",
+  "dictionary", "$@1", "tags", "tag", "$@2", "$@3", "fields", "field",
+  "field_boolean", "field_int", "field_long", "field_double",
+  "field_varint", "field_array", "field_string", YY_NULL
   };
 
 #if DICTIONARY_TEXTDEBUG
@@ -888,10 +1019,18 @@ namespace usds {
   const BisonDictionaryTextParser::rhs_number_type
   BisonDictionaryTextParser::yyrhs_[] =
   {
-        16,     0,    -1,    -1,     3,    12,     4,    13,    14,     4,
-      14,     4,    17,     8,    18,     9,    -1,    -1,     4,    10,
-       5,     7,     8,    19,    20,     9,    -1,     4,    10,     6,
-       7,    11,    -1
+        28,     0,    -1,    -1,     3,    21,     6,     4,     6,    22,
+       6,    29,    17,    30,    18,    -1,    31,    -1,    31,    30,
+      -1,    -1,     6,    19,    12,    16,    17,    32,    34,    18,
+      20,    -1,    -1,     6,    19,     5,    12,    16,    17,    33,
+      34,    18,    20,    -1,    35,    -1,    35,    34,    -1,    36,
+      -1,    37,    -1,    38,    -1,    39,    -1,    40,    -1,    41,
+      -1,    42,    -1,     6,    19,     7,    16,    20,    -1,     6,
+      19,     8,    16,    20,    -1,     6,    19,     9,    16,    20,
+      -1,     6,    19,    10,    16,    20,    -1,     6,    19,    11,
+      16,    20,    -1,     6,    19,    13,    23,    16,    24,    16,
+      20,    -1,     6,    19,    14,    25,    15,    26,    16,    20,
+      -1
   };
 
   /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
@@ -899,14 +1038,18 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yyprhs_[] =
   {
-         0,     0,     3,     4,    17,    18,    27
+         0,     0,     3,     4,    16,    18,    21,    22,    32,    33,
+      44,    46,    49,    51,    53,    55,    57,    59,    61,    63,
+      69,    75,    81,    87,    93,   102
   };
 
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
   const unsigned char
   BisonDictionaryTextParser::yyrline_[] =
   {
-         0,    52,    52,    51,    60,    59,    67
+         0,    66,    66,    65,    72,    76,    84,    83,    89,    88,
+      98,   103,   109,   109,   109,   109,   109,   109,   109,   112,
+     119,   126,   133,   140,   147,   154
   };
 
   // Print the state stack on the debug stream.
@@ -950,15 +1093,15 @@ namespace usds {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,    14,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    10,    11,
-       2,    12,     2,     2,     2,     2,     2,     2,     2,     2,
+      25,    26,     2,     2,     2,     2,    22,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    19,    20,
+      23,    21,    24,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    13,     2,
-       2,     2,     2,     8,     2,     9,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,    17,     2,    18,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -972,7 +1115,8 @@ namespace usds {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16
     };
     if ((unsigned int) t <= yyuser_token_number_max_)
       return translate_table[t];
@@ -981,33 +1125,33 @@ namespace usds {
   }
 
   const int BisonDictionaryTextParser::yyeof_ = 0;
-  const int BisonDictionaryTextParser::yylast_ = 26;
-  const int BisonDictionaryTextParser::yynnts_ = 6;
+  const int BisonDictionaryTextParser::yylast_ = 63;
+  const int BisonDictionaryTextParser::yynnts_ = 16;
   const int BisonDictionaryTextParser::yyempty_ = -2;
   const int BisonDictionaryTextParser::yyfinal_ = 4;
   const int BisonDictionaryTextParser::yyterror_ = 1;
   const int BisonDictionaryTextParser::yyerrcode_ = 256;
-  const int BisonDictionaryTextParser::yyntokens_ = 15;
+  const int BisonDictionaryTextParser::yyntokens_ = 27;
 
-  const unsigned int BisonDictionaryTextParser::yyuser_token_number_max_ = 262;
+  const unsigned int BisonDictionaryTextParser::yyuser_token_number_max_ = 271;
   const BisonDictionaryTextParser::token_number_type BisonDictionaryTextParser::yyundef_token_ = 2;
 
 /* Line 1141 of lalr1.cc  */
 #line 13 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 1141 of lalr1.cc  */
-#line 1000 "bisonDictionaryTextParser.cc"
+#line 1144 "bisonDictionaryTextParser.cc"
 /* Line 1142 of lalr1.cc  */
-#line 72 "bisonDictionaryTextParser.y"
+#line 163 "bisonDictionaryTextParser.y"
 
 //=================================================================================================
 
 void usds::BisonDictionaryTextParser::error(const usds::BisonDictionaryTextParser::location_type &loc, const std::string &msg)
 {
 	*error_message << "Error in Text Dictionary!\n";
-	*error_message << loc.begin.column;
-	*error_message << ".";
 	*error_message << loc.begin.line;
+	*error_message << ".";
+	*error_message << loc.begin.column;
 	*error_message << ": ";
 	*error_message << msg;
 }

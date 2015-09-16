@@ -191,6 +191,12 @@ void ErrorMessage::addPath(wchar_t* err_path)
 
 const char* ErrorMessage::getMessageUTF8()
 {
+	if (utf8Message != 0)
+	{
+		delete[] utf8Message;
+		utf8Message = 0;
+	}
+
 	int new_size = WideCharToMultiByte(CP_UTF8, 0, message.c_str(), message.size(), 0, 0, 0, 0);
 	if (new_size == 0)
 		return "Invalid error message, can not convert from utf16 to utf8";
@@ -207,6 +213,12 @@ const char* ErrorMessage::getMessageUTF8()
 
 const char* ErrorMessage::getFullMessageUTF8()
 {
+	if (utf8FullMessage != 0)
+	{
+		delete[] utf8FullMessage;
+		utf8FullMessage = 0;
+	}
+
 	int new_size = WideCharToMultiByte(CP_UTF8, 0, fullMessage.c_str(), fullMessage.size(), 0, 0, 0, 0);
 	if (new_size == 0)
 		return "Invalid error message, can not convert from utf16 to utf8";

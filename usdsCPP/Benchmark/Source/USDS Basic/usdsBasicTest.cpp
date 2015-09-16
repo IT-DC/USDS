@@ -21,7 +21,7 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 									2: double s;			\n\
 									3: string(utf-8) g;		\n\
 									4: long t;				\n\
-									5: bool b;				\n\
+									5: boolean b;			\n\
 								};							\n\
 								2: root struct S			\n\
 								{							\n\

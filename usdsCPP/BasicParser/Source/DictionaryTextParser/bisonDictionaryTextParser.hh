@@ -96,10 +96,19 @@ namespace usds {
       /* Tokens.  */
    enum yytokentype {
      USDS_Dictionary_ID = 258,
-     INTEGER = 259,
-     USDS_STRUCT = 260,
-     USDS_VARINT = 261,
-     USDS_NAME = 262
+     DICTIONARY_VERSION = 259,
+     ROOT_TAG = 260,
+     INTEGER_NUMBER = 261,
+     TYPE_BOOLEAN = 262,
+     TYPE_INT = 263,
+     TYPE_LONG = 264,
+     TYPE_DOUBLE = 265,
+     TYPE_VARINT = 266,
+     TYPE_STRUCT = 267,
+     TYPE_ARRAY = 268,
+     TYPE_STRING = 269,
+     STRING_ENCODE = 270,
+     FIELD_NAME = 271
    };
 
     };
@@ -280,7 +289,7 @@ namespace usds {
 #line 13 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 33 of lalr1.cc  */
-#line 284 "bisonDictionaryTextParser.hh"
+#line 293 "bisonDictionaryTextParser.hh"
 
 
 
