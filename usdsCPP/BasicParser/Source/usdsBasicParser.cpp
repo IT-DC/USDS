@@ -2,25 +2,9 @@
 
 using namespace usds;
 
-BasicParser::BasicParser()
+BasicParser::BasicParser() : usdsMajor(1), usdsMinor(0)
 {
-	// default versions
-	usds_major = 1;
-	usds_minor = 0;
-	dictionary_major = 1;
-	dictionary_minor = 0;
-	full_dictionary_version = dictionary_major * 256 + dictionary_minor;
-
-	// current status
-	out_head_added = false;
-	out_dictionary_added = false;
-	out_body_added = false;
-	in_head_included = false;
-	in_dictionary_included = false;
-
-
-
-
+	currentDictionary = 0;
 }
 
 BasicParser::~BasicParser()
@@ -31,24 +15,32 @@ BasicParser::~BasicParser()
 
 //====================================================================================================================
 // Settings
-void BasicParser::setDictionaryVersion(unsigned char major, unsigned char minor)
+void BasicParser::setDictionaryVersion(unsigned char major, unsigned char minor) throw(...)
 {
-	dictionary_major = major;
-	dictionary_minor = minor;
-	full_dictionary_version = dictionary_major * 256 + dictionary_minor;
+	if (currentDictionary == 0)
+		throw ErrorMessage(BASIC_PARSER_NO_DICTIONARY, L"Dictionaries not found", L"BasicParser::setDictionaryVersion");
 	
+	for (std::list<Dictionary>::iterator it = dictionaries.begin(); it != dictionaries.end(); it++)
+	{
+		if (it->majorVersion == major && it->minorVersion == minor)
+		{
+			currentDictionary = &(*it);
+			return;
+		};
+	};
+
+	std::wstringstream err;
+	err << L"Dictionary version" << major << L"." << minor << L" not found";
+	throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &err, L"BasicParser::setDictionaryVersion");
 };
 
-void BasicParser::getUsdsVersion(int* major, int* minor)
-{
-
-
-};
 void BasicParser::getDictionaryVersion(int* major, int* minor)
 {
+	if (currentDictionary == 0)
+		throw ErrorMessage(BASIC_PARSER_NO_DICTIONARY, L"Dictionaries not found", L"BasicParser::setDictionaryVersion");
 
-
-
+	*major = currentDictionary->majorVersion;
+	*minor = currentDictionary->minorVersion;
 };
 
 //====================================================================================================================
@@ -61,7 +53,7 @@ try
 		throw ErrorMessage(BASIC_PARSER_UNSUPPORTABLE_ENCODE, L"Unsupportable encode for text dictionary");
 	
 	DictionaryTextParser dictTextParser;
-	dictTextParser.parse(text_dictionary, &dict);
+	dictTextParser.parse(text_dictionary, currentDictionary);
 }
 catch (ErrorMessage& msg)
 {

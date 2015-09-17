@@ -2,14 +2,12 @@
 
 using namespace usds;
 
-Dictionary::Dictionary()
+Dictionary::Dictionary(int id, unsigned char major, unsigned char minor) : dictionaryID(id), majorVersion(major), minorVersion(minor)
 {
-	dictionaryID = 0;
-	majorVersion = 0;
-	minorVersion = 0;
 	dictionaryEncode = NO_ENCODE;
 
 };
+
 Dictionary::~Dictionary()
 {
 
@@ -18,9 +16,6 @@ Dictionary::~Dictionary()
 
 void Dictionary::clean()
 {
-	dictionaryID = 0;
-	majorVersion = 0;
-	minorVersion = 0;
 
 };
 

@@ -16,8 +16,12 @@ namespace usds
 	class Dictionary
 	{
 	public:
-		Dictionary();
+		Dictionary(int id, unsigned char major, unsigned char minor);
 		~Dictionary();
+
+		const unsigned char majorVersion;
+		const unsigned char minorVersion;
+		const int dictionaryID;
 
 		void clean();
 
@@ -26,11 +30,7 @@ namespace usds
 
 	private:
 
-		int dictionaryID;
-		unsigned char majorVersion;
-		unsigned char minorVersion;
 		usdsEncodes dictionaryEncode;
-
 		DictionaryObjectPool objects;
 
 	};

@@ -17,7 +17,7 @@ namespace usds
 	class FlexDictionaryTextScanner : public yyFlexLexer
 	{
 	public:
-		FlexDictionaryTextScanner(std::stringstream* input, std::stringstream* output) : yyFlexLexer(input, output) { yy_push_state(0); /* Initial stack state */ };
+		FlexDictionaryTextScanner(std::stringstream* input, std::stringstream* output) : yyFlexLexer(input, output) { };
 		~FlexDictionaryTextScanner() {};
 
 		virtual int scan(BisonDictionaryTextParser::semantic_type * yylval, BisonDictionaryTextParser::location_type* yylloc);

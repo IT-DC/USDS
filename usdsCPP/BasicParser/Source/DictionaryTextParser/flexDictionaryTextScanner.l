@@ -24,8 +24,6 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* the manual says "somewhat more optimized" */
 %option batch
 
-%s STATE_TAG
-
 %%
 %{
     yylloc->step();
@@ -35,19 +33,15 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* =============================================================================== */
 /* Key words */ 
 %}
-<INITIAL>"USDS"[ \t\r]+"Dictionary"[ \t\r]+"ID" {
+"USDS"[ \t\r]+"Dictionary"[ \t\r]+"ID" {
 							return (token::USDS_Dictionary_ID);
 						}
 
-<INITIAL>"v."			{
+"v."					{
 							return (token::DICTIONARY_VERSION);
 						}
-<INITIAL>[0-9]+			{
-							return token::INTEGER_NUMBER;
-						}
 
-
-<STATE_TAG>"root"		{
+"root"					{
 							return (token::ROOT_TAG);
 						}
 			
@@ -55,35 +49,35 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* =============================================================================== */
 /* Data types */ 
 %}
-<STATE_TAG>"boolean"	{
+"boolean"				{
 							return (token::TYPE_BOOLEAN);
 						}
 
-<STATE_TAG>"int"		{
+"int"					{
 							return (token::TYPE_INT);
 						}
 
-<STATE_TAG>"long"		{
+"long"					{
 							return (token::TYPE_LONG);
 						}
 
-<STATE_TAG>"double"		{
+"double"				{
 							return (token::TYPE_DOUBLE);
 						}
 
-<STATE_TAG>"varint"		{
+"varint"				{
 							return (token::TYPE_VARINT);
 						}
 
-<STATE_TAG>"struct"		{
+"struct"				{
 							return (token::TYPE_STRUCT);
 						}
 
-<STATE_TAG>"array"		{
+"array"					{
 							return (token::TYPE_ARRAY);
 						}
 
-<STATE_TAG>"string"		{
+"string"				{
 							return (token::TYPE_STRING);
 						}
 %{
@@ -91,7 +85,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* String encodes */ 
 %}
 
-<STATE_TAG>[uU][tT][fF]"-8"	{
+[uU][tT][fF]"-8"		{
 							return (token::STRING_ENCODE);
 						}
 
@@ -100,7 +94,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* =============================================================================== */
 /* Field and tag names */ 
 %}
-<STATE_TAG>[a-zA-Z]+	{
+[a-zA-Z]+				{
 							return (token::FIELD_NAME);
 						}
 
@@ -109,7 +103,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* Numbers */
 %}
 
-<STATE_TAG>[0-9]+		{
+[0-9]+					{
 							return token::INTEGER_NUMBER;
 						}
 
@@ -118,17 +112,11 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* Punctuation */ 
 %}
 
-<INITIAL>"{"			{
-							std::cout << "up: old state" << yy_top_state() << "\n";
-							yy_push_state(STATE_TAG);
-							std::cout << "up: new state" << yy_top_state() << "\n";
+"{"						{
 							return '{';
 						}
 
 "}"						{
-							std::cout << "old state" << yy_top_state() << "\n";
-							yy_pop_state();
-							std::cout << "new state" << yy_top_state() << "\n";
 							return '}';
 						}
 
