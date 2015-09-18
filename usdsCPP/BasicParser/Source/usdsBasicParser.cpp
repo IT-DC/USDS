@@ -4,7 +4,7 @@ using namespace usds;
 
 BasicParser::BasicParser() : usdsMajor(1), usdsMinor(0)
 {
-	currentDictionary = 0;
+	
 }
 
 BasicParser::~BasicParser()
@@ -15,48 +15,51 @@ BasicParser::~BasicParser()
 
 //====================================================================================================================
 // Settings
-void BasicParser::setDictionaryVersion(unsigned char major, unsigned char minor) throw(...)
+void BasicParser::getDictionaryVersion(unsigned char* major, unsigned char* minor) throw(...)
+try
 {
-	if (currentDictionary == 0)
-		throw ErrorMessage(BASIC_PARSER_NO_DICTIONARY, L"Dictionaries not found", L"BasicParser::setDictionaryVersion");
-	
-	for (std::list<Dictionary>::iterator it = dictionaries.begin(); it != dictionaries.end(); it++)
-	{
-		if (it->majorVersion == major && it->minorVersion == minor)
-		{
-			currentDictionary = &(*it);
-			return;
-		};
-	};
-
-	std::wstringstream err;
-	err << L"Dictionary version" << major << L"." << minor << L" not found";
-	throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &err, L"BasicParser::setDictionaryVersion");
+	*major = dictionariy.getMajorVersion();
+	*minor = dictionariy.getMinorVersion();
+}
+catch (ErrorMessage& err)
+{
+	err.addPath(L"BasicParser::getDictionaryVersion");
+	throw err;
 };
 
-void BasicParser::getDictionaryVersion(int* major, int* minor)
+int BasicParser::getDictionaryID() throw(...)
+try
 {
-	if (currentDictionary == 0)
-		throw ErrorMessage(BASIC_PARSER_NO_DICTIONARY, L"Dictionaries not found", L"BasicParser::setDictionaryVersion");
-
-	*major = currentDictionary->majorVersion;
-	*minor = currentDictionary->minorVersion;
+	return dictionariy.getDictionaryID();
+}
+catch (ErrorMessage& err)
+{
+	err.addPath(L"BasicParser::getDictionaryID");
+	throw err;
 };
 
 //====================================================================================================================
 // Dictionary constructors
-
 void BasicParser::initDictionaryFromText(const char* text_dictionary, int size, usdsEncodes encode) throw(...)
 try 
 {
-	if (encode != UTF8)
-		throw ErrorMessage(BASIC_PARSER_UNSUPPORTABLE_ENCODE, L"Unsupportable encode for text dictionary");
-	
 	DictionaryTextParser dictTextParser;
-	dictTextParser.parse(text_dictionary, currentDictionary);
+	dictTextParser.parse(text_dictionary, encode, &dictionariy);
 }
 catch (ErrorMessage& msg)
 {
 	msg.addPath(L"BasicParser::initDictionaryFromText");
 	throw msg;
+};
+
+void BasicParser::initDictionary(int id, unsigned char major, unsigned char minor, usdsEncodes encode) throw(...)
+try
+{
+	dictionariy.setID(id, major, minor);
+	dictionariy.setEncode(encode);
+}
+catch (ErrorMessage& err)
+{
+	err.addPath(L"BasicParser::initDictionary");
+	throw err;
 };

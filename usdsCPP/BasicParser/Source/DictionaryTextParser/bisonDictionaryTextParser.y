@@ -22,17 +22,17 @@
 %error-verbose
 
 %union {
-    int  			integerVal;
+    int  			intVal;
     double 			doubleVal;
-    std::string*		stringVal;
+    char*			stringVal;
+	DicBaseField*	fieldVal;
+	usdsEncodes		encodeVal;
 }
 
 // Tokens
 %token USDS_Dictionary_ID
 %token DICTIONARY_VERSION
 %token ROOT_TAG
-
-%token INTEGER_NUMBER
 
 %token TYPE_BOOLEAN
 %token TYPE_INT
@@ -43,15 +43,21 @@
 %token TYPE_ARRAY
 %token TYPE_STRING
 
-%token STRING_ENCODE
+%token<encodeVal> STRING_ENCODE "utf-8"
 
-%token FIELD_NAME
+%token<intVal> INTEGER_NUMBER "integer"
+%token<stringVal> FIELD_NAME "string"
+
+%type<fieldVal> field_boolean field_int field_long field_double field_varint field_array field_string
+
+%destructor { delete [] $$; } FIELD_NAME
 
 %token '{'
 %token '}'
 %token ':'
 %token ';'
 %token '='
+%token '.'
 
 %{
 #undef yylex
@@ -62,98 +68,90 @@
 // Rules
 %%
 dictionary: 
-	USDS_Dictionary_ID '=' INTEGER_NUMBER DICTIONARY_VERSION INTEGER_NUMBER '.' INTEGER_NUMBER 
+	USDS_Dictionary_ID '=' INTEGER_NUMBER DICTIONARY_VERSION INTEGER_NUMBER '.' INTEGER_NUMBER '{' tags '}'
 	{
-		std::cout << "USDS_Dictionary_ID\n";
+		std::cout << "DictID = " << $3 << " Major = " << $5 << " Minor = " << $7 << "\n";
+		dict->setID($3, $5, $7);
 	}
-	'{' tags '}'
 	;
 
-tags: tag
-	{
-		std::cout << "Last tag\n";
-	}
-	| tag tags
-	{
-		std::cout << "Next tag\n";
-	}
-	;
+tags: tag | tag tags;
 	
 tag: 
-	INTEGER_NUMBER ':' TYPE_STRUCT FIELD_NAME '{'
+	INTEGER_NUMBER ':' TYPE_STRUCT FIELD_NAME '{' fields '}' ';'
 	{
-		std::cout << "Struct\n";
+		dict->addStructTag($4, $1, false);
+		delete [] $4;
 	}
-	fields '}' ';'
-	| INTEGER_NUMBER ':' ROOT_TAG TYPE_STRUCT FIELD_NAME '{'
+	| INTEGER_NUMBER ':' ROOT_TAG TYPE_STRUCT FIELD_NAME '{' fields '}' ';'
 	{
-		std::cout << "Root struct\n";
+		dict->addStructTag($5, $1, true);
+		delete [] $5;
 	}
-	fields '}' ';'
 	;
 
 //=================================================================================================
 // Struct fields
 
-fields: field
-	{
-		std::cout << "Last field\n";
-	
-	}
-	| field fields
-	{
-		std::cout << "Next field\n";
-	}
-	;
+fields: field | field fields;
 
-field: field_boolean | field_int | field_long| field_double | field_varint | field_array | field_string ;
+field: field_boolean | field_int | field_long | field_double | field_varint | field_array | field_string ;
 
 field_boolean:
 	INTEGER_NUMBER ':' TYPE_BOOLEAN FIELD_NAME ';'
 	{
-		std::cout << "Boolean field\n";
+		$$ = dict->addBooleanField($4, $1, false);
+		delete [] $4;
 	}
 	;
 
 field_int:
 	INTEGER_NUMBER ':' TYPE_INT FIELD_NAME ';'
 	{
-		std::cout << "Int field\n";
+		$$ = dict->addIntField($4, $1, false);
+		delete [] $4;
 	}
 	;
 
 field_long:
 	INTEGER_NUMBER ':' TYPE_LONG FIELD_NAME ';'
 	{
-		std::cout << "Long field\n";
+		$$ = dict->addLongField($4, $1, false);
+		delete [] $4;
 	}
 	;
 
 field_double:
 	INTEGER_NUMBER ':' TYPE_DOUBLE FIELD_NAME ';'
 	{
-		std::cout << "Double field\n";
+		$$ = dict->addDoubleField($4, $1, false);
+		delete [] $4;
 	}
 	;
 
 field_varint:
 	INTEGER_NUMBER ':' TYPE_VARINT FIELD_NAME ';'
 	{
-		std::cout << "Varint field\n";
+		$$ = dict->addUVarintField($4, $1, false);
+		delete [] $4;
 	}
 	;
 	
 field_array:
 	INTEGER_NUMBER ':' TYPE_ARRAY '<' FIELD_NAME '>' FIELD_NAME ';'
 	{
-		std::cout << "'Array of tags' field\n";
+		$$ = dict->addArrayField($7, $1, false, $5);
+		delete [] $5;
+		delete [] $7;
 	}
 	;
 
 field_string:
 	INTEGER_NUMBER ':' TYPE_STRING '(' STRING_ENCODE ')' FIELD_NAME ';'
 	{
-		std::cout << "String field\n";
+		$$ = dict->addStringField($7, $1, false);
+		//((DicStringField*)$$)->setEncode($5);
+		delete [] $7;
 	}
 	;
 

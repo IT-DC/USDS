@@ -17,15 +17,15 @@ namespace usds
 	class DicBaseField
 	{
 	public:
-		DicBaseField();
+		DicBaseField(DictionaryObjectPool* pull) { objectPull = pull; };
 		virtual ~DicBaseField();
 
 		void init(const char* name, int id, bool optional) throw(...);
 		
-		virtual usdsTypes getType() = 0;
 		std::string* getName();
 		int getID();
 
+		virtual usdsTypes getType() = 0;
 		virtual void writeToBinary(BinaryOutput buff) throw (...) = 0;
 
 		DicBaseField* getNextField();
@@ -36,6 +36,8 @@ namespace usds
 		bool isOptional;
 		
 	private:
+		DictionaryObjectPool* objectPull;
+
 		DicStructTag* parentTag;
 		DicBaseField* nextField;
 		DicBaseField* previousField;
@@ -46,11 +48,30 @@ namespace usds
 	// Simple types
 	//====================================================================================================================
 
+	class DicBooleanField : public DicBaseField
+	{
+	public:
+		DicBooleanField(DictionaryObjectPool* pull);
+		~DicBooleanField();
+
+		usdsTypes getType() { return USDS_BOOLEAN; }
+		void writeToBinary(BinaryOutput buff) throw (...);
+
+	private:
+		bool isDefault;
+		int defaultValue;
+
+	};
+
+
 	class DicIntField : public DicBaseField
 	{
 	public:
-		DicIntField();
+		DicIntField(DictionaryObjectPool* pull);
 		~DicIntField();
+
+		usdsTypes getType() { return USDS_INT; }
+		void writeToBinary(BinaryOutput buff) throw (...);
 
 	private:
 		bool isDefault;
@@ -61,8 +82,11 @@ namespace usds
 	class DicLongField : public DicBaseField
 	{
 	public:
-		DicLongField();
+		DicLongField(DictionaryObjectPool* pull);
 		~DicLongField();
+
+		usdsTypes getType() { return USDS_LONG; }
+		void writeToBinary(BinaryOutput buff) throw (...);
 
 	private:
 		bool isDefault;
@@ -73,8 +97,11 @@ namespace usds
 	class DicDoubleField : public DicBaseField
 	{
 	public:
-		DicDoubleField();
+		DicDoubleField(DictionaryObjectPool* pull);
 		~DicDoubleField();
+
+		usdsTypes getType() { return USDS_DOUBLE; }
+		void writeToBinary(BinaryOutput buff) throw (...);
 
 	private:
 		bool isDefault;
@@ -85,31 +112,15 @@ namespace usds
 	class DicUVarintField : public DicBaseField
 	{
 	public:
-		DicUVarintField();
+		DicUVarintField(DictionaryObjectPool* pull);
 		~DicUVarintField();
+
+		usdsTypes getType() { return USDS_UNSIGNED_VARINT; }
+		void writeToBinary(BinaryOutput buff) throw (...);
 
 	private:
 		bool isDefault;
 		unsigned long long defaultValue;
-
-	};
-
-	//====================================================================================================================
-	// String
-	//====================================================================================================================
-
-	class DicStringField : public DicBaseField
-	{
-	public:
-		DicStringField();
-		~DicStringField();
-
-		void setEncode(usdsEncodes encode) throw(...);
-
-	private:
-		bool isDefault;
-		std::string defaultValue;
-		usdsEncodes defaultEncode;
 
 	};
 
@@ -120,8 +131,11 @@ namespace usds
 	class DicArrayField : public DicBaseField
 	{
 	public:
-		DicArrayField();
+		DicArrayField(DictionaryObjectPool* pull);
 		~DicArrayField();
+
+		usdsTypes getType() { return USDS_ARRAY; }
+		void writeToBinary(BinaryOutput buff) throw (...);
 
 	private:
 		int arraySize;
@@ -140,6 +154,29 @@ namespace usds
 		int tagID;
 
 	};
+
+	//====================================================================================================================
+	// String
+	//====================================================================================================================
+
+	class DicStringField : public DicBaseField
+	{
+	public:
+		DicStringField(DictionaryObjectPool* pull);
+		~DicStringField();
+
+		usdsTypes getType() { return USDS_STRING; }
+		void writeToBinary(BinaryOutput buff) throw (...);
+
+		void setEncode(usdsEncodes encode) throw(...);
+
+	private:
+		bool isDefault;
+		std::string defaultValue;
+		usdsEncodes defaultEncode;
+
+	};
+
 
 };
 

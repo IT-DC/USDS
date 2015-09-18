@@ -5,7 +5,7 @@
 #define USDS_VOUCHER 2
 #define USDS_TICKET_SALES 1
 
-#define USDS_UTF8 2
+#define USDS_DOM_UTF8 2
 
 #include <string>
 #include <list>
@@ -43,7 +43,7 @@ public:
 
 	int voucher_number;
 	double summ;
-	int setGoods_name(int encode, const char* text) { if (encode == USDS_UTF8) goods_name = text; else return -1; return 0; }
+	int setGoods_name(int encode, const char* text) { if (encode == USDS_DOM_UTF8) goods_name = text; else return -1; return 0; }
 	const char* getGoods_name() { return goods_name.c_str(); }
 	long long time_of_sell;
 	bool status;

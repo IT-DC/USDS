@@ -21,11 +21,13 @@ namespace usds
 		// Settings
 		const unsigned char usdsMajor;
 		const unsigned char usdsMinor;
-		void setDictionaryVersion(unsigned char major, unsigned char minor) throw(...);
-		void getDictionaryVersion(int* major, int* minor);
+		void getDictionaryVersion(unsigned char* major, unsigned char* minor) throw(...);
+		int getDictionaryID() throw(...);
 
 		// Dictionary constructors
 		void initDictionaryFromText(const char* text_dictionary, int size, usdsEncodes encode) throw(...);
+
+		void initDictionary(int id, unsigned char major, unsigned char minor, usdsEncodes encode) throw(...);
 
 		// Serialization
 		void addHeadToBinary();
@@ -41,9 +43,8 @@ namespace usds
 		void release();		// release all memory
 		
 	private:
-		std::list<Dictionary> dictionaries;
-		Dictionary* currentDictionary;
-
+		Dictionary dictionariy;
+		
 		BinaryInput usdsInput;
 		BinaryOutput usdsOutput;
 

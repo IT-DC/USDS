@@ -32,7 +32,7 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 									5: array<I> v;			\n\
 								};							\n\
 							}";
-		parser->initDictionaryFromText(dict, strlen(dict), UTF8);
+		parser->initDictionaryFromText(dict, strlen(dict), USDS_UTF8);
 	}
 	catch (ErrorMessage& msg)
 	{

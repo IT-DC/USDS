@@ -37,7 +37,7 @@ int UsdsDomTest::serializationTest()
 		UsdsVoucher* arrayHandle = handle->addToVouchers();
 		arrayHandle->voucher_number = vouchers[i].voucher_number;
 		arrayHandle->summ = vouchers[i].summ;
-		arrayHandle->setGoods_name(USDS_UTF8, vouchers[i].goods_name);
+		arrayHandle->setGoods_name(USDS_DOM_UTF8, vouchers[i].goods_name);
 		arrayHandle->time_of_sell = vouchers[i].time_of_sell;
 		arrayHandle->status = vouchers[i].status;
 	}

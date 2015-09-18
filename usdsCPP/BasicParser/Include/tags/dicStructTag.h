@@ -22,8 +22,11 @@ namespace usds
 	class DicStructTag : public DicBaseTag
 	{
 	public:
-		DicStructTag();
+		DicStructTag(DictionaryObjectPool* pull);
 		~DicStructTag();
+
+		usdsTypes getType() { return USDS_STRUCT; };
+		void writeToBinary(BinaryOutput buff) throw(...);
 
 		DicBaseField* getFirstField();
 		DicBaseField* getLastField();

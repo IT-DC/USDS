@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Internal Parsers">
       <UniqueIdentifier>{aebf2beb-2d2a-423d-862d-5f26928374c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Tags">
+      <UniqueIdentifier>{6da89100-5182-4b1c-9166-3f46bd3c43be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsBasicParser.h">

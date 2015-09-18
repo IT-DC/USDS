@@ -77,13 +77,15 @@ namespace usds {
 /* Line 33 of lalr1.cc  */
 #line 24 "bisonDictionaryTextParser.y"
 
-    int  			integerVal;
+    int  			intVal;
     double 			doubleVal;
-    std::string*		stringVal;
+    char*			stringVal;
+	DicBaseField*	fieldVal;
+	usdsEncodes		encodeVal;
 
 
 /* Line 33 of lalr1.cc  */
-#line 87 "bisonDictionaryTextParser.hh"
+#line 89 "bisonDictionaryTextParser.hh"
     };
 #else
     typedef DICTIONARY_TEXTSTYPE semantic_type;
@@ -98,16 +100,16 @@ namespace usds {
      USDS_Dictionary_ID = 258,
      DICTIONARY_VERSION = 259,
      ROOT_TAG = 260,
-     INTEGER_NUMBER = 261,
-     TYPE_BOOLEAN = 262,
-     TYPE_INT = 263,
-     TYPE_LONG = 264,
-     TYPE_DOUBLE = 265,
-     TYPE_VARINT = 266,
-     TYPE_STRUCT = 267,
-     TYPE_ARRAY = 268,
-     TYPE_STRING = 269,
-     STRING_ENCODE = 270,
+     TYPE_BOOLEAN = 261,
+     TYPE_INT = 262,
+     TYPE_LONG = 263,
+     TYPE_DOUBLE = 264,
+     TYPE_VARINT = 265,
+     TYPE_STRUCT = 266,
+     TYPE_ARRAY = 267,
+     TYPE_STRING = 268,
+     STRING_ENCODE = 269,
+     INTEGER_NUMBER = 270,
      FIELD_NAME = 271
    };
 
@@ -289,7 +291,7 @@ namespace usds {
 #line 13 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 33 of lalr1.cc  */
-#line 293 "bisonDictionaryTextParser.hh"
+#line 295 "bisonDictionaryTextParser.hh"
 
 
 

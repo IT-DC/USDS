@@ -8,18 +8,17 @@ namespace usds
 	class DicBaseTag
 	{
 	public:
-		DicBaseTag();
+		DicBaseTag(DictionaryObjectPool* pull) { objectPull = pull; };
 		virtual ~DicBaseTag();
 
 		DicBaseTag* getNextTag();
 
 		void init(const char* name, int id, bool root) throw(...);
 
-		virtual usdsTypes getType() = 0;
 		std::string* getName();
 		int getID();
 		
-		
+		virtual usdsTypes getType() = 0;
 		virtual void writeToBinary(BinaryOutput buff) throw(...) = 0;
 
 	protected:
@@ -28,6 +27,8 @@ namespace usds
 		bool isRoot;
 
 	private:
+		DictionaryObjectPool* objectPull;
+		
 		DicBaseTag* nextTag;
 		DicBaseTag* previousTag;
 

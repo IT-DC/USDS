@@ -341,7 +341,7 @@ int UsdsDomParser::parse(unsigned char* data, int data_size)
 						char text_buff[128];
 						if (setStringUTF8NoConvert(text_buff, 128) != 0)
 							return -14;
-						vouchers->setGoods_name(USDS_UTF8, text_buff);
+						vouchers->setGoods_name(USDS_DOM_UTF8, text_buff);
 						if (in_buff_body_last_pos - in_buff_current_pos < 5)
 							return -15;
 						// set time_of_sell
