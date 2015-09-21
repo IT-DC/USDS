@@ -81,6 +81,9 @@
     <ClInclude Include="Source\DictionaryTextParser\bisonDictionaryTextParser.hh">
       <Filter>Source Files\Dictionary Text Parser</Filter>
     </ClInclude>
+    <ClInclude Include="Include\tags\dicBaseField.h">
+      <Filter>Header Files\Tags</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\usdsBasicParser.cpp">
@@ -109,6 +112,18 @@
     </ClCompile>
     <ClCompile Include="Source\DictionaryTextParser\bisonDictionaryTextParser.cc">
       <Filter>Source Files\Dictionary Text Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tags\dicBaseTag.cpp">
+      <Filter>Source Files\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tags\dicStructTag.cpp">
+      <Filter>Source Files\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tags\dicStructFields.cpp">
+      <Filter>Source Files\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tags\dicBaseField.cpp">
+      <Filter>Source Files\Tags</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

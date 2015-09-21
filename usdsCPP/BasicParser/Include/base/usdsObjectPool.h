@@ -8,6 +8,23 @@
 
 namespace usds
 {
+	class DictionaryObjectPool;
+
+	template<typename T_objectPool> 
+	class TemplateObjectPool : public std::list<T_objectPool>
+	{
+	public:
+		TemplateObjectPool() : std::list<T_objectPool>() { lastElement = begin(); };
+		~TemplateObjectPool() { };
+
+		T_objectPool* addObject(DictionaryObjectPool* pool) throw(...);
+		void clearPool() throw(...);
+
+	private:
+		typename std::list<T_objectPool>::iterator lastElement;
+	};
+
+
 	// Memory allocator, pattern "Object Pull"
 	class DictionaryObjectPool
 	{
@@ -15,8 +32,10 @@ namespace usds
 		DictionaryObjectPool();
 		~DictionaryObjectPool();
 
-		// add objects from pull
+		// add tag from pull
 		DicStructTag* addStructTag() throw(...);
+
+		// add field from pull
 		DicBooleanField* addBooleanField() throw(...);
 		DicIntField* addIntField() throw(...);
 		DicLongField* addLongField() throw(...);
@@ -28,25 +47,16 @@ namespace usds
 		void clear();
 
 	private:
-		// Pull of the objects
-		std::list<DicStructTag> structTags;
-		std::list<DicBooleanField> booleanFields;
-		std::list<DicIntField> intFields;
-		std::list<DicLongField> longFields;
-		std::list<DicDoubleField> doubleFields;
-		std::list<DicArrayField> arrayFields;
-		std::list<DicStringField> stringFields;
-
-		// last elements
-		std::list<DicStructTag>::iterator lastStructTag;
-		std::list<DicBooleanField>::iterator lastBooleanField;
-		std::list<DicIntField>::iterator lastIntField;
-		std::list<DicLongField>::iterator lastLongField;
-		std::list<DicDoubleField>::iterator lastDoubleField;
-		std::list<DicArrayField>::iterator lastArrayField;
-		std::list<DicStringField>::iterator lastStringField;
-
-
+		// Pool of tags
+		TemplateObjectPool<DicStructTag> structTags;
+		
+		// Pool of fields
+		TemplateObjectPool<DicBooleanField> booleanFields;
+		TemplateObjectPool<DicIntField> intFields;
+		TemplateObjectPool<DicLongField> longFields;
+		TemplateObjectPool<DicDoubleField> doubleFields;
+		TemplateObjectPool<DicArrayField> arrayFields;
+		TemplateObjectPool<DicStringField> stringFields;
 
 	};
 
