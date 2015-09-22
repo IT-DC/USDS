@@ -2,14 +2,15 @@
 #define DIC_BASE_FIELD
 
 #include "tags\usdsTypes.h"
-#include "tags\dicStructTag.h"
 #include "base\usdsErrors.h"
-#include "base\usdsObjectPool.h"
+
+#include <string>
 
 namespace usds
 {
 	class DicStructTag;
 	class DictionaryObjectPool;
+	class BinaryOutput;
 
 	class DicBaseField
 	{
@@ -23,7 +24,8 @@ namespace usds
 		int getID() throw(...);
 
 		virtual usdsTypes getType() = 0;
-		virtual void writeToBinary(BinaryOutput buff) throw (...) = 0;
+		virtual const char* getTypeName() = 0;
+		virtual void writeToBinary(BinaryOutput* buff) throw (...) = 0;
 		virtual void clear() = 0;
 
 		DicBaseField* getNextField() throw (...);

@@ -2,13 +2,11 @@
 #define USDS_BASIC_PARSER
 
 #include "base\usdsErrors.h"
-#include "base\usdsObjectPool.h"
+#include "tags\usdsTypes.h"
+
 #include "base\usdsDictionary.h"
 #include "base\usdsBinaryInput.h"
 #include "base\usdsBinaryOutput.h"
-#include "internalParsers\usdsDictionaryTextParser.h"
-
-#include <list>
 
 namespace usds
 {
@@ -26,8 +24,7 @@ namespace usds
 
 		// Dictionary constructors
 		void initDictionaryFromText(const char* text_dictionary, int size, usdsEncodes encode) throw(...);
-
-		void initDictionary(int id, unsigned char major, unsigned char minor, usdsEncodes encode) throw(...);
+		void getTextDictionary(usdsEncodes encode, std::string* text) throw(...);
 
 		// Serialization
 		void addHeadToBinary();

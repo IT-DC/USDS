@@ -1,16 +1,13 @@
 #include "tags\dicBaseTag.h"
 
+#include "base\usdsObjectPool.h"
+#include "base\usdsBinaryOutput.h"
+
 using namespace usds;
 
 DicBaseTag::DicBaseTag(DictionaryObjectPool* pull)
 {
 	objectPull = pull;
-	nextTag = 0;
-	previousTag = 0;
-
-	tagID = -1;
-
-	clear();
 };
 
 void DicBaseTag::init(const char* name, int id, bool root) throw(...)

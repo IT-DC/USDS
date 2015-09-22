@@ -22,14 +22,17 @@
     <Filter Include="Source Files\Base">
       <UniqueIdentifier>{b2aad85f-086c-43bb-9e7e-e917c9048bdd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Dictionary Text Parser">
-      <UniqueIdentifier>{8a6a2890-5924-4115-abec-e84a2faf9198}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Internal Parsers">
-      <UniqueIdentifier>{aebf2beb-2d2a-423d-862d-5f26928374c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Tags">
       <UniqueIdentifier>{6da89100-5182-4b1c-9166-3f46bd3c43be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Converters">
+      <UniqueIdentifier>{aebf2beb-2d2a-423d-862d-5f26928374c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Converters">
+      <UniqueIdentifier>{8a3e22eb-fc85-4587-934b-82a5b3d41cd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Converters\Dictionary Text Parser">
+      <UniqueIdentifier>{8a6a2890-5924-4115-abec-e84a2faf9198}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,26 +66,29 @@
     <ClInclude Include="Include\tags\dicStructFields.h">
       <Filter>Header Files\Tags</Filter>
     </ClInclude>
-    <ClInclude Include="Include\internalParsers\usdsDictionaryTextParser.h">
-      <Filter>Header Files\Internal Parsers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DictionaryTextParser\location.hh">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DictionaryTextParser\position.hh">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DictionaryTextParser\stack.hh">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DictionaryTextParser\flexDictionaryTextScanner.h">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DictionaryTextParser\bisonDictionaryTextParser.hh">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
-    </ClInclude>
     <ClInclude Include="Include\tags\dicBaseField.h">
       <Filter>Header Files\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsDictionaryTextParser.h">
+      <Filter>Header Files\Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.hh">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.h">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Converters\DictionaryTextParser\location.hh">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Converters\DictionaryTextParser\position.hh">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Converters\DictionaryTextParser\stack.hh">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsDictionaryTextCreator.h">
+      <Filter>Header Files\Converters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -104,15 +110,6 @@
     <ClCompile Include="Source\Base\usdsObjecPool.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DictionaryTextParser\flexDictionaryTextScanner.cpp">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DictionaryTextParser\usdsDictionaryTextParser.cpp">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DictionaryTextParser\bisonDictionaryTextParser.cc">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Tags\dicBaseTag.cpp">
       <Filter>Source Files\Tags</Filter>
     </ClCompile>
@@ -125,13 +122,25 @@
     <ClCompile Include="Source\Tags\dicBaseField.cpp">
       <Filter>Source Files\Tags</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.cpp">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\DictionaryTextParser\usdsDictionaryTextParser.cpp">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsDictionaryTextCreator.cpp">
+      <Filter>Source Files\Converters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\DictionaryTextParser\bisonDictionaryTextParser.y">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
+    <None Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.y">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
     </None>
-    <None Include="Source\DictionaryTextParser\flexDictionaryTextScanner.l">
-      <Filter>Source Files\Dictionary Text Parser</Filter>
+    <None Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.l">
+      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
     </None>
   </ItemGroup>
 </Project>

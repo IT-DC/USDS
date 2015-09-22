@@ -1,14 +1,19 @@
-#ifndef USDS_OBJECT_PULL
-#define USDS_OBJECT_PULL
+#ifndef USDS_OBJECT_POOL
+#define USDS_OBJECT_POOL
 
 #include <list>
-
-#include "tags\dicStructTag.h"
-#include "tags\dicStructFields.h"
 
 namespace usds
 {
 	class DictionaryObjectPool;
+	class DicStructTag;
+	class DicBooleanField;
+	class DicIntField;
+	class DicLongField;
+	class DicDoubleField;
+	class DicUVarintField;
+	class DicArrayField;
+	class DicStringField;
 
 	template<typename T_objectPool> 
 	class TemplateObjectPool : public std::list<T_objectPool>
@@ -25,25 +30,26 @@ namespace usds
 	};
 
 
-	// Memory allocator, pattern "Object Pull"
+	// Memory allocator, pattern "Object Pool"
 	class DictionaryObjectPool
 	{
 	public:
 		DictionaryObjectPool();
 		~DictionaryObjectPool();
 
-		// add tag from pull
-		DicStructTag* addStructTag() throw(...);
+		// add tag from pool
+		DicStructTag* addStructTag(const char* name, int id, bool root) throw(...);
 
-		// add field from pull
-		DicBooleanField* addBooleanField() throw(...);
-		DicIntField* addIntField() throw(...);
-		DicLongField* addLongField() throw(...);
-		DicDoubleField* addDoubleField() throw(...);
-		DicArrayField* addArrayField() throw(...);
-		DicStringField* addStringField() throw(...);
+		// add field from pool
+		DicBooleanField* addBooleanField(const char* name, int id, bool optional) throw(...);
+		DicIntField* addIntField(const char* name, int id, bool optional) throw(...);
+		DicLongField* addLongField(const char* name, int id, bool optional) throw(...);
+		DicDoubleField* addDoubleField(const char* name, int id, bool optional) throw(...);
+		DicUVarintField* addUVarintField(const char* name, int id, bool optional) throw(...);
+		DicArrayField* addArrayField(const char* name, int id, bool optional) throw(...);
+		DicStringField* addStringField(const char* name, int id, bool optional) throw(...);
 
-		// Clear pull, it does not release memory
+		// Clear pool, it does not release memory
 		void clear();
 
 	private:
@@ -55,6 +61,7 @@ namespace usds
 		TemplateObjectPool<DicIntField> intFields;
 		TemplateObjectPool<DicLongField> longFields;
 		TemplateObjectPool<DicDoubleField> doubleFields;
+		TemplateObjectPool<DicUVarintField> uVarintFields;
 		TemplateObjectPool<DicArrayField> arrayFields;
 		TemplateObjectPool<DicStringField> stringFields;
 

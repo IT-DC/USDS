@@ -1,11 +1,19 @@
 #include "base\usdsDictionary.h"
 
+#include "base\usdsBinaryInput.h"
+#include "base\usdsBinaryOutput.h"
+#include "tags\dicStructTag.h"
+#include "tags\dicStructFields.h"
+
 using namespace usds;
 
 Dictionary::Dictionary()
 {
 	dictionaryEncode = USDS_NO_ENCODE;
 	dictionaryID = -1;
+
+	firstTag = 0;
+	lastTag = 0;
 };
 
 Dictionary::~Dictionary()
@@ -50,72 +58,62 @@ void Dictionary::setEncode(usdsEncodes encode) throw (...)
 // Tags construction
 DicStructTag* Dictionary::addStructTag(const char* name, int id, bool root) throw (...)
 {
-	std::cout << "addStructTag(" << name << ", " << id << ", " << (root ? "true" : "false") << ")\n";
+	DicStructTag* tag = objectPool.addStructTag(name, id, root);
+	
+	if (firstTag == 0)
+	{
+		firstTag = tag;
+		lastTag = tag;
+	}
+	else
+	{
+		tag->setPreviousTag(lastTag);
+		lastTag->setNextTag(tag);
+		lastTag = tag;
+	}
 
-	DicStructTag* tag = 0;
 	return tag;
 };
 
 DicBooleanField* Dictionary::addBooleanField(const char* name, int id, bool is_optional) throw (...)
 {
-	std::cout << "addBooleanField(" << name << ", " << id << ", " << (is_optional ? "true" : "false") << ")\n";
-
-
-	DicBooleanField* field = 0;
+	DicBooleanField* field = objectPool.addBooleanField(name, id, is_optional);
 	return field;
 };
 
 DicIntField* Dictionary::addIntField(const char* name, int id, bool is_optional) throw (...)
 {
-	std::cout << "addIntField(" << name << ", " << id << ", " << (is_optional ? "true" : "false") << ")\n";
-
-
-	DicIntField* field = 0;
+	DicIntField* field = objectPool.addIntField(name, id, is_optional);
 	return field;
 };
 
 DicLongField* Dictionary::addLongField(const char* name, int id, bool is_optional) throw (...)
 {
-	std::cout << "addLongField(" << name << ", " << id << ", " << (is_optional ? "true" : "false") << ")\n";
-
-
-	DicLongField* field = 0;
+	DicLongField* field = objectPool.addLongField(name, id, is_optional);
 	return field;
 };
 
 DicDoubleField* Dictionary::addDoubleField(const char* name, int id, bool is_optional) throw (...)
 {
-	std::cout << "addDoubleField(" << name << ", " << id << ", " << (is_optional ? "true" : "false") << ")\n";
-
-
-	DicDoubleField* field = 0;
+	DicDoubleField* field = objectPool.addDoubleField(name, id, is_optional);
 	return field;
 };
 
 DicUVarintField* Dictionary::addUVarintField(const char* name, int id, bool is_optional) throw (...)
 {
-	std::cout << "addUVarintField(" << name << ", " << id << ", " << (is_optional ? "true" : "false") << ")\n";
-
-
-	DicUVarintField* field = 0;
+	DicUVarintField* field = objectPool.addUVarintField(name, id, is_optional);
 	return field;
 };
 
 DicArrayField* Dictionary::addArrayField(const char* name, int id, bool is_optional, const char* tag_name) throw (...)
 {
-	std::cout << "addArrayField(" << name << ", " << id << ", " << (is_optional ? "true" : "false") << ", " << tag_name << ")\n";
-
-
-	DicArrayField* field = 0;
+	DicArrayField* field = objectPool.addArrayField(name, id, is_optional);
 	return field;
 };
 
 DicStringField* Dictionary::addStringField(const char* name, int id, bool is_optional) throw (...)
 {
-	std::cout << "addStringField(" << name << ", " << id << ", " << (is_optional ? "true" : "false") << ")\n";
-
-
-	DicStringField* field = 0;
+	DicStringField* field = objectPool.addStringField(name, id, is_optional);
 	return field;
 };
 
@@ -152,6 +150,22 @@ usdsEncodes Dictionary::getEncode() throw (...)
 	return dictionaryEncode;
 };
 
+DicBaseTag* Dictionary::getFirstTag() throw (...)
+{
+	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getFirstTag");
+
+	return firstTag;
+};
+
+DicBaseTag* Dictionary::getLastTag() throw (...)
+{
+	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getLastTag");
+
+	return lastTag;
+};
+
 //====================================================================================================================
 // Dictionary clearing
 //====================================================================================================================
@@ -159,4 +173,10 @@ void Dictionary::clear()
 {
 	dictionaryEncode = USDS_NO_ENCODE;
 	dictionaryID = -1;
+	
+	objectPool.clear();
+
+	firstTag = 0;
+	lastTag = 0;
+
 };

@@ -71,6 +71,10 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::TYPE_VARINT);
 						}
 
+"unsigned"[ \t\r]+"varint" {
+							return (token::TYPE_UNSIGNED_VARINT);
+						}
+
 "struct"				{
 							return (token::TYPE_STRUCT);
 						}
@@ -111,7 +115,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 
 [0-9]+					{
 							yylval->intVal = atoi(yytext);
-							return token::INTEGER_NUMBER;
+							return token::UNSIGNED_INTEGER_NUMBER;
 						}
 
 %{ 

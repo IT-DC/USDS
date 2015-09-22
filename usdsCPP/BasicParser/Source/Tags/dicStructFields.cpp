@@ -1,4 +1,8 @@
 #include "tags\dicStructFields.h"
+#include "tags\dicBaseField.h"
+#include "base\usdsBinaryOutput.h"
+#include "tags\dicStructTag.h"
+#include "base\usdsObjectPool.h"
 
 using namespace usds;
 
@@ -6,6 +10,12 @@ using namespace usds;
 // Simple types
 //====================================================================================================================
 // Boolean
+
+DicBooleanField::DicBooleanField(DictionaryObjectPool* pool) : DicBaseField(pool)
+{
+
+
+};
 
 void DicBooleanField::writeToBinary(BinaryOutput* buff) throw (...)
 {
@@ -27,6 +37,12 @@ void DicBooleanField::setDefault(bool value)
 //====================================================================================================================
 // Integer
 
+DicIntField::DicIntField(DictionaryObjectPool* pool) : DicBaseField(pool)
+{
+
+
+};
+
 void DicIntField::writeToBinary(BinaryOutput* buff) throw (...)
 {
 
@@ -45,6 +61,12 @@ void DicIntField::setDefault(int value)
 
 //====================================================================================================================
 // Long
+
+DicLongField::DicLongField(DictionaryObjectPool* pool) : DicBaseField(pool)
+{
+
+
+};
 
 void DicLongField::writeToBinary(BinaryOutput* buff) throw (...)
 {
@@ -65,6 +87,12 @@ void DicLongField::setDefault(long long value)
 //====================================================================================================================
 // Double
 
+DicDoubleField::DicDoubleField(DictionaryObjectPool* pool) : DicBaseField(pool)
+{
+
+
+};
+
 void DicDoubleField::writeToBinary(BinaryOutput* buff) throw (...)
 {
 
@@ -83,6 +111,12 @@ void DicDoubleField::setDefault(double value)
 
 //====================================================================================================================
 // Unsigned Varint
+
+DicUVarintField::DicUVarintField(DictionaryObjectPool* pool) : DicBaseField(pool)
+{
+
+
+};
 
 void DicUVarintField::writeToBinary(BinaryOutput* buff) throw (...)
 {
@@ -104,6 +138,12 @@ void DicUVarintField::setDefault(long long value)
 // Array
 //====================================================================================================================
 
+DicArrayField::DicArrayField(DictionaryObjectPool* pool) : DicBaseField(pool)
+{
+
+
+};
+
 void DicArrayField::writeToBinary(BinaryOutput* buff) throw (...)
 {
 
@@ -117,6 +157,12 @@ void DicArrayField::clear()
 //====================================================================================================================
 // String
 //====================================================================================================================
+
+DicStringField::DicStringField(DictionaryObjectPool* pool) : DicBaseField(pool)
+{
+
+
+};
 
 void DicStringField::writeToBinary(BinaryOutput* buff) throw (...)
 {
@@ -138,4 +184,10 @@ void DicStringField::setDefault(const char* value)
 void DicStringField::setEncode(usdsEncodes encode) throw(...)
 {
 	defaultEncode = encode;
+};
+
+usdsEncodes DicStringField::getEncode() throw(...)
+{
+
+	return defaultEncode;
 };

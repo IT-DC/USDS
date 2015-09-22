@@ -1,18 +1,25 @@
 #ifndef USDS_DICTIONARY
 #define USDS_DICTIONARY
 
-#include "base\usdsBinaryInput.h"
-#include "base\usdsBinaryOutput.h"
-#include "base\usdsObjectPool.h"
 #include "base\usdsErrors.h"
+#include "tags\usdsTypes.h"
 
-#include "tags\dicBaseTag.h"
-#include "tags\dicStructTag.h"
+#include "base\usdsObjectPool.h"
 
-#include <iostream>
+#include <string>
 
 namespace usds
 {
+	class DicStructTag;
+	class DicBooleanField;
+	class DicIntField;
+	class DicLongField;
+	class DicDoubleField;
+	class DicUVarintField;
+	class DicArrayField;
+	class DicStringField;
+	class DicBaseTag;
+	
 	class Dictionary
 	{
 	public:
@@ -22,8 +29,10 @@ namespace usds
 		// Dictionary construction
 		void setID(int id, unsigned char major, unsigned char minor) throw (...);
 		void setEncode(usdsEncodes encode) throw (...);
+		
 		// tag construction
 		DicStructTag* addStructTag(const char* name, int id, bool root) throw (...);
+		// field construction
 		DicBooleanField* addBooleanField(const char* name, int id, bool is_optional) throw (...);
 		DicIntField* addIntField(const char* name, int id, bool is_optional) throw (...);
 		DicLongField* addLongField(const char* name, int id, bool is_optional) throw (...);
@@ -40,17 +49,22 @@ namespace usds
 		unsigned char getMinorVersion() throw (...);
 		usdsEncodes getEncode() throw (...);
 		
+		DicBaseTag* getFirstTag() throw (...);
+		DicBaseTag* getLastTag() throw (...);
+
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();
 
 	private:
-
 		unsigned char majorVersion;
 		unsigned char minorVersion;
 		int dictionaryID;
 		usdsEncodes dictionaryEncode;
 
-		DictionaryObjectPool objects;
+		DictionaryObjectPool objectPool;
+
+		DicBaseTag* firstTag;
+		DicBaseTag* lastTag;
 
 	};
 };

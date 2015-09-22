@@ -1,5 +1,8 @@
 #include "usdsBasicParser.h"
 
+#include "converters\usdsDictionaryTextParser.h"
+#include "converters\usdsDictionaryTextCreator.h"
+
 using namespace usds;
 
 BasicParser::BasicParser() : usdsMajor(1), usdsMinor(0)
@@ -52,14 +55,14 @@ catch (ErrorMessage& msg)
 	throw msg;
 };
 
-void BasicParser::initDictionary(int id, unsigned char major, unsigned char minor, usdsEncodes encode) throw(...)
+void BasicParser::getTextDictionary(usdsEncodes encode, std::string* text) throw(...)
 try
 {
-	dictionariy.setID(id, major, minor);
-	dictionariy.setEncode(encode);
+	DictionaryTextCreator creator;
+	creator.generate(encode, text, &dictionariy);
 }
-catch (ErrorMessage& err)
+catch (ErrorMessage& msg)
 {
-	err.addPath(L"BasicParser::initDictionary");
-	throw err;
+	msg.addPath(L"BasicParser::getTextDictionary");
+	throw msg;
 };

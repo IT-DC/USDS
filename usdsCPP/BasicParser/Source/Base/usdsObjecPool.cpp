@@ -1,5 +1,8 @@
 #include "base\usdsObjectPool.h"
 
+#include "tags\dicStructTag.h"
+#include "tags\dicStructFields.h"
+
 using namespace usds;
 
 template<typename T_objectPool>
@@ -40,39 +43,60 @@ DictionaryObjectPool::~DictionaryObjectPool()
 
 };
 
-DicStructTag* DictionaryObjectPool::addStructTag() throw(...)
+DicStructTag* DictionaryObjectPool::addStructTag(const char* name, int id, bool root) throw(...)
 {
-	return structTags.addObject(this);
+	DicStructTag* object = structTags.addObject(this);
+	object->init(name, id, root);
+	return object;
 };
 
-DicBooleanField* DictionaryObjectPool::addBooleanField() throw(...)
+DicBooleanField* DictionaryObjectPool::addBooleanField(const char* name, int id, bool optional) throw(...)
 {
-	return booleanFields.addObject(this);
+	DicBooleanField* object = booleanFields.addObject(this);
+	object->init(name, id, optional);
+	return object;
 };
 
-DicIntField* DictionaryObjectPool::addIntField() throw(...)
+DicIntField* DictionaryObjectPool::addIntField(const char* name, int id, bool optional) throw(...)
 {
-	return intFields.addObject(this);
+	DicIntField* object = intFields.addObject(this);
+	object->init(name, id, optional);
+	return object;
 };
 
-DicLongField* DictionaryObjectPool::addLongField() throw(...)
+DicLongField* DictionaryObjectPool::addLongField(const char* name, int id, bool optional) throw(...)
 {
-	return longFields.addObject(this);
+	DicLongField* object = longFields.addObject(this);
+	object->init(name, id, optional);
+	return object;
 };
 
-DicDoubleField* DictionaryObjectPool::addDoubleField() throw(...)
+DicDoubleField* DictionaryObjectPool::addDoubleField(const char* name, int id, bool optional) throw(...)
 {
-	return doubleFields.addObject(this);
+	DicDoubleField* object = doubleFields.addObject(this);
+	object->init(name, id, optional);
+	return object;
 };
 
-DicArrayField* DictionaryObjectPool::addArrayField() throw(...)
+DicUVarintField* DictionaryObjectPool::addUVarintField(const char* name, int id, bool optional) throw(...)
 {
-	return arrayFields.addObject(this);
+	DicUVarintField* object = uVarintFields.addObject(this);
+	object->init(name, id, optional);
+	return object;
 };
 
-DicStringField* DictionaryObjectPool::addStringField() throw(...)
+DicArrayField* DictionaryObjectPool::addArrayField(const char* name, int id, bool optional) throw(...)
 {
-	return stringFields.addObject(this);
+	DicArrayField* object = arrayFields.addObject(this);
+	object->init(name, id, optional);
+	return object;
+};
+
+DicStringField* DictionaryObjectPool::addStringField(const char* name, int id, bool optional) throw(...)
+{
+	DicStringField* object = stringFields.addObject(this);
+	object->init(name, id, optional);
+	return object;
 };
 
 void DictionaryObjectPool::clear()

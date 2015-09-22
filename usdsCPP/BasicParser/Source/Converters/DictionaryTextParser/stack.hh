@@ -41,7 +41,7 @@
 # include <deque>
 
 /* Line 34 of stack.hh  */
-#line 13 "bisonDictionaryTextParser.y"
+#line 16 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 34 of stack.hh  */
 #line 48 "stack.hh"
@@ -127,7 +127,7 @@ namespace usds {
     unsigned int range_;
   };
 /* Line 116 of stack.hh  */
-#line 13 "bisonDictionaryTextParser.y"
+#line 16 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 116 of stack.hh  */
 #line 134 "stack.hh"

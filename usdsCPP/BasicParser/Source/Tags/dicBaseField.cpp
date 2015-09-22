@@ -1,4 +1,7 @@
 #include "tags\dicBaseField.h"
+#include "base\usdsObjectPool.h"
+#include "base\usdsBinaryOutput.h"
+#include "tags\dicStructTag.h"
 
 using namespace usds;
 

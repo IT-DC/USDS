@@ -61,7 +61,7 @@
 #endif  /* ! defined DICTIONARY_TEXTDEBUG */
 
 /* Line 33 of lalr1.cc  */
-#line 13 "bisonDictionaryTextParser.y"
+#line 16 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 33 of lalr1.cc  */
 #line 68 "bisonDictionaryTextParser.hh"
@@ -75,12 +75,12 @@ namespace usds {
     union semantic_type
     {
 /* Line 33 of lalr1.cc  */
-#line 24 "bisonDictionaryTextParser.y"
+#line 27 "bisonDictionaryTextParser.y"
 
     int  			intVal;
     double 			doubleVal;
     char*			stringVal;
-	DicBaseField*	fieldVal;
+	class DicBaseField*	fieldVal;
 	usdsEncodes		encodeVal;
 
 
@@ -105,12 +105,13 @@ namespace usds {
      TYPE_LONG = 263,
      TYPE_DOUBLE = 264,
      TYPE_VARINT = 265,
-     TYPE_STRUCT = 266,
-     TYPE_ARRAY = 267,
-     TYPE_STRING = 268,
-     STRING_ENCODE = 269,
-     INTEGER_NUMBER = 270,
-     FIELD_NAME = 271
+     TYPE_UNSIGNED_VARINT = 266,
+     TYPE_STRUCT = 267,
+     TYPE_ARRAY = 268,
+     TYPE_STRING = 269,
+     STRING_ENCODE = 270,
+     UNSIGNED_INTEGER_NUMBER = 271,
+     FIELD_NAME = 272
    };
 
     };
@@ -288,10 +289,10 @@ namespace usds {
     std::stringstream* error_message;
   };
 /* Line 33 of lalr1.cc  */
-#line 13 "bisonDictionaryTextParser.y"
+#line 16 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 33 of lalr1.cc  */
-#line 295 "bisonDictionaryTextParser.hh"
+#line 296 "bisonDictionaryTextParser.hh"
 
 
 

@@ -1,5 +1,8 @@
 %{
 	#include "base\usdsDictionary.h"
+	#include "tags\dicStructFields.h"
+	#include "tags\dicStructTag.h"
+	
 	#include "flexDictionaryTextScanner.h"
 	#include <string>
 	
@@ -25,7 +28,7 @@
     int  			intVal;
     double 			doubleVal;
     char*			stringVal;
-	DicBaseField*	fieldVal;
+	class DicBaseField*	fieldVal;
 	usdsEncodes		encodeVal;
 }
 
@@ -39,16 +42,17 @@
 %token TYPE_LONG
 %token TYPE_DOUBLE
 %token TYPE_VARINT
+%token TYPE_UNSIGNED_VARINT
 %token TYPE_STRUCT
 %token TYPE_ARRAY
 %token TYPE_STRING
 
 %token<encodeVal> STRING_ENCODE "utf-8"
 
-%token<intVal> INTEGER_NUMBER "integer"
+%token<intVal> UNSIGNED_INTEGER_NUMBER "unsigned integer"
 %token<stringVal> FIELD_NAME "string"
 
-%type<fieldVal> field_boolean field_int field_long field_double field_varint field_array field_string
+%type<fieldVal> field fields field_boolean field_int field_long field_double field_uvarint field_array field_string
 
 %destructor { delete [] $$; } FIELD_NAME
 
@@ -68,24 +72,26 @@
 // Rules
 %%
 dictionary: 
-	USDS_Dictionary_ID '=' INTEGER_NUMBER DICTIONARY_VERSION INTEGER_NUMBER '.' INTEGER_NUMBER '{' tags '}'
+	USDS_Dictionary_ID '=' UNSIGNED_INTEGER_NUMBER DICTIONARY_VERSION UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER 
 	{
-		std::cout << "DictID = " << $3 << " Major = " << $5 << " Minor = " << $7 << "\n";
 		dict->setID($3, $5, $7);
 	}
+	'{' tags '}'
 	;
 
 tags: tag | tag tags;
 	
 tag: 
-	INTEGER_NUMBER ':' TYPE_STRUCT FIELD_NAME '{' fields '}' ';'
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRUCT FIELD_NAME '{' fields '}' ';'
 	{
-		dict->addStructTag($4, $1, false);
+		DicStructTag* object = dict->addStructTag($4, $1, false);
+		object->setFields($6);
 		delete [] $4;
 	}
-	| INTEGER_NUMBER ':' ROOT_TAG TYPE_STRUCT FIELD_NAME '{' fields '}' ';'
+	| UNSIGNED_INTEGER_NUMBER ':' ROOT_TAG TYPE_STRUCT FIELD_NAME '{' fields '}' ';'
 	{
-		dict->addStructTag($5, $1, true);
+		DicStructTag* object = dict->addStructTag($5, $1, true);
+		object->setFields($7);
 		delete [] $5;
 	}
 	;
@@ -93,12 +99,21 @@ tag:
 //=================================================================================================
 // Struct fields
 
-fields: field | field fields;
+fields: field 
+	{
+		$$ = $1;	
+	}
+	| field fields
+	{
+		$1->setNextField($2);
+		$2->setPreviousField($1);
+	}
+	;
 
-field: field_boolean | field_int | field_long | field_double | field_varint | field_array | field_string ;
+field: field_boolean | field_int | field_long | field_double | field_uvarint | field_array | field_string ;
 
 field_boolean:
-	INTEGER_NUMBER ':' TYPE_BOOLEAN FIELD_NAME ';'
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_BOOLEAN FIELD_NAME ';'
 	{
 		$$ = dict->addBooleanField($4, $1, false);
 		delete [] $4;
@@ -106,7 +121,7 @@ field_boolean:
 	;
 
 field_int:
-	INTEGER_NUMBER ':' TYPE_INT FIELD_NAME ';'
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_INT FIELD_NAME ';'
 	{
 		$$ = dict->addIntField($4, $1, false);
 		delete [] $4;
@@ -114,7 +129,7 @@ field_int:
 	;
 
 field_long:
-	INTEGER_NUMBER ':' TYPE_LONG FIELD_NAME ';'
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_LONG FIELD_NAME ';'
 	{
 		$$ = dict->addLongField($4, $1, false);
 		delete [] $4;
@@ -122,15 +137,15 @@ field_long:
 	;
 
 field_double:
-	INTEGER_NUMBER ':' TYPE_DOUBLE FIELD_NAME ';'
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE FIELD_NAME ';'
 	{
 		$$ = dict->addDoubleField($4, $1, false);
 		delete [] $4;
 	}
 	;
 
-field_varint:
-	INTEGER_NUMBER ':' TYPE_VARINT FIELD_NAME ';'
+field_uvarint:
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_UNSIGNED_VARINT FIELD_NAME ';'
 	{
 		$$ = dict->addUVarintField($4, $1, false);
 		delete [] $4;
@@ -138,7 +153,7 @@ field_varint:
 	;
 	
 field_array:
-	INTEGER_NUMBER ':' TYPE_ARRAY '<' FIELD_NAME '>' FIELD_NAME ';'
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_ARRAY '<' FIELD_NAME '>' FIELD_NAME ';'
 	{
 		$$ = dict->addArrayField($7, $1, false, $5);
 		delete [] $5;
@@ -147,10 +162,10 @@ field_array:
 	;
 
 field_string:
-	INTEGER_NUMBER ':' TYPE_STRING '(' STRING_ENCODE ')' FIELD_NAME ';'
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '(' STRING_ENCODE ')' FIELD_NAME ';'
 	{
 		$$ = dict->addStringField($7, $1, false);
-		//((DicStringField*)$$)->setEncode($5);
+		((DicStringField*)$$)->setEncode($5);
 		delete [] $7;
 	}
 	;

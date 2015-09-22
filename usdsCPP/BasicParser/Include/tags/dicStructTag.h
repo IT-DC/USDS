@@ -1,13 +1,10 @@
 #ifndef DIC_STRUCT_TAG
 #define DIC_STRUCT_TAG
 
-#include <string>
-
 #include "tags\usdsTypes.h"
-#include "tags\dicBaseTag.h"
-#include "tags\dicStructFields.h"
-
 #include "base\usdsErrors.h"
+
+#include "tags\dicBaseTag.h"
 
 namespace usds
 {
@@ -22,12 +19,14 @@ namespace usds
 	class DicStructTag : public DicBaseTag
 	{
 	public:
-		DicStructTag(DictionaryObjectPool* pull) : DicBaseTag(pull) { };
+		DicStructTag(DictionaryObjectPool* pull);
 		~DicStructTag() { };
 
 		virtual usdsTypes getType() { return USDS_STRUCT; };
-		virtual void writeToBinary(BinaryOutput buff) throw(...);
-		virtual void clear();
+		virtual const char* getTypeName() { return "struct"; };
+		virtual void writeToBinary(BinaryOutput* buff) throw(...);
+
+		void setFields(DicBaseField* fields) throw(...);
 
 		DicBaseField* getFirstField();
 		DicBaseField* getLastField();
@@ -50,6 +49,8 @@ namespace usds
 		DicArrayField* addArrayField(const char* name, int id, usdsTypes element_type, int size, bool optional) throw(...);
 
 	private:
+		// it's executed in DicBaseTag.init()
+		virtual void clear();
 
 		DicBaseField* firstField;
 		DicBaseField* lastField;

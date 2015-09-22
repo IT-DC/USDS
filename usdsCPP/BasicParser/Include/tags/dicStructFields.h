@@ -4,18 +4,15 @@
 #include <string>
 #include <vector>
 
-#include "base\usdsErrors.h"
-#include "base\usdsBinaryOutput.h"
-
 #include "tags\usdsTypes.h"
-#include "tags\dicStructTag.h"
+#include "base\usdsErrors.h"
+
 #include "tags\dicBaseField.h"
-#include "base\usdsObjectPool.h"
 
 namespace usds
 {
-	class DicStructTag;
 	class DictionaryObjectPool;
+	class BinaryOutput;
 
 	//====================================================================================================================
 	// Simple types
@@ -24,10 +21,11 @@ namespace usds
 	class DicBooleanField : public DicBaseField
 	{
 	public:
-		DicBooleanField(DictionaryObjectPool* pool) : DicBaseField(pool) {  };
+		DicBooleanField(DictionaryObjectPool* pool);
 		~DicBooleanField() {  };
 
-		virtual usdsTypes getType() { return USDS_BOOLEAN; }
+		virtual usdsTypes getType() { return USDS_BOOLEAN; };
+		virtual const char* getTypeName() { return "boolean"; };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -43,10 +41,11 @@ namespace usds
 	class DicIntField : public DicBaseField
 	{
 	public:
-		DicIntField(DictionaryObjectPool* pool) : DicBaseField(pool) {  };
+		DicIntField(DictionaryObjectPool* pool);
 		~DicIntField() {  };
 
-		virtual usdsTypes getType() { return USDS_INT; }
+		virtual usdsTypes getType() { return USDS_INT; };
+		virtual const char* getTypeName() { return "int"; };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -61,10 +60,11 @@ namespace usds
 	class DicLongField : public DicBaseField
 	{
 	public:
-		DicLongField(DictionaryObjectPool* pool) : DicBaseField(pool) {  };
+		DicLongField(DictionaryObjectPool* pool);
 		~DicLongField() {  };
 
-		virtual usdsTypes getType() { return USDS_LONG; }
+		virtual usdsTypes getType() { return USDS_LONG; };
+		virtual const char* getTypeName() { return "long"; };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -79,10 +79,11 @@ namespace usds
 	class DicDoubleField : public DicBaseField
 	{
 	public:
-		DicDoubleField(DictionaryObjectPool* pool) : DicBaseField(pool) {  };
+		DicDoubleField(DictionaryObjectPool* pool);
 		~DicDoubleField() {  };
 
-		virtual usdsTypes getType() { return USDS_DOUBLE; }
+		virtual usdsTypes getType() { return USDS_DOUBLE; };
+		virtual const char* getTypeName() { return "double"; };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -97,10 +98,11 @@ namespace usds
 	class DicUVarintField : public DicBaseField
 	{
 	public:
-		DicUVarintField(DictionaryObjectPool* pool) : DicBaseField(pool) {  };
+		DicUVarintField(DictionaryObjectPool* pool);
 		~DicUVarintField() {  };
 
-		virtual usdsTypes getType() { return USDS_UNSIGNED_VARINT; }
+		virtual usdsTypes getType() { return USDS_UNSIGNED_VARINT; };
+		virtual const char* getTypeName() { return "unsigned varint"; };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -119,10 +121,11 @@ namespace usds
 	class DicArrayField : public DicBaseField
 	{
 	public:
-		DicArrayField(DictionaryObjectPool* pool) : DicBaseField(pool) {  };
+		DicArrayField(DictionaryObjectPool* pool);
 		~DicArrayField() {  };
 
-		virtual usdsTypes getType() { return USDS_ARRAY; }
+		virtual usdsTypes getType() { return USDS_ARRAY; };
+		virtual const char* getTypeName() { return "array"; };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -151,15 +154,18 @@ namespace usds
 	class DicStringField : public DicBaseField
 	{
 	public:
-		DicStringField(DictionaryObjectPool* pool) : DicBaseField(pool) {  };
+		DicStringField(DictionaryObjectPool* pool);
 		~DicStringField() {  };
 
-		virtual usdsTypes getType() { return USDS_STRING; }
+		virtual usdsTypes getType() { return USDS_STRING; };
+		virtual const char* getTypeName() { return "string"; };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
 		void setDefault(const char* value);
 		void setEncode(usdsEncodes encode) throw(...);
+
+		usdsEncodes getEncode() throw(...);
 
 
 	private:

@@ -1,4 +1,5 @@
 #include "USDS Basic\usdsBasicTest.h"
+#include <iostream>
 
 using namespace usds;
 
@@ -17,7 +18,7 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 						   	{								\n\
 								1: struct I					\n\
 								{							\n\
-									1: varint n;			\n\
+									1: unsigned varint n;	\n\
 									2: double s;			\n\
 									3: string(utf-8) g;		\n\
 									4: long t;				\n\
@@ -25,7 +26,7 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 								};							\n\
 								2: root struct S			\n\
 								{							\n\
-									1: varint n;			\n\
+									1: unsigned varint n;	\n\
 									2: int m;				\n\
 									3: long s;				\n\
 									4: long e;				\n\
@@ -33,6 +34,10 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 								};							\n\
 							}";
 		parser->initDictionaryFromText(dict, strlen(dict), USDS_UTF8);
+
+		std::string text;
+		parser->getTextDictionary(USDS_UTF8, &text);
+		std::cout << text << std::endl;
 	}
 	catch (ErrorMessage& msg)
 	{
