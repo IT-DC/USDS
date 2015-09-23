@@ -5,7 +5,7 @@ namespace usds
 {
 	enum usdsTypes
 	{
-		USDS_TAG = 0,
+		USDS_NO_TYPE = 0,
 		USDS_BOOLEAN = 1,
 		USDS_BYTE = 2,
 		USDS_UNSIGNED_BYTE = 3,
@@ -36,7 +36,8 @@ namespace usds
 		USDS_STRING = 28,
 		USDS_LIST = 29,
 		USDS_MAP = 30,
-		USDS_POLYMORPH = 31
+		USDS_POLYMORPH = 31,
+		USDS_TAG = 32
 	};
 
 	enum usdsEncodes
@@ -48,6 +49,9 @@ namespace usds
 		USDS_UTF7 = 5,
 
 	};
+
+	extern const char* typeName(usdsTypes code);
+	extern const char* encodeName(usdsEncodes code);
 
 };
 

@@ -27,12 +27,10 @@ Dictionary::~Dictionary()
 //====================================================================================================================
 void Dictionary::setID(int id, unsigned char major, unsigned char minor) throw (...)
 {
-	clear();
-
 	if (id < 0)
 	{
 		std::wstringstream err;
-		err << L"Dictionary ID must be > 0. Your value: " << id;
+		err << L"Dictionary ID must be >= 0. Your value: " << id;
 		throw ErrorMessage(DICTIONARY_ID_ERROR_VALUE, &err, L"Dictionary::setID");
 	}
 	
@@ -57,23 +55,28 @@ void Dictionary::setEncode(usdsEncodes encode) throw (...)
 //====================================================================================================================
 // Tags construction
 DicStructTag* Dictionary::addStructTag(const char* name, int id, bool root) throw (...)
+try
 {
+	checkTagAttribute(id, name);
 	DicStructTag* tag = objectPool.addStructTag(name, id, root);
-	
-	if (firstTag == 0)
-	{
-		firstTag = tag;
-		lastTag = tag;
-	}
-	else
-	{
-		tag->setPreviousTag(lastTag);
-		lastTag->setNextTag(tag);
-		lastTag = tag;
-	}
+	connectTagToDictionary(tag);
+
+	// update data for index
+	tagNumber++;
+	if (tagMaxID < id)
+		tagMaxID = id;
 
 	return tag;
+}
+catch (ErrorMessage& err)
+{
+	err.addPath(L"Dictionary::addStructTag");
+	throw err;
 };
+
+
+//====================================================================================================================
+// Fields construction
 
 DicBooleanField* Dictionary::addBooleanField(const char* name, int id, bool is_optional) throw (...)
 {
@@ -107,18 +110,58 @@ DicUVarintField* Dictionary::addUVarintField(const char* name, int id, bool is_o
 
 DicArrayField* Dictionary::addArrayField(const char* name, int id, bool is_optional, const char* tag_name) throw (...)
 {
-	DicArrayField* field = objectPool.addArrayField(name, id, is_optional);
+	DicArrayField* field = objectPool.addArrayField(name, id, is_optional, tag_name);
 	return field;
 };
 
-DicStringField* Dictionary::addStringField(const char* name, int id, bool is_optional) throw (...)
+DicStringField* Dictionary::addStringField(const char* name, int id, bool is_optional, usdsEncodes encode) throw (...)
 {
-	DicStringField* field = objectPool.addStringField(name, id, is_optional);
+	DicStringField* field = objectPool.addStringField(name, id, is_optional, encode);
 	return field;
 };
 
+//====================================================================================================================
+// Finalize
 void Dictionary::finalizeDictionary() throw(...)
 {
+	// Tag numeration must be sequentially
+	if (tagMaxID != tagNumber)
+	{
+		std::wstringstream err;
+		err << L"Tag numeration must be sequentially. Tag number: " << tagNumber << ", wrong tag ID: " << tagMaxID;
+		throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"Dictionary::finalizeDictionary");
+	}
+	// Create Tag index
+	tagIndex.reserve(tagNumber);
+	tagIndex.assign(tagNumber, 0);
+	DicBaseTag* tag = firstTag;
+	while (tag != 0)
+	{
+		int id = tag->getID();
+		if (tagIndex[id - 1] != 0)
+		{
+			std::wstringstream err;
+			err << L"Not unique tag ID: " << id;
+			throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"Dictionary::finalizeDictionary");
+		}
+		tagIndex[id - 1] = tag;
+		tag = tag->getNextTag();
+	}
+	// Finalize tags: replace TagName to TagID in Links, check errors
+	tag = firstTag;
+	while (tag != 0)
+	{
+		switch (tag->getType())
+		{
+		case USDS_STRUCT:
+			((DicStructTag*)tag)->finalizeTag(firstTag);
+			break;
+		default:
+			break;
+		}
+
+		tag = tag->getNextTag();
+	}
 
 };
 
@@ -166,6 +209,23 @@ DicBaseTag* Dictionary::getLastTag() throw (...)
 	return lastTag;
 };
 
+int Dictionary::findTagID(const char* name) throw (...)
+{
+	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTagID");
+	
+	DicBaseTag* tag = firstTag;
+	while (tag != 0)
+	{
+		if (strcmp(tag->getName(), name) == 0)
+			return tag->getID();
+		tag = tag->getNextTag();
+	}
+	
+	// if not found
+	return 0;
+};
+
 //====================================================================================================================
 // Dictionary clearing
 //====================================================================================================================
@@ -178,5 +238,44 @@ void Dictionary::clear()
 
 	firstTag = 0;
 	lastTag = 0;
+
+	tagMaxID = 0;
+	tagNumber = 0;
+	tagIndex.clear();
+};
+
+//====================================================================================================================
+// private
+
+void Dictionary::connectTagToDictionary(DicBaseTag* tag)
+{
+	if (firstTag == 0)
+	{
+		firstTag = tag;
+		lastTag = tag;
+	}
+	else
+	{
+		tag->setPreviousTag(lastTag);
+		lastTag->setNextTag(tag);
+		lastTag = tag;
+	}
+};
+
+void Dictionary::checkTagAttribute(int id, const char* name) throw (...)
+{
+	if (findTagID(name) != 0)
+	{
+		std::stringstream err;
+		err << "Tag with name '" << name << "' not unique in dictionary.";
+		throw ErrorMessage(DICTIONARY_TAG_ALREADY_EXISTS, &err, L"Dictionary::checkTagAttribute");
+	}
+
+	if (id <= 0 )
+	{
+		std::wstringstream err;
+		err << L"Tag ID must be in range [1; 2,147,483,647]. Current value:" << id;
+		throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"Dictionary::checkTagAttribute");
+	}
 
 };

@@ -31,7 +31,7 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 									3: long s;				\n\
 									4: long e;				\n\
 									5: array<I> v;			\n\
-								};							\n\
+								}							\n\
 							}";
 		parser->initDictionaryFromText(dict, strlen(dict), USDS_UTF8);
 

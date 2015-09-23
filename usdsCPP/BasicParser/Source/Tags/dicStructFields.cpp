@@ -1,5 +1,6 @@
 #include "tags\dicStructFields.h"
 #include "tags\dicBaseField.h"
+#include "tags\dicBaseTag.h"
 #include "base\usdsBinaryOutput.h"
 #include "tags\dicStructTag.h"
 #include "base\usdsObjectPool.h"
@@ -151,8 +152,58 @@ void DicArrayField::writeToBinary(BinaryOutput* buff) throw (...)
 
 void DicArrayField::clear()
 {
+	elementType = USDS_NO_TYPE;
+	elementTagIDs.clear();
+	elementTagNames.clear();
+	elementDefaultEncode = USDS_NO_ENCODE;
+
+	elementTagID = 0;
+	elementTagName.clear();
 
 };
+
+void DicArrayField::setElementType(const char* tag_name) throw (...)
+{
+	elementType = USDS_TAG;
+	elementTagName = tag_name;
+};
+
+usdsTypes DicArrayField::getElementType() throw (...)
+{
+	if (elementType == USDS_NO_TYPE)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field not initialized", L"DicArrayField::getElementType");
+
+	return elementType;
+};
+
+int DicArrayField::getElementTagID() throw (...)
+{
+	if (elementType == USDS_NO_TYPE)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field isn't initialized", L"DicArrayField::getElementTagID");
+	if (elementType != USDS_TAG)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_ELEMENT_NOT_TAG, L"Array element isn't tag", L"DicArrayField::getElementTagID");
+	if (elementTagID == 0)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_FINISHED, L"Array isn't finished", L"DicArrayField::getElementTagID");
+	
+	return elementTagID;
+};
+
+const char* DicArrayField::getElementTagName() throw (...)
+{
+	if (elementType == USDS_NO_TYPE)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field isn't initialized", L"DicArrayField::getElementTagName");
+	if (elementType != USDS_TAG)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_ELEMENT_NOT_TAG, L"Array element isn't tag", L"DicArrayField::getElementTagName");
+
+	return elementTagName.c_str();
+};
+
+void DicArrayField::finalizeField(DicBaseTag* first_tag) throw (...)
+{
+
+
+};
+
 
 //====================================================================================================================
 // String
@@ -169,10 +220,12 @@ void DicStringField::writeToBinary(BinaryOutput* buff) throw (...)
 
 
 };
+
 void DicStringField::clear()
 {
 	isDefault = false;
 	defaultEncode = USDS_NO_ENCODE;
+
 };
 
 void DicStringField::setDefault(const char* value)

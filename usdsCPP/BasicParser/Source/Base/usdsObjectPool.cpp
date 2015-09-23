@@ -85,17 +85,19 @@ DicUVarintField* DictionaryObjectPool::addUVarintField(const char* name, int id,
 	return object;
 };
 
-DicArrayField* DictionaryObjectPool::addArrayField(const char* name, int id, bool optional) throw(...)
+DicArrayField* DictionaryObjectPool::addArrayField(const char* name, int id, bool optional, const char* tag_name) throw(...)
 {
 	DicArrayField* object = arrayFields.addObject(this);
 	object->init(name, id, optional);
+	object->setElementType(tag_name);
 	return object;
 };
 
-DicStringField* DictionaryObjectPool::addStringField(const char* name, int id, bool optional) throw(...)
+DicStringField* DictionaryObjectPool::addStringField(const char* name, int id, bool optional, usdsEncodes encode) throw(...)
 {
 	DicStringField* object = stringFields.addObject(this);
 	object->init(name, id, optional);
+	object->setEncode(encode);
 	return object;
 };
 

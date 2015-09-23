@@ -10,6 +10,9 @@ void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, Dict
 
 	dict->clear();
 
+	dict->setEncode(encode);
+	
+	// Creating scanner and parser
 	std::stringstream input;
 	std::stringstream output;
 	input << text_dict;
@@ -17,16 +20,17 @@ void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, Dict
 	
 	std::stringstream errors;
 	errors.clear();
-
 	BisonDictionaryTextParser parser(dict, &scanner, &errors);
+
+	// Parse!
 	int ret = parser.parse();
-
-	dict->setEncode(encode);
-
 	if (ret != 0)
 	{
 		dict->clear();
 		throw ErrorMessage(TEXT_DICTIONARY_PARSER_ERROR, &errors, L"DictionaryTextParser::parse");
 	}
+
+	// Finilize dictionary
+	dict->finalizeDictionary();
 
 };

@@ -96,7 +96,7 @@
     <ClCompile Include="Source\Base\usdsBinaryOutput.cpp" />
     <ClCompile Include="Source\Base\usdsDictionary.cpp" />
     <ClCompile Include="Source\Base\usdsErrors.cpp" />
-    <ClCompile Include="Source\Base\usdsObjecPool.cpp" />
+    <ClCompile Include="Source\Base\usdsObjectPool.cpp" />
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc" />
     <ClCompile Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.cpp" />
     <ClCompile Include="Source\Converters\DictionaryTextParser\usdsDictionaryTextParser.cpp" />
@@ -105,6 +105,7 @@
     <ClCompile Include="Source\Tags\dicBaseTag.cpp" />
     <ClCompile Include="Source\Tags\dicStructFields.cpp" />
     <ClCompile Include="Source\Tags\dicStructTag.cpp" />
+    <ClCompile Include="Source\Tags\usdsTypes.cpp" />
     <ClCompile Include="Source\usdsBasicParser.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -82,13 +82,13 @@ dictionary:
 tags: tag | tag tags;
 	
 tag: 
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRUCT FIELD_NAME '{' fields '}' ';'
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRUCT FIELD_NAME '{' fields '}'
 	{
 		DicStructTag* object = dict->addStructTag($4, $1, false);
 		object->setFields($6);
 		delete [] $4;
 	}
-	| UNSIGNED_INTEGER_NUMBER ':' ROOT_TAG TYPE_STRUCT FIELD_NAME '{' fields '}' ';'
+	| UNSIGNED_INTEGER_NUMBER ':' ROOT_TAG TYPE_STRUCT FIELD_NAME '{' fields '}'
 	{
 		DicStructTag* object = dict->addStructTag($5, $1, true);
 		object->setFields($7);
@@ -164,8 +164,7 @@ field_array:
 field_string:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '(' STRING_ENCODE ')' FIELD_NAME ';'
 	{
-		$$ = dict->addStringField($7, $1, false);
-		((DicStringField*)$$)->setEncode($5);
+		$$ = dict->addStringField($7, $1, false, $5);
 		delete [] $7;
 	}
 	;

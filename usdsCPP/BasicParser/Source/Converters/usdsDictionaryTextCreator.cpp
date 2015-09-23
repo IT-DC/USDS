@@ -47,6 +47,9 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
+//========================================================================================
+// Tags
+
 void DictionaryTextCreator::writeSimpleTag(DicBaseTag* tag)
 {
 	textBuff << "\t" << tag->getID() << (tag->getRootStatus() ? ": root " : ": ") << tag->getTypeName() << " " << tag->getName() << ";" << std::endl;
@@ -54,8 +57,9 @@ void DictionaryTextCreator::writeSimpleTag(DicBaseTag* tag)
 
 void DictionaryTextCreator::writeStructTag(DicStructTag* tag)
 {
+	textBuff << "\t" << tag->getID() << (tag->getRootStatus() ? ": root " : ": ") << tag->getTypeName() << " " << tag->getName() << std::endl;
+	textBuff << "\t{" << std::endl;
 	DicBaseField* field = tag->getFirstField();
-	textBuff << std::endl << "\t{" << std::endl;
 	while (field != 0)
 	{
 		switch (field->getType())
@@ -63,12 +67,15 @@ void DictionaryTextCreator::writeStructTag(DicStructTag* tag)
 		case USDS_STRING:
 			writeStringField((DicStringField*)field);
 			break;
+		case USDS_ARRAY:
+			writeArrayField((DicArrayField*)field);
+			break;		
 		default:
 			writeSimpleField(field);
 		}
 			field = field->getNextField();
 	};
-	textBuff << "\t};" << std::endl;
+	textBuff << "\t}" << std::endl;
 
 };
 
@@ -82,8 +89,47 @@ void DictionaryTextCreator::writeSimpleField(DicBaseField* field)
 };
 
 void DictionaryTextCreator::writeStringField(DicStringField* field)
+try
 {
-	textBuff << "\t\t" << field->getID() << ": " << field->getTypeName() << "(" << field->getEncode() << ")" << " " << field->getName() << ";" << std::endl;
+	textBuff << "\t\t" << field->getID() << ": " << field->getTypeName();
+	switch (field->getEncode())
+	{
+	case USDS_NO_ENCODE:
+		break;
+	case USDS_UTF8:
+		textBuff << " (utf-8)";
+		break;
+	default:
+		std::wstringstream err;
+		err << L"Unsupported encode, use USDS_UTF8. Your value: " << field->getEncode();
+		throw ErrorMessage(TEXT_DICTIONARY_CREATOR_UNSUPPORTABLE_ENCODE, &err);
+	};
+	
+	textBuff << " " << field->getName() << ";" << std::endl;
+	
+}
+catch (ErrorMessage& err)
+{
+	err.addPath(L"DictionaryTextCreator::writeStringField");
+	throw err;
+};
 
-
+void DictionaryTextCreator::writeArrayField(DicArrayField* field)
+try
+{
+	textBuff << "\t\t" << field->getID() << ": " << field->getTypeName() << "<";
+	switch (field->getElementType())
+	{
+	case USDS_TAG:
+		textBuff << field->getElementTagName();
+		break;
+	default:
+		textBuff << typeName(field->getElementType());
+	}
+	textBuff << "> " << field->getName() << ";" << std::endl;
+}
+catch (ErrorMessage& err)
+{
+	err.addPath(L"DictionaryTextCreator::writeArrayField");
+	throw err;
 };

@@ -13,6 +13,7 @@ namespace usds
 	class DicBaseTag;
 	class DicBaseField;
 	class DicStringField;
+	class DicArrayField;
 
 	class DictionaryTextCreator
 	{
@@ -30,6 +31,7 @@ namespace usds
 
 		void writeSimpleField(DicBaseField* field);
 		void writeStringField(DicStringField* field);
+		void writeArrayField(DicArrayField* field);
 
 
 	};

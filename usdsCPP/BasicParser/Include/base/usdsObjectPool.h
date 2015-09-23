@@ -1,6 +1,9 @@
 #ifndef USDS_OBJECT_POOL
 #define USDS_OBJECT_POOL
 
+#include "base\usdsErrors.h"
+#include "tags\usdsTypes.h"
+
 #include <list>
 
 namespace usds
@@ -46,8 +49,8 @@ namespace usds
 		DicLongField* addLongField(const char* name, int id, bool optional) throw(...);
 		DicDoubleField* addDoubleField(const char* name, int id, bool optional) throw(...);
 		DicUVarintField* addUVarintField(const char* name, int id, bool optional) throw(...);
-		DicArrayField* addArrayField(const char* name, int id, bool optional) throw(...);
-		DicStringField* addStringField(const char* name, int id, bool optional) throw(...);
+		DicArrayField* addArrayField(const char* name, int id, bool optional, const char* tag_name) throw(...);
+		DicStringField* addStringField(const char* name, int id, bool optional, usdsEncodes encode) throw(...);
 
 		// Clear pool, it does not release memory
 		void clear();

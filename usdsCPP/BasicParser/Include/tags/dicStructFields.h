@@ -13,6 +13,7 @@ namespace usds
 {
 	class DictionaryObjectPool;
 	class BinaryOutput;
+	class DicBaseTag;
 
 	//====================================================================================================================
 	// Simple types
@@ -25,7 +26,7 @@ namespace usds
 		~DicBooleanField() {  };
 
 		virtual usdsTypes getType() { return USDS_BOOLEAN; };
-		virtual const char* getTypeName() { return "boolean"; };
+		virtual const char* getTypeName() { return typeName(USDS_BOOLEAN); };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -45,7 +46,7 @@ namespace usds
 		~DicIntField() {  };
 
 		virtual usdsTypes getType() { return USDS_INT; };
-		virtual const char* getTypeName() { return "int"; };
+		virtual const char* getTypeName() { return typeName(USDS_INT); };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -64,7 +65,7 @@ namespace usds
 		~DicLongField() {  };
 
 		virtual usdsTypes getType() { return USDS_LONG; };
-		virtual const char* getTypeName() { return "long"; };
+		virtual const char* getTypeName() { return typeName(USDS_LONG); };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -83,7 +84,7 @@ namespace usds
 		~DicDoubleField() {  };
 
 		virtual usdsTypes getType() { return USDS_DOUBLE; };
-		virtual const char* getTypeName() { return "double"; };
+		virtual const char* getTypeName() { return typeName(USDS_DOUBLE); };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -102,7 +103,7 @@ namespace usds
 		~DicUVarintField() {  };
 
 		virtual usdsTypes getType() { return USDS_UNSIGNED_VARINT; };
-		virtual const char* getTypeName() { return "unsigned varint"; };
+		virtual const char* getTypeName() { return typeName(USDS_UNSIGNED_VARINT); };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
@@ -125,25 +126,34 @@ namespace usds
 		~DicArrayField() {  };
 
 		virtual usdsTypes getType() { return USDS_ARRAY; };
-		virtual const char* getTypeName() { return "array"; };
+		virtual const char* getTypeName() { return typeName(USDS_ARRAY); };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
+
+		void setElementType(const char* tag_name) throw (...);
+
+		usdsTypes getElementType() throw (...);
+		int getElementTagID() throw (...);
+		const char* getElementTagName() throw (...);
+
+		void finalizeField(DicBaseTag* first_tag) throw (...);
 
 	private:
 		int arraySize;
 		
-		// if it's polymorph array
-		bool isPolymorhp;
-		std::vector<int> tagIDs;
-		
-		//if it isn't polymorph
+		// simple type, USDS_STRING, USDS_TAG or USDS_POLYMORPH
 		usdsTypes elementType;
+		
+		// if it's polymorph array (USDS_POLYMORPH)
+		std::vector<int> elementTagIDs;
+		std::vector<std::string> elementTagNames;
 
-		// if elements is string
-		usdsEncodes defaultEncode;
+		// if elements is USDS_STRING
+		usdsEncodes elementDefaultEncode;
 
-		// if elements is other tag
-		int tagID;
+		// if elements is USDS_TAG
+		int elementTagID;
+		std::string elementTagName;
 
 	};
 
@@ -158,7 +168,7 @@ namespace usds
 		~DicStringField() {  };
 
 		virtual usdsTypes getType() { return USDS_STRING; };
-		virtual const char* getTypeName() { return "string"; };
+		virtual const char* getTypeName() { return typeName(USDS_STRING); };
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 

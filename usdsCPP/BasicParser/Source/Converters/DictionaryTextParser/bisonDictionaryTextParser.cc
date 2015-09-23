@@ -485,9 +485,9 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 86 "bisonDictionaryTextParser.y"
     {
-		DicStructTag* object = dict->addStructTag((yysemantic_stack_[(8) - (4)].stringVal), (yysemantic_stack_[(8) - (1)].intVal), false);
-		object->setFields((yysemantic_stack_[(8) - (6)].fieldVal));
-		delete [] (yysemantic_stack_[(8) - (4)].stringVal);
+		DicStructTag* object = dict->addStructTag((yysemantic_stack_[(7) - (4)].stringVal), (yysemantic_stack_[(7) - (1)].intVal), false);
+		object->setFields((yysemantic_stack_[(7) - (6)].fieldVal));
+		delete [] (yysemantic_stack_[(7) - (4)].stringVal);
 	}
     break;
 
@@ -495,9 +495,9 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 92 "bisonDictionaryTextParser.y"
     {
-		DicStructTag* object = dict->addStructTag((yysemantic_stack_[(9) - (5)].stringVal), (yysemantic_stack_[(9) - (1)].intVal), true);
-		object->setFields((yysemantic_stack_[(9) - (7)].fieldVal));
-		delete [] (yysemantic_stack_[(9) - (5)].stringVal);
+		DicStructTag* object = dict->addStructTag((yysemantic_stack_[(8) - (5)].stringVal), (yysemantic_stack_[(8) - (1)].intVal), true);
+		object->setFields((yysemantic_stack_[(8) - (7)].fieldVal));
+		delete [] (yysemantic_stack_[(8) - (5)].stringVal);
 	}
     break;
 
@@ -577,15 +577,14 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 166 "bisonDictionaryTextParser.y"
     {
-		(yyval.fieldVal) = dict->addStringField((yysemantic_stack_[(8) - (7)].stringVal), (yysemantic_stack_[(8) - (1)].intVal), false);
-		((DicStringField*)(yyval.fieldVal))->setEncode((yysemantic_stack_[(8) - (5)].encodeVal));
+		(yyval.fieldVal) = dict->addStringField((yysemantic_stack_[(8) - (7)].stringVal), (yysemantic_stack_[(8) - (1)].intVal), false, (yysemantic_stack_[(8) - (5)].encodeVal));
 		delete [] (yysemantic_stack_[(8) - (7)].stringVal);
 	}
     break;
 
 
 /* Line 670 of lalr1.cc  */
-#line 589 "bisonDictionaryTextParser.cc"
+#line 588 "bisonDictionaryTextParser.cc"
       default:
         break;
       }
@@ -892,10 +891,10 @@ namespace usds {
          7,   -10,    13,    -2,   -19,    11,     0,    -5,     1,   -19,
        2,     3,     4,     6,     3,    -1,   -19,   -19,     9,     5,
       10,     8,    12,    15,    15,    14,    16,    15,   -19,   -19,
-     -19,   -19,   -19,   -19,   -19,    17,    -6,    18,   -19,    19,
-      20,    21,    24,    25,    26,    22,    -3,   -19,   -19,    23,
-      27,    28,    29,    30,    35,    32,   -19,   -19,   -19,   -19,
-     -19,    31,    33,    36,    37,    34,    38,   -19,   -19
+     -19,   -19,   -19,   -19,   -19,    17,    -6,   -19,   -19,   -19,
+      20,    21,    22,    23,    24,    18,    -3,    25,    26,    27,
+      28,    29,    34,    30,   -19,   -19,   -19,   -19,   -19,    19,
+      31,    35,    36,    33,    38,   -19,   -19
   };
 
   /* YYDEFACT[S] -- default reduction number in state S.  Performed when
@@ -907,17 +906,17 @@ namespace usds {
          0,     0,     0,     0,     1,     0,     0,     0,     0,     2,
        0,     0,     0,     0,     4,     0,     3,     5,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     8,    10,    11,
-      12,    13,    14,    15,    16,     0,     0,     0,     9,     0,
-       0,     0,     0,     0,     0,     0,     0,     6,     7,     0,
-       0,     0,     0,     0,     0,     0,    17,    18,    19,    20,
-      21,     0,     0,     0,     0,     0,     0,    22,    23
+      12,    13,    14,    15,    16,     0,     0,     6,     9,     7,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    17,    18,    19,    20,    21,     0,
+       0,     0,     0,     0,     0,    22,    23
   };
 
   /* YYPGOTO[NTERM-NUM].  */
   const signed char
   BisonDictionaryTextParser::yypgoto_[] =
   {
-       -19,   -19,   -19,    43,   -19,   -18,   -19,   -19,   -19,   -19,
+       -19,   -19,   -19,    41,   -19,   -18,   -19,   -19,   -19,   -19,
      -19,   -19,   -19,   -19
   };
 
@@ -938,11 +937,10 @@ namespace usds {
   {
         40,    41,    42,    43,    18,    44,    35,    45,    46,    38,
        1,    19,     3,     4,     5,     6,     7,     9,     8,    12,
-      11,    20,    21,    55,    15,    16,    23,    22,     0,     0,
-      24,    25,     0,     0,    36,    37,    39,    49,    50,    47,
-      48,    51,    52,    53,    56,     0,    54,    62,    57,    58,
-      59,    60,    61,    65,    66,    67,    63,    17,     0,    68,
-      64
+      11,    20,    21,    53,    15,    16,    23,    22,     0,     0,
+      24,    25,     0,     0,    36,    37,    39,    47,    48,    49,
+      50,    51,    52,     0,    61,    60,    54,    55,    56,    57,
+      58,    59,    63,    64,    65,    17,     0,     0,    62,    66
   };
 
   /* YYCHECK.  */
@@ -952,10 +950,9 @@ namespace usds {
          6,     7,     8,     9,     5,    11,    24,    13,    14,    27,
        3,    12,    22,     0,    16,     4,    16,    16,    23,    16,
       18,    12,    17,    26,    20,    19,    18,    17,    -1,    -1,
-      18,    16,    -1,    -1,    20,    19,    19,    17,    17,    21,
-      21,    17,    17,    17,    21,    -1,    24,    15,    21,    21,
-      21,    21,    17,    17,    17,    21,    25,    14,    -1,    21,
-      27
+      18,    16,    -1,    -1,    20,    19,    19,    17,    17,    17,
+      17,    17,    24,    -1,    25,    15,    21,    21,    21,    21,
+      21,    17,    17,    17,    21,    14,    -1,    -1,    27,    21
   };
 
   /* STOS_[STATE-NUM] -- The (internal number of the) accessing
@@ -967,9 +964,9 @@ namespace usds {
       30,    18,    16,    31,    32,    20,    19,    31,     5,    12,
       12,    17,    17,    18,    18,    16,    33,    34,    35,    36,
       37,    38,    39,    40,    41,    33,    20,    19,    33,    19,
-       6,     7,     8,     9,    11,    13,    14,    21,    21,    17,
-      17,    17,    17,    17,    24,    26,    21,    21,    21,    21,
-      21,    17,    15,    25,    27,    17,    17,    21,    21
+       6,     7,     8,     9,    11,    13,    14,    17,    17,    17,
+      17,    17,    24,    26,    21,    21,    21,    21,    21,    17,
+      15,    25,    27,    17,    17,    21,    21
   };
 
 #if DICTIONARY_TEXTDEBUG
@@ -997,7 +994,7 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yyr2_[] =
   {
-         0,     2,     0,    11,     1,     2,     8,     9,     1,     2,
+         0,     2,     0,    11,     1,     2,     7,     8,     1,     2,
        1,     1,     1,     1,     1,     1,     1,     5,     5,     5,
        5,     5,     8,     8
   };
@@ -1026,15 +1023,15 @@ namespace usds {
   {
         29,     0,    -1,    -1,     3,    22,    16,     4,    16,    23,
       16,    30,    18,    31,    19,    -1,    32,    -1,    32,    31,
-      -1,    16,    20,    12,    17,    18,    33,    19,    21,    -1,
-      16,    20,     5,    12,    17,    18,    33,    19,    21,    -1,
-      34,    -1,    34,    33,    -1,    35,    -1,    36,    -1,    37,
-      -1,    38,    -1,    39,    -1,    40,    -1,    41,    -1,    16,
-      20,     6,    17,    21,    -1,    16,    20,     7,    17,    21,
-      -1,    16,    20,     8,    17,    21,    -1,    16,    20,     9,
-      17,    21,    -1,    16,    20,    11,    17,    21,    -1,    16,
-      20,    13,    24,    17,    25,    17,    21,    -1,    16,    20,
-      14,    26,    15,    27,    17,    21,    -1
+      -1,    16,    20,    12,    17,    18,    33,    19,    -1,    16,
+      20,     5,    12,    17,    18,    33,    19,    -1,    34,    -1,
+      34,    33,    -1,    35,    -1,    36,    -1,    37,    -1,    38,
+      -1,    39,    -1,    40,    -1,    41,    -1,    16,    20,     6,
+      17,    21,    -1,    16,    20,     7,    17,    21,    -1,    16,
+      20,     8,    17,    21,    -1,    16,    20,     9,    17,    21,
+      -1,    16,    20,    11,    17,    21,    -1,    16,    20,    13,
+      24,    17,    25,    17,    21,    -1,    16,    20,    14,    26,
+      15,    27,    17,    21,    -1
   };
 
   /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
@@ -1042,9 +1039,9 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yyprhs_[] =
   {
-         0,     0,     3,     4,    16,    18,    21,    30,    40,    42,
-      45,    47,    49,    51,    53,    55,    57,    59,    65,    71,
-      77,    83,    89,    98
+         0,     0,     3,     4,    16,    18,    21,    29,    38,    40,
+      43,    45,    47,    49,    51,    53,    55,    57,    63,    69,
+      75,    81,    87,    96
   };
 
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
@@ -1129,7 +1126,7 @@ namespace usds {
   }
 
   const int BisonDictionaryTextParser::yyeof_ = 0;
-  const int BisonDictionaryTextParser::yylast_ = 60;
+  const int BisonDictionaryTextParser::yylast_ = 59;
   const int BisonDictionaryTextParser::yynnts_ = 14;
   const int BisonDictionaryTextParser::yyempty_ = -2;
   const int BisonDictionaryTextParser::yyfinal_ = 4;
@@ -1144,9 +1141,9 @@ namespace usds {
 #line 16 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 1141 of lalr1.cc  */
-#line 1148 "bisonDictionaryTextParser.cc"
+#line 1145 "bisonDictionaryTextParser.cc"
 /* Line 1142 of lalr1.cc  */
-#line 176 "bisonDictionaryTextParser.y"
+#line 175 "bisonDictionaryTextParser.y"
 
 //=================================================================================================
 

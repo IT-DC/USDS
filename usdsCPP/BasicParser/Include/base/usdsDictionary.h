@@ -7,6 +7,7 @@
 #include "base\usdsObjectPool.h"
 
 #include <string>
+#include <vector>
 
 namespace usds
 {
@@ -39,8 +40,9 @@ namespace usds
 		DicDoubleField* addDoubleField(const char* name, int id, bool is_optional) throw (...);
 		DicUVarintField* addUVarintField(const char* name, int id, bool is_optional) throw (...);
 		DicArrayField* addArrayField(const char* name, int id, bool is_optional, const char* tag_name) throw (...);
-		DicStringField* addStringField(const char* name, int id, bool is_optional) throw (...);
+		DicStringField* addStringField(const char* name, int id, bool is_optional, usdsEncodes encode) throw (...);
 
+		// Replace Tag names to tag ID, check errors
 		void finalizeDictionary() throw(...);
 
 		// Dictionary information
@@ -51,6 +53,10 @@ namespace usds
 		
 		DicBaseTag* getFirstTag() throw (...);
 		DicBaseTag* getLastTag() throw (...);
+
+		// Find Tag ID by Name
+		// return 0 if tag not found
+		int findTagID(const char* name) throw (...);
 
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();
@@ -63,8 +69,16 @@ namespace usds
 
 		DictionaryObjectPool objectPool;
 
+		void connectTagToDictionary(DicBaseTag* tag);
+		void checkTagAttribute(int id, const char* name) throw (...);
+
 		DicBaseTag* firstTag;
 		DicBaseTag* lastTag;
+
+		// tag index
+		int tagMaxID;
+		int tagNumber;
+		std::vector<DicBaseTag*> tagIndex;
 
 	};
 };

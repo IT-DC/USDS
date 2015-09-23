@@ -6,6 +6,8 @@
 
 #include "tags\dicBaseTag.h"
 
+#include <vector>
+
 namespace usds
 {
 	class DicBaseField;
@@ -23,9 +25,10 @@ namespace usds
 		~DicStructTag() { };
 
 		virtual usdsTypes getType() { return USDS_STRUCT; };
-		virtual const char* getTypeName() { return "struct"; };
+		virtual const char* getTypeName() { return typeName(USDS_STRUCT); };
 		virtual void writeToBinary(BinaryOutput* buff) throw(...);
 
+		// add existing fields
 		void setFields(DicBaseField* fields) throw(...);
 
 		DicBaseField* getFirstField();
@@ -48,6 +51,13 @@ namespace usds
 
 		DicArrayField* addArrayField(const char* name, int id, usdsTypes element_type, int size, bool optional) throw(...);
 
+		// Find field ID by Name
+		// return 0 if field not found
+		int findFieldID(const char* name) throw (...);
+
+		// Dictionary finalization
+		void finalizeTag(DicBaseTag* first_tag) throw(...);
+
 	private:
 		// it's executed in DicBaseTag.init()
 		virtual void clear();
@@ -55,6 +65,12 @@ namespace usds
 		DicBaseField* firstField;
 		DicBaseField* lastField;
 
+		void checkFieldAttribute(int id, const char* name) throw (...);
+
+		// field index
+		int fieldMaxID;
+		int fieldNumber;
+		std::vector<DicBaseField*> fieldIndex;
 
 	};
 

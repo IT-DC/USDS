@@ -107,9 +107,6 @@
     <ClCompile Include="Source\Base\usdsBinaryInput.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Base\usdsObjecPool.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Tags\dicBaseTag.cpp">
       <Filter>Source Files\Tags</Filter>
     </ClCompile>
@@ -133,6 +130,12 @@
     </ClCompile>
     <ClCompile Include="Source\Converters\usdsDictionaryTextCreator.cpp">
       <Filter>Source Files\Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Base\usdsObjectPool.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tags\usdsTypes.cpp">
+      <Filter>Source Files\Tags</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
