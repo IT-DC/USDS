@@ -1,9 +1,9 @@
 #include "tags\dicStructFields.h"
 #include "tags\dicBaseField.h"
 #include "tags\dicBaseTag.h"
-#include "base\usdsBinaryOutput.h"
 #include "tags\dicStructTag.h"
-#include "base\usdsObjectPool.h"
+#include "base\usdsBinaryOutput.h"
+#include "base\usdsDictionary.h"
 
 using namespace usds;
 
@@ -12,7 +12,7 @@ using namespace usds;
 //====================================================================================================================
 // Boolean
 
-DicBooleanField::DicBooleanField(DictionaryObjectPool* pool) : DicBaseField(pool)
+DicBooleanField::DicBooleanField()
 {
 
 
@@ -38,7 +38,7 @@ void DicBooleanField::setDefault(bool value)
 //====================================================================================================================
 // Integer
 
-DicIntField::DicIntField(DictionaryObjectPool* pool) : DicBaseField(pool)
+DicIntField::DicIntField()
 {
 
 
@@ -63,7 +63,7 @@ void DicIntField::setDefault(int value)
 //====================================================================================================================
 // Long
 
-DicLongField::DicLongField(DictionaryObjectPool* pool) : DicBaseField(pool)
+DicLongField::DicLongField()
 {
 
 
@@ -88,7 +88,7 @@ void DicLongField::setDefault(long long value)
 //====================================================================================================================
 // Double
 
-DicDoubleField::DicDoubleField(DictionaryObjectPool* pool) : DicBaseField(pool)
+DicDoubleField::DicDoubleField()
 {
 
 
@@ -113,7 +113,7 @@ void DicDoubleField::setDefault(double value)
 //====================================================================================================================
 // Unsigned Varint
 
-DicUVarintField::DicUVarintField(DictionaryObjectPool* pool) : DicBaseField(pool)
+DicUVarintField::DicUVarintField()
 {
 
 
@@ -139,7 +139,7 @@ void DicUVarintField::setDefault(long long value)
 // Array
 //====================================================================================================================
 
-DicArrayField::DicArrayField(DictionaryObjectPool* pool) : DicBaseField(pool)
+DicArrayField::DicArrayField()
 {
 
 
@@ -159,6 +159,8 @@ void DicArrayField::clear()
 
 	elementTagID = 0;
 	elementTagName.clear();
+	elementTagNeedID = false;
+	elementTagNeedName = false;
 
 };
 
@@ -166,6 +168,8 @@ void DicArrayField::setElementType(const char* tag_name) throw (...)
 {
 	elementType = USDS_TAG;
 	elementTagName = tag_name;
+	elementTagNeedID = true;
+	
 };
 
 usdsTypes DicArrayField::getElementType() throw (...)
@@ -182,7 +186,7 @@ int DicArrayField::getElementTagID() throw (...)
 		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field isn't initialized", L"DicArrayField::getElementTagID");
 	if (elementType != USDS_TAG)
 		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_ELEMENT_NOT_TAG, L"Array element isn't tag", L"DicArrayField::getElementTagID");
-	if (elementTagID == 0)
+	if (elementTagID == 0 || elementTagNeedID)
 		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_FINISHED, L"Array isn't finished", L"DicArrayField::getElementTagID");
 	
 	return elementTagID;
@@ -194,12 +198,35 @@ const char* DicArrayField::getElementTagName() throw (...)
 		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field isn't initialized", L"DicArrayField::getElementTagName");
 	if (elementType != USDS_TAG)
 		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_ELEMENT_NOT_TAG, L"Array element isn't tag", L"DicArrayField::getElementTagName");
+	if (elementTagNeedName)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_FINISHED, L"Array isn't finished", L"DicArrayField::getElementTagName");
 
 	return elementTagName.c_str();
 };
 
-void DicArrayField::finalizeField(DicBaseTag* first_tag) throw (...)
+void DicArrayField::finalizeField() throw (...)
 {
+	switch (elementType)
+	{
+	case USDS_TAG:
+		if (elementTagNeedID)
+		{
+			elementTagID = dictionary->findTagID(elementTagName.c_str());
+			if (elementTagID == 0)
+			{
+				std::stringstream msg;
+				msg << "Tag with name '" << elementTagName << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
+				throw ErrorMessage(DIC_STRUCT_FIELD_TAG_NOT_FOUND, &msg, L"DicArrayField::finalizeField");
+			}
+			elementTagNeedID = true;
+		}
+		
+		
+		break;
+	default:
+		break;
+	}
+
 
 
 };
@@ -209,7 +236,7 @@ void DicArrayField::finalizeField(DicBaseTag* first_tag) throw (...)
 // String
 //====================================================================================================================
 
-DicStringField::DicStringField(DictionaryObjectPool* pool) : DicBaseField(pool)
+DicStringField::DicStringField()
 {
 
 

@@ -21,7 +21,7 @@ namespace usds
 	class DicStructTag : public DicBaseTag
 	{
 	public:
-		DicStructTag(DictionaryObjectPool* pull);
+		DicStructTag();
 		~DicStructTag() { };
 
 		virtual usdsTypes getType() { return USDS_STRUCT; };
@@ -56,7 +56,7 @@ namespace usds
 		int findFieldID(const char* name) throw (...);
 
 		// Dictionary finalization
-		void finalizeTag(DicBaseTag* first_tag) throw(...);
+		void finalizeTag() throw(...);
 
 	private:
 		// it's executed in DicBaseTag.init()

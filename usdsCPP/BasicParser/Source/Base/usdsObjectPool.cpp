@@ -1,18 +1,21 @@
 #include "base\usdsObjectPool.h"
 
+#include "base\usdsDictionary.h"
 #include "tags\dicStructTag.h"
 #include "tags\dicStructFields.h"
 
 using namespace usds;
 
-template<typename T_objectPool>
-T_objectPool* TemplateObjectPool<T_objectPool>::addObject(DictionaryObjectPool* pool) throw(...)
+//========================================================================================================
+
+template<class T_classPool>
+T_classPool* TemplateClassPool<T_classPool>::addObject(DictionaryObjectPool* pool) throw(...)
 {
-	T_objectPool* object = 0;
+	T_classPool* object = 0;
 
 	if (lastElement == end())
 	{
-		push_back(T_objectPool(pool));
+		push_back(T_classPool(pool));
 		lastElement = end();
 		object = &(back());
 	}
@@ -25,7 +28,35 @@ T_objectPool* TemplateObjectPool<T_objectPool>::addObject(DictionaryObjectPool* 
 	return object;
 };
 
-template<typename T_objectPool>
+template<class T_classPool>
+void TemplateClassPool<T_classPool>::clearPool() throw(...)
+{
+	lastElement = begin();
+};
+
+//========================================================================================================
+
+template<class T_objectPool>
+T_objectPool* TemplateObjectPool<T_objectPool>::addObject() throw(...)
+{
+	T_objectPool* object = 0;
+
+	if (lastElement == end())
+	{
+		push_back(T_objectPool());
+		lastElement = end();
+		object = &(back());
+	}
+	else
+	{
+		object = &(*lastElement);
+		lastElement++;
+	}
+
+	return object;
+};
+
+template<class T_objectPool>
 void TemplateObjectPool<T_objectPool>::clearPool() throw(...)
 {
 	lastElement = begin();
@@ -36,6 +67,7 @@ void TemplateObjectPool<T_objectPool>::clearPool() throw(...)
 DictionaryObjectPool::DictionaryObjectPool()
 {
 
+
 };
 
 DictionaryObjectPool::~DictionaryObjectPool()
@@ -43,67 +75,80 @@ DictionaryObjectPool::~DictionaryObjectPool()
 
 };
 
-DicStructTag* DictionaryObjectPool::addStructTag(const char* name, int id, bool root) throw(...)
+//========================================================================================================
+Dictionary* DictionaryObjectPool::addDictionary()
 {
-	DicStructTag* object = structTags.addObject(this);
-	object->init(name, id, root);
+	Dictionary* object = dictionaryPool.addObject(this);
+	object->clear();
+	return object;
+
+};
+
+//========================================================================================================
+DicStructTag* DictionaryObjectPool::addStructTag(Dictionary* dict, const char* name, int id, bool root) throw(...)
+{
+	DicStructTag* object = structTags.addObject();
+	object->init(dict, name, id, root);
 	return object;
 };
 
-DicBooleanField* DictionaryObjectPool::addBooleanField(const char* name, int id, bool optional) throw(...)
+//========================================================================================================
+
+DicBooleanField* DictionaryObjectPool::addBooleanField(Dictionary* dict, const char* name, int id, bool optional) throw(...)
 {
-	DicBooleanField* object = booleanFields.addObject(this);
-	object->init(name, id, optional);
+	DicBooleanField* object = booleanFields.addObject();
+	object->init(dict, name, id, optional);
 	return object;
 };
 
-DicIntField* DictionaryObjectPool::addIntField(const char* name, int id, bool optional) throw(...)
+DicIntField* DictionaryObjectPool::addIntField(Dictionary* dict, const char* name, int id, bool optional) throw(...)
 {
-	DicIntField* object = intFields.addObject(this);
-	object->init(name, id, optional);
+	DicIntField* object = intFields.addObject();
+	object->init(dict, name, id, optional);
 	return object;
 };
 
-DicLongField* DictionaryObjectPool::addLongField(const char* name, int id, bool optional) throw(...)
+DicLongField* DictionaryObjectPool::addLongField(Dictionary* dict, const char* name, int id, bool optional) throw(...)
 {
-	DicLongField* object = longFields.addObject(this);
-	object->init(name, id, optional);
+	DicLongField* object = longFields.addObject();
+	object->init(dict, name, id, optional);
 	return object;
 };
 
-DicDoubleField* DictionaryObjectPool::addDoubleField(const char* name, int id, bool optional) throw(...)
+DicDoubleField* DictionaryObjectPool::addDoubleField(Dictionary* dict, const char* name, int id, bool optional) throw(...)
 {
-	DicDoubleField* object = doubleFields.addObject(this);
-	object->init(name, id, optional);
+	DicDoubleField* object = doubleFields.addObject();
+	object->init(dict, name, id, optional);
 	return object;
 };
 
-DicUVarintField* DictionaryObjectPool::addUVarintField(const char* name, int id, bool optional) throw(...)
+DicUVarintField* DictionaryObjectPool::addUVarintField(Dictionary* dict, const char* name, int id, bool optional) throw(...)
 {
-	DicUVarintField* object = uVarintFields.addObject(this);
-	object->init(name, id, optional);
+	DicUVarintField* object = uVarintFields.addObject();
+	object->init(dict, name, id, optional);
 	return object;
 };
 
-DicArrayField* DictionaryObjectPool::addArrayField(const char* name, int id, bool optional, const char* tag_name) throw(...)
+DicArrayField* DictionaryObjectPool::addArrayField(Dictionary* dict, const char* name, int id, bool optional) throw(...)
 {
-	DicArrayField* object = arrayFields.addObject(this);
-	object->init(name, id, optional);
-	object->setElementType(tag_name);
+	DicArrayField* object = arrayFields.addObject();
+	object->init(dict, name, id, optional);
 	return object;
 };
 
-DicStringField* DictionaryObjectPool::addStringField(const char* name, int id, bool optional, usdsEncodes encode) throw(...)
+DicStringField* DictionaryObjectPool::addStringField(Dictionary* dict, const char* name, int id, bool optional) throw(...)
 {
-	DicStringField* object = stringFields.addObject(this);
-	object->init(name, id, optional);
-	object->setEncode(encode);
+	DicStringField* object = stringFields.addObject();
+	object->init(dict, name, id, optional);
 	return object;
 };
 
 void DictionaryObjectPool::clear()
 {
+	dictionaryPool.clearPool();
+	
 	structTags.clearPool();
+	
 	booleanFields.clearPool();
 	intFields.clearPool();
 	longFields.clearPool();

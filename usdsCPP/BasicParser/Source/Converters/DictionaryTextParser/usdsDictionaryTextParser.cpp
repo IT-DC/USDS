@@ -3,15 +3,11 @@
 
 using namespace usds;
 
-void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, Dictionary* dict) throw (...)
+void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, BasicParser* usdsParser) throw (...)
 {
 	if (encode != USDS_UTF8)
 		throw ErrorMessage(TEXT_DICTIONARY_PARSER_UNSUPPORTABLE_ENCODE, L"Unsupportable encode for text dictionary", L"DictionaryTextParser::parse");
 
-	dict->clear();
-
-	dict->setEncode(encode);
-	
 	// Creating scanner and parser
 	std::stringstream input;
 	std::stringstream output;
@@ -20,17 +16,11 @@ void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, Dict
 	
 	std::stringstream errors;
 	errors.clear();
-	BisonDictionaryTextParser parser(dict, &scanner, &errors);
+	BisonDictionaryTextParser textParser(usdsParser, &scanner, &errors, encode, 0);
 
 	// Parse!
-	int ret = parser.parse();
+	int ret = textParser.parse();
 	if (ret != 0)
-	{
-		dict->clear();
 		throw ErrorMessage(TEXT_DICTIONARY_PARSER_ERROR, &errors, L"DictionaryTextParser::parse");
-	}
-
-	// Finilize dictionary
-	dict->finalizeDictionary();
 
 };

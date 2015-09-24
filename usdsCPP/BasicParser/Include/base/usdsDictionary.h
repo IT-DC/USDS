@@ -4,8 +4,6 @@
 #include "base\usdsErrors.h"
 #include "tags\usdsTypes.h"
 
-#include "base\usdsObjectPool.h"
-
 #include <string>
 #include <vector>
 
@@ -20,11 +18,12 @@ namespace usds
 	class DicArrayField;
 	class DicStringField;
 	class DicBaseTag;
+	class DictionaryObjectPool;
 	
 	class Dictionary
 	{
 	public:
-		Dictionary();
+		Dictionary(DictionaryObjectPool* pool);
 		~Dictionary();
 
 		// Dictionary construction
@@ -40,7 +39,7 @@ namespace usds
 		DicDoubleField* addDoubleField(const char* name, int id, bool is_optional) throw (...);
 		DicUVarintField* addUVarintField(const char* name, int id, bool is_optional) throw (...);
 		DicArrayField* addArrayField(const char* name, int id, bool is_optional, const char* tag_name) throw (...);
-		DicStringField* addStringField(const char* name, int id, bool is_optional, usdsEncodes encode) throw (...);
+		DicStringField* addStringField(const char* name, int id, bool is_optional) throw (...);
 
 		// Replace Tag names to tag ID, check errors
 		void finalizeDictionary() throw(...);
@@ -55,7 +54,7 @@ namespace usds
 		DicBaseTag* getLastTag() throw (...);
 
 		// Find Tag ID by Name
-		// return 0 if tag not found
+		// returns 0 if tag not found
 		int findTagID(const char* name) throw (...);
 
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
@@ -67,7 +66,7 @@ namespace usds
 		int dictionaryID;
 		usdsEncodes dictionaryEncode;
 
-		DictionaryObjectPool objectPool;
+		DictionaryObjectPool* objectPool;
 
 		void connectTagToDictionary(DicBaseTag* tag);
 		void checkTagAttribute(int id, const char* name) throw (...);

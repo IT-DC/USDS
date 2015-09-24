@@ -1,5 +1,6 @@
 #include "base\usdsDictionary.h"
 
+#include "base\usdsObjectPool.h"
 #include "base\usdsBinaryInput.h"
 #include "base\usdsBinaryOutput.h"
 #include "tags\dicStructTag.h"
@@ -7,18 +8,13 @@
 
 using namespace usds;
 
-Dictionary::Dictionary()
+Dictionary::Dictionary(DictionaryObjectPool* pool)
 {
-	dictionaryEncode = USDS_NO_ENCODE;
-	dictionaryID = -1;
-
-	firstTag = 0;
-	lastTag = 0;
+	objectPool = pool;
 };
 
 Dictionary::~Dictionary()
 {
-
 
 };
 
@@ -58,7 +54,7 @@ DicStructTag* Dictionary::addStructTag(const char* name, int id, bool root) thro
 try
 {
 	checkTagAttribute(id, name);
-	DicStructTag* tag = objectPool.addStructTag(name, id, root);
+	DicStructTag* tag = objectPool->addStructTag(this, name, id, root);
 	connectTagToDictionary(tag);
 
 	// update data for index
@@ -80,43 +76,44 @@ catch (ErrorMessage& err)
 
 DicBooleanField* Dictionary::addBooleanField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicBooleanField* field = objectPool.addBooleanField(name, id, is_optional);
+	DicBooleanField* field = objectPool->addBooleanField(this, name, id, is_optional);
 	return field;
 };
 
 DicIntField* Dictionary::addIntField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicIntField* field = objectPool.addIntField(name, id, is_optional);
+	DicIntField* field = objectPool->addIntField(this, name, id, is_optional);
 	return field;
 };
 
 DicLongField* Dictionary::addLongField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicLongField* field = objectPool.addLongField(name, id, is_optional);
+	DicLongField* field = objectPool->addLongField(this, name, id, is_optional);
 	return field;
 };
 
 DicDoubleField* Dictionary::addDoubleField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicDoubleField* field = objectPool.addDoubleField(name, id, is_optional);
+	DicDoubleField* field = objectPool->addDoubleField(this, name, id, is_optional);
 	return field;
 };
 
 DicUVarintField* Dictionary::addUVarintField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicUVarintField* field = objectPool.addUVarintField(name, id, is_optional);
+	DicUVarintField* field = objectPool->addUVarintField(this, name, id, is_optional);
 	return field;
 };
 
 DicArrayField* Dictionary::addArrayField(const char* name, int id, bool is_optional, const char* tag_name) throw (...)
 {
-	DicArrayField* field = objectPool.addArrayField(name, id, is_optional, tag_name);
+	DicArrayField* field = objectPool->addArrayField(this, name, id, is_optional);
+	field->setElementType(tag_name);
 	return field;
 };
 
-DicStringField* Dictionary::addStringField(const char* name, int id, bool is_optional, usdsEncodes encode) throw (...)
+DicStringField* Dictionary::addStringField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicStringField* field = objectPool.addStringField(name, id, is_optional, encode);
+	DicStringField* field = objectPool->addStringField(this, name, id, is_optional);
 	return field;
 };
 
@@ -154,7 +151,7 @@ void Dictionary::finalizeDictionary() throw(...)
 		switch (tag->getType())
 		{
 		case USDS_STRUCT:
-			((DicStructTag*)tag)->finalizeTag(firstTag);
+			((DicStructTag*)tag)->finalizeTag();
 			break;
 		default:
 			break;
@@ -227,15 +224,13 @@ int Dictionary::findTagID(const char* name) throw (...)
 };
 
 //====================================================================================================================
-// Dictionary clearing
+// Dictionary clearing and initialisation
 //====================================================================================================================
 void Dictionary::clear()
 {
 	dictionaryEncode = USDS_NO_ENCODE;
 	dictionaryID = -1;
 	
-	objectPool.clear();
-
 	firstTag = 0;
 	lastTag = 0;
 

@@ -4,9 +4,12 @@
 #include "base\usdsErrors.h"
 #include "tags\usdsTypes.h"
 
-#include "base\usdsDictionary.h"
+#include "base\usdsObjectPool.h"
 #include "base\usdsBinaryInput.h"
 #include "base\usdsBinaryOutput.h"
+#include "base\usdsDictionary.h"
+
+#include <list>
 
 namespace usds
 {
@@ -19,12 +22,20 @@ namespace usds
 		// Settings
 		const unsigned char usdsMajor;
 		const unsigned char usdsMinor;
-		void getDictionaryVersion(unsigned char* major, unsigned char* minor) throw(...);
-		int getDictionaryID() throw(...);
 
 		// Dictionary constructors
-		void initDictionaryFromText(const char* text_dictionary, int size, usdsEncodes encode) throw(...);
-		void getTextDictionary(usdsEncodes encode, std::string* text) throw(...);
+		void addDictionaryFromText(const char* text_dictionary, int size, usdsEncodes encode) throw(...);
+		void CurrentDictionaryToText(usdsEncodes encode, std::string* text) throw(...);
+		// add clean dictionary
+		Dictionary* addNewDictionary(int id, unsigned char major, unsigned char minor) throw(...);
+
+		// Working with several dictionaries
+		void selectDictionary(int id, unsigned char major, unsigned char minor) throw(...);
+
+		// Return parameters for current dictionary
+		int getDictionaryID() throw(...);
+		unsigned char getDictionaryMajor() throw(...);
+		unsigned char getDictionaryMinor() throw(...);
 
 		// Serialization
 		void addHeadToBinary();
@@ -35,12 +46,17 @@ namespace usds
 		// Deserialization
 		void parseBinary(unsigned char* data, int data_size);
 
-		// clean
-		void clean();		// it does not release memory in buffer
+		// clear
+		void clear();		// it does not release memory in buffer
 		void release();		// release all memory
 		
 	private:
-		Dictionary dictionariy;
+
+		Dictionary* findDictionary(int id, unsigned char major, unsigned char minor) throw(...);
+
+		DictionaryObjectPool dictionaryPool;
+		std::list<Dictionary*> dictionaries;
+		Dictionary* currentDictionary;
 		
 		BinaryInput usdsInput;
 		BinaryOutput usdsOutput;

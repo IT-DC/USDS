@@ -1,20 +1,22 @@
 #include "tags\dicBaseTag.h"
 
-#include "base\usdsObjectPool.h"
+#include "base\usdsDictionary.h"
 #include "base\usdsBinaryOutput.h"
 
 using namespace usds;
 
-DicBaseTag::DicBaseTag(DictionaryObjectPool* pull)
+DicBaseTag::DicBaseTag()
 {
-	objectPull = pull;
+	
 };
 
-void DicBaseTag::init(const char* name, int id, bool root) throw(...)
+void DicBaseTag::init(Dictionary* dict, const char* name, int id, bool root) throw(...)
 {
 	nextTag = 0;
 	previousTag = 0;
 	clear();
+
+	dictionary = dict;
 
 	tagName = name;
 	tagID = id;

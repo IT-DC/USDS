@@ -33,10 +33,10 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 									5: array<I> v;			\n\
 								}							\n\
 							}";
-		parser->initDictionaryFromText(dict, strlen(dict), USDS_UTF8);
+		parser->addDictionaryFromText(dict, strlen(dict), USDS_UTF8);
 
 		std::string text;
-		parser->getTextDictionary(USDS_UTF8, &text);
+		parser->CurrentDictionaryToText(USDS_UTF8, &text);
 		std::cout << text << std::endl;
 	}
 	catch (ErrorMessage& msg)

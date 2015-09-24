@@ -9,16 +9,16 @@
 namespace usds
 {
 	class DicStructTag;
-	class DictionaryObjectPool;
+	class Dictionary;
 	class BinaryOutput;
 
 	class DicBaseField
 	{
 	public:
-		DicBaseField(DictionaryObjectPool* pool) { objectPull = pool; };
+		DicBaseField() { };
 		virtual ~DicBaseField() { };
 
-		void init(const char* name, int id, bool optional) throw(...);
+		void init(Dictionary* dict, const char* name, int id, bool optional) throw(...);
 
 		const char* getName() throw(...);
 		int getID() throw(...);
@@ -41,7 +41,7 @@ namespace usds
 		int fieldID;
 		bool isOptional;
 
-		DictionaryObjectPool* objectPull;
+		Dictionary* dictionary;
 
 	private:
 		DicStructTag* parentTag;

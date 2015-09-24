@@ -6,16 +6,16 @@
 
 namespace usds
 {
-	class DictionaryObjectPool;
+	class Dictionary;
 	class BinaryOutput;
 
 	class DicBaseTag
 	{
 	public:
-		DicBaseTag(DictionaryObjectPool* pull);
+		DicBaseTag();
 		virtual ~DicBaseTag() { };
 
-		void init(const char* name, int id, bool root) throw(...);
+		void init(Dictionary* dict, const char* name, int id, bool root) throw(...);
 
 		DicBaseTag* getNextTag() throw(...);
 		DicBaseTag* getPreviousTag() throw(...);
@@ -39,7 +39,7 @@ namespace usds
 		int tagID;
 		bool isRoot;
 		
-		DictionaryObjectPool* objectPull;
+		Dictionary* dictionary;
 
 	private:
 		DicBaseTag* nextTag;

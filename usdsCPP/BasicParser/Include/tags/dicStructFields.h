@@ -22,7 +22,7 @@ namespace usds
 	class DicBooleanField : public DicBaseField
 	{
 	public:
-		DicBooleanField(DictionaryObjectPool* pool);
+		DicBooleanField();
 		~DicBooleanField() {  };
 
 		virtual usdsTypes getType() { return USDS_BOOLEAN; };
@@ -42,7 +42,7 @@ namespace usds
 	class DicIntField : public DicBaseField
 	{
 	public:
-		DicIntField(DictionaryObjectPool* pool);
+		DicIntField();
 		~DicIntField() {  };
 
 		virtual usdsTypes getType() { return USDS_INT; };
@@ -61,7 +61,7 @@ namespace usds
 	class DicLongField : public DicBaseField
 	{
 	public:
-		DicLongField(DictionaryObjectPool* pool);
+		DicLongField();
 		~DicLongField() {  };
 
 		virtual usdsTypes getType() { return USDS_LONG; };
@@ -80,7 +80,7 @@ namespace usds
 	class DicDoubleField : public DicBaseField
 	{
 	public:
-		DicDoubleField(DictionaryObjectPool* pool);
+		DicDoubleField();
 		~DicDoubleField() {  };
 
 		virtual usdsTypes getType() { return USDS_DOUBLE; };
@@ -99,7 +99,7 @@ namespace usds
 	class DicUVarintField : public DicBaseField
 	{
 	public:
-		DicUVarintField(DictionaryObjectPool* pool);
+		DicUVarintField();
 		~DicUVarintField() {  };
 
 		virtual usdsTypes getType() { return USDS_UNSIGNED_VARINT; };
@@ -122,7 +122,7 @@ namespace usds
 	class DicArrayField : public DicBaseField
 	{
 	public:
-		DicArrayField(DictionaryObjectPool* pool);
+		DicArrayField();
 		~DicArrayField() {  };
 
 		virtual usdsTypes getType() { return USDS_ARRAY; };
@@ -136,7 +136,7 @@ namespace usds
 		int getElementTagID() throw (...);
 		const char* getElementTagName() throw (...);
 
-		void finalizeField(DicBaseTag* first_tag) throw (...);
+		void finalizeField() throw (...);
 
 	private:
 		int arraySize;
@@ -154,6 +154,8 @@ namespace usds
 		// if elements is USDS_TAG
 		int elementTagID;
 		std::string elementTagName;
+		bool elementTagNeedID;
+		bool elementTagNeedName;
 
 	};
 
@@ -164,7 +166,7 @@ namespace usds
 	class DicStringField : public DicBaseField
 	{
 	public:
-		DicStringField(DictionaryObjectPool* pool);
+		DicStringField();
 		~DicStringField() {  };
 
 		virtual usdsTypes getType() { return USDS_STRING; };

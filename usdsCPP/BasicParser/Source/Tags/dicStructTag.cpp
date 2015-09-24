@@ -7,7 +7,7 @@
 
 using namespace usds;
 
-DicStructTag::DicStructTag(DictionaryObjectPool* pull) : DicBaseTag(pull)
+DicStructTag::DicStructTag()
 {
 
 
@@ -73,7 +73,7 @@ int DicStructTag::findFieldID(const char* name) throw (...)
 
 };
 
-void DicStructTag::finalizeTag(DicBaseTag* first_tag) throw(...)
+void DicStructTag::finalizeTag() throw(...)
 {
 	// Count fields, check names
 	DicBaseField* field = firstField;
@@ -131,8 +131,8 @@ void DicStructTag::finalizeTag(DicBaseTag* first_tag) throw(...)
 		switch (field->getType())
 		{
 		case USDS_ARRAY:
+			((DicArrayField*)field)->finalizeField();
 			break;
-			((DicArrayField*)field)->finalizeField(first_tag);
 		default:
 			break;
 		}

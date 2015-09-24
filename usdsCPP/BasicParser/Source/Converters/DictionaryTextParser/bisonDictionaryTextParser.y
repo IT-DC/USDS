@@ -1,4 +1,5 @@
 %{
+	#include "usdsBasicParser.h"
 	#include "base\usdsDictionary.h"
 	#include "tags\dicStructFields.h"
 	#include "tags\dicStructTag.h"
@@ -18,9 +19,11 @@
 %locations
 
 
-%parse-param {class Dictionary* dict}
+%parse-param {class BasicParser* usdsParser}
 %parse-param {class FlexDictionaryTextScanner* scanner}
 %parse-param {std::stringstream* error_message}
+%parse-param {usdsEncodes encode}
+%parse-param {Dictionary* dict}
 
 %error-verbose
 
@@ -74,9 +77,14 @@
 dictionary: 
 	USDS_Dictionary_ID '=' UNSIGNED_INTEGER_NUMBER DICTIONARY_VERSION UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER 
 	{
-		dict->setID($3, $5, $7);
+		dict = usdsParser->addNewDictionary($3, $5, $7);
+		dict->setEncode(encode);
 	}
 	'{' tags '}'
+	{
+		// Finilize dictionary
+		dict->finalizeDictionary();
+	}
 	;
 
 tags: tag | tag tags;
@@ -164,7 +172,8 @@ field_array:
 field_string:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '(' STRING_ENCODE ')' FIELD_NAME ';'
 	{
-		$$ = dict->addStringField($7, $1, false, $5);
+		$$ = dict->addStringField($7, $1, false);
+		((DicStringField*)$$)->setEncode($5);
 		delete [] $7;
 	}
 	;
