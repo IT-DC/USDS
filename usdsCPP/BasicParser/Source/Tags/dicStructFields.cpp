@@ -20,6 +20,8 @@ DicBooleanField::DicBooleanField()
 
 void DicBooleanField::writeToBinary(BinaryOutput* buff) throw (...)
 {
+	buff->writeUByte('n');	// No restrictions
+	buff->writeUByte('r');	// Required
 
 };
 
@@ -46,7 +48,8 @@ DicIntField::DicIntField()
 
 void DicIntField::writeToBinary(BinaryOutput* buff) throw (...)
 {
-
+	buff->writeUByte('n');	// No restrictions
+	buff->writeUByte('r');	// Required
 };
 
 void DicIntField::clear()
@@ -71,7 +74,8 @@ DicLongField::DicLongField()
 
 void DicLongField::writeToBinary(BinaryOutput* buff) throw (...)
 {
-
+	buff->writeUByte('n');	// No restrictions
+	buff->writeUByte('r');	// Required
 };
 
 void DicLongField::clear()
@@ -96,7 +100,8 @@ DicDoubleField::DicDoubleField()
 
 void DicDoubleField::writeToBinary(BinaryOutput* buff) throw (...)
 {
-
+	buff->writeUByte('n');	// No restrictions
+	buff->writeUByte('r');	// Required
 };
 
 void DicDoubleField::clear()
@@ -121,7 +126,8 @@ DicUVarintField::DicUVarintField()
 
 void DicUVarintField::writeToBinary(BinaryOutput* buff) throw (...)
 {
-
+	buff->writeUByte('n');	// No restrictions
+	buff->writeUByte('r');	// Required
 };
 
 void DicUVarintField::clear()
@@ -147,7 +153,18 @@ DicArrayField::DicArrayField()
 
 void DicArrayField::writeToBinary(BinaryOutput* buff) throw (...)
 {
+	buff->writeUVarint(elementType);
+	switch (elementType)
+	{
+	case USDS_TAG:
+		buff->writeUVarint(elementTagID);
+		break;
+	default:
+		break;
+	}
 
+	buff->writeUByte('n');	// No restrictions
+	buff->writeUByte('r');	// Required
 };
 
 void DicArrayField::clear()

@@ -21,6 +21,7 @@ namespace usds
 		void init(Dictionary* dict, const char* name, int id, bool optional) throw(...);
 
 		const char* getName() throw(...);
+		size_t getNameSize() throw(...);
 		int getID() throw(...);
 
 		virtual usdsTypes getType() = 0;

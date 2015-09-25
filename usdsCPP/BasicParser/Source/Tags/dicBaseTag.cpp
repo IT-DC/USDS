@@ -49,6 +49,12 @@ const char* DicBaseTag::getName() throw(...)
 	return tagName.c_str();
 };
 
+size_t DicBaseTag::getNameSize() throw(...)
+{
+
+	return tagName.size();
+};
+
 int DicBaseTag::getID() throw(...)
 {
 	return tagID;

@@ -34,10 +34,6 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 								}							\n\
 							}";
 		parser->addDictionaryFromText(dict, strlen(dict), USDS_UTF8);
-
-		std::string text;
-		parser->CurrentDictionaryToText(USDS_UTF8, &text);
-		std::cout << text << std::endl;
 	}
 	catch (ErrorMessage& msg)
 	{
@@ -63,6 +59,23 @@ int UsdsBasicTest::serializationTest()
 {
 	if (parser == 0)
 		return -1;
+
+	try
+	{
+		parser->encode(true, true, true);
+		size_t size = 0;
+		usds_data = parser->getBinary(&size);
+		serialization_data_size = size;
+		parser->clear();
+	}
+	catch (ErrorMessage& msg)
+	{
+		int code = msg.getCode();
+		const char* mess = msg.getFullMessageUTF8();
+		std::cout << "USDS Basic parser did not created!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
+		return -1;
+	};
+
 	/*
 	UsdsTicketSales* handle = parser->addUsdsTicketSales();
 	handle->shiftNumber = TestData->getShiftNumber();
@@ -105,6 +118,24 @@ int UsdsBasicTest::serializationTest()
 
 int UsdsBasicTest::deserializationTest()
 {
+	try
+	{
+
+
+		parser->decode(usds_data, serialization_data_size);
+
+		std::string text_dict;
+		parser->CurrentDictionaryToText(USDS_UTF8, &text_dict);
+		std::cout << text_dict;
+
+	}
+	catch (ErrorMessage& msg)
+	{
+		int code = msg.getCode();
+		const char* mess = msg.getFullMessageUTF8();
+		std::cout << "USDS Basic parser did not created!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
+		return -1;
+	};
 
 	/*
 

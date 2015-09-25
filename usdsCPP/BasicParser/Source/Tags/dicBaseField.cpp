@@ -26,6 +26,12 @@ const char* DicBaseField::getName() throw(...)
 	return fieldName.c_str();
 };
 
+size_t DicBaseField::getNameSize() throw(...)
+{
+
+	return fieldName.size();
+};
+
 int DicBaseField::getID() throw(...)
 {
 

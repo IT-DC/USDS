@@ -37,18 +37,16 @@ namespace usds
 		unsigned char getDictionaryMajor() throw(...);
 		unsigned char getDictionaryMinor() throw(...);
 
-		// Serialization
-		void addHeadToBinary();
-		void addDictionaryToBinary();
-		void addBodyToBinary();
-		void getBinary(unsigned char** data, int* size);
+		// encode
+		void encode(bool with_head, bool with_dictionary, bool with_body) throw(...);
+		const unsigned char* getBinary(size_t* size) throw(...);
 
-		// Deserialization
-		void parseBinary(unsigned char* data, int data_size);
+		// decode
+		void decode(const unsigned char* data, int data_size) throw(...);
 
 		// clear
-		void clear();		// it does not release memory in buffer
-		void release();		// release all memory
+		void clear();		// it does not release memory in buffers
+		void clearBody();
 		
 	private:
 
@@ -61,6 +59,10 @@ namespace usds
 		BinaryInput usdsInput;
 		BinaryOutput usdsOutput;
 
+		// Serialization
+		void addHeadToBinary() throw(...);
+		void addDictionaryToBinary() throw(...);
+		void addBodyToBinary() throw(...);
 	};
 
 };

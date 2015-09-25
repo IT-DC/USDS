@@ -13,25 +13,29 @@ namespace usds
 		BinaryOutput() throw(...);
 		~BinaryOutput();
 
-		void clean();		// it does not release memory in buffer
+		const unsigned char* getBinary(size_t* size) throw(...);
+
+		void clear();		// it does not release memory in buffer
 
 		// serialization
-		inline void writeUVarint(unsigned long long value) throw(...);
-		inline void writeUVarint(unsigned int value) throw(...);
-		inline void writeInt(int value) throw(...);
-		inline void writeLong(long long value) throw(...);
-		inline void writeDouble(double value) throw(...);
-		inline void writeUTF8String(const char* value, int size) throw(...);
-		inline void writeBool(bool value) throw(...);
+		void writeUVarint(unsigned long long value) throw(...);
+		void writeUVarint(unsigned int value) throw(...);
+		void writeUVarint(int value) throw(...);
+		void writeInt(int value) throw(...);
+		void writeLong(long long value) throw(...);
+		void writeDouble(double value) throw(...);
+		void writeUByte(unsigned char value) throw(...);
+		void writeByteArray(void* value, size_t size) throw(...);
+		void writeBool(bool value) throw(...);
 
 	private:
 		// Buffer for USDS output document
-		size_t out_default_doc_size;
-		unsigned char* out_usds_buff;
-		unsigned char* out_buff_last_pos;		// It is a position after last valid position in the Buffer. The Buffer size is buff_last_pos - usds_buff
-		unsigned char* out_buff_current_pos;	// Last claen position in the Buffer. The document size is buff_current_pos - usds_buff
+		size_t defaultDocSize;
+		unsigned char* usdsBuff;
+		unsigned char* buffLastPos;		// It is a position after last valid position in the Buffer. The Buffer size is buffLastPos - usdsBuff
+		unsigned char* buffCurrentPos;	// Last claen position in the Buffer. The document size is buffCurrentPos - usdsBuff
 		
-		inline void checkSize(size_t min_increase) throw(...);
+		void checkSize(size_t min_increase) throw(...);
 
 
 	};

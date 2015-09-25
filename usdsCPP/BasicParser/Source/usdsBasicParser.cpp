@@ -8,7 +8,6 @@ using namespace usds;
 BasicParser::BasicParser() : usdsMajor(1), usdsMinor(0)
 {
 	currentDictionary = 0;
-	dictionaries.clear();
 }
 
 BasicParser::~BasicParser()
@@ -34,6 +33,8 @@ catch (ErrorMessage& msg)
 void BasicParser::CurrentDictionaryToText(usdsEncodes encode, std::string* text) throw(...)
 try
 {
+	if (currentDictionary == 0)
+		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not set");
 	DictionaryTextCreator creator;
 	creator.generate(encode, text, currentDictionary);
 }
@@ -53,9 +54,9 @@ Dictionary* BasicParser::addNewDictionary(int id, unsigned char major, unsigned 
 		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &mess, L"BasicParser::addNewDictionary");
 	}
 	
-	object = dictionaryPool.addDictionary();
-	object->setID(id, major, minor);
+	object = dictionaryPool.dictionaryPool.addObject();
 	dictionaries.push_back(object);
+	object->setID(id, major, minor);
 	currentDictionary = object;
 
 	return object;
@@ -113,16 +114,65 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-
 //====================================================================================================================
+// Encode
 
-void BasicParser::clear()
+void BasicParser::encode(bool with_head, bool with_dictionary, bool with_body) throw(...)
 {
-	dictionaries.clear();
-	currentDictionary = 0;
-	dictionaryPool.clear();
+	clearBody();
+	if (currentDictionary == 0)
+		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not found", L"BasicParser::encode");
+
+	if (with_dictionary)
+	{
+		addHeadToBinary();
+		addDictionaryToBinary();
+	}
+	else
+	{
+		if (with_head)
+			addHeadToBinary();
+	}
+	if (with_body)
+		addBodyToBinary();
 
 };
+
+const unsigned char* BasicParser::getBinary(size_t* size) throw(...)
+{
+	const unsigned char* buff = usdsOutput.getBinary(size);
+	return buff;
+};
+
+//====================================================================================================================
+// Decode
+
+void BasicParser::decode(const unsigned char* data, int data_size) throw(...)
+{
+
+
+};
+
+
+
+//====================================================================================================================
+void BasicParser::clear()
+{
+	currentDictionary = 0;
+	dictionaries.clear();
+	dictionaryPool.clear();
+
+	usdsInput.clear();
+	usdsOutput.clear();
+
+};
+
+void BasicParser::clearBody()
+{
+	usdsInput.clear();
+	usdsOutput.clear();
+};
+
 
 //====================================================================================================================
 // private
@@ -137,5 +187,46 @@ Dictionary* BasicParser::findDictionary(int id, unsigned char major, unsigned ch
 
 	// if not found
 	return 0;
+
+};
+
+// Serialization
+void BasicParser::addHeadToBinary() throw(...)
+try
+{
+	if (currentDictionary == 0)
+		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not found", L"BasicParser::addHeadToBinary");
+
+	unsigned char head[] = { '$', 'S', usdsMajor, usdsMinor };
+	usdsOutput.writeByteArray(head, 4);
+	usdsOutput.writeInt(currentDictionary->getDictionaryID());
+	usdsOutput.writeUByte(currentDictionary->getMajorVersion());
+	usdsOutput.writeUByte(currentDictionary->getMinorVersion());
+}
+catch (ErrorMessage& msg)
+{
+	msg.addPath(L"BasicParser::addHeadToBinary");
+	throw msg;
+};
+
+void BasicParser::addDictionaryToBinary() throw(...)
+try
+{
+	size_t dict_size = 0;
+	const unsigned char* dict_bin = currentDictionary->getBinary(&dict_size);
+	usdsOutput.writeUByte('D'); // dictionary signature
+	usdsOutput.writeUVarint(dict_size);
+	usdsOutput.writeByteArray((void*)dict_bin, dict_size);
+
+}
+catch (ErrorMessage& msg)
+{
+	msg.addPath(L"BasicParser::addDictionaryToBinary");
+	throw msg;
+};
+
+void BasicParser::addBodyToBinary() throw(...)
+{
+
 
 };

@@ -1,6 +1,7 @@
 #include "tags\dicBaseTag.h"
 #include "tags\dicStructTag.h"
 #include "tags\dicStructFields.h"
+#include "base\usdsBinaryOutput.h"
 
 #include <string>
 #include <iostream>
@@ -15,8 +16,22 @@ DicStructTag::DicStructTag()
 
 void DicStructTag::writeToBinary(BinaryOutput* buff) throw(...)
 {
-
-
+	DicBaseField* field = firstField;
+	while (field != 0)
+	{
+		buff->writeUByte('f');
+		buff->writeUVarint(field->getID());
+		size_t size = field->getNameSize();
+		buff->writeUVarint(size);
+		buff->writeByteArray((void*)field->getName(), size);
+		buff->writeUVarint(field->getType());
+		
+		// write specific Field parameters
+		field->writeToBinary(buff);
+		
+		field = field->getNextField();
+	}
+	
 };
 
 void DicStructTag::setFields(DicBaseField* fields) throw(...)

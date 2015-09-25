@@ -16,7 +16,7 @@ private:
 
 	usds::BasicParser* parser;
 
-	unsigned char* usds_data;
+	const unsigned char* usds_data;
 
 };
 

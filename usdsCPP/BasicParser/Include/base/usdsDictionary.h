@@ -3,6 +3,7 @@
 
 #include "base\usdsErrors.h"
 #include "tags\usdsTypes.h"
+#include "base\usdsBinaryOutput.h"
 
 #include <string>
 #include <vector>
@@ -57,6 +58,8 @@ namespace usds
 		// returns 0 if tag not found
 		int findTagID(const char* name) throw (...);
 
+		const unsigned char* getBinary(size_t* size) throw (...);
+
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();
 
@@ -78,6 +81,12 @@ namespace usds
 		int tagMaxID;
 		int tagNumber;
 		std::vector<DicBaseTag*> tagIndex;
+		bool finalized;
+
+		// for serialization
+		BinaryOutput binaryDictionary;
+		bool binaryExists;
+		void encodeDictionary() throw (...);
 
 	};
 };

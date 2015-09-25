@@ -54,7 +54,7 @@ DicStructTag* Dictionary::addStructTag(const char* name, int id, bool root) thro
 try
 {
 	checkTagAttribute(id, name);
-	DicStructTag* tag = objectPool->addStructTag(this, name, id, root);
+	DicStructTag* tag = objectPool->structTags.addObject(this, name, id, root);
 	connectTagToDictionary(tag);
 
 	// update data for index
@@ -76,44 +76,44 @@ catch (ErrorMessage& err)
 
 DicBooleanField* Dictionary::addBooleanField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicBooleanField* field = objectPool->addBooleanField(this, name, id, is_optional);
+	DicBooleanField* field = objectPool->booleanFields.addObject(this, name, id, is_optional);
 	return field;
 };
 
 DicIntField* Dictionary::addIntField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicIntField* field = objectPool->addIntField(this, name, id, is_optional);
+	DicIntField* field = objectPool->intFields.addObject(this, name, id, is_optional);
 	return field;
 };
 
 DicLongField* Dictionary::addLongField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicLongField* field = objectPool->addLongField(this, name, id, is_optional);
+	DicLongField* field = objectPool->longFields.addObject(this, name, id, is_optional);
 	return field;
 };
 
 DicDoubleField* Dictionary::addDoubleField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicDoubleField* field = objectPool->addDoubleField(this, name, id, is_optional);
+	DicDoubleField* field = objectPool->doubleFields.addObject(this, name, id, is_optional);
 	return field;
 };
 
 DicUVarintField* Dictionary::addUVarintField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicUVarintField* field = objectPool->addUVarintField(this, name, id, is_optional);
+	DicUVarintField* field = objectPool->uVarintFields.addObject(this, name, id, is_optional);
 	return field;
 };
 
 DicArrayField* Dictionary::addArrayField(const char* name, int id, bool is_optional, const char* tag_name) throw (...)
 {
-	DicArrayField* field = objectPool->addArrayField(this, name, id, is_optional);
+	DicArrayField* field = objectPool->arrayFields.addObject(this, name, id, is_optional);
 	field->setElementType(tag_name);
 	return field;
 };
 
 DicStringField* Dictionary::addStringField(const char* name, int id, bool is_optional) throw (...)
 {
-	DicStringField* field = objectPool->addStringField(this, name, id, is_optional);
+	DicStringField* field = objectPool->stringFields.addObject(this, name, id, is_optional);
 	return field;
 };
 
@@ -159,6 +159,8 @@ void Dictionary::finalizeDictionary() throw(...)
 
 		tag = tag->getNextTag();
 	}
+
+	finalized = true;
 
 };
 
@@ -224,6 +226,22 @@ int Dictionary::findTagID(const char* name) throw (...)
 };
 
 //====================================================================================================================
+
+const unsigned char* Dictionary::getBinary(size_t* size) throw (...)
+try
+{
+	encodeDictionary();
+	const unsigned char* buff = binaryDictionary.getBinary(size);
+	return buff;
+}
+catch (ErrorMessage& msg)
+{
+	msg.addPath(L"Dictionary::getBinary");
+	throw msg;
+};
+
+
+//====================================================================================================================
 // Dictionary clearing and initialisation
 //====================================================================================================================
 void Dictionary::clear()
@@ -237,6 +255,10 @@ void Dictionary::clear()
 	tagMaxID = 0;
 	tagNumber = 0;
 	tagIndex.clear();
+	finalized = false;
+
+	binaryDictionary.clear();
+	binaryExists = false;
 };
 
 //====================================================================================================================
@@ -273,4 +295,45 @@ void Dictionary::checkTagAttribute(int id, const char* name) throw (...)
 		throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"Dictionary::checkTagAttribute");
 	}
 
+};
+
+void Dictionary::encodeDictionary() throw (...)
+try
+{
+	if (binaryExists)
+		return;
+
+	if (!finalized)
+	{
+		throw ErrorMessage(DICTIONARY_NOT_FINALIZED, L"Dictionary not finalized");
+	}
+
+	// Write text encode
+	binaryDictionary.writeUVarint(unsigned int(dictionaryEncode));
+	
+	// Write tags
+	DicBaseTag* tag = firstTag;
+	while (tag != 0)
+	{
+		if (tag->getRootStatus())
+			binaryDictionary.writeUByte('r');
+		else
+			binaryDictionary.writeUByte('t');
+		binaryDictionary.writeUVarint(tag->getID());
+		size_t size = tag->getNameSize();
+		binaryDictionary.writeUVarint(size);
+		binaryDictionary.writeByteArray((void*)tag->getName(), size);
+		binaryDictionary.writeUVarint(USDS_STRUCT);
+		// write specific Tag parameters
+		tag->writeToBinary(&binaryDictionary);
+		
+		tag = tag->getNextTag();
+	}
+	
+	binaryExists = true;
+}
+catch (ErrorMessage& msg)
+{
+	msg.addPath(L"Dictionary::encodeDictionary");
+	throw msg;
 };

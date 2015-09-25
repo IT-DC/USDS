@@ -26,7 +26,7 @@ void BinaryInput::setBinary(unsigned char* buff, size_t size) throw(...)
 	in_buff_current_pos = in_usds_buff;
 };
 
-void BinaryInput::clean()
+void BinaryInput::clear()
 {
 	in_usds_buff = 0;
 	in_buff_last_pos = 0;

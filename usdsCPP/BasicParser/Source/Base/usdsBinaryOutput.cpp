@@ -4,132 +4,139 @@ using namespace usds;
 
 BinaryOutput::BinaryOutput() throw(...)
 {
-	out_usds_buff = 0;
-	out_default_doc_size = 4096;
+	usdsBuff = 0;
+	defaultDocSize = 4096;
 	try
 	{
-		out_usds_buff = new unsigned char[out_default_doc_size];
+		usdsBuff = new unsigned char[defaultDocSize];
 	}
 	catch (...)
 	{
 		std::wstringstream mess;
-		mess << L"Can't allocate memory for output buffer. The size: " << out_default_doc_size;
+		mess << L"Can't allocate memory for output buffer. The size: " << defaultDocSize;
 		throw ErrorMessage(BIN_OUT_ALLOCATE_ERROR, &mess, L"BinaryOutput::BinaryOutput()");
 	};
-	out_buff_last_pos = out_usds_buff + out_default_doc_size;
-	out_buff_current_pos = out_usds_buff;
+	buffLastPos = usdsBuff + defaultDocSize;
+	buffCurrentPos = usdsBuff;
 
 };
 
 BinaryOutput::~BinaryOutput()
 {
-	if (out_usds_buff != 0)
-		delete[] out_usds_buff;
+	if (usdsBuff != 0)
+		delete[] usdsBuff;
 };
 
-void BinaryOutput::clean()
+void BinaryOutput::clear()
 {
 	// output buffer
-	out_buff_current_pos = out_usds_buff;
+	buffCurrentPos = usdsBuff;
 
 };
 
+const unsigned char* BinaryOutput::getBinary(size_t* size) throw(...)
+{
+	*size = buffCurrentPos - usdsBuff;
+	return usdsBuff;
+};
 
-inline void BinaryOutput::writeUVarint(unsigned long long value) throw(...)
+//==============================================================================================================
+
+void BinaryOutput::writeUVarint(unsigned long long value) throw(...)
 try {
 	checkSize(17);	// 8 bytes - "long long", 9 bytes - shiftes
 
 	// step 1 of 10
-	memcpy(out_buff_current_pos, &value, 8);
-	out_buff_current_pos++;
+	memcpy(buffCurrentPos, &value, 8);
+	buffCurrentPos++;
 	if (value < 128ull)
 		return;
-	out_buff_current_pos[7] = 0;
-	out_buff_current_pos[8] = 0;
+	buffCurrentPos[7] = 0;
+	buffCurrentPos[8] = 0;
 
 	// step 2 of 10
-	*((unsigned long long*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned long long*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128ull * 128ull)
 		return;
 
 	// step 3 of 10
-	*((unsigned long long*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned long long*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128ull * 128ull * 128ull)
 		return;
 
 	// step 4 of 10
-	*((unsigned long long*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned long long*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128ull * 128ull * 128ull * 128ull)
 		return;
 
 	// step 5 of 10
-	*((unsigned long long*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned long long*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128ull * 128ull * 128ull * 128ull * 128ull)
 		return;
 
 	// step 6 of 10
-	*((unsigned long long*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned long long*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128ull * 128ull * 128ull * 128ull * 128ull * 128ull)
 		return;
 
 	// step 7 of 10
-	*((unsigned long long*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned long long*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128ull * 128ull * 128ull * 128ull * 128ull * 128ull * 128ull)
 		return;
 
 	// step 8 of 10
-	*((unsigned long long*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned long long*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128ull * 128ull * 128ull * 128ull * 128ull * 128ull * 128ull * 128ull)
 		return;
 
 	// step 9 of 10
-	*((unsigned long long*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned long long*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128ull * 128ull * 128ull * 128ull * 128ull * 128ull * 128ull * 128ull * 128ull)
 		return;
 
 	// step 10 of 10
-	out_buff_current_pos[0] = 1;
-	out_buff_current_pos++;
+	buffCurrentPos[0] = 1;
+	buffCurrentPos++;
 }
 catch (ErrorMessage& err)
 {
@@ -138,54 +145,54 @@ catch (ErrorMessage& err)
 };
 
 
-inline void BinaryOutput::writeUVarint(unsigned int value) throw(...)
+void BinaryOutput::writeUVarint(unsigned int value) throw(...)
 try {
-	checkSize(8);	// 4 bytes - "unsigned int", 8 bytes - shiftes
+	checkSize(12);	// 4 bytes - "unsigned int", 8 bytes - shiftes
 
 	// step 1 of 5
-	memcpy(out_buff_current_pos, &value, 4);
-	out_buff_current_pos++;
+	memcpy(buffCurrentPos, &value, 4);
+	buffCurrentPos++;
 	if (value < 128u)
 		return;
-	out_buff_current_pos[3] = 0;
+	buffCurrentPos[3] = 0;
 
 	// step 2 of 5
-	*((unsigned int*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned int*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128u * 128u)
 		return;
 
 	// step 3 of 5
-	*((unsigned int*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned int*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128 * 128u * 128u)
 		return;
 
 	// step 4 of 5
-	*((unsigned int*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned int*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	if (value < 128 * 128u * 128u * 128u)
 		return;
 
 	// step 5 of 5
-	*((unsigned int*)out_buff_current_pos) <<= 1;
-	if (*(out_buff_current_pos - 1) & 128)
-		*out_buff_current_pos |= 1;
+	*((unsigned int*)buffCurrentPos) <<= 1;
+	if (*(buffCurrentPos - 1) & 128)
+		*buffCurrentPos |= 1;
 	else
-		*(out_buff_current_pos - 1) |= 128;
-	out_buff_current_pos++;
+		*(buffCurrentPos - 1) |= 128;
+	buffCurrentPos++;
 	
 }
 catch (ErrorMessage& err)
@@ -194,11 +201,31 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-inline void BinaryOutput::writeInt(int value) throw(...)
+void BinaryOutput::writeUVarint(int value) throw(...)
+try
+{
+	if (value < 0)
+	{
+		std::wstringstream msg;
+		msg << L"Value must be > 0. Current value = " << value;
+		throw ErrorMessage(BIN_OUT_NEGATIVE_VALUE, &msg);
+	}
+
+	writeUVarint(unsigned int(value));
+
+}
+catch (ErrorMessage& msg)
+{
+	msg.addPath(L"BinaryOutput::writeUVarint");
+	throw msg;
+};
+
+
+void BinaryOutput::writeInt(int value) throw(...)
 try {
 	checkSize(4);
-	memcpy(out_buff_current_pos, &value, 4);
-	out_buff_current_pos += 4;
+	memcpy(buffCurrentPos, &value, 4);
+	buffCurrentPos += 4;
 }
 catch (ErrorMessage& err)
 {
@@ -206,71 +233,84 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-inline void BinaryOutput::writeLong(long long value) throw(...)
+void BinaryOutput::writeLong(long long value) throw(...)
 try {
 	checkSize(8);
-	memcpy(out_buff_current_pos, &value, 8);
-	out_buff_current_pos += 8;
+	memcpy(buffCurrentPos, &value, 8);
+	buffCurrentPos += 8;
 
 }
 catch (ErrorMessage& err)
 {
-	err.addPath(L"BinaryOutput::writeInt");
+	err.addPath(L"BinaryOutput::writeLong");
 	throw err;
 };
 
-inline void BinaryOutput::writeDouble(double value) throw(...)
+void BinaryOutput::writeDouble(double value) throw(...)
 try {
 	checkSize(8);
-	memcpy(out_buff_current_pos, &value, 8);
-	out_buff_current_pos += 8;
+	memcpy(buffCurrentPos, &value, 8);
+	buffCurrentPos += 8;
 	
 }
 catch (ErrorMessage& err)
 {
-	err.addPath(L"BinaryOutput::writeInt");
+	err.addPath(L"BinaryOutput::writeDouble");
 	throw err;
 };
 
-inline void BinaryOutput::writeUTF8String(const char* value, int size) throw(...)
+void BinaryOutput::writeByteArray(void* value, size_t size) throw(...)
 try {
 	checkSize(size);
 	// add string without NULL-simbol
-	memcpy(out_buff_current_pos, value, size);
-	out_buff_current_pos += size;
+	memcpy(buffCurrentPos, value, size);
+	buffCurrentPos += size;
 
 }
 catch (ErrorMessage& err)
 {
-	err.addPath(L"BinaryOutput::writeInt");
+	err.addPath(L"BinaryOutput::writeByteArray");
 	throw err;
 };
 
-inline void BinaryOutput::writeBool(bool value) throw(...)
+void BinaryOutput::writeUByte(unsigned char value) throw(...)
+try 
+{
+	checkSize(1);
+	*buffCurrentPos = value;
+	buffCurrentPos++;
+}
+catch (ErrorMessage& err)
+{
+	err.addPath(L"BinaryOutput::writeUByte");
+	throw err;
+};
+
+void BinaryOutput::writeBool(bool value) throw(...)
 try {
 	checkSize(1);
 	if (value)
-		*out_buff_current_pos = 255;
+		*buffCurrentPos = 255;
 	else
-		*out_buff_current_pos = 0;
-	out_buff_current_pos++;
+		*buffCurrentPos = 0;
+	buffCurrentPos++;
 
 }
 catch (ErrorMessage& err)
 {
-	err.addPath(L"BinaryOutput::writeInt");
+	err.addPath(L"BinaryOutput::writeBool");
 	throw err;
 };
 
 
-inline void BinaryOutput::checkSize(size_t min_increase)  throw(...)
+void BinaryOutput::checkSize(size_t min_increase)  throw(...)
 {
-	if ((size_t)(out_buff_last_pos - out_buff_current_pos) >= min_increase)
+	if ((size_t)(buffLastPos - buffCurrentPos) >= min_increase)
 		return;
 
 	// New size is +25%, but it have to be more, then size+minIncrease
-	size_t buff_current_size = out_buff_last_pos - out_usds_buff;
-	size_t doc_current_size = out_buff_current_pos - out_usds_buff;
+	size_t buff_current_size = buffLastPos - usdsBuff;
+	size_t doc_current_size = buffCurrentPos - usdsBuff;
 	size_t new_size = buff_current_size + buff_current_size / 4;
 	if ((new_size - buff_current_size) < min_increase)
 		new_size = buff_current_size + min_increase;
@@ -282,7 +322,7 @@ inline void BinaryOutput::checkSize(size_t min_increase)  throw(...)
 	{
 		std::wstringstream mess;
 		mess << L"USDS out buffer owerflow. Old size: " << buff_current_size << L", buffer minimal increas: " << min_increase;
-		throw ErrorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, L"BinaryOutput::resizeArray");
+		throw ErrorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, L"BinaryOutput::checkSize");
 	};
 
 	// Create new array and copy data
@@ -295,14 +335,14 @@ inline void BinaryOutput::checkSize(size_t min_increase)  throw(...)
 	{
 		std::wstringstream mess;
 		mess << L"Can't reallocate memory for output buffer. New size: " << new_size;
-		throw ErrorMessage(BIN_OUT_ALLOCATE_ERROR, &mess, L"BinaryOutput::resizeArray");
+		throw ErrorMessage(BIN_OUT_ALLOCATE_ERROR, &mess, L"BinaryOutput::checkSize");
 	}
 
-	memcpy(new_usds_buff, out_usds_buff, doc_current_size);
+	memcpy(new_usds_buff, usdsBuff, doc_current_size);
 
-	delete[] out_usds_buff;
-	out_usds_buff = new_usds_buff;
-	out_buff_current_pos = out_usds_buff + doc_current_size;
-	out_buff_last_pos = out_usds_buff + new_size;
+	delete[] usdsBuff;
+	usdsBuff = new_usds_buff;
+	buffCurrentPos = usdsBuff + doc_current_size;
+	buffLastPos = usdsBuff + new_size;
 
 };

@@ -24,6 +24,7 @@ namespace usds
 		void setPreviousTag(DicBaseTag* previous);
 
 		const char* getName() throw(...);
+		size_t getNameSize() throw(...);
 		int getID() throw(...);
 		bool getRootStatus() { return isRoot; };
 

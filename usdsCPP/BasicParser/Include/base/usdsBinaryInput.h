@@ -15,7 +15,7 @@ namespace usds
 
 		void setBinary(unsigned char* buff, size_t size) throw(...);
 
-		void clean();		// it does not release memory in buffer
+		void clear();		// it does not release memory in buffer
 
 		// deserialization
 		inline unsigned long long readUVarint() throw(...);
