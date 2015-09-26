@@ -40,7 +40,7 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 		parser = 0;
 		int code = msg.getCode();
 		const char* mess = msg.getFullMessageUTF8();
-		std::cout << "USDS Basic parser did not created!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
+		std::cout << "USDS Basic parser was not created!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
 	};
 
 	usds_data = 0;
@@ -72,7 +72,7 @@ int UsdsBasicTest::serializationTest()
 	{
 		int code = msg.getCode();
 		const char* mess = msg.getFullMessageUTF8();
-		std::cout << "USDS Basic parser did not created!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
+		std::cout << "Serialization was not finished!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
 		return -1;
 	};
 
@@ -133,7 +133,7 @@ int UsdsBasicTest::deserializationTest()
 	{
 		int code = msg.getCode();
 		const char* mess = msg.getFullMessageUTF8();
-		std::cout << "USDS Basic parser did not created!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
+		std::cout << "Deserialization was not finished!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
 		return -1;
 	};
 

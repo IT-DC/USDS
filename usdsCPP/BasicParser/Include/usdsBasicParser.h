@@ -63,6 +63,11 @@ namespace usds
 		void addHeadToBinary() throw(...);
 		void addDictionaryToBinary() throw(...);
 		void addBodyToBinary() throw(...);
+
+		// Deserialization
+		void readHeadfromBinary() throw(...);
+		void readDictionaryfromBinary() throw(...);
+		void readBodyfromBinary() throw(...);
 	};
 
 };
