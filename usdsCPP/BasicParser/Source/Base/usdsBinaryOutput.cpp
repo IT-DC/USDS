@@ -259,7 +259,7 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-void BinaryOutput::writeByteArray(void* value, size_t size) throw(...)
+void BinaryOutput::writeByteArray(const void* value, size_t size) throw(...)
 try {
 	checkSize(size);
 	// add string without NULL-simbol

@@ -4,6 +4,7 @@
 #include "base\usdsErrors.h"
 #include "tags\usdsTypes.h"
 #include "base\usdsBinaryOutput.h"
+#include "base\usdsObjectPool.h"
 
 #include <string>
 #include <vector>
@@ -24,7 +25,7 @@ namespace usds
 	class Dictionary
 	{
 	public:
-		Dictionary(DictionaryObjectPool* pool);
+		Dictionary();
 		~Dictionary();
 
 		// Dictionary construction
@@ -32,15 +33,17 @@ namespace usds
 		void setEncode(usdsEncodes encode) throw (...);
 		
 		// tag construction
-		DicStructTag* addStructTag(const char* name, int id, bool root) throw (...);
+		DicBaseTag* addTag(bool root, int id, const char* name, size_t name_size, usdsTypes tag_type) throw (...);
+		DicStructTag* addStructTag(bool root, int id, const char* name, size_t name_size) throw (...);
+		
 		// field construction
-		DicBooleanField* addBooleanField(const char* name, int id, bool is_optional) throw (...);
-		DicIntField* addIntField(const char* name, int id, bool is_optional) throw (...);
-		DicLongField* addLongField(const char* name, int id, bool is_optional) throw (...);
-		DicDoubleField* addDoubleField(const char* name, int id, bool is_optional) throw (...);
-		DicUVarintField* addUVarintField(const char* name, int id, bool is_optional) throw (...);
-		DicArrayField* addArrayField(const char* name, int id, bool is_optional, const char* tag_name) throw (...);
-		DicStringField* addStringField(const char* name, int id, bool is_optional) throw (...);
+		DicBooleanField* addBooleanField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
+		DicIntField* addIntField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
+		DicLongField* addLongField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
+		DicDoubleField* addDoubleField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
+		DicUVarintField* addUVarintField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
+		DicArrayField* addArrayField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
+		DicStringField* addStringField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
 
 		// Replace Tag names to tag ID, check errors
 		void finalizeDictionary() throw(...);
@@ -57,8 +60,12 @@ namespace usds
 		// Find Tag ID by Name
 		// returns 0 if tag not found
 		int findTagID(const char* name) throw (...);
+		int findTagID(const char* name, size_t name_size) throw (...);
 
+		// encode
 		const unsigned char* getBinary(size_t* size) throw (...);
+		// decode
+		void initFromBinary(const void* buff, size_t size);
 
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();
@@ -69,10 +76,9 @@ namespace usds
 		int dictionaryID;
 		usdsEncodes dictionaryEncode;
 
-		DictionaryObjectPool* objectPool;
-
 		void connectTagToDictionary(DicBaseTag* tag);
 		void checkTagAttribute(int id, const char* name) throw (...);
+		void checkTagAttribute(int id, const char* name, size_t name_size) throw (...);
 
 		DicBaseTag* firstTag;
 		DicBaseTag* lastTag;
@@ -84,9 +90,9 @@ namespace usds
 		bool finalized;
 
 		// for serialization
+		DictionaryObjectPool objectPool;
 		BinaryOutput binaryDictionary;
 		bool binaryExists;
-		void encodeDictionary() throw (...);
 
 	};
 };

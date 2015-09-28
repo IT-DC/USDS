@@ -92,13 +92,13 @@ tags: tag | tag tags;
 tag: 
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRUCT FIELD_NAME '{' fields '}'
 	{
-		DicStructTag* object = dict->addStructTag($4, $1, false);
+		DicStructTag* object = dict->addStructTag(false, $1, $4, 0);
 		object->setFields($6);
 		delete [] $4;
 	}
 	| UNSIGNED_INTEGER_NUMBER ':' ROOT_TAG TYPE_STRUCT FIELD_NAME '{' fields '}'
 	{
-		DicStructTag* object = dict->addStructTag($5, $1, true);
+		DicStructTag* object = dict->addStructTag(true, $1, $5, 0);
 		object->setFields($7);
 		delete [] $5;
 	}
@@ -123,7 +123,7 @@ field: field_boolean | field_int | field_long | field_double | field_uvarint | f
 field_boolean:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_BOOLEAN FIELD_NAME ';'
 	{
-		$$ = dict->addBooleanField($4, $1, false);
+		$$ = dict->addBooleanField($1, $4, 0, false);
 		delete [] $4;
 	}
 	;
@@ -131,7 +131,7 @@ field_boolean:
 field_int:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_INT FIELD_NAME ';'
 	{
-		$$ = dict->addIntField($4, $1, false);
+		$$ = dict->addIntField($1, $4, 0, false);
 		delete [] $4;
 	}
 	;
@@ -139,7 +139,7 @@ field_int:
 field_long:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_LONG FIELD_NAME ';'
 	{
-		$$ = dict->addLongField($4, $1, false);
+		$$ = dict->addLongField($1, $4, 0, false);
 		delete [] $4;
 	}
 	;
@@ -147,7 +147,7 @@ field_long:
 field_double:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE FIELD_NAME ';'
 	{
-		$$ = dict->addDoubleField($4, $1, false);
+		$$ = dict->addDoubleField($1, $4, 0, false);
 		delete [] $4;
 	}
 	;
@@ -155,7 +155,7 @@ field_double:
 field_uvarint:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_UNSIGNED_VARINT FIELD_NAME ';'
 	{
-		$$ = dict->addUVarintField($4, $1, false);
+		$$ = dict->addUVarintField($1, $4, 0, false);
 		delete [] $4;
 	}
 	;
@@ -163,7 +163,8 @@ field_uvarint:
 field_array:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_ARRAY '<' FIELD_NAME '>' FIELD_NAME ';'
 	{
-		$$ = dict->addArrayField($7, $1, false, $5);
+		$$ = dict->addArrayField($1, $7, 0, false);
+		((DicArrayField*)$$)->setElementAsTag($5, 0);
 		delete [] $5;
 		delete [] $7;
 	}
@@ -172,7 +173,7 @@ field_array:
 field_string:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '(' STRING_ENCODE ')' FIELD_NAME ';'
 	{
-		$$ = dict->addStringField($7, $1, false);
+		$$ = dict->addStringField($1, $7, 0, false);
 		((DicStringField*)$$)->setEncode($5);
 		delete [] $7;
 	}

@@ -160,7 +160,7 @@ double BinaryInput::readDouble() throw(...)
 	return value;
 };
 
-void BinaryInput::readByteArray(void* buff, int size) throw(...)
+void BinaryInput::readByteArray(void* buff, size_t size) throw(...)
 {
 	// buffer overflow
 	if (buffCurrentPos > buffLastPos + size)
@@ -172,6 +172,20 @@ void BinaryInput::readByteArray(void* buff, int size) throw(...)
 	memcpy(buff, buffCurrentPos, size);
 	buffCurrentPos += size;
 	
+};
+
+const void* BinaryInput::readByteArray(size_t size) throw(...)
+{
+	// buffer overflow
+	if (buffCurrentPos > buffLastPos + size)
+	{
+		std::wstringstream mess;
+		mess << L"Unexpected end of the buffer, can't read 'string', size: " << size << L" bytes";
+		throw ErrorMessage(BIN_IN_BUFF_OVERFLOW, &mess, L"BinaryInput::readByteArray");
+	};
+	const void* value = (void*)buffCurrentPos;
+	buffCurrentPos += size;
+	return value;
 };
 
 bool BinaryInput::readBool() throw(...)
@@ -205,15 +219,29 @@ unsigned char BinaryInput::readByte() throw(...)
 void BinaryInput::stepBack(size_t size) throw(...)
 {
 	if (buffCurrentPos - size < usdsBuff || size_t(buffCurrentPos) < size)
-		throw ErrorMessage(BIN_IN_BUFF_OVERFLOW, L"Too bis step back", L"BinaryInput::stepBack");
+		throw ErrorMessage(BIN_IN_BUFF_OVERFLOW, L"Too big step back", L"BinaryInput::stepBack");
 
 	buffCurrentPos -= size;
 
 };
 
+void BinaryInput::stepForward(size_t size) throw(...)
+{
+	if (buffCurrentPos > buffLastPos + size)
+	{
+		std::wstringstream mess;
+		mess << L"Too big step forward, size: " << size << L" bytes";
+		throw ErrorMessage(BIN_IN_BUFF_OVERFLOW, &mess, L"BinaryInput::stepForward");
+	};
+	
+	buffCurrentPos += size;
+
+};
+
+
 bool BinaryInput::isEnd() throw(...)
 {
 	if (usdsBuff == 0)
 		throw ErrorMessage(BIN_IN_NULL_BUFF, L"Binary is not initialised", L"BinaryInput::isEnd");
-	return (usdsBuff == buffCurrentPos);
+	return (buffLastPos == buffCurrentPos);
 };

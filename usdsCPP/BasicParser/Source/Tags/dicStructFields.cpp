@@ -181,12 +181,25 @@ void DicArrayField::clear()
 
 };
 
-void DicArrayField::setElementType(const char* tag_name) throw (...)
+void DicArrayField::setElementAsTag(const char* tag_name, size_t name_size) throw (...)
 {
 	elementType = USDS_TAG;
-	elementTagName = tag_name;
+	if (name_size == 0)
+		elementTagName = tag_name;
+	else
+		elementTagName.assign(tag_name, name_size);
+	elementTagID = -1;
 	elementTagNeedID = true;
-	
+	elementTagNeedName = false;
+};
+
+void DicArrayField::setElementAsTag(int tag_id) throw (...)
+{
+	elementType = USDS_TAG;
+	elementTagName.clear();
+	elementTagID = tag_id;
+	elementTagNeedID = false;
+	elementTagNeedName = true;
 };
 
 usdsTypes DicArrayField::getElementType() throw (...)

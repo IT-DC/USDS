@@ -1,8 +1,5 @@
 #include "tags\dicBaseTag.h"
 
-#include "base\usdsDictionary.h"
-#include "base\usdsBinaryOutput.h"
-
 using namespace usds;
 
 DicBaseTag::DicBaseTag()
@@ -10,7 +7,7 @@ DicBaseTag::DicBaseTag()
 	
 };
 
-void DicBaseTag::init(Dictionary* dict, const char* name, int id, bool root) throw(...)
+void DicBaseTag::init(Dictionary* dict, bool root, int id, const char* name, size_t name_size) throw(...)
 {
 	nextTag = 0;
 	previousTag = 0;
@@ -18,7 +15,10 @@ void DicBaseTag::init(Dictionary* dict, const char* name, int id, bool root) thr
 
 	dictionary = dict;
 
-	tagName = name;
+	if (name_size == 0)
+		tagName = name;
+	else
+		tagName.assign(name, name_size);
 	tagID = id;
 	isRoot = root;
 };

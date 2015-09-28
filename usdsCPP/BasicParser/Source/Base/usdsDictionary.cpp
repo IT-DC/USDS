@@ -1,6 +1,5 @@
 #include "base\usdsDictionary.h"
 
-#include "base\usdsObjectPool.h"
 #include "base\usdsBinaryInput.h"
 #include "base\usdsBinaryOutput.h"
 #include "tags\dicStructTag.h"
@@ -8,9 +7,9 @@
 
 using namespace usds;
 
-Dictionary::Dictionary(DictionaryObjectPool* pool)
+Dictionary::Dictionary()
 {
-	objectPool = pool;
+	
 };
 
 Dictionary::~Dictionary()
@@ -50,11 +49,12 @@ void Dictionary::setEncode(usdsEncodes encode) throw (...)
 
 //====================================================================================================================
 // Tags construction
-DicStructTag* Dictionary::addStructTag(const char* name, int id, bool root) throw (...)
+DicStructTag* Dictionary::addStructTag(bool root, int id, const char* name, size_t name_size) throw (...)
 try
 {
-	checkTagAttribute(id, name);
-	DicStructTag* tag = objectPool->structTags.addObject(this, name, id, root);
+	checkTagAttribute(id, name, name_size);
+	DicStructTag* tag = objectPool.structTags.addObject();
+	tag->init(this, root, id, name, name_size);
 	connectTagToDictionary(tag);
 
 	// update data for index
@@ -70,50 +70,76 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
+DicBaseTag* Dictionary::addTag(bool root, int id, const char* name, size_t name_size, usdsTypes tag_type) throw (...)
+try
+{
+	switch (tag_type)
+	{
+	case USDS_STRUCT:
+		return addStructTag(root, id, name, name_size);
+
+	default:
+		std::wstringstream msg;
+		msg << L"Unsupported type '" << tag_type << "'";
+		throw ErrorMessage(DICTIONARY_UNSUPPORTABLE_TYPE, &msg);
+	}
+	return 0;
+}
+catch (ErrorMessage& err)
+{
+	err.addPath(L"Dictionary::addTag");
+	throw err;
+};
 
 //====================================================================================================================
 // Fields construction
 
-DicBooleanField* Dictionary::addBooleanField(const char* name, int id, bool is_optional) throw (...)
+DicBooleanField* Dictionary::addBooleanField(int id, const char* name, size_t name_size, bool is_optional) throw (...)
 {
-	DicBooleanField* field = objectPool->booleanFields.addObject(this, name, id, is_optional);
+	DicBooleanField* field = objectPool.booleanFields.addObject();
+	field->init(this, id, name, name_size, is_optional);
 	return field;
 };
 
-DicIntField* Dictionary::addIntField(const char* name, int id, bool is_optional) throw (...)
+DicIntField* Dictionary::addIntField(int id, const char* name, size_t name_size, bool is_optional) throw (...)
 {
-	DicIntField* field = objectPool->intFields.addObject(this, name, id, is_optional);
+	DicIntField* field = objectPool.intFields.addObject();
+	field->init(this, id, name, name_size, is_optional);
 	return field;
 };
 
-DicLongField* Dictionary::addLongField(const char* name, int id, bool is_optional) throw (...)
+DicLongField* Dictionary::addLongField(int id, const char* name, size_t name_size, bool is_optional) throw (...)
 {
-	DicLongField* field = objectPool->longFields.addObject(this, name, id, is_optional);
+	DicLongField* field = objectPool.longFields.addObject();
+	field->init(this, id, name, name_size, is_optional);
 	return field;
 };
 
-DicDoubleField* Dictionary::addDoubleField(const char* name, int id, bool is_optional) throw (...)
+DicDoubleField* Dictionary::addDoubleField(int id, const char* name, size_t name_size, bool is_optional) throw (...)
 {
-	DicDoubleField* field = objectPool->doubleFields.addObject(this, name, id, is_optional);
+	DicDoubleField* field = objectPool.doubleFields.addObject();
+	field->init(this, id, name, name_size, is_optional);
 	return field;
 };
 
-DicUVarintField* Dictionary::addUVarintField(const char* name, int id, bool is_optional) throw (...)
+DicUVarintField* Dictionary::addUVarintField(int id, const char* name, size_t name_size, bool is_optional) throw (...)
 {
-	DicUVarintField* field = objectPool->uVarintFields.addObject(this, name, id, is_optional);
+	DicUVarintField* field = objectPool.uVarintFields.addObject();
+	field->init(this, id, name, name_size, is_optional);
 	return field;
 };
 
-DicArrayField* Dictionary::addArrayField(const char* name, int id, bool is_optional, const char* tag_name) throw (...)
+DicArrayField* Dictionary::addArrayField(int id, const char* name, size_t name_size, bool is_optional) throw (...)
 {
-	DicArrayField* field = objectPool->arrayFields.addObject(this, name, id, is_optional);
-	field->setElementType(tag_name);
+	DicArrayField* field = objectPool.arrayFields.addObject();
+	field->init(this, id, name, name_size, is_optional);
 	return field;
 };
 
-DicStringField* Dictionary::addStringField(const char* name, int id, bool is_optional) throw (...)
+DicStringField* Dictionary::addStringField(int id, const char* name, size_t name_size, bool is_optional) throw (...)
 {
-	DicStringField* field = objectPool->stringFields.addObject(this, name, id, is_optional);
+	DicStringField* field = objectPool.stringFields.addObject();
+	field->init(this, id, name, name_size, is_optional);
 	return field;
 };
 
@@ -225,18 +251,127 @@ int Dictionary::findTagID(const char* name) throw (...)
 	return 0;
 };
 
-//====================================================================================================================
+int Dictionary::findTagID(const char* name, size_t name_size) throw (...)
+{
+	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTagID");
 
+	DicBaseTag* tag = firstTag;
+	while (tag != 0)
+	{
+		if (strncmp(tag->getName(), name, name_size) == 0)
+			return tag->getID();
+		tag = tag->getNextTag();
+	}
+
+	// if not found
+	return 0;
+};
+
+//====================================================================================================================
+// encode
 const unsigned char* Dictionary::getBinary(size_t* size) throw (...)
 try
 {
-	encodeDictionary();
+	if (!binaryExists)
+	{
+		if (!finalized)
+		{
+			throw ErrorMessage(DICTIONARY_NOT_FINALIZED, L"Dictionary not finalized");
+		}
+
+		// Write text encode
+		binaryDictionary.writeUVarint(unsigned int(dictionaryEncode));
+
+		// Write tags
+		DicBaseTag* tag = firstTag;
+		while (tag != 0)
+		{
+			if (tag->getRootStatus())
+				binaryDictionary.writeUByte('r');
+			else
+				binaryDictionary.writeUByte('t');
+			binaryDictionary.writeUVarint(tag->getID());
+			size_t size = tag->getNameSize();
+			binaryDictionary.writeUVarint(size);
+			binaryDictionary.writeByteArray((void*)tag->getName(), size);
+			binaryDictionary.writeUVarint(USDS_STRUCT);
+			// write specific Tag parameters
+			tag->writeToBinary(&binaryDictionary);
+
+			tag = tag->getNextTag();
+		}
+
+		binaryExists = true;
+	}
+
 	const unsigned char* buff = binaryDictionary.getBinary(size);
 	return buff;
 }
 catch (ErrorMessage& msg)
 {
 	msg.addPath(L"Dictionary::getBinary");
+	throw msg;
+};
+
+//====================================================================================================================
+// decode
+void Dictionary::initFromBinary(const void* buff, size_t size)
+try
+{
+	BinaryInput input_buff;
+	input_buff.setBinary((const unsigned char*)buff, size);
+
+	// read text encode
+	int encode;
+	input_buff.readUVarint(&encode);
+	setEncode((usdsEncodes)encode);
+
+	// read tags
+	while (!input_buff.isEnd())
+	{
+		// read signature
+		unsigned char signature = input_buff.readByte();
+		switch (signature)
+		{
+		case 't':
+		case 'r':
+			{
+				// read main attributes
+				int tag_id;
+				input_buff.readUVarint(&tag_id);
+				size_t name_size;
+				input_buff.readUVarint(&name_size);
+				const void* name = input_buff.readByteArray(name_size);
+				int tag_type;
+				input_buff.readUVarint(&tag_type);
+				DicBaseTag* tag = addTag(((signature == 'r') ? true : false), tag_id, (const char*)name, name_size, (usdsTypes)tag_type);
+				// read specific attributes
+				tag->initFromBinary(&input_buff);
+				// update data for indexes
+				tagNumber++;
+				if (tagMaxID < tag_id)
+					tagMaxID = tag_id;
+				break;
+			}
+		default:
+			std::wstringstream msg;
+			msg << L"Unexpected signature '" << signature << L"'";
+			throw ErrorMessage(DICTIONARY_UNKNOWN_FORMAT, &msg);
+		};
+	};
+
+	// check errors, create indexes
+	finalizeDictionary();
+
+	// binary input == binary output
+	binaryDictionary.writeByteArray(buff, size);
+	binaryExists = true;
+
+}
+catch (ErrorMessage& msg)
+{
+	msg.addPath(L"Dictionary::initFromBinary");
 	throw msg;
 };
 
@@ -279,9 +414,9 @@ void Dictionary::connectTagToDictionary(DicBaseTag* tag)
 	}
 };
 
-void Dictionary::checkTagAttribute(int id, const char* name) throw (...)
+void Dictionary::checkTagAttribute(int id, const char* name, size_t name_size) throw (...)
 {
-	if (findTagID(name) != 0)
+	if (findTagID(name, name_size) != 0)
 	{
 		std::stringstream err;
 		err << "Tag with name '" << name << "' not unique in dictionary.";
@@ -297,43 +432,20 @@ void Dictionary::checkTagAttribute(int id, const char* name) throw (...)
 
 };
 
-void Dictionary::encodeDictionary() throw (...)
-try
+void Dictionary::checkTagAttribute(int id, const char* name) throw (...)
 {
-	if (binaryExists)
-		return;
-
-	if (!finalized)
+	if (findTagID(name) != 0)
 	{
-		throw ErrorMessage(DICTIONARY_NOT_FINALIZED, L"Dictionary not finalized");
+		std::stringstream err;
+		err << "Tag with name '" << name << "' not unique in dictionary.";
+		throw ErrorMessage(DICTIONARY_TAG_ALREADY_EXISTS, &err, L"Dictionary::checkTagAttribute");
 	}
 
-	// Write text encode
-	binaryDictionary.writeUVarint(unsigned int(dictionaryEncode));
-	
-	// Write tags
-	DicBaseTag* tag = firstTag;
-	while (tag != 0)
+	if (id <= 0)
 	{
-		if (tag->getRootStatus())
-			binaryDictionary.writeUByte('r');
-		else
-			binaryDictionary.writeUByte('t');
-		binaryDictionary.writeUVarint(tag->getID());
-		size_t size = tag->getNameSize();
-		binaryDictionary.writeUVarint(size);
-		binaryDictionary.writeByteArray((void*)tag->getName(), size);
-		binaryDictionary.writeUVarint(USDS_STRUCT);
-		// write specific Tag parameters
-		tag->writeToBinary(&binaryDictionary);
-		
-		tag = tag->getNextTag();
+		std::wstringstream err;
+		err << L"Tag ID must be in range [1; 2,147,483,647]. Current value:" << id;
+		throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"Dictionary::checkTagAttribute");
 	}
-	
-	binaryExists = true;
-}
-catch (ErrorMessage& msg)
-{
-	msg.addPath(L"Dictionary::encodeDictionary");
-	throw msg;
+
 };

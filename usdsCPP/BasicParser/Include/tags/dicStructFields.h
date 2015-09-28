@@ -130,7 +130,8 @@ namespace usds
 		virtual void writeToBinary(BinaryOutput* buff) throw (...);
 		virtual void clear();
 
-		void setElementType(const char* tag_name) throw (...);
+		void setElementAsTag(const char* tag_name, size_t name_size) throw (...);
+		void setElementAsTag(int tag_id) throw (...);
 
 		usdsTypes getElementType() throw (...);
 		int getElementTagID() throw (...);

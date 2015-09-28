@@ -498,7 +498,7 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 94 "bisonDictionaryTextParser.y"
     {
-		DicStructTag* object = dict->addStructTag((yysemantic_stack_[(7) - (4)].stringVal), (yysemantic_stack_[(7) - (1)].intVal), false);
+		DicStructTag* object = dict->addStructTag(false, (yysemantic_stack_[(7) - (1)].intVal), (yysemantic_stack_[(7) - (4)].stringVal), 0);
 		object->setFields((yysemantic_stack_[(7) - (6)].fieldVal));
 		delete [] (yysemantic_stack_[(7) - (4)].stringVal);
 	}
@@ -508,7 +508,7 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 100 "bisonDictionaryTextParser.y"
     {
-		DicStructTag* object = dict->addStructTag((yysemantic_stack_[(8) - (5)].stringVal), (yysemantic_stack_[(8) - (1)].intVal), true);
+		DicStructTag* object = dict->addStructTag(true, (yysemantic_stack_[(8) - (1)].intVal), (yysemantic_stack_[(8) - (5)].stringVal), 0);
 		object->setFields((yysemantic_stack_[(8) - (7)].fieldVal));
 		delete [] (yysemantic_stack_[(8) - (5)].stringVal);
 	}
@@ -535,7 +535,7 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 125 "bisonDictionaryTextParser.y"
     {
-		(yyval.fieldVal) = dict->addBooleanField((yysemantic_stack_[(5) - (4)].stringVal), (yysemantic_stack_[(5) - (1)].intVal), false);
+		(yyval.fieldVal) = dict->addBooleanField((yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0, false);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
@@ -544,7 +544,7 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 133 "bisonDictionaryTextParser.y"
     {
-		(yyval.fieldVal) = dict->addIntField((yysemantic_stack_[(5) - (4)].stringVal), (yysemantic_stack_[(5) - (1)].intVal), false);
+		(yyval.fieldVal) = dict->addIntField((yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0, false);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
@@ -553,7 +553,7 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 141 "bisonDictionaryTextParser.y"
     {
-		(yyval.fieldVal) = dict->addLongField((yysemantic_stack_[(5) - (4)].stringVal), (yysemantic_stack_[(5) - (1)].intVal), false);
+		(yyval.fieldVal) = dict->addLongField((yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0, false);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
@@ -562,7 +562,7 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 149 "bisonDictionaryTextParser.y"
     {
-		(yyval.fieldVal) = dict->addDoubleField((yysemantic_stack_[(5) - (4)].stringVal), (yysemantic_stack_[(5) - (1)].intVal), false);
+		(yyval.fieldVal) = dict->addDoubleField((yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0, false);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
@@ -571,7 +571,7 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 157 "bisonDictionaryTextParser.y"
     {
-		(yyval.fieldVal) = dict->addUVarintField((yysemantic_stack_[(5) - (4)].stringVal), (yysemantic_stack_[(5) - (1)].intVal), false);
+		(yyval.fieldVal) = dict->addUVarintField((yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0, false);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
@@ -580,7 +580,8 @@ namespace usds {
 /* Line 670 of lalr1.cc  */
 #line 165 "bisonDictionaryTextParser.y"
     {
-		(yyval.fieldVal) = dict->addArrayField((yysemantic_stack_[(8) - (7)].stringVal), (yysemantic_stack_[(8) - (1)].intVal), false, (yysemantic_stack_[(8) - (5)].stringVal));
+		(yyval.fieldVal) = dict->addArrayField((yysemantic_stack_[(8) - (1)].intVal), (yysemantic_stack_[(8) - (7)].stringVal), 0, false);
+		((DicArrayField*)(yyval.fieldVal))->setElementAsTag((yysemantic_stack_[(8) - (5)].stringVal), 0);
 		delete [] (yysemantic_stack_[(8) - (5)].stringVal);
 		delete [] (yysemantic_stack_[(8) - (7)].stringVal);
 	}
@@ -588,9 +589,9 @@ namespace usds {
 
   case 23:
 /* Line 670 of lalr1.cc  */
-#line 174 "bisonDictionaryTextParser.y"
+#line 175 "bisonDictionaryTextParser.y"
     {
-		(yyval.fieldVal) = dict->addStringField((yysemantic_stack_[(8) - (7)].stringVal), (yysemantic_stack_[(8) - (1)].intVal), false);
+		(yyval.fieldVal) = dict->addStringField((yysemantic_stack_[(8) - (1)].intVal), (yysemantic_stack_[(8) - (7)].stringVal), 0, false);
 		((DicStringField*)(yyval.fieldVal))->setEncode((yysemantic_stack_[(8) - (5)].encodeVal));
 		delete [] (yysemantic_stack_[(8) - (7)].stringVal);
 	}
@@ -598,7 +599,7 @@ namespace usds {
 
 
 /* Line 670 of lalr1.cc  */
-#line 602 "bisonDictionaryTextParser.cc"
+#line 603 "bisonDictionaryTextParser.cc"
       default:
         break;
       }
@@ -1064,7 +1065,7 @@ namespace usds {
   {
          0,    79,    79,    78,    90,    90,    93,    99,   110,   114,
      121,   121,   121,   121,   121,   121,   121,   124,   132,   140,
-     148,   156,   164,   173
+     148,   156,   164,   174
   };
 
   // Print the state stack on the debug stream.
@@ -1155,9 +1156,9 @@ namespace usds {
 #line 17 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 1141 of lalr1.cc  */
-#line 1159 "bisonDictionaryTextParser.cc"
+#line 1160 "bisonDictionaryTextParser.cc"
 /* Line 1142 of lalr1.cc  */
-#line 184 "bisonDictionaryTextParser.y"
+#line 185 "bisonDictionaryTextParser.y"
 
 //=================================================================================================
 

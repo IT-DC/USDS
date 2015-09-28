@@ -18,7 +18,7 @@ namespace usds
 		DicBaseField() { };
 		virtual ~DicBaseField() { };
 
-		void init(Dictionary* dict, const char* name, int id, bool optional) throw(...);
+		void init(Dictionary* dict, int id, const char* name, size_t name_size, bool optional) throw(...);
 
 		const char* getName() throw(...);
 		size_t getNameSize() throw(...);

@@ -27,6 +27,7 @@ namespace usds
 		virtual usdsTypes getType() { return USDS_STRUCT; };
 		virtual const char* getTypeName() { return typeName(USDS_STRUCT); };
 		virtual void writeToBinary(BinaryOutput* buff) throw(...);
+		virtual void initFromBinary(BinaryInput* buff) throw(...);
 
 		// add existing fields
 		void setFields(DicBaseField* fields) throw(...);

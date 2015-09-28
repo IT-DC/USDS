@@ -2,6 +2,7 @@
 #include "tags\dicStructTag.h"
 #include "tags\dicStructFields.h"
 #include "base\usdsBinaryOutput.h"
+#include "base\usdsBinaryInput.h"
 
 #include <string>
 #include <iostream>
@@ -33,6 +34,15 @@ void DicStructTag::writeToBinary(BinaryOutput* buff) throw(...)
 	}
 	
 };
+
+void DicStructTag::initFromBinary(BinaryInput* buff) throw(...)
+{
+	// read fields
+	
+
+
+};
+
 
 void DicStructTag::setFields(DicBaseField* fields) throw(...)
 {

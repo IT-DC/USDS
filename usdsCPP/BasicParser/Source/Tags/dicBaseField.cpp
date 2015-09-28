@@ -5,7 +5,7 @@
 
 using namespace usds;
 
-void DicBaseField::init(Dictionary* dict, const char* name, int id, bool optional) throw(...)
+void DicBaseField::init(Dictionary* dict, int id, const char* name, size_t name_size, bool optional) throw(...)
 {
 	parentTag = 0;
 	nextField = 0;
@@ -14,7 +14,10 @@ void DicBaseField::init(Dictionary* dict, const char* name, int id, bool optiona
 
 	dictionary = dict;
 
-	fieldName = name;
+	if (name_size == 0)
+		fieldName = name;
+	else
+		fieldName.assign(name, name_size);
 	fieldID = id;
 	isOptional = optional;
 

@@ -8,6 +8,7 @@ namespace usds
 {
 	class Dictionary;
 	class BinaryOutput;
+	class BinaryInput;
 
 	class DicBaseTag
 	{
@@ -15,7 +16,7 @@ namespace usds
 		DicBaseTag();
 		virtual ~DicBaseTag() { };
 
-		void init(Dictionary* dict, const char* name, int id, bool root) throw(...);
+		void init(Dictionary* dict, bool root, int id, const char* name, size_t name_size) throw(...);
 
 		DicBaseTag* getNextTag() throw(...);
 		DicBaseTag* getPreviousTag() throw(...);
@@ -30,7 +31,11 @@ namespace usds
 
 		virtual usdsTypes getType() = 0;
 		virtual const char* getTypeName() = 0;
+		
+		// encode
 		virtual void writeToBinary(BinaryOutput* buff) throw(...) = 0;
+		// decode
+		virtual void initFromBinary(BinaryInput* buff) throw(...) = 0;
 
 	protected:
 		// it's executed in init()

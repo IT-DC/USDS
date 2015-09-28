@@ -24,11 +24,13 @@ namespace usds
 		int readInt() throw(...);
 		long long readLong() throw(...);
 		double readDouble() throw(...);
-		void readByteArray(void* buff, int size) throw(...);
+		void readByteArray(void* buff, size_t size) throw(...);
+		const void* readByteArray(size_t size) throw(...);
 		bool readBool() throw(...);
 		unsigned char readByte() throw(...);
 
 		void stepBack(size_t size) throw(...);
+		void stepForward(size_t size) throw(...);
 
 		bool isEnd() throw(...);
 

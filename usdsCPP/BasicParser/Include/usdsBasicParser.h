@@ -52,7 +52,9 @@ namespace usds
 
 		Dictionary* findDictionary(int id, unsigned char major, unsigned char minor) throw(...);
 
-		DictionaryObjectPool dictionaryPool;
+		// Object pool of Dictionaries
+		TemplateObjectPool<Dictionary> dictionaryPool;
+		// All existing dictionary
 		std::list<Dictionary*> dictionaries;
 		Dictionary* currentDictionary;
 		
@@ -66,7 +68,7 @@ namespace usds
 
 		// Deserialization
 		void readHeadfromBinary() throw(...);
-		void readDictionaryfromBinary() throw(...);
+		void readDictionaryfromBinary(int id, unsigned char major, unsigned char minor) throw(...);
 		void readBodyfromBinary() throw(...);
 	};
 
