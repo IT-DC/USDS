@@ -23,10 +23,10 @@ try
 
 	textBuff << "USDS Dictionary ID=" << dict->getDictionaryID() << " v." << int(dict->getMajorVersion()) << "." << int(dict->getMinorVersion()) << std::endl;
 	textBuff << "{" << std::endl;
-	DicBaseTag* tag = dict->getFirstTag();
 	// get all tags
-	while (tag != 0)
+	for (int tag_id = 1; tag_id <= dict->getTagNumber(); tag_id++)
 	{
+		DicBaseTag* tag = dict->getTag(tag_id);
 		switch (tag->getType())
 		{
 		case USDS_STRUCT:
@@ -35,7 +35,6 @@ try
 		default:
 			writeSimpleTag(tag);
 		}
-		tag = tag->getNextTag();
 	}
 	textBuff << "}";
 

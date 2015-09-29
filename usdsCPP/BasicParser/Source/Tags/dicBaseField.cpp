@@ -5,14 +5,14 @@
 
 using namespace usds;
 
-void DicBaseField::init(Dictionary* dict, int id, const char* name, size_t name_size, bool optional) throw(...)
+void DicBaseField::init(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool optional) throw(...)
 {
-	parentTag = 0;
 	nextField = 0;
 	previousField = 0;
 	clear();
 
 	dictionary = dict;
+	parentTag = tag;
 
 	if (name_size == 0)
 		fieldName = name;

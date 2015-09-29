@@ -32,19 +32,9 @@ namespace usds
 		void setID(int id, unsigned char major, unsigned char minor) throw (...);
 		void setEncode(usdsEncodes encode) throw (...);
 		
-		// tag construction
-		DicBaseTag* addTag(bool root, int id, const char* name, size_t name_size, usdsTypes tag_type) throw (...);
-		DicStructTag* addStructTag(bool root, int id, const char* name, size_t name_size) throw (...);
-		
-		// field construction
-		DicBooleanField* addBooleanField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
-		DicIntField* addIntField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
-		DicLongField* addLongField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
-		DicDoubleField* addDoubleField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
-		DicUVarintField* addUVarintField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
-		DicArrayField* addArrayField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
-		DicStringField* addStringField(int id, const char* name, size_t name_size, bool is_optional) throw (...);
-
+		// construction
+		DicBaseTag* addTag(usdsTypes tag_type, bool root, int id, const char* name, size_t name_size) throw (...);
+		DicBaseField* addField(usdsTypes field_type, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional) throw (...);
 		// Replace Tag names to tag ID, check errors
 		void finalizeDictionary() throw(...);
 
@@ -62,6 +52,11 @@ namespace usds
 		int findTagID(const char* name) throw (...);
 		int findTagID(const char* name, size_t name_size) throw (...);
 
+		// Get tag by ID
+		// returns 0 if tag not found
+		DicBaseTag* getTag(int id) throw (...);
+		int getTagNumber() throw (...);
+
 		// encode
 		const unsigned char* getBinary(size_t* size) throw (...);
 		// decode
@@ -76,12 +71,9 @@ namespace usds
 		int dictionaryID;
 		usdsEncodes dictionaryEncode;
 
-		void connectTagToDictionary(DicBaseTag* tag);
-		void checkTagAttribute(int id, const char* name) throw (...);
-		void checkTagAttribute(int id, const char* name, size_t name_size) throw (...);
-
 		DicBaseTag* firstTag;
 		DicBaseTag* lastTag;
+		void connectTagToDictionary(DicBaseTag* tag);
 
 		// tag index
 		int tagMaxID;

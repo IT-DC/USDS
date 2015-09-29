@@ -3,6 +3,7 @@
 #include "tags\dicStructFields.h"
 #include "base\usdsBinaryOutput.h"
 #include "base\usdsBinaryInput.h"
+#include "base\usdsDictionary.h"
 
 #include <string>
 #include <iostream>
@@ -17,9 +18,9 @@ DicStructTag::DicStructTag()
 
 void DicStructTag::writeToBinary(BinaryOutput* buff) throw(...)
 {
-	DicBaseField* field = firstField;
-	while (field != 0)
+	for (int i = 0; i < fieldNumber; i++)
 	{
+		DicBaseField* field = fieldIndex[i];
 		buff->writeUByte('f');
 		buff->writeUVarint(field->getID());
 		size_t size = field->getNameSize();
@@ -29,8 +30,6 @@ void DicStructTag::writeToBinary(BinaryOutput* buff) throw(...)
 		
 		// write specific Field parameters
 		field->writeToBinary(buff);
-		
-		field = field->getNextField();
 	}
 	
 };
@@ -38,7 +37,25 @@ void DicStructTag::writeToBinary(BinaryOutput* buff) throw(...)
 void DicStructTag::initFromBinary(BinaryInput* buff) throw(...)
 {
 	// read fields
-	
+	unsigned char signature = buff->readByte();
+	while (signature == 'f')
+	{
+		int field_id;
+		buff->readUVarint(&field_id);
+		size_t name_size;
+		buff->readUVarint(&name_size);
+		const void* name = buff->readByteArray(name_size);
+		int field_type;
+		buff->readUVarint(&field_type);
+		DicBaseField* field = dictionary->addField((usdsTypes)field_type, this, field_id, (const char*)name, name_size, false);
+		field->initFromBinary(buff);
+
+		if (buff->isEnd())
+			return;
+		signature = buff->readByte();
+	}
+	// return Signature to the binary
+	buff->stepBack(1);
 
 
 };
@@ -70,17 +87,6 @@ DicBaseField* DicStructTag::getLastField()
 {
 
 	return lastField;
-};
-
-DicIntField* DicStructTag::addIntField(const char* name, int id, bool optional) throw(...)
-{
-
-	return 0;
-};
-DicIntField* DicStructTag::addIntField(const char* name, int id, int default_value) throw(...)
-{
-
-	return 0;
 };
 
 int DicStructTag::findFieldID(const char* name) throw (...)
@@ -150,9 +156,9 @@ void DicStructTag::finalizeTag() throw(...)
 	}
 
 	// Finalize fields: replace TagName to TagID in Links
-	field = firstField;
-	while (field != 0)
+	for (int i = 0; i < fieldNumber; i++)
 	{
+		field = fieldIndex[i];
 		switch (field->getType())
 		{
 		case USDS_ARRAY:
@@ -161,10 +167,8 @@ void DicStructTag::finalizeTag() throw(...)
 		default:
 			break;
 		}
-		field = field->getNextField();
 	}
-
-
+	
 };
 
 
@@ -180,19 +184,3 @@ void DicStructTag::clear()
 
 };
 
-void DicStructTag::checkFieldAttribute(int id, const char* name) throw (...)
-{
-	if (findFieldID(name) != 0)
-	{
-		std::stringstream err;
-		err << "Field with name '" << name << "' already exists in tag ID = " << tagID;
-		throw ErrorMessage(DIC_STRUCT_TAG_FIELD_ALREADY_EXISTS, &err, L"DicStructTag::checkFieldAttribute");
-	}
-
-	if (id <= 0 || id > 2147483647)
-	{
-		std::wstringstream err;
-		err << L"Field ID must be in range [1; 2,147,483,647]. Current value:" << id;
-		throw ErrorMessage(DIC_STRUCT_TAG_FIELD_ID_ERROR_VALUE, &err, L"DicStructTag::checkFieldAttribute");
-	}
-};

@@ -35,6 +35,7 @@ int BinaryInput::readUVarint(unsigned long long* value) throw(...)
 {
 	int step = 0;
 	unsigned long long buf = 0;
+	*value = 0;
 	while (true)
 	{
 		// buffer overflow
@@ -65,6 +66,7 @@ int BinaryInput::readUVarint(unsigned int* value) throw(...)
 {
 	int step = 0;
 	int buf = 0;
+	*value = 0;
 	while (true)
 	{
 		// buffer overflow
@@ -95,6 +97,7 @@ int BinaryInput::readUVarint(int* value) throw(...)
 {
 	int step = 0;
 	int buf = 0;
+	*value = 0;
 	while (true)
 	{
 		// buffer overflow

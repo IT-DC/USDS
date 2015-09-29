@@ -66,8 +66,6 @@ namespace usds
 		DicBaseField* firstField;
 		DicBaseField* lastField;
 
-		void checkFieldAttribute(int id, const char* name) throw (...);
-
 		// field index
 		int fieldMaxID;
 		int fieldNumber;

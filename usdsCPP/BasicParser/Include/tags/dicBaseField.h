@@ -18,7 +18,7 @@ namespace usds
 		DicBaseField() { };
 		virtual ~DicBaseField() { };
 
-		void init(Dictionary* dict, int id, const char* name, size_t name_size, bool optional) throw(...);
+		void init(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool optional) throw(...);
 
 		const char* getName() throw(...);
 		size_t getNameSize() throw(...);
@@ -27,6 +27,7 @@ namespace usds
 		virtual usdsTypes getType() = 0;
 		virtual const char* getTypeName() = 0;
 		virtual void writeToBinary(BinaryOutput* buff) throw (...) = 0;
+		virtual void initFromBinary(BinaryInput* buff) throw (...) = 0;
 		virtual void clear() = 0;
 
 		DicBaseField* getNextField() throw (...);
