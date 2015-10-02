@@ -27,6 +27,9 @@ namespace usds
 		DicBaseField* getFirstField();
 		DicBaseField* getLastField();
 
+		DicBaseField* getField(int id) throw (...);
+		int getFieldNumber() throw (...);
+
 		// Find field ID by Name
 		// return 0 if field not found
 		int findFieldID(const char* name) throw (...);

@@ -74,6 +74,20 @@ DicBaseField* DicStructTag::getLastField()
 	return lastField;
 };
 
+DicBaseField* DicStructTag::getField(int id) throw (...)
+{
+	if (id > fieldNumber)
+		return 0;
+
+	return fieldIndex[id-1];
+};
+
+int DicStructTag::getFieldNumber() throw (...)
+{
+
+	return fieldNumber;
+};
+
 int DicStructTag::findFieldID(const char* name) throw (...)
 {
 	DicBaseField* field = firstField;

@@ -7,38 +7,38 @@ namespace usds
 		const char* typeNames[] =
 		{
 			"NO TYPE",
-			"boolean",
-			"byte",
-			"unsigned byte",
-			"short",
-			"unsigned short",
-			"bigendian short",
-			"bigendian unsigned short",
-			"int",
-			"unsigned int",
-			"bigendian int",
-			"bigendian unsigned int",
-			"long",
-			"unsigned long",
-			"bigendian long",
-			"bigendian unsigned long",
-			"int128",
-			"unsigned int128",
-			"bigendian int128",
-			"bigendian unsigned int128",
-			"float",
-			"bigendian float",
-			"double",
-			"bigendian double",
-			"varint",
-			"unsigned varint",
-			"struct",
-			"array",
-			"string",
-			"list",
-			"map",
-			"polymorph",
-			"tag"
+			"BOOLEAN",
+			"BYTE",
+			"UNSIGNED BYTE",
+			"SHORT",
+			"UNSIGNED SHORT",
+			"BIGENDIAN SHORT",
+			"BIGENDIAN UNSIGNED SHORT",
+			"INT",
+			"UNSIGNED INT",
+			"BIGENDIAN INT",
+			"BIGENDIAN UNSIGNED INT",
+			"LONG",
+			"UNSIGNED LONG",
+			"BIGENDIAN LONG",
+			"BIGENDIAN UNSIGNED LONG",
+			"INT128",
+			"UNSIGNED INT128",
+			"BIGENDIAN INT128",
+			"BIGENDIAN UNSIGNED INT128",
+			"FLOAT",
+			"BIGENDIAN FLOAT",
+			"DOUBLE",
+			"BIGENDIAN DOUBLE",
+			"VARINT",
+			"UNSIGNED VARINT",
+			"STRING",
+			"ARRAY",
+			"LIST",
+			"MAP",
+			"POLYMORPH",
+			"STRUCT",
+			"TAG"
 		};
 
 		if (code < 0 || code >32)
@@ -50,10 +50,10 @@ namespace usds
 
 	const char* encodeName(usdsEncodes code)
 	{
-		const char* encodeNames[] = { "NO_ENCODE", "utf-8", "utf-16", "utf-32", "utf-7" };
+		const char* encodeNames[] = { "NO_ENCODE", "NO_ENCODE", "UTF-8", "UTF-16", "UTF-32", "UTF-7" };
 
 		if (code < 0 || code > 4)
-			return "ERROR TYPE";
+			return "ERROR ENCODE";
 
 		return  encodeNames[code];
 	};

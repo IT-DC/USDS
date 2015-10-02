@@ -28,19 +28,21 @@ try
 
 	textBuff.clear();
 
-	textBuff << "USDS Dictionary ID=" << dict->getDictionaryID() << " v." << int(dict->getMajorVersion()) << "." << int(dict->getMinorVersion()) << std::endl;
-	textBuff << "{" << std::endl;
+	textBuff << "USDS DICTIONARY ID=" << dict->getDictionaryID() << " v." << int(dict->getMajorVersion()) << "." << int(dict->getMinorVersion()) << "\n";
+	textBuff << "{\n";
 	// get all tags
 	for (int tag_id = 1; tag_id <= dict->getTagNumber(); tag_id++)
 	{
 		DicBaseTag* tag = dict->getTag(tag_id);
+		textBuff << "\t" << tag->getID() << ": " << tag->getTypeName() << " " << tag->getName();
+		
 		switch (tag->getType())
 		{
 		case USDS_STRUCT:
 			writeStructTag((DicStructTag*)tag);
 			break;
 		default:
-			writeSimpleTag(tag);
+			textBuff << ";\n";
 		}
 	}
 	textBuff << "}";
@@ -56,18 +58,12 @@ catch (ErrorMessage& err)
 //========================================================================================
 // Tags
 
-void DictionaryTextCreator::writeSimpleTag(DicBaseTag* tag)
-{
-	textBuff << "\t" << tag->getID() << (tag->getRootStatus() ? ": root " : ": ") << tag->getTypeName() << " " << tag->getName() << ";" << std::endl;
-};
-
 void DictionaryTextCreator::writeStructTag(DicStructTag* tag)
 {
-	textBuff << "\t" << tag->getID() << (tag->getRootStatus() ? ": root " : ": ") << tag->getTypeName() << " " << tag->getName() << std::endl;
-	textBuff << "\t{" << std::endl;
-	DicBaseField* field = tag->getFirstField();
-	while (field != 0)
+	textBuff << "\n\t{\n";
+	for (int i = 1; i <= tag->getFieldNumber(); i++)
 	{
+		DicBaseField* field = tag->getField(i);
 		switch (field->getType())
 		{
 		case USDS_STRING:
@@ -77,22 +73,21 @@ void DictionaryTextCreator::writeStructTag(DicStructTag* tag)
 			writeArrayField((DicArrayField*)field);
 			break;		
 		default:
-			writeSimpleField(field);
+			textBuff << "\t\t" << field->getID() << ": " << field->getTypeName() << " " << field->getName() << ";\n";
 		}
-			field = field->getNextField();
 	};
-	textBuff << "\t}" << std::endl;
+	textBuff << "\t}\n";
+	if (!tag->getRootStatus())
+	{
+		textBuff << "\tRESTRICT {root=false;}\n";
+
+
+	}
 
 };
 
 //========================================================================================
 // Fields
-
-void DictionaryTextCreator::writeSimpleField(DicBaseField* field)
-{
-	textBuff << "\t\t" << field->getID() << ": " << field->getTypeName() << " " << field->getName() << ";" << std::endl;
-
-};
 
 void DictionaryTextCreator::writeStringField(DicStringField* field)
 try
@@ -102,13 +97,8 @@ try
 	{
 	case USDS_NO_ENCODE:
 		break;
-	case USDS_UTF8:
-		textBuff << " (utf-8)";
-		break;
 	default:
-		std::wstringstream err;
-		err << L"Unsupported encode, use USDS_UTF8. Your value: " << field->getEncode();
-		throw ErrorMessage(TEXT_DICTIONARY_CREATOR_UNSUPPORTABLE_ENCODE, &err);
+		textBuff << "<" << encodeName(field->getEncode()) << ">";
 	};
 	
 	textBuff << " " << field->getName() << ";" << std::endl;

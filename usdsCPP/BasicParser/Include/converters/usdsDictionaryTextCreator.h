@@ -26,10 +26,8 @@ namespace usds
 	private:
 		std::stringstream textBuff;
 		
-		void writeSimpleTag(DicBaseTag* tag);
 		void writeStructTag(DicStructTag* tag);
 
-		void writeSimpleField(DicBaseField* field);
 		void writeStringField(DicStringField* field);
 		void writeArrayField(DicArrayField* field);
 
