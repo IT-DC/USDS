@@ -29,10 +29,12 @@ namespace usds
 		DICTIONARY_NOT_FINALIZED = 5006,
 		DICTIONARY_UNSUPPORTABLE_TYPE = 5007,
 		DICTIONARY_UNKNOWN_FORMAT = 5008,
+		DICTIONARY_FIELD_ALREADY_EXISTS = 5009,
 		// StrucTag
 		DIC_STRUCT_TAG_NOT_INITIALIZED_FIELD = 6001,
 		DIC_STRUCT_TAG_FIELD_ID_ERROR_VALUE = 6002,
 		DIC_STRUCT_TAG_FIELD_ALREADY_EXISTS = 6003,
+		DIC_STRUCT_TAG_UNSUPPORTED_TYPE = 6004,
 		// Text Dictionary Creator
 		TEXT_DICTIONARY_CREATOR_UNSUPPORTABLE_ENCODE = 7001,
 		// Struct Fields
@@ -51,6 +53,7 @@ namespace usds
 	{
 	public:
 		ErrorMessage(errorCode err_code, wchar_t* err_message);
+		ErrorMessage(errorCode err_code, std::stringstream* err_message_utf8);
 		ErrorMessage(errorCode err_code, std::wstringstream* err_message);
 		ErrorMessage(errorCode err_code, wchar_t* err_message, wchar_t* err_path);
 		ErrorMessage(errorCode err_code, std::stringstream* err_message_utf8, wchar_t* err_path);

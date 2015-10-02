@@ -1,4 +1,4 @@
-#include "tags\usdsTypes.h"
+#include "base\usdsTypes.h"
 
 namespace usds
 {

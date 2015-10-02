@@ -1,8 +1,6 @@
 #ifndef USDS_BINARY_OUTPUT
 #define USDS_BINARY_OUTPUT
 
-#include <string>
-
 #include "base\usdsErrors.h"
 
 namespace usds

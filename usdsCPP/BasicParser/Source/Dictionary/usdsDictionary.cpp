@@ -1,9 +1,5 @@
-#include "base\usdsDictionary.h"
-
-#include "base\usdsBinaryInput.h"
-#include "base\usdsBinaryOutput.h"
-#include "tags\dicStructTag.h"
-#include "tags\dicStructFields.h"
+#include "dictionary\usdsDictionary.h"
+#include "dictionary\tags\dicStructTag.h"
 
 using namespace usds;
 
@@ -49,11 +45,11 @@ void Dictionary::setEncode(usdsEncodes encode) throw (...)
 
 //====================================================================================================================
 // Tags construction
-DicBaseTag* Dictionary::addTag(usdsTypes tag_type, bool root, int id, const char* name, size_t name_size) throw (...)
+DicBaseTag* Dictionary::addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...)
 try
 {
-	// check ID
-	if (tag_type < 1 || tag_type > 32)
+	// check type
+	if (tag_type < 1 || tag_type > 31)
 	{
 		std::wstringstream msg;
 		msg << L"Unsupported tag type '" << tag_type << "'";
@@ -70,7 +66,7 @@ try
 	{
 		std::stringstream err;
 		err << "Tag with name '" << name << "' not unique in dictionary.";
-		throw ErrorMessage(DICTIONARY_TAG_ALREADY_EXISTS, &err, L"Dictionary::checkTagAttribute");
+		throw ErrorMessage(DICTIONARY_TAG_ALREADY_EXISTS, &err);
 	}
 	
 	// check ID
@@ -78,11 +74,11 @@ try
 	{
 		std::wstringstream err;
 		err << L"Tag ID must be in range [1; 2,147,483,647]. Current value:" << id;
-		throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"Dictionary::checkTagAttribute");
+		throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err);
 	}
 
 	// Create object
-	DicBaseTag* tag = objectPool.addTag(tag_type, this, root, id, name, name_size);
+	DicBaseTag* tag = objectPool.addTag(tag_type, this, id, name, name_size);
 	connectTagToDictionary(tag);
 	
 	// update data for index
@@ -90,7 +86,7 @@ try
 	if (tagMaxID < id)
 		tagMaxID = id;
 
-	return 0;
+	return tag;
 }
 catch (ErrorMessage& err)
 {
@@ -101,28 +97,10 @@ catch (ErrorMessage& err)
 //====================================================================================================================
 // Fields construction
 
-DicBaseField* Dictionary::addField(usdsTypes field_type, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional) throw (...)
+DicBaseField* Dictionary::addField(usdsTypes field_type, DicStructTag* tag, int id, const char* name, size_t name_size) throw (...)
 try
 {
-	if (field_type < 1 || field_type > 32 || field_type == USDS_STRUCT)
-	{
-		std::wstringstream msg;
-		msg << L"Unsupported field type '" << field_type << "'";
-		throw ErrorMessage(DICTIONARY_UNSUPPORTABLE_TYPE, &msg);
-	}
-	
-	// check ID
-	if (id <= 0)
-	{
-		std::wstringstream err;
-		err << L"Tag ID must be in range [1; 2,147,483,647]. Current value:" << id;
-		throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"Dictionary::checkTagAttribute");
-	}
-
-	// Create object
-	DicBaseField* field = objectPool.addField(field_type, this, tag, id, name, name_size, is_optional);
-	
-	return field;
+	return tag->addField(field_type, id, name, name_size);
 }
 catch (ErrorMessage& err)
 {
@@ -284,6 +262,7 @@ int Dictionary::getTagNumber() throw (...)
 
 //====================================================================================================================
 // encode
+/*
 const unsigned char* Dictionary::getBinary(size_t* size) throw (...)
 try
 {
@@ -325,9 +304,10 @@ catch (ErrorMessage& msg)
 	msg.addPath(L"Dictionary::getBinary");
 	throw msg;
 };
-
+*/
 //====================================================================================================================
 // decode
+/*
 void Dictionary::initFromBinary(const void* buff, size_t size)
 try
 {
@@ -386,7 +366,7 @@ catch (ErrorMessage& msg)
 	msg.addPath(L"Dictionary::initFromBinary");
 	throw msg;
 };
-
+*/
 
 //====================================================================================================================
 // Dictionary clearing and initialisation
@@ -404,7 +384,6 @@ void Dictionary::clear()
 	tagIndex.clear();
 	finalized = false;
 
-	binaryDictionary.clear();
 	binaryExists = false;
 };
 

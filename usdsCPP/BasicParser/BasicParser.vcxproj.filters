@@ -1,149 +1,176 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Converters">
+      <UniqueIdentifier>{aebf2beb-2d2a-423d-862d-5f26928374c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Converters\Dictionary Text Parser">
+      <UniqueIdentifier>{8a6a2890-5924-4115-abec-e84a2faf9198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Base">
+    <Filter Include="Base\Binary">
       <UniqueIdentifier>{3458fc91-dfb6-4a8b-97d2-d2fd90830b87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Tags">
+    <Filter Include="Base\Object Pool">
+      <UniqueIdentifier>{9f3a603a-94b5-482f-87cc-e5057b1b819a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dictionary">
+      <UniqueIdentifier>{525a1e12-29cb-4538-a129-fa0cdef7dab6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dictionary\Tags">
       <UniqueIdentifier>{82f3aca8-60ab-48db-b977-f59c94e92ab7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Base">
-      <UniqueIdentifier>{b2aad85f-086c-43bb-9e7e-e917c9048bdd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Tags">
-      <UniqueIdentifier>{6da89100-5182-4b1c-9166-3f46bd3c43be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Converters">
-      <UniqueIdentifier>{aebf2beb-2d2a-423d-862d-5f26928374c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Converters">
-      <UniqueIdentifier>{8a3e22eb-fc85-4587-934b-82a5b3d41cd2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Converters\Dictionary Text Parser">
-      <UniqueIdentifier>{8a6a2890-5924-4115-abec-e84a2faf9198}</UniqueIdentifier>
+    <Filter Include="Dictionary\Fields">
+      <UniqueIdentifier>{48452d35-bf11-4ce3-b041-b6a7a05629b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\usdsBasicParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\usdsErrors.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\usdsObjectPool.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\usdsBinaryInput.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\usdsBinaryOutput.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\usdsDictionary.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\tags\dicBaseTag.h">
-      <Filter>Header Files\Tags</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\tags\dicStructTag.h">
-      <Filter>Header Files\Tags</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\tags\usdsTypes.h">
-      <Filter>Header Files\Tags</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\tags\dicStructFields.h">
-      <Filter>Header Files\Tags</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\tags\dicBaseField.h">
-      <Filter>Header Files\Tags</Filter>
-    </ClInclude>
     <ClInclude Include="Include\converters\usdsDictionaryTextParser.h">
-      <Filter>Header Files\Converters</Filter>
+      <Filter>Converters</Filter>
     </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.hh">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.h">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\location.hh">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\position.hh">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\stack.hh">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Include\converters\usdsDictionaryTextCreator.h">
-      <Filter>Header Files\Converters</Filter>
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\usdsErrors.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\usdsBasicParser.h" />
+    <ClInclude Include="Include\base\binary\usdsBinaryInput.h">
+      <Filter>Base\Binary</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\binary\usdsBinaryOutput.h">
+      <Filter>Base\Binary</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\object pool\usdsObjectPool.h">
+      <Filter>Base\Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\usdsTypes.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\usdsDictionary.h">
+      <Filter>Dictionary</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\fields\dicBaseField.h">
+      <Filter>Dictionary\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\tags\dicBaseTag.h">
+      <Filter>Dictionary\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\tags\dicStructTag.h">
+      <Filter>Dictionary\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\object pool\dicObjectPool.h">
+      <Filter>Base\Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\fields\dicBooleanField.h">
+      <Filter>Dictionary\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\fields\dicStringField.h">
+      <Filter>Dictionary\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\fields\dicIntField.h">
+      <Filter>Dictionary\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\fields\dicArrayField.h">
+      <Filter>Dictionary\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\fields\dicLongField.h">
+      <Filter>Dictionary\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\fields\dicDoubleField.h">
+      <Filter>Dictionary\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\fields\dicUVarintField.h">
+      <Filter>Dictionary\Fields</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\usdsBasicParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Base\usdsBinaryOutput.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Base\usdsDictionary.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Base\usdsErrors.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Base\usdsBinaryInput.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Tags\dicBaseTag.cpp">
-      <Filter>Source Files\Tags</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Tags\dicStructTag.cpp">
-      <Filter>Source Files\Tags</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Tags\dicStructFields.cpp">
-      <Filter>Source Files\Tags</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Tags\dicBaseField.cpp">
-      <Filter>Source Files\Tags</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Dictionary Text Parser</Filter>
     </ClCompile>
     <ClCompile Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.cpp">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Converters\DictionaryTextParser\usdsDictionaryTextParser.cpp">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Dictionary Text Parser</Filter>
     </ClCompile>
     <ClCompile Include="Source\Converters\usdsDictionaryTextCreator.cpp">
-      <Filter>Source Files\Converters</Filter>
+      <Filter>Converters</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Base\usdsObjectPool.cpp">
-      <Filter>Source Files\Base</Filter>
+    <ClCompile Include="Source\Converters\DictionaryTextParser\usdsDictionaryTextParser.cpp">
+      <Filter>Converters</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tags\usdsTypes.cpp">
-      <Filter>Source Files\Tags</Filter>
+    <ClCompile Include="Source\Base\usdsErrors.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\usdsBasicParser.cpp" />
+    <ClCompile Include="Source\Base\Binary\usdsBinaryInput.cpp">
+      <Filter>Base\Binary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Base\Binary\usdsBinaryOutput.cpp">
+      <Filter>Base\Binary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Base\usdsTypes.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\usdsDictionary.cpp">
+      <Filter>Dictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Fields\dicBaseField.cpp">
+      <Filter>Dictionary\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Tags\dicBaseTag.cpp">
+      <Filter>Dictionary\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Tags\dicStructTag.cpp">
+      <Filter>Dictionary\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Base\ObjectPool\dicObjectPool.cpp">
+      <Filter>Base\Object Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Fields\dicBooleanField.cpp">
+      <Filter>Dictionary\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Fields\dicIntField.cpp">
+      <Filter>Dictionary\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Fields\dicLongField.cpp">
+      <Filter>Dictionary\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Fields\dicDoubleField.cpp">
+      <Filter>Dictionary\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Fields\dicUVarintField.cpp">
+      <Filter>Dictionary\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Fields\dicArrayField.cpp">
+      <Filter>Dictionary\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\Fields\dicStringField.cpp">
+      <Filter>Dictionary\Fields</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.y">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Dictionary Text Parser</Filter>
     </None>
     <None Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.l">
-      <Filter>Source Files\Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Dictionary Text Parser</Filter>
     </None>
   </ItemGroup>
 </Project>

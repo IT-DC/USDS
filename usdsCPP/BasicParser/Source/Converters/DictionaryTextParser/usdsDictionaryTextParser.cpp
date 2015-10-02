@@ -16,7 +16,7 @@ void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, Basi
 	
 	std::stringstream errors;
 	errors.clear();
-	BisonDictionaryTextParser textParser(usdsParser, &scanner, &errors, encode, 0);
+	BisonDictionaryTextParser textParser(usdsParser, &scanner, &errors, encode, 0, 0, 0);
 
 	// Parse!
 	int ret = textParser.parse();

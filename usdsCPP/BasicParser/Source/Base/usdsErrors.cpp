@@ -17,6 +17,37 @@ ErrorMessage::ErrorMessage(errorCode err_code, wchar_t* err_message)
 	utf8FullMessage = 0;
 };
 
+ErrorMessage::ErrorMessage(errorCode err_code, std::stringstream* err_message_utf8)
+{
+	level = 0;
+	code = err_code;
+
+	// covert message from utf-8 to utf-16
+	int message_size = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, err_message_utf8->str().c_str(), err_message_utf8->str().size(), 0, 0);
+	if (message_size == 0)
+		message = L"Invalid error message, can not convert from utf8 to utf16";
+	else
+	{
+		wchar_t* message_buff = new wchar_t[message_size + 1];
+		int final_size = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, err_message_utf8->str().c_str(), err_message_utf8->str().size(), message_buff, message_size);
+		if (final_size == 0)
+			message = L"Invalid error message, can not convert from utf8 to utf16";
+		else
+		{
+			message_buff[message_size] = 0;
+			message = message_buff;
+		}
+		delete[] message_buff;
+	};
+
+	fullMessage = L"Error: ";
+	fullMessage += message;
+	fullMessage += L"\n";
+
+	utf8Message = 0;
+	utf8FullMessage = 0;
+};
+
 ErrorMessage::ErrorMessage(errorCode err_code, std::wstringstream* err_message)
 {
 	level = 0;

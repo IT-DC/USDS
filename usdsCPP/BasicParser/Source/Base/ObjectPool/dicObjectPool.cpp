@@ -1,7 +1,15 @@
-#include "base\usdsObjectPool.h"
+#include "base\object pool\dicObjectPool.h"
 
-#include "tags\dicStructTag.h"
-#include "tags\dicStructFields.h"
+#include "dictionary\tags\dicStructTag.h"
+
+#include "dictionary\fields\dicArrayField.h"
+#include "dictionary\fields\dicBaseField.h"
+#include "dictionary\fields\dicBooleanField.h"
+#include "dictionary\fields\dicDoubleField.h"
+#include "dictionary\fields\dicIntField.h"
+#include "dictionary\fields\dicLongField.h"
+#include "dictionary\fields\dicStringField.h"
+#include "dictionary\fields\dicUVarintField.h"
 
 using namespace usds;
 
@@ -85,74 +93,74 @@ DictionaryObjectPool::~DictionaryObjectPool()
 
 };
 
-DicBaseTag* DictionaryObjectPool::addTag(usdsTypes tag_type, Dictionary* dict, bool root, int id, const char* name, size_t name_size)
+DicBaseTag* DictionaryObjectPool::addTag(usdsTypes tag_type, Dictionary* dict, int id, const char* name, size_t name_size)
 {
-	return (this->*(tagPoolIndex[tag_type]))(dict, root, id, name, name_size);
+	return (this->*(tagPoolIndex[tag_type]))(dict, id, name, name_size);
 };
 
-DicBaseField* DictionaryObjectPool::addField(usdsTypes field_type, Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional)
+DicBaseField* DictionaryObjectPool::addField(usdsTypes field_type, Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
 {
-	return (this->*(fieldPoolIndex[field_type]))(dict, tag, id, name, name_size, is_optional);
+	return (this->*(fieldPoolIndex[field_type]))(dict, tag, id, name, name_size);
 
 };
 
 //========================================================================================================
 
-DicBaseTag* DictionaryObjectPool::addStructTag(Dictionary* dict, bool root, int id, const char* name, size_t name_size)
+DicBaseTag* DictionaryObjectPool::addStructTag(Dictionary* dict, int id, const char* name, size_t name_size)
 {
 	DicStructTag* tag = structTags.addObject();
-	tag->init(dict, root, id, name, name_size);
+	tag->init(dict, id, name, name_size);
 	return tag;
 };
 
 //========================================================================================================
 
-DicBaseField* DictionaryObjectPool::addBooleanField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional)
+DicBaseField* DictionaryObjectPool::addBooleanField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
 {
 	DicBooleanField* field = booleanFields.addObject();
-	field->init(dict, tag, id, name, name_size, is_optional);
+	field->init(dict, tag, id, name, name_size);
 	return field;
 };
 
-DicBaseField* DictionaryObjectPool::addIntField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional)
+DicBaseField* DictionaryObjectPool::addIntField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
 {
 	DicIntField* field = intFields.addObject();
-	field->init(dict, tag, id, name, name_size, is_optional);
+	field->init(dict, tag, id, name, name_size);
 	return field;
 };
 
-DicBaseField* DictionaryObjectPool::addLongField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional)
+DicBaseField* DictionaryObjectPool::addLongField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
 {
 	DicLongField* field = longFields.addObject();
-	field->init(dict, tag, id, name, name_size, is_optional);
+	field->init(dict, tag, id, name, name_size);
 	return field;
 };
 
-DicBaseField* DictionaryObjectPool::addDoubleField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional)
+DicBaseField* DictionaryObjectPool::addDoubleField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
 {
 	DicDoubleField* field = doubleFields.addObject();
-	field->init(dict, tag, id, name, name_size, is_optional);
+	field->init(dict, tag, id, name, name_size);
 	return field;
 };
 
-DicBaseField* DictionaryObjectPool::addUVarintField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional)
+DicBaseField* DictionaryObjectPool::addUVarintField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
 {
 	DicUVarintField* field = uVarintFields.addObject();
-	field->init(dict, tag, id, name, name_size, is_optional);
+	field->init(dict, tag, id, name, name_size);
 	return field;
 };
 
-DicBaseField* DictionaryObjectPool::addArrayField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional)
+DicBaseField* DictionaryObjectPool::addArrayField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
 {
 	DicArrayField* field = arrayFields.addObject();
-	field->init(dict, tag, id, name, name_size, is_optional);
+	field->init(dict, tag, id, name, name_size);
 	return field;
 };
 
-DicBaseField* DictionaryObjectPool::addStringField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional)
+DicBaseField* DictionaryObjectPool::addStringField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
 {
 	DicStringField* field = stringFields.addObject();
-	field->init(dict, tag, id, name, name_size, is_optional);
+	field->init(dict, tag, id, name, name_size);
 	return field;
 };
 

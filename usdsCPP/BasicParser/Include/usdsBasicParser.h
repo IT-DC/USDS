@@ -2,12 +2,12 @@
 #define USDS_BASIC_PARSER
 
 #include "base\usdsErrors.h"
-#include "tags\usdsTypes.h"
+#include "base\usdsTypes.h"
 
-#include "base\usdsObjectPool.h"
-#include "base\usdsBinaryInput.h"
-#include "base\usdsBinaryOutput.h"
-#include "base\usdsDictionary.h"
+#include "base\object pool\usdsObjectPool.h"
+#include "base\binary\usdsBinaryInput.h"
+#include "base\binary\usdsBinaryOutput.h"
+#include "dictionary\usdsDictionary.h"
 
 #include <list>
 

@@ -1,4 +1,4 @@
-#include "tags\dicBaseTag.h"
+#include "dictionary\tags\dicBaseTag.h"
 
 using namespace usds;
 
@@ -7,10 +7,11 @@ DicBaseTag::DicBaseTag()
 	
 };
 
-void DicBaseTag::init(Dictionary* dict, bool root, int id, const char* name, size_t name_size) throw(...)
+void DicBaseTag::init(Dictionary* dict, int id, const char* name, size_t name_size) throw(...)
 {
 	nextTag = 0;
 	previousTag = 0;
+	isRoot = true;
 	clear();
 
 	dictionary = dict;
@@ -20,7 +21,12 @@ void DicBaseTag::init(Dictionary* dict, bool root, int id, const char* name, siz
 	else
 		tagName.assign(name, name_size);
 	tagID = id;
-	isRoot = root;
+};
+
+void DicBaseTag::setRoot(bool is_root) throw(...)
+{
+
+	isRoot = is_root;
 };
 
 DicBaseTag* DicBaseTag::getNextTag() throw(...)

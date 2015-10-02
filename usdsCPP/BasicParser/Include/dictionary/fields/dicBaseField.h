@@ -1,7 +1,7 @@
 #ifndef DIC_BASE_FIELD
 #define DIC_BASE_FIELD
 
-#include "tags\usdsTypes.h"
+#include "base\usdsTypes.h"
 #include "base\usdsErrors.h"
 
 #include <string>
@@ -10,7 +10,6 @@ namespace usds
 {
 	class DicStructTag;
 	class Dictionary;
-	class BinaryOutput;
 
 	class DicBaseField
 	{
@@ -18,7 +17,7 @@ namespace usds
 		DicBaseField() { };
 		virtual ~DicBaseField() { };
 
-		void init(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool optional) throw(...);
+		void init(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size) throw(...);
 
 		const char* getName() throw(...);
 		size_t getNameSize() throw(...);
@@ -26,8 +25,6 @@ namespace usds
 
 		virtual usdsTypes getType() = 0;
 		virtual const char* getTypeName() = 0;
-		virtual void writeToBinary(BinaryOutput* buff) throw (...) = 0;
-		virtual void initFromBinary(BinaryInput* buff) throw (...) = 0;
 		virtual void clear() = 0;
 
 		DicBaseField* getNextField() throw (...);
@@ -41,7 +38,7 @@ namespace usds
 	protected:
 		std::string fieldName;
 		int fieldID;
-		bool isOptional;
+		bool isNullable;
 
 		Dictionary* dictionary;
 

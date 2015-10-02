@@ -257,10 +257,10 @@ void BasicParser::addDictionaryToBinary() throw(...)
 try
 {
 	size_t dict_size = 0;
-	const unsigned char* dict_bin = currentDictionary->getBinary(&dict_size);
+	//const unsigned char* dict_bin = currentDictionary->getBinary(&dict_size);
 	usdsOutput.writeUByte('D'); // dictionary signature
 	usdsOutput.writeUVarint(dict_size);
-	usdsOutput.writeByteArray((void*)dict_bin, dict_size);
+	//usdsOutput.writeByteArray((void*)dict_bin, dict_size);
 
 }
 catch (ErrorMessage& msg)
@@ -340,7 +340,7 @@ try
 	const void* dict_buff = usdsInput.readByteArray(dict_size);
 
 	Dictionary* dict = addNewDictionary(id, major, minor);
-	dict->initFromBinary(dict_buff, dict_size);
+	//dict->initFromBinary(dict_buff, dict_size);
 	
 }
 catch (ErrorMessage& msg)

@@ -2,9 +2,8 @@
 #define USDS_DICTIONARY
 
 #include "base\usdsErrors.h"
-#include "tags\usdsTypes.h"
-#include "base\usdsBinaryOutput.h"
-#include "base\usdsObjectPool.h"
+#include "base\usdsTypes.h"
+#include "base\object pool\dicObjectPool.h"
 
 #include <string>
 #include <vector>
@@ -12,16 +11,9 @@
 namespace usds
 {
 	class DicStructTag;
-	class DicBooleanField;
-	class DicIntField;
-	class DicLongField;
-	class DicDoubleField;
-	class DicUVarintField;
-	class DicArrayField;
-	class DicStringField;
 	class DicBaseTag;
-	class DictionaryObjectPool;
-	
+	class DicBaseField;
+
 	class Dictionary
 	{
 	public:
@@ -33,8 +25,8 @@ namespace usds
 		void setEncode(usdsEncodes encode) throw (...);
 		
 		// construction
-		DicBaseTag* addTag(usdsTypes tag_type, bool root, int id, const char* name, size_t name_size) throw (...);
-		DicBaseField* addField(usdsTypes field_type, DicStructTag* tag, int id, const char* name, size_t name_size, bool is_optional) throw (...);
+		DicBaseTag* addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...);
+		DicBaseField* addField(usdsTypes field_type, DicStructTag* tag, int id, const char* name, size_t name_size) throw (...);
 		// Replace Tag names to tag ID, check errors
 		void finalizeDictionary() throw(...);
 
@@ -57,13 +49,11 @@ namespace usds
 		DicBaseTag* getTag(int id) throw (...);
 		int getTagNumber() throw (...);
 
-		// encode
-		const unsigned char* getBinary(size_t* size) throw (...);
-		// decode
-		void initFromBinary(const void* buff, size_t size);
-
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();
+
+		// For Struct tag
+		DictionaryObjectPool* getObjectPool() { return &objectPool; };
 
 	private:
 		unsigned char majorVersion;
@@ -81,9 +71,8 @@ namespace usds
 		std::vector<DicBaseTag*> tagIndex;
 		bool finalized;
 
-		// for serialization
 		DictionaryObjectPool objectPool;
-		BinaryOutput binaryDictionary;
+
 		bool binaryExists;
 
 	};

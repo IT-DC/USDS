@@ -61,7 +61,7 @@
 #endif  /* ! defined DICTIONARY_TEXTDEBUG */
 
 /* Line 33 of lalr1.cc  */
-#line 17 "bisonDictionaryTextParser.y"
+#line 26 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 33 of lalr1.cc  */
 #line 68 "bisonDictionaryTextParser.hh"
@@ -75,17 +75,18 @@ namespace usds {
     union semantic_type
     {
 /* Line 33 of lalr1.cc  */
-#line 30 "bisonDictionaryTextParser.y"
+#line 41 "bisonDictionaryTextParser.y"
 
-    int  			intVal;
+    bool  			boolVal;
+	int  			intVal;
     double 			doubleVal;
     char*			stringVal;
-	class DicBaseField*	fieldVal;
 	usdsEncodes		encodeVal;
+	usdsTypes		typeVal;
 
 
 /* Line 33 of lalr1.cc  */
-#line 89 "bisonDictionaryTextParser.hh"
+#line 90 "bisonDictionaryTextParser.hh"
     };
 #else
     typedef DICTIONARY_TEXTSTYPE semantic_type;
@@ -97,21 +98,23 @@ namespace usds {
     {
       /* Tokens.  */
    enum yytokentype {
-     USDS_Dictionary_ID = 258,
+     USDS_DICTIONARY_ID = 258,
      DICTIONARY_VERSION = 259,
-     ROOT_TAG = 260,
-     TYPE_BOOLEAN = 261,
-     TYPE_INT = 262,
-     TYPE_LONG = 263,
-     TYPE_DOUBLE = 264,
-     TYPE_VARINT = 265,
-     TYPE_UNSIGNED_VARINT = 266,
+     TYPE_BOOLEAN = 260,
+     TYPE_INT = 261,
+     TYPE_LONG = 262,
+     TYPE_DOUBLE = 263,
+     TYPE_VARINT = 264,
+     TYPE_UNSIGNED_VARINT = 265,
+     TYPE_STRING = 266,
      TYPE_STRUCT = 267,
      TYPE_ARRAY = 268,
-     TYPE_STRING = 269,
-     STRING_ENCODE = 270,
-     UNSIGNED_INTEGER_NUMBER = 271,
-     FIELD_NAME = 272
+     STRING_ENCODE = 269,
+     USDS_RESTRICT = 270,
+     ROOT_TAG = 271,
+     BOOLEAN_VALUE = 272,
+     UNSIGNED_INTEGER_NUMBER = 273,
+     TEXT_NAME = 274
    };
 
     };
@@ -119,7 +122,7 @@ namespace usds {
     typedef token::yytokentype token_type;
 
     /// Build a parser object.
-    BisonDictionaryTextParser (class BasicParser* usdsParser_yyarg, class FlexDictionaryTextScanner* scanner_yyarg, std::stringstream* error_message_yyarg, usdsEncodes encode_yyarg, Dictionary* dict_yyarg);
+    BisonDictionaryTextParser (class BasicParser* usdsParser_yyarg, class FlexDictionaryTextScanner* scanner_yyarg, std::stringstream* error_message_yyarg, usdsEncodes encode_yyarg, class Dictionary* dict_yyarg, class DicBaseTag* tag_yyarg, class DicBaseField* field_yyarg);
     virtual ~BisonDictionaryTextParser ();
 
     /// Parse.
@@ -288,13 +291,15 @@ namespace usds {
     class FlexDictionaryTextScanner* scanner;
     std::stringstream* error_message;
     usdsEncodes encode;
-    Dictionary* dict;
+    class Dictionary* dict;
+    class DicBaseTag* tag;
+    class DicBaseField* field;
   };
 /* Line 33 of lalr1.cc  */
-#line 17 "bisonDictionaryTextParser.y"
+#line 26 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 33 of lalr1.cc  */
-#line 298 "bisonDictionaryTextParser.hh"
+#line 303 "bisonDictionaryTextParser.hh"
 
 
 

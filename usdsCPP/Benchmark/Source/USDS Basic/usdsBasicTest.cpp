@@ -14,24 +14,24 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 	try
 	{
 		parser = new BasicParser();
-		const char* dict = "USDS Dictionary ID=888 v.1.0	\n\
-						   	{								\n\
-								1: struct I					\n\
-								{							\n\
-									1: unsigned varint n;	\n\
-									2: double s;			\n\
-									3: string(utf-8) g;		\n\
-									4: long t;				\n\
-									5: boolean b;			\n\
-								};							\n\
-								2: root struct S			\n\
-								{							\n\
-									1: unsigned varint n;	\n\
-									2: int m;				\n\
-									3: long s;				\n\
-									4: long e;				\n\
-									5: array<I> v;			\n\
-								}							\n\
+		const char* dict = "USDS DICTIONARY ID=888 v.1.0		\n\
+						   	{									\n\
+								1: STRUCT I						\n\
+								{								\n\
+									1: UNSIGNED VARINT n;		\n\
+									2: DOUBLE s;				\n\
+									3: STRING<UTF-8> g;			\n\
+									4: LONG t;					\n\
+									5: BOOLEAN b;				\n\
+								} RESTRICT {root=false;}		\n\
+								2: STRUCT S						\n\
+								{								\n\
+									1: UNSIGNED VARINT n;		\n\
+									2: INT m;					\n\
+									3: LONG s;					\n\
+									4: LONG e;					\n\
+									5: ARRAY<I> v;				\n\
+								}								\n\
 							}";
 		parser->addDictionaryFromText(dict, strlen(dict), USDS_UTF8);
 	}

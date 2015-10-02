@@ -1,4 +1,4 @@
-#include "base\usdsBinaryInput.h"
+#include "base\binary\usdsBinaryInput.h"
 
 using namespace usds;
 

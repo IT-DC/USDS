@@ -1,10 +1,17 @@
 #include "converters\usdsDictionaryTextCreator.h"
 
-#include "base\usdsDictionary.h"
-#include "tags\dicBaseTag.h"
-#include "tags\dicBaseField.h"
-#include "tags\dicStructTag.h"
-#include "tags\dicStructFields.h"
+#include "dictionary\usdsDictionary.h"
+
+#include "dictionary\tags\dicStructTag.h"
+
+#include "dictionary\fields\dicArrayField.h"
+#include "dictionary\fields\dicBaseField.h"
+#include "dictionary\fields\dicBooleanField.h"
+#include "dictionary\fields\dicDoubleField.h"
+#include "dictionary\fields\dicIntField.h"
+#include "dictionary\fields\dicLongField.h"
+#include "dictionary\fields\dicStringField.h"
+#include "dictionary\fields\dicUVarintField.h"
 
 using namespace usds;
 

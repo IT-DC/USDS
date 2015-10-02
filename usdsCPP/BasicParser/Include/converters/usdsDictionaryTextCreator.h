@@ -2,7 +2,7 @@
 #define USDS_DICTIONARY_TEXT_CREATOR
 
 #include "base\usdsErrors.h"
-#include "tags\usdsTypes.h"
+#include "base\usdsTypes.h"
 
 #include <string>
 

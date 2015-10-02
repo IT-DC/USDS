@@ -1,14 +1,12 @@
 #ifndef DIC_BASE_TAG
 #define DIC_BASE_TAG
 
-#include "tags\usdsTypes.h"
+#include "base\usdsTypes.h"
 #include <string>
 
 namespace usds
 {
 	class Dictionary;
-	class BinaryOutput;
-	class BinaryInput;
 
 	class DicBaseTag
 	{
@@ -16,7 +14,8 @@ namespace usds
 		DicBaseTag();
 		virtual ~DicBaseTag() { };
 
-		void init(Dictionary* dict, bool root, int id, const char* name, size_t name_size) throw(...);
+		void init(Dictionary* dict, int id, const char* name, size_t name_size) throw(...);
+		void setRoot(bool is_root) throw(...);
 
 		DicBaseTag* getNextTag() throw(...);
 		DicBaseTag* getPreviousTag() throw(...);
@@ -32,19 +31,16 @@ namespace usds
 		virtual usdsTypes getType() = 0;
 		virtual const char* getTypeName() = 0;
 		
-		// encode
-		virtual void writeToBinary(BinaryOutput* buff) throw(...) = 0;
-		// decode
-		virtual void initFromBinary(BinaryInput* buff) throw(...) = 0;
-
 	protected:
 		// it's executed in init()
 		virtual void clear() = 0;
 
 		std::string tagName;
 		int tagID;
+
+		// restrictions
 		bool isRoot;
-		
+
 		Dictionary* dictionary;
 
 	private:

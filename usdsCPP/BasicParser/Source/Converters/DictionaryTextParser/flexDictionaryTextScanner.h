@@ -1,7 +1,7 @@
 #ifndef FLEX_DICTIONARY_TEXT_SCANNER
 #define FLEX_DICTIONARY_TEXT_SCANNER
 
-#include "base\usdsDictionary.h"
+#include "dictionary\usdsDictionary.h"
 
 #if ! defined(yyFlexLexerOnce)
 #include <FlexLexer.h>

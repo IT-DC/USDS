@@ -1,14 +1,12 @@
-#include "tags\dicBaseField.h"
-#include "base\usdsObjectPool.h"
-#include "base\usdsBinaryOutput.h"
-#include "tags\dicStructTag.h"
+#include "dictionary\fields\dicBaseField.h"
 
 using namespace usds;
 
-void DicBaseField::init(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size, bool optional) throw(...)
+void DicBaseField::init(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size) throw(...)
 {
 	nextField = 0;
 	previousField = 0;
+
 	clear();
 
 	dictionary = dict;
@@ -19,7 +17,7 @@ void DicBaseField::init(Dictionary* dict, DicStructTag* tag, int id, const char*
 	else
 		fieldName.assign(name, name_size);
 	fieldID = id;
-	isOptional = optional;
+	isNullable = false;
 
 };
 

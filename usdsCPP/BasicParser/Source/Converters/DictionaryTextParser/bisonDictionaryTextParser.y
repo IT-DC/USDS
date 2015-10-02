@@ -1,8 +1,17 @@
 %{
 	#include "usdsBasicParser.h"
-	#include "base\usdsDictionary.h"
-	#include "tags\dicStructFields.h"
-	#include "tags\dicStructTag.h"
+	#include "dictionary\usdsDictionary.h"
+
+	#include "dictionary\tags\dicStructTag.h"
+
+	#include "dictionary\fields\dicArrayField.h"
+	#include "dictionary\fields\dicBaseField.h"
+	#include "dictionary\fields\dicBooleanField.h"
+	#include "dictionary\fields\dicDoubleField.h"
+	#include "dictionary\fields\dicIntField.h"
+	#include "dictionary\fields\dicLongField.h"
+	#include "dictionary\fields\dicStringField.h"
+	#include "dictionary\fields\dicUVarintField.h"
 	
 	#include "flexDictionaryTextScanner.h"
 	#include <string>
@@ -23,41 +32,46 @@
 %parse-param {class FlexDictionaryTextScanner* scanner}
 %parse-param {std::stringstream* error_message}
 %parse-param {usdsEncodes encode}
-%parse-param {Dictionary* dict}
+%parse-param {class Dictionary* dict}
+%parse-param {class DicBaseTag* tag}
+%parse-param {class DicBaseField* field}
 
 %error-verbose
 
 %union {
-    int  			intVal;
+    bool  			boolVal;
+	int  			intVal;
     double 			doubleVal;
     char*			stringVal;
-	class DicBaseField*	fieldVal;
 	usdsEncodes		encodeVal;
+	usdsTypes		typeVal;
 }
 
 // Tokens
-%token USDS_Dictionary_ID
+%token USDS_DICTIONARY_ID
 %token DICTIONARY_VERSION
-%token ROOT_TAG
 
-%token TYPE_BOOLEAN
-%token TYPE_INT
-%token TYPE_LONG
-%token TYPE_DOUBLE
-%token TYPE_VARINT
-%token TYPE_UNSIGNED_VARINT
-%token TYPE_STRUCT
-%token TYPE_ARRAY
-%token TYPE_STRING
+%token<typeVal> TYPE_BOOLEAN "BOOLEAN"
+%token<typeVal> TYPE_INT "INT"
+%token<typeVal> TYPE_LONG "LONG"
+%token<typeVal> TYPE_DOUBLE "DOUBLE"
+%token<typeVal> TYPE_VARINT "VARINT"
+%token<typeVal> TYPE_UNSIGNED_VARINT "UNSIGNED VARINT"
+%token<typeVal> TYPE_STRING "STRING"
+%token<typeVal> TYPE_STRUCT "STRUCT"
+%token<typeVal> TYPE_ARRAY "ARRAY"
 
-%token<encodeVal> STRING_ENCODE "utf-8"
+%token<encodeVal> STRING_ENCODE "Text encode"
 
-%token<intVal> UNSIGNED_INTEGER_NUMBER "unsigned integer"
-%token<stringVal> FIELD_NAME "string"
+// restrictions
+%token USDS_RESTRICT
+%token ROOT_TAG "root"
 
-%type<fieldVal> field fields field_boolean field_int field_long field_double field_uvarint field_array field_string
+%token<boolVal> BOOLEAN_VALUE "true or false"
+%token<intVal> UNSIGNED_INTEGER_NUMBER "unsigned integer number"
+%token<stringVal> TEXT_NAME "object name"
 
-%destructor { delete [] $$; } FIELD_NAME
+%destructor { delete [] $$; } TEXT_NAME
 
 %token '{'
 %token '}'
@@ -75,7 +89,7 @@
 // Rules
 %%
 dictionary: 
-	USDS_Dictionary_ID '=' UNSIGNED_INTEGER_NUMBER DICTIONARY_VERSION UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER 
+	USDS_DICTIONARY_ID '=' UNSIGNED_INTEGER_NUMBER DICTIONARY_VERSION UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER 
 	{
 		dict = usdsParser->addNewDictionary($3, $5, $7);
 		dict->setEncode(encode);
@@ -90,96 +104,77 @@ dictionary:
 tags: tag | tag tags;
 	
 tag: 
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRUCT FIELD_NAME '{' fields '}'
-	{
-		DicStructTag* object = dict->addStructTag(false, $1, $4, 0);
-		object->setFields($6);
-		delete [] $4;
-	}
-	| UNSIGNED_INTEGER_NUMBER ':' ROOT_TAG TYPE_STRUCT FIELD_NAME '{' fields '}'
-	{
-		DicStructTag* object = dict->addStructTag(true, $1, $5, 0);
-		object->setFields($7);
-		delete [] $5;
-	}
+	struct_tag '{' fields '}'
+	| struct_tag '{' fields '}' USDS_RESTRICT '{' struct_restricts '}'
 	;
 
-//=================================================================================================
-// Struct fields
-
-fields: field 
+struct_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_STRUCT TEXT_NAME 
 	{
-		$$ = $1;	
-	}
-	| field fields
-	{
-		$1->setNextField($2);
-		$2->setPreviousField($1);
-	}
-	;
-
-field: field_boolean | field_int | field_long | field_double | field_uvarint | field_array | field_string ;
-
-field_boolean:
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_BOOLEAN FIELD_NAME ';'
-	{
-		$$ = dict->addBooleanField($1, $4, 0, false);
+		tag = dict->addTag($3, $1, $4, 0);
 		delete [] $4;
 	}
 	;
 
-field_int:
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_INT FIELD_NAME ';'
-	{
-		$$ = dict->addIntField($1, $4, 0, false);
-		delete [] $4;
-	}
-	;
+struct_restricts: struct_restrict | struct_restrict struct_restricts;
 
-field_long:
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_LONG FIELD_NAME ';'
+struct_restrict:
+	ROOT_TAG '=' BOOLEAN_VALUE ';'
 	{
-		$$ = dict->addLongField($1, $4, 0, false);
-		delete [] $4;
-	}
-	;
-
-field_double:
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE FIELD_NAME ';'
-	{
-		$$ = dict->addDoubleField($1, $4, 0, false);
-		delete [] $4;
-	}
-	;
-
-field_uvarint:
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_UNSIGNED_VARINT FIELD_NAME ';'
-	{
-		$$ = dict->addUVarintField($1, $4, 0, false);
-		delete [] $4;
+		tag->setRoot($3);
 	}
 	;
 	
-field_array:
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_ARRAY '<' FIELD_NAME '>' FIELD_NAME ';'
+	
+//=================================================================================================
+// Struct fields
+
+fields: field | field fields;
+
+field:
+	UNSIGNED_INTEGER_NUMBER ':' TYPE_BOOLEAN TEXT_NAME ';'
 	{
-		$$ = dict->addArrayField($1, $7, 0, false);
-		((DicArrayField*)$$)->setElementAsTag($5, 0);
+		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		delete [] $4;
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_INT TEXT_NAME ';'
+	{
+		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		delete [] $4;
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_LONG TEXT_NAME ';'
+	{
+		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		delete [] $4;
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE TEXT_NAME ';'
+	{
+		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		delete [] $4;
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UNSIGNED_VARINT TEXT_NAME ';'
+	{
+		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		delete [] $4;
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING TEXT_NAME ';'
+	{
+		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		delete [] $4;
+	}	
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
+	{
+		field = ((DicStructTag*)tag)->addField($3, $1, $7, 0);
+		((DicStringField*)field)->setEncode($5);
+		delete [] $7;
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_ARRAY '<' TEXT_NAME '>' TEXT_NAME ';'
+	{
+		field = ((DicStructTag*)tag)->addField($3, $1, $7, 0);
+		((DicArrayField*)field)->setElementAsTag($5, 0);
 		delete [] $5;
 		delete [] $7;
 	}
 	;
-
-field_string:
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '(' STRING_ENCODE ')' FIELD_NAME ';'
-	{
-		$$ = dict->addStringField($1, $7, 0, false);
-		((DicStringField*)$$)->setEncode($5);
-		delete [] $7;
-	}
-	;
-
-
 
 
 %%

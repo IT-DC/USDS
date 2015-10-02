@@ -35,68 +35,100 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* =============================================================================== */
 /* Key words */ 
 %}
-"USDS"[ \t\r]+"Dictionary"[ \t\r]+"ID" {
-							return (token::USDS_Dictionary_ID);
+"USDS"[ \t\r]+"DICTIONARY"[ \t\r]+"ID" {
+							return (token::USDS_DICTIONARY_ID);
 						}
 
 "v."					{
 							return (token::DICTIONARY_VERSION);
 						}
 
-"root"					{
-							return (token::ROOT_TAG);
-						}
-			
 %{
 /* =============================================================================== */
 /* Data types */ 
 %}
-"boolean"				{
+"BOOLEAN"				{
+							yylval->typeVal = USDS_BOOLEAN;
 							return (token::TYPE_BOOLEAN);
 						}
 
-"int"					{
+"INT"					{
+							yylval->typeVal = USDS_INT;
 							return (token::TYPE_INT);
 						}
 
-"long"					{
+"LONG"					{
+							yylval->typeVal = USDS_LONG;
 							return (token::TYPE_LONG);
 						}
 
-"double"				{
+"DOUBLE"				{
+							yylval->typeVal = USDS_DOUBLE;
 							return (token::TYPE_DOUBLE);
 						}
 
-"varint"				{
+"VARINT"				{
+							yylval->typeVal = USDS_VARINT;
 							return (token::TYPE_VARINT);
 						}
 
-"unsigned"[ \t\r]+"varint" {
+"UNSIGNED"[ \t\r]+"VARINT" {
+							yylval->typeVal = USDS_UNSIGNED_VARINT;
 							return (token::TYPE_UNSIGNED_VARINT);
 						}
 
-"struct"				{
+"STRING"				{
+							yylval->typeVal = USDS_STRING;
+							return (token::TYPE_STRING);
+						}
+
+"STRUCT"				{
+							yylval->typeVal = USDS_STRUCT;
 							return (token::TYPE_STRUCT);
 						}
 
-"array"					{
+"ARRAY"					{
+							yylval->typeVal = USDS_ARRAY;
 							return (token::TYPE_ARRAY);
 						}
 
-"string"				{
-							return (token::TYPE_STRING);
-						}
 %{
 /* =============================================================================== */
 /* String encodes */ 
 %}
 
-[uU][tT][fF]"-8"		{
+"UTF-8"					{
 							yylval->encodeVal = USDS_UTF8;
 							return (token::STRING_ENCODE);
 						}
+%{
+/* =============================================================================== */
+/* Restrictions */ 
+%}
 
+"RESTRICT"				{
+							return (token::USDS_RESTRICT);
+						}
+						
+"root"					{
+							return (token::ROOT_TAG);
+						}
 
+%{
+/* =============================================================================== */
+/* Boolean values */
+%}
+
+"true"					{
+							yylval->boolVal = true;
+							return (token::BOOLEAN_VALUE);
+						}
+
+"false"					{
+							yylval->boolVal = false;
+							return (token::BOOLEAN_VALUE);
+						}
+						
 %{ 
 /* =============================================================================== */
 /* Field and tag names */ 
@@ -105,7 +137,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							yylval->stringVal = new char[yyleng+1];
 							strcpy(yylval->stringVal, yytext);
 							yytext[yyleng] = 0;
-							return (token::FIELD_NAME);
+							return (token::TEXT_NAME);
 						}
 
 %{
@@ -117,7 +149,8 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							yylval->intVal = atoi(yytext);
 							return token::UNSIGNED_INTEGER_NUMBER;
 						}
-
+		
+						
 %{ 
 /* =============================================================================== */
 /* Punctuation */ 
@@ -131,10 +164,6 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return '}';
 						}
 						
-"};"					{
-							return '}';
-						}
-
 "="						{
 							return '=';
 						}
