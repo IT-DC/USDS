@@ -4,6 +4,7 @@
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"
 #include "base\object pool\dicObjectPool.h"
+#include "base\binary\usdsBinaryOutput.h"
 
 #include <string>
 #include <vector>
@@ -49,6 +50,9 @@ namespace usds
 		DicBaseTag* getTag(int id) throw (...);
 		int getTagNumber() throw (...);
 
+		// Encode dictionary
+		const unsigned char* getBinary(size_t* size) throw(...);
+
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();
 
@@ -73,7 +77,7 @@ namespace usds
 
 		DictionaryObjectPool objectPool;
 
-		bool binaryExists;
+		BinaryOutput binary;
 
 	};
 };

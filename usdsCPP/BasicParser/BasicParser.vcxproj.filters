@@ -101,6 +101,12 @@
     <ClInclude Include="Include\dictionary\fields\dicUVarintField.h">
       <Filter>Dictionary\Fields</Filter>
     </ClInclude>
+    <ClInclude Include="Include\converters\usdsDictionaryBinaryCreator.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsBinaryCreator.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -163,6 +169,12 @@
     </ClCompile>
     <ClCompile Include="Source\Dictionary\Fields\dicStringField.cpp">
       <Filter>Dictionary\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsDictionaryBinaryCreator.cpp">
+      <Filter>Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsBinaryCreator.cpp">
+      <Filter>Converters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

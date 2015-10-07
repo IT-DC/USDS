@@ -1,5 +1,6 @@
 #include "dictionary\usdsDictionary.h"
 #include "dictionary\tags\dicStructTag.h"
+#include "converters\usdsDictionaryBinaryCreator.h"
 
 using namespace usds;
 
@@ -262,49 +263,29 @@ int Dictionary::getTagNumber() throw (...)
 
 //====================================================================================================================
 // encode
-/*
+
 const unsigned char* Dictionary::getBinary(size_t* size) throw (...)
 try
 {
-	if (!binaryExists)
+	if (!finalized)
+		throw ErrorMessage(DICTIONARY_NOT_FINALIZED, L"Dictionary not finalized");
+
+
+	if (binary.isEmpty())
 	{
-		if (!finalized)
-		{
-			throw ErrorMessage(DICTIONARY_NOT_FINALIZED, L"Dictionary not finalized");
-		}
-
-		// Write text encode
-		binaryDictionary.writeUVarint(unsigned int(dictionaryEncode));
-
-		// Write tags
-		for (int i = 0; i < tagNumber; i++)
-		{
-			DicBaseTag* tag = tagIndex[i];
-			if (tag->getRootStatus())
-				binaryDictionary.writeUByte('r');
-			else
-				binaryDictionary.writeUByte('t');
-			binaryDictionary.writeUVarint(tag->getID());
-			size_t size = tag->getNameSize();
-			binaryDictionary.writeUVarint(size);
-			binaryDictionary.writeByteArray((void*)tag->getName(), size);
-			binaryDictionary.writeUVarint(USDS_STRUCT);
-			// write specific Tag parameters
-			tag->writeToBinary(&binaryDictionary);
-		}
-
-		binaryExists = true;
+		DictionaryBinaryCreator creator;
+		creator.generate(&binary, this);
 	}
 
-	const unsigned char* buff = binaryDictionary.getBinary(size);
-	return buff;
+	return binary.getBinary(size);
+
 }
 catch (ErrorMessage& msg)
 {
 	msg.addPath(L"Dictionary::getBinary");
 	throw msg;
 };
-*/
+
 //====================================================================================================================
 // decode
 /*
@@ -384,7 +365,7 @@ void Dictionary::clear()
 	tagIndex.clear();
 	finalized = false;
 
-	binaryExists = false;
+	binary.clear();
 };
 
 //====================================================================================================================

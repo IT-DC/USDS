@@ -90,7 +90,7 @@ void DicArrayField::finalizeField() throw (...)
 				msg << "Tag with name '" << elementTagName << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
 				throw ErrorMessage(DIC_STRUCT_FIELD_TAG_NOT_FOUND, &msg, L"DicArrayField::finalizeField");
 			}
-			elementTagNeedID = true;
+			elementTagNeedID = false;
 		}
 
 

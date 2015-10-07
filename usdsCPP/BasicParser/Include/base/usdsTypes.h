@@ -53,6 +53,19 @@ namespace usds
 	extern const char* typeName(usdsTypes code);
 	extern const char* encodeName(usdsEncodes code);
 
+	enum usdsSignature
+	{
+		USDS_DICTIONARY_SIGNATURE = 'D',
+		USDS_TAG_SIGNATURE = 't',
+		USDS_FIELD_SIGNATURE = 'f',
+		USDS_TAG_RESTRICTION_SIGNATURE = 'R',
+		USDS_TAG_RESTRICTION_ROOT_SIGNATURE = 'r', // == root if false
+		USDS_BODY_SIGNATURE = 'B'
+
+	};
+
+
 };
+
 
 #endif

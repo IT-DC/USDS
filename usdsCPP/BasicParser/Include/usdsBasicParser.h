@@ -38,8 +38,7 @@ namespace usds
 		unsigned char getDictionaryMinor() throw(...);
 
 		// encode
-		void encode(bool with_head, bool with_dictionary, bool with_body) throw(...);
-		const unsigned char* getBinary(size_t* size) throw(...);
+		void encode(BinaryOutput* buff, bool with_head, bool with_dictionary, bool with_body) throw(...);
 
 		// decode
 		void decode(const unsigned char* data, int data_size) throw(...);
@@ -59,12 +58,6 @@ namespace usds
 		Dictionary* currentDictionary;
 		
 		BinaryInput usdsInput;
-		BinaryOutput usdsOutput;
-
-		// Serialization
-		void addHeadToBinary() throw(...);
-		void addDictionaryToBinary() throw(...);
-		void addBodyToBinary() throw(...);
 
 		// Deserialization
 		void readHeadfromBinary() throw(...);

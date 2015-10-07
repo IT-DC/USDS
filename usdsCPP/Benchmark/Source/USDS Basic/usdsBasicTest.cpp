@@ -35,10 +35,6 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 							}";
 		parser->addDictionaryFromText(dict, strlen(dict), USDS_UTF8);
 
-		std::string text_dict;
-		parser->CurrentDictionaryToText(USDS_UTF8, &text_dict);
-		std::cout << "\n" << text_dict << "\n";
-
 	}
 	catch (ErrorMessage& msg)
 	{
@@ -47,8 +43,6 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 		const char* mess = msg.getFullMessageUTF8();
 		std::cout << "USDS Basic parser was not created!\nError code: " << code << "\nMessage:\n" << mess << std::endl;
 	};
-
-	usds_data = 0;
 
 };
 
@@ -67,10 +61,9 @@ int UsdsBasicTest::serializationTest()
 
 	try
 	{
-		parser->encode(true, true, true);
-		size_t size = 0;
-		usds_data = parser->getBinary(&size);
-		serialization_data_size = size;
+		usds_data.clear();
+		parser->encode(&usds_data, true, true, false);
+		serialization_data_size = usds_data.getSize();
 		parser->clear();
 	}
 	catch (ErrorMessage& msg)
@@ -125,9 +118,7 @@ int UsdsBasicTest::deserializationTest()
 {
 	try
 	{
-
-
-		parser->decode(usds_data, serialization_data_size);
+		parser->decode(usds_data.getBinary(), serialization_data_size);
 
 		std::string text_dict;
 		parser->CurrentDictionaryToText(USDS_UTF8, &text_dict);
