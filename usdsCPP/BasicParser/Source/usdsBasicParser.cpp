@@ -3,6 +3,7 @@
 #include "converters\usdsDictionaryTextParser.h"
 #include "converters\usdsDictionaryTextCreator.h"
 #include "converters\usdsBinaryCreator.h"
+#include "converters\usdsBinaryParser.h"
 
 using namespace usds;
 
@@ -134,48 +135,37 @@ void BasicParser::encode(BinaryOutput* buff, bool with_head, bool with_dictionar
 //====================================================================================================================
 // Decode
 
-void BasicParser::decode(const unsigned char* data, int data_size) throw(...)
+void BasicParser::decode(const unsigned char* data, size_t data_size) throw(...)
 try
 {
-	usdsInput.setBinary(data, data_size);
-	
-	unsigned char signature = usdsInput.readByte();
-	switch (signature)
+	BinaryParser parser(data, data_size);
+
+	if (parser.isHeadIncluded())
 	{
-	case '$':
-		// Try to read Head and Dictionary
-		readHeadfromBinary();
-		break;
-	case 'B':
-		// Try to read Body
-		if (currentDictionary == 0)
-			throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Dictionary not initialized");
-		readBodyfromBinary();
-		return;
-	default:
-		std::wstringstream msg;
-		msg << L"Unexpected signature '" << signature << L"' at the start of the binary";
-		throw ErrorMessage(BASIC_PARSER_UNKNOWN_FORMAT, &msg);
+		int dict_id = parser.getDictionaryID();
+		unsigned char dict_major = parser.getDictionaryMajor();
+		unsigned char dict_minor = parser.getDictionaryMinor();
+		Dictionary* dict = findDictionary(dict_id, dict_major, dict_minor);
+		if (dict == 0)
+		{
+			if (!parser.isDictionaryIncluded())
+			{
+				std::wstringstream msg;
+				msg << L"Dictionary ID=" << dict_id << L" v." << int(dict_major) << L"." << int(dict_minor) << L" not found";
+				throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &msg);
+			}
+			dict = addNewDictionary(dict_id, dict_major, dict_minor);
+			parser.initDictionaryFromBinary(dict);
+		}
+		currentDictionary = dict;
 	}
 	
-	if (usdsInput.isEnd())
-		return;
-
-	signature = usdsInput.readByte();
-	switch (signature)
+	if (parser.isBodyIncluded())
 	{
-	case 'B':
-		// Try to read Body
-		if (currentDictionary == 0)
-			throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Dictionary not initialized");
-		readBodyfromBinary();
-		return;
-	default:
-		std::wstringstream msg;
-		msg << L"Unexpected signature '" << signature << L"' at the binary";
-		throw ErrorMessage(BASIC_PARSER_UNKNOWN_FORMAT, &msg);
+		
+		parser.initBodyFromBinary(currentDictionary);
 	}
-
+	
 }
 catch (ErrorMessage& msg)
 {
@@ -191,9 +181,6 @@ void BasicParser::clear()
 	currentDictionary = 0;
 	dictionaries.clear();
 	dictionaryPool.clear();
-
-	usdsInput.clear();
-
 
 };
 
@@ -219,82 +206,3 @@ Dictionary* BasicParser::findDictionary(int id, unsigned char major, unsigned ch
 
 };
 
-//====================================================================================================================
-
-void BasicParser::readHeadfromBinary() throw(...)
-try
-{
-	// read full signature
-	unsigned char head[3];
-	usdsInput.readByteArray(head, 3);
-	if (head[0] != 'S' || head[1] != usdsMajor || head[2] != usdsMinor)
-		ErrorMessage(BASIC_PARSER_UNKNOWN_FORMAT, L"Unknown format of the binary");
-
-	// read dictionary version
-	int dict_id = usdsInput.readInt();
-	unsigned char dict_major = usdsInput.readByte();
-	unsigned char dict_minor = usdsInput.readByte();
-
-	// Is next block a Dictionary or Body?
-	unsigned char signature = usdsInput.readByte();
-
-	if (findDictionary(dict_id, dict_major, dict_minor) == 0)
-	{
-		// try to read dictionary
-		if (signature == 'D')
-			readDictionaryfromBinary(dict_id, dict_major, dict_minor);
-		else
-		{
-			std::wstringstream msg;
-			msg << L"Unknown dictionary ID=" << dict_id << L" v." << int(dict_major) << L"." << int(dict_minor);
-			throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &msg);
-		}
-	}
-	else
-	{
-		if (signature == 'D')
-		{
-			// skip dictionary
-			size_t dict_size;
-			usdsInput.readUVarint(&dict_size);
-			usdsInput.stepForward(dict_size);
-		}
-		else
-		{
-			// return signature to the buffer
-			usdsInput.stepBack(1);
-		}
-	}
-}
-catch (ErrorMessage& msg)
-{
-	msg.addPath(L"BasicParser::readHeadfromBinary");
-	throw msg;
-};
-
-void BasicParser::readDictionaryfromBinary(int id, unsigned char major, unsigned char minor) throw(...)
-try
-{
-	// read dictionary size
-	size_t dict_size;
-	usdsInput.readUVarint(&dict_size);
-	if (dict_size == 0)
-		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NULL_SIZE, L"Dictionary size is null");
-
-	const void* dict_buff = usdsInput.readByteArray(dict_size);
-
-	Dictionary* dict = addNewDictionary(id, major, minor);
-	//dict->initFromBinary(dict_buff, dict_size);
-	
-}
-catch (ErrorMessage& msg)
-{
-	msg.addPath(L"BasicParser::readDictionaryfromBinary");
-	throw msg;
-};
-
-void BasicParser::readBodyfromBinary() throw(...)
-{
-
-
-};

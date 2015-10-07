@@ -248,3 +248,8 @@ bool BinaryInput::isEnd() throw(...)
 		throw ErrorMessage(BIN_IN_NULL_BUFF, L"Binary is not initialised", L"BinaryInput::isEnd");
 	return (buffLastPos == buffCurrentPos);
 };
+
+const unsigned char* BinaryInput::getCurrentPosition()
+{
+	return buffCurrentPos;
+};

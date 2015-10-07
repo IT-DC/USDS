@@ -33,6 +33,7 @@ namespace usds
 		void stepForward(size_t size) throw(...);
 
 		bool isEnd() throw(...);
+		const unsigned char* getCurrentPosition();
 
 	private:
 		// Buffer for USDS input document

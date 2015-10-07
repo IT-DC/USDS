@@ -79,6 +79,7 @@
     <ClInclude Include="Include\base\usdsErrors.h" />
     <ClInclude Include="Include\base\usdsTypes.h" />
     <ClInclude Include="Include\converters\usdsBinaryCreator.h" />
+    <ClInclude Include="Include\converters\usdsBinaryParser.h" />
     <ClInclude Include="Include\converters\usdsDictionaryBinaryCreator.h" />
     <ClInclude Include="Include\converters\usdsDictionaryTextCreator.h" />
     <ClInclude Include="Include\converters\usdsDictionaryTextParser.h" />
@@ -110,6 +111,7 @@
     <ClCompile Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.cpp" />
     <ClCompile Include="Source\Converters\DictionaryTextParser\usdsDictionaryTextParser.cpp" />
     <ClCompile Include="Source\Converters\usdsBinaryCreator.cpp" />
+    <ClCompile Include="Source\Converters\usdsBinaryParser.cpp" />
     <ClCompile Include="Source\Converters\usdsDictionaryBinaryCreator.cpp" />
     <ClCompile Include="Source\Converters\usdsDictionaryTextCreator.cpp" />
     <ClCompile Include="Source\Dictionary\Fields\dicArrayField.cpp" />

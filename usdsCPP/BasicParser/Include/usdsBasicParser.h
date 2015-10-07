@@ -5,7 +5,6 @@
 #include "base\usdsTypes.h"
 
 #include "base\object pool\usdsObjectPool.h"
-#include "base\binary\usdsBinaryInput.h"
 #include "base\binary\usdsBinaryOutput.h"
 #include "dictionary\usdsDictionary.h"
 
@@ -41,7 +40,7 @@ namespace usds
 		void encode(BinaryOutput* buff, bool with_head, bool with_dictionary, bool with_body) throw(...);
 
 		// decode
-		void decode(const unsigned char* data, int data_size) throw(...);
+		void decode(const unsigned char* data, size_t data_size) throw(...);
 
 		// clear
 		void clear();		// it does not release memory in buffers
@@ -56,13 +55,7 @@ namespace usds
 		// All existing dictionary
 		std::list<Dictionary*> dictionaries;
 		Dictionary* currentDictionary;
-		
-		BinaryInput usdsInput;
 
-		// Deserialization
-		void readHeadfromBinary() throw(...);
-		void readDictionaryfromBinary(int id, unsigned char major, unsigned char minor) throw(...);
-		void readBodyfromBinary() throw(...);
 	};
 
 };
