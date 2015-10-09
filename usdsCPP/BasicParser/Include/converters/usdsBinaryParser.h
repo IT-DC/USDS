@@ -1,6 +1,8 @@
 #ifndef USDS_BINARY_PARSER
 #define USDS_BINARY_PARSER
 
+#include "base\binary\usdsBinaryInput.h"
+
 namespace usds
 {
 	class Dictionary;
@@ -9,9 +11,10 @@ namespace usds
 	class BinaryParser
 	{
 	public:
-		BinaryParser(const unsigned char* data, int data_size);
+		BinaryParser();
 		~BinaryParser();
 
+		void setBinary(const unsigned char* data, int data_size) throw(...);
 		bool isHeadIncluded();
 		bool isDictionaryIncluded();
 		int getDictionaryID();
@@ -23,20 +26,21 @@ namespace usds
 		void initBodyFromBinary(Dictionary* dict) throw(...);
 
 	private:
-		
-		void readHead(BinaryInput* binary) throw(...);
-		
+	
+		bool headExists;
 		int dictionaryID;
 		unsigned char dictionaryMajor;
 		unsigned char dictionaryMinor;
 		size_t documentSize;
-		bool headExists;
+		
 		bool dictionaryExists;
-		const unsigned char* dictionaryPosition;
-		size_t dictionarySize;
 		bool bodyExists;
-		const unsigned char* bodyPosition;
-		size_t bodySize;
+
+		BinaryInput binary;
+		BinaryInput dictionaryBinary;
+		BinaryInput bodyBinary;
+
+
 	};
 }
 

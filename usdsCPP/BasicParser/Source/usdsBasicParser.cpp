@@ -1,10 +1,5 @@
 #include "usdsBasicParser.h"
 
-#include "converters\usdsDictionaryTextParser.h"
-#include "converters\usdsDictionaryTextCreator.h"
-#include "converters\usdsBinaryCreator.h"
-#include "converters\usdsBinaryParser.h"
-
 using namespace usds;
 
 BasicParser::BasicParser() : usdsMajor(1), usdsMinor(0)
@@ -23,8 +18,7 @@ BasicParser::~BasicParser()
 void BasicParser::addDictionaryFromText(const char* text_dictionary, int size, usdsEncodes encode) throw(...)
 try 
 {
-	DictionaryTextParser dictTextParser;
-	dictTextParser.parse(text_dictionary, encode, this);
+	dictionaryTextParser.parse(text_dictionary, encode, this);
 }
 catch (ErrorMessage& msg)
 {
@@ -37,8 +31,7 @@ try
 {
 	if (currentDictionary == 0)
 		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not set");
-	DictionaryTextCreator creator;
-	creator.generate(encode, text, currentDictionary);
+	dictionaryTextcreator.generate(encode, text, currentDictionary);
 }
 catch (ErrorMessage& msg)
 {
@@ -125,10 +118,8 @@ void BasicParser::encode(BinaryOutput* buff, bool with_head, bool with_dictionar
 	if (currentDictionary == 0)
 		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not found", L"BasicParser::encode");
 
-	BinaryCreator creator;
-
 	if (with_dictionary && !with_body)
-		creator.generate(buff, currentDictionary);
+		binaryCreator.generate(buff, currentDictionary);
 
 };
 
@@ -138,32 +129,46 @@ void BasicParser::encode(BinaryOutput* buff, bool with_head, bool with_dictionar
 void BasicParser::decode(const unsigned char* data, size_t data_size) throw(...)
 try
 {
-	BinaryParser parser(data, data_size);
+	binaryParser.setBinary(data, data_size);
 
-	if (parser.isHeadIncluded())
+	if (binaryParser.isHeadIncluded())
 	{
-		int dict_id = parser.getDictionaryID();
-		unsigned char dict_major = parser.getDictionaryMajor();
-		unsigned char dict_minor = parser.getDictionaryMinor();
-		Dictionary* dict = findDictionary(dict_id, dict_major, dict_minor);
-		if (dict == 0)
+		int dict_id = binaryParser.getDictionaryID();
+		unsigned char dict_major = binaryParser.getDictionaryMajor();
+		unsigned char dict_minor = binaryParser.getDictionaryMinor();
+		if (currentDictionary == 0)
 		{
-			if (!parser.isDictionaryIncluded())
-			{
-				std::wstringstream msg;
-				msg << L"Dictionary ID=" << dict_id << L" v." << int(dict_major) << L"." << int(dict_minor) << L" not found";
-				throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &msg);
-			}
-			dict = addNewDictionary(dict_id, dict_major, dict_minor);
-			parser.initDictionaryFromBinary(dict);
+			addNewDictionary(dict_id, dict_major, dict_minor);
+			binaryParser.initDictionaryFromBinary(currentDictionary);
 		}
-		currentDictionary = dict;
+		else
+		{
+			if (currentDictionary->getDictionaryID() != dict_id || currentDictionary->getMajorVersion() != dict_major || currentDictionary->getMinorVersion() != dict_minor)
+			{
+				Dictionary* dict = findDictionary(dict_id, dict_major, dict_minor);
+				if (dict == 0)
+				{
+					if (!binaryParser.isDictionaryIncluded())
+					{
+						std::wstringstream msg;
+						msg << L"Dictionary ID=" << dict_id << L" v." << int(dict_major) << L"." << int(dict_minor) << L" not found";
+						throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &msg);
+					}
+					addNewDictionary(dict_id, dict_major, dict_minor);
+					binaryParser.initDictionaryFromBinary(currentDictionary);
+				}
+				else
+				{
+					currentDictionary = dict;
+				}
+			}
+		}
 	}
 	
-	if (parser.isBodyIncluded())
+	if (binaryParser.isBodyIncluded())
 	{
 		
-		parser.initBodyFromBinary(currentDictionary);
+		binaryParser.initBodyFromBinary(currentDictionary);
 	}
 	
 }

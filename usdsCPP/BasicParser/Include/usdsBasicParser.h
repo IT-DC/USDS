@@ -8,6 +8,11 @@
 #include "base\binary\usdsBinaryOutput.h"
 #include "dictionary\usdsDictionary.h"
 
+#include "converters\usdsBinaryCreator.h"
+#include "converters\usdsBinaryParser.h"
+#include "converters\usdsDictionaryTextCreator.h"
+#include "converters\usdsDictionaryTextParser.h"
+
 #include <list>
 
 namespace usds
@@ -55,6 +60,11 @@ namespace usds
 		// All existing dictionary
 		std::list<Dictionary*> dictionaries;
 		Dictionary* currentDictionary;
+
+		BinaryCreator binaryCreator;
+		BinaryParser binaryParser;
+		DictionaryTextCreator dictionaryTextcreator;
+		DictionaryTextParser dictionaryTextParser;
 
 	};
 
