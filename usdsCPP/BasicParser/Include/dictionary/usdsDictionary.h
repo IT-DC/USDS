@@ -52,6 +52,8 @@ namespace usds
 
 		// Encode dictionary
 		const unsigned char* getBinary(size_t* size) throw(...);
+		// add existing binary
+		void setBinary(const void* data, size_t size, bool addHead, bool addSize);
 
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();

@@ -2,11 +2,11 @@
 #define USDS_BINARY_PARSER
 
 #include "base\binary\usdsBinaryInput.h"
+#include "converters\usdsDictionaryBinaryParser.h"
 
 namespace usds
 {
 	class Dictionary;
-	class BinaryInput;
 
 	class BinaryParser
 	{
@@ -40,6 +40,7 @@ namespace usds
 		BinaryInput dictionaryBinary;
 		BinaryInput bodyBinary;
 
+		BinaryDictionaryParser dictionaryParser;
 
 	};
 }

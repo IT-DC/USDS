@@ -3,14 +3,14 @@
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"
-#include "dictionary\usdsDictionary.h"
-#include "usdsBasicParser.h"
 
 #include <sstream>
 #include <list>
 
 namespace usds
 {
+	class BasicParser;
+
 	class DictionaryTextParser
 	{
 	public:

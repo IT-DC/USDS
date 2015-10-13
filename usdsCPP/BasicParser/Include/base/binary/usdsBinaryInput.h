@@ -34,6 +34,8 @@ namespace usds
 
 		bool isEnd() throw(...);
 		const unsigned char* getCurrentPosition();
+		const unsigned char* getFirstPosition();
+		size_t getDataSize();
 
 	private:
 		// Buffer for USDS input document

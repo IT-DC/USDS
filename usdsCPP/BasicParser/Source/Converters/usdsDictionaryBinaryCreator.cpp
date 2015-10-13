@@ -115,7 +115,7 @@ try
 	}
 	// write Dictionary size and signature
 	outBuffer->pushFrontSize();
-	outBuffer->pushFrontUByte(USDS_DICTIONARY_SIGNATURE);
+	outBuffer->pushFrontUByte(USDS_DICTIONARY_SIGNATURE_WITH_SIZE);
 }
 catch (ErrorMessage& msg)
 {
@@ -136,7 +136,7 @@ void DictionaryBinaryCreator::writeStructTag(DicBaseTag* tag) throw (...)
 		outBuffer->writeUVarint(size);
 		outBuffer->writeByteArray((void*)field->getName(), size);
 		outBuffer->writeUVarint(field->getType());
-		// write specific Tag parameters
+		// write specific Field parameters
 		(this->*(writeFieldIndex[field->getType()]))(field);
 	}
 

@@ -49,7 +49,9 @@ namespace usds
 		// Dictionary binary creator
 		DIC_BINARY_CREATOR_UNSUPPORTED_TYPE = 10001,
 		// Binary parser
-		BINARY_PARSER_UNKNOWN_FORMAT = 11001
+		BINARY_PARSER_UNKNOWN_FORMAT = 11001,
+		// Binary Dictionary Parser
+		BINARY_DICTIONARY_PARSER_UNKNOWN_FORMAT = 12001
 
 	};
 

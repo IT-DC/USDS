@@ -48,7 +48,7 @@ try
 		signature = binary.readByte();
 	}
 	// try to read Dictionary
-	if (signature == USDS_DICTIONARY_SIGNATURE)
+	if (signature == USDS_DICTIONARY_SIGNATURE_WITH_SIZE)
 	{
 		if (!headExists)
 			ErrorMessage(BINARY_PARSER_UNKNOWN_FORMAT, L"Unknown format of the binary: dictionary without head");
@@ -121,9 +121,15 @@ bool BinaryParser::isBodyIncluded()
 };
 
 void BinaryParser::initDictionaryFromBinary(Dictionary* dict) throw(...)
+try
 {
+	dictionaryParser.parse(&dictionaryBinary, dict);
 
-
+}
+catch (ErrorMessage& msg)
+{
+	msg.addPath(L"BinaryParser::initDictionaryFromBinary");
+	throw msg;
 };
 
 void BinaryParser::initBodyFromBinary(Dictionary* dict) throw(...)

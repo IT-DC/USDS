@@ -1,6 +1,9 @@
 #include "converters\usdsDictionaryTextParser.h"
 #include "flexDictionaryTextScanner.h"
 
+#include "dictionary\usdsDictionary.h"
+#include "usdsBasicParser.h"
+
 using namespace usds;
 
 void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, BasicParser* usdsParser) throw (...)

@@ -1,5 +1,6 @@
 #include "dictionary\fields\dicArrayField.h"
 #include "dictionary\usdsDictionary.h"
+#include "dictionary\tags\dicBaseTag.h"
 
 using namespace usds;
 
@@ -92,7 +93,18 @@ void DicArrayField::finalizeField() throw (...)
 			}
 			elementTagNeedID = false;
 		}
-
+		else if (elementTagNeedName)
+		{
+			DicBaseTag* tag = dictionary->getTag(elementTagID);
+			if (tag == 0)
+			{
+				std::stringstream msg;
+				msg << "Tag with ID '" << elementTagID << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
+				throw ErrorMessage(DIC_STRUCT_FIELD_TAG_NOT_FOUND, &msg, L"DicArrayField::finalizeField");
+			}
+			elementTagName = tag->getName();
+			elementTagNeedName = false;
+		}
 
 		break;
 	default:

@@ -110,6 +110,9 @@
     <ClInclude Include="Include\converters\usdsBinaryParser.h">
       <Filter>Converters</Filter>
     </ClInclude>
+    <ClInclude Include="Include\converters\usdsDictionaryBinaryParser.h">
+      <Filter>Converters\Dictionary Text Parser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -180,6 +183,9 @@
       <Filter>Converters</Filter>
     </ClCompile>
     <ClCompile Include="Source\Converters\usdsBinaryParser.cpp">
+      <Filter>Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsDictionaryBinaryParser.cpp">
       <Filter>Converters</Filter>
     </ClCompile>
   </ItemGroup>

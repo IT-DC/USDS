@@ -253,3 +253,13 @@ const unsigned char* BinaryInput::getCurrentPosition()
 {
 	return buffCurrentPos;
 };
+
+const unsigned char* BinaryInput::getFirstPosition()
+{
+	return usdsBuff;
+};
+
+size_t BinaryInput::getDataSize()
+{
+	return buffLastPos - usdsBuff;
+};

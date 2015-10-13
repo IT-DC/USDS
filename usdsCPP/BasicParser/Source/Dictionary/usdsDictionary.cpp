@@ -286,68 +286,23 @@ catch (ErrorMessage& msg)
 	throw msg;
 };
 
-//====================================================================================================================
-// decode
-/*
-void Dictionary::initFromBinary(const void* buff, size_t size)
-try
+void Dictionary::setBinary(const void* data, size_t size, bool addHead, bool addSize)
 {
-	BinaryInput input_buff;
-	input_buff.setBinary((const unsigned char*)buff, size);
-
-	// read text encode
-	int encode;
-	input_buff.readUVarint(&encode);
-	setEncode((usdsEncodes)encode);
-
-	// read tags
-	while (!input_buff.isEnd())
+	binary.clear();
+	binary.writeByteArray(data, size);
+	if (addSize)
 	{
-		// read signature
-		unsigned char signature = input_buff.readByte();
-		switch (signature)
-		{
-		case 't':
-		case 'r':
-			{
-				// read main attributes
-				int tag_id;
-				input_buff.readUVarint(&tag_id);
-				size_t name_size;
-				input_buff.readUVarint(&name_size);
-				const void* name = input_buff.readByteArray(name_size);
-				int tag_type;
-				input_buff.readUVarint(&tag_type);
-				DicBaseTag* tag = addTag((usdsTypes)tag_type, ((signature == 'r') ? true : false), tag_id, (const char*)name, name_size);
-				// read specific attributes
-				tag->initFromBinary(&input_buff);
-				// update data for indexes
-				tagNumber++;
-				if (tagMaxID < tag_id)
-					tagMaxID = tag_id;
-				break;
-			}
-		default:
-			std::wstringstream msg;
-			msg << L"Unexpected signature '" << signature << L"'";
-			throw ErrorMessage(DICTIONARY_UNKNOWN_FORMAT, &msg);
-		};
-	};
+		binary.pushFrontSize();
+		if (addHead)
+			binary.pushFrontUByte(USDS_DICTIONARY_SIGNATURE_WITH_SIZE);
+	}
+	else
+	{
+		if (addHead)
+			binary.pushFrontUByte(USDS_DICTIONARY_SIGNATURE);
+	}
 
-	// check errors, create indexes
-	finalizeDictionary();
-
-	// binary input == binary output
-	binaryDictionary.writeByteArray(buff, size);
-	binaryExists = true;
-
-}
-catch (ErrorMessage& msg)
-{
-	msg.addPath(L"Dictionary::initFromBinary");
-	throw msg;
 };
-*/
 
 //====================================================================================================================
 // Dictionary clearing and initialisation
