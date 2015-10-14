@@ -98,7 +98,7 @@ try
 	outBuffer = buff;
 
 	// Write text encode
-	outBuffer->writeUVarint(dict->getEncode());
+	outBuffer->writeByte(dict->getEncode());
 
 	// Write tags
 	for (int id = 1; id <= dict->getTagNumber(); id++)
@@ -109,7 +109,7 @@ try
 		size_t size = tag->getNameSize();
 		outBuffer->writeUVarint(size);
 		outBuffer->writeByteArray((void*)tag->getName(), size);
-		outBuffer->writeUVarint(tag->getType());
+		outBuffer->writeByte(tag->getType());
 		// write specific Tag parameters
 		(this->*(writeTagIndex[tag->getType()]))(tag);
 	}
@@ -135,7 +135,7 @@ void DictionaryBinaryCreator::writeStructTag(DicBaseTag* tag) throw (...)
 		size_t size = field->getNameSize();
 		outBuffer->writeUVarint(size);
 		outBuffer->writeByteArray((void*)field->getName(), size);
-		outBuffer->writeUVarint(field->getType());
+		outBuffer->writeByte(field->getType());
 		// write specific Field parameters
 		(this->*(writeFieldIndex[field->getType()]))(field);
 	}
@@ -188,7 +188,7 @@ try
 	switch (((DicArrayField*)field)->getElementType())
 	{
 	case USDS_TAG:
-		outBuffer->writeUVarint(USDS_TAG);
+		outBuffer->writeByte(USDS_TAG);
 		outBuffer->writeUVarint(((DicArrayField*)field)->getElementTagID());
 		break;
 	default:
@@ -207,6 +207,6 @@ catch (ErrorMessage& msg)
 
 void DictionaryBinaryCreator::writeStringField(DicBaseField* field) throw (...)
 {
-	outBuffer->writeUVarint(((DicStringField*)field)->getEncode());
+	outBuffer->writeByte(((DicStringField*)field)->getEncode());
 	
 };

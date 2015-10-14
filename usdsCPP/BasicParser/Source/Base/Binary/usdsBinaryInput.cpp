@@ -207,13 +207,25 @@ bool BinaryInput::readBool() throw(...)
 	return value;
 }
 
-unsigned char BinaryInput::readByte() throw(...)
+unsigned char BinaryInput::readUByte() throw(...)
+{
+	// buffer overflow
+	if (buffCurrentPos >= buffLastPos)
+		throw ErrorMessage(BIN_IN_BUFF_OVERFLOW, L"Unexpected end of the buffer, can't read a Byte", L"BinaryInput::readUByte()");
+
+	unsigned char value = buffCurrentPos[0];
+	buffCurrentPos++;
+	return value;
+
+};
+
+char BinaryInput::readByte() throw(...)
 {
 	// buffer overflow
 	if (buffCurrentPos >= buffLastPos)
 		throw ErrorMessage(BIN_IN_BUFF_OVERFLOW, L"Unexpected end of the buffer, can't read a Byte", L"BinaryInput::readByte()");
 
-	unsigned char value = buffCurrentPos[0];
+	char value = buffCurrentPos[0];
 	buffCurrentPos++;
 	return value;
 

@@ -26,6 +26,7 @@ namespace usds
 		void writeLong(long long value) throw(...);
 		void writeDouble(double value) throw(...);
 		void writeUByte(unsigned char value) throw(...);
+		void writeByte(int value) throw(...);
 		void writeByteArray(const void* value, size_t size) throw(...);
 		void writeBool(bool value) throw(...);
 		

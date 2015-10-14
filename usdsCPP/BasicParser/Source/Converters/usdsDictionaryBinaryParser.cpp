@@ -95,15 +95,14 @@ try
 	dictionary = dict;
 
 	// read text encode
-	int encode;
-	binary->readUVarint(&encode);
+	int encode = binary->readByte();
 	dictionary->setEncode((usdsEncodes)encode);
 
 	// read tags
 	while (!binary->isEnd())
 	{
 		// read signature
-		unsigned char signature = binary->readByte();
+		unsigned char signature = binary->readUByte();
 		if (signature != USDS_TAG_SIGNATURE)
 		{
 			std::wstringstream msg;
@@ -116,8 +115,7 @@ try
 		size_t name_size;
 		binary->readUVarint(&name_size);
 		const void* name = binary->readByteArray(name_size);
-		int tag_type;
-		binary->readUVarint(&tag_type);
+		int tag_type = binary->readByte();
 		DicBaseTag* tag = dictionary->addTag((usdsTypes)tag_type, tag_id, (const char*)name, name_size);
 		// read specific Tag parameters
 		(this->*(readTagIndex[tag_type]))(tag);
@@ -137,7 +135,7 @@ catch (ErrorMessage& msg)
 void BinaryDictionaryParser::readStructTag(DicBaseTag* tag) throw (...)
 try
 {
-	unsigned char signature = binary->readByte();
+	unsigned char signature = binary->readUByte();
 	if (signature != USDS_FIELD_SIGNATURE)
 	{
 		std::wstringstream msg;
@@ -152,19 +150,18 @@ try
 		size_t name_size;
 		binary->readUVarint(&name_size);
 		const void* name = binary->readByteArray(name_size);
-		int field_type;
-		binary->readUVarint(&field_type);
+		int field_type = binary->readByte();
 		DicBaseField* field = dictionary->addField((usdsTypes)field_type, (DicStructTag*)tag, field_id, (const char*)name, name_size);
 		// read specific Field parameters
 		(this->*(readFieldIndex[field_type]))(field);
 		if (binary->isEnd())
 			return;
-		signature = binary->readByte();
+		signature = binary->readUByte();
 	}
 	// read tag restrictions
 	if (signature == USDS_TAG_RESTRICTION_SIGNATURE)
 	{
-		signature = binary->readByte();
+		signature = binary->readUByte();
 		if (signature == USDS_TAG_RESTRICTION_ROOT_SIGNATURE)
 			tag->setRoot(false);
 		else
@@ -219,8 +216,7 @@ void BinaryDictionaryParser::readUVarintField(DicBaseField* field) throw (...)
 
 void BinaryDictionaryParser::readArrayField(DicBaseField* field) throw (...)
 {
-	int element_type;
-	binary->readUVarint(&element_type);
+	int element_type = binary->readByte();
 	switch (element_type)
 	{
 	case USDS_TAG:
@@ -239,8 +235,7 @@ void BinaryDictionaryParser::readArrayField(DicBaseField* field) throw (...)
 
 void BinaryDictionaryParser::readStringField(DicBaseField* field) throw (...)
 {
-	int encode;
-	binary->readUVarint(&encode);
+	int encode = binary->readByte();
 	((DicStringField*)field)->setEncode((usdsEncodes)encode);
 
 };

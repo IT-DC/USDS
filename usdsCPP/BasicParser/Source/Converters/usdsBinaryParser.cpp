@@ -22,7 +22,7 @@ try
 	bodyExists = false;
 
 	binary.setBinary(data, data_size);
-	unsigned char signature = binary.readByte();
+	unsigned char signature = binary.readUByte();
 
 	// analize binary
 	// try to read Head
@@ -36,8 +36,8 @@ try
 
 		// read dictionary version
 		dictionaryID = binary.readInt();
-		dictionaryMajor = binary.readByte();
-		dictionaryMinor = binary.readByte();
+		dictionaryMajor = binary.readUByte();
+		dictionaryMinor = binary.readUByte();
 		binary.readUVarint(&documentSize);
 
 		headExists = true;
@@ -45,7 +45,7 @@ try
 		if (binary.isEnd())
 			return; // no dictionary and body in binary
 		//read next signature
-		signature = binary.readByte();
+		signature = binary.readUByte();
 	}
 	// try to read Dictionary
 	if (signature == USDS_DICTIONARY_SIGNATURE_WITH_SIZE)
@@ -65,7 +65,7 @@ try
 		if (binary.isEnd())
 			return; // no body in binary
 		//read next signature
-		signature = binary.readByte();
+		signature = binary.readUByte();
 	}
 	// try to read Body
 	if (signature == USDS_BODY_SIGNATURE)

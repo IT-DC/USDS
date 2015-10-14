@@ -300,7 +300,26 @@ try
 }
 catch (ErrorMessage& err)
 {
-	err.addPath(L"BinaryOutput::writeUByte");
+	err.addPath(L"BinaryOutput::writeUByte(unsigned char)");
+	throw err;
+};
+
+void BinaryOutput::writeByte(int value) throw(...)
+try
+{
+	if (value > 127 || value < -128)
+	{
+		std::wstringstream msg;
+		msg << L"Value must be [0, 127]. Current value = " << value;
+		throw ErrorMessage(BIN_OUT_NEGATIVE_VALUE, &msg);
+	}
+	checkSize(1);
+	*buffCurrentPos = ((unsigned char*)(&value))[0];
+	buffCurrentPos++;
+}
+catch (ErrorMessage& err)
+{
+	err.addPath(L"BinaryOutput::writeUByte(int)");
 	throw err;
 };
 
