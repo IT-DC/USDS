@@ -26,6 +26,15 @@
     <Filter Include="Dictionary\Fields">
       <UniqueIdentifier>{48452d35-bf11-4ce3-b041-b6a7a05629b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Body">
+      <UniqueIdentifier>{2f99976c-b0b0-4e1d-b0bc-378f0920c2de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Body\Fields">
+      <UniqueIdentifier>{db21308f-bd17-473c-9313-64b2a1409bd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Body\Tags">
+      <UniqueIdentifier>{03f0afe8-e485-4e72-822c-2b9c941d6f55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\converters\usdsDictionaryTextParser.h">
@@ -113,6 +122,24 @@
     <ClInclude Include="Include\converters\usdsDictionaryBinaryParser.h">
       <Filter>Converters\Dictionary Text Parser</Filter>
     </ClInclude>
+    <ClInclude Include="Include\body\usdsBody.h">
+      <Filter>Body</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\tags\usdsBaseTag.h">
+      <Filter>Body\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\tags\usdsStructTag.h">
+      <Filter>Body\Tags</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\fields\usdsBaseField.h">
+      <Filter>Body\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\object pool\bodyObjectPool.h">
+      <Filter>Base\Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\fields\usdsArrayField.h">
+      <Filter>Body\Fields</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -187,6 +214,24 @@
     </ClCompile>
     <ClCompile Include="Source\Converters\usdsDictionaryBinaryParser.cpp">
       <Filter>Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\usdsBody.cpp">
+      <Filter>Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Tags\usdsBaseTag.cpp">
+      <Filter>Body\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Tags\usdsStructTag.cpp">
+      <Filter>Body\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Fields\usdsBaseField.cpp">
+      <Filter>Body\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Base\ObjectPool\bodyObjectPool.cpp">
+      <Filter>Base\Object Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Fields\usdsArrayField.cpp">
+      <Filter>Body\Fields</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

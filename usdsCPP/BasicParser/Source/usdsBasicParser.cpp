@@ -186,12 +186,13 @@ void BasicParser::clear()
 	currentDictionary = 0;
 	dictionaries.clear();
 	dictionaryPool.clear();
+	body.clear();
 
 };
 
 void BasicParser::clearBody()
 {
-
+	body.clear();
 };
 
 
