@@ -15,8 +15,8 @@ Body::~Body()
 };
 
 
-void Body::clear()
+void Body::clearBody()
 {
-
+	bodyObjectPool.clear();
 
 };

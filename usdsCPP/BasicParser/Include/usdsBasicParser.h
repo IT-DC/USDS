@@ -4,7 +4,7 @@
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"
 
-#include "base\object pool\usdsObjectPool.h"
+#include "base\objectPool\usdsObjectPool.h"
 #include "base\binary\usdsBinaryOutput.h"
 #include "dictionary\usdsDictionary.h"
 
@@ -19,7 +19,7 @@
 
 namespace usds
 {
-	class BasicParser
+	class BasicParser : public Body
 	{
 	public:
 		BasicParser();
@@ -51,8 +51,7 @@ namespace usds
 
 		// clear
 		void clear();		// it does not release memory in buffers
-		void clearBody();
-		
+				
 	private:
 
 		Dictionary* findDictionary(int id, unsigned char major, unsigned char minor) throw(...);
@@ -61,9 +60,6 @@ namespace usds
 		TemplateObjectPool<Dictionary> dictionaryPool;
 		// All existing dictionary
 		std::list<Dictionary*> dictionaries;
-		Dictionary* currentDictionary;
-
-		Body body;
 
 		BinaryCreator binaryCreator;
 		BinaryParser binaryParser;

@@ -68,9 +68,6 @@
     <ClInclude Include="Include\base\binary\usdsBinaryOutput.h">
       <Filter>Base\Binary</Filter>
     </ClInclude>
-    <ClInclude Include="Include\base\object pool\usdsObjectPool.h">
-      <Filter>Base\Object Pool</Filter>
-    </ClInclude>
     <ClInclude Include="Include\base\usdsTypes.h">
       <Filter>Base</Filter>
     </ClInclude>
@@ -85,9 +82,6 @@
     </ClInclude>
     <ClInclude Include="Include\dictionary\tags\dicStructTag.h">
       <Filter>Dictionary\Tags</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\object pool\dicObjectPool.h">
-      <Filter>Base\Object Pool</Filter>
     </ClInclude>
     <ClInclude Include="Include\dictionary\fields\dicBooleanField.h">
       <Filter>Dictionary\Fields</Filter>
@@ -134,11 +128,35 @@
     <ClInclude Include="Include\body\fields\usdsBaseField.h">
       <Filter>Body\Fields</Filter>
     </ClInclude>
-    <ClInclude Include="Include\base\object pool\bodyObjectPool.h">
-      <Filter>Base\Object Pool</Filter>
-    </ClInclude>
     <ClInclude Include="Include\body\fields\usdsArrayField.h">
       <Filter>Body\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\fields\usdsBooleanField.h">
+      <Filter>Body\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\fields\usdsDoubleField.h">
+      <Filter>Body\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\fields\usdsIntField.h">
+      <Filter>Body\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\fields\usdsLongField.h">
+      <Filter>Body\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\fields\usdsStringField.h">
+      <Filter>Body\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\fields\usdsUVarintField.h">
+      <Filter>Body\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\objectPool\bodyObjectPool.h">
+      <Filter>Base\Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\objectPool\dicObjectPool.h">
+      <Filter>Base\Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\base\objectPool\usdsObjectPool.h">
+      <Filter>Base\Object Pool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +249,24 @@
       <Filter>Base\Object Pool</Filter>
     </ClCompile>
     <ClCompile Include="Source\Body\Fields\usdsArrayField.cpp">
+      <Filter>Body\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Fields\usdsBooleanField.cpp">
+      <Filter>Body\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Fields\usdsDoubleField.cpp">
+      <Filter>Body\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Fields\usdsIntField.cpp">
+      <Filter>Body\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Fields\usdsLongField.cpp">
+      <Filter>Body\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Fields\usdsStringField.cpp">
+      <Filter>Body\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\Fields\usdsUVarintField.cpp">
       <Filter>Body\Fields</Filter>
     </ClCompile>
   </ItemGroup>

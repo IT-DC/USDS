@@ -74,13 +74,19 @@
   <ItemGroup>
     <ClInclude Include="Include\base\binary\usdsBinaryInput.h" />
     <ClInclude Include="Include\base\binary\usdsBinaryOutput.h" />
-    <ClInclude Include="Include\base\object pool\bodyObjectPool.h" />
-    <ClInclude Include="Include\base\object pool\dicObjectPool.h" />
-    <ClInclude Include="Include\base\object pool\usdsObjectPool.h" />
+    <ClInclude Include="Include\base\objectPool\bodyObjectPool.h" />
+    <ClInclude Include="Include\base\objectPool\dicObjectPool.h" />
+    <ClInclude Include="Include\base\objectPool\usdsObjectPool.h" />
     <ClInclude Include="Include\base\usdsErrors.h" />
     <ClInclude Include="Include\base\usdsTypes.h" />
     <ClInclude Include="Include\body\fields\usdsArrayField.h" />
     <ClInclude Include="Include\body\fields\usdsBaseField.h" />
+    <ClInclude Include="Include\body\fields\usdsBooleanField.h" />
+    <ClInclude Include="Include\body\fields\usdsDoubleField.h" />
+    <ClInclude Include="Include\body\fields\usdsIntField.h" />
+    <ClInclude Include="Include\body\fields\usdsLongField.h" />
+    <ClInclude Include="Include\body\fields\usdsStringField.h" />
+    <ClInclude Include="Include\body\fields\usdsUVarintField.h" />
     <ClInclude Include="Include\body\tags\usdsBaseTag.h" />
     <ClInclude Include="Include\body\tags\usdsStructTag.h" />
     <ClInclude Include="Include\body\usdsBody.h" />
@@ -117,6 +123,12 @@
     <ClCompile Include="Source\Base\usdsTypes.cpp" />
     <ClCompile Include="Source\Body\Fields\usdsArrayField.cpp" />
     <ClCompile Include="Source\Body\Fields\usdsBaseField.cpp" />
+    <ClCompile Include="Source\Body\Fields\usdsBooleanField.cpp" />
+    <ClCompile Include="Source\Body\Fields\usdsDoubleField.cpp" />
+    <ClCompile Include="Source\Body\Fields\usdsIntField.cpp" />
+    <ClCompile Include="Source\Body\Fields\usdsLongField.cpp" />
+    <ClCompile Include="Source\Body\Fields\usdsStringField.cpp" />
+    <ClCompile Include="Source\Body\Fields\usdsUVarintField.cpp" />
     <ClCompile Include="Source\Body\Tags\usdsBaseTag.cpp" />
     <ClCompile Include="Source\Body\Tags\usdsStructTag.cpp" />
     <ClCompile Include="Source\Body\usdsBody.cpp" />

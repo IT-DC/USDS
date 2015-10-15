@@ -1,6 +1,11 @@
 #ifndef USDS_BODY
 #define USDS_BODY
 
+#include "base\usdsErrors.h"
+#include "base\usdsTypes.h"
+
+#include "base\objectPool\bodyObjectPool.h"
+
 namespace usds
 {
 	class Dictionary;
@@ -12,11 +17,13 @@ namespace usds
 		~Body();
 
 
-		void clear();
+		void clearBody();
 
 
-	private:
-		Dictionary* baseDictionary;
+	protected:
+		Dictionary* currentDictionary;
+
+		BodyObjectPool bodyObjectPool;
 
 	};
 }

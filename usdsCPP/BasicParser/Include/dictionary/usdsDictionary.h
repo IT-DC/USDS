@@ -3,7 +3,7 @@
 
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"
-#include "base\object pool\dicObjectPool.h"
+#include "base\objectPool\dicObjectPool.h"
 #include "base\binary\usdsBinaryOutput.h"
 
 #include <string>
