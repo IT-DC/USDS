@@ -1,5 +1,5 @@
-#ifndef USDS_BINARY_OUTPUT
-#define USDS_BINARY_OUTPUT
+#ifndef USDS_BINARY_OUTPUT_H
+#define USDS_BINARY_OUTPUT_H
 
 #include "base\usdsErrors.h"
 

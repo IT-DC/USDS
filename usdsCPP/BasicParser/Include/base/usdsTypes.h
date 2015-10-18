@@ -1,5 +1,5 @@
-#ifndef USDS_TYPES
-#define USDS_TYPES
+#ifndef USDS_TYPES_H
+#define USDS_TYPES_H
 
 namespace usds
 {

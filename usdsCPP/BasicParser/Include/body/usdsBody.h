@@ -1,5 +1,5 @@
-#ifndef USDS_BODY
-#define USDS_BODY
+#ifndef USDS_BODY_H
+#define USDS_BODY_H
 
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"

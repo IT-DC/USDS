@@ -1,5 +1,5 @@
-#ifndef USDS_ERRORS
-#define USDS_ERRORS
+#ifndef USDS_ERRORS_H
+#define USDS_ERRORS_H
 
 #include <string>
 #include <sstream>

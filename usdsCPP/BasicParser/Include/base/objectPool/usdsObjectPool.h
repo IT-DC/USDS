@@ -1,5 +1,5 @@
-#ifndef USDS_OBJECT_POOL
-#define USDS_OBJECT_POOL
+#ifndef USDS_OBJECT_POOL_H
+#define USDS_OBJECT_POOL_H
 
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"

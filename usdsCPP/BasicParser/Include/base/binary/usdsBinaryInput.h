@@ -1,5 +1,5 @@
-#ifndef USDS_BINARY_INPUT
-#define USDS_BINARY_INPUT
+#ifndef USDS_BINARY_INPUT_H
+#define USDS_BINARY_INPUT_H
 
 #include <string>
 

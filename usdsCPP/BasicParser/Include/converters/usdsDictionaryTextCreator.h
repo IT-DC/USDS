@@ -1,5 +1,5 @@
-#ifndef USDS_DICTIONARY_TEXT_CREATOR
-#define USDS_DICTIONARY_TEXT_CREATOR
+#ifndef USDS_DICTIONARY_TEXT_CREATOR_H
+#define USDS_DICTIONARY_TEXT_CREATOR_H
 
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"

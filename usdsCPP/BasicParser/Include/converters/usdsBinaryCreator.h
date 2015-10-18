@@ -1,5 +1,5 @@
-#ifndef USDS_BINARY_CREATOR
-#define USDS_BINARY_CREATOR
+#ifndef USDS_BINARY_CREATOR_H
+#define USDS_BINARY_CREATOR_H
 
 namespace usds
 {

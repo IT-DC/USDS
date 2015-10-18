@@ -1,5 +1,5 @@
-#ifndef USDS_BASIC_PARSER
-#define USDS_BASIC_PARSER
+#ifndef USDS_BASIC_PARSER_H
+#define USDS_BASIC_PARSER_H
 
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"

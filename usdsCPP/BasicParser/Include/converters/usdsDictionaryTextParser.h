@@ -1,5 +1,5 @@
-#ifndef USDS_DICTIONARY_TEXT_PARSER
-#define USDS_DICTIONARY_TEXT_PARSER
+#ifndef USDS_DICTIONARY_TEXT_PARSER_H
+#define USDS_DICTIONARY_TEXT_PARSER_H
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"

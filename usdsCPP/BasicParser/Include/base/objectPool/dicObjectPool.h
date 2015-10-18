@@ -1,5 +1,5 @@
-#ifndef DIC_OBJECT_POOL
-#define DIC_OBJECT_POOL
+#ifndef DIC_OBJECT_POOL_H
+#define DIC_OBJECT_POOL_H
 
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"

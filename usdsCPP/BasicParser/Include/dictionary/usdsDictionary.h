@@ -1,5 +1,5 @@
-#ifndef USDS_DICTIONARY
-#define USDS_DICTIONARY
+#ifndef USDS_DICTIONARY_H
+#define USDS_DICTIONARY_H
 
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"
@@ -11,9 +11,8 @@
 
 namespace usds
 {
-	class DicStructTag;
-	class DicBaseTag;
-	class DicBaseField;
+	class DictionaryStruct;
+	class DictionaryBaseType;
 
 	class Dictionary
 	{
@@ -26,8 +25,8 @@ namespace usds
 		void setEncode(usdsEncodes encode) throw (...);
 		
 		// construction
-		DicBaseTag* addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...);
-		DicBaseField* addField(usdsTypes field_type, DicStructTag* tag, int id, const char* name, size_t name_size) throw (...);
+		DictionaryBaseType* addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...);
+		DictionaryBaseType* addField(usdsTypes field_type, DictionaryStruct* tag, int id, const char* name, size_t name_size) throw (...);
 		// Replace Tag names to tag ID, check errors
 		void finalizeDictionary() throw(...);
 
@@ -37,8 +36,8 @@ namespace usds
 		unsigned char getMinorVersion() throw (...);
 		usdsEncodes getEncode() throw (...);
 		
-		DicBaseTag* getFirstTag() throw (...);
-		DicBaseTag* getLastTag() throw (...);
+		DictionaryBaseType* getFirstTag() throw (...);
+		DictionaryBaseType* getLastTag() throw (...);
 
 		// Find Tag ID by Name
 		// returns 0 if tag not found
@@ -47,13 +46,13 @@ namespace usds
 
 		// Get tag by ID
 		// returns 0 if tag not found
-		DicBaseTag* getTag(int id) throw (...);
+		DictionaryBaseType* getTag(int id) throw (...);
 		int getTagNumber() throw (...);
 
 		// Encode dictionary
 		const unsigned char* getBinary(size_t* size) throw(...);
 		// add existing binary
-		void setBinary(const void* data, size_t size, bool addHead, bool addSize);
+		void setBinary(const void* data, size_t size);
 
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();
@@ -67,14 +66,14 @@ namespace usds
 		int dictionaryID;
 		usdsEncodes dictionaryEncode;
 
-		DicBaseTag* firstTag;
-		DicBaseTag* lastTag;
-		void connectTagToDictionary(DicBaseTag* tag);
+		DictionaryBaseType* firstTag;
+		DictionaryBaseType* lastTag;
+		void connectTagToDictionary(DictionaryBaseType* tag);
 
 		// tag index
 		int tagMaxID;
 		int tagNumber;
-		std::vector<DicBaseTag*> tagIndex;
+		std::vector<DictionaryBaseType*> tagIndex;
 		bool finalized;
 
 		DictionaryObjectPool objectPool;
