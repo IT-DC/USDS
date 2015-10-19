@@ -1,5 +1,5 @@
-#ifndef DIC_BOOLEAN_FIELD
-#define DIC_BOOLEAN_FIELD
+#ifndef DICTIONARY_BOOLEAN_H
+#define DICTIONARY_BOOLEAN_H
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"

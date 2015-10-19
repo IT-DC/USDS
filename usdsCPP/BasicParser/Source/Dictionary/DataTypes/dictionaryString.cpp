@@ -1,32 +1,32 @@
-#include "dictionary\fields\dicStringField.h"
+#include "dictionary\dataTypes\dictionaryString.h"
 
 using namespace usds;
 
-DicStringField::DicStringField()
+DictionaryString::DictionaryString()
 {
 
 
 };
 
-void DicStringField::clear()
+void DictionaryString::clear()
 {
 	isDefault = false;
 	defaultEncode = USDS_NO_ENCODE;
 
 };
 
-void DicStringField::setDefault(const char* value)
+void DictionaryString::setDefault(const char* value)
 {
 	isDefault = true;
 	defaultValue = value;
 };
 
-void DicStringField::setEncode(usdsEncodes encode) throw(...)
+void DictionaryString::setEncode(usdsEncodes encode) throw(...)
 {
 	defaultEncode = encode;
 };
 
-usdsEncodes DicStringField::getEncode() throw(...)
+usdsEncodes DictionaryString::getEncode() throw(...)
 {
 
 	return defaultEncode;

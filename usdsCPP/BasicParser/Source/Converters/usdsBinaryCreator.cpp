@@ -25,6 +25,8 @@ try
 
 	size_t dict_size = 0;
 	const unsigned char* dict_binary = dict->getBinary(&dict_size);
+	binary->writeByte(USDS_DICTIONARY_SIGNATURE_WITH_SIZE);
+	binary->writeUVarint(dict_size);
 	binary->writeByteArray(dict_binary, dict_size);
 
 	addHeadToBinary();

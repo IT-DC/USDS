@@ -1,20 +1,19 @@
-#include "dictionary\tags\dicStructTag.h"
+#include "dictionary\dataTypes\dictionaryStruct.h"
 #include "dictionary\usdsDictionary.h"
-#include "dictionary\fields\dicBaseField.h"
-#include "dictionary\fields\dicArrayField.h"
+#include "dictionary\dataTypes\dictionaryArray.h"
 
 #include <string>
 #include <iostream>
 
 using namespace usds;
 
-DicStructTag::DicStructTag()
+DictionaryStruct::DictionaryStruct()
 {
 
 
 };
 
-DicBaseField* DicStructTag::addField(usdsTypes field_type, int id, const char* name, size_t name_size) throw(...)
+DictionaryBaseType* DictionaryStruct::addField(usdsTypes field_type, int id, const char* name, size_t name_size) throw(...)
 try
 {
 	// check type
@@ -42,11 +41,11 @@ try
 	if (field_id != 0)
 	{
 		std::stringstream err;
-		err << "Field with name '" << name << "' not unique in the tag " << tagName;
+		err << "Field with name '" << name << "' not unique in the tag " << objectName;
 		throw ErrorMessage(DIC_STRUCT_TAG_FIELD_ALREADY_EXISTS, &err);
 	}
 
-	DicBaseField* field = (dictionary->getObjectPool())->addField(field_type, dictionary, this, id, name, name_size);
+	DictionaryBaseType* field = (dictionary->getObjectPool())->addObject(field_type, dictionary, this, id, name, name_size);
 	connectFieldToTag(field);
 	
 	// count data for index
@@ -58,23 +57,23 @@ try
 }
 catch (ErrorMessage& err)
 {
-	err.addPath(L"DicStructTag::addField");
+	err.addPath(L"DictionaryStruct::addField");
 	throw err;
 };
 
-DicBaseField* DicStructTag::getFirstField()
+DictionaryBaseType* DictionaryStruct::getFirstField()
 {
 
 	return firstField;
 };
 
-DicBaseField* DicStructTag::getLastField()
+DictionaryBaseType* DictionaryStruct::getLastField()
 {
 
 	return lastField;
 };
 
-DicBaseField* DicStructTag::getField(int id) throw (...)
+DictionaryBaseType* DictionaryStruct::getField(int id) throw (...)
 {
 	if (id > fieldNumber)
 		return 0;
@@ -82,20 +81,20 @@ DicBaseField* DicStructTag::getField(int id) throw (...)
 	return fieldIndex[id-1];
 };
 
-int DicStructTag::getFieldNumber() throw (...)
+int DictionaryStruct::getFieldNumber() throw (...)
 {
 
 	return fieldNumber;
 };
 
-int DicStructTag::findFieldID(const char* name) throw (...)
+int DictionaryStruct::findFieldID(const char* name) throw (...)
 {
-	DicBaseField* field = firstField;
+	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
 		if (strcmp(field->getName(), name) == 0)
 			return field->getID();
-		field = field->getNextField();
+		field = field->getNext();
 	}
 
 	// if not found
@@ -103,14 +102,14 @@ int DicStructTag::findFieldID(const char* name) throw (...)
 
 };
 
-int DicStructTag::findFieldID(const char* name, size_t name_size) throw (...)
+int DictionaryStruct::findFieldID(const char* name, size_t name_size) throw (...)
 {
-	DicBaseField* field = firstField;
+	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
 		if (strncmp(field->getName(), name, name_size) == 0)
 			return field->getID();
-		field = field->getNextField();
+		field = field->getNext();
 	}
 
 	// if not found
@@ -118,20 +117,20 @@ int DicStructTag::findFieldID(const char* name, size_t name_size) throw (...)
 
 };
 
-void DicStructTag::finalizeTag() throw(...)
+void DictionaryStruct::finalize() throw(...)
 {
 	// Check field ID
 	if (fieldMaxID != fieldNumber)
 	{
 		std::wstringstream err;
-		err << L"Field numeration must be sequentially in a tag. Tag ID: " << tagID << ", field number: " << fieldNumber << ", wrong tag ID: " << fieldMaxID;
-		throw ErrorMessage(DIC_STRUCT_TAG_FIELD_ID_ERROR_VALUE, &err, L"DicStructTag::finalizeTag");
+		err << L"Field numeration must be sequentially in a tag. Tag ID: " << objectID << ", field number: " << fieldNumber << ", wrong tag ID: " << fieldMaxID;
+		throw ErrorMessage(DIC_STRUCT_TAG_FIELD_ID_ERROR_VALUE, &err, L"DictionaryStruct::finalizeTag");
 	}
 
 	// Create index
 	fieldIndex.reserve(fieldNumber);
 	fieldIndex.assign(fieldNumber, 0);
-	DicBaseField* field = firstField;
+	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
 		int id = field->getID();
@@ -139,11 +138,11 @@ void DicStructTag::finalizeTag() throw(...)
 		if (fieldIndex[id - 1] != 0)
 		{
 			std::wstringstream err;
-			err << L"Not unique field ID = " << id << " in Tag ID = " << tagID;
-			throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"DicStructTag::finalizeTag");
+			err << L"Not unique field ID = " << id << " in Tag ID = " << objectID;
+			throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"DictionaryStruct::finalizeTag");
 		}
 		fieldIndex[id - 1] = field;
-		field = field->getNextField();
+		field = field->getNext();
 	}
 
 	// Finalize fields: replace TagName to TagID in Links
@@ -155,7 +154,7 @@ void DicStructTag::finalizeTag() throw(...)
 		switch (field->getType())
 		{
 		case USDS_ARRAY:
-			((DicArrayField*)field)->finalizeField();
+			((DictionaryArray*)field)->finalize();
 			break;
 		default:
 			break;
@@ -165,7 +164,7 @@ void DicStructTag::finalizeTag() throw(...)
 	
 };
 
-void DicStructTag::clear()
+void DictionaryStruct::clear()
 {
 	firstField = 0;
 	lastField = 0;
@@ -178,14 +177,14 @@ void DicStructTag::clear()
 
 //=========================================================================================
 
-void DicStructTag::connectFieldToTag(DicBaseField* field)
+void DictionaryStruct::connectFieldToTag(DictionaryBaseType* field)
 {
 	if (firstField == 0)
 		firstField = field;
-	field->setPreviousField(lastField);
-	field->setNextField(0);
+	field->setPrevious(lastField);
+	field->setNext(0);
 	if (lastField != 0)
-		lastField->setNextField(field);
+		lastField->setNext(field);
 	lastField = field;
 
 

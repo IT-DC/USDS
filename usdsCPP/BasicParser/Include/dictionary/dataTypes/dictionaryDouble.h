@@ -1,5 +1,5 @@
-#ifndef DIC_DOUBLE_FIELD
-#define DIC_DOUBLE_FIELD
+#ifndef DICTIONARY_DOUBLE_H
+#define DICTIONARY_DOUBLE_H
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"

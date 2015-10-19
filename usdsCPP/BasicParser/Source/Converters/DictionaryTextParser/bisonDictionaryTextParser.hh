@@ -61,7 +61,7 @@
 #endif  /* ! defined DICTIONARY_TEXTDEBUG */
 
 /* Line 33 of lalr1.cc  */
-#line 26 "bisonDictionaryTextParser.y"
+#line 25 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 33 of lalr1.cc  */
 #line 68 "bisonDictionaryTextParser.hh"
@@ -75,7 +75,7 @@ namespace usds {
     union semantic_type
     {
 /* Line 33 of lalr1.cc  */
-#line 41 "bisonDictionaryTextParser.y"
+#line 40 "bisonDictionaryTextParser.y"
 
     bool  			boolVal;
 	int  			intVal;
@@ -122,7 +122,7 @@ namespace usds {
     typedef token::yytokentype token_type;
 
     /// Build a parser object.
-    BisonDictionaryTextParser (class BasicParser* usdsParser_yyarg, class FlexDictionaryTextScanner* scanner_yyarg, std::stringstream* error_message_yyarg, usdsEncodes encode_yyarg, class Dictionary* dict_yyarg, class DicBaseTag* tag_yyarg, class DicBaseField* field_yyarg);
+    BisonDictionaryTextParser (class BasicParser* usdsParser_yyarg, class FlexDictionaryTextScanner* scanner_yyarg, std::stringstream* error_message_yyarg, usdsEncodes encode_yyarg, class Dictionary* dict_yyarg, class DictionaryBaseType* tag_yyarg, class DictionaryBaseType* field_yyarg);
     virtual ~BisonDictionaryTextParser ();
 
     /// Parse.
@@ -292,11 +292,11 @@ namespace usds {
     std::stringstream* error_message;
     usdsEncodes encode;
     class Dictionary* dict;
-    class DicBaseTag* tag;
-    class DicBaseField* field;
+    class DictionaryBaseType* tag;
+    class DictionaryBaseType* field;
   };
 /* Line 33 of lalr1.cc  */
-#line 26 "bisonDictionaryTextParser.y"
+#line 25 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 33 of lalr1.cc  */
 #line 303 "bisonDictionaryTextParser.hh"

@@ -1,19 +1,19 @@
-#include "dictionary\fields\dicLongField.h"
+#include "dictionary\dataTypes\dictionaryLong.h"
 
 using namespace usds;
 
-DicLongField::DicLongField()
+DictionaryLong::DictionaryLong()
 {
 
 
 };
 
-void DicLongField::clear()
+void DictionaryLong::clear()
 {
 	isDefault = false;
 };
 
-void DicLongField::setDefault(long long value)
+void DictionaryLong::setDefault(long long value)
 {
 	isDefault = true;
 	defaultValue = value;

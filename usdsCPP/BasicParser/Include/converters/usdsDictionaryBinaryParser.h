@@ -5,8 +5,7 @@ namespace usds
 {
 	class BinaryInput;
 	class Dictionary;
-	class DicBaseTag;
-	class DicBaseField;
+	class DictionaryBaseType;
 
 	class BinaryDictionaryParser
 	{
@@ -14,24 +13,22 @@ namespace usds
 		BinaryDictionaryParser();
 		~BinaryDictionaryParser();
 		
+		// read binary without size and signature
 		void parse(BinaryInput* buff, Dictionary* dict) throw(...);
 
 	private:
 		
-		void (BinaryDictionaryParser::*readTagIndex[33])(DicBaseTag*);
+		void (BinaryDictionaryParser::*readIndex[33])(DictionaryBaseType*);
 
-		void readStructTag(DicBaseTag* tag) throw (...);
+		void readBoolean(DictionaryBaseType* object) throw (...);
+		void readInt(DictionaryBaseType* object) throw (...);
+		void readLong(DictionaryBaseType* object) throw (...);
+		void readDouble(DictionaryBaseType* object) throw (...);
+		void readUVarint(DictionaryBaseType* object) throw (...);
+		void readArray(DictionaryBaseType* object) throw (...);
+		void readString(DictionaryBaseType* object) throw (...);
+		void readStruct(DictionaryBaseType* object) throw (...);
 
-		void (BinaryDictionaryParser::*readFieldIndex[33])(DicBaseField*);
-
-		void readBooleanField(DicBaseField* field) throw (...);
-		void readIntField(DicBaseField* field) throw (...);
-		void readLongField(DicBaseField* field) throw (...);
-		void readDoubleField(DicBaseField* field) throw (...);
-		void readUVarintField(DicBaseField* field) throw (...);
-		void readArrayField(DicBaseField* field) throw (...);
-		void readStringField(DicBaseField* field) throw (...);
-	
 		BinaryInput* binary;
 		Dictionary* dictionary;
 	};

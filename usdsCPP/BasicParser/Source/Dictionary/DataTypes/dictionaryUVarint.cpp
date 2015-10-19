@@ -1,19 +1,19 @@
-#include "dictionary\fields\dicUVarintField.h"
+#include "dictionary\dataTypes\dictionaryUVarint.h"
 
 using namespace usds;
 
-DicUVarintField::DicUVarintField()
+DictionaryUVarint::DictionaryUVarint()
 {
 
 
 };
 
-void DicUVarintField::clear()
+void DictionaryUVarint::clear()
 {
 	isDefault = false;
 };
 
-void DicUVarintField::setDefault(long long value)
+void DictionaryUVarint::setDefault(long long value)
 {
 	isDefault = true;
 	defaultValue = value;

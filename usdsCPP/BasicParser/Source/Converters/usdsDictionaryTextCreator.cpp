@@ -2,19 +2,53 @@
 
 #include "dictionary\usdsDictionary.h"
 
-#include "dictionary\tags\dicStructTag.h"
-
-#include "dictionary\fields\dicArrayField.h"
-#include "dictionary\fields\dicBaseField.h"
-#include "dictionary\fields\dicBooleanField.h"
-#include "dictionary\fields\dicDoubleField.h"
-#include "dictionary\fields\dicIntField.h"
-#include "dictionary\fields\dicLongField.h"
-#include "dictionary\fields\dicStringField.h"
-#include "dictionary\fields\dicUVarintField.h"
+#include "dictionary\dataTypes\dictionaryArray.h"
+#include "dictionary\dataTypes\dictionaryBoolean.h"
+#include "dictionary\dataTypes\dictionaryDouble.h"
+#include "dictionary\dataTypes\dictionaryInt.h"
+#include "dictionary\dataTypes\dictionaryLong.h"
+#include "dictionary\dataTypes\dictionaryString.h"
+#include "dictionary\dataTypes\dictionaryUVarint.h"
+#include "dictionary\dataTypes\dictionaryStruct.h"
 
 using namespace usds;
 
+DictionaryTextCreator::DictionaryTextCreator()
+{
+	writeIndex[USDS_NO_TYPE] = 0;
+	writeIndex[USDS_BOOLEAN] = &DictionaryTextCreator::writeBoolean;
+	writeIndex[USDS_BYTE] = 0;
+	writeIndex[USDS_UNSIGNED_BYTE] = 0;
+	writeIndex[USDS_SHORT] = 0;
+	writeIndex[USDS_UNSIGNED_SHORT] = 0;
+	writeIndex[USDS_BIGENDIAN_SHORT] = 0;
+	writeIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
+	writeIndex[USDS_INT] = &DictionaryTextCreator::writeInt;
+	writeIndex[USDS_UNSIGNED_INT] = 0;
+	writeIndex[USDS_BIGENDIAN_INT] = 0;
+	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
+	writeIndex[USDS_LONG] = &DictionaryTextCreator::writeLong;
+	writeIndex[USDS_UNSIGNED_LONG] = 0;
+	writeIndex[USDS_BIGENDIAN_LONG] = 0;
+	writeIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
+	writeIndex[USDS_INT128] = 0;
+	writeIndex[USDS_UNSIGNED_INT128] = 0;
+	writeIndex[USDS_BIGENDIAN_INT128] = 0;
+	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
+	writeIndex[USDS_FLOAT] = 0;
+	writeIndex[USDS_BIGENDIAN_FLOAT] = 0;
+	writeIndex[USDS_DOUBLE] = &DictionaryTextCreator::writeDouble;
+	writeIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
+	writeIndex[USDS_VARINT] = 0;
+	writeIndex[USDS_UNSIGNED_VARINT] = &DictionaryTextCreator::writeUVarint;
+	writeIndex[USDS_ARRAY] = &DictionaryTextCreator::writeArray;
+	writeIndex[USDS_STRING] = &DictionaryTextCreator::writeString;
+	writeIndex[USDS_LIST] = 0;
+	writeIndex[USDS_MAP] = 0;
+	writeIndex[USDS_POLYMORPH] = 0;
+	writeIndex[USDS_STRUCT] = &DictionaryTextCreator::writeStruct;
+	writeIndex[USDS_TAG] = 0;
+};
 
 void DictionaryTextCreator::generate(usdsEncodes encode, std::string* text, Dictionary* dict) throw (...)
 try
@@ -33,17 +67,10 @@ try
 	// get all tags
 	for (int tag_id = 1; tag_id <= dict->getTagNumber(); tag_id++)
 	{
-		DicBaseTag* tag = dict->getTag(tag_id);
-		textBuff << "\t" << tag->getID() << ": " << tag->getTypeName() << " " << tag->getName();
-		
-		switch (tag->getType())
-		{
-		case USDS_STRUCT:
-			writeStructTag((DicStructTag*)tag);
-			break;
-		default:
-			textBuff << ";\n";
-		}
+		DictionaryBaseType* tag = dict->getTag(tag_id);
+		textBuff << "\t" << tag->getID() << ": " << tag->getTypeName();
+		// write specific Tag parameters
+		(this->*(writeIndex[tag->getType()]))(tag);
 	}
 	textBuff << "}";
 
@@ -56,52 +83,68 @@ catch (ErrorMessage& err)
 };
 
 //========================================================================================
-// Tags
 
-void DictionaryTextCreator::writeStructTag(DicStructTag* tag)
+
+void DictionaryTextCreator::writeStruct(DictionaryBaseType* object)
 {
-	textBuff << "\n\t{\n";
-	for (int i = 1; i <= tag->getFieldNumber(); i++)
+	textBuff << " " << object->getName() << "\n\t{\n";
+	int fieldNumber = ((DictionaryStruct*)object)->getFieldNumber();
+	for (int i = 1; i <= fieldNumber; i++)
 	{
-		DicBaseField* field = tag->getField(i);
-		switch (field->getType())
-		{
-		case USDS_STRING:
-			writeStringField((DicStringField*)field);
-			break;
-		case USDS_ARRAY:
-			writeArrayField((DicArrayField*)field);
-			break;		
-		default:
-			textBuff << "\t\t" << field->getID() << ": " << field->getTypeName() << " " << field->getName() << ";\n";
-		}
+		DictionaryBaseType* field = ((DictionaryStruct*)object)->getField(i);
+		textBuff << "\t\t" << field->getID() << ": " << field->getTypeName();
+		// write specific Field parameters
+		(this->*(writeIndex[field->getType()]))(field);
 	};
 	textBuff << "\t}\n";
-	if (!tag->getRootStatus())
-	{
+	if (!object->getRootStatus())
 		textBuff << "\tRESTRICT {root=false;}\n";
-
-
-	}
 
 };
 
-//========================================================================================
-// Fields
+void DictionaryTextCreator::writeBoolean(DictionaryBaseType* object) throw (...)
+{
 
-void DictionaryTextCreator::writeStringField(DicStringField* field)
+	textBuff << " " << object->getName() << ";\n";
+};
+
+void DictionaryTextCreator::writeInt(DictionaryBaseType* object) throw (...)
+{
+
+	textBuff << " " << object->getName() << ";\n";
+};
+
+void DictionaryTextCreator::writeLong(DictionaryBaseType* object) throw (...)
+{
+
+	textBuff << " " << object->getName() << ";\n";
+};
+
+void DictionaryTextCreator::writeDouble(DictionaryBaseType* object) throw (...)
+{
+
+	textBuff << " " << object->getName() << ";\n";
+};
+
+void DictionaryTextCreator::writeUVarint(DictionaryBaseType* object) throw (...)
+{
+
+	textBuff << " " << object->getName() << ";\n";
+};
+
+
+void DictionaryTextCreator::writeString(DictionaryBaseType* object)
 try
 {
-	textBuff << "\t\t" << field->getID() << ": " << field->getTypeName();
-	switch (field->getEncode())
+	switch (((DictionaryString*)object)->getEncode())
 	{
 	case USDS_NO_ENCODE:
 		break;
 	default:
-		textBuff << "<" << encodeName(field->getEncode()) << ">";
+		textBuff << "<" << encodeName(((DictionaryString*)object)->getEncode()) << ">";
 	};
 	
-	textBuff << " " << field->getName() << ";" << std::endl;
+	textBuff << " " << object->getName() << ";\n";
 	
 }
 catch (ErrorMessage& err)
@@ -110,19 +153,19 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-void DictionaryTextCreator::writeArrayField(DicArrayField* field)
+void DictionaryTextCreator::writeArray(DictionaryBaseType* object)
 try
 {
-	textBuff << "\t\t" << field->getID() << ": " << field->getTypeName() << "<";
-	switch (field->getElementType())
+	textBuff << "<";
+	switch (((DictionaryArray*)object)->getElementType())
 	{
 	case USDS_TAG:
-		textBuff << field->getElementTagName();
+		textBuff << ((DictionaryArray*)object)->getElementTagName();
 		break;
 	default:
-		textBuff << typeName(field->getElementType());
+		textBuff << typeName(((DictionaryArray*)object)->getElementType());
 	}
-	textBuff << "> " << field->getName() << ";" << std::endl;
+	textBuff << "> " << object->getName() << ";\n";
 }
 catch (ErrorMessage& err)
 {

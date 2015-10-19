@@ -1,5 +1,5 @@
-#ifndef DIC_LONG_FIELD
-#define DIC_LONG_FIELD
+#ifndef DICTIONARY_LONG_H
+#define DICTIONARY_LONG_H
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"
@@ -8,11 +8,11 @@
 
 namespace usds
 {
-	class DicLongField : public DicBaseField
+	class DictionaryLong : public DictionaryBaseType
 	{
 	public:
-		DicLongField();
-		~DicLongField() {  };
+		DictionaryLong();
+		~DictionaryLong() {  };
 
 		virtual usdsTypes getType() { return USDS_LONG; };
 		virtual const char* getTypeName() { return typeName(USDS_LONG); };

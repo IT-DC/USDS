@@ -2,16 +2,15 @@
 	#include "usdsBasicParser.h"
 	#include "dictionary\usdsDictionary.h"
 
-	#include "dictionary\tags\dicStructTag.h"
-
-	#include "dictionary\fields\dicArrayField.h"
-	#include "dictionary\fields\dicBaseField.h"
-	#include "dictionary\fields\dicBooleanField.h"
-	#include "dictionary\fields\dicDoubleField.h"
-	#include "dictionary\fields\dicIntField.h"
-	#include "dictionary\fields\dicLongField.h"
-	#include "dictionary\fields\dicStringField.h"
-	#include "dictionary\fields\dicUVarintField.h"
+	#include "dictionary\dataTypes\dictionaryArray.h"
+	#include "dictionary\dataTypes\dictionaryBaseType.h"
+	#include "dictionary\dataTypes\dictionaryBoolean.h"
+	#include "dictionary\dataTypes\dictionaryDouble.h"
+	#include "dictionary\dataTypes\dictionaryInt.h"
+	#include "dictionary\dataTypes\dictionaryLong.h"
+	#include "dictionary\dataTypes\dictionaryString.h"
+	#include "dictionary\dataTypes\dictionaryUVarint.h"
+	#include "dictionary\dataTypes\dictionaryStruct.h"
 	
 	#include "flexDictionaryTextScanner.h"
 	#include <string>
@@ -33,8 +32,8 @@
 %parse-param {std::stringstream* error_message}
 %parse-param {usdsEncodes encode}
 %parse-param {class Dictionary* dict}
-%parse-param {class DicBaseTag* tag}
-%parse-param {class DicBaseField* field}
+%parse-param {class DictionaryBaseType* tag}
+%parse-param {class DictionaryBaseType* field}
 
 %error-verbose
 
@@ -61,7 +60,7 @@
 %token<typeVal> TYPE_STRUCT "STRUCT"
 %token<typeVal> TYPE_ARRAY "ARRAY"
 
-%token<encodeVal> STRING_ENCODE "Text encode"
+%token<encodeVal> STRING_ENCODE "<Text encode>"
 
 // restrictions
 %token USDS_RESTRICT
@@ -133,44 +132,44 @@ fields: field | field fields;
 field:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_BOOLEAN TEXT_NAME ';'
 	{
-		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
 		delete [] $4;
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_INT TEXT_NAME ';'
 	{
-		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
 		delete [] $4;
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_LONG TEXT_NAME ';'
 	{
-		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
 		delete [] $4;
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE TEXT_NAME ';'
 	{
-		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
 		delete [] $4;
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UNSIGNED_VARINT TEXT_NAME ';'
 	{
-		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
 		delete [] $4;
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING TEXT_NAME ';'
 	{
-		((DicStructTag*)tag)->addField($3, $1, $4, 0);
+		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
 		delete [] $4;
 	}	
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
 	{
-		field = ((DicStructTag*)tag)->addField($3, $1, $7, 0);
-		((DicStringField*)field)->setEncode($5);
+		field = ((DictionaryStruct*)tag)->addField($3, $1, $7, 0);
+		((DictionaryString*)field)->setEncode($5);
 		delete [] $7;
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_ARRAY '<' TEXT_NAME '>' TEXT_NAME ';'
 	{
-		field = ((DicStructTag*)tag)->addField($3, $1, $7, 0);
-		((DicArrayField*)field)->setElementAsTag($5, 0);
+		field = ((DictionaryStruct*)tag)->addField($3, $1, $7, 0);
+		((DictionaryArray*)field)->setElementAsTag($5, 0);
 		delete [] $5;
 		delete [] $7;
 	}

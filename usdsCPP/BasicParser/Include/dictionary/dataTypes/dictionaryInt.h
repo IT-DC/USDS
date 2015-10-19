@@ -1,5 +1,5 @@
-#ifndef DIC_INT_FIELD
-#define DIC_INT_FIELD
+#ifndef DICTIONARY_INT_H
+#define DICTIONARY_INT_H
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"

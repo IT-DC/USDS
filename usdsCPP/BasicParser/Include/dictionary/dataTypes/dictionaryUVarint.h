@@ -1,18 +1,18 @@
-#ifndef DIC_UVARINT_FIELD
-#define DIC_UVARINT_FIELD
+#ifndef DICTIONARY_UVARINT_H
+#define DICTIONARY_UVARINT_H
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"
 
-#include "dictionary\fields\dicBaseField.h"
+#include "dictionary\dataTypes\dictionaryBaseType.h"
 
 namespace usds
 {
-	class DicUVarintField : public DicBaseField
+	class DictionaryUVarint : public DictionaryBaseType
 	{
 	public:
-		DicUVarintField();
-		~DicUVarintField() {  };
+		DictionaryUVarint();
+		~DictionaryUVarint() {  };
 
 		virtual usdsTypes getType() { return USDS_UNSIGNED_VARINT; };
 		virtual const char* getTypeName() { return typeName(USDS_UNSIGNED_VARINT); };

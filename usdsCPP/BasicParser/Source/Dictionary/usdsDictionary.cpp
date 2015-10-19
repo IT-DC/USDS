@@ -1,5 +1,5 @@
 #include "dictionary\usdsDictionary.h"
-#include "dictionary\tags\dicStructTag.h"
+#include "dictionary\dataTypes\dictionaryStruct.h"
 #include "converters\usdsDictionaryBinaryCreator.h"
 
 using namespace usds;
@@ -46,7 +46,7 @@ void Dictionary::setEncode(usdsEncodes encode) throw (...)
 
 //====================================================================================================================
 // Tags construction
-DicBaseTag* Dictionary::addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...)
+DictionaryBaseType* Dictionary::addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...)
 try
 {
 	// check type
@@ -79,7 +79,7 @@ try
 	}
 
 	// Create object
-	DicBaseTag* tag = objectPool.addTag(tag_type, this, id, name, name_size);
+	DictionaryBaseType* tag = objectPool.addObject(tag_type, this, 0, id, name, name_size);
 	connectTagToDictionary(tag);
 	
 	// update data for index
@@ -98,7 +98,7 @@ catch (ErrorMessage& err)
 //====================================================================================================================
 // Fields construction
 
-DicBaseField* Dictionary::addField(usdsTypes field_type, DicStructTag* tag, int id, const char* name, size_t name_size) throw (...)
+DictionaryBaseType* Dictionary::addField(usdsTypes field_type, DictionaryStruct* tag, int id, const char* name, size_t name_size) throw (...)
 try
 {
 	return tag->addField(field_type, id, name, name_size);
@@ -123,7 +123,7 @@ void Dictionary::finalizeDictionary() throw(...)
 	// Create Tag index
 	tagIndex.reserve(tagNumber);
 	tagIndex.assign(tagNumber, 0);
-	DicBaseTag* tag = firstTag;
+	DictionaryBaseType* tag = firstTag;
 	while (tag != 0)
 	{
 		int id = tag->getID();
@@ -134,7 +134,7 @@ void Dictionary::finalizeDictionary() throw(...)
 			throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"Dictionary::finalizeDictionary");
 		}
 		tagIndex[id - 1] = tag;
-		tag = tag->getNextTag();
+		tag = tag->getNext();
 	}
 	// Finalize tags: replace TagName to TagID in Links, check errors
 	firstTag = 0;
@@ -145,7 +145,7 @@ void Dictionary::finalizeDictionary() throw(...)
 		switch (tag->getType())
 		{
 		case USDS_STRUCT:
-			((DicStructTag*)tag)->finalizeTag();
+			((DictionaryStruct*)tag)->finalize();
 			break;
 		default:
 			break;
@@ -185,7 +185,7 @@ usdsEncodes Dictionary::getEncode() throw (...)
 	return dictionaryEncode;
 };
 
-DicBaseTag* Dictionary::getFirstTag() throw (...)
+DictionaryBaseType* Dictionary::getFirstTag() throw (...)
 {
 	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getFirstTag");
@@ -193,7 +193,7 @@ DicBaseTag* Dictionary::getFirstTag() throw (...)
 	return firstTag;
 };
 
-DicBaseTag* Dictionary::getLastTag() throw (...)
+DictionaryBaseType* Dictionary::getLastTag() throw (...)
 {
 	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getLastTag");
@@ -206,12 +206,12 @@ int Dictionary::findTagID(const char* name) throw (...)
 	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTagID");
 	
-	DicBaseTag* tag = firstTag;
+	DictionaryBaseType* tag = firstTag;
 	while (tag != 0)
 	{
 		if (strcmp(tag->getName(), name) == 0)
 			return tag->getID();
-		tag = tag->getNextTag();
+		tag = tag->getNext();
 	}
 	
 	// if not found
@@ -223,19 +223,19 @@ int Dictionary::findTagID(const char* name, size_t name_size) throw (...)
 	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTagID");
 
-	DicBaseTag* tag = firstTag;
+	DictionaryBaseType* tag = firstTag;
 	while (tag != 0)
 	{
 		if (strncmp(tag->getName(), name, name_size) == 0)
 			return tag->getID();
-		tag = tag->getNextTag();
+		tag = tag->getNext();
 	}
 
 	// if not found
 	return 0;
 };
 
-DicBaseTag* Dictionary::getTag(int id) throw (...)
+DictionaryBaseType* Dictionary::getTag(int id) throw (...)
 {
 	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTag");
@@ -286,21 +286,10 @@ catch (ErrorMessage& msg)
 	throw msg;
 };
 
-void Dictionary::setBinary(const void* data, size_t size, bool addHead, bool addSize)
+void Dictionary::setBinary(const void* data, size_t size)
 {
 	binary.clear();
 	binary.writeByteArray(data, size);
-	if (addSize)
-	{
-		binary.pushFrontSize();
-		if (addHead)
-			binary.pushFrontUByte(USDS_DICTIONARY_SIGNATURE_WITH_SIZE);
-	}
-	else
-	{
-		if (addHead)
-			binary.pushFrontUByte(USDS_DICTIONARY_SIGNATURE);
-	}
 
 };
 
@@ -326,13 +315,13 @@ void Dictionary::clear()
 //====================================================================================================================
 // private
 
-void Dictionary::connectTagToDictionary(DicBaseTag* tag)
+void Dictionary::connectTagToDictionary(DictionaryBaseType* tag)
 {
 	if (firstTag == 0)
 		firstTag = tag;
-	tag->setPreviousTag(lastTag);
-	tag->setNextTag(0);
+	tag->setPrevious(lastTag);
+	tag->setNext(0);
 	if (lastTag != 0)
-		lastTag->setNextTag(tag);
+		lastTag->setNext(tag);
 	lastTag = tag;
 };

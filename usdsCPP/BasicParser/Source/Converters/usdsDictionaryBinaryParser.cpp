@@ -1,85 +1,48 @@
 #include "converters\usdsDictionaryBinaryParser.h"
 #include "base\binary\usdsBinaryInput.h"
 #include "dictionary\usdsDictionary.h"
-#include "dictionary\tags\dicBaseTag.h"
-#include "dictionary\tags\dicStructTag.h"
-#include "dictionary\fields\dicBaseField.h"
-#include "dictionary\fields\dicStringField.h"
-#include "dictionary\fields\dicArrayField.h"
+#include "dictionary\dataTypes\dictionaryStruct.h"
+#include "dictionary\dataTypes\dictionaryString.h"
+#include "dictionary\dataTypes\dictionaryArray.h"
 
 
 using namespace usds;
 
 BinaryDictionaryParser::BinaryDictionaryParser()
 {
-	readTagIndex[USDS_NO_TYPE] = 0;
-	readTagIndex[USDS_BOOLEAN] = 0;
-	readTagIndex[USDS_BYTE] = 0;
-	readTagIndex[USDS_UNSIGNED_BYTE] = 0;
-	readTagIndex[USDS_SHORT] = 0;
-	readTagIndex[USDS_UNSIGNED_SHORT] = 0;
-	readTagIndex[USDS_BIGENDIAN_SHORT] = 0;
-	readTagIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
-	readTagIndex[USDS_INT] = 0;
-	readTagIndex[USDS_UNSIGNED_INT] = 0;
-	readTagIndex[USDS_BIGENDIAN_INT] = 0;
-	readTagIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
-	readTagIndex[USDS_LONG] = 0;
-	readTagIndex[USDS_UNSIGNED_LONG] = 0;
-	readTagIndex[USDS_BIGENDIAN_LONG] = 0;
-	readTagIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
-	readTagIndex[USDS_INT128] = 0;
-	readTagIndex[USDS_UNSIGNED_INT128] = 0;
-	readTagIndex[USDS_BIGENDIAN_INT128] = 0;
-	readTagIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
-	readTagIndex[USDS_FLOAT] = 0;
-	readTagIndex[USDS_BIGENDIAN_FLOAT] = 0;
-	readTagIndex[USDS_DOUBLE] = 0;
-	readTagIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
-	readTagIndex[USDS_VARINT] = 0;
-	readTagIndex[USDS_UNSIGNED_VARINT] = 0;
-	readTagIndex[USDS_ARRAY] = 0;
-	readTagIndex[USDS_STRING] = 0;
-	readTagIndex[USDS_LIST] = 0;
-	readTagIndex[USDS_MAP] = 0;
-	readTagIndex[USDS_POLYMORPH] = 0;
-	readTagIndex[USDS_STRUCT] = &BinaryDictionaryParser::readStructTag;
-	readTagIndex[USDS_TAG] = 0;
-
-
-	readFieldIndex[USDS_NO_TYPE] = 0;
-	readFieldIndex[USDS_BOOLEAN] = &BinaryDictionaryParser::readBooleanField;
-	readFieldIndex[USDS_BYTE] = 0;
-	readFieldIndex[USDS_UNSIGNED_BYTE] = 0;
-	readFieldIndex[USDS_SHORT] = 0;
-	readFieldIndex[USDS_UNSIGNED_SHORT] = 0;
-	readFieldIndex[USDS_BIGENDIAN_SHORT] = 0;
-	readFieldIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
-	readFieldIndex[USDS_INT] = &BinaryDictionaryParser::readIntField;
-	readFieldIndex[USDS_UNSIGNED_INT] = 0;
-	readFieldIndex[USDS_BIGENDIAN_INT] = 0;
-	readFieldIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
-	readFieldIndex[USDS_LONG] = &BinaryDictionaryParser::readLongField;
-	readFieldIndex[USDS_UNSIGNED_LONG] = 0;
-	readFieldIndex[USDS_BIGENDIAN_LONG] = 0;
-	readFieldIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
-	readFieldIndex[USDS_INT128] = 0;
-	readFieldIndex[USDS_UNSIGNED_INT128] = 0;
-	readFieldIndex[USDS_BIGENDIAN_INT128] = 0;
-	readFieldIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
-	readFieldIndex[USDS_FLOAT] = 0;
-	readFieldIndex[USDS_BIGENDIAN_FLOAT] = 0;
-	readFieldIndex[USDS_DOUBLE] = &BinaryDictionaryParser::readDoubleField;
-	readFieldIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
-	readFieldIndex[USDS_VARINT] = 0;
-	readFieldIndex[USDS_UNSIGNED_VARINT] = &BinaryDictionaryParser::readUVarintField;
-	readFieldIndex[USDS_ARRAY] = &BinaryDictionaryParser::readArrayField;
-	readFieldIndex[USDS_STRING] = &BinaryDictionaryParser::readStringField;
-	readFieldIndex[USDS_LIST] = 0;
-	readFieldIndex[USDS_MAP] = 0;
-	readFieldIndex[USDS_POLYMORPH] = 0;
-	readFieldIndex[USDS_STRUCT] = 0;
-	readFieldIndex[USDS_TAG] = 0;
+	readIndex[USDS_NO_TYPE] = 0;
+	readIndex[USDS_BOOLEAN] = &BinaryDictionaryParser::readBoolean;
+	readIndex[USDS_BYTE] = 0;
+	readIndex[USDS_UNSIGNED_BYTE] = 0;
+	readIndex[USDS_SHORT] = 0;
+	readIndex[USDS_UNSIGNED_SHORT] = 0;
+	readIndex[USDS_BIGENDIAN_SHORT] = 0;
+	readIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
+	readIndex[USDS_INT] = &BinaryDictionaryParser::readInt;
+	readIndex[USDS_UNSIGNED_INT] = 0;
+	readIndex[USDS_BIGENDIAN_INT] = 0;
+	readIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
+	readIndex[USDS_LONG] = &BinaryDictionaryParser::readLong;
+	readIndex[USDS_UNSIGNED_LONG] = 0;
+	readIndex[USDS_BIGENDIAN_LONG] = 0;
+	readIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
+	readIndex[USDS_INT128] = 0;
+	readIndex[USDS_UNSIGNED_INT128] = 0;
+	readIndex[USDS_BIGENDIAN_INT128] = 0;
+	readIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
+	readIndex[USDS_FLOAT] = 0;
+	readIndex[USDS_BIGENDIAN_FLOAT] = 0;
+	readIndex[USDS_DOUBLE] = &BinaryDictionaryParser::readDouble;
+	readIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
+	readIndex[USDS_VARINT] = 0;
+	readIndex[USDS_UNSIGNED_VARINT] = &BinaryDictionaryParser::readUVarint;
+	readIndex[USDS_ARRAY] = &BinaryDictionaryParser::readArray;
+	readIndex[USDS_STRING] = &BinaryDictionaryParser::readString;
+	readIndex[USDS_LIST] = 0;
+	readIndex[USDS_MAP] = 0;
+	readIndex[USDS_POLYMORPH] = 0;
+	readIndex[USDS_STRUCT] = &BinaryDictionaryParser::readStruct;
+	readIndex[USDS_TAG] = 0;
 };
 
 BinaryDictionaryParser::~BinaryDictionaryParser()
@@ -116,13 +79,13 @@ try
 		binary->readUVarint(&name_size);
 		const void* name = binary->readByteArray(name_size);
 		int tag_type = binary->readByte();
-		DicBaseTag* tag = dictionary->addTag((usdsTypes)tag_type, tag_id, (const char*)name, name_size);
+		DictionaryBaseType* tag = dictionary->addTag((usdsTypes)tag_type, tag_id, (const char*)name, name_size);
 		// read specific Tag parameters
-		(this->*(readTagIndex[tag_type]))(tag);
+		(this->*(readIndex[tag_type]))(tag);
 	}
 
 	dictionary->finalizeDictionary();
-	dictionary->setBinary(binary->getFirstPosition(), binary->getDataSize(), true, true);
+	dictionary->setBinary(binary->getFirstPosition(), binary->getDataSize());
 }
 catch (ErrorMessage& msg)
 {
@@ -132,7 +95,7 @@ catch (ErrorMessage& msg)
 
 
 //=======================================================================================================
-void BinaryDictionaryParser::readStructTag(DicBaseTag* tag) throw (...)
+void BinaryDictionaryParser::readStruct(DictionaryBaseType* object) throw (...)
 try
 {
 	unsigned char signature = binary->readUByte();
@@ -151,9 +114,9 @@ try
 		binary->readUVarint(&name_size);
 		const void* name = binary->readByteArray(name_size);
 		int field_type = binary->readByte();
-		DicBaseField* field = dictionary->addField((usdsTypes)field_type, (DicStructTag*)tag, field_id, (const char*)name, name_size);
+		DictionaryBaseType* field = dictionary->addField((usdsTypes)field_type, (DictionaryStruct*)object, field_id, (const char*)name, name_size);
 		// read specific Field parameters
-		(this->*(readFieldIndex[field_type]))(field);
+		(this->*(readIndex[field_type]))(field);
 		if (binary->isEnd())
 			return;
 		signature = binary->readUByte();
@@ -163,7 +126,7 @@ try
 	{
 		signature = binary->readUByte();
 		if (signature == USDS_TAG_RESTRICTION_ROOT_SIGNATURE)
-			tag->setRoot(false);
+			object->setRoot(false);
 		else
 		{
 			std::wstringstream msg;
@@ -184,37 +147,37 @@ catch (ErrorMessage& msg)
 };
 
 
-void BinaryDictionaryParser::readBooleanField(DicBaseField* field) throw (...)
+void BinaryDictionaryParser::readBoolean(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readIntField(DicBaseField* field) throw (...)
+void BinaryDictionaryParser::readInt(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readLongField(DicBaseField* field) throw (...)
+void BinaryDictionaryParser::readLong(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readDoubleField(DicBaseField* field) throw (...)
+void BinaryDictionaryParser::readDouble(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readUVarintField(DicBaseField* field) throw (...)
+void BinaryDictionaryParser::readUVarint(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readArrayField(DicBaseField* field) throw (...)
+void BinaryDictionaryParser::readArray(DictionaryBaseType* object) throw (...)
 {
 	int element_type = binary->readByte();
 	switch (element_type)
@@ -223,19 +186,19 @@ void BinaryDictionaryParser::readArrayField(DicBaseField* field) throw (...)
 		{
 			int tag_id;
 			binary->readUVarint(&tag_id);
-			((DicArrayField*)field)->setElementAsTag(tag_id);
+			((DictionaryArray*)object)->setElementAsTag(tag_id);
 			break;
 		}
 	default:
 		std::wstringstream err;
-		err << L"Unsupported type '" << ((DicArrayField*)field)->getElementType() << "'";
+		err << L"Unsupported type '" << ((DictionaryArray*)object)->getElementType() << "'";
 		throw ErrorMessage(DIC_BINARY_CREATOR_UNSUPPORTED_TYPE, &err);
 	}
 };
 
-void BinaryDictionaryParser::readStringField(DicBaseField* field) throw (...)
+void BinaryDictionaryParser::readString(DictionaryBaseType* object) throw (...)
 {
 	int encode = binary->readByte();
-	((DicStringField*)field)->setEncode((usdsEncodes)encode);
+	((DictionaryString*)object)->setEncode((usdsEncodes)encode);
 
 };

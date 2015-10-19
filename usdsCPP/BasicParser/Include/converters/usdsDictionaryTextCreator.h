@@ -9,16 +9,12 @@
 namespace usds
 {
 	class Dictionary;
-	class DicStructTag;
-	class DicBaseTag;
-	class DicBaseField;
-	class DicStringField;
-	class DicArrayField;
+	class DictionaryBaseType;
 
 	class DictionaryTextCreator
 	{
 	public:
-		DictionaryTextCreator() { };
+		DictionaryTextCreator();
 		~DictionaryTextCreator() { };
 
 		void generate(usdsEncodes encode, std::string* text, Dictionary* dict) throw (...);
@@ -26,11 +22,16 @@ namespace usds
 	private:
 		std::stringstream textBuff;
 		
-		void writeStructTag(DicStructTag* tag);
+		void (DictionaryTextCreator::*writeIndex[33])(DictionaryBaseType*);
 
-		void writeStringField(DicStringField* field);
-		void writeArrayField(DicArrayField* field);
-
+		void writeBoolean(DictionaryBaseType* object) throw (...);
+		void writeInt(DictionaryBaseType* object) throw (...);
+		void writeLong(DictionaryBaseType* object) throw (...);
+		void writeDouble(DictionaryBaseType* object) throw (...);
+		void writeUVarint(DictionaryBaseType* object) throw (...);
+		void writeArray(DictionaryBaseType* object) throw (...);
+		void writeString(DictionaryBaseType* object) throw (...);
+		void writeStruct(DictionaryBaseType* object) throw (...);
 
 	};
 

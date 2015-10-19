@@ -3,21 +3,20 @@
 
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"
-#include "base\object pool\usdsObjectPool.h"
+#include "base\objectPool\usdsObjectPool.h"
 
 namespace usds
 {
-	class BaseField;
-	class BaseTag;
+	class UsdsBaseType;
 
-	class StructTag;
-	class BooleanField;
-	class IntField;
-	class LongField;
-	class DoubleField;
-	class UVarintField;
-	class ArrayField;
-	class StringField;
+	class UsdsBoolean;
+	class UsdsInt;
+	class UsdsLong;
+	class UsdsDouble;
+	class UsdsUVarint;
+	class UsdsArray;
+	class UsdsString;
+	class UsdsStruct;
 
 	class BodyObjectPool
 	{
@@ -25,40 +24,32 @@ namespace usds
 		BodyObjectPool();
 		~BodyObjectPool();
 
-		BaseTag* addTag(usdsTypes tag_type, int id);
-		BaseField* addField(usdsTypes field_type, StructTag* tag, int id);
+		UsdsBaseType* addObject(usdsTypes object_type, UsdsBaseType* parent, int id);
 
 		// Clear pool, it does not release memory
 		void clear();
 
 	private:
-		BaseTag* (BodyObjectPool::*tagPoolIndex[33])(int);
+		UsdsBaseType* (BodyObjectPool::*poolIndex[33])(UsdsBaseType*, int);
 
-		BaseTag* addStructTag(int id);
-
-
-		BaseField* (BodyObjectPool::*fieldPoolIndex[33])(StructTag*, int);
-
-		BaseField* addBooleanField(StructTag* tag, int id);
-		BaseField* addIntField(StructTag* tag, int id);
-		BaseField* addLongField(StructTag* tag, int id);
-		BaseField* addDoubleField(StructTag* tag, int id);
-		BaseField* addUVarintField(StructTag* tag, int id);
-		BaseField* addArrayField(StructTag* tag, int id);
-		BaseField* addStringField(StructTag* tag, int id);
-
-		// Pool of tags
-		TemplateObjectPool<StructTag> structTags;
-
-		// Pool of fields
-		TemplateObjectPool<BooleanField> booleanFields;
-		TemplateObjectPool<IntField> intFields;
-		TemplateObjectPool<LongField> longFields;
-		TemplateObjectPool<DoubleField> doubleFields;
-		TemplateObjectPool<UVarintField> uVarintFields;
-		TemplateObjectPool<ArrayField> arrayFields;
-		TemplateObjectPool<StringField> stringFields;
-
+		UsdsBaseType* addBoolean(UsdsBaseType* parent, int id);
+		UsdsBaseType* addInt(UsdsBaseType* parent, int id);
+		UsdsBaseType* addLong(UsdsBaseType* parent, int id);
+		UsdsBaseType* addDouble(UsdsBaseType* parent, int id);
+		UsdsBaseType* addUVarint(UsdsBaseType* parent, int id);
+		UsdsBaseType* addArray(UsdsBaseType* parent, int id);
+		UsdsBaseType* addString(UsdsBaseType* parent, int id);
+		UsdsBaseType* addStruct(UsdsBaseType* parent, int id);
+		
+		// Pool of objects
+		TemplateObjectPool<UsdsBoolean> booleanObjects;
+		TemplateObjectPool<UsdsInt> intObjects;
+		TemplateObjectPool<UsdsLong> longObjects;
+		TemplateObjectPool<UsdsDouble> doubleObjects;
+		TemplateObjectPool<UsdsUVarint> uVarintObjects;
+		TemplateObjectPool<UsdsArray> arrayObjects;
+		TemplateObjectPool<UsdsString> stringObjects;
+		TemplateObjectPool<UsdsStruct> structObjects;
 
 	};
 

@@ -5,91 +5,54 @@
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"
 
-#include "dictionary\tags\dicStructTag.h"
-
-#include "dictionary\fields\dicArrayField.h"
-#include "dictionary\fields\dicBooleanField.h"
-#include "dictionary\fields\dicDoubleField.h"
-#include "dictionary\fields\dicIntField.h"
-#include "dictionary\fields\dicLongField.h"
-#include "dictionary\fields\dicStringField.h"
-#include "dictionary\fields\dicUVarintField.h"
+#include "dictionary\dataTypes\dictionaryArray.h"
+#include "dictionary\dataTypes\dictionaryBoolean.h"
+#include "dictionary\dataTypes\dictionaryDouble.h"
+#include "dictionary\dataTypes\dictionaryInt.h"
+#include "dictionary\dataTypes\dictionaryLong.h"
+#include "dictionary\dataTypes\dictionaryString.h"
+#include "dictionary\dataTypes\dictionaryUVarint.h"
+#include "dictionary\dataTypes\dictionaryStruct.h"
 
 using namespace usds;
 
 DictionaryBinaryCreator::DictionaryBinaryCreator() 
 {
-	writeTagIndex[USDS_NO_TYPE] = 0;
-	writeTagIndex[USDS_BOOLEAN] = 0;
-	writeTagIndex[USDS_BYTE] = 0;
-	writeTagIndex[USDS_UNSIGNED_BYTE] = 0;
-	writeTagIndex[USDS_SHORT] = 0;
-	writeTagIndex[USDS_UNSIGNED_SHORT] = 0;
-	writeTagIndex[USDS_BIGENDIAN_SHORT] = 0;
-	writeTagIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
-	writeTagIndex[USDS_INT] = 0;
-	writeTagIndex[USDS_UNSIGNED_INT] = 0;
-	writeTagIndex[USDS_BIGENDIAN_INT] = 0;
-	writeTagIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
-	writeTagIndex[USDS_LONG] = 0;
-	writeTagIndex[USDS_UNSIGNED_LONG] = 0;
-	writeTagIndex[USDS_BIGENDIAN_LONG] = 0;
-	writeTagIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
-	writeTagIndex[USDS_INT128] = 0;
-	writeTagIndex[USDS_UNSIGNED_INT128] = 0;
-	writeTagIndex[USDS_BIGENDIAN_INT128] = 0;
-	writeTagIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
-	writeTagIndex[USDS_FLOAT] = 0;
-	writeTagIndex[USDS_BIGENDIAN_FLOAT] = 0;
-	writeTagIndex[USDS_DOUBLE] = 0;
-	writeTagIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
-	writeTagIndex[USDS_VARINT] = 0;
-	writeTagIndex[USDS_UNSIGNED_VARINT] = 0;
-	writeTagIndex[USDS_ARRAY] = 0;
-	writeTagIndex[USDS_STRING] = 0;
-	writeTagIndex[USDS_LIST] = 0;
-	writeTagIndex[USDS_MAP] = 0;
-	writeTagIndex[USDS_POLYMORPH] = 0;
-	writeTagIndex[USDS_STRUCT] = &DictionaryBinaryCreator::writeStructTag;
-	writeTagIndex[USDS_TAG] = 0;
-
-
-	writeFieldIndex[USDS_NO_TYPE] = 0;
-	writeFieldIndex[USDS_BOOLEAN] = &DictionaryBinaryCreator::writeBooleanField;
-	writeFieldIndex[USDS_BYTE] = 0;
-	writeFieldIndex[USDS_UNSIGNED_BYTE] = 0;
-	writeFieldIndex[USDS_SHORT] = 0;
-	writeFieldIndex[USDS_UNSIGNED_SHORT] = 0;
-	writeFieldIndex[USDS_BIGENDIAN_SHORT] = 0;
-	writeFieldIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
-	writeFieldIndex[USDS_INT] = &DictionaryBinaryCreator::writeIntField;
-	writeFieldIndex[USDS_UNSIGNED_INT] = 0;
-	writeFieldIndex[USDS_BIGENDIAN_INT] = 0;
-	writeFieldIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
-	writeFieldIndex[USDS_LONG] = &DictionaryBinaryCreator::writeLongField;
-	writeFieldIndex[USDS_UNSIGNED_LONG] = 0;
-	writeFieldIndex[USDS_BIGENDIAN_LONG] = 0;
-	writeFieldIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
-	writeFieldIndex[USDS_INT128] = 0;
-	writeFieldIndex[USDS_UNSIGNED_INT128] = 0;
-	writeFieldIndex[USDS_BIGENDIAN_INT128] = 0;
-	writeFieldIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
-	writeFieldIndex[USDS_FLOAT] = 0;
-	writeFieldIndex[USDS_BIGENDIAN_FLOAT] = 0;
-	writeFieldIndex[USDS_DOUBLE] = &DictionaryBinaryCreator::writeDoubleField;
-	writeFieldIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
-	writeFieldIndex[USDS_VARINT] = 0;
-	writeFieldIndex[USDS_UNSIGNED_VARINT] = &DictionaryBinaryCreator::writeUVarintField;
-	writeFieldIndex[USDS_ARRAY] = &DictionaryBinaryCreator::writeArrayField;
-	writeFieldIndex[USDS_STRING] = &DictionaryBinaryCreator::writeStringField;
-	writeFieldIndex[USDS_LIST] = 0;
-	writeFieldIndex[USDS_MAP] = 0;
-	writeFieldIndex[USDS_POLYMORPH] = 0;
-	writeFieldIndex[USDS_STRUCT] = 0;
-	writeFieldIndex[USDS_TAG] = 0;
-
-
+	writeIndex[USDS_NO_TYPE] = 0;
+	writeIndex[USDS_BOOLEAN] = &DictionaryBinaryCreator::writeBoolean;
+	writeIndex[USDS_BYTE] = 0;
+	writeIndex[USDS_UNSIGNED_BYTE] = 0;
+	writeIndex[USDS_SHORT] = 0;
+	writeIndex[USDS_UNSIGNED_SHORT] = 0;
+	writeIndex[USDS_BIGENDIAN_SHORT] = 0;
+	writeIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
+	writeIndex[USDS_INT] = &DictionaryBinaryCreator::writeInt;
+	writeIndex[USDS_UNSIGNED_INT] = 0;
+	writeIndex[USDS_BIGENDIAN_INT] = 0;
+	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
+	writeIndex[USDS_LONG] = &DictionaryBinaryCreator::writeLong;
+	writeIndex[USDS_UNSIGNED_LONG] = 0;
+	writeIndex[USDS_BIGENDIAN_LONG] = 0;
+	writeIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
+	writeIndex[USDS_INT128] = 0;
+	writeIndex[USDS_UNSIGNED_INT128] = 0;
+	writeIndex[USDS_BIGENDIAN_INT128] = 0;
+	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
+	writeIndex[USDS_FLOAT] = 0;
+	writeIndex[USDS_BIGENDIAN_FLOAT] = 0;
+	writeIndex[USDS_DOUBLE] = &DictionaryBinaryCreator::writeDouble;
+	writeIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
+	writeIndex[USDS_VARINT] = 0;
+	writeIndex[USDS_UNSIGNED_VARINT] = &DictionaryBinaryCreator::writeUVarint;
+	writeIndex[USDS_ARRAY] = &DictionaryBinaryCreator::writeArray;
+	writeIndex[USDS_STRING] = &DictionaryBinaryCreator::writeString;
+	writeIndex[USDS_LIST] = 0;
+	writeIndex[USDS_MAP] = 0;
+	writeIndex[USDS_POLYMORPH] = 0;
+	writeIndex[USDS_STRUCT] = &DictionaryBinaryCreator::writeStruct;
+	writeIndex[USDS_TAG] = 0;
 };
+
 DictionaryBinaryCreator::~DictionaryBinaryCreator() { };
 
 void DictionaryBinaryCreator::generate(BinaryOutput* buff, Dictionary* dict) throw (...)
@@ -104,18 +67,15 @@ try
 	for (int id = 1; id <= dict->getTagNumber(); id++)
 	{
 		outBuffer->writeUByte(USDS_TAG_SIGNATURE);
-		DicBaseTag* tag = dict->getTag(id);
+		DictionaryBaseType* tag = dict->getTag(id);
 		outBuffer->writeUVarint(tag->getID());
 		size_t size = tag->getNameSize();
 		outBuffer->writeUVarint(size);
 		outBuffer->writeByteArray((void*)tag->getName(), size);
 		outBuffer->writeByte(tag->getType());
 		// write specific Tag parameters
-		(this->*(writeTagIndex[tag->getType()]))(tag);
+		(this->*(writeIndex[tag->getType()]))(tag);
 	}
-	// write Dictionary size and signature
-	outBuffer->pushFrontSize();
-	outBuffer->pushFrontUByte(USDS_DICTIONARY_SIGNATURE_WITH_SIZE);
 }
 catch (ErrorMessage& msg)
 {
@@ -124,12 +84,13 @@ catch (ErrorMessage& msg)
 };
 
 //=======================================================================================================
-void DictionaryBinaryCreator::writeStructTag(DicBaseTag* tag) throw (...)
+void DictionaryBinaryCreator::writeStruct(DictionaryBaseType* object) throw (...)
 {
 	//write fields
-	for (int id = 1; id <= ((DicStructTag*)tag)->getFieldNumber() ; id++)
+	int fieldNumber = ((DictionaryStruct*)object)->getFieldNumber();
+	for (int id = 1; id <= fieldNumber; id++)
 	{
-		DicBaseField* field = ((DicStructTag*)tag)->getField(id);
+		DictionaryBaseType* field = ((DictionaryStruct*)object)->getField(id);
 		outBuffer->writeUByte(USDS_FIELD_SIGNATURE);
 		outBuffer->writeUVarint(field->getID());
 		size_t size = field->getNameSize();
@@ -137,11 +98,11 @@ void DictionaryBinaryCreator::writeStructTag(DicBaseTag* tag) throw (...)
 		outBuffer->writeByteArray((void*)field->getName(), size);
 		outBuffer->writeByte(field->getType());
 		// write specific Field parameters
-		(this->*(writeFieldIndex[field->getType()]))(field);
+		(this->*(writeIndex[field->getType()]))(field);
 	}
 
 	// write tag restrictions
-	if (!tag->getRootStatus())
+	if (!object->getRootStatus())
 	{
 		outBuffer->writeUByte(USDS_TAG_RESTRICTION_SIGNATURE);
 		outBuffer->writeUByte(USDS_TAG_RESTRICTION_ROOT_SIGNATURE); // == root is false
@@ -152,48 +113,48 @@ void DictionaryBinaryCreator::writeStructTag(DicBaseTag* tag) throw (...)
 
 
 //=======================================================================================================
-void DictionaryBinaryCreator::writeBooleanField(DicBaseField* field) throw (...)
+void DictionaryBinaryCreator::writeBoolean(DictionaryBaseType* object) throw (...)
 {
 
 	
 };
 
-void DictionaryBinaryCreator::writeIntField(DicBaseField* field) throw (...)
+void DictionaryBinaryCreator::writeInt(DictionaryBaseType* object) throw (...)
 {
 
 	
 };
 
-void DictionaryBinaryCreator::writeLongField(DicBaseField* field) throw (...)
+void DictionaryBinaryCreator::writeLong(DictionaryBaseType* object) throw (...)
 {
 
 	
 };
 
-void DictionaryBinaryCreator::writeDoubleField(DicBaseField* field) throw (...)
+void DictionaryBinaryCreator::writeDouble(DictionaryBaseType* object) throw (...)
 {
 
 	
 };
 
-void DictionaryBinaryCreator::writeUVarintField(DicBaseField* field) throw (...)
+void DictionaryBinaryCreator::writeUVarint(DictionaryBaseType* object) throw (...)
 {
 
 	
 };
 
-void DictionaryBinaryCreator::writeArrayField(DicBaseField* field) throw (...)
+void DictionaryBinaryCreator::writeArray(DictionaryBaseType* object) throw (...)
 try
 {
-	switch (((DicArrayField*)field)->getElementType())
+	switch (((DictionaryArray*)object)->getElementType())
 	{
 	case USDS_TAG:
 		outBuffer->writeByte(USDS_TAG);
-		outBuffer->writeUVarint(((DicArrayField*)field)->getElementTagID());
+		outBuffer->writeUVarint(((DictionaryArray*)object)->getElementTagID());
 		break;
 	default:
 		std::wstringstream err;
-		err << L"Unsupported type '" << ((DicArrayField*)field)->getElementType() << "'";
+		err << L"Unsupported type '" << ((DictionaryArray*)object)->getElementType() << "'";
 		throw ErrorMessage(DIC_BINARY_CREATOR_UNSUPPORTED_TYPE, &err);
 	}
 	
@@ -205,8 +166,8 @@ catch (ErrorMessage& msg)
 	throw msg;
 };
 
-void DictionaryBinaryCreator::writeStringField(DicBaseField* field) throw (...)
+void DictionaryBinaryCreator::writeString(DictionaryBaseType* object) throw (...)
 {
-	outBuffer->writeByte(((DicStringField*)field)->getEncode());
+	outBuffer->writeByte(((DictionaryString*)object)->getEncode());
 	
 };

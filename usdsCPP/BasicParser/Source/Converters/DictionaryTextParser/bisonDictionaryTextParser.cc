@@ -40,36 +40,35 @@
 	#include "usdsBasicParser.h"
 	#include "dictionary\usdsDictionary.h"
 
-	#include "dictionary\tags\dicStructTag.h"
-
-	#include "dictionary\fields\dicArrayField.h"
-	#include "dictionary\fields\dicBaseField.h"
-	#include "dictionary\fields\dicBooleanField.h"
-	#include "dictionary\fields\dicDoubleField.h"
-	#include "dictionary\fields\dicIntField.h"
-	#include "dictionary\fields\dicLongField.h"
-	#include "dictionary\fields\dicStringField.h"
-	#include "dictionary\fields\dicUVarintField.h"
+	#include "dictionary\dataTypes\dictionaryArray.h"
+	#include "dictionary\dataTypes\dictionaryBaseType.h"
+	#include "dictionary\dataTypes\dictionaryBoolean.h"
+	#include "dictionary\dataTypes\dictionaryDouble.h"
+	#include "dictionary\dataTypes\dictionaryInt.h"
+	#include "dictionary\dataTypes\dictionaryLong.h"
+	#include "dictionary\dataTypes\dictionaryString.h"
+	#include "dictionary\dataTypes\dictionaryUVarint.h"
+	#include "dictionary\dataTypes\dictionaryStruct.h"
 	
 	#include "flexDictionaryTextScanner.h"
 	#include <string>
 	
 
 /* Line 279 of lalr1.cc  */
-#line 60 "bisonDictionaryTextParser.cc"
+#line 59 "bisonDictionaryTextParser.cc"
 
 
 #include "bisonDictionaryTextParser.hh"
 
 /* User implementation prologue.  */
 /* Line 285 of lalr1.cc  */
-#line 83 "bisonDictionaryTextParser.y"
+#line 82 "bisonDictionaryTextParser.y"
 
 #undef yylex
 #define yylex scanner->scan
 
 /* Line 285 of lalr1.cc  */
-#line 73 "bisonDictionaryTextParser.cc"
+#line 72 "bisonDictionaryTextParser.cc"
 
 
 # ifndef YY_NULL
@@ -162,10 +161,10 @@ do {					\
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 /* Line 353 of lalr1.cc  */
-#line 26 "bisonDictionaryTextParser.y"
+#line 25 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 353 of lalr1.cc  */
-#line 169 "bisonDictionaryTextParser.cc"
+#line 168 "bisonDictionaryTextParser.cc"
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -206,7 +205,7 @@ namespace usds {
 
 
   /// Build a parser object.
-  BisonDictionaryTextParser::BisonDictionaryTextParser (class BasicParser* usdsParser_yyarg, class FlexDictionaryTextScanner* scanner_yyarg, std::stringstream* error_message_yyarg, usdsEncodes encode_yyarg, class Dictionary* dict_yyarg, class DicBaseTag* tag_yyarg, class DicBaseField* field_yyarg)
+  BisonDictionaryTextParser::BisonDictionaryTextParser (class BasicParser* usdsParser_yyarg, class FlexDictionaryTextScanner* scanner_yyarg, std::stringstream* error_message_yyarg, usdsEncodes encode_yyarg, class Dictionary* dict_yyarg, class DictionaryBaseType* tag_yyarg, class DictionaryBaseType* field_yyarg)
     :
 #if DICTIONARY_TEXTDEBUG
       yydebug_ (false),
@@ -275,10 +274,10 @@ namespace usds {
       {
         case 19: /* "object name" */
 /* Line 455 of lalr1.cc  */
-#line 74 "bisonDictionaryTextParser.y"
+#line 73 "bisonDictionaryTextParser.y"
         { delete [] ((*yyvaluep).stringVal); };
 /* Line 455 of lalr1.cc  */
-#line 282 "bisonDictionaryTextParser.cc"
+#line 281 "bisonDictionaryTextParser.cc"
         break;
 
 	default:
@@ -489,7 +488,7 @@ namespace usds {
       {
           case 2:
 /* Line 670 of lalr1.cc  */
-#line 93 "bisonDictionaryTextParser.y"
+#line 92 "bisonDictionaryTextParser.y"
     {
 		dict = usdsParser->addNewDictionary((yysemantic_stack_[(7) - (3)].intVal), (yysemantic_stack_[(7) - (5)].intVal), (yysemantic_stack_[(7) - (7)].intVal));
 		dict->setEncode(encode);
@@ -498,7 +497,7 @@ namespace usds {
 
   case 3:
 /* Line 670 of lalr1.cc  */
-#line 98 "bisonDictionaryTextParser.y"
+#line 97 "bisonDictionaryTextParser.y"
     {
 		// Finilize dictionary
 		dict->finalizeDictionary();
@@ -507,7 +506,7 @@ namespace usds {
 
   case 8:
 /* Line 670 of lalr1.cc  */
-#line 112 "bisonDictionaryTextParser.y"
+#line 111 "bisonDictionaryTextParser.y"
     {
 		tag = dict->addTag((yysemantic_stack_[(4) - (3)].typeVal), (yysemantic_stack_[(4) - (1)].intVal), (yysemantic_stack_[(4) - (4)].stringVal), 0);
 		delete [] (yysemantic_stack_[(4) - (4)].stringVal);
@@ -516,7 +515,7 @@ namespace usds {
 
   case 11:
 /* Line 670 of lalr1.cc  */
-#line 122 "bisonDictionaryTextParser.y"
+#line 121 "bisonDictionaryTextParser.y"
     {
 		tag->setRoot((yysemantic_stack_[(4) - (3)].boolVal));
 	}
@@ -524,74 +523,74 @@ namespace usds {
 
   case 14:
 /* Line 670 of lalr1.cc  */
-#line 135 "bisonDictionaryTextParser.y"
+#line 134 "bisonDictionaryTextParser.y"
     {
-		((DicStructTag*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
+		((DictionaryStruct*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
 
   case 15:
 /* Line 670 of lalr1.cc  */
-#line 140 "bisonDictionaryTextParser.y"
+#line 139 "bisonDictionaryTextParser.y"
     {
-		((DicStructTag*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
+		((DictionaryStruct*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
 
   case 16:
 /* Line 670 of lalr1.cc  */
-#line 145 "bisonDictionaryTextParser.y"
+#line 144 "bisonDictionaryTextParser.y"
     {
-		((DicStructTag*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
+		((DictionaryStruct*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
 
   case 17:
 /* Line 670 of lalr1.cc  */
-#line 150 "bisonDictionaryTextParser.y"
+#line 149 "bisonDictionaryTextParser.y"
     {
-		((DicStructTag*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
+		((DictionaryStruct*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
 
   case 18:
 /* Line 670 of lalr1.cc  */
-#line 155 "bisonDictionaryTextParser.y"
+#line 154 "bisonDictionaryTextParser.y"
     {
-		((DicStructTag*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
+		((DictionaryStruct*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
 
   case 19:
 /* Line 670 of lalr1.cc  */
-#line 160 "bisonDictionaryTextParser.y"
+#line 159 "bisonDictionaryTextParser.y"
     {
-		((DicStructTag*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
+		((DictionaryStruct*)tag)->addField((yysemantic_stack_[(5) - (3)].typeVal), (yysemantic_stack_[(5) - (1)].intVal), (yysemantic_stack_[(5) - (4)].stringVal), 0);
 		delete [] (yysemantic_stack_[(5) - (4)].stringVal);
 	}
     break;
 
   case 20:
 /* Line 670 of lalr1.cc  */
-#line 165 "bisonDictionaryTextParser.y"
+#line 164 "bisonDictionaryTextParser.y"
     {
-		field = ((DicStructTag*)tag)->addField((yysemantic_stack_[(8) - (3)].typeVal), (yysemantic_stack_[(8) - (1)].intVal), (yysemantic_stack_[(8) - (7)].stringVal), 0);
-		((DicStringField*)field)->setEncode((yysemantic_stack_[(8) - (5)].encodeVal));
+		field = ((DictionaryStruct*)tag)->addField((yysemantic_stack_[(8) - (3)].typeVal), (yysemantic_stack_[(8) - (1)].intVal), (yysemantic_stack_[(8) - (7)].stringVal), 0);
+		((DictionaryString*)field)->setEncode((yysemantic_stack_[(8) - (5)].encodeVal));
 		delete [] (yysemantic_stack_[(8) - (7)].stringVal);
 	}
     break;
 
   case 21:
 /* Line 670 of lalr1.cc  */
-#line 171 "bisonDictionaryTextParser.y"
+#line 170 "bisonDictionaryTextParser.y"
     {
-		field = ((DicStructTag*)tag)->addField((yysemantic_stack_[(8) - (3)].typeVal), (yysemantic_stack_[(8) - (1)].intVal), (yysemantic_stack_[(8) - (7)].stringVal), 0);
-		((DicArrayField*)field)->setElementAsTag((yysemantic_stack_[(8) - (5)].stringVal), 0);
+		field = ((DictionaryStruct*)tag)->addField((yysemantic_stack_[(8) - (3)].typeVal), (yysemantic_stack_[(8) - (1)].intVal), (yysemantic_stack_[(8) - (7)].stringVal), 0);
+		((DictionaryArray*)field)->setElementAsTag((yysemantic_stack_[(8) - (5)].stringVal), 0);
 		delete [] (yysemantic_stack_[(8) - (5)].stringVal);
 		delete [] (yysemantic_stack_[(8) - (7)].stringVal);
 	}
@@ -599,7 +598,7 @@ namespace usds {
 
 
 /* Line 670 of lalr1.cc  */
-#line 603 "bisonDictionaryTextParser.cc"
+#line 602 "bisonDictionaryTextParser.cc"
       default:
         break;
       }
@@ -1023,7 +1022,7 @@ namespace usds {
     "$end", "error", "$undefined", "USDS_DICTIONARY_ID",
   "DICTIONARY_VERSION", "\"BOOLEAN\"", "\"INT\"", "\"LONG\"", "\"DOUBLE\"",
   "\"VARINT\"", "\"UNSIGNED VARINT\"", "\"STRING\"", "\"STRUCT\"",
-  "\"ARRAY\"", "\"Text encode\"", "USDS_RESTRICT", "\"root\"",
+  "\"ARRAY\"", "\"<Text encode>\"", "USDS_RESTRICT", "\"root\"",
   "\"true or false\"", "\"unsigned integer number\"", "\"object name\"",
   "'{'", "'}'", "':'", "';'", "'='", "'.'", "'<'", "'>'", "$accept",
   "dictionary", "$@1", "tags", "tag", "struct_tag", "struct_restricts",
@@ -1062,9 +1061,9 @@ namespace usds {
   const unsigned char
   BisonDictionaryTextParser::yyrline_[] =
   {
-         0,    93,    93,    92,   104,   104,   107,   108,   111,   118,
-     118,   121,   131,   131,   134,   139,   144,   149,   154,   159,
-     164,   170
+         0,    92,    92,    91,   103,   103,   106,   107,   110,   117,
+     117,   120,   130,   130,   133,   138,   143,   148,   153,   158,
+     163,   169
   };
 
   // Print the state stack on the debug stream.
@@ -1152,12 +1151,12 @@ namespace usds {
   const BisonDictionaryTextParser::token_number_type BisonDictionaryTextParser::yyundef_token_ = 2;
 
 /* Line 1141 of lalr1.cc  */
-#line 26 "bisonDictionaryTextParser.y"
+#line 25 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 1141 of lalr1.cc  */
-#line 1159 "bisonDictionaryTextParser.cc"
+#line 1158 "bisonDictionaryTextParser.cc"
 /* Line 1142 of lalr1.cc  */
-#line 180 "bisonDictionaryTextParser.y"
+#line 179 "bisonDictionaryTextParser.y"
 
 //=================================================================================================
 

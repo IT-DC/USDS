@@ -1,20 +1,20 @@
-#ifndef DIC_STRING_FIELD
-#define DIC_STRING_FIELD
+#ifndef DICTIONARY_STRING_H
+#define DICTIONARY_STRING_H
 
 #include <string>
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"
 
-#include "dictionary\fields\dicBaseField.h"
+#include "dictionary\dataTypes\dictionaryBaseType.h"
 
 namespace usds
 {
-	class DicStringField : public DicBaseField
+	class DictionaryString : public DictionaryBaseType
 	{
 	public:
-		DicStringField();
-		~DicStringField() {  };
+		DictionaryString();
+		~DictionaryString() {  };
 
 		virtual usdsTypes getType() { return USDS_STRING; };
 		virtual const char* getTypeName() { return typeName(USDS_STRING); };

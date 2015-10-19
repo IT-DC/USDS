@@ -18,7 +18,7 @@ void DictionaryBaseType::init(Dictionary* dict, DictionaryBaseType* parent, int 
 		objectName.assign(name, name_size);
 	objectID = id;
 	
-	isRoot = (dict == 0);
+	isRoot = (parent == 0);
 	
 };
 

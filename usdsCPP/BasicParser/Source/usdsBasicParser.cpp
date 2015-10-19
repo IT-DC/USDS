@@ -186,15 +186,9 @@ void BasicParser::clear()
 	currentDictionary = 0;
 	dictionaries.clear();
 	dictionaryPool.clear();
-	body.clear();
+	clearBody();
 
 };
-
-void BasicParser::clearBody()
-{
-	body.clear();
-};
-
 
 //====================================================================================================================
 // private

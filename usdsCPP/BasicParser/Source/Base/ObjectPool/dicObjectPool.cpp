@@ -1,15 +1,13 @@
-#include "base\object pool\dicObjectPool.h"
+#include "base\objectPool\dicObjectPool.h"
 
-#include "dictionary\tags\dicStructTag.h"
-
-#include "dictionary\fields\dicArrayField.h"
-#include "dictionary\fields\dicBaseField.h"
-#include "dictionary\fields\dicBooleanField.h"
-#include "dictionary\fields\dicDoubleField.h"
-#include "dictionary\fields\dicIntField.h"
-#include "dictionary\fields\dicLongField.h"
-#include "dictionary\fields\dicStringField.h"
-#include "dictionary\fields\dicUVarintField.h"
+#include "dictionary\dataTypes\dictionaryArray.h"
+#include "dictionary\dataTypes\dictionaryBoolean.h"
+#include "dictionary\dataTypes\dictionaryDouble.h"
+#include "dictionary\dataTypes\dictionaryInt.h"
+#include "dictionary\dataTypes\dictionaryLong.h"
+#include "dictionary\dataTypes\dictionaryString.h"
+#include "dictionary\dataTypes\dictionaryUVarint.h"
+#include "dictionary\dataTypes\dictionaryStruct.h"
 
 using namespace usds;
 
@@ -17,74 +15,39 @@ using namespace usds;
 
 DictionaryObjectPool::DictionaryObjectPool()
 {
-	tagPoolIndex[USDS_NO_TYPE] = 0;
-	tagPoolIndex[USDS_BOOLEAN] = 0;
-	tagPoolIndex[USDS_BYTE] = 0;
-	tagPoolIndex[USDS_UNSIGNED_BYTE] = 0;
-	tagPoolIndex[USDS_SHORT] = 0;
-	tagPoolIndex[USDS_UNSIGNED_SHORT] = 0;
-	tagPoolIndex[USDS_BIGENDIAN_SHORT] = 0;
-	tagPoolIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
-	tagPoolIndex[USDS_INT] = 0;
-	tagPoolIndex[USDS_UNSIGNED_INT] = 0;
-	tagPoolIndex[USDS_BIGENDIAN_INT] = 0;
-	tagPoolIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
-	tagPoolIndex[USDS_LONG] = 0;
-	tagPoolIndex[USDS_UNSIGNED_LONG] = 0;
-	tagPoolIndex[USDS_BIGENDIAN_LONG] = 0;
-	tagPoolIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
-	tagPoolIndex[USDS_INT128] = 0;
-	tagPoolIndex[USDS_UNSIGNED_INT128] = 0;
-	tagPoolIndex[USDS_BIGENDIAN_INT128] = 0;
-	tagPoolIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
-	tagPoolIndex[USDS_FLOAT] = 0;
-	tagPoolIndex[USDS_BIGENDIAN_FLOAT] = 0;
-	tagPoolIndex[USDS_DOUBLE] = 0;
-	tagPoolIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
-	tagPoolIndex[USDS_VARINT] = 0;
-	tagPoolIndex[USDS_UNSIGNED_VARINT] = 0;
-	tagPoolIndex[USDS_STRUCT] = &DictionaryObjectPool::addStructTag;
-	tagPoolIndex[USDS_ARRAY] = 0;
-	tagPoolIndex[USDS_STRING] = 0;
-	tagPoolIndex[USDS_LIST] = 0;
-	tagPoolIndex[USDS_MAP] = 0;
-	tagPoolIndex[USDS_POLYMORPH] = 0;
-	tagPoolIndex[USDS_TAG] = 0;
-	
-	
-	fieldPoolIndex[USDS_NO_TYPE] = 0;
-	fieldPoolIndex[USDS_BOOLEAN] = &DictionaryObjectPool::addBooleanField;
-	fieldPoolIndex[USDS_BYTE] = 0;
-	fieldPoolIndex[USDS_UNSIGNED_BYTE] = 0;
-	fieldPoolIndex[USDS_SHORT] = 0;
-	fieldPoolIndex[USDS_UNSIGNED_SHORT] = 0;
-	fieldPoolIndex[USDS_BIGENDIAN_SHORT] = 0;
-	fieldPoolIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
-	fieldPoolIndex[USDS_INT] = &DictionaryObjectPool::addIntField;
-	fieldPoolIndex[USDS_UNSIGNED_INT] = 0;
-	fieldPoolIndex[USDS_BIGENDIAN_INT] = 0;
-	fieldPoolIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
-	fieldPoolIndex[USDS_LONG] = &DictionaryObjectPool::addLongField;
-	fieldPoolIndex[USDS_UNSIGNED_LONG] = 0;
-	fieldPoolIndex[USDS_BIGENDIAN_LONG] = 0;
-	fieldPoolIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
-	fieldPoolIndex[USDS_INT128] = 0;
-	fieldPoolIndex[USDS_UNSIGNED_INT128] = 0;
-	fieldPoolIndex[USDS_BIGENDIAN_INT128] = 0;
-	fieldPoolIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
-	fieldPoolIndex[USDS_FLOAT] = 0;
-	fieldPoolIndex[USDS_BIGENDIAN_FLOAT] = 0;
-	fieldPoolIndex[USDS_DOUBLE] = &DictionaryObjectPool::addDoubleField;
-	fieldPoolIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
-	fieldPoolIndex[USDS_VARINT] = 0;
-	fieldPoolIndex[USDS_UNSIGNED_VARINT] = &DictionaryObjectPool::addUVarintField;
-	fieldPoolIndex[USDS_STRUCT] = 0;
-	fieldPoolIndex[USDS_ARRAY] = &DictionaryObjectPool::addArrayField;
-	fieldPoolIndex[USDS_STRING] = &DictionaryObjectPool::addStringField;
-	fieldPoolIndex[USDS_LIST] = 0;
-	fieldPoolIndex[USDS_MAP] = 0;
-	fieldPoolIndex[USDS_POLYMORPH] = 0;
-	fieldPoolIndex[USDS_TAG] = 0;
+	poolIndex[USDS_NO_TYPE] = 0;
+	poolIndex[USDS_BOOLEAN] = &DictionaryObjectPool::addBoolean;
+	poolIndex[USDS_BYTE] = 0;
+	poolIndex[USDS_UNSIGNED_BYTE] = 0;
+	poolIndex[USDS_SHORT] = 0;
+	poolIndex[USDS_UNSIGNED_SHORT] = 0;
+	poolIndex[USDS_BIGENDIAN_SHORT] = 0;
+	poolIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
+	poolIndex[USDS_INT] = &DictionaryObjectPool::addInt;
+	poolIndex[USDS_UNSIGNED_INT] = 0;
+	poolIndex[USDS_BIGENDIAN_INT] = 0;
+	poolIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
+	poolIndex[USDS_LONG] = &DictionaryObjectPool::addLong;
+	poolIndex[USDS_UNSIGNED_LONG] = 0;
+	poolIndex[USDS_BIGENDIAN_LONG] = 0;
+	poolIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
+	poolIndex[USDS_INT128] = 0;
+	poolIndex[USDS_UNSIGNED_INT128] = 0;
+	poolIndex[USDS_BIGENDIAN_INT128] = 0;
+	poolIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
+	poolIndex[USDS_FLOAT] = 0;
+	poolIndex[USDS_BIGENDIAN_FLOAT] = 0;
+	poolIndex[USDS_DOUBLE] = &DictionaryObjectPool::addDouble;
+	poolIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
+	poolIndex[USDS_VARINT] = 0;
+	poolIndex[USDS_UNSIGNED_VARINT] = &DictionaryObjectPool::addUVarint;
+	poolIndex[USDS_STRUCT] = &DictionaryObjectPool::addStruct;
+	poolIndex[USDS_ARRAY] = &DictionaryObjectPool::addArray;
+	poolIndex[USDS_STRING] = &DictionaryObjectPool::addString;
+	poolIndex[USDS_LIST] = 0;
+	poolIndex[USDS_MAP] = 0;
+	poolIndex[USDS_POLYMORPH] = 0;
+	poolIndex[USDS_TAG] = 0;
 
 };
 
@@ -93,87 +56,79 @@ DictionaryObjectPool::~DictionaryObjectPool()
 
 };
 
-DicBaseTag* DictionaryObjectPool::addTag(usdsTypes tag_type, Dictionary* dict, int id, const char* name, size_t name_size)
+DictionaryBaseType* DictionaryObjectPool::addObject(usdsTypes object_type, Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size)
 {
-	return (this->*(tagPoolIndex[tag_type]))(dict, id, name, name_size);
-};
-
-DicBaseField* DictionaryObjectPool::addField(usdsTypes field_type, Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
-{
-	return (this->*(fieldPoolIndex[field_type]))(dict, tag, id, name, name_size);
+	return (this->*(poolIndex[object_type]))(dict, parent, id, name, name_size);
 
 };
 
 //========================================================================================================
 
-DicBaseTag* DictionaryObjectPool::addStructTag(Dictionary* dict, int id, const char* name, size_t name_size)
+DictionaryBaseType* DictionaryObjectPool::addStruct(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size)
 {
-	DicStructTag* tag = structTags.addObject();
-	tag->init(dict, id, name, name_size);
-	return tag;
+	DictionaryStruct* object = structObjects.addObject();
+	object->init(dict, parent, id, name, name_size);
+	return object;
 };
 
-//========================================================================================================
-
-DicBaseField* DictionaryObjectPool::addBooleanField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
+DictionaryBaseType* DictionaryObjectPool::addBoolean(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size)
 {
-	DicBooleanField* field = booleanFields.addObject();
-	field->init(dict, tag, id, name, name_size);
-	return field;
+	DictionaryBoolean* object = booleanObjects.addObject();
+	object->init(dict, parent, id, name, name_size);
+	return object;
 };
 
-DicBaseField* DictionaryObjectPool::addIntField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
+DictionaryBaseType* DictionaryObjectPool::addInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size)
 {
-	DicIntField* field = intFields.addObject();
-	field->init(dict, tag, id, name, name_size);
-	return field;
+	DictionaryInt* object = intObjects.addObject();
+	object->init(dict, parent, id, name, name_size);
+	return object;
 };
 
-DicBaseField* DictionaryObjectPool::addLongField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
+DictionaryBaseType* DictionaryObjectPool::addLong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size)
 {
-	DicLongField* field = longFields.addObject();
-	field->init(dict, tag, id, name, name_size);
-	return field;
+	DictionaryLong* object = longObjects.addObject();
+	object->init(dict, parent, id, name, name_size);
+	return object;
 };
 
-DicBaseField* DictionaryObjectPool::addDoubleField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
+DictionaryBaseType* DictionaryObjectPool::addDouble(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size)
 {
-	DicDoubleField* field = doubleFields.addObject();
-	field->init(dict, tag, id, name, name_size);
-	return field;
+	DictionaryDouble* object = doubleObjects.addObject();
+	object->init(dict, parent, id, name, name_size);
+	return object;
 };
 
-DicBaseField* DictionaryObjectPool::addUVarintField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
+DictionaryBaseType* DictionaryObjectPool::addUVarint(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size)
 {
-	DicUVarintField* field = uVarintFields.addObject();
-	field->init(dict, tag, id, name, name_size);
-	return field;
+	DictionaryUVarint* object = uVarintObjects.addObject();
+	object->init(dict, parent, id, name, name_size);
+	return object;
 };
 
-DicBaseField* DictionaryObjectPool::addArrayField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
+DictionaryBaseType* DictionaryObjectPool::addArray(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size)
 {
-	DicArrayField* field = arrayFields.addObject();
-	field->init(dict, tag, id, name, name_size);
-	return field;
+	DictionaryArray* object = arrayObjects.addObject();
+	object->init(dict, parent, id, name, name_size);
+	return object;
 };
 
-DicBaseField* DictionaryObjectPool::addStringField(Dictionary* dict, DicStructTag* tag, int id, const char* name, size_t name_size)
+DictionaryBaseType* DictionaryObjectPool::addString(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size)
 {
-	DicStringField* field = stringFields.addObject();
-	field->init(dict, tag, id, name, name_size);
-	return field;
+	DictionaryString* object = stringObjects.addObject();
+	object->init(dict, parent, id, name, name_size);
+	return object;
 };
 
 //========================================================================================================
 void DictionaryObjectPool::clear()
 {
-	structTags.clearPool();
-	
-	booleanFields.clearPool();
-	intFields.clearPool();
-	longFields.clearPool();
-	doubleFields.clearPool();
-	arrayFields.clearPool();
-	stringFields.clearPool();
+	booleanObjects.clearPool();
+	intObjects.clearPool();
+	longObjects.clearPool();
+	doubleObjects.clearPool();
+	arrayObjects.clearPool();
+	stringObjects.clearPool();
+	structObjects.clearPool();
 
 };

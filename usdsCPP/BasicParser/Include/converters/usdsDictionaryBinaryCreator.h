@@ -5,8 +5,7 @@ namespace usds
 {
 	class BinaryOutput;
 	class Dictionary;
-	class DicBaseTag;
-	class DicBaseField;
+	class DictionaryBaseType;
 
 	class DictionaryBinaryCreator
 	{
@@ -15,24 +14,22 @@ namespace usds
 		DictionaryBinaryCreator();
 		~DictionaryBinaryCreator();
 		
+		// Generate Binary Dictionary without size and signature
 		void generate(BinaryOutput* buff, Dictionary* dict) throw (...);
 
 	private:
 		
-		void (DictionaryBinaryCreator::*writeTagIndex[33])(DicBaseTag*);
+		void (DictionaryBinaryCreator::*writeIndex[33])(DictionaryBaseType*);
 
-		void writeStructTag(DicBaseTag* tag) throw (...);
+		void writeBoolean(DictionaryBaseType* object) throw (...);
+		void writeInt(DictionaryBaseType* object) throw (...);
+		void writeLong(DictionaryBaseType* object) throw (...);
+		void writeDouble(DictionaryBaseType* object) throw (...);
+		void writeUVarint(DictionaryBaseType* object) throw (...);
+		void writeArray(DictionaryBaseType* object) throw (...);
+		void writeString(DictionaryBaseType* object) throw (...);
+		void writeStruct(DictionaryBaseType* object) throw (...);
 
-		void (DictionaryBinaryCreator::*writeFieldIndex[33])(DicBaseField*);
-
-		void writeBooleanField(DicBaseField* field) throw (...);
-		void writeIntField(DicBaseField* field) throw (...);
-		void writeLongField(DicBaseField* field) throw (...);
-		void writeDoubleField(DicBaseField* field) throw (...);
-		void writeUVarintField(DicBaseField* field) throw (...);
-		void writeArrayField(DicBaseField* field) throw (...);
-		void writeStringField(DicBaseField* field) throw (...);
-		
 		BinaryOutput* outBuffer;
 
 	};
