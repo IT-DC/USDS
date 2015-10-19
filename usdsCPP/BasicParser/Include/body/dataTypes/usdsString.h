@@ -13,6 +13,10 @@ namespace usds
 
 	private:
 
+		virtual void clear();
+
+		std::string objectValue;
+
 	};
 
 }

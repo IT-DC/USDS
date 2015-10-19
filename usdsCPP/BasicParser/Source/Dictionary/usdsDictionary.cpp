@@ -235,6 +235,42 @@ int Dictionary::findTagID(const char* name, size_t name_size) throw (...)
 	return 0;
 };
 
+DictionaryBaseType* Dictionary::findTag(const char* name) throw (...)
+{
+	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTagID");
+
+	DictionaryBaseType* tag = firstTag;
+	while (tag != 0)
+	{
+		if (strcmp(tag->getName(), name) == 0)
+			return tag;
+		tag = tag->getNext();
+	}
+
+	// if not found
+	return 0;
+
+};
+
+DictionaryBaseType* Dictionary::findTag(const char* name, size_t name_size) throw (...)
+{
+	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTagID");
+
+	DictionaryBaseType* tag = firstTag;
+	while (tag != 0)
+	{
+		if (strncmp(tag->getName(), name, name_size) == 0)
+			return tag;
+		tag = tag->getNext();
+	}
+
+	// if not found
+	return 0;
+
+};
+
 DictionaryBaseType* Dictionary::getTag(int id) throw (...)
 {
 	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)

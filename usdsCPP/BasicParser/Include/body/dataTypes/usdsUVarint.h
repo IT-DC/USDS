@@ -13,6 +13,11 @@ namespace usds
 
 	private:
 
+		virtual void clear();
+
+		unsigned long long objectValue;
+
+
 	};
 
 }

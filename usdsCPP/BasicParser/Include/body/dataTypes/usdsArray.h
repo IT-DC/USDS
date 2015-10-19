@@ -11,7 +11,13 @@ namespace usds
 		UsdsArray();
 		~UsdsArray();
 
+		UsdsBaseType* addTagElement() throw(...);
+
+
 	private:
+
+		virtual void clear();
+
 
 	};
 

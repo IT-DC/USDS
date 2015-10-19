@@ -10,3 +10,8 @@ UsdsLong::~UsdsLong()
 {
 }
 
+void UsdsLong::clear()
+{
+
+
+};

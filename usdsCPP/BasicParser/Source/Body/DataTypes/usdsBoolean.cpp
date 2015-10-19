@@ -10,3 +10,21 @@ UsdsBoolean::~UsdsBoolean()
 {
 }
 
+void UsdsBoolean::setValue(bool value)
+{
+
+	objectValue = value;
+};
+
+bool UsdsBoolean::getValue()
+{
+
+	return objectValue;
+};
+
+
+void UsdsBoolean::clear()
+{
+
+
+};

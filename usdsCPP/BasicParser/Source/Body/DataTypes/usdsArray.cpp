@@ -10,3 +10,15 @@ UsdsArray::~UsdsArray()
 {
 }
 
+void UsdsArray::clear()
+{
+
+
+
+}
+
+UsdsBaseType* UsdsArray::addTagElement() throw(...)
+{
+
+	return 0;
+};

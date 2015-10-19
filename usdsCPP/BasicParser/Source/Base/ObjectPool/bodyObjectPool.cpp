@@ -57,11 +57,81 @@ BodyObjectPool::~BodyObjectPool()
 
 }
 
-UsdsBaseType* BodyObjectPool::addObject(usdsTypes object_type, UsdsBaseType* parent, int id)
+UsdsBaseType* BodyObjectPool::addObject(usdsTypes object_type, DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
 {
-	return (this->*(poolIndex[object_type]))(parent, id);
+	return (this->*(poolIndex[object_type]))(dict_parent, body_parent);
 	
 };
+
+//===============================================================================================================================
+
+UsdsBaseType* BodyObjectPool::addBoolean(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
+{
+	UsdsBoolean* object = booleanObjects.addObject();
+	object->init(dict_parent, body_parent);
+	return object;
+
+};
+
+UsdsBaseType* BodyObjectPool::addInt(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
+{
+	UsdsInt* object = intObjects.addObject();
+	object->init(dict_parent, body_parent);
+	return object;
+
+};
+
+UsdsBaseType* BodyObjectPool::addLong(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
+{
+	UsdsLong* object = longObjects.addObject();
+	object->init(dict_parent, body_parent);
+	return object;
+
+};
+
+UsdsBaseType* BodyObjectPool::addDouble(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
+{
+	UsdsDouble* object = doubleObjects.addObject();
+	object->init(dict_parent, body_parent);
+	return object;
+
+};
+
+UsdsBaseType* BodyObjectPool::addUVarint(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
+{
+	UsdsUVarint* object = uVarintObjects.addObject();
+	object->init(dict_parent, body_parent);
+	return object;
+
+};
+
+UsdsBaseType* BodyObjectPool::addArray(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
+{
+	UsdsArray* object = arrayObjects.addObject();
+	object->init(dict_parent, body_parent);
+	return object;
+
+};
+
+UsdsBaseType* BodyObjectPool::addString(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
+{
+	UsdsString* object = stringObjects.addObject();
+	object->init(dict_parent, body_parent);
+	return object;
+
+};
+
+UsdsBaseType* BodyObjectPool::addStruct(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
+{
+	UsdsStruct* object = structObjects.addObject();
+	object->init(dict_parent, body_parent);
+
+
+	return object;
+
+};
+
+//===============================================================================================================================
 
 void BodyObjectPool::clear()
 {
@@ -74,68 +144,3 @@ void BodyObjectPool::clear()
 	structObjects.clearPool();
 
 };
-
-UsdsBaseType* BodyObjectPool::addBoolean(UsdsBaseType* parent, int id)
-{
-	UsdsBoolean* object = booleanObjects.addObject();
-	//object->init(parent, id);
-	return object;
-
-};
-
-UsdsBaseType* BodyObjectPool::addInt(UsdsBaseType* parent, int id)
-{
-	UsdsInt* object = intObjects.addObject();
-	//object->init(dict, parent, id, name, name_size);
-	return object;
-
-};
-
-UsdsBaseType* BodyObjectPool::addLong(UsdsBaseType* parent, int id)
-{
-	UsdsLong* object = longObjects.addObject();
-	//object->init(dict, parent, id, name, name_size);
-	return object;
-
-};
-
-UsdsBaseType* BodyObjectPool::addDouble(UsdsBaseType* parent, int id)
-{
-	UsdsDouble* object = doubleObjects.addObject();
-	//object->init(dict, parent, id, name, name_size);
-	return object;
-
-};
-
-UsdsBaseType* BodyObjectPool::addUVarint(UsdsBaseType* parent, int id)
-{
-	UsdsUVarint* object = uVarintObjects.addObject();
-	//object->init(dict, parent, id, name, name_size);
-	return object;
-
-};
-
-UsdsBaseType* BodyObjectPool::addArray(UsdsBaseType* parent, int id)
-{
-	UsdsArray* object = arrayObjects.addObject();
-	//object->init(dict, parent, id, name, name_size);
-	return object;
-
-};
-
-UsdsBaseType* BodyObjectPool::addString(UsdsBaseType* parent, int id)
-{
-	UsdsString* object = stringObjects.addObject();
-	//object->init(dict, parent, id, name, name_size);
-	return object;
-
-};
-
-UsdsBaseType* BodyObjectPool::addStruct(UsdsBaseType* parent, int id)
-{
-	UsdsStruct* object = structObjects.addObject();
-	//object->init(dict, parent, id, name, name_size);
-	return object;
-
-};
-

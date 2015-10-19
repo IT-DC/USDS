@@ -11,7 +11,14 @@ namespace usds
 		UsdsBoolean();
 		~UsdsBoolean();
 
+		void setValue(bool value);
+		bool getValue();
+
 	private:
+
+		virtual void clear();
+		
+		bool objectValue;
 
 	};
 

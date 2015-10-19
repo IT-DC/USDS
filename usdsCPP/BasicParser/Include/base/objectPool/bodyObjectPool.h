@@ -8,6 +8,7 @@
 namespace usds
 {
 	class UsdsBaseType;
+	class DictionaryBaseType;
 
 	class UsdsBoolean;
 	class UsdsInt;
@@ -24,22 +25,22 @@ namespace usds
 		BodyObjectPool();
 		~BodyObjectPool();
 
-		UsdsBaseType* addObject(usdsTypes object_type, UsdsBaseType* parent, int id);
+		UsdsBaseType* addObject(usdsTypes object_type, DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
 
 		// Clear pool, it does not release memory
 		void clear();
 
 	private:
-		UsdsBaseType* (BodyObjectPool::*poolIndex[33])(UsdsBaseType*, int);
+		UsdsBaseType* (BodyObjectPool::*poolIndex[33])(DictionaryBaseType*,UsdsBaseType*);
 
-		UsdsBaseType* addBoolean(UsdsBaseType* parent, int id);
-		UsdsBaseType* addInt(UsdsBaseType* parent, int id);
-		UsdsBaseType* addLong(UsdsBaseType* parent, int id);
-		UsdsBaseType* addDouble(UsdsBaseType* parent, int id);
-		UsdsBaseType* addUVarint(UsdsBaseType* parent, int id);
-		UsdsBaseType* addArray(UsdsBaseType* parent, int id);
-		UsdsBaseType* addString(UsdsBaseType* parent, int id);
-		UsdsBaseType* addStruct(UsdsBaseType* parent, int id);
+		UsdsBaseType* addBoolean(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
+		UsdsBaseType* addInt(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
+		UsdsBaseType* addLong(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
+		UsdsBaseType* addDouble(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
+		UsdsBaseType* addUVarint(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
+		UsdsBaseType* addArray(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
+		UsdsBaseType* addString(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
+		UsdsBaseType* addStruct(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
 		
 		// Pool of objects
 		TemplateObjectPool<UsdsBoolean> booleanObjects;

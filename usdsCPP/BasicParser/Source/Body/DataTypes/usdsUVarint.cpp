@@ -10,3 +10,9 @@ UsdsUVarint::~UsdsUVarint()
 {
 }
 
+void UsdsUVarint::clear()
+{
+
+
+};
+

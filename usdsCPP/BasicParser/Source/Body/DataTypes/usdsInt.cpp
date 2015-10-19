@@ -10,3 +10,8 @@ UsdsInt::~UsdsInt()
 {
 }
 
+void UsdsInt::clear()
+{
+
+
+};

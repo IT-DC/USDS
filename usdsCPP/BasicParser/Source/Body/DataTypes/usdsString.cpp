@@ -10,3 +10,8 @@ UsdsString::~UsdsString()
 {
 }
 
+void UsdsString::clear()
+{
+
+
+};

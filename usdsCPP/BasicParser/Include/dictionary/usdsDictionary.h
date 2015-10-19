@@ -43,6 +43,11 @@ namespace usds
 		// returns 0 if tag not found
 		int findTagID(const char* name) throw (...);
 		int findTagID(const char* name, size_t name_size) throw (...);
+		
+		// Find Tag by Name
+		// returns 0 if tag not found
+		DictionaryBaseType* findTag(const char* name) throw (...);
+		DictionaryBaseType* findTag(const char* name, size_t name_size) throw (...);
 
 		// Get tag by ID
 		// returns 0 if tag not found

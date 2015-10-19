@@ -10,3 +10,9 @@ UsdsDouble::~UsdsDouble()
 {
 }
 
+
+void UsdsDouble::clear()
+{
+
+
+};
