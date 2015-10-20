@@ -8,7 +8,7 @@ namespace usds
 	class UsdsBoolean : public UsdsBaseType
 	{
 	public:
-		UsdsBoolean();
+		UsdsBoolean(BodyObjectPool* object_pool);
 		~UsdsBoolean();
 
 		void setValue(bool value);

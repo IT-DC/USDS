@@ -1,6 +1,9 @@
 #ifndef USDS_DICTIONARY_BINARY_CREATOR_H
 #define USDS_DICTIONARY_BINARY_CREATOR_H
 
+#include "base\usdsTypes.h"
+#include "base\usdsErrors.h"
+
 namespace usds
 {
 	class BinaryOutput;
@@ -19,7 +22,7 @@ namespace usds
 
 	private:
 		
-		void (DictionaryBinaryCreator::*writeIndex[33])(DictionaryBaseType*);
+		void (DictionaryBinaryCreator::*writeIndex[USDS_LAST_TYPE])(DictionaryBaseType*);
 
 		void writeBoolean(DictionaryBaseType* object) throw (...);
 		void writeInt(DictionaryBaseType* object) throw (...);

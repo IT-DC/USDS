@@ -37,7 +37,8 @@ namespace usds
 		USDS_MAP = 29,
 		USDS_POLYMORPH = 30,
 		USDS_STRUCT = 31,
-		USDS_TAG = 32
+		USDS_TAG = 32,
+		USDS_LAST_TYPE = 33
 	};
 
 	enum usdsEncodes
@@ -51,6 +52,10 @@ namespace usds
 	};
 
 	extern const char* typeName(usdsTypes code);
+	
+	// returns 0 if unfixed
+	extern int typeSize(usdsTypes code);
+	
 	extern const char* encodeName(usdsEncodes code);
 
 	enum usdsSignature

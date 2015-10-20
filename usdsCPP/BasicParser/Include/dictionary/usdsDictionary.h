@@ -13,11 +13,12 @@ namespace usds
 {
 	class DictionaryStruct;
 	class DictionaryBaseType;
+	class BasicParser;
 
 	class Dictionary
 	{
 	public:
-		Dictionary();
+		Dictionary(BasicParser* parent);
 		~Dictionary();
 
 		// Dictionary construction
@@ -61,9 +62,6 @@ namespace usds
 
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();
-
-		// For Struct tag
-		DictionaryObjectPool* getObjectPool() { return &objectPool; };
 
 	private:
 		unsigned char majorVersion;

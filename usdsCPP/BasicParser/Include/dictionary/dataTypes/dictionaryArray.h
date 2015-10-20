@@ -15,7 +15,7 @@ namespace usds
 	class DictionaryArray : public DictionaryBaseType
 	{
 	public:
-		DictionaryArray();
+		DictionaryArray(DictionaryObjectPool* parent);
 		~DictionaryArray() {  };
 
 		virtual usdsTypes getType() { return USDS_ARRAY; };

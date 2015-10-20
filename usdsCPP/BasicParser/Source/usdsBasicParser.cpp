@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-BasicParser::BasicParser() : usdsMajor(1), usdsMinor(0)
+BasicParser::BasicParser() : usdsMajor(1), usdsMinor(0), dictionaryPool(this)
 {
 	currentDictionary = 0;
 }

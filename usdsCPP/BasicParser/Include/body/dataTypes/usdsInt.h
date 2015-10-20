@@ -8,7 +8,7 @@ namespace usds
 	class UsdsInt : public UsdsBaseType
 	{
 	public:
-		UsdsInt();
+		UsdsInt(BodyObjectPool* object_pool);
 		~UsdsInt();
 
 	private:

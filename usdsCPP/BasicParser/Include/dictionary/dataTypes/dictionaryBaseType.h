@@ -9,11 +9,12 @@
 namespace usds
 {
 	class Dictionary;
+	class DictionaryObjectPool;
 
 	class DictionaryBaseType
 	{
 	public:
-		DictionaryBaseType() { };
+		DictionaryBaseType(DictionaryObjectPool* parent) { objectPool = parent; };
 		virtual ~DictionaryBaseType() { };
 
 		void init(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
@@ -47,6 +48,7 @@ namespace usds
 		virtual void clear() = 0;
 
 		Dictionary* dictionary;
+		DictionaryObjectPool* objectPool;
 
 	private:
 		DictionaryBaseType* parentObject;

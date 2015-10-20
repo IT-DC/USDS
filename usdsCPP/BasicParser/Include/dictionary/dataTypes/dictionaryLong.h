@@ -11,7 +11,7 @@ namespace usds
 	class DictionaryLong : public DictionaryBaseType
 	{
 	public:
-		DictionaryLong();
+		DictionaryLong(DictionaryObjectPool* parent);
 		~DictionaryLong() {  };
 
 		virtual usdsTypes getType() { return USDS_LONG; };

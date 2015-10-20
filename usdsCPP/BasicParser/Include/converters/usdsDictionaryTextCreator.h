@@ -22,7 +22,7 @@ namespace usds
 	private:
 		std::stringstream textBuff;
 		
-		void (DictionaryTextCreator::*writeIndex[33])(DictionaryBaseType*);
+		void (DictionaryTextCreator::*writeIndex[USDS_LAST_TYPE])(DictionaryBaseType*);
 
 		void writeBoolean(DictionaryBaseType* object) throw (...);
 		void writeInt(DictionaryBaseType* object) throw (...);

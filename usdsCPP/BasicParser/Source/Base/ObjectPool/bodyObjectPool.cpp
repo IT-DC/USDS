@@ -1,5 +1,6 @@
 #include "base\objectPool\bodyObjectPool.h"
 
+#include "dictionary\dataTypes\dictionaryBaseType.h"
 #include "body\dataTypes\usdsArray.h"
 #include "body\dataTypes\usdsBoolean.h"
 #include "body\dataTypes\usdsDouble.h"
@@ -12,7 +13,15 @@
 using namespace usds;
 
 
-BodyObjectPool::BodyObjectPool()
+BodyObjectPool::BodyObjectPool() : 
+	booleanObjects(this),
+	intObjects(this),
+	longObjects(this),
+	doubleObjects(this),
+	uVarintObjects(this),
+	arrayObjects(this),
+	stringObjects(this),
+	structObjects(this)
 {
 	poolIndex[USDS_NO_TYPE] = 0;
 	poolIndex[USDS_BOOLEAN] = &BodyObjectPool::addBoolean;
@@ -57,9 +66,9 @@ BodyObjectPool::~BodyObjectPool()
 
 }
 
-UsdsBaseType* BodyObjectPool::addObject(usdsTypes object_type, DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
+UsdsBaseType* BodyObjectPool::addObject(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent)
 {
-	return (this->*(poolIndex[object_type]))(dict_parent, body_parent);
+	return (this->*(poolIndex[dict_parent->getType()]))(dict_parent, body_parent);
 	
 };
 

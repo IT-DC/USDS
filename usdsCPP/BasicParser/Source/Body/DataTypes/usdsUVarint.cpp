@@ -2,8 +2,9 @@
 
 using namespace usds;
 
-UsdsUVarint::UsdsUVarint()
+UsdsUVarint::UsdsUVarint(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
+
 }
 
 UsdsUVarint::~UsdsUVarint()

@@ -11,7 +11,7 @@ namespace usds
 	class DictionaryUVarint : public DictionaryBaseType
 	{
 	public:
-		DictionaryUVarint();
+		DictionaryUVarint(DictionaryObjectPool* parent);
 		~DictionaryUVarint() {  };
 
 		virtual usdsTypes getType() { return USDS_UNSIGNED_VARINT; };

@@ -13,7 +13,7 @@ namespace usds
 	class DictionaryStruct : public DictionaryBaseType
 	{
 	public:
-		DictionaryStruct();
+		DictionaryStruct(DictionaryObjectPool* parent);
 		~DictionaryStruct() { };
 
 		virtual usdsTypes getType() { return USDS_STRUCT; };
@@ -25,8 +25,11 @@ namespace usds
 		DictionaryBaseType* getFirstField();
 		DictionaryBaseType* getLastField();
 
-		DictionaryBaseType* getField(int id) throw (...);
 		int getFieldNumber() throw (...);
+		
+		DictionaryBaseType* getField(int id) throw (...);
+		DictionaryBaseType* getField(const char* name) throw (...);
+		DictionaryBaseType* getField(const char* name, size_t name_size) throw (...);
 
 		// Find field ID by Name
 		// return 0 if field not found

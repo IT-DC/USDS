@@ -8,7 +8,7 @@ namespace usds
 	class UsdsArray : public UsdsBaseType
 	{
 	public:
-		UsdsArray();
+		UsdsArray(BodyObjectPool* object_pool);
 		~UsdsArray();
 
 		UsdsBaseType* addTagElement() throw(...);

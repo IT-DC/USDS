@@ -9,11 +9,11 @@
 namespace usds
 {
 	// template for pools
-	template<class T_classPool>
+	template<class T_classPool, class parentPool_class>
 	class TemplateObjectPool : public std::list<T_classPool*>
 	{
 	public:
-		TemplateObjectPool() : std::list<T_classPool*>() { lastElement = begin(); };
+		TemplateObjectPool(parentPool_class* parent) : std::list<T_classPool*>() { lastElement = begin(); parentClass = parent; };
 		~TemplateObjectPool()
 		{
 			for (typename std::list<T_classPool*>::iterator it = begin(); it != end(); it++)
@@ -30,7 +30,7 @@ namespace usds
 
 			if (lastElement == end())
 			{
-				object = new T_classPool();
+				object = new T_classPool(parentClass);
 				push_back(object);
 				lastElement = end();
 			}
@@ -47,6 +47,7 @@ namespace usds
 
 	private:
 		typename std::list<T_classPool*>::iterator lastElement;
+		parentPool_class* parentClass;
 	};
 };
 #endif

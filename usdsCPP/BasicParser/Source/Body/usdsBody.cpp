@@ -44,8 +44,10 @@ try
 		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
 	};
 	
-	UsdsStruct* tag = (UsdsStruct*)(objectPool.addObject(USDS_STRUCT, dict_tag, 0));
+	UsdsStruct* tag = (UsdsStruct*)(objectPool.addObject(dict_tag, 0));
 	connectTagToBody(tag);
+
+
 
 	return tag;
 }

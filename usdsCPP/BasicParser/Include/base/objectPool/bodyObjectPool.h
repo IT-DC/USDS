@@ -25,13 +25,13 @@ namespace usds
 		BodyObjectPool();
 		~BodyObjectPool();
 
-		UsdsBaseType* addObject(usdsTypes object_type, DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
+		UsdsBaseType* addObject(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
 
 		// Clear pool, it does not release memory
 		void clear();
 
 	private:
-		UsdsBaseType* (BodyObjectPool::*poolIndex[33])(DictionaryBaseType*,UsdsBaseType*);
+		UsdsBaseType* (BodyObjectPool::*poolIndex[USDS_LAST_TYPE])(DictionaryBaseType*, UsdsBaseType*);
 
 		UsdsBaseType* addBoolean(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
 		UsdsBaseType* addInt(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
@@ -43,14 +43,14 @@ namespace usds
 		UsdsBaseType* addStruct(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent);
 		
 		// Pool of objects
-		TemplateObjectPool<UsdsBoolean> booleanObjects;
-		TemplateObjectPool<UsdsInt> intObjects;
-		TemplateObjectPool<UsdsLong> longObjects;
-		TemplateObjectPool<UsdsDouble> doubleObjects;
-		TemplateObjectPool<UsdsUVarint> uVarintObjects;
-		TemplateObjectPool<UsdsArray> arrayObjects;
-		TemplateObjectPool<UsdsString> stringObjects;
-		TemplateObjectPool<UsdsStruct> structObjects;
+		TemplateObjectPool<UsdsBoolean, BodyObjectPool> booleanObjects;
+		TemplateObjectPool<UsdsInt, BodyObjectPool> intObjects;
+		TemplateObjectPool<UsdsLong, BodyObjectPool> longObjects;
+		TemplateObjectPool<UsdsDouble, BodyObjectPool> doubleObjects;
+		TemplateObjectPool<UsdsUVarint, BodyObjectPool> uVarintObjects;
+		TemplateObjectPool<UsdsArray, BodyObjectPool> arrayObjects;
+		TemplateObjectPool<UsdsString, BodyObjectPool> stringObjects;
+		TemplateObjectPool<UsdsStruct, BodyObjectPool> structObjects;
 
 	};
 

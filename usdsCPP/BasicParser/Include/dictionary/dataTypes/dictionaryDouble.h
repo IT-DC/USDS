@@ -11,7 +11,7 @@ namespace usds
 	class DictionaryDouble : public DictionaryBaseType
 	{
 	public:
-		DictionaryDouble();
+		DictionaryDouble(DictionaryObjectPool* parent);
 		~DictionaryDouble() {  };
 
 		virtual usdsTypes getType() { return USDS_DOUBLE; };

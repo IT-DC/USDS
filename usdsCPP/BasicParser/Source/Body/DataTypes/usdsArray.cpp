@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-UsdsArray::UsdsArray()
+UsdsArray::UsdsArray(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
 }
 

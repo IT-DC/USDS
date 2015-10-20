@@ -11,7 +11,7 @@ namespace usds
 	class DictionaryInt : public DictionaryBaseType
 	{
 	public:
-		DictionaryInt();
+		DictionaryInt(DictionaryObjectPool* parent);
 		~DictionaryInt() {  };
 
 		virtual usdsTypes getType() { return USDS_INT; };

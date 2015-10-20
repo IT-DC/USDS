@@ -8,7 +8,7 @@ namespace usds
 	class UsdsDouble : public UsdsBaseType
 	{
 	public:
-		UsdsDouble();
+		UsdsDouble(BodyObjectPool* object_pool);
 		~UsdsDouble();
 
 	private:

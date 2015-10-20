@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-DictionaryBoolean::DictionaryBoolean()
+DictionaryBoolean::DictionaryBoolean(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
 
 

@@ -13,7 +13,15 @@ using namespace usds;
 
 //========================================================================================================
 
-DictionaryObjectPool::DictionaryObjectPool()
+DictionaryObjectPool::DictionaryObjectPool() :
+	booleanObjects(this),
+	intObjects(this),
+	longObjects(this),
+	doubleObjects(this),
+	uVarintObjects(this),
+	arrayObjects(this),
+	stringObjects(this),
+	structObjects(this)
 {
 	poolIndex[USDS_NO_TYPE] = 0;
 	poolIndex[USDS_BOOLEAN] = &DictionaryObjectPool::addBoolean;

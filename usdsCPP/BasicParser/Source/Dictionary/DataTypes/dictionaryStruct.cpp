@@ -7,7 +7,7 @@
 
 using namespace usds;
 
-DictionaryStruct::DictionaryStruct()
+DictionaryStruct::DictionaryStruct(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
 
 
@@ -17,7 +17,7 @@ DictionaryBaseType* DictionaryStruct::addField(usdsTypes field_type, int id, con
 try
 {
 	// check type
-	if (field_type < 1 || field_type > 32)
+	if (field_type < 1 || field_type >= USDS_LAST_TYPE)
 	{
 		std::wstringstream msg;
 		msg << L"Unsupported field type '" << field_type << "'";
@@ -45,7 +45,7 @@ try
 		throw ErrorMessage(DIC_STRUCT_TAG_FIELD_ALREADY_EXISTS, &err);
 	}
 
-	DictionaryBaseType* field = (dictionary->getObjectPool())->addObject(field_type, dictionary, this, id, name, name_size);
+	DictionaryBaseType* field = objectPool->addObject(field_type, dictionary, this, id, name, name_size);
 	connectFieldToTag(field);
 	
 	// count data for index
@@ -73,6 +73,13 @@ DictionaryBaseType* DictionaryStruct::getLastField()
 	return lastField;
 };
 
+int DictionaryStruct::getFieldNumber() throw (...)
+{
+
+	return fieldNumber;
+};
+
+//==============================================================================================
 DictionaryBaseType* DictionaryStruct::getField(int id) throw (...)
 {
 	if (id > fieldNumber)
@@ -81,11 +88,34 @@ DictionaryBaseType* DictionaryStruct::getField(int id) throw (...)
 	return fieldIndex[id-1];
 };
 
-int DictionaryStruct::getFieldNumber() throw (...)
+DictionaryBaseType* DictionaryStruct::getField(const char* name) throw (...)
 {
+	DictionaryBaseType* field = firstField;
+	while (field != 0)
+	{
+		if (strcmp(field->getName(), name) == 0)
+			return field;
+		field = field->getNext();
+	}
 
-	return fieldNumber;
+	// if not found
+	return 0;
 };
+
+DictionaryBaseType* DictionaryStruct::getField(const char* name, size_t name_size) throw (...)
+{
+	DictionaryBaseType* field = firstField;
+	while (field != 0)
+	{
+		if (strcmp(field->getName(), name) == 0)
+			return field;
+		field = field->getNext();
+	}
+
+	// if not found
+	return 0;
+};
+
 
 int DictionaryStruct::findFieldID(const char* name) throw (...)
 {

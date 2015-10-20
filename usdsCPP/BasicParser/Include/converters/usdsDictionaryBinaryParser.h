@@ -1,6 +1,9 @@
 #ifndef USDS_BINARY_DICTIONARY_PARSER_H
 #define USDS_BINARY_DICTIONARY_PARSER_H
 
+#include "base\usdsTypes.h"
+#include "base\usdsErrors.h"
+
 namespace usds
 {
 	class BinaryInput;
@@ -18,7 +21,7 @@ namespace usds
 
 	private:
 		
-		void (BinaryDictionaryParser::*readIndex[33])(DictionaryBaseType*);
+		void (BinaryDictionaryParser::*readIndex[USDS_LAST_TYPE])(DictionaryBaseType*);
 
 		void readBoolean(DictionaryBaseType* object) throw (...);
 		void readInt(DictionaryBaseType* object) throw (...);

@@ -57,7 +57,7 @@ namespace usds
 		Dictionary* findDictionary(int id, unsigned char major, unsigned char minor) throw(...);
 
 		// Object pool of Dictionaries
-		TemplateObjectPool<Dictionary> dictionaryPool;
+		TemplateObjectPool<Dictionary, BasicParser> dictionaryPool;
 		// All existing dictionary
 		std::list<Dictionary*> dictionaries;
 

@@ -11,7 +11,7 @@ namespace usds
 	class DictionaryBoolean : public DictionaryBaseType
 	{
 	public:
-		DictionaryBoolean();
+		DictionaryBoolean(DictionaryObjectPool* parent);
 		~DictionaryBoolean() {  };
 
 		virtual usdsTypes getType() { return USDS_BOOLEAN; };

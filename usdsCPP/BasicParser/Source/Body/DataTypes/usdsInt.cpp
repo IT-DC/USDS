@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-UsdsInt::UsdsInt()
+UsdsInt::UsdsInt(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
 }
 

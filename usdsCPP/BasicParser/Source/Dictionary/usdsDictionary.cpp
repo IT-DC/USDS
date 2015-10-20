@@ -4,7 +4,7 @@
 
 using namespace usds;
 
-Dictionary::Dictionary()
+Dictionary::Dictionary(BasicParser* parent)
 {
 	
 };

@@ -8,7 +8,7 @@ namespace usds
 	class UsdsUVarint : public UsdsBaseType
 	{
 	public:
-		UsdsUVarint();
+		UsdsUVarint(BodyObjectPool* object_pool);
 		~UsdsUVarint();
 
 	private:

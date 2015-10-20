@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-DictionaryString::DictionaryString()
+DictionaryString::DictionaryString(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
 
 

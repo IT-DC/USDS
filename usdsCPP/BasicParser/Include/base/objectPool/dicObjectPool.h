@@ -32,7 +32,7 @@ namespace usds
 
 	private:
 
-		DictionaryBaseType* (DictionaryObjectPool::*poolIndex[33])(Dictionary*, DictionaryBaseType*, int, const char*, size_t);
+		DictionaryBaseType* (DictionaryObjectPool::*poolIndex[USDS_LAST_TYPE])(Dictionary*, DictionaryBaseType*, int, const char*, size_t);
 
 		DictionaryBaseType* addBoolean(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size);
 		DictionaryBaseType* addInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size);
@@ -44,14 +44,14 @@ namespace usds
 		DictionaryBaseType* addStruct(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size);
 
 		// Pool of objects
-		TemplateObjectPool<DictionaryBoolean> booleanObjects;
-		TemplateObjectPool<DictionaryInt> intObjects;
-		TemplateObjectPool<DictionaryLong> longObjects;
-		TemplateObjectPool<DictionaryDouble> doubleObjects;
-		TemplateObjectPool<DictionaryUVarint> uVarintObjects;
-		TemplateObjectPool<DictionaryArray> arrayObjects;
-		TemplateObjectPool<DictionaryString> stringObjects;
-		TemplateObjectPool<DictionaryStruct> structObjects;
+		TemplateObjectPool<DictionaryBoolean, DictionaryObjectPool> booleanObjects;
+		TemplateObjectPool<DictionaryInt, DictionaryObjectPool> intObjects;
+		TemplateObjectPool<DictionaryLong, DictionaryObjectPool> longObjects;
+		TemplateObjectPool<DictionaryDouble, DictionaryObjectPool> doubleObjects;
+		TemplateObjectPool<DictionaryUVarint, DictionaryObjectPool> uVarintObjects;
+		TemplateObjectPool<DictionaryArray, DictionaryObjectPool> arrayObjects;
+		TemplateObjectPool<DictionaryString, DictionaryObjectPool> stringObjects;
+		TemplateObjectPool<DictionaryStruct, DictionaryObjectPool> structObjects;
 
 	};
 

@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-UsdsLong::UsdsLong()
+UsdsLong::UsdsLong(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
 }
 

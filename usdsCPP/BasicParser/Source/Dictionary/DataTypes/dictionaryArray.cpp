@@ -3,7 +3,7 @@
 
 using namespace usds;
 
-DictionaryArray::DictionaryArray()
+DictionaryArray::DictionaryArray(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
 
 
