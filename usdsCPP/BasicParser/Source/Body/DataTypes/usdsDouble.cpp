@@ -16,3 +16,9 @@ void UsdsDouble::clear()
 
 
 };
+
+void UsdsDouble::setValue(double value) throw (...)
+{
+
+	objectValue = value;
+};

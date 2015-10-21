@@ -26,14 +26,14 @@ namespace usds
 		void setFieldValue(int id, bool value) throw (...);
 
 		UsdsArray* getArrayField(const char* name) throw (...);
+		UsdsArray* getArrayField(int id) throw (...);
 
 	private:
 		// it's executed in init()
 		virtual void clear();
 
-		unsigned char* fieldValues; // 16 bytes per field
-		int valueBuffSize; // in bytes
-		int oneValueSize;
+		UsdsBaseType** fields; // 16 bytes per field
+		int fieldsBuffSize; // in bytes
 
 		int fieldNumber;
 

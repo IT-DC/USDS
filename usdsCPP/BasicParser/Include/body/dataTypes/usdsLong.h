@@ -11,11 +11,13 @@ namespace usds
 		UsdsLong(BodyObjectPool* object_pool);
 		~UsdsLong();
 
+		virtual void setValue(long long value) throw (...);
+
 	private:
 
 		virtual void clear();
 
-		long long value;
+		long long objectValue;
 
 	};
 

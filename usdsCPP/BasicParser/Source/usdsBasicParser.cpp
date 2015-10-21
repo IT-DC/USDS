@@ -123,6 +123,14 @@ void BasicParser::encode(BinaryOutput* buff, bool with_head, bool with_dictionar
 
 };
 
+void BasicParser::getJSON(usdsEncodes encode, std::string* text) throw(...)
+{
+	if (currentDictionary == 0)
+		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not set", L"BasicParser::getJSON");
+	jsonCreator.generate(encode, text, (Body*)this);
+};
+
+
 //====================================================================================================================
 // Decode
 

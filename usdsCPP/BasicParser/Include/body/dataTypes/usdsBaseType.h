@@ -32,6 +32,12 @@ namespace usds
 		void setPrevious(UsdsBaseType* previous);
 		void setParent(UsdsBaseType* parent);
 
+		virtual void setValue(int value) throw (...);
+		virtual void setValue(long long value) throw (...);
+		virtual void setValue(double value) throw (...);
+		virtual void setValue(const char* value) throw (...);
+		virtual void setValue(bool value) throw (...);
+
 	protected:
 
 		// it's executed in init()

@@ -47,8 +47,6 @@ try
 	UsdsStruct* tag = (UsdsStruct*)(objectPool.addObject(dict_tag, 0));
 	connectTagToBody(tag);
 
-
-
 	return tag;
 }
 catch (ErrorMessage & msg)
@@ -57,7 +55,13 @@ catch (ErrorMessage & msg)
 	throw msg;
 };
 
+//============================================================================================
 
+UsdsBaseType* Body::getFirstTag() throw(...)
+{
+	return firstTag;
+
+};
 
 //============================================================================================
 void Body::clearBody()

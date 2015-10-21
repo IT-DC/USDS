@@ -37,7 +37,8 @@ namespace usds
 		"MAP",
 		"POLYMORPH",
 		"STRUCT",
-		"TAG"
+		"TAG",
+		"NO TYPE"
 	};
 
 	const char* typeName(usdsTypes code)
@@ -75,15 +76,16 @@ namespace usds
 		4,
 		8,
 		8,
-		8, // varint for C++ is 8 bytes
-		8, // unsigned varint for C++ is 8 bytes
 		0,
 		0,
 		0,
 		0,
 		0,
 		0,
-		0
+		0,
+		0,
+		0,
+		-1
 	};
 
 	int typeSize(usdsTypes code)
@@ -99,7 +101,7 @@ namespace usds
 
 	const char* encodeName(usdsEncodes code)
 	{
-		if (code < 0 || code > 4)
+		if (code < 0 || code >= USDS_LAST_ENCODE)
 			return "ERROR ENCODE";
 
 		return  encodeNames[code];

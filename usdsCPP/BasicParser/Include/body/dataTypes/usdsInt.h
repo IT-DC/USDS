@@ -11,11 +11,13 @@ namespace usds
 		UsdsInt(BodyObjectPool* object_pool);
 		~UsdsInt();
 
+		virtual void setValue(int value) throw (...);
+
 	private:
 
 		virtual void clear();
 
-		int value;
+		int objectValue;
 
 	};
 

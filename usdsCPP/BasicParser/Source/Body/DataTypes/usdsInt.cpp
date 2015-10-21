@@ -15,3 +15,9 @@ void UsdsInt::clear()
 
 
 };
+
+void UsdsInt::setValue(int value) throw (...)
+{
+	
+	objectValue = value;
+};

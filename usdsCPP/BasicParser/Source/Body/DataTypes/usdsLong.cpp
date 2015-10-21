@@ -15,3 +15,9 @@ void UsdsLong::clear()
 
 
 };
+
+void UsdsLong::setValue(long long value) throw (...)
+{
+
+	objectValue = value;
+};

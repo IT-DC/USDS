@@ -48,7 +48,7 @@ namespace usds
 		USDS_UTF16 = 3,
 		USDS_UTF32 = 4,
 		USDS_UTF7 = 5,
-
+		USDS_LAST_ENCODE = 6
 	};
 
 	extern const char* typeName(usdsTypes code);

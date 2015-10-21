@@ -11,8 +11,8 @@ namespace usds
 		UsdsBoolean(BodyObjectPool* object_pool);
 		~UsdsBoolean();
 
-		void setValue(bool value);
-		bool getValue();
+		virtual void setValue(bool value) throw (...);
+
 
 	private:
 

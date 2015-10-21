@@ -15,3 +15,9 @@ void UsdsString::clear()
 
 
 };
+
+void UsdsString::setValue(const char* value) throw (...)
+{
+
+	objectValue = value;
+};

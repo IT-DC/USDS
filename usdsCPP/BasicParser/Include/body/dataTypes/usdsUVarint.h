@@ -11,6 +11,10 @@ namespace usds
 		UsdsUVarint(BodyObjectPool* object_pool);
 		~UsdsUVarint();
 
+		virtual void setValue(int value) throw (...);
+		virtual void setValue(long long value) throw (...);
+
+
 	private:
 
 		virtual void clear();

@@ -95,19 +95,6 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-//====================================================================================================================
-// Fields construction
-
-DictionaryBaseType* Dictionary::addField(usdsTypes field_type, DictionaryStruct* tag, int id, const char* name, size_t name_size) throw (...)
-try
-{
-	return tag->addField(field_type, id, name, name_size);
-}
-catch (ErrorMessage& err)
-{
-	err.addPath(L"Dictionary::addField");
-	throw err;
-};
 
 //====================================================================================================================
 // Finalize

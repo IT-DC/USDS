@@ -14,6 +14,7 @@
 #include "converters\usdsBinaryParser.h"
 #include "converters\usdsDictionaryTextCreator.h"
 #include "converters\usdsDictionaryTextParser.h"
+#include "converters\usdsBodyJsonCreator.h"
 
 #include <list>
 
@@ -45,6 +46,7 @@ namespace usds
 
 		// encode
 		void encode(BinaryOutput* buff, bool with_head, bool with_dictionary, bool with_body) throw(...);
+		void getJSON(usdsEncodes encode, std::string* text) throw(...);
 
 		// decode
 		void decode(const unsigned char* data, size_t data_size) throw(...);
@@ -65,6 +67,8 @@ namespace usds
 		BinaryParser binaryParser;
 		DictionaryTextCreator dictionaryTextcreator;
 		DictionaryTextParser dictionaryTextParser;
+		BodyJsonCreator jsonCreator;
+
 
 	};
 

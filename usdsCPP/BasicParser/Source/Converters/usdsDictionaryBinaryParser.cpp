@@ -114,7 +114,7 @@ try
 		binary->readUVarint(&name_size);
 		const void* name = binary->readByteArray(name_size);
 		int field_type = binary->readByte();
-		DictionaryBaseType* field = dictionary->addField((usdsTypes)field_type, (DictionaryStruct*)object, field_id, (const char*)name, name_size);
+		DictionaryBaseType* field = ((DictionaryStruct*)object)->addField((usdsTypes)field_type, field_id, (const char*)name, name_size);
 		// read specific Field parameters
 		(this->*(readIndex[field_type]))(field);
 		if (binary->isEnd())

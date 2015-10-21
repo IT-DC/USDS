@@ -11,6 +11,8 @@ namespace usds
 		UsdsString(BodyObjectPool* object_pool);
 		~UsdsString();
 
+		virtual void setValue(const char* value) throw (...);
+
 	private:
 
 		virtual void clear();

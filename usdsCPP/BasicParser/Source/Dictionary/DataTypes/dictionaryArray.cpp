@@ -64,6 +64,18 @@ int DictionaryArray::getElementTagID() throw (...)
 	return elementTagID;
 };
 
+DictionaryBaseType* DictionaryArray::getElementTag() throw (...)
+{
+	if (elementType == USDS_NO_TYPE)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field isn't initialized", L"DictionaryArray::getElementTag");
+	if (elementType != USDS_TAG)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_ELEMENT_NOT_TAG, L"Array element isn't tag", L"DictionaryArray::getElementTag");
+	if (elementTagID == 0 || elementTagNeedID)
+		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_FINISHED, L"Array isn't finished", L"DictionaryArray::getElementTag");
+
+	return dictionary->getTag(elementTagID);
+};
+
 const char* DictionaryArray::getElementTagName() throw (...)
 {
 	if (elementType == USDS_NO_TYPE)
