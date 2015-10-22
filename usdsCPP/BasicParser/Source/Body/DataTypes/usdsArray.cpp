@@ -41,9 +41,41 @@ UsdsBaseType* UsdsArray::addTagElement() throw(...)
 	}
 	
 	UsdsBaseType* element = objectPool->addObject(tagElement, this);
-
-	elementValues.writeByteArray(element, sizeof(size_t));
-
+	elementValues.writeByteArray(&element, sizeof(size_t));
+	elementNumber++;
 
 	return element;
+};
+
+size_t UsdsArray::getElementNumber() throw(...)
+{
+
+	return elementNumber;
+};
+
+usdsTypes UsdsArray::getElementType() throw(...)
+{
+
+	return elementType;
+};
+
+UsdsBaseType* UsdsArray::getTagElement(size_t number) throw(...)
+try
+{
+	if (number > elementNumber)
+	{
+		std::stringstream msg;
+		msg << "Can not find element [" << number << "], element number = " << elementNumber;
+		throw ErrorMessage(USDS_ARRAY_ELEMENT_NOT_TAG, &msg);
+	}
+
+	UsdsBaseType* tag;
+	elementValues.readByteArray(number * sizeof(size_t), &tag, sizeof(size_t));
+	return tag;
+
+}
+catch (ErrorMessage &msg)
+{
+	msg.addPath(L"UsdsArray::getTagElement");
+	throw msg;
 };

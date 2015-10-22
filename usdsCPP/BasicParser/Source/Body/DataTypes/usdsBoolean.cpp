@@ -16,7 +16,11 @@ void UsdsBoolean::setValue(bool value) throw (...)
 	objectValue = value;
 };
 
+bool UsdsBoolean::getBooleanValue() throw (...)
+{
 
+	return objectValue;
+};
 
 
 void UsdsBoolean::clear()

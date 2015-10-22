@@ -20,7 +20,7 @@ namespace usds
 		void generate(usdsEncodes encode, std::string* text, Body* body) throw (...);
 
 	private:
-		std::stringstream textBuff;
+		std::string* textBuff;
 
 		void (BodyJsonCreator::*writeIndex[USDS_LAST_TYPE])(UsdsBaseType*);
 

@@ -58,23 +58,26 @@ try
 		throw ErrorMessage(BODY_JSON_CREATOR_UNSUPPORTABLE_ENCODE, &err);
 	};
 
-	textBuff.clear();
+	textBuff = text;
 
-	textBuff << "{\n";
+	*textBuff = "{\n";
 	shiftLevel = 1;
 
 	UsdsBaseType* tag = body->getFirstTag();
-	while (tag != 0)
+	while (true)
 	{
-		textBuff << "\t\"" << tag->getName() << "\":";
+		*textBuff += "\t\"";
+		*textBuff += tag->getName();
+		*textBuff += "\": ";
 		// write specific Tag parameters
 		(this->*(writeIndex[tag->getType()]))(tag);
-		textBuff << '\n';
 		tag = tag->getNext();
+		if (tag == 0)
+			break;
+		*textBuff += ",\n";
 	}
-	textBuff << '}';
+	*textBuff += "\n}";
 
-	*text = textBuff.str();
 }
 catch (ErrorMessage& err)
 {
@@ -87,8 +90,10 @@ catch (ErrorMessage& err)
 void BodyJsonCreator::writeBoolean(UsdsBaseType* object) throw (...)
 try
 {
-
-
+	if (((UsdsBoolean*)object)->getBooleanValue())
+		*textBuff += "true";
+	else
+		*textBuff += "false";
 }
 catch (ErrorMessage& err)
 {
@@ -99,8 +104,8 @@ catch (ErrorMessage& err)
 void BodyJsonCreator::writeInt(UsdsBaseType* object) throw (...)
 try
 {
-
-
+	int value = ((UsdsInt*)object)->getIntValue();
+	*textBuff += std::to_string(value);
 }
 catch (ErrorMessage& err)
 {
@@ -111,8 +116,8 @@ catch (ErrorMessage& err)
 void BodyJsonCreator::writeLong(UsdsBaseType* object) throw (...)
 try
 {
-
-
+	long long value = ((UsdsLong*)object)->getLongValue();
+	*textBuff += std::to_string(value);
 }
 catch (ErrorMessage& err)
 {
@@ -124,8 +129,8 @@ void BodyJsonCreator::writeDouble(UsdsBaseType* object) throw (...)
 
 try
 {
-
-
+	double value = ((UsdsDouble*)object)->getDoubleValue();
+	*textBuff += std::to_string(value);
 }
 catch (ErrorMessage& err)
 {
@@ -137,8 +142,8 @@ void BodyJsonCreator::writeUVarint(UsdsBaseType* object) throw (...)
 
 try
 {
-
-
+	unsigned long long value = ((UsdsUVarint*)object)->getULongValue();
+	*textBuff += std::to_string(value);
 }
 catch (ErrorMessage& err)
 {
@@ -150,8 +155,34 @@ void BodyJsonCreator::writeArray(UsdsBaseType* object) throw (...)
 
 try
 {
+	int element_number = ((UsdsArray*)object)->getElementNumber();
+	int i = 0;
+	*textBuff += '\n';
+	textBuff->append(shiftLevel, '\t');
+	*textBuff += "[\n";
+	shiftLevel++;
 
+	switch (((UsdsArray*)object)->getElementType())
+	{
+	case USDS_TAG:
 
+		while (true)
+		{
+			UsdsBaseType* tag = (((UsdsArray*)object)->getTagElement(i));
+			// write specific Tag parameters
+			(this->*(writeIndex[tag->getType()]))(tag);
+			i++;
+			if (i >= element_number)
+				break;
+			*textBuff += ", ";
+		}
+		break;
+	}
+
+	shiftLevel--;
+	*textBuff += '\n';
+	textBuff->append(shiftLevel, '\t');
+	*textBuff += ']';
 }
 catch (ErrorMessage& err)
 {
@@ -162,8 +193,10 @@ catch (ErrorMessage& err)
 void BodyJsonCreator::writeString(UsdsBaseType* object) throw (...)
 try
 {
-
-
+	const char* value = ((UsdsUVarint*)object)->getStringValue();
+	*textBuff += "\"";
+	*textBuff += value;
+	*textBuff += "\"";
 }
 catch (ErrorMessage& err)
 {
@@ -174,11 +207,32 @@ catch (ErrorMessage& err)
 void BodyJsonCreator::writeStruct(UsdsBaseType* object) throw (...)
 try
 {
-	//((UsdsStruct*)object)->getFieldsNumber();
+	*textBuff += '\n';
+	textBuff->append(shiftLevel, '\t');
+	*textBuff += "{\n";
+	shiftLevel++;
+	int field_number = ((UsdsStruct*)object)->getFieldNumber();
+	int id = 1;
+	while (true)
+	{
+		UsdsBaseType* field = ((UsdsStruct*)object)->getField(id);
+		textBuff->append(shiftLevel, '\t');
+		*textBuff += '"';
+		*textBuff += field->getName();
+		*textBuff += "\": ";
+		// write specific Field parameters
+		(this->*(writeIndex[field->getType()]))(field);
 
+		id++;
+		if (id > field_number)
+			break;
+		*textBuff += ",\n";
+	}
+	shiftLevel--;
 
-
-
+	*textBuff += '\n';
+	textBuff->append(shiftLevel, '\t');
+	*textBuff += '}';
 }
 catch (ErrorMessage& err)
 {

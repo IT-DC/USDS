@@ -21,3 +21,9 @@ void UsdsString::setValue(const char* value) throw (...)
 
 	objectValue = value;
 };
+
+const char* UsdsString::getStringValue() throw (...)
+{
+
+	return objectValue.c_str();
+};

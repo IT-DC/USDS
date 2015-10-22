@@ -13,6 +13,8 @@ namespace usds
 
 		virtual void setValue(bool value) throw (...);
 
+		virtual bool getBooleanValue() throw (...);
+
 
 	private:
 

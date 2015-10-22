@@ -204,6 +204,19 @@ catch (ErrorMessage &msg)
 
 //================================================================================================
 
+UsdsBaseType* UsdsStruct::getField(int id) throw (...)
+{
+	if (id < 1 || id > fieldNumber)
+	{
+		std::stringstream msg;
+		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
+		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg, L"UsdsStruct::getField");
+	}
+
+	return fields[id];
+};
+
+
 UsdsArray* UsdsStruct::getArrayField(const char* name) throw (...)
 try
 {
@@ -250,6 +263,15 @@ catch (ErrorMessage &msg)
 	msg.addPath(L"UsdsStruct::getArrayField(int)");
 	throw msg;
 };
+
+//================================================================================================
+
+int UsdsStruct::getFieldNumber() throw (...)
+{
+
+	return fieldNumber;
+};
+
 
 //================================================================================================
 

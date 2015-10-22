@@ -21,3 +21,9 @@ void UsdsLong::setValue(long long value) throw (...)
 
 	objectValue = value;
 };
+
+long long UsdsLong::getLongValue() throw (...)
+{
+
+	return objectValue;
+};

@@ -25,8 +25,12 @@ namespace usds
 		void setFieldValue(int id, const char* value) throw (...);
 		void setFieldValue(int id, bool value) throw (...);
 
+		UsdsBaseType* getField(int id) throw (...);
+
 		UsdsArray* getArrayField(const char* name) throw (...);
 		UsdsArray* getArrayField(int id) throw (...);
+
+		int getFieldNumber() throw (...);
 
 	private:
 		// it's executed in init()

@@ -21,3 +21,9 @@ void UsdsInt::setValue(int value) throw (...)
 	
 	objectValue = value;
 };
+
+int UsdsInt::getIntValue() throw (...)
+{
+
+	return objectValue;
+};

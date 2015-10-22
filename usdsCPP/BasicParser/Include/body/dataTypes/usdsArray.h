@@ -14,6 +14,12 @@ namespace usds
 
 		UsdsBaseType* addTagElement() throw(...);
 
+		size_t getElementNumber() throw(...);
+		
+		usdsTypes getElementType() throw(...);
+
+		UsdsBaseType* getTagElement(size_t number) throw(...);
+
 
 	private:
 

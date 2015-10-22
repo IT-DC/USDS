@@ -120,5 +120,47 @@ void UsdsBaseType::setValue(bool value) throw (...)
 	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::setValue(bool)");
 };
 
+//=============================================================================================
 
+int UsdsBaseType::getIntValue() throw (...)
+{
+	std::stringstream msg;
+	msg << "Unsupported conversion from " << getTypeName() << " to int";
+	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::getIntValue");
+};
+
+long long UsdsBaseType::getLongValue() throw (...)
+{
+	std::stringstream msg;
+	msg << "Unsupported conversion from " << getTypeName() << " to long long";
+	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::getLongValue");
+};
+
+unsigned long long UsdsBaseType::getULongValue() throw (...)
+{
+	std::stringstream msg;
+	msg << "Unsupported conversion from " << getTypeName() << " to unsigned long long";
+	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::getULongValue");
+};
+
+double UsdsBaseType::getDoubleValue() throw (...)
+{
+	std::stringstream msg;
+	msg << "Unsupported conversion from " << getTypeName() << " to double";
+	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::getDoubleValue");
+};
+
+const char* UsdsBaseType::getStringValue() throw (...)
+{
+	std::stringstream msg;
+	msg << "Unsupported conversion from " << getTypeName() << " to const char*";
+	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::getStringValue");
+};
+
+bool UsdsBaseType::getBooleanValue() throw (...)
+{
+	std::stringstream msg;
+	msg << "Unsupported conversion from " << getTypeName() << " to bool";
+	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::getBooleanValue");
+};
 

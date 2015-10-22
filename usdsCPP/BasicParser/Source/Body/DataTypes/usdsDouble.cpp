@@ -22,3 +22,9 @@ void UsdsDouble::setValue(double value) throw (...)
 
 	objectValue = value;
 };
+
+double UsdsDouble::getDoubleValue() throw (...)
+{
+
+	return objectValue;
+};

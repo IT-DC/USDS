@@ -13,6 +13,8 @@ namespace usds
 
 		virtual void setValue(long long value) throw (...);
 
+		virtual long long getLongValue() throw (...);
+
 	private:
 
 		virtual void clear();

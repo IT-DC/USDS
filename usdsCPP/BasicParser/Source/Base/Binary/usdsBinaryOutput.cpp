@@ -433,3 +433,19 @@ void BinaryOutput::pushFrontInt(int value) throw(...)
 	memcpy(buffFirstPos, &value, 4);
 
 };
+
+//===================================================================================================================
+void BinaryOutput::readByteArray(size_t position, void* value, size_t size) throw(...)
+{
+	// check buff size
+	if ((position + size) > (buffCurrentPos - buffFirstPos))
+	{
+		std::wstringstream mess;
+		mess << L"Can not read " << size << L" bytes from position" << position << L" , document's size is less: " << (buffCurrentPos - buffFirstPos) << L" bytes";
+		throw ErrorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, L"BinaryOutput::readByteArray");
+	};
+
+	memcpy(value, buffFirstPos + position, size);
+};
+
+
