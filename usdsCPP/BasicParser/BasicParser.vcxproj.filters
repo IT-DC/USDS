@@ -149,6 +149,9 @@
     <ClInclude Include="Include\converters\usdsBodyJsonCreator.h">
       <Filter>Converters</Filter>
     </ClInclude>
+    <ClInclude Include="Include\converters\usdsBodyBinaryCreator.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -255,6 +258,9 @@
       <Filter>Body\Data types</Filter>
     </ClCompile>
     <ClCompile Include="Source\Converters\usdsBodyJsonCreator.cpp">
+      <Filter>Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsBodyBinaryCreator.cpp">
       <Filter>Converters</Filter>
     </ClCompile>
   </ItemGroup>

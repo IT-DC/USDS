@@ -69,7 +69,6 @@ namespace usds
 		DictionaryTextParser dictionaryTextParser;
 		BodyJsonCreator jsonCreator;
 
-
 	};
 
 };

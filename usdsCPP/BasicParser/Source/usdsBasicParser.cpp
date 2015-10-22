@@ -119,7 +119,7 @@ void BasicParser::encode(BinaryOutput* buff, bool with_head, bool with_dictionar
 		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not found", L"BasicParser::encode");
 
 	if (with_dictionary && !with_body)
-		binaryCreator.generate(buff, currentDictionary);
+		binaryCreator.generate(buff, currentDictionary, (Body*)this);
 
 };
 

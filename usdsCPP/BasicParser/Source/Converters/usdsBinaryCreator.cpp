@@ -17,7 +17,7 @@ BinaryCreator::~BinaryCreator()
 
 };
 
-void BinaryCreator::generate(BinaryOutput* buff, Dictionary* dict) throw(...)
+void BinaryCreator::generate(BinaryOutput* buff, Dictionary* dict, Body* body) throw(...)
 try
 {
 	binary = buff;
@@ -29,6 +29,10 @@ try
 	binary->writeUVarint(dict_size);
 	binary->writeByteArray(dict_binary, dict_size);
 
+	binary->writeByte(USDS_BODY_SIGNATURE);
+	bodyBinaryCreator.generate(binary, body);
+	binary->writeByte(0);
+	
 	addHeadToBinary();
 
 }

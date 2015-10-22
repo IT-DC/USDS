@@ -91,6 +91,7 @@
     <ClInclude Include="Include\body\usdsBody.h" />
     <ClInclude Include="Include\converters\usdsBinaryCreator.h" />
     <ClInclude Include="Include\converters\usdsBinaryParser.h" />
+    <ClInclude Include="Include\converters\usdsBodyBinaryCreator.h" />
     <ClInclude Include="Include\converters\usdsBodyJsonCreator.h" />
     <ClInclude Include="Include\converters\usdsDictionaryBinaryCreator.h" />
     <ClInclude Include="Include\converters\usdsDictionaryBinaryParser.h" />
@@ -135,6 +136,7 @@
     <ClCompile Include="Source\Converters\DictionaryTextParser\usdsDictionaryTextParser.cpp" />
     <ClCompile Include="Source\Converters\usdsBinaryCreator.cpp" />
     <ClCompile Include="Source\Converters\usdsBinaryParser.cpp" />
+    <ClCompile Include="Source\Converters\usdsBodyBinaryCreator.cpp" />
     <ClCompile Include="Source\Converters\usdsBodyJsonCreator.cpp" />
     <ClCompile Include="Source\Converters\usdsDictionaryBinaryCreator.cpp" />
     <ClCompile Include="Source\Converters\usdsDictionaryBinaryParser.cpp" />

@@ -1,24 +1,24 @@
-#include "converters\usdsBodyJsonCreator.h"
+#include "converters\usdsBodyBinaryCreator.h"
 
 #include "body\usdsBody.h"
 
 using namespace usds;
 
-BodyJsonCreator::BodyJsonCreator()
+BodyBinaryCreator::BodyBinaryCreator()
 {
 	writeIndex[USDS_NO_TYPE] = 0;
-	writeIndex[USDS_BOOLEAN] = &BodyJsonCreator::writeBoolean;
+	writeIndex[USDS_BOOLEAN] = &BodyBinaryCreator::writeBoolean;
 	writeIndex[USDS_BYTE] = 0;
 	writeIndex[USDS_UNSIGNED_BYTE] = 0;
 	writeIndex[USDS_SHORT] = 0;
 	writeIndex[USDS_UNSIGNED_SHORT] = 0;
 	writeIndex[USDS_BIGENDIAN_SHORT] = 0;
 	writeIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
-	writeIndex[USDS_INT] = &BodyJsonCreator::writeInt;
+	writeIndex[USDS_INT] = &BodyBinaryCreator::writeInt;
 	writeIndex[USDS_UNSIGNED_INT] = 0;
 	writeIndex[USDS_BIGENDIAN_INT] = 0;
 	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
-	writeIndex[USDS_LONG] = &BodyJsonCreator::writeLong;
+	writeIndex[USDS_LONG] = &BodyBinaryCreator::writeLong;
 	writeIndex[USDS_UNSIGNED_LONG] = 0;
 	writeIndex[USDS_BIGENDIAN_LONG] = 0;
 	writeIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
@@ -28,40 +28,31 @@ BodyJsonCreator::BodyJsonCreator()
 	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
 	writeIndex[USDS_FLOAT] = 0;
 	writeIndex[USDS_BIGENDIAN_FLOAT] = 0;
-	writeIndex[USDS_DOUBLE] = &BodyJsonCreator::writeDouble;
+	writeIndex[USDS_DOUBLE] = &BodyBinaryCreator::writeDouble;
 	writeIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
 	writeIndex[USDS_VARINT] = 0;
-	writeIndex[USDS_UNSIGNED_VARINT] = &BodyJsonCreator::writeUVarint;
-	writeIndex[USDS_ARRAY] = &BodyJsonCreator::writeArray;
-	writeIndex[USDS_STRING] = &BodyJsonCreator::writeString;
+	writeIndex[USDS_UNSIGNED_VARINT] = &BodyBinaryCreator::writeUVarint;
+	writeIndex[USDS_ARRAY] = &BodyBinaryCreator::writeArray;
+	writeIndex[USDS_STRING] = &BodyBinaryCreator::writeString;
 	writeIndex[USDS_LIST] = 0;
 	writeIndex[USDS_MAP] = 0;
 	writeIndex[USDS_POLYMORPH] = 0;
-	writeIndex[USDS_STRUCT] = &BodyJsonCreator::writeStruct;
+	writeIndex[USDS_STRUCT] = &BodyBinaryCreator::writeStruct;
 	writeIndex[USDS_TAG] = 0;
 
 };
 
-BodyJsonCreator::~BodyJsonCreator()
+BodyBinaryCreator::~BodyBinaryCreator()
 {
 
 
 };
 
-void BodyJsonCreator::generate(usdsEncodes encode, std::string* text, Body* body) throw (...)
+void BodyBinaryCreator::generate(BinaryOutput* buff, Body* body) throw (...)
 try
 {
-	if (encode != USDS_UTF8)
-	{
-		std::wstringstream err;
-		err << L"Unsupported encode, use USDS_UTF8. Your value: " << encode;
-		throw ErrorMessage(BODY_JSON_CREATOR_UNSUPPORTABLE_ENCODE, &err);
-	};
 
-	textBuff = text;
-
-	*textBuff = "{\n";
-	shiftLevel = 1;
+	usdsBuff = buff;
 
 	UsdsBaseType* tag = body->getFirstTag();
 	while (true)
@@ -87,7 +78,7 @@ catch (ErrorMessage& err)
 
 //=================================================================================================
 
-void BodyJsonCreator::writeBoolean(UsdsBaseType* object) throw (...)
+void BodyBinaryCreator::writeBoolean(UsdsBaseType* object) throw (...)
 try
 {
 	if (((UsdsBoolean*)object)->getBooleanValue())
@@ -101,7 +92,7 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-void BodyJsonCreator::writeInt(UsdsBaseType* object) throw (...)
+void BodyBinaryCreator::writeInt(UsdsBaseType* object) throw (...)
 try
 {
 	int value = ((UsdsInt*)object)->getIntValue();
@@ -113,7 +104,7 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-void BodyJsonCreator::writeLong(UsdsBaseType* object) throw (...)
+void BodyBinaryCreator::writeLong(UsdsBaseType* object) throw (...)
 try
 {
 	long long value = ((UsdsLong*)object)->getLongValue();
@@ -125,7 +116,7 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-void BodyJsonCreator::writeDouble(UsdsBaseType* object) throw (...)
+void BodyBinaryCreator::writeDouble(UsdsBaseType* object) throw (...)
 
 try
 {
@@ -138,7 +129,7 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-void BodyJsonCreator::writeUVarint(UsdsBaseType* object) throw (...)
+void BodyBinaryCreator::writeUVarint(UsdsBaseType* object) throw (...)
 
 try
 {
@@ -151,7 +142,7 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-void BodyJsonCreator::writeArray(UsdsBaseType* object) throw (...)
+void BodyBinaryCreator::writeArray(UsdsBaseType* object) throw (...)
 
 try
 {
@@ -190,7 +181,7 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-void BodyJsonCreator::writeString(UsdsBaseType* object) throw (...)
+void BodyBinaryCreator::writeString(UsdsBaseType* object) throw (...)
 try
 {
 	const char* value = ((UsdsUVarint*)object)->getStringValue();
@@ -204,7 +195,7 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
-void BodyJsonCreator::writeStruct(UsdsBaseType* object) throw (...)
+void BodyBinaryCreator::writeStruct(UsdsBaseType* object) throw (...)
 try
 {
 	*textBuff += '\n';

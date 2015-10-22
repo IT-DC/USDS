@@ -94,10 +94,6 @@ int UsdsBasicTest::serializationTest()
 		usds_data.clear();
 		parser->encode(&usds_data, true, true, true);
 
-		std::string json;
-		parser->getJSON(USDS_UTF8, &json);
-		std::cout << "\n" << json << "\n";
-
 		serialization_data_size = usds_data.getSize();
 		parser->clearBody();
 	}
@@ -119,6 +115,11 @@ int UsdsBasicTest::deserializationTest()
 		parser->decode(usds_data.getBinary(), serialization_data_size);
 
 
+
+
+		std::string json;
+		parser->getJSON(USDS_UTF8, &json);
+		std::cout << "\n" << json << "\n";
 
 		parser->clearBody();
 	}
