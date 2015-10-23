@@ -99,6 +99,13 @@ void UsdsBaseType::setValue(long long value) throw (...)
 	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::setValue(long long)");
 };
 
+void UsdsBaseType::setValue(unsigned long long value) throw (...)
+{
+	std::stringstream msg;
+	msg << "Unsupported conversion from unsigned long long to " << getTypeName();
+	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::setValue(long long)");
+};
+
 void UsdsBaseType::setValue(double value) throw (...)
 {
 	std::stringstream msg;

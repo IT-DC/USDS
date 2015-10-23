@@ -14,6 +14,7 @@ namespace usds
 		virtual void setValue(const char* value) throw (...);
 
 		virtual const char* getStringValue() throw (...);
+		virtual const char* getStringValue(size_t* size) throw (...);
 
 	private:
 

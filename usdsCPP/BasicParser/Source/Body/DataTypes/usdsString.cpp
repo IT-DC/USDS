@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsString.h"
 
+#include "dictionary\dataTypes\dictionaryString.h"
+
 using namespace usds;
 
 UsdsString::UsdsString(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
@@ -25,5 +27,11 @@ void UsdsString::setValue(const char* value) throw (...)
 const char* UsdsString::getStringValue() throw (...)
 {
 
+	return objectValue.c_str();
+};
+
+const char* UsdsString::getStringValue(size_t* size) throw (...)
+{
+	*size = objectValue.size();
 	return objectValue.c_str();
 };

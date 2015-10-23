@@ -41,6 +41,12 @@ void UsdsUVarint::setValue(long long value) throw (...)
 	objectValue = value;
 };
 
+void setValue(unsigned long long value) throw (...)
+{
+
+	objectValue = value;
+};
+
 int UsdsUVarint::getIntValue() throw (...)
 {
 	if (objectValue > 2147483647)

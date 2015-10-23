@@ -132,9 +132,14 @@ catch (ErrorMessage& msg)
 	throw msg;
 };
 
-void BinaryParser::initBodyFromBinary(Dictionary* dict) throw(...)
+void BinaryParser::initBodyFromBinary(Body* body) throw(...)
+try
 {
-
-
+	bodyParser.parse(&bodyBinary, body);
+}
+catch (ErrorMessage& msg)
+{
+	msg.addPath(L"BinaryParser::initBodyFromBinary");
+	throw msg;
 };
 

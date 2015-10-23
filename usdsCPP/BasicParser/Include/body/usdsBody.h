@@ -26,6 +26,8 @@ namespace usds
 		~Body();
 
 		// Body construction
+		UsdsBaseType* addTag(int id) throw(...);
+		
 		UsdsStruct* addStructTag(const char* name) throw(...);
 
 		UsdsBaseType* getFirstTag() throw(...);

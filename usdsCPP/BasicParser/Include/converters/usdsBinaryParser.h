@@ -3,10 +3,12 @@
 
 #include "base\binary\usdsBinaryInput.h"
 #include "converters\usdsDictionaryBinaryParser.h"
+#include "converters\usdsBodyBinaryParser.h"
 
 namespace usds
 {
 	class Dictionary;
+	class Body;
 
 	class BinaryParser
 	{
@@ -23,7 +25,7 @@ namespace usds
 		bool isBodyIncluded();
 
 		void initDictionaryFromBinary(Dictionary* dict) throw(...);
-		void initBodyFromBinary(Dictionary* dict) throw(...);
+		void initBodyFromBinary(Body* body) throw(...);
 
 	private:
 	
@@ -40,7 +42,8 @@ namespace usds
 		BinaryInput dictionaryBinary;
 		BinaryInput bodyBinary;
 
-		BinaryDictionaryParser dictionaryParser;
+		DictionaryBinaryParser dictionaryParser;
+		BodyBinaryParser bodyParser;
 
 	};
 }

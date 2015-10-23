@@ -13,6 +13,7 @@ namespace usds
 
 		virtual void setValue(int value) throw (...);
 		virtual void setValue(long long value) throw (...);
+		virtual void setValue(unsigned long long value) throw (...);
 
 		virtual int getIntValue() throw (...);
 		virtual long long getLongValue() throw (...);

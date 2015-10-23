@@ -139,7 +139,6 @@ catch (ErrorMessage& err)
 };
 
 void BodyJsonCreator::writeUVarint(UsdsBaseType* object) throw (...)
-
 try
 {
 	unsigned long long value = ((UsdsUVarint*)object)->getULongValue();
@@ -193,7 +192,7 @@ catch (ErrorMessage& err)
 void BodyJsonCreator::writeString(UsdsBaseType* object) throw (...)
 try
 {
-	const char* value = ((UsdsUVarint*)object)->getStringValue();
+	const char* value = ((UsdsString*)object)->getStringValue();
 	*textBuff += "\"";
 	*textBuff += value;
 	*textBuff += "\"";

@@ -8,21 +8,21 @@
 
 using namespace usds;
 
-BinaryDictionaryParser::BinaryDictionaryParser()
+DictionaryBinaryParser::DictionaryBinaryParser()
 {
 	readIndex[USDS_NO_TYPE] = 0;
-	readIndex[USDS_BOOLEAN] = &BinaryDictionaryParser::readBoolean;
+	readIndex[USDS_BOOLEAN] = &DictionaryBinaryParser::readBoolean;
 	readIndex[USDS_BYTE] = 0;
 	readIndex[USDS_UNSIGNED_BYTE] = 0;
 	readIndex[USDS_SHORT] = 0;
 	readIndex[USDS_UNSIGNED_SHORT] = 0;
 	readIndex[USDS_BIGENDIAN_SHORT] = 0;
 	readIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
-	readIndex[USDS_INT] = &BinaryDictionaryParser::readInt;
+	readIndex[USDS_INT] = &DictionaryBinaryParser::readInt;
 	readIndex[USDS_UNSIGNED_INT] = 0;
 	readIndex[USDS_BIGENDIAN_INT] = 0;
 	readIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
-	readIndex[USDS_LONG] = &BinaryDictionaryParser::readLong;
+	readIndex[USDS_LONG] = &DictionaryBinaryParser::readLong;
 	readIndex[USDS_UNSIGNED_LONG] = 0;
 	readIndex[USDS_BIGENDIAN_LONG] = 0;
 	readIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
@@ -32,26 +32,26 @@ BinaryDictionaryParser::BinaryDictionaryParser()
 	readIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
 	readIndex[USDS_FLOAT] = 0;
 	readIndex[USDS_BIGENDIAN_FLOAT] = 0;
-	readIndex[USDS_DOUBLE] = &BinaryDictionaryParser::readDouble;
+	readIndex[USDS_DOUBLE] = &DictionaryBinaryParser::readDouble;
 	readIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
 	readIndex[USDS_VARINT] = 0;
-	readIndex[USDS_UNSIGNED_VARINT] = &BinaryDictionaryParser::readUVarint;
-	readIndex[USDS_ARRAY] = &BinaryDictionaryParser::readArray;
-	readIndex[USDS_STRING] = &BinaryDictionaryParser::readString;
+	readIndex[USDS_UNSIGNED_VARINT] = &DictionaryBinaryParser::readUVarint;
+	readIndex[USDS_ARRAY] = &DictionaryBinaryParser::readArray;
+	readIndex[USDS_STRING] = &DictionaryBinaryParser::readString;
 	readIndex[USDS_LIST] = 0;
 	readIndex[USDS_MAP] = 0;
 	readIndex[USDS_POLYMORPH] = 0;
-	readIndex[USDS_STRUCT] = &BinaryDictionaryParser::readStruct;
+	readIndex[USDS_STRUCT] = &DictionaryBinaryParser::readStruct;
 	readIndex[USDS_TAG] = 0;
 };
 
-BinaryDictionaryParser::~BinaryDictionaryParser()
+DictionaryBinaryParser::~DictionaryBinaryParser()
 {
 
 
 };
 
-void BinaryDictionaryParser::parse(BinaryInput* buff, Dictionary* dict) throw(...)
+void DictionaryBinaryParser::parse(BinaryInput* buff, Dictionary* dict) throw(...)
 try
 {
 	binary = buff;
@@ -89,13 +89,13 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	msg.addPath(L"BinaryDictionaryParser::parse");
+	msg.addPath(L"DictionaryBinaryParser::parse");
 	throw msg;
 };
 
 
 //=======================================================================================================
-void BinaryDictionaryParser::readStruct(DictionaryBaseType* object) throw (...)
+void DictionaryBinaryParser::readStruct(DictionaryBaseType* object) throw (...)
 try
 {
 	unsigned char signature = binary->readUByte();
@@ -142,42 +142,42 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	msg.addPath(L"BinaryDictionaryParser::readStructTag");
+	msg.addPath(L"DictionaryBinaryParser::readStructTag");
 	throw msg;
 };
 
 
-void BinaryDictionaryParser::readBoolean(DictionaryBaseType* object) throw (...)
+void DictionaryBinaryParser::readBoolean(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readInt(DictionaryBaseType* object) throw (...)
+void DictionaryBinaryParser::readInt(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readLong(DictionaryBaseType* object) throw (...)
+void DictionaryBinaryParser::readLong(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readDouble(DictionaryBaseType* object) throw (...)
+void DictionaryBinaryParser::readDouble(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readUVarint(DictionaryBaseType* object) throw (...)
+void DictionaryBinaryParser::readUVarint(DictionaryBaseType* object) throw (...)
 {
 
 
 };
 
-void BinaryDictionaryParser::readArray(DictionaryBaseType* object) throw (...)
+void DictionaryBinaryParser::readArray(DictionaryBaseType* object) throw (...)
 {
 	int element_type = binary->readByte();
 	switch (element_type)
@@ -196,7 +196,7 @@ void BinaryDictionaryParser::readArray(DictionaryBaseType* object) throw (...)
 	}
 };
 
-void BinaryDictionaryParser::readString(DictionaryBaseType* object) throw (...)
+void DictionaryBinaryParser::readString(DictionaryBaseType* object) throw (...)
 {
 	int encode = binary->readByte();
 	((DictionaryString*)object)->setEncode((usdsEncodes)encode);

@@ -34,6 +34,7 @@ namespace usds
 
 		virtual void setValue(int value) throw (...);
 		virtual void setValue(long long value) throw (...);
+		virtual void setValue(unsigned long long value) throw (...);
 		virtual void setValue(double value) throw (...);
 		virtual void setValue(const char* value) throw (...);
 		virtual void setValue(bool value) throw (...);

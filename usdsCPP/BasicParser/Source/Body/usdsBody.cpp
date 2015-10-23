@@ -27,10 +27,45 @@ Body::~Body()
 
 //============================================================================================
 // Body construction
+
+UsdsBaseType* Body::addTag(int id) throw(...)
+try
+{
+	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
+	if (dict_tag==0)
+	{
+		std::stringstream msg;
+		msg << L"Tag id=" << id << " is not found";
+		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
+	};
+	if (!dict_tag->getRootStatus())
+	{
+		std::stringstream msg;
+		msg << L"Tag id=" << id << " is not ROOT";
+		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
+	};
+
+	UsdsBaseType* tag = objectPool.addObject(dict_tag, 0);
+	connectTagToBody(tag);
+
+	return tag;
+}
+catch (ErrorMessage & msg)
+{
+	msg.addPath(L"Body::addTag(int)");
+	throw msg;
+};
+
 UsdsStruct* Body::addStructTag(const char* name) throw(...)
 try
 {
 	DictionaryBaseType* dict_tag = currentDictionary->findTag(name);
+	if (dict_tag == 0)
+	{
+		std::stringstream msg;
+		msg << L"Tag name '" << name << "' is not found";
+		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
+	};
 	if (dict_tag->getType() != USDS_STRUCT)
 	{
 		std::stringstream msg;

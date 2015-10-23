@@ -95,7 +95,7 @@ int UsdsBasicTest::serializationTest()
 		parser->encode(&usds_data, true, true, true);
 
 		serialization_data_size = usds_data.getSize();
-		parser->clearBody();
+		parser->clear();
 	}
 	catch (ErrorMessage& msg)
 	{

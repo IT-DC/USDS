@@ -1,5 +1,5 @@
-#ifndef USDS_BINARY_DICTIONARY_PARSER_H
-#define USDS_BINARY_DICTIONARY_PARSER_H
+#ifndef USDS_DICTIONARY_BINARY_PARSER_H
+#define USDS_DICTIONARY_BINARY_PARSER_H
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"
@@ -10,18 +10,18 @@ namespace usds
 	class Dictionary;
 	class DictionaryBaseType;
 
-	class BinaryDictionaryParser
+	class DictionaryBinaryParser
 	{
 	public:
-		BinaryDictionaryParser();
-		~BinaryDictionaryParser();
+		DictionaryBinaryParser();
+		~DictionaryBinaryParser();
 		
 		// read binary without size and signature
 		void parse(BinaryInput* buff, Dictionary* dict) throw(...);
 
 	private:
 		
-		void (BinaryDictionaryParser::*readIndex[USDS_LAST_TYPE])(DictionaryBaseType*);
+		void (DictionaryBinaryParser::*readIndex[USDS_LAST_TYPE])(DictionaryBaseType*);
 
 		void readBoolean(DictionaryBaseType* object) throw (...);
 		void readInt(DictionaryBaseType* object) throw (...);

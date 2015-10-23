@@ -4,9 +4,6 @@
     <Filter Include="Converters">
       <UniqueIdentifier>{aebf2beb-2d2a-423d-862d-5f26928374c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Converters\Dictionary Text Parser">
-      <UniqueIdentifier>{8a6a2890-5924-4115-abec-e84a2faf9198}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Base">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -29,28 +26,31 @@
     <Filter Include="Body\Data types">
       <UniqueIdentifier>{db21308f-bd17-473c-9313-64b2a1409bd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Converters\Creators">
+      <UniqueIdentifier>{ee91ae28-376d-44fa-8e17-c4ddf3709b1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Converters\Parsers">
+      <UniqueIdentifier>{fe514add-c35e-4f88-a433-6bd136062ef6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Converters\Parsers\Dictionary Text Parser">
+      <UniqueIdentifier>{8a6a2890-5924-4115-abec-e84a2faf9198}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\converters\usdsDictionaryTextParser.h">
-      <Filter>Converters</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.hh">
-      <Filter>Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.h">
-      <Filter>Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\location.hh">
-      <Filter>Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\position.hh">
-      <Filter>Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Source\Converters\DictionaryTextParser\stack.hh">
-      <Filter>Converters\Dictionary Text Parser</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\converters\usdsDictionaryTextCreator.h">
-      <Filter>Converters</Filter>
+      <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </ClInclude>
     <ClInclude Include="Include\base\usdsErrors.h">
       <Filter>Base</Filter>
@@ -67,15 +67,6 @@
     </ClInclude>
     <ClInclude Include="Include\dictionary\usdsDictionary.h">
       <Filter>Dictionary</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\converters\usdsDictionaryBinaryCreator.h">
-      <Filter>Converters</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\converters\usdsBinaryCreator.h">
-      <Filter>Converters</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\converters\usdsBinaryParser.h">
-      <Filter>Converters</Filter>
     </ClInclude>
     <ClInclude Include="Include\body\usdsBody.h">
       <Filter>Body</Filter>
@@ -143,28 +134,40 @@
     <ClInclude Include="Include\body\dataTypes\usdsUVarint.h">
       <Filter>Body\Data types</Filter>
     </ClInclude>
-    <ClInclude Include="Include\converters\usdsDictionaryBinaryParser.h">
-      <Filter>Converters</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\converters\usdsBodyJsonCreator.h">
-      <Filter>Converters</Filter>
+    <ClInclude Include="Include\converters\usdsBinaryCreator.h">
+      <Filter>Converters\Creators</Filter>
     </ClInclude>
     <ClInclude Include="Include\converters\usdsBodyBinaryCreator.h">
-      <Filter>Converters</Filter>
+      <Filter>Converters\Creators</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsBodyJsonCreator.h">
+      <Filter>Converters\Creators</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsDictionaryBinaryCreator.h">
+      <Filter>Converters\Creators</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsDictionaryTextCreator.h">
+      <Filter>Converters\Creators</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsBinaryParser.h">
+      <Filter>Converters\Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsDictionaryBinaryParser.h">
+      <Filter>Converters\Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsDictionaryTextParser.h">
+      <Filter>Converters\Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\converters\usdsBodyBinaryParser.h">
+      <Filter>Converters\Parsers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
-      <Filter>Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </ClCompile>
     <ClCompile Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.cpp">
-      <Filter>Converters\Dictionary Text Parser</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Converters\usdsDictionaryTextCreator.cpp">
-      <Filter>Converters</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Converters\DictionaryTextParser\usdsDictionaryTextParser.cpp">
-      <Filter>Converters</Filter>
+      <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </ClCompile>
     <ClCompile Include="Source\Base\usdsErrors.cpp">
       <Filter>Base</Filter>
@@ -184,18 +187,6 @@
     </ClCompile>
     <ClCompile Include="Source\Base\ObjectPool\dicObjectPool.cpp">
       <Filter>Base\Object Pool</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Converters\usdsDictionaryBinaryCreator.cpp">
-      <Filter>Converters</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Converters\usdsBinaryCreator.cpp">
-      <Filter>Converters</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Converters\usdsBinaryParser.cpp">
-      <Filter>Converters</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Converters\usdsDictionaryBinaryParser.cpp">
-      <Filter>Converters</Filter>
     </ClCompile>
     <ClCompile Include="Source\Body\usdsBody.cpp">
       <Filter>Body</Filter>
@@ -257,19 +248,40 @@
     <ClCompile Include="Source\Body\DataTypes\usdsUVarint.cpp">
       <Filter>Body\Data types</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Converters\usdsBodyJsonCreator.cpp">
-      <Filter>Converters</Filter>
+    <ClCompile Include="Source\Converters\usdsBinaryCreator.cpp">
+      <Filter>Converters\Creators</Filter>
     </ClCompile>
     <ClCompile Include="Source\Converters\usdsBodyBinaryCreator.cpp">
-      <Filter>Converters</Filter>
+      <Filter>Converters\Creators</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsBodyJsonCreator.cpp">
+      <Filter>Converters\Creators</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsDictionaryBinaryCreator.cpp">
+      <Filter>Converters\Creators</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsDictionaryTextCreator.cpp">
+      <Filter>Converters\Creators</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsBinaryParser.cpp">
+      <Filter>Converters\Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsDictionaryBinaryParser.cpp">
+      <Filter>Converters\Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\DictionaryTextParser\usdsDictionaryTextParser.cpp">
+      <Filter>Converters\Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Converters\usdsBodyBinaryParser.cpp">
+      <Filter>Converters\Parsers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.y">
-      <Filter>Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </None>
     <None Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.l">
-      <Filter>Converters\Dictionary Text Parser</Filter>
+      <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </None>
   </ItemGroup>
 </Project>

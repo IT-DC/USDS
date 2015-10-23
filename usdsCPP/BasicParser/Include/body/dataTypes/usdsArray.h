@@ -17,9 +17,10 @@ namespace usds
 		size_t getElementNumber() throw(...);
 		
 		usdsTypes getElementType() throw(...);
-
 		UsdsBaseType* getTagElement(size_t number) throw(...);
 
+		const void* getArrayBinary() throw(...);
+		size_t getArrayBinarySize() throw(...);
 
 	private:
 

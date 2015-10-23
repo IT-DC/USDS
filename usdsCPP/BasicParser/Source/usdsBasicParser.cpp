@@ -118,7 +118,7 @@ void BasicParser::encode(BinaryOutput* buff, bool with_head, bool with_dictionar
 	if (currentDictionary == 0)
 		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not found", L"BasicParser::encode");
 
-	if (with_dictionary && !with_body)
+	if (with_dictionary && with_body)
 		binaryCreator.generate(buff, currentDictionary, (Body*)this);
 
 };
@@ -127,6 +127,9 @@ void BasicParser::getJSON(usdsEncodes encode, std::string* text) throw(...)
 {
 	if (currentDictionary == 0)
 		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not set", L"BasicParser::getJSON");
+	if (getFirstTag() == 0)
+		throw ErrorMessage(BASIC_PARSER_BODY_IS_EMPTY, L"Body is empty", L"BasicParser::getJSON");
+
 	jsonCreator.generate(encode, text, (Body*)this);
 };
 
@@ -175,8 +178,7 @@ try
 	
 	if (binaryParser.isBodyIncluded())
 	{
-		
-		binaryParser.initBodyFromBinary(currentDictionary);
+		binaryParser.initBodyFromBinary((Body*)this);
 	}
 	
 }

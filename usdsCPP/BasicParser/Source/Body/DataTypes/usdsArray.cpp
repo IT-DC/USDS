@@ -79,3 +79,15 @@ catch (ErrorMessage &msg)
 	msg.addPath(L"UsdsArray::getTagElement");
 	throw msg;
 };
+
+const void* UsdsArray::getArrayBinary() throw(...)
+{
+
+	return elementValues.getBinary();
+};
+
+size_t UsdsArray::getArrayBinarySize() throw(...)
+{
+
+	return elementValues.getSize();
+};

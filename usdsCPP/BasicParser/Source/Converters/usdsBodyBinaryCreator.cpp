@@ -55,20 +55,13 @@ try
 	usdsBuff = buff;
 
 	UsdsBaseType* tag = body->getFirstTag();
-	while (true)
+	while (tag != 0)
 	{
-		*textBuff += "\t\"";
-		*textBuff += tag->getName();
-		*textBuff += "\": ";
+		usdsBuff->writeUVarint(tag->getID());
 		// write specific Tag parameters
 		(this->*(writeIndex[tag->getType()]))(tag);
 		tag = tag->getNext();
-		if (tag == 0)
-			break;
-		*textBuff += ",\n";
 	}
-	*textBuff += "\n}";
-
 }
 catch (ErrorMessage& err)
 {
@@ -81,10 +74,7 @@ catch (ErrorMessage& err)
 void BodyBinaryCreator::writeBoolean(UsdsBaseType* object) throw (...)
 try
 {
-	if (((UsdsBoolean*)object)->getBooleanValue())
-		*textBuff += "true";
-	else
-		*textBuff += "false";
+	usdsBuff->writeBool(((UsdsBoolean*)object)->getBooleanValue());
 }
 catch (ErrorMessage& err)
 {
@@ -95,8 +85,7 @@ catch (ErrorMessage& err)
 void BodyBinaryCreator::writeInt(UsdsBaseType* object) throw (...)
 try
 {
-	int value = ((UsdsInt*)object)->getIntValue();
-	*textBuff += std::to_string(value);
+	usdsBuff->writeInt(((UsdsInt*)object)->getIntValue());
 }
 catch (ErrorMessage& err)
 {
@@ -107,8 +96,7 @@ catch (ErrorMessage& err)
 void BodyBinaryCreator::writeLong(UsdsBaseType* object) throw (...)
 try
 {
-	long long value = ((UsdsLong*)object)->getLongValue();
-	*textBuff += std::to_string(value);
+	usdsBuff->writeLong(((UsdsLong*)object)->getLongValue());
 }
 catch (ErrorMessage& err)
 {
@@ -117,11 +105,9 @@ catch (ErrorMessage& err)
 };
 
 void BodyBinaryCreator::writeDouble(UsdsBaseType* object) throw (...)
-
 try
 {
-	double value = ((UsdsDouble*)object)->getDoubleValue();
-	*textBuff += std::to_string(value);
+	usdsBuff->writeDouble(((UsdsDouble*)object)->getDoubleValue());
 }
 catch (ErrorMessage& err)
 {
@@ -130,11 +116,9 @@ catch (ErrorMessage& err)
 };
 
 void BodyBinaryCreator::writeUVarint(UsdsBaseType* object) throw (...)
-
 try
 {
-	unsigned long long value = ((UsdsUVarint*)object)->getULongValue();
-	*textBuff += std::to_string(value);
+	usdsBuff->writeUVarint(((UsdsUVarint*)object)->getULongValue());
 }
 catch (ErrorMessage& err)
 {
@@ -143,37 +127,26 @@ catch (ErrorMessage& err)
 };
 
 void BodyBinaryCreator::writeArray(UsdsBaseType* object) throw (...)
-
 try
 {
 	int element_number = ((UsdsArray*)object)->getElementNumber();
-	int i = 0;
-	*textBuff += '\n';
-	textBuff->append(shiftLevel, '\t');
-	*textBuff += '[';
-	shiftLevel++;
-
-	switch (((UsdsArray*)object)->getElementType())
+	usdsBuff->writeUVarint(element_number);
+	if (typeSize(((UsdsArray*)object)->getElementType()) != 0)
 	{
-	case USDS_TAG:
-
-		while (true)
+		UsdsBaseType** objects = (UsdsBaseType**)(((UsdsArray*)object)->getArrayBinary());
+		for (int i = 0; i < element_number; i++)
 		{
-			UsdsBaseType* tag = (((UsdsArray*)object)->getTagElement(i));
-			// write specific Tag parameters
-			(this->*(writeIndex[tag->getType()]))(tag);
-			i++;
-			if (i >= element_number)
-				break;
-			*textBuff += ", ";
+			UsdsBaseType* object = objects[i];
+			// write specific object parameters
+			(this->*(writeIndex[object->getType()]))(object);
 		}
-		break;
 	}
-
-	shiftLevel--;
-	*textBuff += '\n';
-	textBuff->append(shiftLevel, '\t');
-	*textBuff += ']';
+	else
+	{
+		size_t size = ((UsdsArray*)object)->getArrayBinarySize();
+		const void* objects = ((UsdsArray*)object)->getArrayBinary();
+		usdsBuff->writeByteArray(objects, size);
+	}
 }
 catch (ErrorMessage& err)
 {
@@ -184,10 +157,10 @@ catch (ErrorMessage& err)
 void BodyBinaryCreator::writeString(UsdsBaseType* object) throw (...)
 try
 {
-	const char* value = ((UsdsUVarint*)object)->getStringValue();
-	*textBuff += "\"";
-	*textBuff += value;
-	*textBuff += "\"";
+	size_t size;
+	const char* text = ((UsdsString*)object)->getStringValue(&size);
+	usdsBuff->writeUVarint(size);
+	usdsBuff->writeByteArray(text, size);
 }
 catch (ErrorMessage& err)
 {
@@ -198,32 +171,13 @@ catch (ErrorMessage& err)
 void BodyBinaryCreator::writeStruct(UsdsBaseType* object) throw (...)
 try
 {
-	*textBuff += '\n';
-	textBuff->append(shiftLevel, '\t');
-	*textBuff += "{\n";
-	shiftLevel++;
 	int field_number = ((UsdsStruct*)object)->getFieldNumber();
-	int id = 1;
-	while (true)
+	for (int id = 1; id <= field_number; id++)
 	{
 		UsdsBaseType* field = ((UsdsStruct*)object)->getField(id);
-		textBuff->append(shiftLevel, '\t');
-		*textBuff += '"';
-		*textBuff += field->getName();
-		*textBuff += "\": ";
 		// write specific Field parameters
 		(this->*(writeIndex[field->getType()]))(field);
-
-		id++;
-		if (id > field_number)
-			break;
-		*textBuff += ",\n";
 	}
-	shiftLevel--;
-
-	*textBuff += '\n';
-	textBuff->append(shiftLevel, '\t');
-	*textBuff += '}';
 }
 catch (ErrorMessage& err)
 {
