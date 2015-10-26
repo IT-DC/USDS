@@ -120,6 +120,13 @@ void UsdsBaseType::setValue(const char* value) throw (...)
 	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::setValue(const char*)");
 };
 
+void UsdsBaseType::setValue(const char* value, size_t size) throw (...)
+{
+	std::stringstream msg;
+	msg << "Unsupported conversion from const char* to " << getTypeName();
+	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::setValue(const char*, size_t)");
+};
+
 void UsdsBaseType::setValue(bool value) throw (...)
 {
 	std::stringstream msg;
@@ -162,6 +169,13 @@ const char* UsdsBaseType::getStringValue() throw (...)
 	std::stringstream msg;
 	msg << "Unsupported conversion from " << getTypeName() << " to const char*";
 	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::getStringValue");
+};
+
+const char* UsdsBaseType::getStringValue(size_t* size) throw (...)
+{
+	std::stringstream msg;
+	msg << "Unsupported conversion from " << getTypeName() << " to const char*";
+	throw ErrorMessage(USDS_BASE_TYPE_UNSUPPORTED_CONVERTION, &msg, L"UsdsBaseType::getStringValue(size_t*)");
 };
 
 bool UsdsBaseType::getBooleanValue() throw (...)

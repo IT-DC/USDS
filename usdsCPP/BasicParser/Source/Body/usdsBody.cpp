@@ -98,6 +98,51 @@ UsdsBaseType* Body::getFirstTag() throw(...)
 
 };
 
+UsdsBaseType* Body::getFirstTag(const char* name) throw(...)
+{
+	int tag_id = currentDictionary->findTagID(name);
+	UsdsBaseType* tag = firstTag;
+	while (tag != 0)
+	{
+		if (tag->getID() == tag_id)
+			return tag;
+		tag = tag->getNext();
+	}
+
+	std::stringstream msg;
+	msg << L"Tag '" << name << "' not found in ROOT level";
+	throw ErrorMessage(BODY_TAG_NOT_FOUND, &msg);
+
+	return 0;
+};
+
+UsdsStruct* Body::getFirstStructTag(const char* name) throw(...)
+{
+	int tag_id = currentDictionary->findTagID(name);
+	UsdsBaseType* tag = firstTag;
+	while (tag != 0)
+	{
+		if (tag->getID() == tag_id)
+		{
+			if (tag->getType() != USDS_STRUCT)
+			{
+				std::stringstream msg;
+				msg << L"Tag '" << name << "' has type " << tag->getTypeName();
+				throw ErrorMessage(BODY_ERROR_TAG_TYPE, &msg);
+			}
+			return (UsdsStruct*)tag;
+		}
+		tag = tag->getNext();
+	}
+
+	std::stringstream msg;
+	msg << L"Tag '" << name << "' not found in ROOT level";
+	throw ErrorMessage(BODY_TAG_NOT_FOUND, &msg);
+
+	return 0;
+};
+
+
 //============================================================================================
 void Body::clearBody()
 {

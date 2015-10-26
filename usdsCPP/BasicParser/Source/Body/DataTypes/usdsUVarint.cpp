@@ -41,7 +41,7 @@ void UsdsUVarint::setValue(long long value) throw (...)
 	objectValue = value;
 };
 
-void setValue(unsigned long long value) throw (...)
+void UsdsUVarint::setValue(unsigned long long value) throw (...)
 {
 
 	objectValue = value;

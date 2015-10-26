@@ -37,6 +37,7 @@ namespace usds
 		virtual void setValue(unsigned long long value) throw (...);
 		virtual void setValue(double value) throw (...);
 		virtual void setValue(const char* value) throw (...);
+		virtual void setValue(const char* value, size_t size) throw (...);
 		virtual void setValue(bool value) throw (...);
 
 		virtual int getIntValue() throw (...);
@@ -44,6 +45,7 @@ namespace usds
 		virtual unsigned long long getULongValue() throw (...);
 		virtual double getDoubleValue() throw (...);
 		virtual const char* getStringValue() throw (...);
+		virtual const char* getStringValue(size_t* size) throw (...);
 		virtual bool getBooleanValue() throw (...);
 
 	protected:

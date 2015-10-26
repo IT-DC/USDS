@@ -24,6 +24,12 @@ void UsdsString::setValue(const char* value) throw (...)
 	objectValue = value;
 };
 
+void UsdsString::setValue(const char* value, size_t size) throw (...)
+{
+	objectValue.assign(value, size);
+
+};
+
 const char* UsdsString::getStringValue() throw (...)
 {
 

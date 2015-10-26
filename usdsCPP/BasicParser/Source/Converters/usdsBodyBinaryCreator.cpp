@@ -131,7 +131,7 @@ try
 {
 	int element_number = ((UsdsArray*)object)->getElementNumber();
 	usdsBuff->writeUVarint(element_number);
-	if (typeSize(((UsdsArray*)object)->getElementType()) != 0)
+	if (typeSize(((UsdsArray*)object)->getElementType()) == 0)
 	{
 		UsdsBaseType** objects = (UsdsBaseType**)(((UsdsArray*)object)->getArrayBinary());
 		for (int i = 0; i < element_number; i++)

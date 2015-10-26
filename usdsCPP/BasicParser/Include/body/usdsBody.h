@@ -31,6 +31,8 @@ namespace usds
 		UsdsStruct* addStructTag(const char* name) throw(...);
 
 		UsdsBaseType* getFirstTag() throw(...);
+		UsdsBaseType* getFirstTag(const char* name) throw(...);
+		UsdsStruct* getFirstStructTag(const char* name) throw(...);
 
 		void clearBody();
 

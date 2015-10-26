@@ -438,7 +438,8 @@ void BinaryOutput::pushFrontInt(int value) throw(...)
 void BinaryOutput::readByteArray(size_t position, void* value, size_t size) throw(...)
 {
 	// check buff size
-	if ((position + size) > (buffCurrentPos - buffFirstPos))
+	size_t doc_size = buffCurrentPos - buffFirstPos;
+	if ((position + size) > (doc_size))
 	{
 		std::wstringstream mess;
 		mess << L"Can not read " << size << L" bytes from position" << position << L" , document's size is less: " << (buffCurrentPos - buffFirstPos) << L" bytes";

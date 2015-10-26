@@ -25,6 +25,19 @@ namespace usds
 		void setFieldValue(int id, const char* value) throw (...);
 		void setFieldValue(int id, bool value) throw (...);
 
+		void getFieldValue(const char* name, int* value) throw (...);
+		void getFieldValue(const char* name, long long* value) throw (...);
+		void getFieldValue(const char* name, double* value) throw (...);
+		void getFieldValue(const char* name, const char** value) throw (...);
+		void getFieldValue(const char* name, bool* value) throw (...);
+
+		void getFieldValue(int id, int* value) throw (...);
+		void getFieldValue(int id, long long* value) throw (...);
+		void getFieldValue(int id, double* value) throw (...);
+		void getFieldValue(int id, const char** value) throw (...);
+		void getFieldValue(int id, bool* value) throw (...);
+
+
 		UsdsBaseType* getField(int id) throw (...);
 
 		UsdsArray* getArrayField(const char* name) throw (...);

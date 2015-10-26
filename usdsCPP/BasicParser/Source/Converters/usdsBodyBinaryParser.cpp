@@ -61,7 +61,7 @@ try
 		usdsBuff->readUVarint(&tag_ID);
 		UsdsBaseType* tag = body->addTag(tag_ID);
 		// read specific Tag parameters
-		(this->*(readIndex[tag_ID]))(tag);
+		(this->*(readIndex[tag->getType()]))(tag);
 		tag = tag->getNext();
 	}
 }
@@ -133,23 +133,24 @@ catch (ErrorMessage& err)
 void BodyBinaryParser::readArray(UsdsBaseType* object) throw (...)
 try
 {
-	int element_number = ((UsdsArray*)object)->getElementNumber();
-	usdsBuff->readUVarint(element_number);
-	if (typeSize(((UsdsArray*)object)->getElementType()) != 0)
+	size_t element_number;
+	usdsBuff->readUVarint(&element_number);
+	int element_size = typeSize(((UsdsArray*)object)->getElementType());
+	
+	if (element_size == 0)
 	{
-		UsdsBaseType** objects = (UsdsBaseType**)(((UsdsArray*)object)->getArrayBinary());
-		for (int i = 0; i < element_number; i++)
+		for (size_t i = 0; i < element_number; i++)
 		{
-			UsdsBaseType* object = objects[i];
+			UsdsBaseType* element = ((UsdsArray*)object)->addTagElement();
 			// read specific object parameters
-			(this->*(readIndex[object->getType()]))(object);
+			(this->*(readIndex[element->getType()]))(element);
 		}
 	}
 	else
 	{
-		size_t size = ((UsdsArray*)object)->getArrayBinarySize();
-		const void* objects = ((UsdsArray*)object)->getArrayBinary();
-		usdsBuff->readByteArray(objects, size);
+		size_t binary_size = element_number * element_size;
+		const void* elements = usdsBuff->readByteArray(binary_size);
+		((UsdsArray*)object)->setArrayBinary(elements, binary_size);
 	}
 }
 catch (ErrorMessage& err)
@@ -162,9 +163,9 @@ void BodyBinaryParser::readString(UsdsBaseType* object) throw (...)
 try
 {
 	size_t size;
-	const char* text = ((UsdsString*)object)->getStringValue(&size);
-	usdsBuff->readUVarint(size);
-	usdsBuff->readByteArray(text, size);
+	usdsBuff->readUVarint(&size);
+	const char* text = (const char*)usdsBuff->readByteArray(size);
+	((UsdsString*)object)->setValue(text, size);
 }
 catch (ErrorMessage& err)
 {

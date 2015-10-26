@@ -31,10 +31,8 @@ try
 
 	binary->writeByte(USDS_BODY_SIGNATURE);
 	bodyBinaryCreator.generate(binary, body);
-	binary->writeByte(0);
 	
 	addHeadToBinary();
-
 }
 catch (ErrorMessage& msg)
 {

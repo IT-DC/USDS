@@ -91,3 +91,17 @@ size_t UsdsArray::getArrayBinarySize() throw(...)
 
 	return elementValues.getSize();
 };
+
+void UsdsArray::setArrayBinary(const void* binary, size_t binary_size) throw(...)
+{
+	int element_size = typeSize(elementType);
+	if (element_size == 0)
+	{
+		std::stringstream msg;
+		msg << "Element type '" << typeName(elementType) << "' is unfixed";
+		throw ErrorMessage(USDS_ARRAY_UNFIXED_ELEMENT_SIZE, &msg, L"UsdsArray::setArrayBinary");
+	}
+	elementValues.writeByteArray(binary, binary_size);
+	elementNumber = binary_size / element_size;
+};
+

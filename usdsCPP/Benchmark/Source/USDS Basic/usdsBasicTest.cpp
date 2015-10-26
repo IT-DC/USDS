@@ -61,12 +61,12 @@ int UsdsBasicTest::serializationTest()
 
 	try
 	{
-		//int id_I = parser->getTagID("I");
-		int id_n = 1; // parser->getFieldID(id_I, "n");
-		int id_s = 2; // parser->getFieldID(id_I, "s");
-		int id_g = 3; // parser->getFieldID(id_I, "g");
-		int id_t = 4; // parser->getFieldID(id_I, "t");
-		int id_b = 5; // parser->getFieldID(id_I, "b");
+		int id_I = parser->getTagID("I");
+		int id_n = parser->getFieldID(id_I, "n");
+		int id_s = parser->getFieldID(id_I, "s");
+		int id_g = parser->getFieldID(id_I, "g");
+		int id_t = parser->getFieldID(id_I, "t");
+		int id_b = parser->getFieldID(id_I, "b");
 
 		UsdsStruct* tag = parser->addStructTag("S");
 		tag->setFieldValue("n", TestData->getShiftNumber());
@@ -95,7 +95,7 @@ int UsdsBasicTest::serializationTest()
 		parser->encode(&usds_data, true, true, true);
 
 		serialization_data_size = usds_data.getSize();
-		parser->clear();
+		parser->clearBody();
 	}
 	catch (ErrorMessage& msg)
 	{
@@ -114,12 +114,57 @@ int UsdsBasicTest::deserializationTest()
 	{
 		parser->decode(usds_data.getBinary(), serialization_data_size);
 
+		int id_I = parser->getTagID("I");
+		int id_n = parser->getFieldID(id_I, "n");
+		int id_s = parser->getFieldID(id_I, "s");
+		int id_g = parser->getFieldID(id_I, "g");
+		int id_t = parser->getFieldID(id_I, "t");
+		int id_b = parser->getFieldID(id_I, "b");
+
+		UsdsStruct* tag = parser->getFirstStructTag("S");
+		int int_buff;
+		tag->getFieldValue("n", &int_buff);
+		CleanData->setShiftNumber(int_buff);
+
+		tag->getFieldValue("m", &int_buff);
+		CleanData->setCashRegister(int_buff);
+
+		time_t time_buff;
+		tag->getFieldValue("s", &time_buff);
+		CleanData->setStartShift(time_buff);
+
+		tag->getFieldValue("e", &time_buff);
+		CleanData->setEndShift(time_buff);
+
+		UsdsArray* arrayField = tag->getArrayField("v");
+		size_t voucher_number = arrayField->getElementNumber();
+
+		if (CleanData->getNumVouchers() != voucher_number)
+			return -2;
+
+		voucher * vouchers = 0;
+		vouchers = CleanData->getVouchers();
+		if (vouchers == 0)
+			return -3;
+
+		for (size_t i = 0; i < voucher_number; i++)
+		{
+			UsdsStruct* element = (UsdsStruct*)arrayField->getTagElement(i);
+			
+			element->getFieldValue(id_n, &(vouchers[i].voucher_number));
+			
+			element->getFieldValue(id_s, &(vouchers[i].summ));
+			
+			const char* string_buff;
+			element->getFieldValue(id_g, &string_buff);
+			strcpy(vouchers[i].goods_name, string_buff);
+
+			element->getFieldValue(id_t, &(vouchers[i].time_of_sell));
+
+			element->getFieldValue(id_b, &(vouchers[i].status));
+		};
 
 
-
-		std::string json;
-		parser->getJSON(USDS_UTF8, &json);
-		std::cout << "\n" << json << "\n";
 
 		parser->clearBody();
 	}
@@ -142,14 +187,6 @@ int UsdsBasicTest::deserializationTest()
 	CleanData->setCashRegister(handle->cashRegister);
 	CleanData->setStartShift(handle->startShift);
 	CleanData->setEndShift(handle->endShift);
-	int voucher_number = handle->getVouchersSize();
-	if (CleanData->getNumVouchers() != voucher_number)
-		return -2;
-
-	voucher * vouchers = 0;
-	vouchers = CleanData->getVouchers();
-	if (vouchers == 0)
-		return -3;
 
 	UsdsVoucher* arrayHandle = handle->getFirstInVouchers();
 	for (int i = 0; i < voucher_number; i++)

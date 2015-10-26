@@ -71,7 +71,7 @@ try
 	if (signature == USDS_BODY_SIGNATURE)
 	{
 		const unsigned char* body_data = binary.getCurrentPosition();
-		size_t body_size = body_data - data;
+		size_t body_size = data_size - (body_data - data);
 		bodyBinary.setBinary(body_data, body_size);
 		bodyExists = true;
 		return;

@@ -12,9 +12,11 @@ namespace usds
 		~UsdsString();
 
 		virtual void setValue(const char* value) throw (...);
+		virtual void setValue(const char* value, size_t size) throw (...);
 
 		virtual const char* getStringValue() throw (...);
 		virtual const char* getStringValue(size_t* size) throw (...);
+
 
 	private:
 

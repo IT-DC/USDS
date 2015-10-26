@@ -44,6 +44,10 @@ namespace usds
 		unsigned char getDictionaryMajor() throw(...);
 		unsigned char getDictionaryMinor() throw(...);
 
+		// Find id by names
+		int getTagID(const char* name) throw(...);
+		int getFieldID(int tag_id, const char* name) throw(...);
+
 		// encode
 		void encode(BinaryOutput* buff, bool with_head, bool with_dictionary, bool with_body) throw(...);
 		void getJSON(usdsEncodes encode, std::string* text) throw(...);

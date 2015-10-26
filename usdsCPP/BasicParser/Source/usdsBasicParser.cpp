@@ -1,5 +1,7 @@
 #include "usdsBasicParser.h"
 
+#include "dictionary\dataTypes\dictionaryStruct.h"
+
 using namespace usds;
 
 BasicParser::BasicParser() : usdsMajor(1), usdsMinor(0), dictionaryPool(this)
@@ -108,6 +110,19 @@ catch (ErrorMessage& err)
 {
 	err.addPath(L"BasicParser::getDictionaryMinor");
 	throw err;
+};
+
+//====================================================================================================================
+int BasicParser::getTagID(const char* name) throw(...)
+{
+
+	return currentDictionary->findTagID(name);
+};
+
+int BasicParser::getFieldID(int tag_id, const char* name) throw(...)
+{
+	DictionaryBaseType* tag = currentDictionary->getTag(tag_id);
+	return ((DictionaryStruct*)tag)->findFieldID(name);
 };
 
 //====================================================================================================================
