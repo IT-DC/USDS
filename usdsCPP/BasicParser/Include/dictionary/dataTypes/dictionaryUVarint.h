@@ -12,7 +12,7 @@ namespace usds
 	{
 	public:
 		DictionaryUVarint(DictionaryObjectPool* parent);
-		~DictionaryUVarint() {  };
+		virtual ~DictionaryUVarint() {  };
 
 		virtual usdsTypes getType() { return USDS_UNSIGNED_VARINT; };
 		virtual const char* getTypeName() { return typeName(USDS_UNSIGNED_VARINT); };

@@ -24,7 +24,7 @@ namespace usds
 	{
 	public:
 		BasicParser();
-		~BasicParser();
+		virtual ~BasicParser();
 
 		// Settings
 		const unsigned char usdsMajor;

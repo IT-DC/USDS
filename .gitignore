@@ -13,3 +13,4 @@ usdsCPP/BasicParser/Release/BasicParser.tlog/unsuccessfulbuild
 *.sdf
 *.lib
 *.opensdf
+*.vsp

@@ -9,7 +9,7 @@ namespace usds
 	{
 	public:
 		UsdsInt(BodyObjectPool* object_pool);
-		~UsdsInt();
+		virtual ~UsdsInt();
 
 		virtual void setValue(int value) throw (...);
 

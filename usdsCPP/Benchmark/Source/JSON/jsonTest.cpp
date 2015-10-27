@@ -102,6 +102,7 @@ int JsonTest::serializationTest()
 	// cout << json_buff->GetString();
 
 	json_buff->Clear();
+	serializer->Reset(*json_buff);
 
 	return 0;
 };

@@ -12,7 +12,7 @@ namespace usds
 	{
 	public:
 		DictionaryBoolean(DictionaryObjectPool* parent);
-		~DictionaryBoolean() {  };
+		virtual ~DictionaryBoolean() {  };
 
 		virtual usdsTypes getType() { return USDS_BOOLEAN; };
 		virtual const char* getTypeName() { return typeName(USDS_BOOLEAN); };

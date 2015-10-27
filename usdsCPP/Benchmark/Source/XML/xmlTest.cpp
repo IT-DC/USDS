@@ -71,7 +71,7 @@ int XmlTest::serializationTest()
 	serialization_data_size = printer.CStrSize();
 
 	if (xml_data == 0)
-		xml_data = new char[serialization_data_size + 1];
+		xml_data = new char[serialization_data_size + 2];
 
 	strcpy_s(xml_data, serialization_data_size+1, printer.CStr());
 

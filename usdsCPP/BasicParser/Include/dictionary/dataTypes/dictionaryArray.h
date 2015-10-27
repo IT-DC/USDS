@@ -16,7 +16,7 @@ namespace usds
 	{
 	public:
 		DictionaryArray(DictionaryObjectPool* parent);
-		~DictionaryArray() {  };
+		virtual ~DictionaryArray() {  };
 
 		virtual usdsTypes getType() { return USDS_ARRAY; };
 		virtual const char* getTypeName() { return typeName(USDS_ARRAY); };

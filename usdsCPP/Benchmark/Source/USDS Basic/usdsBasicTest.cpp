@@ -61,6 +61,8 @@ int UsdsBasicTest::serializationTest()
 
 	try
 	{
+		int start_test = clock();
+
 		int id_I = parser->getTagID("I");
 		int id_n = parser->getFieldID(id_I, "n");
 		int id_s = parser->getFieldID(id_I, "s");
@@ -90,12 +92,17 @@ int UsdsBasicTest::serializationTest()
 			tag_I->setFieldValue(id_t, vouchers[i].time_of_sell);
 			tag_I->setFieldValue(id_b, vouchers[i].status);
 		}
+		
 
 		usds_data.clear();
+		
 		parser->encode(&usds_data, true, true, true);
-
+		
 		serialization_data_size = usds_data.getSize();
 		parser->clearBody();
+
+		int end_test = clock();
+		std::cout << "time: " << end_test - start_test << "\n";
 	}
 	catch (ErrorMessage& msg)
 	{

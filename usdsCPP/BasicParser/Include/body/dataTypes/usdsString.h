@@ -9,7 +9,7 @@ namespace usds
 	{
 	public:
 		UsdsString(BodyObjectPool* object_pool);
-		~UsdsString();
+		virtual ~UsdsString();
 
 		virtual void setValue(const char* value) throw (...);
 		virtual void setValue(const char* value, size_t size) throw (...);

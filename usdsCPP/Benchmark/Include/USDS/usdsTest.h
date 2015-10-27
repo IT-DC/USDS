@@ -9,7 +9,7 @@ class UsdsTest: public BaseTest
 {
 public:
 	UsdsTest(int counts, int size);
-	~UsdsTest();
+	virtual ~UsdsTest();
 	
 private:
 	int serializationTest();

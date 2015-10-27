@@ -16,7 +16,7 @@ class Handler {
 public:
 
 	Handler(TicketSales* out) { output_class = out; last_key = 0; arr_pos = -1; };
-	~Handler() {};
+	virtual ~Handler() {};
 
 	inline bool Null() { return false; };
 	inline bool Bool(bool b);

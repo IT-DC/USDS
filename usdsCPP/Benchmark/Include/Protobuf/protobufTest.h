@@ -8,7 +8,7 @@ class ProtobufTest : public BaseTest
 {
 public:
 	ProtobufTest(int counts, int size);
-	~ProtobufTest();
+	virtual ~ProtobufTest();
 
 private:
 	int serializationTest();

@@ -14,7 +14,7 @@ namespace usds
 	{
 	public:
 		UsdsBaseType(BodyObjectPool* object_pool);
-		~UsdsBaseType();
+		virtual ~UsdsBaseType();
 
 		void init(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
 

@@ -12,7 +12,7 @@ namespace usds
 	{
 	public:
 		DictionaryLong(DictionaryObjectPool* parent);
-		~DictionaryLong() {  };
+		virtual ~DictionaryLong() {  };
 
 		virtual usdsTypes getType() { return USDS_LONG; };
 		virtual const char* getTypeName() { return typeName(USDS_LONG); };

@@ -8,7 +8,7 @@ class XmlTest : public BaseTest
 {
 public:
 	XmlTest(int counts, int size);
-	~XmlTest();
+	virtual ~XmlTest();
 
 private:
 	int serializationTest();

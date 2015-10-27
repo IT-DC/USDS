@@ -14,7 +14,7 @@ class BsonTest : public BaseTest
 {
 public:
 	BsonTest(int counts, int size);
-	~BsonTest();
+	virtual ~BsonTest();
 
 private:
 	int serializationTest();

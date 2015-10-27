@@ -4,8 +4,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	int test_counts = 20;
-	int test_size = 1000;
+	int test_counts = 5;
+	int test_size = 100000;
 	
 	BaseTest* Tests;
 	int err_code = 0;
@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	cout << "USDS-benchmark for C++" << endl;
 
 	//=============================================================================================
-
+	
 	Tests = new UsdsBasicTest(test_counts, test_size);
 	err_code = Tests->beginTest();
 
@@ -29,10 +29,10 @@ int main(int argc, char* argv[])
 		"Deserialization: " << Tests->getDeserializationTime() << " ms." << endl <<
 		"Data size: " << Tests->getSerializationDataSize() << " byte" << endl << endl;
 	delete Tests;
-
+	
 
 	//=============================================================================================
-
+	/*
 	Tests = new UsdsTest(test_counts, test_size);
 	err_code = Tests->beginTest();
 
@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
 	delete Tests;
 	
 	//=============================================================================================
-
+	
 	Tests = new XmlTest(test_counts, test_size);
 	err_code = Tests->beginTest();
 
@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 	delete Tests;
 	
 	//=============================================================================================
-
+	
 	Tests = new JsonTest(test_counts, test_size);
 	err_code = Tests->beginTest();
 
@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
 		"Deserialization: " << Tests->getDeserializationTime() << " ms." << endl <<
 		"Data size: " << Tests->getSerializationDataSize() << " byte" << endl << endl;
 	delete Tests;
-
+	*/
 	//=============================================================================================
 
 	Tests = new BsonTest(test_counts, test_size);

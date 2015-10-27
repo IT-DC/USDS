@@ -9,7 +9,7 @@ namespace usds
 	{
 	public:
 		UsdsUVarint(BodyObjectPool* object_pool);
-		~UsdsUVarint();
+		virtual ~UsdsUVarint();
 
 		virtual void setValue(int value) throw (...);
 		virtual void setValue(long long value) throw (...);

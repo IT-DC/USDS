@@ -23,7 +23,7 @@ namespace usds
 	{
 	public:
 		Body();
-		~Body();
+		virtual ~Body();
 
 		// Body construction
 		UsdsBaseType* addTag(int id) throw(...);

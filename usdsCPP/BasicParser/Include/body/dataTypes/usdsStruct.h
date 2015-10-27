@@ -11,7 +11,7 @@ namespace usds
 	{
 	public:
 		UsdsStruct(BodyObjectPool* object_pool);
-		~UsdsStruct();
+		virtual ~UsdsStruct();
 
 		void setFieldValue(const char* name, int value) throw (...);
 		void setFieldValue(const char* name, long long value) throw (...);

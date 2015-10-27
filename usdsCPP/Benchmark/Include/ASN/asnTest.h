@@ -12,7 +12,7 @@ class AsnTest : public BaseTest
 {
 public:
 	AsnTest(int counts, int size);
-	~AsnTest();
+	virtual ~AsnTest();
 
 private:
 	int serializationTest();

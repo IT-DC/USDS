@@ -12,7 +12,7 @@ namespace usds
 	{
 	public:
 		DictionaryInt(DictionaryObjectPool* parent);
-		~DictionaryInt() {  };
+		virtual ~DictionaryInt() {  };
 
 		virtual usdsTypes getType() { return USDS_INT; };
 		virtual const char* getTypeName() { return typeName(USDS_INT); };

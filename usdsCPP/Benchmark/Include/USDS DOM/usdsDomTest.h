@@ -8,7 +8,7 @@ class UsdsDomTest : public BaseTest
 {
 public:
 	UsdsDomTest(int counts, int size);
-	~UsdsDomTest();
+	virtual ~UsdsDomTest();
 
 private:
 	int serializationTest();

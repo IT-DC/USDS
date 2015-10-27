@@ -9,7 +9,7 @@ namespace usds
 	{
 	public:
 		UsdsBoolean(BodyObjectPool* object_pool);
-		~UsdsBoolean();
+		virtual ~UsdsBoolean();
 
 		virtual void setValue(bool value) throw (...);
 
