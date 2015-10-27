@@ -4,7 +4,7 @@ using namespace usds;
 
 DictionaryBoolean::DictionaryBoolean(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
-
+	objectType = USDS_BOOLEAN;
 
 };
 

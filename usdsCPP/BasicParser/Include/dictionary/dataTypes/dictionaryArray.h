@@ -18,8 +18,6 @@ namespace usds
 		DictionaryArray(DictionaryObjectPool* parent);
 		virtual ~DictionaryArray() {  };
 
-		virtual usdsTypes getType() { return USDS_ARRAY; };
-		virtual const char* getTypeName() { return typeName(USDS_ARRAY); };
 		virtual void clear();
 
 		usdsTypes getElementType() throw (...);
@@ -31,6 +29,8 @@ namespace usds
 		const char* getElementTagName() throw (...);
 
 		void finalize() throw (...);
+
+		DictionaryArray* NextInPool;
 
 	private:
 		int arraySize;

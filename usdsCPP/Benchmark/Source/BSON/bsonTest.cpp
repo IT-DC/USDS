@@ -20,7 +20,7 @@ BsonTest::~BsonTest()
 
 int BsonTest::serializationTest()
 {
-	int start_test = clock();
+	//int start_test = clock();
 	
 	mongo::BSONObjBuilder root;
 	mongo::BSONObjBuilder T;
@@ -62,8 +62,8 @@ int BsonTest::serializationTest()
 		bson_data = new char[serialization_data_size];
 	memcpy(bson_data, p.objdata(), serialization_data_size);
 	
-	int end_test = clock();
-	std::cout << "time: " << end_test - start_test << "\n";
+	//int end_test = clock();
+	//std::cout << "time: " << end_test - start_test << "\n";
 
 	return 0;
 };

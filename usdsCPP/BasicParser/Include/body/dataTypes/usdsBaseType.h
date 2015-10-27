@@ -56,6 +56,8 @@ namespace usds
 		DictionaryBaseType* parentDictionaryObject;
 		BodyObjectPool* objectPool;
 
+		usdsTypes objectType;
+
 	private:
 		UsdsBaseType* parentObject;
 		UsdsBaseType* nextObject;

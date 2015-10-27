@@ -4,6 +4,7 @@ using namespace usds;
 
 UsdsBoolean::UsdsBoolean(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
+	objectType = USDS_BOOLEAN;
 }
 
 UsdsBoolean::~UsdsBoolean()

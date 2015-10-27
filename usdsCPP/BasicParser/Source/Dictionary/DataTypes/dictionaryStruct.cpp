@@ -9,8 +9,10 @@ using namespace usds;
 
 DictionaryStruct::DictionaryStruct(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
+	buffIndexSize = 8;
+	fieldIndex = new DictionaryBaseType*[buffIndexSize];
 
-
+	objectType = USDS_STRUCT;
 };
 
 DictionaryBaseType* DictionaryStruct::addField(usdsTypes field_type, int id, const char* name, size_t name_size) throw(...)
@@ -85,7 +87,7 @@ DictionaryBaseType* DictionaryStruct::getField(int id) throw (...)
 	if (id > fieldNumber)
 		return 0;
 
-	return fieldIndex[id-1];
+	return fieldIndex[id];
 };
 
 DictionaryBaseType* DictionaryStruct::getField(const char* name) throw (...)
@@ -158,29 +160,36 @@ void DictionaryStruct::finalize() throw(...)
 	}
 
 	// Create index
-	fieldIndex.reserve(fieldNumber);
-	fieldIndex.assign(fieldNumber, 0);
+	if (fieldNumber >= buffIndexSize)
+	{
+		delete[] fieldIndex;
+		buffIndexSize = fieldNumber + 1;
+		fieldIndex = new DictionaryBaseType*[buffIndexSize];
+	}
+	for (int id = 1; id <= fieldNumber; id++)
+		fieldIndex[id] = 0;
+
 	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
 		int id = field->getID();
 		// check id - unique in a tag
-		if (fieldIndex[id - 1] != 0)
+		if (fieldIndex[id] != 0)
 		{
 			std::wstringstream err;
 			err << L"Not unique field ID = " << id << " in Tag ID = " << objectID;
 			throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"DictionaryStruct::finalizeTag");
 		}
-		fieldIndex[id - 1] = field;
+		fieldIndex[id] = field;
 		field = field->getNext();
 	}
 
 	// Finalize fields: replace TagName to TagID in Links
 	firstField = 0;
 	lastField = 0;
-	for (int i = 0; i < fieldNumber; i++)
+	for (int id = 1; id <= fieldNumber; id++)
 	{
-		field = fieldIndex[i];
+		field = fieldIndex[id];
 		switch (field->getType())
 		{
 		case USDS_ARRAY:
@@ -201,7 +210,6 @@ void DictionaryStruct::clear()
 
 	fieldMaxID = 0;
 	fieldNumber = 0;
-	fieldIndex.clear();
 
 };
 

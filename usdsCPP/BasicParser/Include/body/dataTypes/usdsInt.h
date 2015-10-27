@@ -15,6 +15,8 @@ namespace usds
 
 		virtual int getIntValue() throw (...);
 
+		UsdsInt* NextInPool;
+
 	private:
 
 		virtual void clear();

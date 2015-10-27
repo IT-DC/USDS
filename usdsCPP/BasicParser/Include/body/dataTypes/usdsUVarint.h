@@ -19,6 +19,8 @@ namespace usds
 		virtual long long getLongValue() throw (...);
 		virtual unsigned long long getULongValue() throw (...);
 
+		UsdsUVarint* NextInPool;
+
 	private:
 
 		virtual void clear();

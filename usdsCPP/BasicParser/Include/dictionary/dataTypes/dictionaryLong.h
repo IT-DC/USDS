@@ -14,11 +14,11 @@ namespace usds
 		DictionaryLong(DictionaryObjectPool* parent);
 		virtual ~DictionaryLong() {  };
 
-		virtual usdsTypes getType() { return USDS_LONG; };
-		virtual const char* getTypeName() { return typeName(USDS_LONG); };
 		virtual void clear();
 
 		void setDefault(long long value);
+
+		DictionaryLong* NextInPool;
 
 	private:
 		bool isDefault;

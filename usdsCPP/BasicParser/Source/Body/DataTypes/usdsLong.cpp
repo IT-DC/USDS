@@ -4,6 +4,7 @@ using namespace usds;
 
 UsdsLong::UsdsLong(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
+	objectType = USDS_LONG;
 }
 
 UsdsLong::~UsdsLong()

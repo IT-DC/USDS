@@ -4,6 +4,7 @@ using namespace usds;
 
 UsdsInt::UsdsInt(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
+	objectType = USDS_INT;
 }
 
 UsdsInt::~UsdsInt()

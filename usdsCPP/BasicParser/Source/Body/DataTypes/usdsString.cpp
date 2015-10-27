@@ -2,14 +2,22 @@
 
 #include "dictionary\dataTypes\dictionaryString.h"
 
+#pragma warning (disable : 4996)
+
 using namespace usds;
 
 UsdsString::UsdsString(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
+	objectType = USDS_STRING;
+	
+	buffSize = 16;
+	valueSize = 0;
+	objectValue = new char[buffSize];
 }
 
 UsdsString::~UsdsString()
 {
+	delete[] objectValue;
 }
 
 void UsdsString::clear()
@@ -20,24 +28,39 @@ void UsdsString::clear()
 
 void UsdsString::setValue(const char* value) throw (...)
 {
-
-	objectValue = value;
+	valueSize = strlen(value);
+	if (valueSize >= buffSize)
+	{
+		delete[] objectValue;
+		buffSize = valueSize + 1;
+		objectValue = new char[buffSize];
+	}
+	strncpy(objectValue, value, valueSize);
+	objectValue[valueSize] = 0;
 };
 
 void UsdsString::setValue(const char* value, size_t size) throw (...)
 {
-	objectValue.assign(value, size);
+	valueSize = size;
+	if (valueSize >= buffSize)
+	{
+		delete[] objectValue;
+		buffSize = valueSize + 1;
+		objectValue = new char[buffSize];
+	}
+	strncpy(objectValue, value, valueSize);
+	objectValue[valueSize] = 0;
 
 };
 
 const char* UsdsString::getStringValue() throw (...)
 {
 
-	return objectValue.c_str();
+	return objectValue;
 };
 
 const char* UsdsString::getStringValue(size_t* size) throw (...)
 {
-	*size = objectValue.size();
-	return objectValue.c_str();
+	*size = valueSize;
+	return objectValue;
 };

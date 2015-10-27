@@ -16,8 +16,6 @@ namespace usds
 		DictionaryString(DictionaryObjectPool* parent);
 		virtual ~DictionaryString() {  };
 
-		virtual usdsTypes getType() { return USDS_STRING; };
-		virtual const char* getTypeName() { return typeName(USDS_STRING); };
 		virtual void clear();
 
 		void setDefault(const char* value);
@@ -25,6 +23,7 @@ namespace usds
 
 		usdsEncodes getEncode() throw(...);
 
+		DictionaryString* NextInPool;
 
 	private:
 		bool isDefault;

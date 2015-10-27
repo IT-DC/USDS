@@ -4,6 +4,7 @@ using namespace usds;
 
 UsdsDouble::UsdsDouble(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
+	objectType = USDS_DOUBLE;
 }
 
 UsdsDouble::~UsdsDouble()

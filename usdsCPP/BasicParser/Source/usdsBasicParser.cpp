@@ -210,7 +210,7 @@ void BasicParser::clear()
 {
 	currentDictionary = 0;
 	dictionaries.clear();
-	dictionaryPool.clear();
+	dictionaryPool.clearPool();
 	clearBody();
 
 };

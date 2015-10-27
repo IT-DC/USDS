@@ -10,6 +10,8 @@ UsdsStruct::UsdsStruct(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 	fieldsBuffSize = 16;
 	fields = new UsdsBaseType*[fieldsBuffSize+1];
 	fieldNumber = 0;
+
+	objectType = USDS_STRUCT;
 };
 
 UsdsStruct::~UsdsStruct()

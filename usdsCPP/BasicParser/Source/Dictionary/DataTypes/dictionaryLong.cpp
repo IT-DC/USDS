@@ -5,7 +5,7 @@ using namespace usds;
 DictionaryLong::DictionaryLong(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
 
-
+	objectType = USDS_LONG;
 };
 
 void DictionaryLong::clear()

@@ -24,6 +24,8 @@ namespace usds
 
 		void setArrayBinary(const void* binary, size_t binary_size) throw(...);
 
+		UsdsArray* NextInPool;
+
 	private:
 
 		virtual void clear();

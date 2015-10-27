@@ -61,7 +61,7 @@ int UsdsBasicTest::serializationTest()
 
 	try
 	{
-		int start_test = clock();
+		//int start_test = clock();
 
 		int id_I = parser->getTagID("I");
 		int id_n = parser->getFieldID(id_I, "n");
@@ -101,8 +101,8 @@ int UsdsBasicTest::serializationTest()
 		serialization_data_size = usds_data.getSize();
 		parser->clearBody();
 
-		int end_test = clock();
-		std::cout << "time: " << end_test - start_test << "\n";
+		//int end_test = clock();
+		//std::cout << "time: " << end_test - start_test << "\n";
 	}
 	catch (ErrorMessage& msg)
 	{

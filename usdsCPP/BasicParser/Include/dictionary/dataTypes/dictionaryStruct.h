@@ -14,10 +14,7 @@ namespace usds
 	{
 	public:
 		DictionaryStruct(DictionaryObjectPool* parent);
-		virtual ~DictionaryStruct() { };
-
-		virtual usdsTypes getType() { return USDS_STRUCT; };
-		virtual const char* getTypeName() { return typeName(USDS_STRUCT); };
+		virtual ~DictionaryStruct() { delete[] fieldIndex; };
 
 		// add existing fields
 		DictionaryBaseType* addField(usdsTypes field_type, int id, const char* name, size_t name_size) throw(...);
@@ -39,6 +36,8 @@ namespace usds
 		// Dictionary finalization
 		void finalize() throw(...);
 
+		DictionaryStruct* NextInPool;
+
 	private:
 		// it's executed in DicBaseTag.init()
 		virtual void clear();
@@ -50,7 +49,8 @@ namespace usds
 		// field index
 		int fieldMaxID;
 		int fieldNumber;
-		std::vector<DictionaryBaseType*> fieldIndex;
+		DictionaryBaseType** fieldIndex;
+		int buffIndexSize;
 
 	};
 

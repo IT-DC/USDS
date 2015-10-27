@@ -10,43 +10,42 @@ namespace usds
 {
 	// template for pools
 	template<class T_classPool, class parentPool_class>
-	class TemplateObjectPool : public std::list<T_classPool*>
+	class TemplateObjectPool
 	{
 	public:
-		TemplateObjectPool(parentPool_class* parent) : std::list<T_classPool*>() { lastElement = begin(); parentClass = parent; };
+		TemplateObjectPool(parentPool_class* parent)
+		{
+			parentClass = parent;
+			lastElement = new T_classPool(parentClass);
+			firstElement = lastElement;
+		};
 		~TemplateObjectPool()
 		{
-			for (typename std::list<T_classPool*>::iterator it = begin(); it != end(); it++)
+			T_classPool* object = firstElement;
+			T_classPool* next;
+			while (object != 0)
 			{
-				T_classPool* object = *it;
-				if (object != 0)
-					delete object;
+				next = object->NextInPool;
+				delete object;
+				object = next;
 			}
 		};
 
 		T_classPool* addObject() throw(...)
 		{
-			T_classPool* object;
-
-			if (lastElement == end())
-			{
-				object = new T_classPool(parentClass);
-				push_back(object);
-				lastElement = end();
-			}
-			else
-			{
-				object = *lastElement;
-				lastElement++;
-			}
+			if (lastElement->NextInPool == 0)
+				lastElement->NextInPool = new T_classPool(parentClass);
+			T_classPool* object = lastElement;
+			lastElement = lastElement->NextInPool;
 
 			return object;
 		};
 
-		void clearPool() throw(...){ lastElement = begin();	};
+		void clearPool() throw(...){ lastElement = firstElement; };
 
 	private:
-		typename std::list<T_classPool*>::iterator lastElement;
+		T_classPool* lastElement;
+		T_classPool* firstElement;
 		parentPool_class* parentClass;
 	};
 };

@@ -17,12 +17,15 @@ namespace usds
 		virtual const char* getStringValue() throw (...);
 		virtual const char* getStringValue(size_t* size) throw (...);
 
+		UsdsString* NextInPool;
 
 	private:
 
 		virtual void clear();
 
-		std::string objectValue;
+		char* objectValue;
+		size_t valueSize;
+		size_t buffSize;
 
 	};
 

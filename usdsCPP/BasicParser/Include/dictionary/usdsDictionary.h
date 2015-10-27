@@ -63,6 +63,8 @@ namespace usds
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();
 
+		Dictionary* NextInPool;
+
 	private:
 		unsigned char majorVersion;
 		unsigned char minorVersion;

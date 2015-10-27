@@ -40,6 +40,16 @@ int DictionaryBaseType::getID() throw(...)
 	return objectID;
 };
 
+usdsTypes DictionaryBaseType::getType()
+{
+	return objectType;
+};
+
+const char* DictionaryBaseType::getTypeName()
+{
+	return typeName(objectType);
+};
+
 DictionaryBaseType* DictionaryBaseType::getNext() throw (...)
 {
 

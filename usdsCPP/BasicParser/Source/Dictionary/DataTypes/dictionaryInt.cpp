@@ -5,7 +5,7 @@ using namespace usds;
 DictionaryInt::DictionaryInt(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
 
-
+	objectType = USDS_INT;
 };
 
 void DictionaryInt::clear()

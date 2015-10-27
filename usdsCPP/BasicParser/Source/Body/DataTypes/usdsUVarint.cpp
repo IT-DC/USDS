@@ -4,7 +4,7 @@ using namespace usds;
 
 UsdsUVarint::UsdsUVarint(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
 {
-
+	objectType = USDS_UNSIGNED_VARINT;
 }
 
 UsdsUVarint::~UsdsUVarint()

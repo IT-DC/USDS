@@ -5,7 +5,7 @@ using namespace usds;
 DictionaryString::DictionaryString(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
 
-
+	objectType = USDS_STRING;
 };
 
 void DictionaryString::clear()

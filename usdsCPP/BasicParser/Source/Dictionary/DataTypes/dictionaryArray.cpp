@@ -5,7 +5,7 @@ using namespace usds;
 
 DictionaryArray::DictionaryArray(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
 {
-
+	objectType = USDS_ARRAY;
 
 };
 

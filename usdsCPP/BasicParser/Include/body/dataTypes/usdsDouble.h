@@ -15,6 +15,8 @@ namespace usds
 
 		virtual double getDoubleValue() throw (...);
 
+		UsdsDouble* NextInPool;
+
 	private:
 
 		virtual void clear();

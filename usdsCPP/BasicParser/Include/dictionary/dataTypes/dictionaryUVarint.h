@@ -14,11 +14,11 @@ namespace usds
 		DictionaryUVarint(DictionaryObjectPool* parent);
 		virtual ~DictionaryUVarint() {  };
 
-		virtual usdsTypes getType() { return USDS_UNSIGNED_VARINT; };
-		virtual const char* getTypeName() { return typeName(USDS_UNSIGNED_VARINT); };
 		virtual void clear();
 
 		void setDefault(long long value);
+
+		DictionaryUVarint* NextInPool;
 
 	private:
 		bool isDefault;

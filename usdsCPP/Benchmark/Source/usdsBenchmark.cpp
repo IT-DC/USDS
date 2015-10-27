@@ -4,8 +4,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	int test_counts = 5;
-	int test_size = 100000;
+	int test_counts = 1000000;
+	int test_size = 2;
 	
 	BaseTest* Tests;
 	int err_code = 0;
@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 	
 
 	//=============================================================================================
-	/*
+	
 	Tests = new UsdsTest(test_counts, test_size);
 	err_code = Tests->beginTest();
 
@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
 		"Deserialization: " << Tests->getDeserializationTime() << " ms." << endl <<
 		"Data size: " << Tests->getSerializationDataSize() << " byte" << endl << endl;
 	delete Tests;
-	*/
+	
 	//=============================================================================================
 
 	Tests = new BsonTest(test_counts, test_size);

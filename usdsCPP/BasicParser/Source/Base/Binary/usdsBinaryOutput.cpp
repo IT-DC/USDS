@@ -339,6 +339,7 @@ catch (ErrorMessage& err)
 	throw err;
 };
 
+//==========================================================================================================
 
 void BinaryOutput::checkSize(size_t min_increase)  throw(...)
 {

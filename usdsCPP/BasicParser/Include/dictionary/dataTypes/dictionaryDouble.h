@@ -14,11 +14,11 @@ namespace usds
 		DictionaryDouble(DictionaryObjectPool* parent);
 		virtual ~DictionaryDouble() {  };
 
-		virtual usdsTypes getType() { return USDS_DOUBLE; };
-		virtual const char* getTypeName() { return typeName(USDS_DOUBLE); };
 		virtual void clear();
 
 		void setDefault(double value);
+
+		DictionaryDouble* NextInPool;
 
 	private:
 		bool isDefault;

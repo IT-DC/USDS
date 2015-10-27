@@ -23,8 +23,8 @@ namespace usds
 		size_t getNameSize() throw(...);
 		int getID() throw(...);
 
-		virtual usdsTypes getType() = 0;
-		virtual const char* getTypeName() = 0;
+		usdsTypes getType();
+		const char* getTypeName();
 
 		DictionaryBaseType* getNext() throw (...);
 		DictionaryBaseType* getPrevious() throw (...);
@@ -49,6 +49,8 @@ namespace usds
 
 		Dictionary* dictionary;
 		DictionaryObjectPool* objectPool;
+
+		usdsTypes objectType;
 
 	private:
 		DictionaryBaseType* parentObject;

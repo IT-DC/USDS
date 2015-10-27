@@ -42,12 +42,12 @@ int UsdsBaseType::getID() throw(...)
 
 usdsTypes UsdsBaseType::getType()
 {
-	return parentDictionaryObject->getType();
+	return objectType;
 };
 
 const char* UsdsBaseType::getTypeName()
 {
-	return parentDictionaryObject->getTypeName();
+	return typeName(objectType);
 };
 
 
