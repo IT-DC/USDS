@@ -64,7 +64,7 @@
 
 // restrictions
 %token USDS_RESTRICT
-%token ROOT_TAG "root"
+%token NOT_ROOT_TAG "notRoot"
 
 %token<boolVal> BOOLEAN_VALUE "true or false"
 %token<intVal> UNSIGNED_INTEGER_NUMBER "unsigned integer number"
@@ -117,9 +117,9 @@ struct_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_STRUCT TEXT_NAME
 struct_restricts: struct_restrict | struct_restrict struct_restricts;
 
 struct_restrict:
-	ROOT_TAG '=' BOOLEAN_VALUE ';'
+	NOT_ROOT_TAG ';'
 	{
-		tag->setRoot($3);
+		tag->setRoot(false);
 	}
 	;
 	

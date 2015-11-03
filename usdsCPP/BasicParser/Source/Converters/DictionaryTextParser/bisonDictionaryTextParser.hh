@@ -111,7 +111,7 @@ namespace usds {
      TYPE_ARRAY = 268,
      STRING_ENCODE = 269,
      USDS_RESTRICT = 270,
-     ROOT_TAG = 271,
+     NOT_ROOT_TAG = 271,
      BOOLEAN_VALUE = 272,
      UNSIGNED_INTEGER_NUMBER = 273,
      TEXT_NAME = 274

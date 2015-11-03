@@ -110,8 +110,8 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::USDS_RESTRICT);
 						}
 						
-"root"					{
-							return (token::ROOT_TAG);
+"notRoot"					{
+							return (token::NOT_ROOT_TAG);
 						}
 
 %{

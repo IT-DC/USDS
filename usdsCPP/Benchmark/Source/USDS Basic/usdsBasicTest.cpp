@@ -23,7 +23,7 @@ UsdsBasicTest::UsdsBasicTest(int counts, int size)
 									3: STRING<UTF-8> g;			\n\
 									4: LONG t;					\n\
 									5: BOOLEAN b;				\n\
-								} RESTRICT {root=false;}		\n\
+								} RESTRICT {notRoot;}			\n\
 								2: STRUCT S						\n\
 								{								\n\
 									1: UNSIGNED VARINT n;		\n\
@@ -95,7 +95,7 @@ int UsdsBasicTest::serializationTest()
 		
 
 		usds_data.clear();
-		
+
 		parser->encode(&usds_data, true, true, true);
 		
 		serialization_data_size = usds_data.getSize();

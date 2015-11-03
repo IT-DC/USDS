@@ -61,11 +61,6 @@
       </PostinstrumentEvent>
     </Binary>
   </Binaries>
-  <Reports>
-    <Report>
-      <Path>Benchmark151027(3).vsp</Path>
-    </Report>
-  </Reports>
   <Launches>
     <Binary>
       <Path>Benchmark\bin\Debug_Win32\Benchmark.exe</Path>
