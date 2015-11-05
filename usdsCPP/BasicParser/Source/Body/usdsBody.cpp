@@ -90,6 +90,41 @@ catch (ErrorMessage & msg)
 	throw msg;
 };
 
+UsdsStruct* Body::addStructTag(int id) throw(...)
+try
+{
+	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
+	if (dict_tag == 0)
+	{
+		std::stringstream msg;
+		msg << L"Tag with id=" << id << " is not found";
+		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
+	};
+	if (dict_tag->getType() != USDS_STRUCT)
+	{
+		std::stringstream msg;
+		msg << L"Type of the tag with id=" << id << " is not USDS_STRUCT (" << dict_tag->getTypeName() << ")";
+		throw ErrorMessage(BODY_ERROR_TAG_TYPE, &msg);
+	};
+	if (!dict_tag->getRootStatus())
+	{
+		std::stringstream msg;
+		msg << L"Tag with id=" << id << " is not ROOT";
+		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
+	};
+
+	UsdsStruct* tag = (UsdsStruct*)(objectPool.addObject(dict_tag, 0));
+	connectTagToBody(tag);
+
+	return tag;
+}
+catch (ErrorMessage & msg)
+{
+	msg.addPath(L"Body::addStructTag(const char*)");
+	throw msg;
+};
+
+
 //============================================================================================
 
 UsdsBaseType* Body::getFirstTag() throw(...)
