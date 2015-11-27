@@ -4,8 +4,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	int test_counts = 1000000;
-	int test_size = 2;
+	int test_counts = 10000;
+	int test_size = 1000;
 	
 	BaseTest* Tests;
 	int err_code = 0;
