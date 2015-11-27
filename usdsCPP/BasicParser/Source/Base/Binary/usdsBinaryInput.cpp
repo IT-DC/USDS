@@ -12,16 +12,22 @@ BinaryInput::BinaryInput()
 BinaryInput::~BinaryInput() {};
 
 void BinaryInput::setBinary(const unsigned char* buff, size_t size) throw(...)
+try
 {
 	if (buff == 0)
-		throw ErrorMessage(BIN_IN_NULL_BUFF, L"Buff link must be not null", L"BinaryInput::setBinary");
+		throw Error(BIN_IN__NULL_BUFF, "Buffer pointer must be not null");
 
 	if (size == 0)
-		throw ErrorMessage(BIN_IN_NULL_SIZE, L"Buff size must be not null", L"BinaryInput::setBinary");
+		throw Error(BIN_IN__NULL_SIZE, "Buffer size must be not null");
 
 	usdsBuff = buff;
 	buffLastPos = usdsBuff + size;
 	buffCurrentPos = usdsBuff;
+}
+catch (Error& err)
+{
+	err.path << "BinaryInput::setBinary";
+	throw err;
 };
 
 void BinaryInput::clear()

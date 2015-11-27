@@ -1,268 +1,181 @@
 #include "base\usdsErrors.h"
 
-#include <Windows.h>
+#include <iconv.h>
+#include <sstream>
 
 using namespace usds;
 
-ErrorMessage::ErrorMessage(errorCode err_code, wchar_t* err_message)
+void ErrorMessage::operator << (const int value)
 {
-	level = 0;
-	code = err_code;
-	message = err_message;
-	fullMessage = L"Error: ";
-	fullMessage += err_message;
-	fullMessage += L"\n";
-
-	utf8Message = 0;
-	utf8FullMessage = 0;
+	std::stringstream buff;
+	buff << value;
+	*message += buff.str();
 };
 
-ErrorMessage::ErrorMessage(errorCode err_code, std::stringstream* err_message_utf8)
+void ErrorMessage::operator << (const char* utf8_message)
 {
-	level = 0;
-	code = err_code;
-
-	// covert message from utf-8 to utf-16
-	int message_size = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, err_message_utf8->str().c_str(), err_message_utf8->str().size(), 0, 0);
-	if (message_size == 0)
-		message = L"Invalid error message, can not convert from utf8 to utf16";
-	else
-	{
-		wchar_t* message_buff = new wchar_t[message_size + 1];
-		int final_size = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, err_message_utf8->str().c_str(), err_message_utf8->str().size(), message_buff, message_size);
-		if (final_size == 0)
-			message = L"Invalid error message, can not convert from utf8 to utf16";
-		else
-		{
-			message_buff[message_size] = 0;
-			message = message_buff;
-		}
-		delete[] message_buff;
-	};
-
-	fullMessage = L"Error: ";
-	fullMessage += message;
-	fullMessage += L"\n";
-
-	utf8Message = 0;
-	utf8FullMessage = 0;
+	*message += utf8_message;
 };
 
-ErrorMessage::ErrorMessage(errorCode err_code, std::wstringstream* err_message)
+//=======================================================================================================
+
+void ErrorPath::operator << (const int value)
 {
-	level = 0;
-	code = err_code;
-	message = err_message->str();
-	fullMessage = L"Error: ";
-	fullMessage += err_message->str();
-	fullMessage += L"\n";
-
-	utf8Message = 0;
-	utf8FullMessage = 0;
-};
-
-ErrorMessage::ErrorMessage(errorCode err_code, wchar_t* err_message, wchar_t* err_path)
-{
-	level = 0;
-	code = err_code;
-	message = err_message;
-	fullMessage = L"Error: ";
-	fullMessage += err_message;
-	fullMessage += L"\nModule: ";
-	fullMessage += err_path;
-	fullMessage += L"\n";
-
-	utf8Message = 0;
-	utf8FullMessage = 0;
-};
-
-ErrorMessage::ErrorMessage(errorCode err_code, std::stringstream* err_message_utf8, wchar_t* err_path)
-{
-	level = 0;
-	code = err_code;
+	std::stringstream buff;
+	buff << value;
 	
-	// covert message from utf-8 to utf-16
-	int message_size = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, err_message_utf8->str().c_str(), err_message_utf8->str().size(), 0, 0);
-	if (message_size == 0)
-		message = L"Invalid error message, can not convert from utf8 to utf16";
-	else
-	{
-		wchar_t* message_buff = new wchar_t[message_size+1];
-		int final_size = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, err_message_utf8->str().c_str(), err_message_utf8->str().size(), message_buff, message_size);
-		if (final_size == 0)
-			message = L"Invalid error message, can not convert from utf8 to utf16";
-		else
-		{
-			message_buff[message_size] = 0;
-			message = message_buff;
-		}
-		delete [] message_buff;
-	};
-
-	fullMessage = L"Error: ";
-	fullMessage += message;
-	fullMessage += L"\nModule: ";
-	fullMessage += err_path;
-	fullMessage += L"\n";
-
-	utf8Message = 0;
-	utf8FullMessage = 0;
+	*pathString += "int ";
+	*pathString += buff.str();
+	*pathString += ", ";
 };
 
-
-ErrorMessage::ErrorMessage(errorCode err_code, std::wstringstream* err_message, wchar_t* err_path)
+void ErrorPath::operator << (const char* utf8_path)
 {
-	level = 0;
-	code = err_code;
-	message = err_message->str();
-	fullMessage = L"Error: ";
-	fullMessage += err_message->str();
-	fullMessage += L"\nModule: ";
-	fullMessage += err_path;
-	fullMessage += L"\n";
+	if (pathString->size() == 0)
+	{
+		*pathString += utf8_path;
+		*pathString += '(';
+	}
+	else
+	{
+		*pathString += "const char* '";
+		*pathString += utf8_path;
+		*pathString += "', ";
+	}
+};
+
+//=======================================================================================================
+Error::Error(errorCodes code)
+{
+	lastCode = code;
 	
-	utf8Message = 0;
-	utf8FullMessage = 0;
-};
-//===============================================================================================================
-ErrorMessage::~ErrorMessage()
-{
-	if (utf8Message != 0)
-		delete[] utf8Message;
-	if (utf8FullMessage != 0)
-		delete[] utf8FullMessage;
+	ErrorLevel* level = new ErrorLevel;
+	errorStack.push_front(level);
+	level->errorCode = code;
+	
+	message._setSource(&(level->errorMessage));
+	path._setSource(&(level->functionName));
 };
 
-
-//===============================================================================================================
-
-void ErrorMessage::addMessage(wchar_t* err_message)
+Error::Error(errorCodes code, const char* utf8_message)
 {
-	level++;
-	message += L"\n<- ";
-	message += err_message;
-	fullMessage.append(level, L'\t');
-	fullMessage += L"Message: ";
-	fullMessage += err_message;
-	fullMessage += L"\n";
+	lastCode = code;
+	
+	ErrorLevel* level = new ErrorLevel;
+	errorStack.push_front(level);
+	level->errorCode = code;
+	level->errorMessage = utf8_message;
+
+	message._setSource(&(level->errorMessage));
+	path._setSource(&(level->functionName));
 };
 
-void ErrorMessage::addMessage(std::wstringstream* err_message)
+Error::~Error()
 {
-	level++;
-	message += L"\n<- ";
-	message += err_message->str();
-	fullMessage.append(level, L'\t');
-	fullMessage += L"Message: ";
-	fullMessage += err_message->str();
-	fullMessage += L"\n";
-};
-
-void ErrorMessage::addMessage(wchar_t* err_message, wchar_t* err_path)
-{
-	level++;
-	message += L"\n<- ";
-	message += err_message;
-	fullMessage.append(level, L'\t');
-	fullMessage += L"Message: ";
-	fullMessage += err_message;
-	fullMessage += L"\n";
-	fullMessage.append(level, L'\t');
-	fullMessage += L"Module: ";
-	fullMessage += err_path;
-	fullMessage += L"\n";
-};
-
-void ErrorMessage::addMessage(std::wstringstream* err_message, wchar_t* err_path)
-{
-	level++;
-	message += L"\n<- ";
-	message += err_message->str();
-	fullMessage.append(level, L'\t');
-	fullMessage += L"Message: ";
-	fullMessage += err_message->str();
-	fullMessage += L"\n";
-	fullMessage.append(level, L'\t');
-	fullMessage += L"Module: ";
-	fullMessage += err_path;
-	fullMessage += L"\n";
-};
-
-void ErrorMessage::setMessage(wchar_t* err_message)
-{
-	message = err_message;
-
-};
-
-void ErrorMessage::setMessage(std::wstringstream* err_message)
-{
-	message = err_message->str();
-
-};
-
-void ErrorMessage::setPath(wchar_t* err_path)
-{
-	level = 0;
-	fullMessage = L"Error: ";
-	fullMessage += message;
-	fullMessage += L"\nModule: ";
-	fullMessage += err_path;
-	fullMessage += L"\n";
-
-};
-
-void ErrorMessage::addPath(wchar_t* err_path)
-{
-	level++;
-	fullMessage.append(level, L'\t');
-	fullMessage += L"Module: ";
-	fullMessage += err_path;
-	fullMessage += L"\n";
-};
-
-const char* ErrorMessage::getMessageUTF8()
-{
-	if (utf8Message != 0)
+	while (!errorStack.empty())
 	{
-		delete[] utf8Message;
-		utf8Message = 0;
+		ErrorLevel* level = errorStack.back();
+		delete level;
+		errorStack.pop_back();
+	}
+};
+
+void Error::addLevel()
+{
+	ErrorLevel* level = new ErrorLevel;
+	errorStack.push_front(level);
+	level->errorCode = NO_ERROR_CODE;
+
+	message._setSource(&(level->errorMessage));
+	path._setSource(&(level->functionName));
+};
+
+void Error::addLevel(errorCodes code)
+{
+	lastCode = code;
+
+	ErrorLevel* level = new ErrorLevel;
+	errorStack.push_front(level);
+	level->errorCode = code;
+
+	message._setSource(&(level->errorMessage));
+	path._setSource(&(level->functionName));
+};
+
+void Error::addLevel(errorCodes code, const char* utf8_message)
+{
+	lastCode = code;
+
+	ErrorLevel* level = new ErrorLevel;
+	errorStack.push_front(level);
+	level->errorCode = code;
+	level->errorMessage = utf8_message;
+
+	message._setSource(&(level->errorMessage));
+	path._setSource(&(level->functionName));
+};
+
+
+errorCodes Error::getCode()
+{
+	return lastCode;
+};
+
+const char* Error::getMessage()
+{
+	std::list<ErrorLevel*>::iterator it = errorStack.begin();
+	while ((*it)->errorCode == NO_ERROR_CODE)
+	{
+		it++;
+		if (it == errorStack.end())
+			return "no message";
 	}
 
-	int new_size = WideCharToMultiByte(CP_UTF8, 0, message.c_str(), message.size(), 0, 0, 0, 0);
-	if (new_size == 0)
-		return "Invalid error message, can not convert from utf16 to utf8";
-	else
-	{
-		utf8Message = new char[new_size+1];
-		int final_size = WideCharToMultiByte(CP_UTF8, 0, message.c_str(), message.size(), utf8Message, new_size, 0, 0);
-		if (final_size == 0)
-			return "Invalid error message, can not convert from utf16 to utf8";
-	}
-	utf8Message[new_size] = 0;
-	return utf8Message;
+	return (*it)->errorMessage.c_str();
 };
 
-const char* ErrorMessage::getFullMessageUTF8()
+const char* Error::getFullMessage()
 {
-	if (utf8FullMessage != 0)
-	{
-		delete[] utf8FullMessage;
-		utf8FullMessage = 0;
-	}
+	std::stringstream buff;
+	int level = 0;
+	
+	fullMessage = "Error code: ";
+	buff << lastCode;
+	fullMessage += buff.str();
+	fullMessage += "\nError message: ";
+	fullMessage += getMessage();
+	fullMessage += "\nStack:\n";
 
-	int new_size = WideCharToMultiByte(CP_UTF8, 0, fullMessage.c_str(), fullMessage.size(), 0, 0, 0, 0);
-	if (new_size == 0)
-		return "Invalid error message, can not convert from utf16 to utf8";
-	else
+	for (std::list<ErrorLevel*>::iterator it = errorStack.begin(); it != errorStack.end(); it++)
 	{
-		utf8FullMessage = new char[new_size+1];
-		int final_size = WideCharToMultiByte(CP_UTF8, 0, fullMessage.c_str(), fullMessage.size(), utf8FullMessage, new_size, 0, 0);
-		if (final_size == 0)
-			return "Invalid error message, can not convert from utf16 to utf8";
+		fullMessage.append("-", level);
+		if ((*it)->errorCode != NO_ERROR_CODE)
+		{
+			fullMessage += "code=";
+			buff.clear();
+			buff << (*it)->errorCode;
+			fullMessage += buff.str();
+			if ((*it)->errorMessage.size() != 0)
+			{
+				fullMessage += ", message='";
+				fullMessage += (*it)->errorMessage;
+				fullMessage += "', ";
+			}
+		}
+		fullMessage += "path='";
+		size_t size = (*it)->functionName.size();
+		if (size > 0)
+		{
+			if ((*it)->functionName[size - 2] == ',')
+				(*it)->functionName[size - 2] = ')';
+			else
+				(*it)->functionName += ')';
+			fullMessage += (*it)->functionName;
+		}
+		fullMessage += "'\n";
+		level++;
 	}
-	utf8FullMessage[new_size] = 0;
-	return utf8FullMessage;
+	
+	return fullMessage.c_str();
 };
-
-
 
