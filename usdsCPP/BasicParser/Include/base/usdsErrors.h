@@ -81,12 +81,13 @@ namespace usds
 		ErrorMessage();
 		~ErrorMessage();
 
-		void _setSource(std::string* mess) { message = mess; };
 		void operator<<(const int value);
 		void operator<<(const char* utf8_message);
 
+		const char* getMessage();
+
 	private:
-		std::string* message;
+		std::string message;
 	};
 
 	class ErrorPath
@@ -95,34 +96,24 @@ namespace usds
 		ErrorPath();
 		~ErrorPath();
 
-		void _setSource(std::string* path) { pathString = path; };
 		void operator<<(const int value);
 		void operator<<(const char* utf8_path);
 
+		const char* getPath();
+
 	private:
-		std::string* pathString;
+		std::string pathString;
 	};
 
-	class Error
+	class UsdsError
 	{
-		struct ErrorLevel
-		{
-			errorCodes errorCode;
-			std::string errorMessage;
-			std::string functionName;
-		};
-
 	public:
-		Error(errorCodes code);
-		Error(errorCodes code, const char* utf8_message);
-		~Error();
+		UsdsError(errorCodes code);
+		UsdsError(errorCodes code, const char* utf8_message);
+		~UsdsError();
 
 		ErrorMessage message;
 		ErrorPath path;
-
-		void addLevel();
-		void addLevel(errorCodes code);
-		void addLevel(errorCodes code, const char* utf8_message);
 
 		errorCodes getCode();
 		const char* getMessage();
@@ -132,13 +123,26 @@ namespace usds
 		//const void* getFullMessage(usdsEncodes code, size_t* size);
 
 	private:
+		errorCodes errorCode;
+
 		std::list<ErrorLevel*> errorStack;
 		errorCodes lastCode;
 		std::string fullMessage;
 
 	};
 		
-};
+	class ErrorStack
+	{
+	public:
+		ErrorStack();
+		~ErrorStack();
 
+
+	private:
+
+
+	};
+
+};
 
 #endif
