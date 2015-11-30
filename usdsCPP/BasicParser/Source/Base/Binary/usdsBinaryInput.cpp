@@ -15,19 +15,18 @@ void BinaryInput::setBinary(const unsigned char* buff, size_t size) throw(...)
 try
 {
 	if (buff == 0)
-		throw Error(BIN_IN__NULL_BUFF, "Buffer pointer must be not null");
+		throw ErrorMessage(BIN_IN__NULL_BUFF, "Buffer pointer must be not null");
 
 	if (size == 0)
-		throw Error(BIN_IN__NULL_SIZE, "Buffer size must be not null");
+		throw ErrorMessage(BIN_IN__NULL_SIZE, "Buffer size must be not null");
 
 	usdsBuff = buff;
 	buffLastPos = usdsBuff + size;
 	buffCurrentPos = usdsBuff;
 }
-catch (Error& err)
+catch (ErrorMessage& err)
 {
-	err.path << "BinaryInput::setBinary";
-	throw err;
+	throw ErrorStack("BinaryInput::setBinary") << (void*)buff << size << err;
 };
 
 void BinaryInput::clear()
