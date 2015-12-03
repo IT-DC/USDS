@@ -1,19 +1,21 @@
 #include "unitTest\usdsUnitTest.h"
 #include "unitTest\base\usdsErrorTest.h"
 
-#include <ctime>
-#include <iostream>
+#include "usdsAutotest.h"
 
-#pragma warning(disable : 4996)
-
-void UnitTest::runTest()
+void UnitTest::runTest(int number)
 {
+	if (!needStart(number, UNIT_TESTS))
+		return;
+	
+	std::cout << "==========================================================\n";
+	std::cout << UNIT_TESTS << ": Unit tests are started at ";
+	printTime();
+	std::cout << "==========================================================\n";
+
+
 	ErrorTest err_test;
-
-	std::cout << "Unit tests are started at ";
-	printTime();
-
-	err_test.runTest();
+	err_test.runTest(number);
 
 
 
@@ -21,12 +23,7 @@ void UnitTest::runTest()
 
 
 
-	std::cout << "Unit tests are finished successful at ";
-	printTime();
+	
+	
 };
 
-void UnitTest::printTime()
-{
-	time_t t = time(0);
-	std::cout << std::asctime(std::localtime(&t));
-};

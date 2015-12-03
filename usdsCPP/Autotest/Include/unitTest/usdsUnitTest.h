@@ -7,11 +7,7 @@ public:
 	UnitTest() {};
 	~UnitTest() {};
 
-	void runTest();
-
-private:
-	void printTime();
-
+	void runTest(int number);
 
 };
 

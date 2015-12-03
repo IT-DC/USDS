@@ -7,11 +7,15 @@ public:
 	ErrorTest() {};
 	~ErrorTest() {};
 
-	void runTest();
+	void runTest(int number);
 
 private:
-	void printTime();
-
+	
+	void test_1();
+	void test_2();
+	void test_3();
+	
+	int testNumbers;
 
 };
 

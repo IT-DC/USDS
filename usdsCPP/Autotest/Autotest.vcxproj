@@ -69,11 +69,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Include\unitTest\base\usdsErrors.h" />
     <ClInclude Include="Include\unitTest\Base\usdsErrorTest.h" />
     <ClInclude Include="Include\unitTest\usdsUnitTest.h" />
     <ClInclude Include="Include\usdsAutotest.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\UnitTest\Base\usdsErrors.cpp" />
     <ClCompile Include="Source\UnitTest\Base\usdsErrorTest.cpp" />
     <ClCompile Include="Source\UnitTest\usdsUnitTest.cpp" />
     <ClCompile Include="Source\usdsAutotest.cpp" />

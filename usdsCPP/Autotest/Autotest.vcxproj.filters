@@ -16,6 +16,9 @@
     <ClCompile Include="Source\UnitTest\Base\usdsErrorTest.cpp">
       <Filter>Unit tests\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTest\Base\usdsErrors.cpp">
+      <Filter>Unit tests\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAutotest.h" />
@@ -23,6 +26,9 @@
       <Filter>Unit tests</Filter>
     </ClInclude>
     <ClInclude Include="Include\unitTest\Base\usdsErrorTest.h">
+      <Filter>Unit tests\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\unitTest\base\usdsErrors.h">
       <Filter>Unit tests\Base</Filter>
     </ClInclude>
   </ItemGroup>
