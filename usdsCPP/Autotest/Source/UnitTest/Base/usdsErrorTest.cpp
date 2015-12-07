@@ -1,6 +1,6 @@
 #include "unitTest\Base\usdsErrorTest.h"
 
-#include "unitTest\base\usdsErrors.h"
+#include "BasicParser\Include\base\usdsErrors.h"
 
 #include "usdsAutotest.h"
 
@@ -15,7 +15,7 @@ void ErrorTest::runTest(int number)
 	test_1();
 	test_2();
 	test_3();
-
+	test_4();
 	
 };
 
@@ -140,17 +140,110 @@ void ErrorTest::test_3()
 		throw UNIT_TESTS__USDS_ERRORS_3;
 	}
 
-	// Step 2
+	// Step 3
 	const char* path = error_stack.getFullMessage();
-	std::cout << "\n" << path;
-	if (strcmp(path, "Error code: 0\nError message: no message\nStack:\npath=FuncName()\n") != 0)
+	if (strcmp(path, "Error code: 0\nError message: \"no message\"\nStack:\npath=FuncName()\n") != 0)
 	{
-		std::cout << "Failed at the step 2\n";
+		std::cout << "Failed at the step 3\n";
 		throw UNIT_TESTS__USDS_ERRORS_3;
 	}
 
-	usds::ErrorMessage error_class(usds::BIN_OUT__BUFFER_OVERFLOW, "Message");
-	error_class << ": " << 921 << ";";
+	std::cout << "Successful!\n";
+};
+
+void ErrorTest::test_4()
+{
+	if (!needStart(testNumbers, UNIT_TESTS__USDS_ERRORS_4))
+		return;
+
+	std::cout << UNIT_TESTS__USDS_ERRORS_4 << ": ";
+	try
+	{
+		try
+		{
+			try
+			{
+				try
+				{
+					throw usds::ErrorMessage(usds::BIN_OUT__BUFFER_OVERFLOW, "Message") << ": " << 999 << ";";
+				}
+				catch (usds::ErrorMessage& err)
+				{
+					throw usds::ErrorStack("FuncName") << 666 << "www" << (size_t)888 << err;
+				}
+			}
+			catch (usds::ErrorStack& stack)
+			{
+				// Step 1
+				if (stack.getCode() != usds::BIN_OUT__BUFFER_OVERFLOW)
+				{
+					std::cout << "Failed at the step 1\n";
+					throw UNIT_TESTS__USDS_ERRORS_4;
+				}
+				// Step 2
+				if (strcmp(stack.getMessage(), "Message: 999;") != 0)
+				{
+					std::cout << "Failed at the step 2\n";
+					throw UNIT_TESTS__USDS_ERRORS_4;
+				}
+				// Step 3
+				if (strcmp(stack.getFullMessage(), "Error code: 1001\nError message: \"Message: 999;\"\nStack:\ncode=1001 message=\"Message: 999;\" path=FuncName(int 666, const char* \"www\", size_t 888)\n") != 0)
+				{
+					std::cout << "Failed at the step 3\n";
+					throw UNIT_TESTS__USDS_ERRORS_4;
+				}
+
+				stack.addLevel("FuncName2");
+				throw;
+			}
+		}
+		catch (usds::ErrorStack& stack)
+		{
+			// Step 4
+			if (stack.getCode() != usds::BIN_OUT__BUFFER_OVERFLOW)
+			{
+				std::cout << "Failed at the step 4\n";
+				throw UNIT_TESTS__USDS_ERRORS_4;
+			}
+			// Step 5
+			if (strcmp(stack.getMessage(), "Message: 999;") != 0)
+			{
+				std::cout << "Failed at the step 5\n";
+				throw UNIT_TESTS__USDS_ERRORS_4;
+			}
+			// Step 6
+			if (strcmp(stack.getFullMessage(), "Error code: 1001\nError message: \"Message: 999;\"\nStack:\npath=FuncName2()\n\t--> code=1001 message=\"Message: 999;\" path=FuncName(int 666, const char* \"www\", size_t 888)\n") != 0)
+			{
+				std::cout << "Failed at the step 6\n";
+				throw UNIT_TESTS__USDS_ERRORS_4;
+			}
+
+			stack.addLevel("FuncName3") << (void*)0xA0B1C3D4 << (usds::ErrorMessage(usds::BIN_OUT__ALLOCATE_ERROR, "Message 2") << ": " << 555);
+			throw;
+		}
+	}
+	catch (usds::ErrorStack& stack)
+	{
+		// Step 7
+		if (stack.getCode() != usds::BIN_OUT__ALLOCATE_ERROR)
+		{
+			std::cout << "Failed at the step 7\n";
+			throw UNIT_TESTS__USDS_ERRORS_4;
+		}
+		// Step 8
+		if (strcmp(stack.getMessage(), "Message 2: 555") != 0)
+		{
+			std::cout << "Failed at the step 8\n";
+			throw UNIT_TESTS__USDS_ERRORS_4;
+		}
+		// Step 9
+		if (strcmp(stack.getFullMessage(), "Error code: 1002\nError message: \"Message 2: 555\"\nStack:\ncode=1002 message=\"Message 2: 555\" path=FuncName3(pointer A0B1C3D4)\n\t--> path=FuncName2()\n\t\t--> code=1001 message=\"Message: 999;\" path=FuncName(int 666, const char* \"www\", size_t 888)\n") != 0)
+		{
+			std::cout << "Failed at the step 9\n";
+			throw UNIT_TESTS__USDS_ERRORS_4;
+		}
+
+	}
 
 
 	std::cout << "Successful!\n";

@@ -21,23 +21,29 @@ ErrorMessage::~ErrorMessage()
 
 };
 
-void ErrorMessage::operator << (const int value)
+ErrorMessage& ErrorMessage::operator << (const int value)
 {
 	std::stringstream buff;
 	buff << value;
 	message += buff.str();
+
+	return *this;
 };
 
-void ErrorMessage::operator << (const size_t value)
+ErrorMessage& ErrorMessage::operator << (const size_t value)
 {
 	std::stringstream buff;
 	buff << value;
 	message += buff.str();
+
+	return *this;
 };
 
-void ErrorMessage::operator << (const char* utf8_message)
+ErrorMessage& ErrorMessage::operator << (const char* utf8_message)
 {
 	message += utf8_message;
+
+	return *this;
 };
 
 errorCodes ErrorMessage::getCode()
@@ -55,12 +61,12 @@ const char* ErrorMessage::getMessage()
 ErrorStack::ErrorStack(const char* func_name)
 {
 	lastCode = NO_ERROR_CODE;
-	
+
 	errorLevel buff;
 	buff.code = NO_ERROR_CODE;
 	buff.path = func_name;
 	buff.path += '(';
-	
+
 	stack.push_front(buff);
 };
 
@@ -70,7 +76,7 @@ ErrorStack::~ErrorStack()
 
 };
 
-void ErrorStack::addLevel(const char* func_name)
+ErrorStack& ErrorStack::addLevel(const char* func_name)
 {
 	errorLevel buff;
 	buff.code = NO_ERROR_CODE;
@@ -78,6 +84,8 @@ void ErrorStack::addLevel(const char* func_name)
 	buff.path += '(';
 
 	stack.push_front(buff);
+
+	return *this;
 };
 
 ErrorStack& ErrorStack::operator << (ErrorMessage& message)
@@ -127,8 +135,9 @@ ErrorStack& ErrorStack::operator << (const char* utf8_path)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "const char* '";
+	*path += "const char* \"";
 	*path += utf8_path;
+	*path += '"';
 
 	return *this;
 };
@@ -143,7 +152,71 @@ ErrorStack& ErrorStack::operator << (void* value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "pointer ";
+	*path += "void* ";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const unsigned char* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "const unsigned char* ";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(unsigned long long* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "unsigned long long* ";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(unsigned int* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "unsigned int* ";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(int* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "int* ";
 	*path += buff.str();
 
 	return *this;
@@ -173,37 +246,39 @@ const char* ErrorStack::getFullMessage()
 {
 	std::stringstream buff;
 	int level = 0;
-	
+
 	fullMessage = "Error code: ";
 	buff << lastCode;
 	fullMessage += buff.str();
-	fullMessage += "\nError message: ";
+	fullMessage += "\nError message: \"";
 	fullMessage += getMessage();
-	fullMessage += "\nStack:\n";
+	fullMessage += "\"\nStack:\n";
 
 	for (std::list<errorLevel>::iterator it = stack.begin(); it != stack.end(); it++)
 	{
-		fullMessage.append("-", level);
+		fullMessage.append(level, '\t');
+		if (level != 0)
+			fullMessage += "--> ";
 		if ((*it).code != NO_ERROR_CODE)
 		{
-			fullMessage += " code=";
-			buff.clear();
+			fullMessage += "code=";
+			buff.str("");
 			buff << (*it).code;
 			fullMessage += buff.str();
-			fullMessage += ';';
+			fullMessage += ' ';
 			if ((*it).message.size() != 0)
 			{
-				fullMessage += " message='";
+				fullMessage += "message=\"";
 				fullMessage += (*it).message;
-				fullMessage += "';";
+				fullMessage += "\" ";
 			}
 		}
-		fullMessage += " path=";
+		fullMessage += "path=";
 		fullMessage += (*it).path;
 		fullMessage += ")\n";
 		level++;
 	}
-	
+
 	return fullMessage.c_str();
 };
 

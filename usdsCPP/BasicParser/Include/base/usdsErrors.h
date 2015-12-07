@@ -4,8 +4,6 @@
 #include <string>
 #include <list>
 
-#include "base\usdsTypes.h"
-
 namespace usds
 {
 	enum errorCodes
@@ -82,9 +80,9 @@ namespace usds
 		ErrorMessage(errorCodes code, const char* utf8_message);
 		~ErrorMessage();
 
-		void operator<<(const int value);
-		void operator<<(const size_t value);
-		void operator<<(const char* utf8_message);
+		ErrorMessage& operator<<(const int value);
+		ErrorMessage& operator<<(const size_t value);
+		ErrorMessage& operator<<(const char* utf8_message);
 		// addMessage(usdsEncodes code, void* message, size_t* size);
 
 		errorCodes getCode();
@@ -94,21 +92,26 @@ namespace usds
 		errorCodes errorCode;
 		std::string message;
 	};
-		
+
 	class ErrorStack
 	{
 	public:
 		ErrorStack(const char* func_name);
 		~ErrorStack();
 
-		void addLevel(const char* func_name);
+		ErrorStack& addLevel(const char* func_name);
 
 		ErrorStack& operator<<(ErrorMessage& message);
 
 		ErrorStack& operator<<(const int value);
 		ErrorStack& operator<<(const size_t value);
 		ErrorStack& operator<<(const char* utf8_path);
+		
 		ErrorStack& operator<<(void* value);
+		ErrorStack& operator<<(const unsigned char* value);
+		ErrorStack& operator<<(unsigned long long* value);
+		ErrorStack& operator<<(unsigned int* value);
+		ErrorStack& operator<<(int* value);
 
 		errorCodes getCode();
 		const char* getMessage();

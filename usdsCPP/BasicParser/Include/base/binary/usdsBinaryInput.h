@@ -1,8 +1,6 @@
 #ifndef USDS_BINARY_INPUT_H
 #define USDS_BINARY_INPUT_H
 
-#include <string>
-
 #include "base\usdsErrors.h"
 
 namespace usds
@@ -34,17 +32,15 @@ namespace usds
 		void stepForward(size_t size) throw(...);
 
 		bool isEnd() throw(...);
-		const unsigned char* getCurrentPosition();
-		const unsigned char* getFirstPosition();
-		size_t getDataSize();
+		const unsigned char* getCurrentPosition() throw(...);
+		const unsigned char* getFirstPosition() throw(...);
+		size_t getDataSize() throw(...);
 
 	private:
 		// Buffer for USDS input document
 		const unsigned char* usdsBuff;
 		const unsigned char* buffLastPos;		// It is a position after last valid position in the Buffer. The Buffer size is buff_last_pos - usds_buff
 		const unsigned char* buffCurrentPos;		// Last unread position in the Buffer. The document size is buff_current_pos - usds_buff
-
-
 
 	};
 };
