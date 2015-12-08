@@ -3,6 +3,7 @@
 using namespace usds;
 
 BinaryOutput::BinaryOutput() throw(...)
+try
 {
 	usdsBuff = 0;
 	defaultDocSize = 4096;
@@ -13,14 +14,16 @@ BinaryOutput::BinaryOutput() throw(...)
 	}
 	catch (...)
 	{
-		std::wstringstream mess;
-		mess << L"Can't allocate memory for output buffer. The size: " << defaultDocSize;
-		throw ErrorMessage(BIN_OUT_ALLOCATE_ERROR, &mess, L"BinaryOutput::BinaryOutput()");
+		throw ErrorMessage(BIN_OUT__ALLOCATE_ERROR, "Can't allocate memory for output buffer. The size: ") << defaultDocSize;
 	};
 	buffLastPos = usdsBuff + defaultDocSize;
 	buffFirstPos = usdsBuff + defaultFrontBuffSize;
 	buffCurrentPos = buffFirstPos;
 
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("BinaryOutput::BinaryOutput") << err;
 };
 
 BinaryOutput::~BinaryOutput()
@@ -60,7 +63,8 @@ const unsigned char* BinaryOutput::getBinary() throw(...)
 //==============================================================================================================
 
 int BinaryOutput::writeUVarint(unsigned long long value) throw(...)
-try {
+try
+{
 	checkSize(17);	// 8 bytes - "long long", 9 bytes - shiftes
 
 	// step 1 of 10
@@ -156,10 +160,10 @@ try {
 	buffCurrentPos++;
 	return 10;
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BinaryOutput::writeUVarint(unsigned long long)");
-	throw err;
+	err.addLevel("BinaryOutput::writeUVarint") << value;
+	throw;
 };
 
 
@@ -213,82 +217,85 @@ try {
 	buffCurrentPos++;
 	return 5;
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BinaryOutput::writeUVarint(unsigned int)");
-	throw err;
+	err.addLevel("BinaryOutput::writeUVarint") << value;
+	throw;
 };
 
 int BinaryOutput::writeUVarint(int value) throw(...)
 try
 {
 	if (value < 0)
-	{
-		std::wstringstream msg;
-		msg << L"Value must be > 0. Current value = " << value;
-		throw ErrorMessage(BIN_OUT_NEGATIVE_VALUE, &msg);
-	}
+		throw ErrorMessage(BIN_OUT__NEGATIVE_VALUE, "Value must be > 0. Current value = ") << value;
 
 	return writeUVarint(unsigned int(value));
-
 }
 catch (ErrorMessage& msg)
 {
-	msg.addPath(L"BinaryOutput::writeUVarint");
-	throw msg;
+	throw ErrorStack("BinaryOutput::writeUVarint") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeUVarint") << value;
+	throw;
 };
 
 
 void BinaryOutput::writeInt(int value) throw(...)
-try {
+try 
+{
 	checkSize(4);
 	memcpy(buffCurrentPos, &value, 4);
 	buffCurrentPos += 4;
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BinaryOutput::writeInt");
-	throw err;
+	err.addLevel("BinaryOutput::writeInt") << value;
+	throw;
 };
 
 void BinaryOutput::writeLong(long long value) throw(...)
-try {
+try 
+{
 	checkSize(8);
 	memcpy(buffCurrentPos, &value, 8);
 	buffCurrentPos += 8;
 
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BinaryOutput::writeLong");
-	throw err;
+	err.addLevel("BinaryOutput::writeLong") << value;
+	throw;
 };
 
 void BinaryOutput::writeDouble(double value) throw(...)
-try {
+try 
+{
 	checkSize(8);
 	memcpy(buffCurrentPos, &value, 8);
 	buffCurrentPos += 8;
 	
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BinaryOutput::writeDouble");
-	throw err;
+	err.addLevel("BinaryOutput::writeDouble") << value;
+	throw;
 };
 
 void BinaryOutput::writeByteArray(const void* value, size_t size) throw(...)
-try {
+try
+{
 	checkSize(size);
-	// add string without NULL-simbol
+	
 	memcpy(buffCurrentPos, value, size);
 	buffCurrentPos += size;
 
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BinaryOutput::writeByteArray");
-	throw err;
+	err.addLevel("BinaryOutput::writeByteArray") << value << size;
+	throw;
 };
 
 void BinaryOutput::writeUByte(unsigned char value) throw(...)
@@ -298,33 +305,35 @@ try
 	*buffCurrentPos = value;
 	buffCurrentPos++;
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BinaryOutput::writeUByte(unsigned char)");
-	throw err;
+	err.addLevel("BinaryOutput::writeUByte") << value;
+	throw;
 };
 
 void BinaryOutput::writeByte(int value) throw(...)
 try
 {
 	if (value > 127 || value < -128)
-	{
-		std::wstringstream msg;
-		msg << L"Value must be [0, 127]. Current value = " << value;
-		throw ErrorMessage(BIN_OUT_NEGATIVE_VALUE, &msg);
-	}
+		throw ErrorMessage(BIN_OUT__BEEG_VALUE, "Value must be [-128, 127]. Current value = ") << value;
+
 	checkSize(1);
 	*buffCurrentPos = ((unsigned char*)(&value))[0];
 	buffCurrentPos++;
 }
-catch (ErrorMessage& err)
+catch (ErrorMessage& msg)
 {
-	err.addPath(L"BinaryOutput::writeUByte(int)");
-	throw err;
+	throw ErrorStack("BinaryOutput::writeByte") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeByte") << value;
+	throw;
 };
 
 void BinaryOutput::writeBool(bool value) throw(...)
-try {
+try
+{
 	checkSize(1);
 	if (value)
 		*buffCurrentPos = 255;
@@ -333,15 +342,16 @@ try {
 	buffCurrentPos++;
 
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BinaryOutput::writeBool");
-	throw err;
+	err.addLevel("BinaryOutput::writeBool") << value;
+	throw;
 };
 
 //==========================================================================================================
 
 void BinaryOutput::checkSize(size_t min_increase)  throw(...)
+try
 {
 	if ((size_t)(buffLastPos - buffCurrentPos) >= min_increase)
 		return;
@@ -358,11 +368,7 @@ void BinaryOutput::checkSize(size_t min_increase)  throw(...)
 
 	// Buffer overflow
 	if (new_size < buff_current_size)
-	{
-		std::wstringstream mess;
-		mess << L"USDS out buffer owerflow. Old size: " << buff_current_size << L", buffer minimal increas: " << min_increase;
-		throw ErrorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, L"BinaryOutput::checkSize");
-	};
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW, "USDS out buffer owerflow. Old size: ") << buff_current_size << ", buffer minimal increas: " << min_increase;
 
 	// Create new array and copy data
 	unsigned char* new_usds_buff = 0;
@@ -372,9 +378,7 @@ void BinaryOutput::checkSize(size_t min_increase)  throw(...)
 	}
 	catch (...)
 	{
-		std::wstringstream mess;
-		mess << L"Can't reallocate memory for output buffer. New size: " << new_size;
-		throw ErrorMessage(BIN_OUT_ALLOCATE_ERROR, &mess, L"BinaryOutput::checkSize");
+		throw ErrorMessage(BIN_OUT__ALLOCATE_ERROR, "Can't reallocate memory for output buffer. New size: ") << new_size;
 	}
 	memcpy(new_usds_buff, usdsBuff, doc_current_size + front_buff_current_size);
 
@@ -384,70 +388,79 @@ void BinaryOutput::checkSize(size_t min_increase)  throw(...)
 	buffCurrentPos = buffFirstPos + doc_current_size;
 	buffLastPos = usdsBuff + new_size;
 
-};
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::checkSize") << min_increase << msg;
+}
 
 //==========================================================================================================
 
 void BinaryOutput::pushFrontSize() throw(...)
+try
 {
 	size_t doc_current_size = buffCurrentPos - buffFirstPos;
 	size_t size = writeUVarint(doc_current_size);
 	size_t front_size = buffFirstPos - usdsBuff;
 	// check front buff
 	if (front_size < size)
-	{
-		std::wstringstream mess;
-		mess << L"USDS front buffer owerflow. Current size: " << buffFirstPos - usdsBuff << L", required: +" << size;
-		throw ErrorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, L"BinaryOutput::pushFrontSize");
-	};
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW, "USDS front buffer owerflow. Current size: ") << buffFirstPos - usdsBuff << ", required: +" << size;
 
 	// move data to the front
 	buffCurrentPos -= size;
 	buffFirstPos -= size;
 	memcpy(buffFirstPos, buffCurrentPos, size);
 
-};
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::pushFrontSize") << msg;
+}
 
 void BinaryOutput::pushFrontUByte(unsigned char value) throw(...)
+try
 {
 	// check front buff
 	if ((buffFirstPos - usdsBuff) < 1)
-	{
-		std::wstringstream mess;
-		mess << L"USDS front buffer owerflow. Current size: " << buffFirstPos - usdsBuff << L", required: +1 byte";
-		throw ErrorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, L"BinaryOutput::pushFrontUByte");
-	};
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW, "USDS front buffer owerflow. Current size: ") << buffFirstPos - usdsBuff << ", required: +1 byte";
+
 	buffFirstPos--;
 	buffFirstPos[0] = value;
-};
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::pushFrontUByte") << value << msg;
+}
 
 void BinaryOutput::pushFrontInt(int value) throw(...)
+try
 {
 	// check front buff
 	if ((buffFirstPos - usdsBuff) < 4)
-	{
-		std::wstringstream mess;
-		mess << L"USDS front buffer owerflow. Current size: " << buffFirstPos - usdsBuff << L", required: +4 byte";
-		throw ErrorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, L"BinaryOutput::pushFrontInt");
-	};
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "USDS front buffer owerflow. Current size: " << buffFirstPos - usdsBuff << ", required: +4 byte";
+
 	buffFirstPos -= 4;
 	memcpy(buffFirstPos, &value, 4);
-
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::pushFrontInt") << value << msg;
 };
 
 //===================================================================================================================
 void BinaryOutput::readByteArray(size_t position, void* value, size_t size) throw(...)
+try
 {
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
 	if ((position + size) > (doc_size))
-	{
-		std::wstringstream mess;
-		mess << L"Can not read " << size << L" bytes from position" << position << L" , document's size is less: " << (buffCurrentPos - buffFirstPos) << L" bytes";
-		throw ErrorMessage(BIN_OUT_BUFFER_OVERFLOW, &mess, L"BinaryOutput::readByteArray");
-	};
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
 	memcpy(value, buffFirstPos + position, size);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::readByteArray") << position << value << size << msg;
 };
 
 

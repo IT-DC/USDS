@@ -13,6 +13,7 @@ namespace usds
 		BIN_OUT__BUFFER_OVERFLOW = 1001,
 		BIN_OUT__ALLOCATE_ERROR = 1002,
 		BIN_OUT__NEGATIVE_VALUE = 1003,
+		BIN_OUT__BEEG_VALUE = 1004,
 		// Binary Input: 002xxx
 		BIN_IN__NULL_BUFF = 2001,
 		BIN_IN__NULL_SIZE = 2002,
@@ -103,15 +104,20 @@ namespace usds
 
 		ErrorStack& operator<<(ErrorMessage& message);
 
+		ErrorStack& operator<<(const bool value);
+		ErrorStack& operator<<(const unsigned char value);
 		ErrorStack& operator<<(const int value);
-		ErrorStack& operator<<(const size_t value);
+		ErrorStack& operator<<(const unsigned int value);
+		ErrorStack& operator<<(const long long value);
+		ErrorStack& operator<<(const unsigned long long value);
+		ErrorStack& operator<<(const double value);
 		ErrorStack& operator<<(const char* utf8_path);
 		
-		ErrorStack& operator<<(void* value);
+		ErrorStack& operator<<(const void* value);
 		ErrorStack& operator<<(const unsigned char* value);
-		ErrorStack& operator<<(unsigned long long* value);
-		ErrorStack& operator<<(unsigned int* value);
-		ErrorStack& operator<<(int* value);
+		ErrorStack& operator<<(const unsigned long long* value);
+		ErrorStack& operator<<(const unsigned int* value);
+		ErrorStack& operator<<(const int* value);
 
 		errorCodes getCode();
 		const char* getMessage();
