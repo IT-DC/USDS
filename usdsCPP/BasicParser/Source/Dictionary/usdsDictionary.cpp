@@ -18,31 +18,20 @@ Dictionary::~Dictionary()
 // Dictionary construction
 //====================================================================================================================
 void Dictionary::setID(int id, unsigned char major, unsigned char minor) throw (...)
+try
 {
 	if (id < 0)
-	{
-		std::wstringstream err;
-		err << L"Dictionary ID must be >= 0. Your value: " << id;
-		throw ErrorMessage(DICTIONARY_ID_ERROR_VALUE, &err, L"Dictionary::setID");
-	}
+		throw ErrorMessage(DICTIONARY__ID_ERROR_VALUE) << "Dictionary ID must be >= 0. Your value: " << id;
 	
 	dictionaryID = id;
 	majorVersion = major;
 	minorVersion = minor;
-};
-
-void Dictionary::setEncode(usdsEncodes encode) throw (...)
+}
+catch (ErrorMessage& msg)
 {
-	if (encode != USDS_UTF8)
-	{
-		std::wstringstream err;
-		err << L"Unsupported encode, use USDS_UTF8. Your value: " << encode;
-		throw ErrorMessage(DICTIONARY_UNSUPPORTABLE_ENCODE, &err, L"Dictionary::setID");
-	};
+	throw ErrorStack("Dictionary::setID") << id << major << minor;
 
-	dictionaryEncode = encode;
 };
-
 
 //====================================================================================================================
 // Tags construction
@@ -50,13 +39,13 @@ DictionaryBaseType* Dictionary::addTag(usdsTypes tag_type, int id, const char* n
 try
 {
 	// check type
-	if (tag_type < 1 || tag_type > 31)
-	{
-		std::wstringstream msg;
-		msg << L"Unsupported tag type '" << tag_type << "'";
-		throw ErrorMessage(DICTIONARY_UNSUPPORTABLE_TYPE, &msg);
-	}
-	
+	if (tag_type <= USDS_TAG || tag_type >= USDS_LAST_TYPE)
+		throw ErrorMessage(DICTIONARY__UNSUPPORTED_TYPE) << "Unsupported tag type '" << tag_type << "'";
+
+	// check ID
+	if (id <= 0)
+		throw ErrorMessage(DICTIONARY__TAG_ID_ERROR_VALUE) << "Tag ID must be in range [1; 2,147,483,647]. Current value: " << id;
+
 	// check name
 	int tag_id;
 	if (name_size == 0)
@@ -64,20 +53,8 @@ try
 	else
 		tag_id = findTagID(name, name_size);
 	if (tag_id != 0)
-	{
-		std::stringstream err;
-		err << "Tag with name '" << name << "' not unique in dictionary.";
-		throw ErrorMessage(DICTIONARY_TAG_ALREADY_EXISTS, &err);
-	}
+		throw ErrorMessage(DICTIONARY__TAG_ALREADY_EXISTS) << "Tag with name '" << name << "' not unique in dictionary.";
 	
-	// check ID
-	if (id <= 0)
-	{
-		std::wstringstream err;
-		err << L"Tag ID must be in range [1; 2,147,483,647]. Current value:" << id;
-		throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err);
-	}
-
 	// Create object
 	DictionaryBaseType* tag = objectPool.addObject(tag_type, this, 0, id, name, name_size);
 	connectTagToDictionary(tag);
@@ -91,8 +68,12 @@ try
 }
 catch (ErrorMessage& err)
 {
-	err.addPath(L"Dictionary::addTag");
-	throw err;
+	throw ErrorStack("Dictionary::addTag") << tag_type << id << name << name_size << err;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("Dictionary::addTag") << tag_type << id << name << name_size;
+	throw;
 };
 
 
@@ -149,32 +130,26 @@ void Dictionary::finalizeDictionary() throw(...)
 //====================================================================================================================
 int Dictionary::getDictionaryID()  throw (...)
 {
-	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+	if (dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getDictionaryID");
 	return dictionaryID;
 };
 unsigned char Dictionary::getMajorVersion() throw (...)
 {
-	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+	if (dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getMajorVersion");
 	return majorVersion;
 };
 unsigned char Dictionary::getMinorVersion() throw (...)
 {
-	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+	if (dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getMinorVersion");
 	return minorVersion;
-};
-usdsEncodes Dictionary::getEncode() throw (...)
-{
-	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
-		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getEncode");
-	return dictionaryEncode;
 };
 
 DictionaryBaseType* Dictionary::getFirstTag() throw (...)
 {
-	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+	if (dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getFirstTag");
 
 	return firstTag;
@@ -182,7 +157,7 @@ DictionaryBaseType* Dictionary::getFirstTag() throw (...)
 
 DictionaryBaseType* Dictionary::getLastTag() throw (...)
 {
-	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+	if (dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getLastTag");
 
 	return lastTag;
@@ -190,7 +165,7 @@ DictionaryBaseType* Dictionary::getLastTag() throw (...)
 
 int Dictionary::findTagID(const char* name) throw (...)
 {
-	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+	if (dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTagID");
 	
 	DictionaryBaseType* tag = firstTag;
@@ -207,7 +182,7 @@ int Dictionary::findTagID(const char* name) throw (...)
 
 int Dictionary::findTagID(const char* name, size_t name_size) throw (...)
 {
-	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+	if (dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTagID");
 
 	DictionaryBaseType* tag = firstTag;
@@ -224,7 +199,7 @@ int Dictionary::findTagID(const char* name, size_t name_size) throw (...)
 
 DictionaryBaseType* Dictionary::findTag(const char* name) throw (...)
 {
-	if (dictionaryEncode == USDS_NO_ENCODE || dictionaryID < 0)
+	if (dictionaryID < 0)
 		throw ErrorMessage(DICTIONARY_NOT_INITIALIZED, L"Dictionary not initialized", L"Dictionary::getTagID");
 
 	DictionaryBaseType* tag = firstTag;

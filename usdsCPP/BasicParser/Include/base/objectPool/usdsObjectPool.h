@@ -16,8 +16,8 @@ namespace usds
 		TemplateObjectPool(parentPool_class* parent)
 		{
 			parentClass = parent;
-			lastElement = new T_classPool(parentClass);
-			firstElement = lastElement;
+			firstElement = 0;
+			lastElement = 0;
 		};
 		~TemplateObjectPool()
 		{
@@ -33,15 +33,38 @@ namespace usds
 
 		T_classPool* addObject() throw(...)
 		{
+			if (firstElement == 0)
+			{
+				try
+				{
+					firstElement = new T_classPool(parentClass);
+				}
+				catch (...)
+				{
+					throw ErrorStack("addObject") << ErrorMessage(USDS_OBJECT_POOL__ALLOCATE_ERROR, "Can't allocate memory for the object");
+				}
+				lastElement = firstElement;
+				return lastElement;
+			}
+			
 			if (lastElement->NextInPool == 0)
-				lastElement->NextInPool = new T_classPool(parentClass);
+			{
+				try
+				{
+					lastElement->NextInPool = new T_classPool(parentClass);
+				}
+				catch (...)
+				{
+					throw ErrorStack("addObject") << ErrorMessage(USDS_OBJECT_POOL__ALLOCATE_ERROR, "Can't allocate memory for the object");
+				}
+			}
 			T_classPool* object = lastElement;
 			lastElement = lastElement->NextInPool;
 
 			return object;
 		};
 
-		void clearPool() throw(...){ lastElement = firstElement; };
+		void clearPool() { lastElement = firstElement; };
 
 	private:
 		T_classPool* lastElement;

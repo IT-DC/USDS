@@ -23,7 +23,6 @@ namespace usds
 
 		// Dictionary construction
 		void setID(int id, unsigned char major, unsigned char minor) throw (...);
-		void setEncode(usdsEncodes encode) throw (...);
 		
 		// construction
 		DictionaryBaseType* addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...);
@@ -35,7 +34,6 @@ namespace usds
 		int getDictionaryID()  throw (...);
 		unsigned char getMajorVersion() throw (...);
 		unsigned char getMinorVersion() throw (...);
-		usdsEncodes getEncode() throw (...);
 		
 		DictionaryBaseType* getFirstTag() throw (...);
 		DictionaryBaseType* getLastTag() throw (...);
@@ -69,7 +67,6 @@ namespace usds
 		unsigned char majorVersion;
 		unsigned char minorVersion;
 		int dictionaryID;
-		usdsEncodes dictionaryEncode;
 
 		DictionaryBaseType* firstTag;
 		DictionaryBaseType* lastTag;

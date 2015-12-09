@@ -348,6 +348,20 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::writeType(usdsTypes value) throw(...)
+try
+{
+	checkSize(1);
+	*buffCurrentPos = ((unsigned char*)(&value))[0];
+	buffCurrentPos++;
+
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeType") << value;
+	throw;
+};
+
 //==========================================================================================================
 
 void BinaryOutput::checkSize(size_t min_increase)  throw(...)

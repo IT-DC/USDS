@@ -2,6 +2,7 @@
 #define USDS_BINARY_OUTPUT_H
 
 #include "base\usdsErrors.h"
+#include "base\usdsTypes.h"
 
 namespace usds
 {
@@ -16,7 +17,7 @@ namespace usds
 		size_t getSize();
 		bool isEmpty();
 
-		void clear();		// it does not release memory in buffer
+		void clear();		// it does not release memory in the buffer
 
 		// serialization
 		int writeUVarint(unsigned long long value) throw(...);
@@ -29,6 +30,7 @@ namespace usds
 		void writeByte(int value) throw(...);
 		void writeByteArray(const void* value, size_t size) throw(...);
 		void writeBool(bool value) throw(...);
+		void writeType(usdsTypes value) throw(...);
 		
 		void pushFrontSize() throw(...);
 		void pushFrontUByte(unsigned char value) throw(...);
