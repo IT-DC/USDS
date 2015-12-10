@@ -33,19 +33,25 @@ void UsdsArray::clear()
 }
 
 UsdsBaseType* UsdsArray::addTagElement() throw(...)
+try
 {
 	if (elementType != USDS_TAG)
-	{
-		std::stringstream msg;
-		msg << "Array elements must be TAG, current value " << typeName(elementType);
-		throw ErrorMessage(USDS_ARRAY_ELEMENT_NOT_TAG, &msg, L"UsdsArray::addTagElement");
-	}
+		throw ErrorMessage(USDS_ARRAY__ELEMENT_NOT_TAG) << "Array elements must be TAG, current value " << typeName(elementType);
 	
 	UsdsBaseType* element = objectPool->addObject(tagElement, this);
 	elementValues.writeByteArray(&element, sizeof(size_t));
 	elementNumber++;
 
 	return element;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::addTagElement") << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::addTagElement");
+	throw;
 };
 
 size_t UsdsArray::getElementNumber() throw(...)
@@ -64,21 +70,21 @@ UsdsBaseType* UsdsArray::getTagElement(size_t number) throw(...)
 try
 {
 	if (number > elementNumber)
-	{
-		std::stringstream msg;
-		msg << "Can not find element [" << number << "], element number = " << elementNumber;
-		throw ErrorMessage(USDS_ARRAY_ELEMENT_NOT_TAG, &msg);
-	}
+		throw ErrorMessage(USDS_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << number << "], element number = " << elementNumber;
 
 	UsdsBaseType* tag;
 	elementValues.readByteArray(number * sizeof(size_t), &tag, sizeof(size_t));
 	return tag;
 
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsArray::getTagElement");
-	throw msg;
+	throw ErrorStack("UsdsArray::getTagElement") << number << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getTagElement") << number;
+	throw;
 };
 
 const void* UsdsArray::getArrayBinary() throw(...)
@@ -94,15 +100,20 @@ size_t UsdsArray::getArrayBinarySize() throw(...)
 };
 
 void UsdsArray::setArrayBinary(const void* binary, size_t binary_size) throw(...)
+try
 {
 	int element_size = typeSize(elementType);
 	if (element_size == 0)
-	{
-		std::stringstream msg;
-		msg << "Element type '" << typeName(elementType) << "' is unfixed";
-		throw ErrorMessage(USDS_ARRAY_UNFIXED_ELEMENT_SIZE, &msg, L"UsdsArray::setArrayBinary");
-	}
+		throw ErrorMessage(USDS_ARRAY__UNFIXED_ELEMENT_SIZE) << "Element type '" << typeName(elementType) << "' is unfixed";
 	elementValues.writeByteArray(binary, binary_size);
 	elementNumber = binary_size / element_size;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::setArrayBinary") << binary << binary_size << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::setArrayBinary") << binary << binary_size;
+	throw;
 };
-

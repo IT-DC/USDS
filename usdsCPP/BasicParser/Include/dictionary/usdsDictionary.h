@@ -49,14 +49,13 @@ namespace usds
 		DictionaryBaseType* findTag(const char* name, size_t name_size) throw (...);
 
 		// Get tag by ID
-		// returns 0 if tag not found
-		DictionaryBaseType* getTag(int id) throw (...);
+		DictionaryBaseType* getTag(int tag_id) throw (...);
 		int getTagNumber() throw (...);
 
 		// Encode dictionary
 		const unsigned char* getBinary(size_t* size) throw(...);
 		// add existing binary
-		void setBinary(const void* data, size_t size);
+		void setBinary(const void* data, size_t size) throw(...);
 
 		// Clear dictionary, it does not release memory in DictionaryObjectPool
 		void clear();

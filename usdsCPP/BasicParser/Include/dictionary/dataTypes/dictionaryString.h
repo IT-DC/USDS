@@ -19,7 +19,7 @@ namespace usds
 		virtual void clear();
 
 		void setDefault(const char* value);
-		void setEncode(usdsEncodes encode) throw(...);
+		void setEncode(usdsEncodes value) throw(...);
 
 		usdsEncodes getEncode() throw(...);
 
@@ -28,7 +28,7 @@ namespace usds
 	private:
 		bool isDefault;
 		std::string defaultValue;
-		usdsEncodes defaultEncode;
+		usdsEncodes encode;
 
 	};
 

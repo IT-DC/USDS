@@ -47,48 +47,64 @@ void DictionaryArray::setElementAsTag(int tag_id) throw (...)
 usdsTypes DictionaryArray::getElementType() throw (...)
 {
 	if (elementType == USDS_NO_TYPE)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field not initialized", L"DicArrayField::getElementType");
+		throw ErrorStack("DictionaryArray::getElementType") << ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field not initialized");
 
 	return elementType;
 };
 
 int DictionaryArray::getElementTagID() throw (...)
+try
 {
 	if (elementType == USDS_NO_TYPE)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field isn't initialized", L"DicArrayField::getElementTagID");
+		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
 	if (elementType != USDS_TAG)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_ELEMENT_NOT_TAG, L"Array element isn't tag", L"DicArrayField::getElementTagID");
+		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
 	if (elementTagID == 0 || elementTagNeedID)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_FINISHED, L"Array isn't finished", L"DicArrayField::getElementTagID");
+		throw ErrorMessage(DIC_ARRAY__NOT_FINISHED, "Array isn't finished");
 
 	return elementTagID;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryArray::getElementTagID") << msg;
 };
 
 DictionaryBaseType* DictionaryArray::getElementTag() throw (...)
+try
 {
 	if (elementType == USDS_NO_TYPE)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field isn't initialized", L"DictionaryArray::getElementTag");
+		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
 	if (elementType != USDS_TAG)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_ELEMENT_NOT_TAG, L"Array element isn't tag", L"DictionaryArray::getElementTag");
+		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
 	if (elementTagID == 0 || elementTagNeedID)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_FINISHED, L"Array isn't finished", L"DictionaryArray::getElementTag");
+		throw ErrorMessage(DIC_ARRAY__NOT_FINISHED, "Array isn't finished");
 
 	return dictionary->getTag(elementTagID);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryArray::getElementTagID") << msg;
 };
 
 const char* DictionaryArray::getElementTagName() throw (...)
+try
 {
 	if (elementType == USDS_NO_TYPE)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_INITIALIZED, L"Array field isn't initialized", L"DicArrayField::getElementTagName");
+		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
 	if (elementType != USDS_TAG)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_ELEMENT_NOT_TAG, L"Array element isn't tag", L"DicArrayField::getElementTagName");
+		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
 	if (elementTagNeedName)
-		throw ErrorMessage(DIC_STRUCT_FIELD_ARRAY_NOT_FINISHED, L"Array isn't finished", L"DicArrayField::getElementTagName");
+		throw ErrorMessage(DIC_ARRAY__NOT_FINISHED, "Array isn't finished");
 
 	return elementTagName.c_str();
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryArray::getElementTagName") << msg;
 };
 
 void DictionaryArray::finalize() throw (...)
+try
 {
 	switch (elementType)
 	{
@@ -97,31 +113,29 @@ void DictionaryArray::finalize() throw (...)
 		{
 			elementTagID = dictionary->findTagID(elementTagName.c_str());
 			if (elementTagID == 0)
-			{
-				std::stringstream msg;
-				msg << "Tag with name '" << elementTagName << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
-				throw ErrorMessage(DIC_STRUCT_FIELD_TAG_NOT_FOUND, &msg, L"DicArrayField::finalizeField");
-			}
+				throw ErrorMessage(DIC_ARRAY__TAG_NOT_FOUND) << "Tag with name '" << elementTagName << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
 			elementTagNeedID = false;
 		}
 		else if (elementTagNeedName)
 		{
 			DictionaryBaseType* tag = dictionary->getTag(elementTagID);
 			if (tag == 0)
-			{
-				std::stringstream msg;
-				msg << "Tag with ID '" << elementTagID << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
-				throw ErrorMessage(DIC_STRUCT_FIELD_TAG_NOT_FOUND, &msg, L"DicArrayField::finalizeField");
-			}
+				throw ErrorMessage(DIC_ARRAY__TAG_NOT_FOUND) << "Tag with ID '" << elementTagID << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
 			elementTagName = tag->getName();
 			elementTagNeedName = false;
 		}
-
 		break;
 	default:
 		break;
 	}
 
-
-
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryArray::finalize") << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryArray::finalize");
+	throw;
 };

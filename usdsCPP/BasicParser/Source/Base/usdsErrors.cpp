@@ -46,6 +46,20 @@ ErrorMessage& ErrorMessage::operator << (const char* utf8_message)
 	return *this;
 };
 
+ErrorMessage& ErrorMessage::operator << (const std::string& utf8_message)
+{
+	message += utf8_message;
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::addString(const char* name, size_t size)
+{
+	message.append(name, size);
+
+	return *this;
+};
+
 errorCodes ErrorMessage::getCode()
 {
 	return errorCode;
@@ -295,6 +309,20 @@ ErrorStack& ErrorStack::operator<<(const int* value)
 	*path += "int* ";
 	*path += buff.str();
 
+	return *this;
+};
+
+ErrorStack& ErrorStack::addStringAttribute(const char* name, size_t size)
+{
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "const char* \"";
+	path->append(name, size);
+	*path += '"';
+	
 	return *this;
 };
 

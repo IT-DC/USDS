@@ -19,34 +19,23 @@ DictionaryBaseType* DictionaryStruct::addField(usdsTypes field_type, int id, con
 try
 {
 	// check type
-	if (field_type < 1 || field_type >= USDS_LAST_TYPE)
-	{
-		std::wstringstream msg;
-		msg << L"Unsupported field type '" << field_type << "'";
-		throw ErrorMessage(DIC_STRUCT_TAG_UNSUPPORTED_TYPE, &msg);
-	}
+	if (field_type <= USDS_TAG || field_type >= USDS_LAST_TYPE || field_type == USDS_STRUCT)
+		throw ErrorMessage(DIC_STRUCT__UNSUPPORTED_TYPE) << "Unsupported field type '" << field_type << "'";
 
 	// check ID
 	if (id <= 0)
-	{
-		std::wstringstream err;
-		err << L"Field ID must be in range [1; 2,147,483,647]. Current value:" << id;
-		throw ErrorMessage(DIC_STRUCT_TAG_FIELD_ID_ERROR_VALUE, &err);
-	}
+		throw ErrorMessage(DIC_STRUCT__FIELD_ID_ERROR_VALUE) << "Field ID must be in range [1; 2,147,483,647]. Current value:" << id;
 
 	// check name
+	// TODO check name by regular expression
 	int field_id;
 	if (name_size == 0)
 		field_id = findFieldID(name);
 	else
 		field_id = findFieldID(name, name_size);
 	if (field_id != 0)
-	{
-		std::stringstream err;
-		err << "Field with name '" << name << "' not unique in the tag " << objectName;
-		throw ErrorMessage(DIC_STRUCT_TAG_FIELD_ALREADY_EXISTS, &err);
-	}
-
+		throw ErrorMessage(DIC_STRUCT__FIELD_ALREADY_EXISTS) << "Field with name '" << name << "' not unique in the tag " << objectName;
+	
 	DictionaryBaseType* field = objectPool->addObject(field_type, dictionary, this, id, name, name_size);
 	connectFieldToTag(field);
 	
@@ -57,10 +46,14 @@ try
 
 	return field;
 }
-catch (ErrorMessage& err)
+catch (ErrorMessage& msg)
 {
-	err.addPath(L"DictionaryStruct::addField");
-	throw err;
+	throw ErrorStack("DictionaryStruct::addField") << field_type << id << name << name_size << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryStruct::addField") << field_type << id << name << name_size;
+	throw;
 };
 
 DictionaryBaseType* DictionaryStruct::getFirstField()
@@ -85,7 +78,7 @@ int DictionaryStruct::getFieldNumber() throw (...)
 DictionaryBaseType* DictionaryStruct::getField(int id) throw (...)
 {
 	if (id > fieldNumber)
-		return 0;
+		throw ErrorStack("DictionaryStruct::getField") << id << (ErrorMessage(DIC_STRUCT__FIELD_ID_ERROR_VALUE) << "Field ID must be in range [1; " << fieldNumber << "]. Current value:" << id);
 
 	return fieldIndex[id];
 };
@@ -100,7 +93,8 @@ DictionaryBaseType* DictionaryStruct::getField(const char* name) throw (...)
 		field = field->getNext();
 	}
 
-	// if not found
+	throw ErrorStack("DictionaryStruct::getField") << name << (ErrorMessage(DIC_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' not found");
+
 	return 0;
 };
 
@@ -114,7 +108,7 @@ DictionaryBaseType* DictionaryStruct::getField(const char* name, size_t name_siz
 		field = field->getNext();
 	}
 
-	// if not found
+	throw ErrorStack("DictionaryStruct::getField").addStringAttribute(name, name_size) << name_size << ((ErrorMessage(DIC_STRUCT__FIELD_NOT_FOUND) << "Field '").addString(name, name_size) << "' not found");
 	return 0;
 };
 
@@ -150,14 +144,11 @@ int DictionaryStruct::findFieldID(const char* name, size_t name_size) throw (...
 };
 
 void DictionaryStruct::finalize() throw(...)
+try
 {
 	// Check field ID
 	if (fieldMaxID != fieldNumber)
-	{
-		std::wstringstream err;
-		err << L"Field numeration must be sequentially in a tag. Tag ID: " << objectID << ", field number: " << fieldNumber << ", wrong tag ID: " << fieldMaxID;
-		throw ErrorMessage(DIC_STRUCT_TAG_FIELD_ID_ERROR_VALUE, &err, L"DictionaryStruct::finalizeTag");
-	}
+		throw ErrorMessage(DIC_STRUCT__FIELD_ID_ERROR_VALUE) << "Field numeration must be sequentially in a tag. Tag ID: " << objectID << ", field number: " << fieldNumber << ", wrong tag ID: " << fieldMaxID;;
 
 	// Create index
 	if (fieldNumber >= buffIndexSize)
@@ -175,11 +166,7 @@ void DictionaryStruct::finalize() throw(...)
 		int id = field->getID();
 		// check id - unique in a tag
 		if (fieldIndex[id] != 0)
-		{
-			std::wstringstream err;
-			err << L"Not unique field ID = " << id << " in Tag ID = " << objectID;
-			throw ErrorMessage(DICTIONARY_TAG_ID_ERROR_VALUE, &err, L"DictionaryStruct::finalizeTag");
-		}
+			throw ErrorMessage(DIC_STRUCT__FIELD_ALREADY_EXISTS) << "Not unique field ID = " << id << " in Tag ID = " << objectID;
 		fieldIndex[id] = field;
 		field = field->getNext();
 	}
@@ -200,8 +187,16 @@ void DictionaryStruct::finalize() throw(...)
 		}
 		connectFieldToTag(field);
 	}
-	
-};
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryStruct::finalize") << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryStruct::finalize");
+	throw;
+}
 
 void DictionaryStruct::clear()
 {

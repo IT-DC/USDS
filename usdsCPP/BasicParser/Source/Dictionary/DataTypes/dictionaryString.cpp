@@ -11,7 +11,7 @@ DictionaryString::DictionaryString(DictionaryObjectPool* parent) : DictionaryBas
 void DictionaryString::clear()
 {
 	isDefault = false;
-	defaultEncode = USDS_NO_ENCODE;
+	encode = USDS_NO_ENCODE;
 
 };
 
@@ -21,13 +21,13 @@ void DictionaryString::setDefault(const char* value)
 	defaultValue = value;
 };
 
-void DictionaryString::setEncode(usdsEncodes encode) throw(...)
+void DictionaryString::setEncode(usdsEncodes value) throw(...)
 {
-	defaultEncode = encode;
+	encode = value;
 };
 
 usdsEncodes DictionaryString::getEncode() throw(...)
 {
 
-	return defaultEncode;
+	return encode;
 };
