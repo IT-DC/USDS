@@ -27,18 +27,18 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
 
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(const char*,int)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << name << value;
+	throw;
 };
 
 void UsdsStruct::setFieldValue(const char* name, long long value) throw (...)
@@ -46,18 +46,18 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
 
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(const char*,long long)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << name << value;
+	throw;
 };
 
 void UsdsStruct::setFieldValue(const char* name, double value) throw (...)
@@ -65,18 +65,18 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
 
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(const char*,double)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << name << value;
+	throw;
 };
 
 void UsdsStruct::setFieldValue(const char* name, const char* value) throw (...)
@@ -84,18 +84,18 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
 
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(const char*,const char*)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << name << value;
+	throw;
 };
 
 void UsdsStruct::setFieldValue(const char* name, bool value) throw (...)
@@ -103,18 +103,18 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
 
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(const char*,bool)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << name << value;
+	throw;
 };
 
 //================================================================================================
@@ -123,85 +123,86 @@ void UsdsStruct::setFieldValue(int id, int value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	fields[id]->setValue(value);
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,int)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << id << value;
+	throw;
 };
 
 void UsdsStruct::setFieldValue(int id, long long value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	fields[id]->setValue(value);
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,long long)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << id << value;
+	throw;
 };
 
 void UsdsStruct::setFieldValue(int id, double value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	fields[id]->setValue(value);
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,double)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << id << value;
+	throw;
 };
 
 void UsdsStruct::setFieldValue(int id, const char* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	fields[id]->setValue(value);
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,const char*)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << id << value;
+	throw;
 };
+
 
 void UsdsStruct::setFieldValue(int id, bool value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	fields[id]->setValue(value);
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,bool)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::setFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldValue") << id << value;
+	throw;
 };
 
 //================================================================================================
@@ -211,18 +212,18 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 
 	*value = fields[id]->getIntValue();
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::getFieldValue(const char*,int*)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << name << value;
+	throw;
 };
 
 void UsdsStruct::getFieldValue(const char* name, long long* value) throw (...)
@@ -230,18 +231,18 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
-	*value = fields[id]->getLongValue();
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 
+	*value = fields[id]->getLongValue();
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(const char*,long long)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << name << value;
+	throw;
 };
 
 void UsdsStruct::getFieldValue(const char* name, double* value) throw (...)
@@ -249,18 +250,17 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	*value = fields[id]->getDoubleValue();
-
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(const char*,double)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << name << value;
+	throw;
 };
 
 void UsdsStruct::getFieldValue(const char* name, const char** value) throw (...)
@@ -268,18 +268,18 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	*value = fields[id]->getStringValue();
 
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(const char*,const char*)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << name << value;
+	throw;
 };
 
 void UsdsStruct::getFieldValue(const char* name, bool* value) throw (...)
@@ -287,18 +287,18 @@ try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	*value = fields[id]->getBooleanValue();
 
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(const char*,bool)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << name << value;
+	throw;
 };
 
 //================================================================================================
@@ -307,147 +307,138 @@ void UsdsStruct::getFieldValue(int id, int* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	*value = fields[id]->getIntValue();
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,int)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << id << value;
+	throw;
 };
 
 void UsdsStruct::getFieldValue(int id, long long* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	*value = fields[id]->getLongValue();
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,long long)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << id << value;
+	throw;
 };
 
 void UsdsStruct::getFieldValue(int id, double* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	*value = fields[id]->getDoubleValue();
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,double)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << id << value;
+	throw;
 };
 
 void UsdsStruct::getFieldValue(int id, const char** value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	*value = fields[id]->getStringValue();
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,const char*)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << id << value;
+	throw;
 };
 
 void UsdsStruct::getFieldValue(int id, bool* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	*value = fields[id]->getBooleanValue();
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::setFieldValue(int,bool)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getFieldValue") << id << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldValue") << id << value;
+	throw;
 };
-
 //================================================================================================
 
 UsdsBaseType* UsdsStruct::getField(int id) throw (...)
+try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg, L"UsdsStruct::getField");
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 
 	return fields[id];
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsStruct::getField") << id << msg;
 };
-
 
 UsdsArray* UsdsStruct::getArrayField(const char* name) throw (...)
 try
 {
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
-	{
-		std::stringstream msg;
-		msg << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";;
 	if (fields[id]->getType() != USDS_ARRAY)
-	{
-		std::stringstream msg;
-		msg << "Field id=" << id << " must be Array. Current type: " << fields[id]->getTypeName();
-		throw ErrorMessage(BODY_STRUCT_TAG_ERROR_FIELD_TYPE, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__ERROR_FIELD_TYPE) << "Field '" << name << "' is not Array. Current type: " << fields[id]->getTypeName();
 	return (UsdsArray*)(fields[id]);
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::getArrayField(int)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getArrayField") << name << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getArrayField") << name;
+	throw;
 };
 
 UsdsArray* UsdsStruct::getArrayField(int id) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
-	{
-		std::stringstream msg;
-		msg << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-		throw ErrorMessage(BODY_STRUCT_TAG_FIELD_NOT_FOUND, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
 	if (fields[id]->getType() != USDS_ARRAY)
-	{
-		std::stringstream msg;
-		msg << "Field id=" << id << " must be Array. Current type: " << fields[id]->getTypeName();
-		throw ErrorMessage(BODY_STRUCT_TAG_ERROR_FIELD_TYPE, &msg);
-	}
+		throw ErrorMessage(BODY_STRUCT__ERROR_FIELD_TYPE) << "Field id=" << id << " is not Array. Current type: " << fields[id]->getTypeName();
 	return (UsdsArray*)(fields[id]);
 }
-catch (ErrorMessage &msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"UsdsStruct::getArrayField(int)");
-	throw msg;
+	throw ErrorStack("UsdsStruct::getArrayField") << id << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getArrayField") << id;
+	throw;
 };
 
 //================================================================================================

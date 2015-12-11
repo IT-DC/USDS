@@ -51,7 +51,7 @@ namespace usds
 		// it's executed in init()
 		virtual void clear();
 
-		UsdsBaseType** fields; // 16 bytes per field
+		UsdsBaseType** fields;
 		int fieldsBuffSize; // in bytes
 
 		int fieldNumber;

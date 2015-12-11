@@ -32,28 +32,22 @@ UsdsBaseType* Body::addTag(int id) throw(...)
 try
 {
 	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
-	if (dict_tag==0)
-	{
-		std::stringstream msg;
-		msg << L"Tag id=" << id << " is not found";
-		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
-	};
 	if (!dict_tag->getRootStatus())
-	{
-		std::stringstream msg;
-		msg << L"Tag id=" << id << " is not ROOT";
-		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
-	};
+		throw ErrorMessage(BODY__ERROR_TAG_ROOT) << "Tag id=" << id << " is not ROOT";
 
 	UsdsBaseType* tag = objectPool.addObject(dict_tag, 0);
 	connectTagToBody(tag);
 
 	return tag;
 }
-catch (ErrorMessage & msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"Body::addTag(int)");
-	throw msg;
+	throw ErrorStack("Body::addTag") << id << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("Body::addTag") << id;
+	throw;
 };
 
 UsdsStruct* Body::addStructTag(const char* name) throw(...)
@@ -61,67 +55,49 @@ try
 {
 	DictionaryBaseType* dict_tag = currentDictionary->findTag(name);
 	if (dict_tag == 0)
-	{
-		std::stringstream msg;
-		msg << L"Tag name '" << name << "' is not found";
-		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
-	};
+		throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag name '" << name << "' is not found";
 	if (dict_tag->getType() != USDS_STRUCT)
-	{
-		std::stringstream msg;
-		msg << L"Type of the tag '" << name << "' is not USDS_STRUCT (" << dict_tag->getTypeName() << ")";
-		throw ErrorMessage(BODY_ERROR_TAG_TYPE, &msg);
-	};
+		throw ErrorMessage(BODY__ERROR_TAG_TYPE) << "Type of the tag '" << name << "' is not USDS_STRUCT (" << dict_tag->getTypeName() << ")";
 	if (!dict_tag->getRootStatus())
-	{
-		std::stringstream msg;
-		msg << L"Tag '" << name << "' is not ROOT";
-		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
-	};
+		throw ErrorMessage(BODY__ERROR_TAG_ROOT) << "Tag '" << name << "' is not ROOT";
 	
 	UsdsStruct* tag = (UsdsStruct*)(objectPool.addObject(dict_tag, 0));
 	connectTagToBody(tag);
 
 	return tag;
 }
-catch (ErrorMessage & msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"Body::addStructTag(const char*)");
-	throw msg;
+	throw ErrorStack("Body::addStructTag") << name << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("Body::addStructTag") << name;
+	throw;
 };
 
 UsdsStruct* Body::addStructTag(int id) throw(...)
 try
 {
 	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
-	if (dict_tag == 0)
-	{
-		std::stringstream msg;
-		msg << L"Tag with id=" << id << " is not found";
-		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
-	};
 	if (dict_tag->getType() != USDS_STRUCT)
-	{
-		std::stringstream msg;
-		msg << L"Type of the tag with id=" << id << " is not USDS_STRUCT (" << dict_tag->getTypeName() << ")";
-		throw ErrorMessage(BODY_ERROR_TAG_TYPE, &msg);
-	};
+		throw ErrorMessage(BODY__ERROR_TAG_TYPE) << "Type of the tag with id=" << id << " is not USDS_STRUCT (" << dict_tag->getTypeName() << ")";
 	if (!dict_tag->getRootStatus())
-	{
-		std::stringstream msg;
-		msg << L"Tag with id=" << id << " is not ROOT";
-		throw ErrorMessage(BODY_ERROR_TAG_ROOT, &msg);
-	};
+		throw ErrorMessage(BODY__ERROR_TAG_ROOT) << "Tag with id=" << id << " is not ROOT";
 
 	UsdsStruct* tag = (UsdsStruct*)(objectPool.addObject(dict_tag, 0));
 	connectTagToBody(tag);
 
 	return tag;
 }
-catch (ErrorMessage & msg)
+catch (ErrorMessage& msg)
 {
-	msg.addPath(L"Body::addStructTag(const char*)");
-	throw msg;
+	throw ErrorStack("Body::addStructTag") << id << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("Body::addStructTag") << id;
+	throw;
 };
 
 
@@ -134,8 +110,11 @@ UsdsBaseType* Body::getFirstTag() throw(...)
 };
 
 UsdsBaseType* Body::getFirstTag(const char* name) throw(...)
+try
 {
 	int tag_id = currentDictionary->findTagID(name);
+	if (tag_id == 0)
+		throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag name '" << name << "' is not found";
 	UsdsBaseType* tag = firstTag;
 	while (tag != 0)
 	{
@@ -144,14 +123,22 @@ UsdsBaseType* Body::getFirstTag(const char* name) throw(...)
 		tag = tag->getNext();
 	}
 
-	std::stringstream msg;
-	msg << L"Tag '" << name << "' not found in ROOT level";
-	throw ErrorMessage(BODY_TAG_NOT_FOUND, &msg);
+	throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag '" << name << "' not found in ROOT level";
 
 	return 0;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("Body::getFirstTag") << name << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("Body::getFirstTag") << name;
+	throw;
 };
 
 UsdsStruct* Body::getFirstStructTag(const char* name) throw(...)
+try
 {
 	int tag_id = currentDictionary->findTagID(name);
 	UsdsBaseType* tag = firstTag;
@@ -160,21 +147,24 @@ UsdsStruct* Body::getFirstStructTag(const char* name) throw(...)
 		if (tag->getID() == tag_id)
 		{
 			if (tag->getType() != USDS_STRUCT)
-			{
-				std::stringstream msg;
-				msg << L"Tag '" << name << "' has type " << tag->getTypeName();
-				throw ErrorMessage(BODY_ERROR_TAG_TYPE, &msg);
-			}
+				throw ErrorMessage(BODY__ERROR_TAG_TYPE) << "Tag '" << name << "' has type " << tag->getTypeName();;
 			return (UsdsStruct*)tag;
 		}
 		tag = tag->getNext();
 	}
 
-	std::stringstream msg;
-	msg << L"Tag '" << name << "' not found in ROOT level";
-	throw ErrorMessage(BODY_TAG_NOT_FOUND, &msg);
+	throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag '" << name << "' not found in ROOT level";
 
 	return 0;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("Body::getFirstStructTag") << name << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("Body::getFirstStructTag") << name;
+	throw;
 };
 
 

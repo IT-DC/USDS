@@ -87,73 +87,73 @@ void UsdsBaseType::setParent(UsdsBaseType* parent)
 
 void UsdsBaseType::setValue(int value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from int to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from int to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(long long value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from long long to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from long long to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(unsigned long long value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from unsigned long long to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from unsigned long long to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(double value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from double to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from double to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(const char* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from const char* to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from const char* to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(const char* value, size_t size) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue").addStringAttribute(value, size) << size << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from const char* to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue").addStringAttribute(value, size) << size << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from const char* to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(bool value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from bool to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from bool to " << getTypeName());
 };
 
 //=============================================================================================
 
 int UsdsBaseType::getIntValue() throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getIntValue") << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to int");
+	throw ErrorStack("UsdsBaseType::getIntValue") << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to int");
 };
 
 long long UsdsBaseType::getLongValue() throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getLongValue") << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to long long");
+	throw ErrorStack("UsdsBaseType::getLongValue") << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to long long");
 };
 
 unsigned long long UsdsBaseType::getULongValue() throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getULongValue") << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to unsigned long long");
+	throw ErrorStack("UsdsBaseType::getULongValue") << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to unsigned long long");
 };
 
 double UsdsBaseType::getDoubleValue() throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getDoubleValue") << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to double");
+	throw ErrorStack("UsdsBaseType::getDoubleValue") << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to double");
 };
 
 const char* UsdsBaseType::getStringValue() throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getStringValue") << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to const char*");
+	throw ErrorStack("UsdsBaseType::getStringValue") << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to const char*");
 };
 
 const char* UsdsBaseType::getStringValue(size_t* size) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getStringValue") << size << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to const char*");
+	throw ErrorStack("UsdsBaseType::getStringValue") << size << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to const char*");
 };
 
 bool UsdsBaseType::getBooleanValue() throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getBooleanValue") << (ErrorMessage(USDS_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to bool");
+	throw ErrorStack("UsdsBaseType::getBooleanValue") << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to bool");
 };
 

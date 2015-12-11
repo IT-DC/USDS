@@ -30,6 +30,24 @@ ErrorMessage& ErrorMessage::operator << (const int value)
 	return *this;
 };
 
+ErrorMessage& ErrorMessage::operator << (const long long value)
+{
+	std::stringstream buff;
+	buff << value;
+	message += buff.str();
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::operator << (const unsigned long long value)
+{
+	std::stringstream buff;
+	buff << value;
+	message += buff.str();
+
+	return *this;
+};
+
 ErrorMessage& ErrorMessage::operator << (const size_t value)
 {
 	std::stringstream buff;
@@ -307,6 +325,38 @@ ErrorStack& ErrorStack::operator<<(const int* value)
 		*path += ", ";
 
 	*path += "int* ";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const char** value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "const char** ";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const std::string* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "const string* ";
 	*path += buff.str();
 
 	return *this;

@@ -36,7 +36,7 @@ UsdsBaseType* UsdsArray::addTagElement() throw(...)
 try
 {
 	if (elementType != USDS_TAG)
-		throw ErrorMessage(USDS_ARRAY__ELEMENT_NOT_TAG) << "Array elements must be TAG, current value " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_TAG) << "Array elements must be TAG, current value " << typeName(elementType);
 	
 	UsdsBaseType* element = objectPool->addObject(tagElement, this);
 	elementValues.writeByteArray(&element, sizeof(size_t));
@@ -70,7 +70,7 @@ UsdsBaseType* UsdsArray::getTagElement(size_t number) throw(...)
 try
 {
 	if (number > elementNumber)
-		throw ErrorMessage(USDS_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << number << "], element number = " << elementNumber;
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << number << "], element number = " << elementNumber;
 
 	UsdsBaseType* tag;
 	elementValues.readByteArray(number * sizeof(size_t), &tag, sizeof(size_t));
@@ -104,7 +104,7 @@ try
 {
 	int element_size = typeSize(elementType);
 	if (element_size == 0)
-		throw ErrorMessage(USDS_ARRAY__UNFIXED_ELEMENT_SIZE) << "Element type '" << typeName(elementType) << "' is unfixed";
+		throw ErrorMessage(BODY_ARRAY__UNFIXED_ELEMENT_SIZE) << "Element type '" << typeName(elementType) << "' is unfixed";
 	elementValues.writeByteArray(binary, binary_size);
 	elementNumber = binary_size / element_size;
 }

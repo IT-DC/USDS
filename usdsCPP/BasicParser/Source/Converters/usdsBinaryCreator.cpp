@@ -34,10 +34,10 @@ try
 	
 	addHeadToBinary();
 }
-catch (ErrorMessage& msg)
+catch (ErrorStack& err)
 {
-	msg.addPath(L"BinaryCreator::generate(BinaryOutput*,Dictionary*");
-	throw msg;
+	err.addLevel("BinaryCreator::generate") << (void*)buff << (void*)dict << (void*)body;
+	throw;
 };
 
 void BinaryCreator::addHeadToBinary() throw(...)
@@ -50,13 +50,13 @@ try
 	binary->pushFrontUByte(dictionary->getMinorVersion());
 	binary->pushFrontUByte(dictionary->getMajorVersion());
 	binary->pushFrontInt(dictionary->getDictionaryID());
-	binary->pushFrontUByte(0); // USDS minor version
-	binary->pushFrontUByte(1); // USDS major version
-	binary->pushFrontUByte('S'); // USDS signature
-	binary->pushFrontUByte('$');
+	binary->pushFrontUByte(USDS_MINOR_VERSION);
+	binary->pushFrontUByte(USDS_MAJOR_VERSION);
+	binary->pushFrontUByte(USDS_MINOR_SIGNATURE);
+	binary->pushFrontUByte(USDS_MAJOR_SIGNATURE);
 }
-catch (ErrorMessage& msg)
+catch (ErrorStack& err)
 {
-	msg.addPath(L"BinaryCreator::addHeadToBinary");
-	throw msg;
+	err.addLevel("BinaryCreator::addHeadToBinary");
+	throw;
 };

@@ -37,7 +37,8 @@ namespace usds
 		DIC_STRUCT__UNSUPPORTED_TYPE = 6004,
 		DIC_STRUCT__FIELD_NOT_FOUND = 6005,
 		// Text Dictionary Creator
-		DICTIONARY_TEXT_CREATOR__UNSUPPORTABLE_ENCODE = 7001,
+		DIC_TEXT_CREATOR__UNSUPPORTED_ENCODE = 7001,
+		DIC_TEXT_CREATOR__UNSUPPORTED_TYPE = 7001,
 		// Dictionary array
 		DIC_ARRAY__NOT_INITIALIZED = 8001,
 		DIC_ARRAY__ELEMENT_NOT_TAG = 8002,
@@ -59,18 +60,19 @@ namespace usds
 		BODY__ERROR_TAG_ROOT = 13002,
 		BODY__TAG_NOT_FOUND = 13003,
 		// Body Struct Tag
-		BODY_STRUCT_TAG__FIELD_NOT_FOUND = 14001,
-		BODY_STRUCT_TAG__ERROR_FIELD_TYPE = 14002,
+		BODY_STRUCT__FIELD_NOT_FOUND = 14001,
+		BODY_STRUCT__ERROR_FIELD_TYPE = 14002,
 		// Body Base Type
-		USDS_BASE_TYPE__UNSUPPORTED_CONVERTION = 15001,
+		BODY_BASE_TYPE__UNSUPPORTED_CONVERTION = 15001,
 		// Body UVARINT type
-		USDS_UVARINT__ERROR_VALUE = 16001,
+		BODY_UVARINT__ERROR_VALUE = 16001,
 		// Body Array Type
-		USDS_ARRAY__ELEMENT_NOT_TAG = 17001,
-		USDS_ARRAY__UNFIXED_ELEMENT_SIZE = 17002,
-		USDS_ARRAY__ELEMENT_NOT_FOUND = 17003,
+		BODY_ARRAY__ELEMENT_NOT_TAG = 17001,
+		BODY_ARRAY__UNFIXED_ELEMENT_SIZE = 17002,
+		BODY_ARRAY__ELEMENT_NOT_FOUND = 17003,
 		// Body Json Creator
 		BODY_JSON_CREATOR__UNSUPPORTABLE_ENCODE = 18001,
+		BODY_JSON_CREATOR__UNSUPPORTED_TYPE = 18002,
 		// USDS Types
 		USDS_TYPES__ERROR_TYPE_CODE = 19001,
 		USDS_TYPES__ERROR_ENCODE = 19002,
@@ -79,7 +81,9 @@ namespace usds
 		// BodyObjectPool
 		BODY_OBJECT_POOL__UNSUPPORTED_TYPE = 21001,
 		// DicObjectPool
-		DIC_OBJECT_POOL__UNSUPPORTED_TYPE = 22001
+		DIC_OBJECT_POOL__UNSUPPORTED_TYPE = 22001,
+		// BodyBinaryCreator
+		BODY_BINARY_CREATOR__UNSUPPORTED_TYPE = 23001
 
 	};
 
@@ -91,6 +95,8 @@ namespace usds
 		~ErrorMessage();
 
 		ErrorMessage& operator<<(const int value);
+		ErrorMessage& operator<<(const long long value);
+		ErrorMessage& operator<<(const unsigned long long value);
 		ErrorMessage& operator<<(const size_t value);
 		ErrorMessage& operator<<(const char* utf8_message);
 		ErrorMessage& operator<<(const std::string& utf8_message);
@@ -129,6 +135,8 @@ namespace usds
 		ErrorStack& operator<<(const unsigned long long* value);
 		ErrorStack& operator<<(const unsigned int* value);
 		ErrorStack& operator<<(const int* value);
+		ErrorStack& operator<<(const char** value);
+		ErrorStack& operator<<(const std::string* value);
 
 		ErrorStack& addStringAttribute(const char* name, size_t size);
 
