@@ -26,13 +26,13 @@ try
 
 	// analize binary
 	// try to read Head
-	if (signature == '$')
+	if (signature == USDS_MAJOR_SIGNATURE)
 	{
 		// read all head
 		unsigned char head[3];
 		binary.readByteArray(head, 3);
-		if (head[0] != 'S' || head[1] != 1 || head[2] != 0)
-			ErrorMessage(BINARY_PARSER_UNKNOWN_FORMAT, L"Unknown format of the binary, head must be '$S10'");
+		if (head[0] != USDS_MINOR_SIGNATURE || head[1] != USDS_MAJOR_VERSION || head[2] != USDS_MINOR_VERSION)
+			throw ErrorMessage(BINARY_PARSER__UNKNOWN_FORMAT, "Unknown format of the binary, head must be '$S10'");
 
 		// read dictionary version
 		dictionaryID = binary.readInt();
@@ -51,7 +51,7 @@ try
 	if (signature == USDS_DICTIONARY_SIGNATURE_WITH_SIZE)
 	{
 		if (!headExists)
-			ErrorMessage(BINARY_PARSER_UNKNOWN_FORMAT, L"Unknown format of the binary: dictionary without head");
+			throw ErrorMessage(BINARY_PARSER__UNKNOWN_FORMAT, "Unknown format of the binary: dictionary without head");
 
 		// read dictionary size
 		size_t dict_size;
@@ -77,17 +77,17 @@ try
 		return;
 	}
 	else
-	{
-		std::wstringstream msg;
-		msg << L"Unexpected signature '" << signature << L"' at the binary";
-		throw ErrorMessage(BINARY_PARSER_UNKNOWN_FORMAT, &msg);
-	}
+		throw ErrorMessage(BINARY_PARSER__UNKNOWN_FORMAT) << "Unexpected signature '" << signature << "' at the binary";;
 }
 catch (ErrorMessage& msg)
 {
-	msg.addPath(L"BinaryParser::setBinary");
-	throw msg;
-};
+	throw ErrorStack("BinaryParser::setBinary") << data << data_size << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryParser::setBinary") << data << data_size;
+	throw;
+}
 
 bool BinaryParser::isHeadIncluded()
 {
@@ -126,10 +126,10 @@ try
 	dictionaryParser.parse(&dictionaryBinary, dict);
 
 }
-catch (ErrorMessage& msg)
+catch (ErrorStack& err)
 {
-	msg.addPath(L"BinaryParser::initDictionaryFromBinary");
-	throw msg;
+	err.addLevel("BinaryParser::initDictionaryFromBinary") << (void*)dict;
+	throw;
 };
 
 void BinaryParser::initBodyFromBinary(Body* body) throw(...)
@@ -137,9 +137,9 @@ try
 {
 	bodyParser.parse(&bodyBinary, body);
 }
-catch (ErrorMessage& msg)
+catch (ErrorStack& err)
 {
-	msg.addPath(L"BinaryParser::initBodyFromBinary");
-	throw msg;
+	err.addLevel("BinaryParser::initBodyFromBinary") << (void*)body;
+	throw;
 };
 

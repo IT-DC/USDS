@@ -11,38 +11,40 @@ using namespace usds;
 DictionaryBinaryParser::DictionaryBinaryParser()
 {
 	readIndex[USDS_NO_TYPE] = 0;
+	readIndex[USDS_TAG] = &DictionaryBinaryParser::readTag;
 	readIndex[USDS_BOOLEAN] = &DictionaryBinaryParser::readBoolean;
-	readIndex[USDS_BYTE] = 0;
-	readIndex[USDS_UNSIGNED_BYTE] = 0;
-	readIndex[USDS_SHORT] = 0;
-	readIndex[USDS_UNSIGNED_SHORT] = 0;
-	readIndex[USDS_BIGENDIAN_SHORT] = 0;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
+	readIndex[USDS_BYTE] = &DictionaryBinaryParser::readByte;
+	readIndex[USDS_UNSIGNED_BYTE] = &DictionaryBinaryParser::readUByte;
+	readIndex[USDS_SHORT] = &DictionaryBinaryParser::readShort;
+	readIndex[USDS_UNSIGNED_SHORT] = &DictionaryBinaryParser::readUShort;
+	readIndex[USDS_BIGENDIAN_SHORT] = &DictionaryBinaryParser::readBEShort;
+	readIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = &DictionaryBinaryParser::readBEUShort;
 	readIndex[USDS_INT] = &DictionaryBinaryParser::readInt;
-	readIndex[USDS_UNSIGNED_INT] = 0;
-	readIndex[USDS_BIGENDIAN_INT] = 0;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
+	readIndex[USDS_UNSIGNED_INT] = &DictionaryBinaryParser::readUInt;
+	readIndex[USDS_BIGENDIAN_INT] = &DictionaryBinaryParser::readBEInt;
+	readIndex[USDS_BIGENDIAN_UNSIGNED_INT] = &DictionaryBinaryParser::readBEUInt;
 	readIndex[USDS_LONG] = &DictionaryBinaryParser::readLong;
-	readIndex[USDS_UNSIGNED_LONG] = 0;
-	readIndex[USDS_BIGENDIAN_LONG] = 0;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
-	readIndex[USDS_INT128] = 0;
-	readIndex[USDS_UNSIGNED_INT128] = 0;
-	readIndex[USDS_BIGENDIAN_INT128] = 0;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
-	readIndex[USDS_FLOAT] = 0;
-	readIndex[USDS_BIGENDIAN_FLOAT] = 0;
+	readIndex[USDS_UNSIGNED_LONG] = &DictionaryBinaryParser::readULong;
+	readIndex[USDS_BIGENDIAN_LONG] = &DictionaryBinaryParser::readBELong;
+	readIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = &DictionaryBinaryParser::readBEULong;
+	readIndex[USDS_INT128] = &DictionaryBinaryParser::readInt128;
+	readIndex[USDS_UNSIGNED_INT128] = &DictionaryBinaryParser::readUInt128;
+	readIndex[USDS_BIGENDIAN_INT128] = &DictionaryBinaryParser::readBEInt128;
+	readIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = &DictionaryBinaryParser::readBEUInt128;
+	readIndex[USDS_FLOAT] = &DictionaryBinaryParser::readFloat;
+	readIndex[USDS_BIGENDIAN_FLOAT] = &DictionaryBinaryParser::readBEFloat;
 	readIndex[USDS_DOUBLE] = &DictionaryBinaryParser::readDouble;
-	readIndex[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
-	readIndex[USDS_VARINT] = 0;
+	readIndex[USDS_USDS_BIGENDIAN_DOUBLE] = &DictionaryBinaryParser::readBEDouble;
+	readIndex[USDS_VARINT] = &DictionaryBinaryParser::readVarint;
 	readIndex[USDS_UNSIGNED_VARINT] = &DictionaryBinaryParser::readUVarint;
-	readIndex[USDS_ARRAY] = &DictionaryBinaryParser::readArray;
 	readIndex[USDS_STRING] = &DictionaryBinaryParser::readString;
-	readIndex[USDS_LIST] = 0;
-	readIndex[USDS_MAP] = 0;
-	readIndex[USDS_POLYMORPH] = 0;
+	readIndex[USDS_ARRAY] = &DictionaryBinaryParser::readArray;
+	readIndex[USDS_LIST] = &DictionaryBinaryParser::readList;
+	readIndex[USDS_MAP] = &DictionaryBinaryParser::readMap;
+	readIndex[USDS_POLYMORPH] = &DictionaryBinaryParser::readPolymorph;
 	readIndex[USDS_STRUCT] = &DictionaryBinaryParser::readStruct;
-	readIndex[USDS_TAG] = 0;
+	readIndex[USDS_FUNCTION] = &DictionaryBinaryParser::readFunction;
+
 };
 
 DictionaryBinaryParser::~DictionaryBinaryParser()
@@ -57,21 +59,14 @@ try
 	binary = buff;
 	dictionary = dict;
 
-	// read text encode
-	int encode = binary->readByte();
-	dictionary->setEncode((usdsEncodes)encode);
-
 	// read tags
 	while (!binary->isEnd())
 	{
 		// read signature
 		unsigned char signature = binary->readUByte();
 		if (signature != USDS_TAG_SIGNATURE)
-		{
-			std::wstringstream msg;
-			msg << L"Unexpected signature '" << signature << L"'";
-			throw ErrorMessage(BINARY_DICTIONARY_PARSER_UNKNOWN_FORMAT, &msg);
-		}
+			throw ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT) << "Unexpected signature '" << signature << "'";
+
 		// read main attributes
 		int tag_id;
 		binary->readUVarint(&tag_id);
@@ -89,9 +84,13 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	msg.addPath(L"DictionaryBinaryParser::parse");
-	throw msg;
-};
+	throw ErrorStack("DictionaryBinaryParser::parse") << (void*)buff << (void*)dict << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryBinaryParser::parse") << (void*)buff << (void*)dict;
+	throw;
+}
 
 
 //=======================================================================================================
@@ -100,11 +99,8 @@ try
 {
 	unsigned char signature = binary->readUByte();
 	if (signature != USDS_FIELD_SIGNATURE)
-	{
-		std::wstringstream msg;
-		msg << L"Unexpected signature '" << signature << L"'";
-		throw ErrorMessage(BINARY_DICTIONARY_PARSER_UNKNOWN_FORMAT, &msg);
-	}
+		throw ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT) << "Unexpected signature '" << signature << "'";
+
 	while (signature == USDS_FIELD_SIGNATURE)
 	{
 		// read main attributes
@@ -125,14 +121,10 @@ try
 	if (signature == USDS_TAG_RESTRICTION_SIGNATURE)
 	{
 		signature = binary->readUByte();
-		if (signature == USDS_TAG_RESTRICTION_ROOT_SIGNATURE)
+		if (signature == USDS_TAG_RESTRICTION_NOT_ROOT_SIGNATURE)
 			object->setRoot(false);
 		else
-		{
-			std::wstringstream msg;
-			msg << L"Unexpected signature for tag restriction '" << signature << L"'";
-			throw ErrorMessage(BINARY_DICTIONARY_PARSER_UNKNOWN_FORMAT, &msg);
-		}
+			throw ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT) << "Unexpected signature for tag restriction '" << signature << "'";;
 	}
 	else
 	{
@@ -142,9 +134,13 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	msg.addPath(L"DictionaryBinaryParser::readStructTag");
-	throw msg;
-};
+	throw ErrorStack("DictionaryBinaryParser::readStruct") << (void*)object << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryBinaryParser::readStruct") << (void*)object;
+	throw;
+}
 
 
 void DictionaryBinaryParser::readBoolean(DictionaryBaseType* object) throw (...)
@@ -178,6 +174,7 @@ void DictionaryBinaryParser::readUVarint(DictionaryBaseType* object) throw (...)
 };
 
 void DictionaryBinaryParser::readArray(DictionaryBaseType* object) throw (...)
+try
 {
 	int element_type = binary->readByte();
 	switch (element_type)
@@ -190,15 +187,29 @@ void DictionaryBinaryParser::readArray(DictionaryBaseType* object) throw (...)
 			break;
 		}
 	default:
-		std::wstringstream err;
-		err << L"Unsupported type '" << ((DictionaryArray*)object)->getElementType() << "'";
-		throw ErrorMessage(DIC_BINARY_CREATOR_UNSUPPORTED_TYPE, &err);
+		throw ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT) << "Unsupported type '" << ((DictionaryArray*)object)->getElementType() << "'";
 	}
-};
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryBinaryParser::readArray") << (void*)object << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryBinaryParser::readArray") << (void*)object;
+	throw;
+}
+
 
 void DictionaryBinaryParser::readString(DictionaryBaseType* object) throw (...)
+try
 {
 	int encode = binary->readByte();
 	((DictionaryString*)object)->setEncode((usdsEncodes)encode);
 
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryBinaryParser::readString") << (void*)object;
+	throw;
 };
