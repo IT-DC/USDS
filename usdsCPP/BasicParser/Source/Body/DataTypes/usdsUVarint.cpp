@@ -20,7 +20,7 @@ void UsdsUVarint::clear()
 void UsdsUVarint::setValue(int value) throw (...)
 {
 	if (value < 0)
-		throw ErrorStack("UsdsUVarint::setValue") << value << (ErrorMessage(USDS_UVARINT__ERROR_VALUE) << "Value must be in range [0, 2147483647], current valu: " << value);
+		throw ErrorStack("UsdsUVarint::setValue") << value << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value must be in range [0, 2147483647], current valu: " << value);
 
 	objectValue = value;
 };
@@ -28,7 +28,7 @@ void UsdsUVarint::setValue(int value) throw (...)
 void UsdsUVarint::setValue(long long value) throw (...)
 {
 	if (value < 0)
-		throw ErrorStack("UsdsUVarint::setValue") << value << (ErrorMessage(USDS_UVARINT__ERROR_VALUE) << "Value must be in range [0, (2^63 – 1)], current valu: " << value);
+		throw ErrorStack("UsdsUVarint::setValue") << value << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value must be in range [0, (2^63 – 1)], current valu: " << value);
 
 	objectValue = value;
 };

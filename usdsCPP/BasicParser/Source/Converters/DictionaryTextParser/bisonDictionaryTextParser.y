@@ -30,7 +30,6 @@
 %parse-param {class BasicParser* usdsParser}
 %parse-param {class FlexDictionaryTextScanner* scanner}
 %parse-param {std::stringstream* error_message}
-%parse-param {usdsEncodes encode}
 %parse-param {class Dictionary* dict}
 %parse-param {class DictionaryBaseType* tag}
 %parse-param {class DictionaryBaseType* field}
@@ -91,7 +90,6 @@ dictionary:
 	USDS_DICTIONARY_ID '=' UNSIGNED_INTEGER_NUMBER DICTIONARY_VERSION UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER 
 	{
 		dict = usdsParser->addNewDictionary($3, $5, $7);
-		dict->setEncode(encode);
 	}
 	'{' tags '}'
 	{

@@ -22,34 +22,35 @@ try
 {
 	dictionaryTextParser.parse(text_dictionary, encode, this);
 }
-catch (ErrorMessage& msg)
+catch (ErrorStack& err)
 {
-	msg.addPath(L"BasicParser::initDictionaryFromText");
-	throw msg;
+	err.addLevel("BasicParser::initDictionaryFromText") << (void*)text_dictionary << size << encode;
+	throw;
 };
 
 void BasicParser::CurrentDictionaryToText(usdsEncodes encode, std::string* text) throw(...)
 try
 {
 	if (currentDictionary == 0)
-		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not set");
+		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND, "Current dictionary not set");
 	dictionaryTextcreator.generate(encode, text, currentDictionary);
 }
 catch (ErrorMessage& msg)
 {
-	msg.addPath(L"BasicParser::getCurrentTextDictionary");
-	throw msg;
-};
+	throw ErrorStack("BasicParser::CurrentDictionaryToText") << encode << text << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::CurrentDictionaryToText") << encode << text;
+	throw;
+}
 
 Dictionary* BasicParser::addNewDictionary(int id, unsigned char major, unsigned char minor) throw(...)
+try
 {
 	Dictionary* object = findDictionary(id, major, minor);
 	if (object != 0)
-	{
-		std::wstringstream mess;
-		mess << L"Dictionary ID=" << id << L" v." << int(major) << L"." << int(minor) << L" already exists";
-		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &mess, L"BasicParser::addNewDictionary");
-	}
+		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary ID=" << id << " v." << int(major) << "." << int(minor) << " already exists";
 	
 	object = dictionaryPool.addObject();
 	dictionaries.push_back(object);
@@ -58,23 +59,38 @@ Dictionary* BasicParser::addNewDictionary(int id, unsigned char major, unsigned 
 	currentDictionary = object;
 
 	return object;
-};
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::addNewDictionary") << id << major << minor << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::addNewDictionary") << id << major << minor;
+	throw;
+}
 
 //====================================================================================================================
 // Working with several dictionaries
 
 void BasicParser::selectDictionary(int id, unsigned char major, unsigned char minor) throw(...)
+try
 {
 	Dictionary* object = findDictionary(id, major, minor);
 	if (object == 0)
-	{
-		std::wstringstream mess;
-		mess << L"Dictionary ID=" << id << L" v." << int(major) << L"." << int(minor) << L" not found";
-		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &mess, L"BasicParser::selectDictionary");
-	}
+		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary ID=" << id << " v." << int(major) << "." << int(minor) << " not found";
 
 	currentDictionary = object;
-};
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::selectDictionary") << id << major << minor << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::selectDictionary") << id << major << minor;
+	throw;
+}
 
 
 //====================================================================================================================
@@ -84,68 +100,100 @@ try
 {
 	return currentDictionary->getDictionaryID();
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BasicParser::getDictionaryID");
-	throw err;
-};
+	err.addLevel("BasicParser::getDictionaryID");
+	throw;
+}
 
 unsigned char BasicParser::getDictionaryMajor() throw(...)
 try
 {
 	return currentDictionary->getMajorVersion();
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BasicParser::getDictionaryMajor");
-	throw err;
-};
+	err.addLevel("BasicParser::getDictionaryMajor");
+	throw;
+}
 
 unsigned char BasicParser::getDictionaryMinor() throw(...)
 try
 {
 	return currentDictionary->getMinorVersion();
 }
-catch (ErrorMessage& err)
+catch (ErrorStack& err)
 {
-	err.addPath(L"BasicParser::getDictionaryMinor");
-	throw err;
-};
+	err.addLevel("BasicParser::getDictionaryMinor");
+	throw;
+}
 
 //====================================================================================================================
 int BasicParser::getTagID(const char* name) throw(...)
+try
 {
 
 	return currentDictionary->findTagID(name);
-};
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::getTagID") << name;
+	throw;
+}
 
 int BasicParser::getFieldID(int tag_id, const char* name) throw(...)
+try
 {
 	DictionaryBaseType* tag = currentDictionary->getTag(tag_id);
 	return ((DictionaryStruct*)tag)->findFieldID(name);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::getFieldID") << tag_id << name;
+	throw;
 };
 
 //====================================================================================================================
 // Encode
 
 void BasicParser::encode(BinaryOutput* buff, bool with_head, bool with_dictionary, bool with_body) throw(...)
+try
 {
 	if (currentDictionary == 0)
-		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not found", L"BasicParser::encode");
+		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND, "Dictionary is not selected");
 
 	if (with_dictionary && with_body)
 		binaryCreator.generate(buff, currentDictionary, (Body*)this);
 
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::encode") << (void*)buff << with_head << with_dictionary << with_body << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::encode") << (void*)buff << with_head << with_dictionary << with_body;
+	throw;
 };
 
 void BasicParser::getJSON(usdsEncodes encode, std::string* text) throw(...)
+try
 {
 	if (currentDictionary == 0)
-		throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, L"Current dictionary not set", L"BasicParser::getJSON");
+		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND, "Dictionary is not selected");
 	if (getFirstTag() == 0)
-		throw ErrorMessage(BASIC_PARSER_BODY_IS_EMPTY, L"Body is empty", L"BasicParser::getJSON");
+		throw ErrorMessage(BASIC_PARSER__BODY_IS_EMPTY, "Body is empty");
 
 	jsonCreator.generate(encode, text, (Body*)this);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::getJSON") << encode << text << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::getJSON") << encode << text;
+	throw;
 };
 
 
@@ -175,11 +223,8 @@ try
 				if (dict == 0)
 				{
 					if (!binaryParser.isDictionaryIncluded())
-					{
-						std::wstringstream msg;
-						msg << L"Dictionary ID=" << dict_id << L" v." << int(dict_major) << L"." << int(dict_minor) << L" not found";
-						throw ErrorMessage(BASIC_PARSER_DICTIONARY_NOT_FOUND, &msg);
-					}
+						throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary ID=" << dict_id << " v." << int(dict_major) << "." << int(dict_minor) << " not found";
+
 					addNewDictionary(dict_id, dict_major, dict_minor);
 					binaryParser.initDictionaryFromBinary(currentDictionary);
 				}
@@ -199,8 +244,12 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	msg.addPath(L"BasicParser::decode");
-	throw msg;
+	throw ErrorStack("BasicParser::decode") << data << data_size << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::decode") << data << data_size;
+	throw;
 };
 
 
@@ -219,6 +268,7 @@ void BasicParser::clear()
 // private
 
 Dictionary* BasicParser::findDictionary(int id, unsigned char major, unsigned char minor) throw(...)
+try
 {
 	for (std::list<Dictionary*>::iterator it = dictionaries.begin(); it != dictionaries.end(); it++)
 	{
@@ -229,5 +279,10 @@ Dictionary* BasicParser::findDictionary(int id, unsigned char major, unsigned ch
 	// if not found
 	return 0;
 
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::findDictionary") << id << major << minor;
+	throw;
 };
 
