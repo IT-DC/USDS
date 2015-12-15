@@ -1,6 +1,6 @@
 #include "unitTest\Base\usdsErrorTest.h"
 
-#include "BasicParser\Include\base\usdsErrors.h"
+#include "base\usdsErrors.h"
 
 #include "usdsAutotest.h"
 

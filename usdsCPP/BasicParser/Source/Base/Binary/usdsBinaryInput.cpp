@@ -39,33 +39,57 @@ void BinaryInput::clear()
 int BinaryInput::readUVarint(unsigned long long* value) throw(...)
 try
 {
-	int step = 0;
 	unsigned long long buf = 0;
 	*value = 0;
-	while (true)
+
+	if (buffCurrentPos >= buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
+
+	// byte 0
+	if (*buffCurrentPos < 128u)
 	{
-		// buffer overflow
+		*value = *buffCurrentPos;
+		buffCurrentPos++;
+		return 1;
+	}
+	else
+	{
+		*value = (*buffCurrentPos) & 127ull;
+		buffCurrentPos++;
+	}
+
+	// bytes 1-8
+	for (int i = 1; i <= 8; i++)
+	{
 		if (buffCurrentPos >= buffLastPos)
 			throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
-
-		buf = (*buffCurrentPos) & 127;
-		*value += (buf << (step * 7));
-		// last byte
+		if (*buffCurrentPos == 0)
+			throw ErrorMessage(BIN_IN__UVARINT_ERROR_FORMAT) << "Binary format error: byte " << i << " of the UNSIGNED VARINT can not be 0";
 		if (*buffCurrentPos < 128u)
-			break;
-		step++;
-		// The value is too big
-		if (step == 10)
-			throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read unsigned varint: the size is more than 8 bytes");
-		buffCurrentPos++;
-	};
-	// The value is too big
-	if (step == 9 && (*buffCurrentPos) > 1)
+		{
+			buf = *buffCurrentPos;
+			*value += (buf << 7*i);
+			buffCurrentPos++;
+			return i+1;
+		}
+		else
+		{
+			buf = (*buffCurrentPos) & 127;
+			*value += (buf << 7*i);
+			buffCurrentPos++;
+		}
+	}
+
+	// byte 9
+	if (buffCurrentPos >= buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
+	if (*buffCurrentPos == 0)
+		throw ErrorMessage(BIN_IN__UVARINT_ERROR_FORMAT, "Binary format error: byte 9 of the UNSIGNED VARINT can not be 0");
+	if (*buffCurrentPos > 1)
 		throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read unsigned varint: the size is more than 8 bytes");
-
+	*value = *value | 0x8000000000000000ull;
 	buffCurrentPos++;
-
-	return step+1;
+	return 10;
 }
 catch (ErrorMessage& err)
 {
@@ -75,33 +99,58 @@ catch (ErrorMessage& err)
 int BinaryInput::readUVarint(unsigned int* value) throw(...)
 try
 {
-	int step = 0;
-	int buf = 0;
+	unsigned int buf = 0;
 	*value = 0;
-	while (true)
+
+	if (buffCurrentPos >= buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
+
+	// byte 0
+	if (*buffCurrentPos < 128u)
 	{
-		// buffer overflow
+		*value = *buffCurrentPos;
+		buffCurrentPos++;
+		return 1;
+	}
+	else
+	{
+		*value = (*buffCurrentPos) & 127ull;
+		buffCurrentPos++;
+	}
+
+	// bytes 1-3
+	for (int i = 1; i <= 3; i++)
+	{
 		if (buffCurrentPos >= buffLastPos)
 			throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
-
-		buf = (*buffCurrentPos) & 127;
-		*value += (buf << (step * 7));
-		// last byte
+		if (*buffCurrentPos == 0)
+			throw ErrorMessage(BIN_IN__UVARINT_ERROR_FORMAT) << "Binary format error: byte " << i << " of the UNSIGNED VARINT can not be 0";
 		if (*buffCurrentPos < 128u)
-			break;
-		step++;
-		// The value is too big
-		if (step == 5)
-			throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read unsigned varint: the size is more than 4 bytes");
-		buffCurrentPos++;
-	};
-	// The value is too big
-	if (step == 4 && (*buffCurrentPos) > 7)
+		{
+			buf = *buffCurrentPos;
+			*value += (buf << 7 * i);
+			buffCurrentPos++;
+			return i + 1;
+		}
+		else
+		{
+			buf = (*buffCurrentPos) & 127;
+			*value += (buf << 7 * i);
+			buffCurrentPos++;
+		}
+	}
+
+	// byte 4
+	if (buffCurrentPos >= buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
+	if (*buffCurrentPos == 0)
+		throw ErrorMessage(BIN_IN__UVARINT_ERROR_FORMAT, "Binary format error: byte 4 of the UNSIGNED VARINT can not be 0");
+	if (*buffCurrentPos > 15)
 		throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read unsigned varint: the size is more than 4 bytes");
-
+	buf = *buffCurrentPos;
+	*value += (buf << 28);
 	buffCurrentPos++;
-
-	return step + 1;
+	return 5;
 }
 catch (ErrorMessage& err)
 {
@@ -111,33 +160,58 @@ catch (ErrorMessage& err)
 int BinaryInput::readUVarint(int* value) throw(...)
 try
 {
-	int step = 0;
 	int buf = 0;
 	*value = 0;
-	while (true)
+
+	if (buffCurrentPos >= buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
+
+	// byte 0
+	if (*buffCurrentPos < 128u)
 	{
-		// buffer overflow
+		*value = *buffCurrentPos;
+		buffCurrentPos++;
+		return 1;
+	}
+	else
+	{
+		*value = (*buffCurrentPos) & 127ull;
+		buffCurrentPos++;
+	}
+
+	// bytes 1-3
+	for (int i = 1; i <= 3; i++)
+	{
 		if (buffCurrentPos >= buffLastPos)
 			throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
-
-		buf = (*buffCurrentPos) & 127;
-		*value += (buf << (step * 7));
-		// last byte
+		if (*buffCurrentPos == 0)
+			throw ErrorMessage(BIN_IN__UVARINT_ERROR_FORMAT) << "Binary format error: byte " << i << " of the UNSIGNED VARINT can not be 0";
 		if (*buffCurrentPos < 128u)
-			break;
-		step++;
-		// The value is too big
-		if (step == 5)
-			throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read unsigned varint: the size is more than 4 bytes");
-		buffCurrentPos++;
-	};
-	// The value is too big
-	if (step == 4 && (*buffCurrentPos) > 3)
-		throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read unsigned varint to int: the size is more than 4 bytes");
+		{
+			buf = *buffCurrentPos;
+			*value += (buf << 7 * i);
+			buffCurrentPos++;
+			return i + 1;
+		}
+		else
+		{
+			buf = (*buffCurrentPos) & 127;
+			*value += (buf << 7 * i);
+			buffCurrentPos++;
+		}
+	}
 
+	// byte 4
+	if (buffCurrentPos >= buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
+	if (*buffCurrentPos == 0)
+		throw ErrorMessage(BIN_IN__UVARINT_ERROR_FORMAT, "Binary format error: byte 4 of the UNSIGNED VARINT can not be 0");
+	if (*buffCurrentPos > 7)
+		throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read unsigned varint: the size is more than signed int (4 byte)");
+	buf = *buffCurrentPos;
+	*value += (buf << 28);
 	buffCurrentPos++;
-
-	return step + 1;
+	return 5;
 }
 catch (ErrorMessage& err)
 {
@@ -148,7 +222,7 @@ int BinaryInput::readInt() throw(...)
 try
 {
 	// buffer overflow
-	if (buffCurrentPos > buffLastPos + 4)
+	if (buffCurrentPos + 4 > buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'int'");
 
 	int value;
@@ -166,7 +240,7 @@ long long BinaryInput::readLong() throw(...)
 try
 {
 	// buffer overflow
-	if (buffCurrentPos > buffLastPos + 8)
+	if (buffCurrentPos + 8 > buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'long'");
 
 	long long value;
@@ -184,7 +258,7 @@ double BinaryInput::readDouble() throw(...)
 try
 {
 	// buffer overflow
-	if (buffCurrentPos > buffLastPos + 8)
+	if (buffCurrentPos + 8 > buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'double'");
 
 	double value;
@@ -202,7 +276,7 @@ void BinaryInput::readByteArray(void* buff, size_t size) throw(...)
 try
 {
 	// buffer overflow
-	if (buffCurrentPos > buffLastPos + size)
+	if (buffCurrentPos + size > buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read array, size: ") << size << " bytes";
 	memcpy(buff, buffCurrentPos, size);
 	buffCurrentPos += size;
@@ -217,7 +291,7 @@ const void* BinaryInput::readByteArray(size_t size) throw(...)
 try
 {
 	// buffer overflow
-	if (buffCurrentPos > buffLastPos + size)
+	if (buffCurrentPos + size > buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'string', size: ") << size << " bytes";;
 	const void* value = (void*)buffCurrentPos;
 	buffCurrentPos += size;
@@ -297,7 +371,7 @@ catch (ErrorMessage& err)
 void BinaryInput::stepForward(size_t size) throw(...)
 try
 {
-	if (buffCurrentPos > buffLastPos + size)
+	if (buffCurrentPos + size > buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Too big step forward, size: ") << size << " bytes";
 	
 	buffCurrentPos += size;
