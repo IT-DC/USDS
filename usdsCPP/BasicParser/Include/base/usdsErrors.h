@@ -97,9 +97,9 @@ namespace usds
 		~ErrorMessage();
 
 		ErrorMessage& operator<<(const int value);
+		ErrorMessage& operator<<(const unsigned int value);
 		ErrorMessage& operator<<(const long long value);
 		ErrorMessage& operator<<(const unsigned long long value);
-		ErrorMessage& operator<<(const size_t value);
 		ErrorMessage& operator<<(const char* utf8_message);
 		ErrorMessage& operator<<(const std::string& utf8_message);
 		

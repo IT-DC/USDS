@@ -30,6 +30,16 @@ ErrorMessage& ErrorMessage::operator << (const int value)
 	return *this;
 };
 
+ErrorMessage& ErrorMessage::operator << (const unsigned int value)
+{
+	std::stringstream buff;
+	buff << value;
+	message += buff.str();
+
+	return *this;
+};
+
+
 ErrorMessage& ErrorMessage::operator << (const long long value)
 {
 	std::stringstream buff;
@@ -40,15 +50,6 @@ ErrorMessage& ErrorMessage::operator << (const long long value)
 };
 
 ErrorMessage& ErrorMessage::operator << (const unsigned long long value)
-{
-	std::stringstream buff;
-	buff << value;
-	message += buff.str();
-
-	return *this;
-};
-
-ErrorMessage& ErrorMessage::operator << (const size_t value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -133,7 +134,10 @@ ErrorStack& ErrorStack::operator << (ErrorMessage& message)
 ErrorStack& ErrorStack::operator << (const bool value)
 {
 	std::stringstream buff;
-	buff << value;
+	if (value)
+		buff << "true";
+	else
+		buff << "false";
 
 	std::string* path = &(stack.front().path);
 
@@ -148,7 +152,7 @@ ErrorStack& ErrorStack::operator << (const bool value)
 ErrorStack& ErrorStack::operator << (const unsigned char value)
 {
 	std::stringstream buff;
-	buff << value;
+	buff << (unsigned int)value;
 
 	std::string* path = &(stack.front().path);
 
@@ -269,14 +273,14 @@ ErrorStack& ErrorStack::operator << (const void* value)
 ErrorStack& ErrorStack::operator<<(const unsigned char* value)
 {
 	std::stringstream buff;
-	buff << value;
+	buff << (void*)value;
 
 	std::string* path = &(stack.front().path);
 
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "const unsigned char* ";
+	*path += "unsigned char* ";
 	*path += buff.str();
 
 	return *this;
@@ -356,7 +360,7 @@ ErrorStack& ErrorStack::operator<<(const std::string* value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "const string* ";
+	*path += "string* ";
 	*path += buff.str();
 
 	return *this;
