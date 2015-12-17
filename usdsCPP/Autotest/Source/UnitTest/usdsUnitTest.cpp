@@ -3,6 +3,7 @@
 #include "unitTest\usdsUnitTest.h"
 #include "unitTest\base\usdsErrorTest.h"
 #include "unitTest\base\usdsBinaryInputTest.h"
+#include "unitTest\base\usdsBinaryOutputTest.h"
 
 void UnitTest::runTest(int number)
 {
@@ -20,7 +21,8 @@ void UnitTest::runTest(int number)
 	BinaryInputTest bin_input_test;
 	bin_input_test.runTest(number);
 
-
+	BinaryOutputTest bin_output_test;
+	bin_output_test.runTest(number);
 
 
 
