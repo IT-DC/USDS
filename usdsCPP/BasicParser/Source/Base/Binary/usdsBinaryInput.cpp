@@ -275,6 +275,8 @@ catch (ErrorMessage& err)
 void BinaryInput::readByteArray(void* buff, size_t size) throw(...)
 try
 {
+	if (buff == 0)
+		throw ErrorMessage(BIN_IN__NULL_BUFF, "Output buffer can not be null");
 	// buffer overflow
 	if (buffCurrentPos + size > buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read array, size: ") << size << " bytes";
@@ -310,7 +312,13 @@ try
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'bool'");
 
 	bool value;
-	value = (*buffCurrentPos == 255);
+	if (*buffCurrentPos == 255)
+		value = true;
+	else if (*buffCurrentPos == 0)
+		value = false;
+	else
+		throw ErrorMessage(BIN_IN__BOOLEAN_ERROR_FORMAT, "Error value for BOOLEAN: ") << (int)*buffCurrentPos << ", must be 0 or 0xFF";
+	
 	buffCurrentPos++;
 
 	return value;

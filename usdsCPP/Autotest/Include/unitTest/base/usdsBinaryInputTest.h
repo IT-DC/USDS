@@ -18,6 +18,12 @@ private:
 	void test_5();
 	void test_6();
 	void test_7();
+	void test_8();
+	void test_9();
+	void test_10();
+	void test_11();
+	void test_12();
+	void test_13();
 
 	int testNumbers;
 
