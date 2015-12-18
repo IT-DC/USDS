@@ -27,11 +27,12 @@ namespace usds
 		void writeLong(long long value) throw(...);
 		void writeDouble(double value) throw(...);
 		void writeUByte(unsigned char value) throw(...);
-		void writeByte(int value) throw(...);
-		void writeByteArray(const void* value, size_t size) throw(...);
+		void writeByte(char value) throw(...);
 		void writeBool(bool value) throw(...);
 		void writeType(usdsTypes value) throw(...);
-		
+		void writeSignature(usdsSignature value) throw(...);
+		void writeByteArray(const void* value, size_t size) throw(...);
+
 		void pushFrontSize() throw(...);
 		void pushFrontUByte(unsigned char value) throw(...);
 		void pushFrontInt(int value) throw(...);

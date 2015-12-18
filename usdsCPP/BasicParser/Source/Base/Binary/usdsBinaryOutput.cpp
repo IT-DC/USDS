@@ -286,11 +286,18 @@ catch (ErrorStack& err)
 void BinaryOutput::writeByteArray(const void* value, size_t size) throw(...)
 try
 {
+	if (value == 0)
+		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the Byte array can not be null");
+	
 	checkSize(size);
 	
 	memcpy(buffCurrentPos, value, size);
 	buffCurrentPos += size;
 
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::writeByteArray") << value << size << msg;
 }
 catch (ErrorStack& err)
 {
@@ -311,14 +318,11 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::writeByte(int value) throw(...)
+void BinaryOutput::writeByte(char value) throw(...)
 try
 {
-	if (value > 127 || value < -128)
-		throw ErrorMessage(BIN_OUT__BEEG_VALUE, "Value must be [-128, 127]. Current value = ") << value;
-
 	checkSize(1);
-	*buffCurrentPos = ((unsigned char*)(&value))[0];
+	*buffCurrentPos = value;
 	buffCurrentPos++;
 }
 catch (ErrorMessage& msg)
@@ -359,6 +363,20 @@ try
 catch (ErrorStack& err)
 {
 	err.addLevel("BinaryOutput::writeType") << value;
+	throw;
+};
+
+void BinaryOutput::writeSignature(usdsSignature value) throw(...)
+try
+{
+	checkSize(1);
+	*buffCurrentPos = ((unsigned char*)(&value))[0];
+	buffCurrentPos++;
+
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeSignature") << value;
 	throw;
 };
 
@@ -465,6 +483,9 @@ catch (ErrorMessage& msg)
 void BinaryOutput::readByteArray(size_t position, void* value, size_t size) throw(...)
 try
 {
+	if (value == 0)
+		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the Byte array can not be null");
+	
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
 	if ((position + size) > (doc_size))
