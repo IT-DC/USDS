@@ -399,7 +399,7 @@ try
 	new_size = (new_size / 64 + 1) * 64;
 
 	// Buffer overflow
-	if (new_size < buff_current_size)
+	if (new_size < buff_current_size || new_size < min_increase)
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW, "USDS out buffer owerflow. Old size: ") << buff_current_size << ", buffer minimal increas: " << min_increase;
 
 	// Create new array and copy data

@@ -22,6 +22,9 @@
     <ClCompile Include="Source\UnitTest\Base\usdsBinaryOutputTest.cpp">
       <Filter>Unit tests\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTest\Base\usdsObjectPoolTest.cpp">
+      <Filter>Unit tests\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAutotest.h" />
@@ -35,6 +38,9 @@
       <Filter>Unit tests\Base</Filter>
     </ClInclude>
     <ClInclude Include="Include\unitTest\base\usdsBinaryOutputTest.h">
+      <Filter>Unit tests\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\unitTest\base\usdsObjectPoolTest.h">
       <Filter>Unit tests\Base</Filter>
     </ClInclude>
   </ItemGroup>

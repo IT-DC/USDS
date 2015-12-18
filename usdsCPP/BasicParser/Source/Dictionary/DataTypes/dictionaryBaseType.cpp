@@ -4,6 +4,17 @@ using namespace usds;
 
 void DictionaryBaseType::init(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 {
+	if (dict == 0)
+		throw ErrorMessage(DIC_BASE_TYPE__NULL_DICTIONARY, "Dictionary can not be NULL");
+
+	if (name <= 0)
+		throw ErrorMessage(DIC_BASE_TYPE__NULL_NAME, "Name can not be NULL");
+	
+	if (id <= 0)
+		throw ErrorMessage(DIC_BASE_TYPE__TAG_ID_ERROR_VALUE) << "ID must be in range [1; 2,147,483,647]. Current value: " << id;
+
+	// TODO check name by regular expression
+
 	nextObject = 0;
 	previousObject = 0;
 

@@ -68,8 +68,15 @@ DictionaryObjectPool::~DictionaryObjectPool()
 DictionaryBaseType* DictionaryObjectPool::addObject(usdsTypes object_type, Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
+	if (object_type <= USDS_NO_TYPE || object_type >= USDS_LAST_TYPE)
+		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << object_type;
+
 	return (this->*(poolIndex[object_type]))(dict, parent, id, name, name_size);
 
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryObjectPool::addObject") << (void*)object_type << (void*)dict << (void*)parent << id << name << name_size << msg;
 }
 catch (ErrorStack& err)
 {
@@ -181,6 +188,26 @@ DictionaryBaseType* DictionaryObjectPool::addBELong(Dictionary* dict, Dictionary
 DictionaryBaseType* DictionaryObjectPool::addBEULong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 {
 	throw ErrorStack("DictionaryObjectPool::addBEULong") << (void*)dict << (void*)parent << id << name << name_size << ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED LONG");
+};
+
+DictionaryBaseType* DictionaryObjectPool::addInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+{
+	throw ErrorStack("DictionaryObjectPool::addInt128") << (void*)dict << (void*)parent << id << name << name_size << ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE, "Unsupported type INT128");
+};
+
+DictionaryBaseType* DictionaryObjectPool::addUInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+{
+	throw ErrorStack("DictionaryObjectPool::addUInt128") << (void*)dict << (void*)parent << id << name << name_size << ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT128");
+};
+
+DictionaryBaseType* DictionaryObjectPool::addBEInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+{
+	throw ErrorStack("DictionaryObjectPool::addBEInt128") << (void*)dict << (void*)parent << id << name << name_size << ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN INT128");
+};
+
+DictionaryBaseType* DictionaryObjectPool::addBEUInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+{
+	throw ErrorStack("DictionaryObjectPool::addBEUInt128") << (void*)dict << (void*)parent << id << name << name_size << ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED INT128");
 };
 
 DictionaryBaseType* DictionaryObjectPool::addFloat(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)

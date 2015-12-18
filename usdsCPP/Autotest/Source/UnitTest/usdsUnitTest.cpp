@@ -4,6 +4,7 @@
 #include "unitTest\base\usdsErrorTest.h"
 #include "unitTest\base\usdsBinaryInputTest.h"
 #include "unitTest\base\usdsBinaryOutputTest.h"
+#include "unitTest\base\usdsObjectPoolTest.h"
 
 void UnitTest::runTest(int number)
 {
@@ -24,6 +25,8 @@ void UnitTest::runTest(int number)
 	BinaryOutputTest bin_output_test;
 	bin_output_test.runTest(number);
 
+	ObjectPoolTest object_pool_test;
+	object_pool_test.runTest(number);
 
 
 	

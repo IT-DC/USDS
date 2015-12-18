@@ -312,9 +312,9 @@ void BinaryOutputTest::test_4()
 	// step 3
 	try
 	{
-		unsigned char buff_1[1000];
+		unsigned char buff[1000];
 		unsigned char buff_out[1001];
-		binary->writeByteArray(buff_1, 1000);
+		binary->writeByteArray(buff, 1000);
 		binary->readByteArray(0, buff_out, 1001);
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
@@ -329,35 +329,47 @@ void BinaryOutputTest::test_4()
 	}
 
 	// step 4
-	unsigned char buff_2[1000000];
-	int max_value;
-	if (sizeof(size_t) == 4)
-		max_value = 4000;
-	else if (sizeof(size_t) == 8)
-		max_value = 4000000;
-	else
+	try
 	{
+		unsigned char buff[1000];
+#ifdef _WIN64
+		binary->writeByteArray(buff, 0xFFFFFFFFFFFFFFFF);
+#else
+		binary->writeByteArray(buff, 0xFFFFFFFF);
+#endif
 		std::cout << "Failed at the step 4\n";
 		throw test_number;
 	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__BUFFER_OVERFLOW)
+		{
+			std::cout << "Failed at the step 4\n";
+			throw test_number;
+		}
+	}
 
+	// step 5
 	try
 	{
-		for (int i = 0; i <= max_value; i++)
-		{
-			binary->writeByteArray(buff_2, 1000000);
-		}
-		std::cout << "Failed at the step 4\n";
+		unsigned char buff[1000];
+#ifdef _WIN64
+		binary->writeByteArray(buff, 0xFFFFFFFFFFFF0000);
+#else
+		binary->writeByteArray(buff, 0xFFFF0000);
+#endif
+		std::cout << "Failed at the step 5\n";
 		throw test_number;
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_OUT__ALLOCATE_ERROR)
 		{
-			std::cout << "Failed at the step 4\n";
+			std::cout << "Failed at the step 5\n";
 			throw test_number;
 		}
 	}
+
 	delete binary;
 
 	std::cout << "Successful!\n";

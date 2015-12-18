@@ -76,6 +76,7 @@
     <ClInclude Include="Include\unitTest\base\usdsBinaryInputTest.h" />
     <ClInclude Include="Include\unitTest\base\usdsBinaryOutputTest.h" />
     <ClInclude Include="Include\unitTest\Base\usdsErrorTest.h" />
+    <ClInclude Include="Include\unitTest\base\usdsObjectPoolTest.h" />
     <ClInclude Include="Include\unitTest\usdsUnitTest.h" />
     <ClInclude Include="Include\usdsAutotest.h" />
   </ItemGroup>
@@ -83,6 +84,7 @@
     <ClCompile Include="Source\UnitTest\Base\usdsBinaryInputTest.cpp" />
     <ClCompile Include="Source\UnitTest\Base\usdsBinaryOutputTest.cpp" />
     <ClCompile Include="Source\UnitTest\Base\usdsErrorTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Base\usdsObjectPoolTest.cpp" />
     <ClCompile Include="Source\UnitTest\usdsUnitTest.cpp" />
     <ClCompile Include="Source\usdsAutotest.cpp" />
   </ItemGroup>

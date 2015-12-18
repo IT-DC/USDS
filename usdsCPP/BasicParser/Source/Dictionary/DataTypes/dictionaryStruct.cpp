@@ -18,16 +18,7 @@ DictionaryStruct::DictionaryStruct(DictionaryObjectPool* parent) : DictionaryBas
 DictionaryBaseType* DictionaryStruct::addField(usdsTypes field_type, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	// check type
-	if (field_type <= USDS_TAG || field_type >= USDS_LAST_TYPE || field_type == USDS_STRUCT)
-		throw ErrorMessage(DIC_STRUCT__UNSUPPORTED_TYPE) << "Unsupported field type '" << field_type << "'";
-
-	// check ID
-	if (id <= 0)
-		throw ErrorMessage(DIC_STRUCT__FIELD_ID_ERROR_VALUE) << "Field ID must be in range [1; 2,147,483,647]. Current value:" << id;
-
 	// check name
-	// TODO check name by regular expression
 	int field_id;
 	if (name_size == 0)
 		field_id = findFieldID(name);
@@ -85,6 +76,9 @@ DictionaryBaseType* DictionaryStruct::getField(int id) throw (...)
 
 DictionaryBaseType* DictionaryStruct::getField(const char* name) throw (...)
 {
+	if (name == 0)
+		throw ErrorStack("DictionaryStruct::getField") << name << ErrorMessage(DIC_STRUCT__NULL_NAME, "Name can not be NULL");
+
 	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
@@ -100,6 +94,9 @@ DictionaryBaseType* DictionaryStruct::getField(const char* name) throw (...)
 
 DictionaryBaseType* DictionaryStruct::getField(const char* name, size_t name_size) throw (...)
 {
+	if (name == 0)
+		throw ErrorStack("DictionaryStruct::getField") << name << name_size << ErrorMessage(DIC_STRUCT__NULL_NAME, "Name can not be NULL");
+	
 	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
@@ -115,6 +112,9 @@ DictionaryBaseType* DictionaryStruct::getField(const char* name, size_t name_siz
 
 int DictionaryStruct::findFieldID(const char* name) throw (...)
 {
+	if (name == 0)
+		throw ErrorStack("DictionaryStruct::findFieldID") << name << ErrorMessage(DIC_STRUCT__NULL_NAME, "Name can not be NULL");
+	
 	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
@@ -130,6 +130,9 @@ int DictionaryStruct::findFieldID(const char* name) throw (...)
 
 int DictionaryStruct::findFieldID(const char* name, size_t name_size) throw (...)
 {
+	if (name == 0)
+		throw ErrorStack("DictionaryStruct::findFieldID") << name << name_size << ErrorMessage(DIC_STRUCT__NULL_NAME, "Name can not be NULL");
+
 	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{

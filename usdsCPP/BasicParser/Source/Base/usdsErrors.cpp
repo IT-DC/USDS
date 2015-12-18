@@ -60,7 +60,8 @@ ErrorMessage& ErrorMessage::operator << (const unsigned long long value)
 
 ErrorMessage& ErrorMessage::operator << (const char* utf8_message)
 {
-	message += utf8_message;
+	if (utf8_message != 0)
+		message += utf8_message;
 
 	return *this;
 };
@@ -74,7 +75,8 @@ ErrorMessage& ErrorMessage::operator << (const std::string& utf8_message)
 
 ErrorMessage& ErrorMessage::addString(const char* name, size_t size)
 {
-	message.append(name, size);
+	if (name != 0)
+		message.append(name, size);
 
 	return *this;
 };
@@ -247,9 +249,16 @@ ErrorStack& ErrorStack::operator << (const char* utf8_path)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "const char* \"";
-	*path += utf8_path;
-	*path += '"';
+	if (utf8_path != 0)
+	{
+		*path += "const char* \"";
+		*path += utf8_path;
+		*path += '"';
+	}
+	else
+	{
+		*path += "const char* 0";
+	}
 
 	return *this;
 };
@@ -373,9 +382,16 @@ ErrorStack& ErrorStack::addStringAttribute(const char* name, size_t size)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "const char* \"";
-	path->append(name, size);
-	*path += '"';
+	if (name != 0)
+	{
+		*path += "const char* \"";
+		path->append(name, size);
+		*path += '"';
+	}
+	else
+	{
+		*path += "const char* 0";
+	}
 	
 	return *this;
 };

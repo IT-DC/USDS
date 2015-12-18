@@ -33,14 +33,6 @@ void Dictionary::setID(int id, unsigned char major, unsigned char minor) throw (
 DictionaryBaseType* Dictionary::addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...)
 try
 {
-	// check type
-	if (tag_type <= USDS_TAG || tag_type >= USDS_LAST_TYPE)
-		throw ErrorMessage(DICTIONARY__UNSUPPORTED_TYPE) << "Unsupported tag type '" << tag_type << "'";
-
-	// check ID
-	if (id <= 0)
-		throw ErrorMessage(DICTIONARY__TAG_ID_ERROR_VALUE) << "Tag ID must be in range [1; 2,147,483,647]. Current value: " << id;
-
 	// check name
 	int tag_id;
 	if (name_size == 0)
@@ -49,8 +41,7 @@ try
 		tag_id = findTagID(name, name_size);
 	if (tag_id != 0)
 		throw ErrorMessage(DICTIONARY__TAG_ALREADY_EXISTS) << "Tag with name '" << name << "' not unique in dictionary.";
-	// TODO check name by regular expression
-
+	
 	// Create object
 	DictionaryBaseType* tag = objectPool.addObject(tag_type, this, 0, id, name, name_size);
 	connectTagToDictionary(tag);
@@ -175,6 +166,9 @@ int Dictionary::findTagID(const char* name) throw (...)
 	if (dictionaryID < 0)
 		throw ErrorStack("Dictionary::findTagID") << name << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	
+	if (name == 0)
+		throw ErrorStack("Dictionary::findTagID") << name << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
+
 	DictionaryBaseType* tag = firstTag;
 	while (tag != 0)
 	{
@@ -191,6 +185,9 @@ int Dictionary::findTagID(const char* name, size_t name_size) throw (...)
 {
 	if (dictionaryID < 0)
 		throw ErrorStack("Dictionary::findTagID").addStringAttribute(name, name_size) << name_size << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
+
+	if (name == 0)
+		throw ErrorStack("Dictionary::findTagID") << name << name_size << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
 
 	DictionaryBaseType* tag = firstTag;
 	while (tag != 0)
@@ -209,6 +206,9 @@ DictionaryBaseType* Dictionary::findTag(const char* name) throw (...)
 	if (dictionaryID < 0)
 		throw ErrorStack("Dictionary::findTag") << name << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 
+	if (name == 0)
+		throw ErrorStack("Dictionary::findTag") << name << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
+
 	DictionaryBaseType* tag = firstTag;
 	while (tag != 0)
 	{
@@ -226,6 +226,9 @@ DictionaryBaseType* Dictionary::findTag(const char* name, size_t name_size) thro
 {
 	if (dictionaryID < 0)
 		throw ErrorStack("Dictionary::findTag").addStringAttribute(name, name_size) << name_size << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
+
+	if (name == 0)
+		throw ErrorStack("Dictionary::findTag") << name << name_size << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
 
 	DictionaryBaseType* tag = firstTag;
 	while (tag != 0)
