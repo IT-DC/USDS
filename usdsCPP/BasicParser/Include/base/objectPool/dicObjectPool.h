@@ -30,43 +30,40 @@ namespace usds
 		// Clear pool, it does not release memory
 		void clear();
 
+		DictionaryBoolean* addBoolean(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryByte* addByte(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryUByte* addUByte(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryShort* addShort(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryUShort* addUShort(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBEShort* addBEShort(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBEUShort* addBEUShort(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		DictionaryInt* addInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryUInt* addUInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBEInt* addBEInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBEUInt* addBEUInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		DictionaryLong* addLong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryULong* addULong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBELong* addBELong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBEULong* addBEULong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryInt128* addInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryUInt128* addUInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBEInt128* addBEInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBEUInt128* addBEUInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryFloat* addFloat(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBEFloat* addBEFloat(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		DictionaryDouble* addDouble(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryBEDouble* addBEDouble(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryVarint* addVarint(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		DictionaryUVarint* addUVarint(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		DictionaryString* addString(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		DictionaryArray* addArray(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryList* addList(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryMap* addMap(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryPolymorph* addPolymorhp(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		DictionaryStruct* addStruct(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		//DictionaryFunction* addFunction(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+
 	private:
-
-		DictionaryBaseType* (DictionaryObjectPool::*poolIndex[USDS_LAST_TYPE])(Dictionary*, DictionaryBaseType*, int, const char*, size_t);
-
-		DictionaryBaseType* addTag(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBoolean(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addByte(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addUByte(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addShort(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addUShort(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBEShort(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBEUShort(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addUInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBEInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBEUInt(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addLong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addULong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBELong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBEULong(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addUInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBEInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBEUInt128(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addFloat(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBEFloat(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addDouble(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addBEDouble(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addVarint(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addUVarint(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addString(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addArray(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addList(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addMap(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addPolymorhp(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addStruct(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
-		DictionaryBaseType* addFunction(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
 
 		// Pool of objects
 		TemplateObjectPool<DictionaryBoolean, DictionaryObjectPool> booleanObjects;
@@ -74,8 +71,8 @@ namespace usds
 		TemplateObjectPool<DictionaryLong, DictionaryObjectPool> longObjects;
 		TemplateObjectPool<DictionaryDouble, DictionaryObjectPool> doubleObjects;
 		TemplateObjectPool<DictionaryUVarint, DictionaryObjectPool> uVarintObjects;
-		TemplateObjectPool<DictionaryArray, DictionaryObjectPool> arrayObjects;
 		TemplateObjectPool<DictionaryString, DictionaryObjectPool> stringObjects;
+		TemplateObjectPool<DictionaryArray, DictionaryObjectPool> arrayObjects;
 		TemplateObjectPool<DictionaryStruct, DictionaryObjectPool> structObjects;
 
 	};

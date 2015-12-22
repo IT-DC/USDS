@@ -36,8 +36,6 @@ namespace usds
 		// Dictionary finalization
 		void finalize() throw(...);
 
-		DictionaryStruct* NextInPool;
-
 	private:
 		// it's executed in DicBaseTag.init()
 		virtual void clear();

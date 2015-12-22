@@ -18,8 +18,6 @@ namespace usds
 
 		void setDefault(bool value);
 
-		DictionaryBoolean* NextInPool;
-
 	private:
 		bool isDefault;
 		bool defaultValue;

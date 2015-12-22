@@ -3,6 +3,7 @@
 
 #include "base\usdsTypes.h"
 #include "base\usdsErrors.h"
+#include "base\objectPool\usdsObjectPool.h"
 
 #include <string>
 
@@ -11,7 +12,7 @@ namespace usds
 	class Dictionary;
 	class DictionaryObjectPool;
 
-	class DictionaryBaseType
+	class DictionaryBaseType : public BasePoolObject
 	{
 	public:
 		DictionaryBaseType(DictionaryObjectPool* parent) { objectPool = parent; };

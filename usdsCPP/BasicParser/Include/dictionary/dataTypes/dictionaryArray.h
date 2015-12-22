@@ -22,6 +22,7 @@ namespace usds
 
 		usdsTypes getElementType() throw (...);
 
+		void setElementType(usdsTypes type_id) throw (...);
 		void setElementAsTag(const char* tag_name, size_t name_size) throw (...);
 		void setElementAsTag(int tag_id) throw (...);
 		int getElementTagID() throw (...);
@@ -29,8 +30,6 @@ namespace usds
 		const char* getElementTagName() throw (...);
 
 		void finalize() throw (...);
-
-		DictionaryArray* NextInPool;
 
 	private:
 		int arraySize;

@@ -3,6 +3,7 @@
 
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"
+#include "base\objectPool\usdsObjectPool.h"
 
 namespace usds
 {
@@ -10,7 +11,7 @@ namespace usds
 	class UsdsBaseType;
 	class BodyObjectPool;
 
-	class UsdsBaseType
+	class UsdsBaseType : public BasePoolObject
 	{
 	public:
 		UsdsBaseType(BodyObjectPool* object_pool);

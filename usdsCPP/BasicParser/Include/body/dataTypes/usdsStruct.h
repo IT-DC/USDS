@@ -45,8 +45,6 @@ namespace usds
 
 		int getFieldNumber() throw (...);
 
-		UsdsStruct* NextInPool;
-
 	private:
 		// it's executed in init()
 		virtual void clear();

@@ -23,8 +23,6 @@ namespace usds
 
 		usdsEncodes getEncode() throw(...);
 
-		DictionaryString* NextInPool;
-
 	private:
 		bool isDefault;
 		std::string defaultValue;

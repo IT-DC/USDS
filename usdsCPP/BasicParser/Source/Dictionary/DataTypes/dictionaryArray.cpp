@@ -23,6 +23,11 @@ void DictionaryArray::clear()
 
 };
 
+void DictionaryArray::setElementType(usdsTypes type_id) throw (...)
+{
+	elementType = type_id;
+};
+
 void DictionaryArray::setElementAsTag(const char* tag_name, size_t name_size) throw (...)
 {
 	elementType = USDS_TAG;

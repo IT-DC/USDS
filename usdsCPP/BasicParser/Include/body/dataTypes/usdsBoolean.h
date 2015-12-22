@@ -15,8 +15,6 @@ namespace usds
 
 		virtual bool getBooleanValue() throw (...);
 
-		UsdsBoolean* NextInPool;
-
 	private:
 
 		virtual void clear();
