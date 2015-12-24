@@ -4,9 +4,9 @@
 
 using namespace usds;
 
-Dictionary::Dictionary(BasicParser* parent)
+Dictionary::Dictionary(BasicParser* parent) : objectPool(this)
 {
-	
+	dictionaryID = -1;
 };
 
 Dictionary::~Dictionary()
@@ -43,7 +43,7 @@ try
 		throw ErrorMessage(DICTIONARY__TAG_ALREADY_EXISTS) << "Tag with name '" << name << "' not unique in dictionary.";
 	
 	// Create object
-	DictionaryBaseType* tag = objectPool.addObject(tag_type, this, 0, id, name, name_size);
+	DictionaryBaseType* tag = objectPool.addObject(tag_type, 0, id, name, name_size);
 	connectTagToDictionary(tag);
 	
 	// update data for index
@@ -60,6 +60,21 @@ catch (ErrorMessage& err)
 catch (ErrorStack& err)
 {
 	err.addLevel("Dictionary::addTag") << tag_type << id << name << name_size;
+	throw;
+};
+
+DictionaryBaseType* Dictionary::addField(usdsTypes field_type, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw (...)
+try
+{
+	return objectPool.addObject(field_type, parent, id, name, name_size);
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("Dictionary::addField") << field_type << (void*)parent << id << name << name_size << err;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("Dictionary::addField") << field_type << (void*)parent << id << name << name_size;
 	throw;
 };
 
@@ -324,6 +339,7 @@ void Dictionary::clear()
 	finalized = false;
 
 	binary.clear();
+	objectPool.clear();
 };
 
 //====================================================================================================================

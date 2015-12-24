@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-DictionaryUVarint::DictionaryUVarint(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
+DictionaryUVarint::DictionaryUVarint(Dictionary* dict) : DictionaryBaseType(dict)
 {
 
 	objectType = USDS_UNSIGNED_VARINT;

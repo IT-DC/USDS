@@ -7,7 +7,7 @@
 
 using namespace usds;
 
-DictionaryStruct::DictionaryStruct(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
+DictionaryStruct::DictionaryStruct(Dictionary* dict) : DictionaryBaseType(dict)
 {
 	buffIndexSize = 8;
 	fieldIndex = new DictionaryBaseType*[buffIndexSize];
@@ -27,7 +27,7 @@ try
 	if (field_id != 0)
 		throw ErrorMessage(DIC_STRUCT__FIELD_ALREADY_EXISTS) << "Field with name '" << name << "' not unique in the tag " << objectName;
 	
-	DictionaryBaseType* field = objectPool->addObject(field_type, dictionary, this, id, name, name_size);
+	DictionaryBaseType* field = dictionary->addField(field_type, this, id, name, name_size);
 	connectFieldToTag(field);
 	
 	// count data for index

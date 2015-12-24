@@ -11,7 +11,7 @@ namespace usds
 	class DictionaryDouble : public DictionaryBaseType
 	{
 	public:
-		DictionaryDouble(DictionaryObjectPool* parent);
+		DictionaryDouble(Dictionary* dict);
 		virtual ~DictionaryDouble() {  };
 
 		virtual void clear();

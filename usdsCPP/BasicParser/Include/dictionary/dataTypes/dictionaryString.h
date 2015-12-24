@@ -13,7 +13,7 @@ namespace usds
 	class DictionaryString : public DictionaryBaseType
 	{
 	public:
-		DictionaryString(DictionaryObjectPool* parent);
+		DictionaryString(Dictionary* dict);
 		virtual ~DictionaryString() {  };
 
 		virtual void clear();

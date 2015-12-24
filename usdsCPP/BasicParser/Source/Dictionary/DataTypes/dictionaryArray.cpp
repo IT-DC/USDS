@@ -3,7 +3,7 @@
 
 using namespace usds;
 
-DictionaryArray::DictionaryArray(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
+DictionaryArray::DictionaryArray(Dictionary* dict) : DictionaryBaseType(dict)
 {
 	objectType = USDS_ARRAY;
 

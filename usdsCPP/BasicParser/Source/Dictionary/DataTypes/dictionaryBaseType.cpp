@@ -2,11 +2,8 @@
 
 using namespace usds;
 
-void DictionaryBaseType::init(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+void DictionaryBaseType::init(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 {
-	if (dict == 0)
-		throw ErrorMessage(DIC_BASE_TYPE__NULL_DICTIONARY, "Dictionary can not be NULL");
-
 	if (name <= 0)
 		throw ErrorMessage(DIC_BASE_TYPE__NULL_NAME, "Name can not be NULL");
 	
@@ -20,7 +17,6 @@ void DictionaryBaseType::init(Dictionary* dict, DictionaryBaseType* parent, int 
 
 	clear();
 
-	dictionary = dict;
 	parentObject = parent;
 
 	if (name_size == 0)

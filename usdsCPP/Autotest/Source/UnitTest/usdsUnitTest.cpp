@@ -5,6 +5,7 @@
 #include "unitTest\base\usdsBinaryInputTest.h"
 #include "unitTest\base\usdsBinaryOutputTest.h"
 #include "unitTest\base\usdsObjectPoolTest.h"
+#include "unitTest\dictionary\dictionaryArrayTest.h"
 
 void UnitTest::runTest(int number)
 {
@@ -28,8 +29,8 @@ void UnitTest::runTest(int number)
 	ObjectPoolTest object_pool_test;
 	object_pool_test.runTest(number);
 
-
-	
+	DictionaryArrayTest dictionary_array_test;
+	dictionary_array_test.runTest(number);
 	
 };
 

@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-DictionaryInt::DictionaryInt(DictionaryObjectPool* parent) : DictionaryBaseType(parent)
+DictionaryInt::DictionaryInt(Dictionary* dict) : DictionaryBaseType(dict)
 {
 
 	objectType = USDS_INT;

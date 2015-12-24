@@ -4,6 +4,7 @@
 
 #include "base\objectPool\dicObjectPool.h"
 #include "base\objectPool\bodyObjectPool.h"
+#include "dictionary\usdsDictionary.h"
 
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryBoolean.h"
@@ -294,12 +295,12 @@ void ObjectPoolTest::test_2()
 
 	std::cout << test_number << ": ";
 
-	usds::DictionaryObjectPool dic_pool;
+	usds::DictionaryObjectPool dic_pool(0);
 	
 	// step 1
 	try
 	{
-		dic_pool.addObject(usds::USDS_NO_TYPE, 0, 0, 0, 0, 0);
+		dic_pool.addObject(usds::USDS_NO_TYPE, 0, 0, 0, 0);
 		std::cout << "Failed at the step 1\n";
 		throw test_number;
 
@@ -316,14 +317,14 @@ void ObjectPoolTest::test_2()
 	// step 2
 	try
 	{
-		dic_pool.addObject(usds::USDS_ARRAY, 0, 0, 0, 0, 0);
+		dic_pool.addObject(usds::USDS_ARRAY, 0, 0, 0, 0);
 		std::cout << "Failed at the step 2\n";
 		throw test_number;
 
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::DIC_BASE_TYPE__NULL_DICTIONARY)
+		if (err.getCode() != usds::DIC_BASE_TYPE__NULL_NAME)
 		{
 			std::cout << "Failed at the step 2\n";
 			throw test_number;
@@ -331,17 +332,16 @@ void ObjectPoolTest::test_2()
 	}
 
 	// step 3
-	usds::Dictionary* dict = (usds::Dictionary*)1;
 	try
 	{
-		dic_pool.addObject(usds::USDS_ARRAY, dict, 0, 0, 0, 0);
+		dic_pool.addObject(usds::USDS_ARRAY, 0, 0, "name", 0);
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::DIC_BASE_TYPE__NULL_NAME)
+		if (err.getCode() != usds::DIC_BASE_TYPE__TAG_ID_ERROR_VALUE)
 		{
 			std::cout << "Failed at the step 3\n";
 			throw test_number;
@@ -351,25 +351,8 @@ void ObjectPoolTest::test_2()
 	// step 4
 	try
 	{
-		dic_pool.addObject(usds::USDS_ARRAY, dict, 0, 0, "name", 0);
+		dic_pool.addObject(usds::USDS_TAG, 0, 0, "name", 0);
 		std::cout << "Failed at the step 4\n";
-		throw test_number;
-
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::DIC_BASE_TYPE__TAG_ID_ERROR_VALUE)
-		{
-			std::cout << "Failed at the step 4\n";
-			throw test_number;
-		}
-	}
-
-	// step 5
-	try
-	{
-		dic_pool.addObject(usds::USDS_TAG, dict, 0, 0, "name", 0);
-		std::cout << "Failed at the step 5\n";
 		throw test_number;
 
 	}
@@ -377,7 +360,7 @@ void ObjectPoolTest::test_2()
 	{
 		if (err.getCode() != usds::DIC_OBJECT_POOL__UNSUPPORTED_TYPE)
 		{
-			std::cout << "Failed at the step 5\n";
+			std::cout << "Failed at the step 4\n";
 			throw test_number;
 		}
 	}
@@ -427,11 +410,11 @@ void ObjectPoolTest::test_4()
 	std::cout << test_number << ": ";
 
 	usds::Dictionary* dict = (usds::Dictionary*)1;
-	usds::DictionaryObjectPool dic_pool;
+	usds::DictionaryObjectPool dic_pool(0);
 	usds::BodyObjectPool body_pool;
 
 	// step 1
-	usds::DictionaryBoolean* dic_object = (usds::DictionaryBoolean*)dic_pool.addObject(usds::USDS_BOOLEAN, dict, 0, 1, "boolean", 0);
+	usds::DictionaryBoolean* dic_object = (usds::DictionaryBoolean*)dic_pool.addObject(usds::USDS_BOOLEAN, 0, 1, "boolean", 0);
 	if (dic_object->getID() != 1 || dic_object->getType() != usds::USDS_BOOLEAN || strcmp(dic_object->getName(), "boolean") != 0)
 	{
 		std::cout << "Failed at the step 1\n";
@@ -446,12 +429,12 @@ void ObjectPoolTest::test_4()
 	}
 	// step 3
 	dic_pool.clear();
-	if (dic_object != (usds::DictionaryBoolean*)dic_pool.addObject(usds::USDS_BOOLEAN, dict, 0, 1, "boolean", 0))
+	if (dic_object != (usds::DictionaryBoolean*)dic_pool.addObject(usds::USDS_BOOLEAN, 0, 1, "boolean", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-	if (dic_object == (usds::DictionaryBoolean*)dic_pool.addObject(usds::USDS_BOOLEAN, dict, 0, 1, "boolean", 0))
+	if (dic_object == (usds::DictionaryBoolean*)dic_pool.addObject(usds::USDS_BOOLEAN, 0, 1, "boolean", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
@@ -482,11 +465,11 @@ void ObjectPoolTest::test_5()
 	std::cout << test_number << ": ";
 
 	usds::Dictionary* dict = (usds::Dictionary*)1;
-	usds::DictionaryObjectPool dic_pool;
+	usds::DictionaryObjectPool dic_pool(0);
 	usds::BodyObjectPool body_pool;
 
 	// step 1
-	usds::DictionaryInt* dic_object = (usds::DictionaryInt*)dic_pool.addObject(usds::USDS_INT, dict, 0, 2, "int", 0);
+	usds::DictionaryInt* dic_object = (usds::DictionaryInt*)dic_pool.addObject(usds::USDS_INT, 0, 2, "int", 0);
 	if (dic_object->getID() != 2 || dic_object->getType() != usds::USDS_INT || strcmp(dic_object->getName(), "int") != 0)
 	{
 		std::cout << "Failed at the step 1\n";
@@ -501,12 +484,12 @@ void ObjectPoolTest::test_5()
 	}
 	// step 3
 	dic_pool.clear();
-	if (dic_object != (usds::DictionaryInt*)dic_pool.addObject(usds::USDS_INT, dict, 0, 1, "int", 0))
+	if (dic_object != (usds::DictionaryInt*)dic_pool.addObject(usds::USDS_INT, 0, 1, "int", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-	if (dic_object == (usds::DictionaryInt*)dic_pool.addObject(usds::USDS_INT, dict, 0, 1, "int", 0))
+	if (dic_object == (usds::DictionaryInt*)dic_pool.addObject(usds::USDS_INT, 0, 1, "int", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
@@ -537,11 +520,11 @@ void ObjectPoolTest::test_6()
 	std::cout << test_number << ": ";
 
 	usds::Dictionary* dict = (usds::Dictionary*)1;
-	usds::DictionaryObjectPool dic_pool;
+	usds::DictionaryObjectPool dic_pool(0);
 	usds::BodyObjectPool body_pool;
 
 	// step 1
-	usds::DictionaryLong* dic_object = (usds::DictionaryLong*)dic_pool.addObject(usds::USDS_LONG, dict, 0, 3, "long", 0);
+	usds::DictionaryLong* dic_object = (usds::DictionaryLong*)dic_pool.addObject(usds::USDS_LONG, 0, 3, "long", 0);
 	if (dic_object->getID() != 3 || dic_object->getType() != usds::USDS_LONG || strcmp(dic_object->getName(), "long") != 0)
 	{
 		std::cout << "Failed at the step 1\n";
@@ -556,12 +539,12 @@ void ObjectPoolTest::test_6()
 	}
 	// step 3
 	dic_pool.clear();
-	if (dic_object != (usds::DictionaryLong*)dic_pool.addObject(usds::USDS_LONG, dict, 0, 1, "long", 0))
+	if (dic_object != (usds::DictionaryLong*)dic_pool.addObject(usds::USDS_LONG, 0, 1, "long", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-	if (dic_object == (usds::DictionaryLong*)dic_pool.addObject(usds::USDS_LONG, dict, 0, 1, "long", 0))
+	if (dic_object == (usds::DictionaryLong*)dic_pool.addObject(usds::USDS_LONG, 0, 1, "long", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
@@ -592,11 +575,11 @@ void ObjectPoolTest::test_7()
 	std::cout << test_number << ": ";
 
 	usds::Dictionary* dict = (usds::Dictionary*)1;
-	usds::DictionaryObjectPool dic_pool;
+	usds::DictionaryObjectPool dic_pool(0);
 	usds::BodyObjectPool body_pool;
 
 	// step 1
-	usds::DictionaryDouble* dic_object = (usds::DictionaryDouble*)dic_pool.addObject(usds::USDS_DOUBLE, dict, 0, 4, "Double", 0);
+	usds::DictionaryDouble* dic_object = (usds::DictionaryDouble*)dic_pool.addObject(usds::USDS_DOUBLE, 0, 4, "Double", 0);
 	if (dic_object->getID() != 4 || dic_object->getType() != usds::USDS_DOUBLE || strcmp(dic_object->getName(), "Double") != 0)
 	{
 		std::cout << "Failed at the step 1\n";
@@ -611,12 +594,12 @@ void ObjectPoolTest::test_7()
 	}
 	// step 3
 	dic_pool.clear();
-	if (dic_object != (usds::DictionaryDouble*)dic_pool.addObject(usds::USDS_DOUBLE, dict, 0, 1, "Double", 0))
+	if (dic_object != (usds::DictionaryDouble*)dic_pool.addObject(usds::USDS_DOUBLE, 0, 1, "Double", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-	if (dic_object == (usds::DictionaryDouble*)dic_pool.addObject(usds::USDS_DOUBLE, dict, 0, 1, "Double", 0))
+	if (dic_object == (usds::DictionaryDouble*)dic_pool.addObject(usds::USDS_DOUBLE, 0, 1, "Double", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
@@ -647,11 +630,11 @@ void ObjectPoolTest::test_8()
 	std::cout << test_number << ": ";
 
 	usds::Dictionary* dict = (usds::Dictionary*)1;
-	usds::DictionaryObjectPool dic_pool;
+	usds::DictionaryObjectPool dic_pool(0);
 	usds::BodyObjectPool body_pool;
 
 	// step 1
-	usds::DictionaryUVarint* dic_object = (usds::DictionaryUVarint*)dic_pool.addObject(usds::USDS_UNSIGNED_VARINT , dict, 0, 5, "UVarint", 0);
+	usds::DictionaryUVarint* dic_object = (usds::DictionaryUVarint*)dic_pool.addObject(usds::USDS_UNSIGNED_VARINT, 0, 5, "UVarint", 0);
 	if (dic_object->getID() != 5 || dic_object->getType() != usds::USDS_UNSIGNED_VARINT || strcmp(dic_object->getName(), "UVarint") != 0)
 	{
 		std::cout << "Failed at the step 1\n";
@@ -666,12 +649,12 @@ void ObjectPoolTest::test_8()
 	}
 	// step 3
 	dic_pool.clear();
-	if (dic_object != (usds::DictionaryUVarint*)dic_pool.addObject(usds::USDS_UNSIGNED_VARINT, dict, 0, 1, "UVarint", 0))
+	if (dic_object != (usds::DictionaryUVarint*)dic_pool.addObject(usds::USDS_UNSIGNED_VARINT, 0, 1, "UVarint", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-	if (dic_object == (usds::DictionaryUVarint*)dic_pool.addObject(usds::USDS_UNSIGNED_VARINT, dict, 0, 1, "UVarint", 0))
+	if (dic_object == (usds::DictionaryUVarint*)dic_pool.addObject(usds::USDS_UNSIGNED_VARINT, 0, 1, "UVarint", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
@@ -702,11 +685,11 @@ void ObjectPoolTest::test_9()
 	std::cout << test_number << ": ";
 
 	usds::Dictionary* dict = (usds::Dictionary*)1;
-	usds::DictionaryObjectPool dic_pool;
+	usds::DictionaryObjectPool dic_pool(0);
 	usds::BodyObjectPool body_pool;
 
 	// step 1
-	usds::DictionaryString* dic_object = (usds::DictionaryString*)dic_pool.addObject(usds::USDS_STRING, dict, 0, 5, "String", 0);
+	usds::DictionaryString* dic_object = (usds::DictionaryString*)dic_pool.addObject(usds::USDS_STRING, 0, 5, "String", 0);
 	dic_object->setEncode(usds::USDS_UTF8);
 	if (dic_object->getID() != 5 || dic_object->getType() != usds::USDS_STRING || strcmp(dic_object->getName(), "String") != 0 || dic_object->getEncode() != usds::USDS_UTF8)
 	{
@@ -722,12 +705,12 @@ void ObjectPoolTest::test_9()
 	}
 	// step 3
 	dic_pool.clear();
-	if (dic_object != (usds::DictionaryString*)dic_pool.addObject(usds::USDS_STRING, dict, 0, 1, "String", 0))
+	if (dic_object != (usds::DictionaryString*)dic_pool.addObject(usds::USDS_STRING, 0, 1, "String", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-	if (dic_object == (usds::DictionaryString*)dic_pool.addObject(usds::USDS_STRING, dict, 0, 1, "String", 0))
+	if (dic_object == (usds::DictionaryString*)dic_pool.addObject(usds::USDS_STRING, 0, 1, "String", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
@@ -758,11 +741,11 @@ void ObjectPoolTest::test_10()
 	std::cout << test_number << ": ";
 
 	usds::Dictionary* dict = (usds::Dictionary*)1;
-	usds::DictionaryObjectPool dic_pool;
+	usds::DictionaryObjectPool dic_pool(0);
 	usds::BodyObjectPool body_pool;
 
 	// step 1
-	usds::DictionaryArray* dic_object = (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, dict, 0, 6, "Array", 0);
+	usds::DictionaryArray* dic_object = (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, 0, 6, "Array", 0);
 	dic_object->setElementType(usds::USDS_INT);
 	dic_object->finalize();
 	if (dic_object->getID() != 6 || dic_object->getType() != usds::USDS_ARRAY || strcmp(dic_object->getName(), "Array") != 0 || dic_object->getElementType() != usds::USDS_INT)
@@ -779,12 +762,12 @@ void ObjectPoolTest::test_10()
 	}
 	// step 3
 	dic_pool.clear();
-	if (dic_object != (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, dict, 0, 1, "Array", 0))
+	if (dic_object != (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, 0, 1, "Array", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-	if (dic_object == (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, dict, 0, 1, "Array", 0))
+	if (dic_object == (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, 0, 1, "Array", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
@@ -816,12 +799,12 @@ void ObjectPoolTest::test_11()
 
 	std::cout << test_number << ": ";
 
-	usds::Dictionary* dict = (usds::Dictionary*)1;
-	usds::DictionaryObjectPool dic_pool;
+	usds::Dictionary dict(0);
+	dict.setID(1, 0, 0);
 	usds::BodyObjectPool body_pool;
 
 	// step 1
-	usds::DictionaryStruct* dic_object = (usds::DictionaryStruct*)dic_pool.addObject(usds::USDS_STRUCT, dict, 0, 6, "Struct", 0);
+	usds::DictionaryStruct* dic_object = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 6, "Struct", 0);
 	dic_object->addField(usds::USDS_INT, 1, "field", 0);
 	dic_object->finalize();
 	if (dic_object->getID() != 6 || dic_object->getType() != usds::USDS_STRUCT || strcmp(dic_object->getName(), "Struct") != 0)
@@ -837,13 +820,14 @@ void ObjectPoolTest::test_11()
 		throw test_number;
 	}
 	// step 3
-	dic_pool.clear();
-	if (dic_object != (usds::DictionaryStruct*)dic_pool.addObject(usds::USDS_STRUCT, dict, 0, 1, "Struct", 0))
+	dict.clear();
+	dict.setID(1, 0, 0);
+	if (dic_object != (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 6, "Struct", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-	if (dic_object == (usds::DictionaryStruct*)dic_pool.addObject(usds::USDS_STRUCT, dict, 0, 1, "Struct", 0))
+	if (dic_object == (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 7, "Struct_2", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;

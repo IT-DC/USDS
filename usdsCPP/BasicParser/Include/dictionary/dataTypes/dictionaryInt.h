@@ -11,7 +11,7 @@ namespace usds
 	class DictionaryInt : public DictionaryBaseType
 	{
 	public:
-		DictionaryInt(DictionaryObjectPool* parent);
+		DictionaryInt(Dictionary* dict);
 		virtual ~DictionaryInt() {  };
 
 		virtual void clear();

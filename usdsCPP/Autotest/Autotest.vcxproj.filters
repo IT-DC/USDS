@@ -7,6 +7,9 @@
     <Filter Include="Unit tests\Base">
       <UniqueIdentifier>{0a54abf5-8ae8-47c9-ac0c-25ee4a1dc74b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unit tests\Dictionary">
+      <UniqueIdentifier>{4a2833c6-4afa-449d-b612-989fe96b9516}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\usdsAutotest.cpp" />
@@ -25,6 +28,9 @@
     <ClCompile Include="Source\UnitTest\Base\usdsObjectPoolTest.cpp">
       <Filter>Unit tests\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTest\Dictionary\dictionaryArrayTest.cpp">
+      <Filter>Unit tests\Dictionary</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAutotest.h" />
@@ -42,6 +48,9 @@
     </ClInclude>
     <ClInclude Include="Include\unitTest\base\usdsObjectPoolTest.h">
       <Filter>Unit tests\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\unitTest\dictionary\dictionaryArrayTest.h">
+      <Filter>Unit tests\Dictionary</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ namespace usds
 	class DictionaryArray : public DictionaryBaseType
 	{
 	public:
-		DictionaryArray(DictionaryObjectPool* parent);
+		DictionaryArray(Dictionary* dict);
 		virtual ~DictionaryArray() {  };
 
 		virtual void clear();

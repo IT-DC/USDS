@@ -15,10 +15,10 @@ namespace usds
 	class DictionaryBaseType : public BasePoolObject
 	{
 	public:
-		DictionaryBaseType(DictionaryObjectPool* parent) { objectPool = parent; };
+		DictionaryBaseType(Dictionary* dict) { dictionary = dict; };
 		virtual ~DictionaryBaseType() { };
 
-		void init(Dictionary* dict, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		void init(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
 
 		const char* getName() throw(...);
 		size_t getNameSize() throw(...);
@@ -49,7 +49,6 @@ namespace usds
 		virtual void clear() = 0;
 
 		Dictionary* dictionary;
-		DictionaryObjectPool* objectPool;
 
 		usdsTypes objectType;
 

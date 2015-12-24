@@ -13,7 +13,7 @@ namespace usds
 	class DictionaryStruct : public DictionaryBaseType
 	{
 	public:
-		DictionaryStruct(DictionaryObjectPool* parent);
+		DictionaryStruct(Dictionary* dict);
 		virtual ~DictionaryStruct() { delete[] fieldIndex; };
 
 		// add existing fields
