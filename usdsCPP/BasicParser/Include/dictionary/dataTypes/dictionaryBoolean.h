@@ -14,7 +14,7 @@ namespace usds
 		DictionaryBoolean(Dictionary* dict);
 		virtual ~DictionaryBoolean() {  };
 
-		virtual void clear();
+		virtual void initType();
 
 		void setDefault(bool value);
 

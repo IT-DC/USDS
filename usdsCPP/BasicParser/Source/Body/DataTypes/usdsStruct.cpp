@@ -1,11 +1,11 @@
 #include "body\dataTypes\usdsStruct.h"
 
 #include "dictionary\dataTypes\dictionaryStruct.h"
-#include "base\objectPool\bodyObjectPool.h"
+#include "body\usdsBody.h"
 
 using namespace usds;
 
-UsdsStruct::UsdsStruct(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
+UsdsStruct::UsdsStruct(Body* parent_body) : UsdsBaseType(parent_body)
 {
 	fieldsBuffSize = 16;
 	fields = new UsdsBaseType*[fieldsBuffSize+1];
@@ -452,7 +452,7 @@ int UsdsStruct::getFieldNumber() throw (...)
 
 //================================================================================================
 
-void UsdsStruct::clear()
+void UsdsStruct::initType()
 {
 	fieldNumber = ((DictionaryStruct*)parentDictionaryObject)->getFieldNumber();
 	
@@ -467,7 +467,7 @@ void UsdsStruct::clear()
 	for (int id = 1; id <= fieldNumber; id++)
 	{
 		DictionaryBaseType* field = ((DictionaryStruct*)parentDictionaryObject)->getField(id);
-		fields[id] = objectPool->addObject(field, this);
+		fields[id] = parentBody->addField(field, this);
 	}
 
 };

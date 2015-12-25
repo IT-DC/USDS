@@ -38,7 +38,7 @@ namespace usds
 
 	private:
 		// it's executed in DicBaseTag.init()
-		virtual void clear();
+		virtual void initType();
 
 		void connectFieldToTag(DictionaryBaseType* field);
 		DictionaryBaseType* firstField;

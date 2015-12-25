@@ -8,7 +8,7 @@ namespace usds
 	class UsdsUVarint : public UsdsBaseType
 	{
 	public:
-		UsdsUVarint(BodyObjectPool* object_pool);
+		UsdsUVarint(Body* parent_body);
 		virtual ~UsdsUVarint();
 
 		virtual void setValue(int value) throw (...);
@@ -21,7 +21,7 @@ namespace usds
 
 	private:
 
-		virtual void clear();
+		virtual void initType();
 
 		unsigned long long objectValue;
 

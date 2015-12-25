@@ -9,12 +9,12 @@ namespace usds
 {
 	class DictionaryBaseType;
 	class UsdsBaseType;
-	class BodyObjectPool;
+	class Body;
 
 	class UsdsBaseType : public BasePoolObject
 	{
 	public:
-		UsdsBaseType(BodyObjectPool* object_pool);
+		UsdsBaseType(Body* parent_body);
 		virtual ~UsdsBaseType();
 
 		void init(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
@@ -52,10 +52,10 @@ namespace usds
 	protected:
 
 		// it's executed in init()
-		virtual void clear() = 0;
+		virtual void initType() = 0;
 
 		DictionaryBaseType* parentDictionaryObject;
-		BodyObjectPool* objectPool;
+		Body* parentBody;
 
 		usdsTypes objectType;
 

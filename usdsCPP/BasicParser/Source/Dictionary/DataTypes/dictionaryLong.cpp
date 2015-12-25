@@ -8,7 +8,7 @@ DictionaryLong::DictionaryLong(Dictionary* dict) : DictionaryBaseType(dict)
 	objectType = USDS_LONG;
 };
 
-void DictionaryLong::clear()
+void DictionaryLong::initType()
 {
 	isDefault = false;
 };

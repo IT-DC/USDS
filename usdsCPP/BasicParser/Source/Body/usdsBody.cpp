@@ -13,7 +13,7 @@
 
 using namespace usds;
 
-Body::Body()
+Body::Body() : objectPool(this)
 {
 
 
@@ -50,6 +50,44 @@ catch (ErrorStack& err)
 	throw;
 };
 
+UsdsBaseType* Body::addTag(DictionaryBaseType* dict_tag) throw(...)
+try
+{
+	UsdsBaseType* tag = objectPool.addObject(dict_tag, 0);
+	connectTagToBody(tag);
+
+	return tag;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("Body::addTag") << (void*)dict_tag << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("Body::addTag") << (void*)dict_tag;
+	throw;
+};
+
+UsdsBaseType* Body::addField(DictionaryBaseType* dict_field, UsdsBaseType* parent_tag) throw(...)
+try
+{
+	if (parent_tag == 0)
+		throw ErrorMessage(BODY__NULL_PARENT_TAG, "Parent tag can not be NULL");
+
+	return objectPool.addObject(dict_field, parent_tag);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("Body::addField") << (void*)dict_field << (void*)parent_tag << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("Body::addField") << (void*)dict_field << (void*)parent_tag;
+	throw;
+};
+
+
+//--------------------------------------------------------------------------------------------
 UsdsStruct* Body::addStructTag(const char* name) throw(...)
 try
 {

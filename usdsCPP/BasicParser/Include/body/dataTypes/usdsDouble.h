@@ -8,7 +8,7 @@ namespace usds
 	class UsdsDouble : public UsdsBaseType
 	{
 	public:
-		UsdsDouble(BodyObjectPool* object_pool);
+		UsdsDouble(Body* parent_body);
 		virtual ~UsdsDouble();
 
 		virtual void setValue(double value) throw (...);
@@ -17,7 +17,7 @@ namespace usds
 
 	private:
 
-		virtual void clear();
+		virtual void initType();
 
 		double objectValue;
 

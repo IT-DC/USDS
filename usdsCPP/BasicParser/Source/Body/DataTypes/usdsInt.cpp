@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-UsdsInt::UsdsInt(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
+UsdsInt::UsdsInt(Body* parent_body) : UsdsBaseType(parent_body)
 {
 	objectType = USDS_INT;
 }
@@ -11,7 +11,7 @@ UsdsInt::~UsdsInt()
 {
 }
 
-void UsdsInt::clear()
+void UsdsInt::initType()
 {
 
 

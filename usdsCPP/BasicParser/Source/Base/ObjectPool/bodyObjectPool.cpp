@@ -13,17 +13,17 @@
 using namespace usds;
 
 
-BodyObjectPool::BodyObjectPool() : 
-	booleanObjects(this),
-	intObjects(this),
-	longObjects(this),
-	doubleObjects(this),
-	uVarintObjects(this),
-	arrayObjects(this),
-	stringObjects(this),
-	structObjects(this)
+BodyObjectPool::BodyObjectPool(Body* parent_body) :
+	booleanObjects(parent_body),
+	intObjects(parent_body),
+	longObjects(parent_body),
+	doubleObjects(parent_body),
+	uVarintObjects(parent_body),
+	arrayObjects(parent_body),
+	stringObjects(parent_body),
+	structObjects(parent_body)
 {
-
+	
 }
 
 BodyObjectPool::~BodyObjectPool()

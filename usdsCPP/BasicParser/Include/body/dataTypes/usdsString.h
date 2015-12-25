@@ -8,7 +8,7 @@ namespace usds
 	class UsdsString : public UsdsBaseType
 	{
 	public:
-		UsdsString(BodyObjectPool* object_pool);
+		UsdsString(Body* parent_body);
 		virtual ~UsdsString();
 
 		virtual void setValue(const char* value) throw (...);
@@ -19,7 +19,7 @@ namespace usds
 
 	private:
 
-		virtual void clear();
+		virtual void initType();
 
 		char* objectValue;
 		size_t valueSize;

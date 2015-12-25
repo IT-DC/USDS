@@ -18,7 +18,7 @@ namespace usds
 		DictionaryArray(Dictionary* dict);
 		virtual ~DictionaryArray() {  };
 
-		virtual void clear();
+		virtual void initType();
 
 		usdsTypes getElementType() throw (...);
 

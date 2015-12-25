@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-UsdsLong::UsdsLong(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
+UsdsLong::UsdsLong(Body* parent_body) : UsdsBaseType(parent_body)
 {
 	objectType = USDS_LONG;
 }
@@ -11,7 +11,7 @@ UsdsLong::~UsdsLong()
 {
 }
 
-void UsdsLong::clear()
+void UsdsLong::initType()
 {
 
 

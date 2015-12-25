@@ -9,7 +9,7 @@ namespace usds
 	class UsdsArray : public UsdsBaseType
 	{
 	public:
-		UsdsArray(BodyObjectPool* object_pool);
+		UsdsArray(Body* parent_body);
 		virtual ~UsdsArray();
 
 		UsdsBaseType* addTagElement() throw(...);
@@ -26,7 +26,7 @@ namespace usds
 
 	private:
 
-		virtual void clear();
+		virtual void initType();
 
 		usdsTypes elementType;
 		

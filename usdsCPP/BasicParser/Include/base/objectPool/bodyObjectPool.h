@@ -9,6 +9,7 @@ namespace usds
 {
 	class UsdsBaseType;
 	class DictionaryBaseType;
+	class Body;
 
 	class UsdsBoolean;
 	class UsdsInt;
@@ -22,7 +23,7 @@ namespace usds
 	class BodyObjectPool
 	{
 	public:
-		BodyObjectPool();
+		BodyObjectPool(Body* parent_body);
 		~BodyObjectPool();
 
 		UsdsBaseType* addObject(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
@@ -66,14 +67,14 @@ namespace usds
 	private:
 
 		// Pool of objects
-		TemplateObjectPool<UsdsBoolean, BodyObjectPool> booleanObjects;
-		TemplateObjectPool<UsdsInt, BodyObjectPool> intObjects;
-		TemplateObjectPool<UsdsLong, BodyObjectPool> longObjects;
-		TemplateObjectPool<UsdsDouble, BodyObjectPool> doubleObjects;
-		TemplateObjectPool<UsdsUVarint, BodyObjectPool> uVarintObjects;
-		TemplateObjectPool<UsdsString, BodyObjectPool> stringObjects;
-		TemplateObjectPool<UsdsArray, BodyObjectPool> arrayObjects;
-		TemplateObjectPool<UsdsStruct, BodyObjectPool> structObjects;
+		TemplateObjectPool<UsdsBoolean, Body> booleanObjects;
+		TemplateObjectPool<UsdsInt, Body> intObjects;
+		TemplateObjectPool<UsdsLong, Body> longObjects;
+		TemplateObjectPool<UsdsDouble, Body> doubleObjects;
+		TemplateObjectPool<UsdsUVarint, Body> uVarintObjects;
+		TemplateObjectPool<UsdsString, Body> stringObjects;
+		TemplateObjectPool<UsdsArray, Body> arrayObjects;
+		TemplateObjectPool<UsdsStruct, Body> structObjects;
 
 	};
 

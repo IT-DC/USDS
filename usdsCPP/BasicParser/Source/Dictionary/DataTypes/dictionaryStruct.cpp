@@ -201,7 +201,7 @@ catch (ErrorStack& err)
 	throw;
 }
 
-void DictionaryStruct::clear()
+void DictionaryStruct::initType()
 {
 	firstField = 0;
 	lastField = 0;

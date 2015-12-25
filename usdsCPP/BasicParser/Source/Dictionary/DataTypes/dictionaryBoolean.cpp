@@ -8,7 +8,7 @@ DictionaryBoolean::DictionaryBoolean(Dictionary* dict) : DictionaryBaseType(dict
 
 };
 
-void DictionaryBoolean::clear()
+void DictionaryBoolean::initType()
 {
 	isDefault = false;
 	

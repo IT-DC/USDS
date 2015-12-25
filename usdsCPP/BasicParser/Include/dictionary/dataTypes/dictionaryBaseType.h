@@ -46,7 +46,7 @@ namespace usds
 		bool isRoot;
 
 		// it's executed in init()
-		virtual void clear() = 0;
+		virtual void initType() = 0;
 
 		Dictionary* dictionary;
 

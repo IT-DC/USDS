@@ -8,7 +8,7 @@ DictionaryInt::DictionaryInt(Dictionary* dict) : DictionaryBaseType(dict)
 	objectType = USDS_INT;
 };
 
-void DictionaryInt::clear()
+void DictionaryInt::initType()
 {
 	isDefault = false;
 };

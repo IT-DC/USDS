@@ -5,6 +5,7 @@
 #include "base\objectPool\dicObjectPool.h"
 #include "base\objectPool\bodyObjectPool.h"
 #include "dictionary\usdsDictionary.h"
+#include "body\usdsBody.h"
 
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryBoolean.h"
@@ -378,7 +379,7 @@ void ObjectPoolTest::test_3()
 	std::cout << test_number << ": ";
 
 	
-	usds::BodyObjectPool body_pool;
+	usds::BodyObjectPool body_pool(0);
 
 	// step 1
 	try
@@ -409,9 +410,8 @@ void ObjectPoolTest::test_4()
 
 	std::cout << test_number << ": ";
 
-	usds::Dictionary* dict = (usds::Dictionary*)1;
 	usds::DictionaryObjectPool dic_pool(0);
-	usds::BodyObjectPool body_pool;
+	usds::BodyObjectPool body_pool(0);
 
 	// step 1
 	usds::DictionaryBoolean* dic_object = (usds::DictionaryBoolean*)dic_pool.addObject(usds::USDS_BOOLEAN, 0, 1, "boolean", 0);
@@ -464,9 +464,8 @@ void ObjectPoolTest::test_5()
 
 	std::cout << test_number << ": ";
 
-	usds::Dictionary* dict = (usds::Dictionary*)1;
 	usds::DictionaryObjectPool dic_pool(0);
-	usds::BodyObjectPool body_pool;
+	usds::BodyObjectPool body_pool(0);
 
 	// step 1
 	usds::DictionaryInt* dic_object = (usds::DictionaryInt*)dic_pool.addObject(usds::USDS_INT, 0, 2, "int", 0);
@@ -519,9 +518,8 @@ void ObjectPoolTest::test_6()
 
 	std::cout << test_number << ": ";
 
-	usds::Dictionary* dict = (usds::Dictionary*)1;
 	usds::DictionaryObjectPool dic_pool(0);
-	usds::BodyObjectPool body_pool;
+	usds::BodyObjectPool body_pool(0);
 
 	// step 1
 	usds::DictionaryLong* dic_object = (usds::DictionaryLong*)dic_pool.addObject(usds::USDS_LONG, 0, 3, "long", 0);
@@ -574,9 +572,8 @@ void ObjectPoolTest::test_7()
 
 	std::cout << test_number << ": ";
 
-	usds::Dictionary* dict = (usds::Dictionary*)1;
 	usds::DictionaryObjectPool dic_pool(0);
-	usds::BodyObjectPool body_pool;
+	usds::BodyObjectPool body_pool(0);
 
 	// step 1
 	usds::DictionaryDouble* dic_object = (usds::DictionaryDouble*)dic_pool.addObject(usds::USDS_DOUBLE, 0, 4, "Double", 0);
@@ -629,9 +626,8 @@ void ObjectPoolTest::test_8()
 
 	std::cout << test_number << ": ";
 
-	usds::Dictionary* dict = (usds::Dictionary*)1;
 	usds::DictionaryObjectPool dic_pool(0);
-	usds::BodyObjectPool body_pool;
+	usds::BodyObjectPool body_pool(0);
 
 	// step 1
 	usds::DictionaryUVarint* dic_object = (usds::DictionaryUVarint*)dic_pool.addObject(usds::USDS_UNSIGNED_VARINT, 0, 5, "UVarint", 0);
@@ -684,9 +680,8 @@ void ObjectPoolTest::test_9()
 
 	std::cout << test_number << ": ";
 
-	usds::Dictionary* dict = (usds::Dictionary*)1;
 	usds::DictionaryObjectPool dic_pool(0);
-	usds::BodyObjectPool body_pool;
+	usds::BodyObjectPool body_pool(0);
 
 	// step 1
 	usds::DictionaryString* dic_object = (usds::DictionaryString*)dic_pool.addObject(usds::USDS_STRING, 0, 5, "String", 0);
@@ -740,9 +735,8 @@ void ObjectPoolTest::test_10()
 
 	std::cout << test_number << ": ";
 
-	usds::Dictionary* dict = (usds::Dictionary*)1;
 	usds::DictionaryObjectPool dic_pool(0);
-	usds::BodyObjectPool body_pool;
+	usds::BodyObjectPool body_pool(0);
 
 	// step 1
 	usds::DictionaryArray* dic_object = (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, 0, 6, "Array", 0);
@@ -801,7 +795,7 @@ void ObjectPoolTest::test_11()
 
 	usds::Dictionary dict(0);
 	dict.setID(1, 0, 0);
-	usds::BodyObjectPool body_pool;
+	usds::Body body;
 
 	// step 1
 	usds::DictionaryStruct* dic_object = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 6, "Struct", 0);
@@ -813,7 +807,7 @@ void ObjectPoolTest::test_11()
 		throw test_number;
 	}
 	// step 2
-	usds::UsdsStruct* body_object = (usds::UsdsStruct*)body_pool.addObject(dic_object, 0);
+	usds::UsdsStruct* body_object = (usds::UsdsStruct*)body.addTag(dic_object);
 	if (body_object->getID() != 6 || body_object->getType() != usds::USDS_STRUCT || strcmp(body_object->getName(), "Struct") != 0)
 	{
 		std::cout << "Failed at the step 2\n";
@@ -834,15 +828,15 @@ void ObjectPoolTest::test_11()
 	}
 
 	// step 4
-	body_pool.clear();
+	body.clearBody();
 	dic_object->addField(usds::USDS_INT, 1, "field", 0);
 	dic_object->finalize();
-	if (body_object != (usds::UsdsStruct*)body_pool.addObject(dic_object, 0))
+	if (body_object != (usds::UsdsStruct*)body.addTag(dic_object))
 	{
 		std::cout << "Failed at the step 4\n";
 		throw test_number;
 	}
-	if (body_object == (usds::UsdsStruct*)body_pool.addObject(dic_object, 0))
+	if (body_object == (usds::UsdsStruct*)body.addTag(dic_object))
 	{
 		std::cout << "Failed at the step 4\n";
 		throw test_number;

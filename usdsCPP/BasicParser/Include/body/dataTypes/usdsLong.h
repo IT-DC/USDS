@@ -8,7 +8,7 @@ namespace usds
 	class UsdsLong : public UsdsBaseType
 	{
 	public:
-		UsdsLong(BodyObjectPool* object_pool);
+		UsdsLong(Body* parent_body);
 		virtual ~UsdsLong();
 
 		virtual void setValue(long long value) throw (...);
@@ -17,7 +17,7 @@ namespace usds
 
 	private:
 
-		virtual void clear();
+		virtual void initType();
 
 		long long objectValue;
 

@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-UsdsDouble::UsdsDouble(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
+UsdsDouble::UsdsDouble(Body* parent_body) : UsdsBaseType(parent_body)
 {
 	objectType = USDS_DOUBLE;
 }
@@ -12,7 +12,7 @@ UsdsDouble::~UsdsDouble()
 }
 
 
-void UsdsDouble::clear()
+void UsdsDouble::initType()
 {
 
 

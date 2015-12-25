@@ -8,7 +8,7 @@ DictionaryString::DictionaryString(Dictionary* dict) : DictionaryBaseType(dict)
 	objectType = USDS_STRING;
 };
 
-void DictionaryString::clear()
+void DictionaryString::initType()
 {
 	isDefault = false;
 	encode = USDS_NO_ENCODE;

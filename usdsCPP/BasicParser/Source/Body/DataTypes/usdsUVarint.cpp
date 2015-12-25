@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-UsdsUVarint::UsdsUVarint(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
+UsdsUVarint::UsdsUVarint(Body* parent_body) : UsdsBaseType(parent_body)
 {
 	objectType = USDS_UNSIGNED_VARINT;
 }
@@ -11,7 +11,7 @@ UsdsUVarint::~UsdsUVarint()
 {
 }
 
-void UsdsUVarint::clear()
+void UsdsUVarint::initType()
 {
 
 

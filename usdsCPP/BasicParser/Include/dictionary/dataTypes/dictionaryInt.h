@@ -14,7 +14,7 @@ namespace usds
 		DictionaryInt(Dictionary* dict);
 		virtual ~DictionaryInt() {  };
 
-		virtual void clear();
+		virtual void initType();
 
 		void setDefault(int value);
 

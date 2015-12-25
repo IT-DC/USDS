@@ -10,7 +10,7 @@ namespace usds
 	class UsdsStruct : public UsdsBaseType
 	{
 	public:
-		UsdsStruct(BodyObjectPool* object_pool);
+		UsdsStruct(Body* parent_body);
 		virtual ~UsdsStruct();
 
 		void setFieldValue(const char* name, int value) throw (...);
@@ -47,7 +47,7 @@ namespace usds
 
 	private:
 		// it's executed in init()
-		virtual void clear();
+		virtual void initType();
 
 		UsdsBaseType** fields;
 		int fieldsBuffSize; // in bytes

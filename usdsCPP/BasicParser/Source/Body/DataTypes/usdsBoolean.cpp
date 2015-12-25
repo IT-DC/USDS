@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-UsdsBoolean::UsdsBoolean(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
+UsdsBoolean::UsdsBoolean(Body* parent_body) : UsdsBaseType(parent_body)
 {
 	objectType = USDS_BOOLEAN;
 }
@@ -24,7 +24,7 @@ bool UsdsBoolean::getBooleanValue() throw (...)
 };
 
 
-void UsdsBoolean::clear()
+void UsdsBoolean::initType()
 {
 
 

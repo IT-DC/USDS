@@ -1,11 +1,11 @@
 #include "body\dataTypes\usdsArray.h"
 
-#include "base\objectPool\bodyObjectPool.h"
+#include "body\usdsBody.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
 
 using namespace usds;
 
-UsdsArray::UsdsArray(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
+UsdsArray::UsdsArray(Body* parent_body) : UsdsBaseType(parent_body)
 {
 	objectType = USDS_ARRAY;
 }
@@ -14,7 +14,7 @@ UsdsArray::~UsdsArray()
 {
 }
 
-void UsdsArray::clear()
+void UsdsArray::initType()
 {
 	elementType = ((DictionaryArray*)parentDictionaryObject)->getElementType();
 
@@ -38,7 +38,7 @@ try
 	if (elementType != USDS_TAG)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_TAG) << "Array elements must be TAG, current value " << typeName(elementType);
 	
-	UsdsBaseType* element = objectPool->addObject(tagElement, this);
+	UsdsBaseType* element = parentBody->addField(tagElement, this);
 	elementValues.writeByteArray(&element, sizeof(size_t));
 	elementNumber++;
 

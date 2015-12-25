@@ -4,9 +4,9 @@
 
 using namespace usds;
 
-UsdsBaseType::UsdsBaseType(BodyObjectPool* object_pool)
+UsdsBaseType::UsdsBaseType(Body* parent_body)
 {
-	objectPool = object_pool;
+	parentBody = parent_body;
 }
 
 UsdsBaseType::~UsdsBaseType()
@@ -21,7 +21,7 @@ void UsdsBaseType::init(DictionaryBaseType* dict_parent, UsdsBaseType* body_pare
 	parentDictionaryObject = dict_parent;
 	parentObject = body_parent;
 
-	clear();
+	initType();
 
 };
 

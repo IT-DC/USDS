@@ -8,7 +8,7 @@ DictionaryDouble::DictionaryDouble(Dictionary* dict) : DictionaryBaseType(dict)
 	objectType = USDS_DOUBLE;
 };
 
-void DictionaryDouble::clear()
+void DictionaryDouble::initType()
 {
 	isDefault = false;
 };

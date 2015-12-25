@@ -8,7 +8,7 @@ DictionaryUVarint::DictionaryUVarint(Dictionary* dict) : DictionaryBaseType(dict
 	objectType = USDS_UNSIGNED_VARINT;
 };
 
-void DictionaryUVarint::clear()
+void DictionaryUVarint::initType()
 {
 	isDefault = false;
 };

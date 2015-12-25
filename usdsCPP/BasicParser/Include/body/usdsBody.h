@@ -27,6 +27,8 @@ namespace usds
 
 		// Body construction
 		UsdsBaseType* addTag(int id) throw(...);
+		UsdsBaseType* addTag(DictionaryBaseType* dict_tag) throw(...);
+		UsdsBaseType* addField(DictionaryBaseType* dict_field, UsdsBaseType* parent_tag) throw(...);
 		
 		UsdsStruct* addStructTag(const char* name) throw(...);
 		UsdsStruct* addStructTag(int id) throw(...);

@@ -9,7 +9,7 @@ DictionaryArray::DictionaryArray(Dictionary* dict) : DictionaryBaseType(dict)
 
 };
 
-void DictionaryArray::clear()
+void DictionaryArray::initType()
 {
 	elementType = USDS_NO_TYPE;
 	elementTagIDs.clear();

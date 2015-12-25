@@ -15,7 +15,7 @@ void DictionaryBaseType::init(DictionaryBaseType* parent, int id, const char* na
 	nextObject = 0;
 	previousObject = 0;
 
-	clear();
+	initType();
 
 	parentObject = parent;
 

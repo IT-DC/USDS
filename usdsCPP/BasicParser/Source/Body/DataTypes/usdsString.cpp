@@ -6,7 +6,7 @@
 
 using namespace usds;
 
-UsdsString::UsdsString(BodyObjectPool* object_pool) : UsdsBaseType(object_pool)
+UsdsString::UsdsString(Body* parent_body) : UsdsBaseType(parent_body)
 {
 	objectType = USDS_STRING;
 	
@@ -20,7 +20,7 @@ UsdsString::~UsdsString()
 	delete[] objectValue;
 }
 
-void UsdsString::clear()
+void UsdsString::initType()
 {
 
 

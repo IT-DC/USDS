@@ -14,7 +14,7 @@ namespace usds
 		DictionaryDouble(Dictionary* dict);
 		virtual ~DictionaryDouble() {  };
 
-		virtual void clear();
+		virtual void initType();
 
 		void setDefault(double value);
 

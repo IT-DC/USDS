@@ -8,7 +8,7 @@ namespace usds
 	class UsdsBoolean : public UsdsBaseType
 	{
 	public:
-		UsdsBoolean(BodyObjectPool* object_pool);
+		UsdsBoolean(Body* parent_body);
 		virtual ~UsdsBoolean();
 
 		virtual void setValue(bool value) throw (...);
@@ -17,7 +17,7 @@ namespace usds
 
 	private:
 
-		virtual void clear();
+		virtual void initType();
 		
 		bool objectValue;
 
