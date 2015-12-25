@@ -1,6 +1,7 @@
 #include "usdsAutotest.h"
 #include "unitTest\dictionary\dictionaryArrayTest.h"
 
+#include "dictionary\usdsDictionary.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
 
 void DictionaryArrayTest::runTest(int number)
@@ -28,13 +29,12 @@ void DictionaryArrayTest::test_1()
 
 	std::cout << test_number << ": ";
 
-	usds::DictionaryArray object(0);
+
+	usds::Dictionary dict(0);
+	usds::DictionaryArray* object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 
 	// step 1
 
-/*	object.init()
-
-	
 	try
 	{
 		body_pool.addObject(0, 0);
@@ -50,7 +50,6 @@ void DictionaryArrayTest::test_1()
 			throw test_number;
 		}
 	}
-	*/
 	std::cout << "Successful!\n";
 
 }

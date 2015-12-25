@@ -21,6 +21,7 @@ namespace usds
 		virtual void initType();
 
 		usdsTypes getElementType() throw (...);
+		DictionaryBaseType* getElement() throw (...);
 
 		void setElementType(usdsTypes type_id) throw (...);
 		void setElementAsTag(const char* tag_name, size_t name_size) throw (...);
@@ -34,8 +35,8 @@ namespace usds
 	private:
 		int arraySize;
 
-		// simple type, USDS_STRING, USDS_TAG or USDS_POLYMORPH
 		usdsTypes elementType;
+		DictionaryBaseType* element;
 
 		// if it's polymorph array (USDS_POLYMORPH)
 		std::vector<int> elementTagIDs;
