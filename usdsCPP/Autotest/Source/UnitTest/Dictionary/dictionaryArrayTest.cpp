@@ -31,20 +31,21 @@ void DictionaryArrayTest::test_1()
 
 
 	usds::Dictionary dict(0);
+	dict.setID(1, 0, 0);
 	usds::DictionaryArray* object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 
 	// step 1
 
 	try
 	{
-		body_pool.addObject(0, 0);
+		object->setElementType(usds::USDS_TAG);
 		std::cout << "Failed at the step 1\n";
 		throw test_number;
 
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_OBJECT_POOL__NULL_DICTIONARY_TAG)
+		if (err.getCode() != usds::DIC_ARRAY__ERROR_ELEMENT_TYPE)
 		{
 			std::cout << "Failed at the step 1\n";
 			throw test_number;

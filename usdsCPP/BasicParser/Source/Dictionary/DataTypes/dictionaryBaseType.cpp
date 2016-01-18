@@ -4,7 +4,7 @@ using namespace usds;
 
 void DictionaryBaseType::init(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 {
-	if (name <= 0)
+	if (name == 0)
 		throw ErrorMessage(DIC_BASE_TYPE__NULL_NAME, "Name can not be NULL");
 	
 	if (id <= 0)

@@ -735,48 +735,48 @@ void ObjectPoolTest::test_10()
 
 	std::cout << test_number << ": ";
 
-	usds::DictionaryObjectPool dic_pool(0);
-	usds::BodyObjectPool body_pool(0);
+	usds::Dictionary dict(0);
+	dict.setID(1, 0, 0);
+	usds::Body body;
 
 	// step 1
-	usds::DictionaryArray* dic_object = (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, 0, 6, "Array", 0);
+	usds::DictionaryArray* dic_object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 6, "Array", 0);
 	dic_object->setElementType(usds::USDS_INT);
-	dic_object->finalize();
-	if (dic_object->getID() != 6 || dic_object->getType() != usds::USDS_ARRAY || strcmp(dic_object->getName(), "Array") != 0 || dic_object->getElementType() != usds::USDS_INT)
+	if (dic_object->getID() != 6 || dic_object->getType() != usds::USDS_ARRAY || strcmp(dic_object->getName(), "Array") != 0)
 	{
 		std::cout << "Failed at the step 1\n";
 		throw test_number;
 	}
 	// step 2
-	usds::UsdsArray* body_object = (usds::UsdsArray*)body_pool.addObject(dic_object, 0);
+	usds::UsdsArray* body_object = (usds::UsdsArray*)body.addTag(dic_object);
 	if (body_object->getID() != 6 || body_object->getType() != usds::USDS_ARRAY || strcmp(body_object->getName(), "Array") != 0 || body_object->getElementType() != usds::USDS_INT)
 	{
 		std::cout << "Failed at the step 2\n";
 		throw test_number;
 	}
 	// step 3
-	dic_pool.clear();
-	if (dic_object != (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, 0, 1, "Array", 0))
+	dict.clear();
+	dict.setID(1, 0, 0);
+	if (dic_object != (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "Array", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-	if (dic_object == (usds::DictionaryArray*)dic_pool.addObject(usds::USDS_ARRAY, 0, 1, "Array", 0))
+	if (dic_object == (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "Array_2", 0))
 	{
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
 
 	// step 4
-	body_pool.clear();
+	body.clearBody();
 	dic_object->setElementType(usds::USDS_INT);
-	dic_object->finalize();
-	if (body_object != (usds::UsdsArray*)body_pool.addObject(dic_object, 0))
+	if (body_object != (usds::UsdsArray*)body.addTag(dic_object))
 	{
 		std::cout << "Failed at the step 4\n";
 		throw test_number;
 	}
-	if (body_object == (usds::UsdsArray*)body_pool.addObject(dic_object, 0))
+	if (body_object == (usds::UsdsArray*)body.addTag(dic_object))
 	{
 		std::cout << "Failed at the step 4\n";
 		throw test_number;

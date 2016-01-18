@@ -23,33 +23,22 @@ namespace usds
 		usdsTypes getElementType() throw (...);
 		DictionaryBaseType* getElement() throw (...);
 
-		void setElementType(usdsTypes type_id) throw (...);
+		DictionaryBaseType* setElementType(usdsTypes type_id) throw (...);
 		void setElementAsTag(const char* tag_name, size_t name_size) throw (...);
 		void setElementAsTag(int tag_id) throw (...);
 		int getElementTagID() throw (...);
-		DictionaryBaseType* getElementTag() throw (...);
 		const char* getElementTagName() throw (...);
+		DictionaryBaseType* getElementTag() throw (...);
 
 		void finalize() throw (...);
 
 	private:
-		int arraySize;
-
 		usdsTypes elementType;
 		DictionaryBaseType* element;
 
-		// if it's polymorph array (USDS_POLYMORPH)
-		std::vector<int> elementTagIDs;
-		std::vector<std::string> elementTagNames;
-
-		// if elements is USDS_STRING
-		usdsEncodes elementEncode;
-
-		// if elements is USDS_TAG
+		// if element is USDS_TAG 
 		int elementTagID;
 		std::string elementTagName;
-		bool elementTagNeedID;
-		bool elementTagNeedName;
 
 	};
 

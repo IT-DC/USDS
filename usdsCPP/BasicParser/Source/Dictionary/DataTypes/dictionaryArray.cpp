@@ -12,41 +12,66 @@ DictionaryArray::DictionaryArray(Dictionary* dict) : DictionaryBaseType(dict)
 void DictionaryArray::initType()
 {
 	elementType = USDS_NO_TYPE;
-	elementTagIDs.clear();
-	elementTagNames.clear();
-	elementEncode = USDS_NO_ENCODE;
-
-	elementTagID = 0;
-	elementTagName.clear();
-	elementTagNeedID = false;
-	elementTagNeedName = false;
+	element = 0;
 
 };
 
-void DictionaryArray::setElementType(usdsTypes type_id) throw (...)
+DictionaryBaseType* DictionaryArray::setElementType(usdsTypes type_id) throw (...)
+try
 {
+	if (type_id == USDS_TAG)
+		throw ErrorMessage(DIC_ARRAY__ERROR_ELEMENT_TYPE, "Use functions setElementAsTag for type TAG");
+	if (typeSize(type_id) == 0 && type_id != USDS_VARINT && type_id != USDS_UNSIGNED_VARINT && type_id != USDS_STRING)
+		throw ErrorMessage(DIC_ARRAY__ERROR_ELEMENT_TYPE, "Unsupported type for array's element. Use type TAG.");
+	
 	elementType = type_id;
+	element = dictionary->addField(type_id, this, 1, "_array_element", 0);
+	return element;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryArray::setElementType") << type_id << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryArray::setElementType") << type_id;
+	throw;
 };
 
 void DictionaryArray::setElementAsTag(const char* tag_name, size_t name_size) throw (...)
+try
 {
+	if (tag_name == 0)
+		throw ErrorMessage(DIC_ARRAY__ERROR_ELEMENT_NAME, "Tag name for the element can not be NULL");
+	
 	elementType = USDS_TAG;
+	element = 0;
 	if (name_size == 0)
 		elementTagName = tag_name;
 	else
 		elementTagName.assign(tag_name, name_size);
 	elementTagID = -1;
-	elementTagNeedID = true;
-	elementTagNeedName = false;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryArray::setElementAsTag") << tag_name << name_size << msg;
 };
 
 void DictionaryArray::setElementAsTag(int tag_id) throw (...)
+try
 {
+	if (tag_id < 0)
+		throw ErrorMessage(DIC_ARRAY__ERROR_ELEMENT_ID, "Tag ID for the element can not be < 0. Current value = ") << tag_id;
+
 	elementType = USDS_TAG;
+	element = 0;
+
 	elementTagName.clear();
 	elementTagID = tag_id;
-	elementTagNeedID = false;
-	elementTagNeedName = true;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryArray::setElementAsTag") << tag_id << msg;
 };
 
 usdsTypes DictionaryArray::getElementType() throw (...)
@@ -64,10 +89,10 @@ try
 		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
 	if (elementType != USDS_TAG)
 		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
-	if (elementTagID == 0 || elementTagNeedID)
+	if (element == 0)
 		throw ErrorMessage(DIC_ARRAY__NOT_FINISHED, "Array isn't finished");
 
-	return elementTagID;
+	return element->getID();
 }
 catch (ErrorMessage& msg)
 {
@@ -81,10 +106,10 @@ try
 		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
 	if (elementType != USDS_TAG)
 		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
-	if (elementTagID == 0 || elementTagNeedID)
+	if (element == 0)
 		throw ErrorMessage(DIC_ARRAY__NOT_FINISHED, "Array isn't finished");
 
-	return dictionary->getTag(elementTagID);
+	return element;
 }
 catch (ErrorMessage& msg)
 {
@@ -98,10 +123,10 @@ try
 		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
 	if (elementType != USDS_TAG)
 		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
-	if (elementTagNeedName)
+	if (element == 0)
 		throw ErrorMessage(DIC_ARRAY__NOT_FINISHED, "Array isn't finished");
 
-	return elementTagName.c_str();
+	return element->getName();
 }
 catch (ErrorMessage& msg)
 {
@@ -114,23 +139,26 @@ try
 	switch (elementType)
 	{
 	case USDS_TAG:
-		if (elementTagNeedID)
+		if (elementTagID = -1)
 		{
-			elementTagID = dictionary->findTagID(elementTagName.c_str());
-			if (elementTagID == 0)
+			element = dictionary->findTag(elementTagName.c_str());
+			if (element == 0)
 				throw ErrorMessage(DIC_ARRAY__TAG_NOT_FOUND) << "Tag with name '" << elementTagName << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
-			elementTagNeedID = false;
 		}
-		else if (elementTagNeedName)
+		else
 		{
-			DictionaryBaseType* tag = dictionary->getTag(elementTagID);
-			if (tag == 0)
-				throw ErrorMessage(DIC_ARRAY__TAG_NOT_FOUND) << "Tag with ID '" << elementTagID << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
-			elementTagName = tag->getName();
-			elementTagNeedName = false;
+			element = dictionary->getTag(elementTagID);
 		}
+		if (element->getID() == objectID)
+		{
+			element = 0;
+			throw ErrorMessage(DIC_ARRAY__RECURSION_ERROR, "Array's element 'TAG' can not be itself.");
+		}
+
 		break;
 	default:
+		if (element == 0)
+			throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array element is NULL");
 		break;
 	}
 

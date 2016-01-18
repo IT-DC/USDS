@@ -34,9 +34,6 @@ DictionaryObjectPool::~DictionaryObjectPool()
 DictionaryBaseType* DictionaryObjectPool::addObject(usdsTypes object_type, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	if (object_type <= USDS_NO_TYPE || object_type >= USDS_LAST_TYPE)
-		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << object_type;
-
 	DictionaryBaseType* object = 0;
 
 	switch (object_type)
@@ -68,12 +65,12 @@ try
 	}
 
 	if (object == 0)
-		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << typeName(object_type);
+		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << object_type;
 	try
 	{
 		object->init(parent, id, name, name_size);
 	}
-	catch (...)
+	catch (ErrorStack)
 	{
 		object->remove();
 		throw;

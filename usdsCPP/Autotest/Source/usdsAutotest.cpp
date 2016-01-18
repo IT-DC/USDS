@@ -1,6 +1,7 @@
 #include "usdsAutotest.h"
 
 #include "unitTest\usdsUnitTest.h"
+#include "base\usdsErrors.h"
 
 #pragma warning(disable : 4996)
 
@@ -20,6 +21,15 @@ int main(int argc, char* argv[])
 		std::cout << "All tests completed successfully at ";
 		printTime();
 	}
+	catch (usds::ErrorStack & err)
+	{
+		std::cout << "Test failed, unexpected error:\n" << err.getFullMessage() << "\n";
+	}
+	catch (usds::ErrorMessage & msg)
+	{
+		std::cout << "Test failed, unexpected message:\n" << msg.getMessage() << "\n";
+	}
+
 	catch (...)
 	{
 		std::cout << "Test failed\n";

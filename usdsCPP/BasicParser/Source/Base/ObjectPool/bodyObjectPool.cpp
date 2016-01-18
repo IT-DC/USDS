@@ -74,7 +74,7 @@ try
 	{
 		object->init(dict_parent, body_parent);
 	}
-	catch (...)
+	catch (ErrorStack)
 	{
 		object->remove();
 		throw;
