@@ -19,6 +19,8 @@ void DictionaryArray::initType()
 DictionaryBaseType* DictionaryArray::setElementType(usdsTypes type_id) throw (...)
 try
 {
+	if (elementType != USDS_NO_TYPE)
+		throw ErrorMessage(DIC_ARRAY__ALREADY_INITIALIZED, "Element's type is already initialized");
 	if (type_id == USDS_TAG)
 		throw ErrorMessage(DIC_ARRAY__ERROR_ELEMENT_TYPE, "Use functions setElementAsTag for type TAG");
 	if (typeSize(type_id) == 0 && type_id != USDS_VARINT && type_id != USDS_UNSIGNED_VARINT && type_id != USDS_STRING)
@@ -41,6 +43,8 @@ catch (ErrorStack& err)
 void DictionaryArray::setElementAsTag(const char* tag_name, size_t name_size) throw (...)
 try
 {
+	if (elementType != USDS_NO_TYPE)
+		throw ErrorMessage(DIC_ARRAY__ALREADY_INITIALIZED, "Element's type is already initialized");
 	if (tag_name == 0)
 		throw ErrorMessage(DIC_ARRAY__ERROR_ELEMENT_NAME, "Tag name for the element can not be NULL");
 	
@@ -60,8 +64,10 @@ catch (ErrorMessage& msg)
 void DictionaryArray::setElementAsTag(int tag_id) throw (...)
 try
 {
-	if (tag_id < 0)
-		throw ErrorMessage(DIC_ARRAY__ERROR_ELEMENT_ID, "Tag ID for the element can not be < 0. Current value = ") << tag_id;
+	if (elementType != USDS_NO_TYPE)
+		throw ErrorMessage(DIC_ARRAY__ALREADY_INITIALIZED, "Element's type is already initialized");
+	if (tag_id <= 0)
+		throw ErrorMessage(DIC_ARRAY__ERROR_ELEMENT_ID, "Tag ID for the element must be > 1. Current value = ") << tag_id;
 
 	elementType = USDS_TAG;
 	element = 0;
@@ -82,32 +88,11 @@ usdsTypes DictionaryArray::getElementType() throw (...)
 	return elementType;
 };
 
-int DictionaryArray::getElementTagID() throw (...)
+DictionaryBaseType* DictionaryArray::getElement() throw (...)
 try
 {
-	if (elementType == USDS_NO_TYPE)
-		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
-	if (elementType != USDS_TAG)
-		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
 	if (element == 0)
-		throw ErrorMessage(DIC_ARRAY__NOT_FINISHED, "Array isn't finished");
-
-	return element->getID();
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("DictionaryArray::getElementTagID") << msg;
-};
-
-DictionaryBaseType* DictionaryArray::getElementTag() throw (...)
-try
-{
-	if (elementType == USDS_NO_TYPE)
 		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
-	if (elementType != USDS_TAG)
-		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
-	if (element == 0)
-		throw ErrorMessage(DIC_ARRAY__NOT_FINISHED, "Array isn't finished");
 
 	return element;
 }
@@ -116,15 +101,29 @@ catch (ErrorMessage& msg)
 	throw ErrorStack("DictionaryArray::getElementTagID") << msg;
 };
 
-const char* DictionaryArray::getElementTagName() throw (...)
+int DictionaryArray::getElementTagID() throw (...)
 try
 {
-	if (elementType == USDS_NO_TYPE)
+	if (element == 0)
 		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
 	if (elementType != USDS_TAG)
 		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
+
+	return element->getID();
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryArray::getElementTagID") << msg;
+};
+
+
+const char* DictionaryArray::getElementTagName() throw (...)
+try
+{
 	if (element == 0)
-		throw ErrorMessage(DIC_ARRAY__NOT_FINISHED, "Array isn't finished");
+		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
+	if (elementType != USDS_TAG)
+		throw ErrorMessage(DIC_ARRAY__ELEMENT_NOT_TAG, "Array element isn't tag");
 
 	return element->getName();
 }
@@ -136,10 +135,9 @@ catch (ErrorMessage& msg)
 void DictionaryArray::finalize() throw (...)
 try
 {
-	switch (elementType)
+	if (elementType == USDS_TAG)
 	{
-	case USDS_TAG:
-		if (elementTagID = -1)
+		if (elementTagID == -1)
 		{
 			element = dictionary->findTag(elementTagName.c_str());
 			if (element == 0)
@@ -154,12 +152,11 @@ try
 			element = 0;
 			throw ErrorMessage(DIC_ARRAY__RECURSION_ERROR, "Array's element 'TAG' can not be itself.");
 		}
-
-		break;
-	default:
+	}
+	else
+	{
 		if (element == 0)
 			throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array element is NULL");
-		break;
 	}
 
 }

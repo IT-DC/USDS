@@ -15,6 +15,7 @@ namespace usds
 		virtual ~DictionaryBoolean() {  };
 
 		virtual void initType();
+		virtual void finalize() throw (...) { };
 
 		void setDefault(bool value);
 

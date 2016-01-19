@@ -15,6 +15,7 @@ namespace usds
 		virtual ~DictionaryUVarint() {  };
 
 		virtual void initType();
+		virtual void finalize() throw (...) { };
 
 		void setDefault(long long value);
 

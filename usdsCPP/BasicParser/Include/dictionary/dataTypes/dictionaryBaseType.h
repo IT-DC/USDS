@@ -19,6 +19,7 @@ namespace usds
 		virtual ~DictionaryBaseType() { };
 
 		void init(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		virtual void finalize() throw(...) = 0;
 
 		const char* getName() throw(...);
 		size_t getNameSize() throw(...);

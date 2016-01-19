@@ -19,6 +19,7 @@ namespace usds
 		virtual ~DictionaryArray() {  };
 
 		virtual void initType();
+		virtual void finalize() throw (...);
 
 		usdsTypes getElementType() throw (...);
 		DictionaryBaseType* getElement() throw (...);
@@ -28,9 +29,6 @@ namespace usds
 		void setElementAsTag(int tag_id) throw (...);
 		int getElementTagID() throw (...);
 		const char* getElementTagName() throw (...);
-		DictionaryBaseType* getElementTag() throw (...);
-
-		void finalize() throw (...);
 
 	private:
 		usdsTypes elementType;

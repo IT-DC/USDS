@@ -40,7 +40,7 @@ try
 	else
 		tag_id = findTagID(name, name_size);
 	if (tag_id != 0)
-		throw ErrorMessage(DICTIONARY__TAG_ALREADY_EXISTS) << "Tag with name '" << name << "' not unique in dictionary.";
+		throw ErrorMessage(DICTIONARY__TAG_ALREADY_EXISTS) << "Tag with name '" << name << "' already exists in dictionary.";
 	
 	// Create object
 	DictionaryBaseType* tag = objectPool.addObject(tag_type, 0, id, name, name_size);
@@ -104,21 +104,20 @@ try
 		tagIndex[id] = tag;
 		tag = tag->getNext();
 	}
-	// Finalize tags: replace TagName to TagID in Links, check errors
+	indexed = true;
+
+	// Sort tags
 	firstTag = 0;
 	lastTag = 0;
 	for (int i = 1; i <= tagNumber; i++)
 	{
-		tag = tagIndex[i];
-		switch (tag->getType())
-		{
-		case USDS_STRUCT:
-			((DictionaryStruct*)tag)->finalize();
-			break;
-		default:
-			break;
-		}
-		connectTagToDictionary(tag);
+		connectTagToDictionary(tagIndex[i]);
+	}
+	
+	// Finalize tags: replace TagName to TagID in Links, check errors
+	for (int i = 1; i <= tagNumber; i++)
+	{
+		(tagIndex[i])->finalize();
 	}
 	
 	finalized = true;
@@ -139,23 +138,25 @@ catch (ErrorStack& err)
 //====================================================================================================================
 int Dictionary::getDictionaryID()  throw (...)
 {
-	if (!finalized)
+	if (dictionaryID == -1)
 		throw ErrorStack("Dictionary::getDictionaryID") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	return dictionaryID;
 };
 unsigned char Dictionary::getMajorVersion() throw (...)
 {
-	if (!finalized)
+	if (dictionaryID == -1)
 		throw ErrorStack("Dictionary::getMajorVersion") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	return majorVersion;
 };
 unsigned char Dictionary::getMinorVersion() throw (...)
 {
-	if (finalized)
+	if (dictionaryID == -1)
 		throw ErrorStack("Dictionary::getMinorVersion") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	return minorVersion;
 };
 
+
+//====================================================================================================================
 DictionaryBaseType* Dictionary::getFirstTag() throw (...)
 {
 	if (dictionaryID < 0)
@@ -176,6 +177,7 @@ DictionaryBaseType* Dictionary::getLastTag() throw (...)
 	return lastTag;
 };
 
+//====================================================================================================================
 int Dictionary::findTagID(const char* name) throw (...)
 {
 	if (dictionaryID < 0)
@@ -258,10 +260,12 @@ DictionaryBaseType* Dictionary::findTag(const char* name, size_t name_size) thro
 
 };
 
+//====================================================================================================================
+
 DictionaryBaseType* Dictionary::getTag(int tag_id) throw (...)
 try
 {
-	if (!finalized)
+	if (!indexed)
 		throw ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 
 	if (tag_id < 1 || tag_id > tagNumber)
@@ -276,7 +280,7 @@ catch (ErrorMessage& msg)
 
 int Dictionary::getTagNumber() throw (...)
 {
-	if (!finalized)
+	if (!indexed)
 		throw ErrorStack("Dictionary::getTagNumber") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 
 	return tagNumber;
@@ -337,6 +341,7 @@ void Dictionary::clear()
 	tagNumber = 0;
 	tagIndex.clear();
 	finalized = false;
+	indexed = false;
 
 	binary.clear();
 	objectPool.clear();

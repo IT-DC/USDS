@@ -21,7 +21,7 @@ void UsdsArray::initType()
 	switch (elementType)
 	{
 	case USDS_TAG:
-		tagElement = ((DictionaryArray*)parentDictionaryObject)->getElementTag();
+		tagElement = ((DictionaryArray*)parentDictionaryObject)->getElement();
 
 
 

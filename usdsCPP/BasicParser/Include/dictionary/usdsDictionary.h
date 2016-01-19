@@ -75,6 +75,7 @@ namespace usds
 		int tagNumber;
 		std::vector<DictionaryBaseType*> tagIndex;
 		bool finalized;
+		bool indexed;
 
 		DictionaryObjectPool objectPool;
 

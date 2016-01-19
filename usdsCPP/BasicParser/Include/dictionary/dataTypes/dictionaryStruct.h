@@ -34,7 +34,7 @@ namespace usds
 		int findFieldID(const char* name, size_t name_size) throw (...);
 
 		// Dictionary finalization
-		void finalize() throw(...);
+		virtual void finalize() throw (...);
 
 	private:
 		// it's executed in DicBaseTag.init()
