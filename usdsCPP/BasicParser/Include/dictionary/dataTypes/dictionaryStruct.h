@@ -14,7 +14,7 @@ namespace usds
 	{
 	public:
 		DictionaryStruct(Dictionary* dict);
-		virtual ~DictionaryStruct() { delete[] fieldIndex; };
+		virtual ~DictionaryStruct();
 
 		// add existing fields
 		DictionaryBaseType* addField(usdsTypes field_type, int id, const char* name, size_t name_size) throw(...);
@@ -49,6 +49,7 @@ namespace usds
 		int fieldNumber;
 		DictionaryBaseType** fieldIndex;
 		int buffIndexSize;
+		bool indexed;
 
 	};
 

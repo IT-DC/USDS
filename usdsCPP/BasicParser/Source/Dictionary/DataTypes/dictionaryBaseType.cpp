@@ -3,6 +3,7 @@
 using namespace usds;
 
 void DictionaryBaseType::init(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+try
 {
 	if (name == 0)
 		throw ErrorMessage(DIC_BASE_TYPE__NULL_NAME, "Name can not be NULL");
@@ -27,6 +28,15 @@ void DictionaryBaseType::init(DictionaryBaseType* parent, int id, const char* na
 	
 	isRoot = (parent == 0);
 	
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryBaseType::init") << (void*)parent << id << name << name_size << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryBaseType::init") << (void*)parent << id << name << name_size;
+	throw;
 };
 
 const char* DictionaryBaseType::getName() throw(...)

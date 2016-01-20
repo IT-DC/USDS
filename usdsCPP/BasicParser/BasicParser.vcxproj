@@ -119,6 +119,7 @@
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryLong.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryString.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryStruct.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryTagLink.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryUVarint.h" />
     <ClInclude Include="Include\dictionary\usdsDictionary.h" />
     <ClInclude Include="Include\usdsBasicParser.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryLong.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryString.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryStruct.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryTagLink.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUVarint.cpp" />
     <ClCompile Include="Source\Dictionary\usdsDictionary.cpp" />
     <ClCompile Include="Source\usdsBasicParser.cpp" />

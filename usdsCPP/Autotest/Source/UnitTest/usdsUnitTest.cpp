@@ -1,11 +1,16 @@
 #include "usdsAutotest.h"
 
 #include "unitTest\usdsUnitTest.h"
+
 #include "unitTest\base\usdsErrorTest.h"
 #include "unitTest\base\usdsBinaryInputTest.h"
 #include "unitTest\base\usdsBinaryOutputTest.h"
 #include "unitTest\base\usdsObjectPoolTest.h"
+
 #include "unitTest\dictionary\dictionaryArrayTest.h"
+#include "unitTest\dictionary\dictionarySimpleTest.h"
+#include "unitTest\dictionary\dictionaryStringTest.h"
+#include "unitTest\dictionary\dictionaryStructTest.h"
 
 void UnitTest::runTest(int number)
 {
@@ -38,6 +43,14 @@ void UnitTest::runTest(int number)
 		DictionaryArrayTest dictionary_array_test;
 		dictionary_array_test.runTest(number);
 
+		DictionarySimpleTest dictionary_simple_test;
+		dictionary_simple_test.runTest(number);
+
+		DictionaryStringTest dictionary_string_test;
+		dictionary_string_test.runTest(number);
+
+		DictionaryStructTest dictionary_struct_test;
+		dictionary_struct_test.runTest(number);
 
 
 	}

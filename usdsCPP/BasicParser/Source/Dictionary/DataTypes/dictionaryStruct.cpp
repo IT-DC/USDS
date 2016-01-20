@@ -9,15 +9,25 @@ using namespace usds;
 
 DictionaryStruct::DictionaryStruct(Dictionary* dict) : DictionaryBaseType(dict)
 {
-	buffIndexSize = 8;
-	fieldIndex = new DictionaryBaseType*[buffIndexSize];
+	buffIndexSize = 0;
+	fieldIndex = 0;
 
 	objectType = USDS_STRUCT;
 };
 
+
+DictionaryStruct::~DictionaryStruct()
+{
+	if (fieldIndex != 0)
+		delete[] fieldIndex;
+}
+
 DictionaryBaseType* DictionaryStruct::addField(usdsTypes field_type, int id, const char* name, size_t name_size) throw(...)
 try
 {
+	if (indexed)
+		throw ErrorMessage(DIC_STRUCT__STRUCT_IS_FINALIZED, "Can not add a field: the structure is finalized already");
+	
 	// check name
 	int field_id;
 	if (name_size == 0)
@@ -68,6 +78,9 @@ int DictionaryStruct::getFieldNumber() throw (...)
 //==============================================================================================
 DictionaryBaseType* DictionaryStruct::getField(int id) throw (...)
 {
+	if (!indexed)
+		throw ErrorStack("DictionaryStruct::getField") << id << ErrorMessage(DIC_STRUCT__STRUCT_IS_NOT_FINALIZED, "Function is not available: struct is not finalized.");
+	
 	if (id > fieldNumber)
 		throw ErrorStack("DictionaryStruct::getField") << id << (ErrorMessage(DIC_STRUCT__FIELD_ID_ERROR_VALUE) << "Field ID must be in range [1; " << fieldNumber << "]. Current value:" << id);
 
@@ -149,6 +162,11 @@ int DictionaryStruct::findFieldID(const char* name, size_t name_size) throw (...
 void DictionaryStruct::finalize() throw(...)
 try
 {
+	if (indexed)
+		throw ErrorMessage(DIC_STRUCT__STRUCT_IS_FINALIZED, "The structure is finalized already");
+	if (fieldNumber == 0)
+		throw ErrorMessage(DIC_STRUCT__NO_FIELD, "Structure can not be without fields");
+
 	// Check field ID
 	if (fieldMaxID != fieldNumber)
 		throw ErrorMessage(DIC_STRUCT__FIELD_ID_ERROR_VALUE) << "Field numeration must be sequentially in a tag. Tag ID: " << objectID << ", field number: " << fieldNumber << ", wrong tag ID: " << fieldMaxID;;
@@ -156,9 +174,18 @@ try
 	// Create index
 	if (fieldNumber >= buffIndexSize)
 	{
-		delete[] fieldIndex;
+		if (fieldIndex != 0)
+			delete[] fieldIndex;
 		buffIndexSize = fieldNumber + 1;
-		fieldIndex = new DictionaryBaseType*[buffIndexSize];
+		try
+		{
+			fieldIndex = new DictionaryBaseType*[buffIndexSize];
+		}
+		catch (...)
+		{
+			fieldIndex = 0;
+			throw ErrorMessage(DIC_STRUCT__ALLOCATE_ERROR, "Memory allocation error");
+		}
 	}
 	for (int id = 1; id <= fieldNumber; id++)
 		fieldIndex[id] = 0;
@@ -173,22 +200,28 @@ try
 		fieldIndex[id] = field;
 		field = field->getNext();
 	}
+	indexed = true;
 
-	// Finalize fields: replace TagName to TagID in Links
+	// sort fields
 	firstField = 0;
 	lastField = 0;
 	for (int id = 1; id <= fieldNumber; id++)
 	{
+		connectFieldToTag(fieldIndex[id]);
+	}
+
+	// Finalize fields: replace TagName to TagID in Links
+	for (int id = 1; id <= fieldNumber; id++)
+	{
 		field = fieldIndex[id];
-		switch (field->getType())
+		if (field->getType() == USDS_TAG)
 		{
-		case USDS_ARRAY:
-			((DictionaryArray*)field)->finalize();
-			break;
-		default:
-			break;
+
 		}
-		connectFieldToTag(field);
+		else
+		{
+			field->finalize();
+		}
 	}
 }
 catch (ErrorMessage& msg)
@@ -208,6 +241,7 @@ void DictionaryStruct::initType()
 
 	fieldMaxID = 0;
 	fieldNumber = 0;
+	indexed = false;
 
 };
 

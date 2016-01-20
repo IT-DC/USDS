@@ -161,6 +161,9 @@
     <ClInclude Include="Include\converters\usdsBodyBinaryParser.h">
       <Filter>Converters\Parsers</Filter>
     </ClInclude>
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryTagLink.h">
+      <Filter>Dictionary\Data types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -274,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="Source\Converters\usdsBodyBinaryParser.cpp">
       <Filter>Converters\Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryTagLink.cpp">
+      <Filter>Dictionary\Data types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

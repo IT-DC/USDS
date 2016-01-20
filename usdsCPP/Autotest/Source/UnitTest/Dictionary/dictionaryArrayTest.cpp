@@ -6,11 +6,11 @@
 
 void DictionaryArrayTest::runTest(int number)
 {
-	if (!needStart(number, UNIT_TESTS__DICTIONARY_TYPES))
+	if (!needStart(number, UNIT_TESTS__DICTIONARY_ARRAY))
 		return;
 	testNumbers = number;
 
-	std::cout << UNIT_TESTS__DICTIONARY_TYPES << " ------------- Dictionary Array Class ---------------\n";
+	std::cout << UNIT_TESTS__DICTIONARY_ARRAY << " ------------- Dictionary Array Class ---------------\n";
 	
 	test_1();
 	test_2();
