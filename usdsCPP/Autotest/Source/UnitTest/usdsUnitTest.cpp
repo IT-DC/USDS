@@ -17,20 +17,29 @@ void UnitTest::runTest(int number)
 	printTime();
 	std::cout << "==========================================================\n";
 
-	ErrorTest err_test;
-	err_test.runTest(number);
+	// Base classes
+	{
+		ErrorTest err_test;
+		err_test.runTest(number);
 
-	BinaryInputTest bin_input_test;
-	bin_input_test.runTest(number);
+		BinaryInputTest bin_input_test;
+		bin_input_test.runTest(number);
 
-	BinaryOutputTest bin_output_test;
-	bin_output_test.runTest(number);
+		BinaryOutputTest bin_output_test;
+		bin_output_test.runTest(number);
 
-	ObjectPoolTest object_pool_test;
-	object_pool_test.runTest(number);
+		ObjectPoolTest object_pool_test;
+		object_pool_test.runTest(number);
 
-	DictionaryArrayTest dictionary_array_test;
-	dictionary_array_test.runTest(number);
-	
+	}
+
+	// Dictionary classes
+	{
+		DictionaryArrayTest dictionary_array_test;
+		dictionary_array_test.runTest(number);
+
+
+
+	}
 };
 
