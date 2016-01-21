@@ -1,5 +1,6 @@
 #include "base\objectPool\dicObjectPool.h"
 
+#include "dictionary\dataTypes\dictionaryTagLink.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryBoolean.h"
 #include "dictionary\dataTypes\dictionaryDouble.h"
@@ -14,6 +15,7 @@ using namespace usds;
 //========================================================================================================
 
 DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict) :
+	tagLinkObjects(dict),
 	booleanObjects(dict),
 	intObjects(dict),
 	longObjects(dict),
@@ -38,6 +40,9 @@ try
 
 	switch (object_type)
 	{
+	case USDS_TAG:
+		object = tagLinkObjects.addObject();
+		break;
 	case USDS_BOOLEAN:
 		object = booleanObjects.addObject();
 		break;
@@ -90,6 +95,27 @@ catch (ErrorStack& err)
 };
 
 //========================================================================================================
+
+DictionaryTagLink* DictionaryObjectPool::addTagLink(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+try
+{
+	DictionaryTagLink* object = tagLinkObjects.addObject();
+	try
+	{
+		object->init(parent, id, name, name_size);
+	}
+	catch (...)
+	{
+		object->remove();
+		throw;
+	}
+	return object;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryObjectPool::addTagLink") << (void*)parent << id << name << name_size;
+	throw;
+};
 
 DictionaryBoolean* DictionaryObjectPool::addBoolean(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
@@ -263,6 +289,7 @@ catch (ErrorStack& err)
 //========================================================================================================
 void DictionaryObjectPool::clear()
 {
+	tagLinkObjects.clearPool();
 	booleanObjects.clearPool();
 	intObjects.clearPool();
 	longObjects.clearPool();

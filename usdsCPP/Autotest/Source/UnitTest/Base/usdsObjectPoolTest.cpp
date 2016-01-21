@@ -7,6 +7,7 @@
 #include "dictionary\usdsDictionary.h"
 #include "body\usdsBody.h"
 
+#include "dictionary\dataTypes\dictionaryTagLink.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryBoolean.h"
 #include "dictionary\dataTypes\dictionaryDouble.h"
@@ -352,7 +353,7 @@ void ObjectPoolTest::test_2()
 	// step 4
 	try
 	{
-		dic_pool.addObject(usds::USDS_TAG, 0, 0, "name", 0);
+		dic_pool.addObject(usds::USDS_LAST_TYPE, 0, 0, "name", 0);
 		std::cout << "Failed at the step 4\n";
 		throw test_number;
 
@@ -839,6 +840,40 @@ void ObjectPoolTest::test_11()
 	if (body_object == (usds::UsdsStruct*)body.addTag(dic_object))
 	{
 		std::cout << "Failed at the step 4\n";
+		throw test_number;
+	}
+
+	std::cout << "Successful!\n";
+}
+
+void ObjectPoolTest::test_12()
+{
+	int test_number = UNIT_TESTS__OBJECT_POOL_12;
+	if (!needStart(testNumbers, test_number))
+		return;
+
+	std::cout << test_number << ": ";
+
+	usds::DictionaryObjectPool dic_pool(0);
+
+	// step 1
+	usds::DictionaryTagLink* dic_object = (usds::DictionaryTagLink*)dic_pool.addObject(usds::USDS_TAG, 0, 1, "tag", 0);
+	if (dic_object->getID() != 1 || dic_object->getType() != usds::USDS_TAG || strcmp(dic_object->getName(), "tag") != 0)
+	{
+		std::cout << "Failed at the step 1\n";
+		throw test_number;
+	}
+
+	// step 2
+	dic_pool.clear();
+	if (dic_object != (usds::DictionaryTagLink*)dic_pool.addObject(usds::USDS_TAG, 0, 1, "tag", 0))
+	{
+		std::cout << "Failed at the step 2\n";
+		throw test_number;
+	}
+	if (dic_object == (usds::DictionaryTagLink*)dic_pool.addObject(usds::USDS_TAG, 0, 1, "tag2", 0))
+	{
+		std::cout << "Failed at the step 2\n";
 		throw test_number;
 	}
 

@@ -25,18 +25,9 @@ namespace usds
 		DictionaryBaseType* getElement() throw (...);
 
 		DictionaryBaseType* setElementType(usdsTypes type_id) throw (...);
-		void setElementAsTag(const char* tag_name, size_t name_size) throw (...);
-		void setElementAsTag(int tag_id) throw (...);
-		int getElementTagID() throw (...);
-		const char* getElementTagName() throw (...);
 
 	private:
-		usdsTypes elementType;
 		DictionaryBaseType* element;
-
-		// if element is USDS_TAG 
-		int elementTagID;
-		std::string elementTagName;
 
 	};
 

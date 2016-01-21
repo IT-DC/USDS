@@ -20,16 +20,18 @@ void DictionaryTagLink::initType()
 void DictionaryTagLink::finalize() throw (...)
 try
 {
-	if (tagID == -1)
+	if (!tagName.empty())
 	{
 		tag = dictionary->findTag(tagName.c_str());
 		if (tag == 0)
 			throw ErrorMessage(DIC_TAG_LINK__TAG_NOT_FOUND) << "Tag with name '" << tagName << "' not found in dictionary ID=" << dictionary->getDictionaryID() << " v." << int(dictionary->getMajorVersion()) << "." << int(dictionary->getMinorVersion());
 	}
-	else
+	else if (tagID != -1)
 	{
 		tag = dictionary->getTag(tagID);
 	}
+	else
+		throw ErrorMessage(DIC_TAG_LINK__NOT_INITIALIZED, "Tag's link isn't initialized");
 
 }
 catch (ErrorMessage& msg)

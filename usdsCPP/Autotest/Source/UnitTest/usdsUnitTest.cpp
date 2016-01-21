@@ -11,6 +11,7 @@
 #include "unitTest\dictionary\dictionarySimpleTest.h"
 #include "unitTest\dictionary\dictionaryStringTest.h"
 #include "unitTest\dictionary\dictionaryStructTest.h"
+#include "unitTest\dictionary\dictionaryTagLinkTest.h"
 
 void UnitTest::runTest(int number)
 {
@@ -52,7 +53,8 @@ void UnitTest::runTest(int number)
 		DictionaryStructTest dictionary_struct_test;
 		dictionary_struct_test.runTest(number);
 
-
+		DictionaryTagLinkTest dictionary_tag_link_test;
+		dictionary_tag_link_test.runTest(number);
 	}
 };
 

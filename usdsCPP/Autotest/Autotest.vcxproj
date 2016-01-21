@@ -81,6 +81,7 @@
     <ClInclude Include="Include\unitTest\dictionary\dictionarySimpleTest.h" />
     <ClInclude Include="Include\unitTest\dictionary\dictionaryStringTest.h" />
     <ClInclude Include="Include\unitTest\dictionary\dictionaryStructTest.h" />
+    <ClInclude Include="Include\unitTest\dictionary\dictionaryTagLinkTest.h" />
     <ClInclude Include="Include\unitTest\usdsUnitTest.h" />
     <ClInclude Include="Include\usdsAutotest.h" />
   </ItemGroup>
@@ -93,6 +94,7 @@
     <ClCompile Include="Source\UnitTest\Dictionary\dictionarySimpleTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryStringTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryStructTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Dictionary\dictionaryTagLinkTest.cpp" />
     <ClCompile Include="Source\UnitTest\usdsUnitTest.cpp" />
     <ClCompile Include="Source\usdsAutotest.cpp" />
   </ItemGroup>

@@ -10,6 +10,7 @@ namespace usds
 	class Dictionary;
 	class DictionaryBaseType;
 
+	class DictionaryTagLink;
 	class DictionaryBoolean;
 	class DictionaryInt;
 	class DictionaryLong;
@@ -18,7 +19,7 @@ namespace usds
 	class DictionaryArray;
 	class DictionaryString;
 	class DictionaryStruct;
-
+	
 	class DictionaryObjectPool
 	{
 	public:
@@ -30,6 +31,7 @@ namespace usds
 		// Clear pool, it does not release memory
 		void clear();
 
+		DictionaryTagLink* addTagLink(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
 		DictionaryBoolean* addBoolean(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
 		//DictionaryByte* addByte(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
 		//DictionaryUByte* addUByte(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
@@ -66,6 +68,7 @@ namespace usds
 	private:
 
 		// Pool of objects
+		TemplateObjectPool<DictionaryTagLink, Dictionary> tagLinkObjects;
 		TemplateObjectPool<DictionaryBoolean, Dictionary> booleanObjects;
 		TemplateObjectPool<DictionaryInt, Dictionary> intObjects;
 		TemplateObjectPool<DictionaryLong, Dictionary> longObjects;

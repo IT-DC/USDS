@@ -33,6 +33,9 @@ void Dictionary::setID(int id, unsigned char major, unsigned char minor) throw (
 DictionaryBaseType* Dictionary::addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...)
 try
 {
+	if (tag_type == USDS_TAG)
+		throw ErrorMessage(DICTIONARY__UNSUPPORTED_TYPE, "Tag type can not be TAG");
+
 	// check name
 	int tag_id;
 	if (name_size == 0)
@@ -84,6 +87,9 @@ catch (ErrorStack& err)
 void Dictionary::finalizeDictionary() throw(...)
 try
 {
+	if (tagNumber == 0)
+		throw ErrorMessage(DICTIONARY__NO_TAGS, "Dictionary can't be empty.");
+
 	// Tag numeration must be sequentially
 	if (tagMaxID != tagNumber)
 		throw ErrorMessage(DICTIONARY__TAG_ID_ERROR_VALUE) << "Tag numeration must be sequentially. Tag number: " << tagNumber << ", wrong tag ID: " << tagMaxID;
@@ -92,8 +98,6 @@ try
 	tagIndex.reserve(tagNumber+1);
 	tagIndex.assign(tagNumber+1, 0);
 	DictionaryBaseType* tag = firstTag;
-	if (tag == 0)
-		throw ErrorMessage(DICTIONARY__NO_TAGS, "Dictionary can't be empty.");
 
 	while (tag != 0)
 	{
