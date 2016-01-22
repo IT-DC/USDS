@@ -13,6 +13,7 @@
 #include "dictionary\dataTypes\dictionaryString.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
+#include "dictionary\dataTypes\dictionaryTagLink.h"
 
 using namespace usds;
 
@@ -86,7 +87,7 @@ catch (ErrorStack& err)
 
 void DictionaryBinaryCreator::writeTag(DictionaryBaseType* object) throw (...)
 {
-	throw ErrorStack("DictionaryBinaryCreator::writeTag") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type TAG for Dictionary Binary Creator");
+	outBuffer->writeUVarint(((DictionaryTagLink*)object)->getTag()->getID());
 };
 
 void DictionaryBinaryCreator::writeBoolean(DictionaryBaseType* object) throw (...)
@@ -234,15 +235,12 @@ catch (ErrorStack& err)
 void DictionaryBinaryCreator::writeArray(DictionaryBaseType* object) throw (...)
 try
 {
-	switch (((DictionaryArray*)object)->getElementType())
-	{
-	case USDS_TAG:
-		outBuffer->writeByte(USDS_TAG);
-		outBuffer->writeUVarint(((DictionaryArray*)object)->getElementTagID());
-		break;
-	default:
-		throw ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE) << "Unsupported type '" << ((DictionaryArray*)object)->getElementType() << "'";
-	}
+	DictionaryBaseType* element = ((DictionaryArray*)object)->getElement();
+	usdsTypes element_type = element->getType();
+	
+	outBuffer->writeByte(element_type);
+	(this->*(writeIndex[element_type]))(element);
+	
 }
 catch (ErrorMessage& msg)
 {

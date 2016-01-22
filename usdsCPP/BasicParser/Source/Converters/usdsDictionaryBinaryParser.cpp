@@ -4,6 +4,7 @@
 #include "dictionary\dataTypes\dictionaryStruct.h"
 #include "dictionary\dataTypes\dictionaryString.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
+#include "dictionary\dataTypes\dictionaryTagLink.h"
 
 
 using namespace usds;
@@ -97,7 +98,9 @@ catch (ErrorStack& err)
 
 void DictionaryBinaryParser::readTag(DictionaryBaseType* object) throw (...)
 {
-	throw ErrorStack("DictionaryBinaryParser::readTag") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type TAG for Dictionary Binary Parser");
+	int tag_type = 0;
+	binary->readUVarint(&tag_type);
+	((DictionaryTagLink*)object)->setTag(tag_type);
 };
 
 void DictionaryBinaryParser::readBoolean(DictionaryBaseType* object) throw (...)
@@ -246,19 +249,9 @@ catch (ErrorStack& err)
 void DictionaryBinaryParser::readArray(DictionaryBaseType* object) throw (...)
 try
 {
-	int element_type = binary->readByte();
-	switch (element_type)
-	{
-	case USDS_TAG:
-		{
-			int tag_id;
-			binary->readUVarint(&tag_id);
-			((DictionaryArray*)object)->setElementAsTag(tag_id);
-			break;
-		}
-	default:
-		throw ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT) << "Unsupported type '" << ((DictionaryArray*)object)->getElementType() << "'";
-	}
+	usdsTypes element_type = (usdsTypes)binary->readByte();
+	DictionaryBaseType* element = ((DictionaryArray*)object)->setElementType(element_type);
+	(this->*(readIndex[element_type]))(element);
 }
 catch (ErrorMessage& msg)
 {

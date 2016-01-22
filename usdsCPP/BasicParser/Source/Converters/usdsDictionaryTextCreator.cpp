@@ -10,6 +10,7 @@
 #include "dictionary\dataTypes\dictionaryString.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
+#include "dictionary\dataTypes\dictionaryTagLink.h"
 
 using namespace usds;
 
@@ -65,9 +66,10 @@ try
 	for (int tag_id = 1; tag_id <= dict->getTagNumber(); tag_id++)
 	{
 		DictionaryBaseType* tag = dict->getTag(tag_id);
-		textBuff << "\t" << tag->getID() << ": " << tag->getTypeName();
-		// write specific Tag parameters
+		textBuff << "\t" << tag->getID() << ": ";
+		// write Tag
 		(this->*(writeIndex[tag->getType()]))(tag);
+		textBuff << ";\n";
 	}
 	textBuff << "}";
 
@@ -88,13 +90,13 @@ catch (ErrorStack& err)
 
 void DictionaryTextCreator::writeTag(DictionaryBaseType* object) throw (...)
 {
-	throw ErrorStack("DictionaryTextCreator::writeTag") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type TAG for Dictionary Text Creator");
+	textBuff << ((DictionaryTagLink*)object)->getTag()->getName() << " " << object->getName();
 };
 
 void DictionaryTextCreator::writeBoolean(DictionaryBaseType* object) throw (...)
 {
 
-	textBuff << " " << object->getName() << ";\n";
+	textBuff << "BOOLEAN " << object->getName();
 };
 
 void DictionaryTextCreator::writeByte(DictionaryBaseType* object) throw (...)
@@ -130,7 +132,7 @@ void DictionaryTextCreator::writeBEUShort(DictionaryBaseType* object) throw (...
 void DictionaryTextCreator::writeInt(DictionaryBaseType* object) throw (...)
 {
 
-	textBuff << " " << object->getName() << ";\n";
+	textBuff << "INT " << object->getName();
 };
 
 void DictionaryTextCreator::writeUInt(DictionaryBaseType* object) throw (...)
@@ -151,7 +153,7 @@ void DictionaryTextCreator::writeBEUInt(DictionaryBaseType* object) throw (...)
 void DictionaryTextCreator::writeLong(DictionaryBaseType* object) throw (...)
 {
 
-	textBuff << " " << object->getName() << ";\n";
+	textBuff << "LONG " << object->getName();
 };
 
 void DictionaryTextCreator::writeULong(DictionaryBaseType* object) throw (...)
@@ -202,7 +204,7 @@ void DictionaryTextCreator::writeBEFloat(DictionaryBaseType* object) throw (...)
 void DictionaryTextCreator::writeDouble(DictionaryBaseType* object) throw (...)
 {
 
-	textBuff << " " << object->getName() << ";\n";
+	textBuff << "DOUBLE " << object->getName();
 };
 
 void DictionaryTextCreator::writeBEDouble(DictionaryBaseType* object) throw (...)
@@ -218,21 +220,13 @@ void DictionaryTextCreator::writeVarint(DictionaryBaseType* object) throw (...)
 void DictionaryTextCreator::writeUVarint(DictionaryBaseType* object) throw (...)
 {
 
-	textBuff << " " << object->getName() << ";\n";
+	textBuff << "UNSIGNED VARINT " << object->getName();
 };
 
 void DictionaryTextCreator::writeString(DictionaryBaseType* object)
 try
 {
-	switch (((DictionaryString*)object)->getEncode())
-	{
-	case USDS_NO_ENCODE:
-		break;
-	default:
-		textBuff << "<" << encodeName(((DictionaryString*)object)->getEncode()) << ">";
-	};
-	
-	textBuff << " " << object->getName() << ";\n";
+		textBuff << "STRING<" << encodeName(((DictionaryString*)object)->getEncode()) << "> " << object->getName();
 	
 }
 catch (ErrorStack& err)
@@ -244,16 +238,17 @@ catch (ErrorStack& err)
 void DictionaryTextCreator::writeArray(DictionaryBaseType* object)
 try
 {
-	textBuff << "<";
-	switch (((DictionaryArray*)object)->getElementType())
+	textBuff << "ARRAY<";
+	usdsTypes element_type = ((DictionaryArray*)object)->getElementType();
+	if (element_type == USDS_TAG)
 	{
-	case USDS_TAG:
-		textBuff << ((DictionaryArray*)object)->getElementTagName();
-		break;
-	default:
-		textBuff << typeName(((DictionaryArray*)object)->getElementType());
+		textBuff << ((DictionaryTagLink*)object)->getTag()->getName();
 	}
-	textBuff << "> " << object->getName() << ";\n";
+	else
+	{
+		textBuff << typeName(element_type);
+	}
+	textBuff << "> " << object->getName();
 }
 catch (ErrorStack& err)
 {
@@ -284,9 +279,10 @@ try
 	for (int i = 1; i <= fieldNumber; i++)
 	{
 		DictionaryBaseType* field = ((DictionaryStruct*)object)->getField(i);
-		textBuff << "\t\t" << field->getID() << ": " << field->getTypeName();
-		// write specific Field parameters
+		textBuff << "\t\t" << field->getID() << ": ";
+		// write Field
 		(this->*(writeIndex[field->getType()]))(field);
+		textBuff << ";\n";
 	};
 	textBuff << "\t}\n";
 	if (!object->getRootStatus())

@@ -61,7 +61,7 @@
 #endif  /* ! defined DICTIONARY_TEXTDEBUG */
 
 /* Line 33 of lalr1.cc  */
-#line 25 "bisonDictionaryTextParser.y"
+#line 26 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 33 of lalr1.cc  */
 #line 68 "bisonDictionaryTextParser.hh"
@@ -75,7 +75,7 @@ namespace usds {
     union semantic_type
     {
 /* Line 33 of lalr1.cc  */
-#line 39 "bisonDictionaryTextParser.y"
+#line 40 "bisonDictionaryTextParser.y"
 
     bool  			boolVal;
 	int  			intVal;
@@ -295,7 +295,7 @@ namespace usds {
     class DictionaryBaseType* field;
   };
 /* Line 33 of lalr1.cc  */
-#line 25 "bisonDictionaryTextParser.y"
+#line 26 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 33 of lalr1.cc  */
 #line 302 "bisonDictionaryTextParser.hh"

@@ -11,6 +11,7 @@
 	#include "dictionary\dataTypes\dictionaryString.h"
 	#include "dictionary\dataTypes\dictionaryUVarint.h"
 	#include "dictionary\dataTypes\dictionaryStruct.h"
+	#include "dictionary\dataTypes\dictionaryTagLink.h"
 	
 	#include "flexDictionaryTextScanner.h"
 	#include <string>
@@ -167,7 +168,8 @@ field:
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_ARRAY '<' TEXT_NAME '>' TEXT_NAME ';'
 	{
 		field = ((DictionaryStruct*)tag)->addField($3, $1, $7, 0);
-		((DictionaryArray*)field)->setElementAsTag($5, 0);
+		DictionaryTagLink* element = (DictionaryTagLink*)(((DictionaryArray*)field)->setElementType(USDS_TAG));
+		element->setTag($5, 0);
 		delete [] $5;
 		delete [] $7;
 	}

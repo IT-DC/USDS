@@ -1,6 +1,6 @@
 #include "dictionary\dataTypes\dictionaryStruct.h"
 #include "dictionary\usdsDictionary.h"
-#include "dictionary\dataTypes\dictionaryArray.h"
+#include "dictionary\dataTypes\dictionaryTagLink.h"
 
 #include <string>
 #include <iostream>
@@ -214,13 +214,11 @@ try
 	for (int id = 1; id <= fieldNumber; id++)
 	{
 		field = fieldIndex[id];
+		field->finalize();
 		if (field->getType() == USDS_TAG)
 		{
-
-		}
-		else
-		{
-			field->finalize();
+			if (((DictionaryTagLink*)field)->getTag()->getID() == objectID)
+				throw ErrorMessage(DIC_STRUCT__RECURSION_ERROR, "Recursion links must be OPTIONAL.");
 		}
 	}
 }

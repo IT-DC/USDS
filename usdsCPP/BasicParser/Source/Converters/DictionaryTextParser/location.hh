@@ -41,7 +41,7 @@
 # include "position.hh"
 
 /* Line 166 of location.cc  */
-#line 25 "bisonDictionaryTextParser.y"
+#line 26 "bisonDictionaryTextParser.y"
 namespace usds {
 /* Line 166 of location.cc  */
 #line 48 "location.hh"
@@ -175,7 +175,7 @@ namespace usds {
   }
 
 /* Line 296 of location.cc  */
-#line 25 "bisonDictionaryTextParser.y"
+#line 26 "bisonDictionaryTextParser.y"
 } // usds
 /* Line 296 of location.cc  */
 #line 182 "location.hh"

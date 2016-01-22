@@ -43,7 +43,7 @@ void DictionaryArrayTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::DIC_ARRAY__ERROR_ELEMENT_TYPE)
+		if (err.getCode() != usds::USDS_TYPES__ERROR_TYPE_CODE)
 		{
 			std::cout << "Failed at the step 1\n";
 			throw test_number;
@@ -210,7 +210,8 @@ void DictionaryArrayTest::test_2()
 	try
 	{
 		dict.addTag(usds::USDS_INT, 2, "int", 0);
-		((usds::DictionaryTagLink*)(object->getElement()))->setTag(2);
+		usds::DictionaryTagLink* tag_link = (usds::DictionaryTagLink*)object->setElementType(usds::USDS_TAG);
+		tag_link->setTag(2);
 		dict.finalizeDictionary();
 	}
 	catch (usds::ErrorStack)
@@ -244,7 +245,8 @@ void DictionaryArrayTest::test_2()
 	try
 	{
 		dict.addTag(usds::USDS_INT, 2, "int", 0);
-		((usds::DictionaryTagLink*)(object->getElement()))->setTag("int", 2);
+		usds::DictionaryTagLink* tag_link = (usds::DictionaryTagLink*)object->setElementType(usds::USDS_TAG);
+		tag_link->setTag("int", 0);
 		dict.finalizeDictionary();
 	}
 	catch (usds::ErrorStack)
@@ -276,7 +278,8 @@ void DictionaryArrayTest::test_2()
 
 	try
 	{
-		((usds::DictionaryTagLink*)(object->getElement()))->setTag(1);
+		usds::DictionaryTagLink* tag_link = (usds::DictionaryTagLink*)object->setElementType(usds::USDS_TAG);
+		tag_link->setTag(1);
 		dict.finalizeDictionary();
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
@@ -298,7 +301,8 @@ void DictionaryArrayTest::test_2()
 
 	try
 	{
-		((usds::DictionaryTagLink*)(object->getElement()))->setTag("array", 0);
+		usds::DictionaryTagLink* tag_link = (usds::DictionaryTagLink*)object->setElementType(usds::USDS_TAG);
+		tag_link->setTag("array", 0);
 		dict.finalizeDictionary();
 		std::cout << "Failed at the step 8\n";
 		throw test_number;

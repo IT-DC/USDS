@@ -1,4 +1,5 @@
 #include "dictionary\dataTypes\dictionaryArray.h"
+#include "dictionary\dataTypes\dictionaryTagLink.h"
 #include "dictionary\usdsDictionary.h"
 
 using namespace usds;
@@ -64,8 +65,11 @@ try
 		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array element is NULL");
 	element->finalize();
 	
-	if (getParent() == 0 && element->getType() == USDS_TAG && element->getID() == objectID)
-		throw ErrorMessage(DIC_ARRAY__RECURSION_ERROR, "Array's element 'TAG' can not be itself.");
+	if (getParent() == 0 && element->getType() == USDS_TAG)
+	{
+		if (((DictionaryTagLink*)element)->getTag()->getID() == objectID)
+			throw ErrorMessage(DIC_ARRAY__RECURSION_ERROR, "Array's element 'TAG' can not be itself.");
+	}
 }
 catch (ErrorMessage& msg)
 {
