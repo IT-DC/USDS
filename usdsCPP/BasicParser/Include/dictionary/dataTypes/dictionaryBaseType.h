@@ -39,15 +39,15 @@ namespace usds
 		void setRoot(bool is_root) throw(...);
 		bool getRootStatus() { return isRoot; };
 
+		// it's executed in init()
+		virtual void initType() = 0;
+
 	protected:
 		std::string objectName;
 		int objectID;
 
 		// restrictions
 		bool isRoot;
-
-		// it's executed in init()
-		virtual void initType() = 0;
 
 		Dictionary* dictionary;
 

@@ -46,6 +46,8 @@ void ObjectPoolTest::runTest(int number)
 	test_9();
 	test_10();
 	test_11();
+	test_12();
+	test_13();
 
 };
 
@@ -874,6 +876,53 @@ void ObjectPoolTest::test_12()
 	if (dic_object == (usds::DictionaryTagLink*)dic_pool.addObject(usds::USDS_TAG, 0, 1, "tag2", 0))
 	{
 		std::cout << "Failed at the step 2\n";
+		throw test_number;
+	}
+
+	std::cout << "Successful!\n";
+}
+
+void ObjectPoolTest::test_13()
+{
+	int test_number = UNIT_TESTS__OBJECT_POOL_13;
+	if (!needStart(testNumbers, test_number))
+		return;
+
+	std::cout << test_number << ": ";
+
+	class testPool : public usds::BasePoolObject
+	{
+	public:
+		testPool(testPool* parent) { value = 0; };
+		~testPool() {};
+
+		int value;
+
+	};
+	usds::TemplateObjectPool<testPool, testPool> testObjects(0);
+
+	// step 1
+
+	testPool* object = testObjects.addObject();
+	if (*(object->_firstInPool) != object || *(object->_firstReservedInPool) != 0 || *(object->_lastInPool) != object)
+	{
+		std::cout << "Failed at the step 1\n";
+		throw test_number;
+	}
+
+	// step 2
+	object->remove();
+	if (*(object->_firstInPool) != object || *(object->_firstReservedInPool) != object || *(object->_lastInPool) != object)
+	{
+		std::cout << "Failed at the step 2\n";
+		throw test_number;
+	}
+
+	// step 3
+	testPool* object_2 = testObjects.addObject();
+	if (object != object_2 || *(object_2->_firstInPool) != object || *(object_2->_firstReservedInPool) != 0 || *(object_2->_lastInPool) != object)
+	{
+		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
 

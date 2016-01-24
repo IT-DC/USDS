@@ -7,7 +7,7 @@
 
 int main(int argc, char* argv[])
 {
-	testNumbers tests = ANY_TEST;
+	testNumbers tests = UNIT_TESTS__DICTIONARY_STRUCT_2;
 	
 	UnitTest unit;
 	

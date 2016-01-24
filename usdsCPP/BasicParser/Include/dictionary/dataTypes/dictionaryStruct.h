@@ -35,10 +35,11 @@ namespace usds
 
 		// Dictionary finalization
 		virtual void finalize() throw (...);
-
-	private:
 		// it's executed in DicBaseTag.init()
 		virtual void initType();
+
+	private:
+
 
 		void connectFieldToTag(DictionaryBaseType* field);
 		DictionaryBaseType* firstField;

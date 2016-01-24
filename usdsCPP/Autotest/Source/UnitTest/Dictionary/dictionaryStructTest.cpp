@@ -223,7 +223,6 @@ void DictionaryStructTest::test_2()
 	}
 
 	// step 2
-
 	try
 	{
 		object->addField(usds::USDS_INT, 1, 0, 0);
@@ -238,12 +237,12 @@ void DictionaryStructTest::test_2()
 			throw test_number;
 		}
 	}
-
+	
 	// step 3
 
 	try
 	{
-		object->addField(usds::USDS_BOOLEAN, 1, "boolean", 0);
+		//object->addField(usds::USDS_BOOLEAN, 1, "boolean", 0);
 		object->addField(usds::USDS_INT, 2, "int", 0);
 		object->addField(usds::USDS_DOUBLE, 3, "double", 0);
 	}

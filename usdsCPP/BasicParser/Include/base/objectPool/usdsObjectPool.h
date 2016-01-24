@@ -13,6 +13,7 @@ namespace usds
 		~BasePoolObject() {};
 
 		BasePoolObject* _nextInPool;
+		BasePoolObject* _myPointer;
 		BasePoolObject* _previousInPool;
 		
 		BasePoolObject** _firstInPool;
@@ -23,14 +24,14 @@ namespace usds
 		void remove()
 		{
 			// If error - do nothing
-			if (*_firstReservedInPool == this)
+			if (*_firstReservedInPool == _myPointer)
 				return;
 			// If it's last element in pool
 			if (_nextInPool == 0)
 			{
 				// If there is no reserved elements in pool
 				if (*_firstReservedInPool == 0)
-					*_firstReservedInPool = this;
+					*_firstReservedInPool = _myPointer;
 				// Else - Error, but do nothing
 				return;
 			}
@@ -42,10 +43,10 @@ namespace usds
 				*_firstInPool = _nextInPool;
 			_nextInPool->_previousInPool = _previousInPool;
 			// Step 2: Put to the back
-			(*_lastInPool)->_nextInPool = this;
+			(*_lastInPool)->_nextInPool = _myPointer;
 			_previousInPool = (*_lastInPool);
 			_nextInPool = 0;
-			(*_lastInPool) = this;
+			(*_lastInPool) = _myPointer;
 		}
 
 	};
@@ -92,6 +93,7 @@ namespace usds
 				firstElement = object;
 				lastElement = object;
 				
+				object->_myPointer = object;
 				object->_firstInPool = (BasePoolObject**)&firstElement;
 				object->_firstReservedInPool = (BasePoolObject**)&firstReservedElement;
 				object->_lastInPool = (BasePoolObject**)&lastElement;
@@ -108,6 +110,8 @@ namespace usds
 				{
 					throw ErrorStack("addObject") << ErrorMessage(USDS_OBJECT_POOL__ALLOCATE_ERROR, "Can't allocate memory for the object");
 				}
+				
+				object->_myPointer = object;
 				object->_firstInPool = (BasePoolObject**)&firstElement;
 				object->_firstReservedInPool = (BasePoolObject**)&firstReservedElement;
 				object->_lastInPool = (BasePoolObject**)&lastElement;
