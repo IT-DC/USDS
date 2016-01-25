@@ -30,10 +30,7 @@ try
 	
 	// check name
 	int field_id;
-	if (name_size == 0)
-		field_id = findFieldID(name);
-	else
-		field_id = findFieldID(name, name_size);
+	field_id = findFieldID(name, name_size);
 	if (field_id != 0)
 		throw ErrorMessage(DIC_STRUCT__FIELD_ALREADY_EXISTS) << "Field with name '" << name << "' not unique in the tag " << objectName;
 	
@@ -113,8 +110,16 @@ DictionaryBaseType* DictionaryStruct::getField(const char* name, size_t name_siz
 	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
-		if (strcmp(field->getName(), name) == 0)
-			return field;
+		if (name_size == 0)
+		{
+			if (strcmp(field->getName(), name) == 0)
+				return field;
+		}
+		else
+		{
+			if (strncmp(field->getName(), name, name_size) == 0)
+				return field;
+		}
 		field = field->getNext();
 	}
 
@@ -149,8 +154,16 @@ int DictionaryStruct::findFieldID(const char* name, size_t name_size) throw (...
 	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
-		if (strncmp(field->getName(), name, name_size) == 0)
-			return field->getID();
+		if (name_size == 0)
+		{
+			if (strcmp(field->getName(), name) == 0)
+				return field->getID();
+		}
+		else
+		{
+			if (strncmp(field->getName(), name, name_size) == 0)
+				return field->getID();
+		}
 		field = field->getNext();
 	}
 
@@ -184,6 +197,7 @@ try
 		catch (...)
 		{
 			fieldIndex = 0;
+			buffIndexSize = 0;
 			throw ErrorMessage(DIC_STRUCT__ALLOCATE_ERROR, "Memory allocation error");
 		}
 	}
@@ -224,10 +238,12 @@ try
 }
 catch (ErrorMessage& msg)
 {
+	indexed = false;
 	throw ErrorStack("DictionaryStruct::finalize") << msg;
 }
 catch (ErrorStack& err)
 {
+	indexed = false;
 	err.addLevel("DictionaryStruct::finalize");
 	throw;
 }

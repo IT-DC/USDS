@@ -35,13 +35,10 @@ try
 {
 	if (tag_type == USDS_TAG)
 		throw ErrorMessage(DICTIONARY__UNSUPPORTED_TYPE, "Tag type can not be TAG");
-
+	
 	// check name
 	int tag_id;
-	if (name_size == 0)
-		tag_id = findTagID(name);
-	else
-		tag_id = findTagID(name, name_size);
+	tag_id = findTagID(name, name_size);
 	if (tag_id != 0)
 		throw ErrorMessage(DICTIONARY__TAG_ALREADY_EXISTS) << "Tag with name '" << name << "' already exists in dictionary.";
 	
@@ -87,6 +84,9 @@ catch (ErrorStack& err)
 void Dictionary::finalizeDictionary() throw(...)
 try
 {
+	if (dictionaryID == -1)
+		throw ErrorStack("Dictionary::getDictionaryID") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary ID not initialized");
+
 	if (tagNumber == 0)
 		throw ErrorMessage(DICTIONARY__NO_TAGS, "Dictionary can't be empty.");
 
@@ -163,8 +163,6 @@ unsigned char Dictionary::getMinorVersion() throw (...)
 //====================================================================================================================
 DictionaryBaseType* Dictionary::getFirstTag() throw (...)
 {
-	if (dictionaryID < 0)
-		throw ErrorStack("Dictionary::getFirstTag") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	if (firstTag == 0)
 		throw ErrorStack("Dictionary::getFirstTag") << ErrorMessage(DICTIONARY__NO_TAGS, "Dictionary is empty.");
 
@@ -173,8 +171,6 @@ DictionaryBaseType* Dictionary::getFirstTag() throw (...)
 
 DictionaryBaseType* Dictionary::getLastTag() throw (...)
 {
-	if (dictionaryID < 0)
-		throw ErrorStack("Dictionary::getLastTag") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	if (firstTag == 0)
 		throw ErrorStack("Dictionary::getLastTag") << ErrorMessage(DICTIONARY__NO_TAGS, "Dictionary is empty.");
 
@@ -184,9 +180,6 @@ DictionaryBaseType* Dictionary::getLastTag() throw (...)
 //====================================================================================================================
 int Dictionary::findTagID(const char* name) throw (...)
 {
-	if (dictionaryID < 0)
-		throw ErrorStack("Dictionary::findTagID") << name << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
-	
 	if (name == 0)
 		throw ErrorStack("Dictionary::findTagID") << name << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
 
@@ -204,17 +197,22 @@ int Dictionary::findTagID(const char* name) throw (...)
 
 int Dictionary::findTagID(const char* name, size_t name_size) throw (...)
 {
-	if (dictionaryID < 0)
-		throw ErrorStack("Dictionary::findTagID").addStringAttribute(name, name_size) << name_size << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
-
 	if (name == 0)
 		throw ErrorStack("Dictionary::findTagID") << name << name_size << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
 
 	DictionaryBaseType* tag = firstTag;
 	while (tag != 0)
 	{
-		if (strncmp(tag->getName(), name, name_size) == 0)
-			return tag->getID();
+		if (name_size == 0)
+		{
+			if (strcmp(tag->getName(), name) == 0)
+				return tag->getID();
+		}
+		else
+		{
+			if (strncmp(tag->getName(), name, name_size) == 0)
+				return tag->getID();
+		}
 		tag = tag->getNext();
 	}
 
@@ -224,9 +222,6 @@ int Dictionary::findTagID(const char* name, size_t name_size) throw (...)
 
 DictionaryBaseType* Dictionary::findTag(const char* name) throw (...)
 {
-	if (dictionaryID < 0)
-		throw ErrorStack("Dictionary::findTag") << name << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
-
 	if (name == 0)
 		throw ErrorStack("Dictionary::findTag") << name << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
 
@@ -245,9 +240,6 @@ DictionaryBaseType* Dictionary::findTag(const char* name) throw (...)
 
 DictionaryBaseType* Dictionary::findTag(const char* name, size_t name_size) throw (...)
 {
-	if (dictionaryID < 0)
-		throw ErrorStack("Dictionary::findTag").addStringAttribute(name, name_size) << name_size << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
-
 	if (name == 0)
 		throw ErrorStack("Dictionary::findTag") << name << name_size << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
 
@@ -284,9 +276,6 @@ catch (ErrorMessage& msg)
 
 int Dictionary::getTagNumber() throw (...)
 {
-	if (!indexed)
-		throw ErrorStack("Dictionary::getTagNumber") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
-
 	return tagNumber;
 };
 

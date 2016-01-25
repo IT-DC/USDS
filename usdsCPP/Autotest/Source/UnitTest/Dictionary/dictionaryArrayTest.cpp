@@ -4,6 +4,7 @@
 #include "dictionary\usdsDictionary.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
+#include "dictionary\dataTypes\dictionaryString.h"
 
 void DictionaryArrayTest::runTest(int number)
 {
@@ -151,12 +152,30 @@ void DictionaryArrayTest::test_1()
 	try
 	{
 		dict.finalizeDictionary();
-	}
-	catch (usds::ErrorStack)
-	{
 		std::cout << "Failed at the step 8\n";
 		throw test_number;
 	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_STRING__ERROR_ENCODE)
+		{
+			std::cout << "Failed at the step 8\n";
+			throw test_number;
+		}
+	}
+
+	// step 9
+	((usds::DictionaryString*)(object->getElement()))->setEncode(usds::USDS_UTF8);
+	try
+	{
+		dict.finalizeDictionary();
+	}
+	catch (usds::ErrorStack)
+	{
+		std::cout << "Failed at the step 9\n";
+		throw test_number;
+	}
+
 
 	std::cout << "Successful!\n";
 }

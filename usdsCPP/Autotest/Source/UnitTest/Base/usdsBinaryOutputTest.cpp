@@ -41,6 +41,22 @@ void BinaryOutputTest::test_1()
 		std::cout << "Failed at the step 2\n";
 		throw test_number;
 	}
+	// step 3
+	try
+	{
+		binary.getBinary(0);
+		std::cout << "Failed at the step 3\n";
+		throw test_number;
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__NULL_POINTER)
+		{
+			std::cout << "Failed at the step 3\n";
+			throw test_number;
+		}
+	}
+
 
 	std::cout << "Successful!\n";
 

@@ -44,15 +44,40 @@ void DictionaryStringTest::test_1()
 	}
 
 	// step 3
+	try
+	{
+		object.finalize();
+		std::cout << "Failed at the step 3\n";
+		throw test_number;
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_STRING__ERROR_ENCODE)
+		{
+			std::cout << "Failed at the step 3\n";
+			throw test_number;
+		}
+	}
+
+	// step 4
 
 	object.setEncode(usds::USDS_UTF8);
 	if (object.getEncode() != usds::USDS_UTF8)
 	{
-		std::cout << "Failed at the step 3\n";
+		std::cout << "Failed at the step 4\n";
 		throw test_number;
 	}
 
-
+	// step 5
+	try
+	{
+		object.finalize();
+	}
+	catch (usds::ErrorStack)
+	{
+		std::cout << "Failed at the step 5\n";
+		throw test_number;
+	}
 	
 
 

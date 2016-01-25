@@ -17,7 +17,7 @@ namespace usds
 		virtual ~DictionaryString() {  };
 
 		virtual void initType();
-		virtual void finalize() throw (...) { };
+		virtual void finalize() throw (...);
 
 		void setDefault(const char* value);
 		void setEncode(usdsEncodes value) throw(...);

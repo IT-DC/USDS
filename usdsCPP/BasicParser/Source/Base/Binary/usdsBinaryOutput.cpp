@@ -46,6 +46,8 @@ void BinaryOutput::clear()
 
 const unsigned char* BinaryOutput::getBinary(size_t* size) throw(...)
 {
+	if (size == 0)
+		throw ErrorStack("BinaryOutput::getBinary") << size << ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer for Size can not be NULL");
 	*size = buffCurrentPos - buffFirstPos;
 	return buffFirstPos;
 };

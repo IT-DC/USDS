@@ -31,3 +31,10 @@ usdsEncodes DictionaryString::getEncode() throw(...)
 
 	return encode;
 };
+
+void DictionaryString::finalize() throw (...)
+{
+
+	if (encode == USDS_NO_ENCODE)
+		throw ErrorStack("DictionaryString::finalize") << ErrorMessage(DIC_STRING__ERROR_ENCODE, "Encode was not set");
+}
