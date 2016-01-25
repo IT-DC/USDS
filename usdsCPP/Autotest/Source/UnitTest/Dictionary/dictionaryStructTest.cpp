@@ -203,6 +203,7 @@ void DictionaryStructTest::test_2()
 
 	// step 1
 
+	
 	usds::Dictionary dict(0);
 	dict.setID(1, 0, 0);
 	usds::DictionaryStruct* object = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 1, "struct", 0);
@@ -222,6 +223,7 @@ void DictionaryStructTest::test_2()
 		}
 	}
 
+	
 	// step 2
 	try
 	{
@@ -242,7 +244,7 @@ void DictionaryStructTest::test_2()
 
 	try
 	{
-		//object->addField(usds::USDS_BOOLEAN, 1, "boolean", 0);
+		object->addField(usds::USDS_BOOLEAN, 1, "boolean", 0);
 		object->addField(usds::USDS_INT, 2, "int", 0);
 		object->addField(usds::USDS_DOUBLE, 3, "double", 0);
 	}
@@ -251,7 +253,6 @@ void DictionaryStructTest::test_2()
 		std::cout << "Failed at the step 3\n";
 		throw test_number;
 	}
-
 
 	std::cout << "Successful!\n";
 }

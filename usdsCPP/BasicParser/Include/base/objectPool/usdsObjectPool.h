@@ -13,7 +13,7 @@ namespace usds
 		~BasePoolObject() {};
 
 		BasePoolObject* _nextInPool;
-		BasePoolObject* _myPointer;
+		void* _myPointer;
 		BasePoolObject* _previousInPool;
 		
 		BasePoolObject** _firstInPool;
@@ -31,7 +31,7 @@ namespace usds
 			{
 				// If there is no reserved elements in pool
 				if (*_firstReservedInPool == 0)
-					*_firstReservedInPool = _myPointer;
+					*_firstReservedInPool = (BasePoolObject*)_myPointer;
 				// Else - Error, but do nothing
 				return;
 			}
@@ -43,10 +43,10 @@ namespace usds
 				*_firstInPool = _nextInPool;
 			_nextInPool->_previousInPool = _previousInPool;
 			// Step 2: Put to the back
-			(*_lastInPool)->_nextInPool = _myPointer;
+			(*_lastInPool)->_nextInPool = (BasePoolObject*)_myPointer;
 			_previousInPool = (*_lastInPool);
 			_nextInPool = 0;
-			(*_lastInPool) = _myPointer;
+			(*_lastInPool) = (BasePoolObject*)_myPointer;
 		}
 
 	};
