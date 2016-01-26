@@ -25,7 +25,7 @@ namespace usds
 		bool isBodyIncluded();
 
 		void initDictionaryFromBinary(Dictionary* dict) throw(...);
-		void initBodyFromBinary(Body* body) throw(...);
+		void initBodyFromBinary(Dictionary* dict, Body* body) throw(...);
 
 	private:
 	

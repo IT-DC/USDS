@@ -153,6 +153,80 @@ catch (ErrorStack& err)
 	throw;
 };
 
+UsdsBaseType* BasicParser::getFirstTag(const char* name) throw(...)
+{
+
+	return body.getFirstTag(currentDictionary->findTagID(name));
+};
+
+UsdsStruct* BasicParser::getFirstStructTag(const char* name) throw(...)
+{
+	UsdsBaseType* tag = body.getFirstTag(currentDictionary->findTagID(name));
+	if (tag->getType() != USDS_STRUCT)
+		throw ErrorMessage(BODY__ERROR_TAG_TYPE) << "Tag '" << name << "' has type " << tag->getTypeName();
+	return (UsdsStruct*)tag;
+};
+
+
+//====================================================================================================================
+// Body constructions
+UsdsBaseType* BasicParser::addTag(int id) throw(...)
+try
+{
+	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
+	return body.addTag(dict_tag);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::addTag") << id << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::addTag") << id;
+	throw;
+};
+
+UsdsStruct* BasicParser::addStructTag(const char* name) throw(...)
+try
+{
+	DictionaryBaseType* dict_tag = currentDictionary->findTag(name);
+	if (dict_tag == 0)
+		throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag name '" << name << "' is not found";
+	if (dict_tag->getType() != USDS_STRUCT)
+		throw ErrorMessage(BODY__ERROR_TAG_TYPE) << "Type of the tag '" << name << "' is not USDS_STRUCT (" << dict_tag->getTypeName() << ")";
+
+	return (UsdsStruct*)body.addTag(dict_tag);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::addStructTag") << name << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::addStructTag") << name;
+	throw;
+};
+
+UsdsStruct* BasicParser::addStructTag(int id) throw(...)
+try
+{
+	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
+	if (dict_tag->getType() != USDS_STRUCT)
+		throw ErrorMessage(BODY__ERROR_TAG_TYPE) << "Type of the tag with id=" << id << " is not USDS_STRUCT (" << dict_tag->getTypeName() << ")";
+
+	return (UsdsStruct*)body.addTag(dict_tag);
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::addStructTag") << id << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::addStructTag") << id;
+	throw;
+};
+
 //====================================================================================================================
 // Encode
 
@@ -181,10 +255,8 @@ try
 {
 	if (currentDictionary == 0)
 		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND, "Dictionary is not selected");
-	if (getFirstTag() == 0)
-		throw ErrorMessage(BASIC_PARSER__BODY_IS_EMPTY, "Body is empty");
 
-	jsonCreator.generate(encode, text, (Body*)this);
+	jsonCreator.generate(encode, text, &body);
 }
 catch (ErrorMessage& msg)
 {
@@ -238,7 +310,7 @@ try
 	
 	if (binaryParser.isBodyIncluded())
 	{
-		binaryParser.initBodyFromBinary((Body*)this);
+		binaryParser.initBodyFromBinary(currentDictionary, (Body*)this);
 	}
 	
 }
@@ -260,8 +332,14 @@ void BasicParser::clear()
 	currentDictionary = 0;
 	dictionaries.clear();
 	dictionaryPool.clearPool();
-	clearBody();
+	body.clear();
 
+};
+
+void BasicParser::clearBody()
+{
+
+	body.clear();
 };
 
 //====================================================================================================================

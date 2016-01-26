@@ -38,6 +38,7 @@ namespace usds
 		void pushFrontInt(int value) throw(...);
 
 		void readByteArray(size_t position, void* value, size_t size) throw(...);
+		void readInt(size_t position, int* value) throw(...);
 
 	private:
 		// Buffer for USDS output document

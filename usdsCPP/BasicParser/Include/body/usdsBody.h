@@ -26,23 +26,16 @@ namespace usds
 		virtual ~Body();
 
 		// Body construction
-		UsdsBaseType* addTag(int id) throw(...);
 		UsdsBaseType* addTag(DictionaryBaseType* dict_tag) throw(...);
 		UsdsBaseType* addField(DictionaryBaseType* dict_field, UsdsBaseType* parent_tag) throw(...);
 		
-		UsdsStruct* addStructTag(const char* name) throw(...);
-		UsdsStruct* addStructTag(int id) throw(...);
-
 		UsdsBaseType* getFirstTag() throw(...);
-		UsdsBaseType* getFirstTag(const char* name) throw(...);
-		UsdsStruct* getFirstStructTag(const char* name) throw(...);
+		UsdsBaseType* getLastTag() throw(...);
 
-		void clearBody();
+		UsdsBaseType* getFirstTag(int tag_id) throw(...);
 
 
-	protected:
-		Dictionary* currentDictionary;
-
+		void clear();
 
 	private:
 		BodyObjectPool objectPool;

@@ -28,28 +28,6 @@ Body::~Body()
 //============================================================================================
 // Body construction
 
-UsdsBaseType* Body::addTag(int id) throw(...)
-try
-{
-	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
-	if (!dict_tag->getRootStatus())
-		throw ErrorMessage(BODY__ERROR_TAG_ROOT) << "Tag id=" << id << " is not ROOT";
-
-	UsdsBaseType* tag = objectPool.addObject(dict_tag, 0);
-	connectTagToBody(tag);
-
-	return tag;
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("Body::addTag") << id << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("Body::addTag") << id;
-	throw;
-};
-
 UsdsBaseType* Body::addTag(DictionaryBaseType* dict_tag) throw(...)
 try
 {
@@ -87,58 +65,6 @@ catch (ErrorStack& err)
 };
 
 
-//--------------------------------------------------------------------------------------------
-UsdsStruct* Body::addStructTag(const char* name) throw(...)
-try
-{
-	DictionaryBaseType* dict_tag = currentDictionary->findTag(name);
-	if (dict_tag == 0)
-		throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag name '" << name << "' is not found";
-	if (dict_tag->getType() != USDS_STRUCT)
-		throw ErrorMessage(BODY__ERROR_TAG_TYPE) << "Type of the tag '" << name << "' is not USDS_STRUCT (" << dict_tag->getTypeName() << ")";
-	if (!dict_tag->getRootStatus())
-		throw ErrorMessage(BODY__ERROR_TAG_ROOT) << "Tag '" << name << "' is not ROOT";
-	
-	UsdsStruct* tag = (UsdsStruct*)(objectPool.addObject(dict_tag, 0));
-	connectTagToBody(tag);
-
-	return tag;
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("Body::addStructTag") << name << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("Body::addStructTag") << name;
-	throw;
-};
-
-UsdsStruct* Body::addStructTag(int id) throw(...)
-try
-{
-	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
-	if (dict_tag->getType() != USDS_STRUCT)
-		throw ErrorMessage(BODY__ERROR_TAG_TYPE) << "Type of the tag with id=" << id << " is not USDS_STRUCT (" << dict_tag->getTypeName() << ")";
-	if (!dict_tag->getRootStatus())
-		throw ErrorMessage(BODY__ERROR_TAG_ROOT) << "Tag with id=" << id << " is not ROOT";
-
-	UsdsStruct* tag = (UsdsStruct*)(objectPool.addObject(dict_tag, 0));
-	connectTagToBody(tag);
-
-	return tag;
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("Body::addStructTag") << id << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("Body::addStructTag") << id;
-	throw;
-};
-
-
 //============================================================================================
 
 UsdsBaseType* Body::getFirstTag() throw(...)
@@ -147,12 +73,9 @@ UsdsBaseType* Body::getFirstTag() throw(...)
 
 };
 
-UsdsBaseType* Body::getFirstTag(const char* name) throw(...)
+UsdsBaseType* Body::getFirstTag(int tag_id) throw(...)
 try
 {
-	int tag_id = currentDictionary->findTagID(name);
-	if (tag_id == 0)
-		throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag name '" << name << "' is not found";
 	UsdsBaseType* tag = firstTag;
 	while (tag != 0)
 	{
@@ -161,53 +84,22 @@ try
 		tag = tag->getNext();
 	}
 
-	throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag '" << name << "' not found in ROOT level";
+	throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag id=" << tag_id << " not found in ROOT level";
 
 	return 0;
 }
 catch (ErrorMessage& msg)
 {
-	throw ErrorStack("Body::getFirstTag") << name << msg;
+	throw ErrorStack("Body::getFirstTag") << tag_id << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("Body::getFirstTag") << name;
+	err.addLevel("Body::getFirstTag") << tag_id;
 	throw;
 };
-
-UsdsStruct* Body::getFirstStructTag(const char* name) throw(...)
-try
-{
-	int tag_id = currentDictionary->findTagID(name);
-	UsdsBaseType* tag = firstTag;
-	while (tag != 0)
-	{
-		if (tag->getID() == tag_id)
-		{
-			if (tag->getType() != USDS_STRUCT)
-				throw ErrorMessage(BODY__ERROR_TAG_TYPE) << "Tag '" << name << "' has type " << tag->getTypeName();;
-			return (UsdsStruct*)tag;
-		}
-		tag = tag->getNext();
-	}
-
-	throw ErrorMessage(BODY__TAG_NOT_FOUND) << "Tag '" << name << "' not found in ROOT level";
-
-	return 0;
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("Body::getFirstStructTag") << name << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("Body::getFirstStructTag") << name;
-	throw;
-};
-
 
 //============================================================================================
-void Body::clearBody()
+void Body::clear()
 {
 	objectPool.clear();
 	

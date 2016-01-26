@@ -40,7 +40,7 @@ catch (ErrorStack& err)
 usdsTypes DictionaryArray::getElementType() throw (...)
 {
 	if (element == 0)
-		throw ErrorStack("DictionaryArray::getElementType") << ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field not initialized");
+		throw ErrorStack("DictionaryArray::getElementType") << ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Dictionary Array field not initialized");
 
 	return element->getType();
 };
@@ -49,7 +49,7 @@ DictionaryBaseType* DictionaryArray::getElement() throw (...)
 try
 {
 	if (element == 0)
-		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Array field isn't initialized");
+		throw ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Dictionary Array field isn't initialized");
 
 	return element;
 }

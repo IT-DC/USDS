@@ -7,7 +7,6 @@
 #include "base\objectPool\usdsObjectPool.h"
 #include "base\binary\usdsBinaryOutput.h"
 #include "dictionary\usdsDictionary.h"
-
 #include "body\usdsBody.h"
 
 #include "converters\usdsBinaryCreator.h"
@@ -20,7 +19,7 @@
 
 namespace usds
 {
-	class BasicParser : public Body
+	class BasicParser
 	{
 	public:
 		BasicParser();
@@ -47,6 +46,13 @@ namespace usds
 		// Find id by names
 		int getTagID(const char* name) throw(...);
 		int getFieldID(int tag_id, const char* name) throw(...);
+		UsdsBaseType* getFirstTag(const char* name) throw(...);
+		UsdsStruct* getFirstStructTag(const char* name) throw(...);
+
+		// Body constructions
+		UsdsBaseType* addTag(int id) throw(...);
+		UsdsStruct* addStructTag(const char* name) throw(...);
+		UsdsStruct* addStructTag(int id) throw(...);
 
 		// encode
 		void encode(BinaryOutput* buff, bool with_head, bool with_dictionary, bool with_body) throw(...);
@@ -57,7 +63,8 @@ namespace usds
 
 		// clear
 		void clear();		// it does not release memory in buffers
-				
+		void clearBody();
+
 	private:
 
 		Dictionary* findDictionary(int id, unsigned char major, unsigned char minor) throw(...);
@@ -66,6 +73,9 @@ namespace usds
 		TemplateObjectPool<Dictionary, BasicParser> dictionaryPool;
 		// All existing dictionary
 		std::list<Dictionary*> dictionaries;
+		Dictionary* currentDictionary;
+
+		Body body;
 
 		BinaryCreator binaryCreator;
 		BinaryParser binaryParser;

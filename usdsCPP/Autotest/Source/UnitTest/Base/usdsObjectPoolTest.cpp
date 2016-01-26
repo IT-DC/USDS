@@ -772,7 +772,7 @@ void ObjectPoolTest::test_10()
 	}
 
 	// step 4
-	body.clearBody();
+	body.clear();
 	dic_object->setElementType(usds::USDS_INT);
 	if (body_object != (usds::UsdsArray*)body.addTag(dic_object))
 	{
@@ -831,7 +831,7 @@ void ObjectPoolTest::test_11()
 	}
 
 	// step 4
-	body.clearBody();
+	body.clear();
 	dic_object->addField(usds::USDS_INT, 1, "field", 0);
 	dic_object->finalize();
 	if (body_object != (usds::UsdsStruct*)body.addTag(dic_object))

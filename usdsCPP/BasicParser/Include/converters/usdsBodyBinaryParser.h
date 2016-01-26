@@ -7,6 +7,7 @@
 namespace usds
 {
 	class Body;
+	class Dictionary;
 	class UsdsBaseType;
 	class BinaryInput;
 
@@ -16,11 +17,12 @@ namespace usds
 		BodyBinaryParser();
 		~BodyBinaryParser();
 
-		void parse(BinaryInput* buff, Body* body_object) throw (...);
+		void parse(BinaryInput* buff, Dictionary* dict_object, Body* body_object) throw (...);
 
 	private:
 		BinaryInput* usdsBuff;
 		Body* body;
+		Dictionary* dict;
 
 		void (BodyBinaryParser::*readIndex[USDS_LAST_TYPE])(UsdsBaseType*);
 

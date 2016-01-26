@@ -486,7 +486,7 @@ void BinaryOutput::readByteArray(size_t position, void* value, size_t size) thro
 try
 {
 	if (value == 0)
-		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the Byte array can not be null");
+		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the Output byte array can not be null");
 	
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
@@ -500,4 +500,20 @@ catch (ErrorMessage& msg)
 	throw ErrorStack("BinaryOutput::readByteArray") << position << value << size << msg;
 };
 
+void BinaryOutput::readInt(size_t position, int* value) throw(...)
+try
+{
+	if (value == 0)
+		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
+	
+	// check buff size
+	size_t doc_size = buffCurrentPos - buffFirstPos;
+	if ((position + USDS_INT_SIZE) > (doc_size))
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_INT_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
+	memcpy(value, buffFirstPos + position, USDS_INT_SIZE);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::readByteArray") << position << value << msg;
+};

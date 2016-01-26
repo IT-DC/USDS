@@ -14,6 +14,8 @@
 #include "unitTest\dictionary\dictionaryTagLinkTest.h"
 #include "unitTest\dictionary\usdsDictionaryTest.h"
 
+#include "unitTest\body\usdsArrayTest.h"
+
 void UnitTest::runTest(int number)
 {
 	if (!needStart(number, UNIT_TESTS))
@@ -59,7 +61,14 @@ void UnitTest::runTest(int number)
 
 		DictionaryTest dictionary_test;
 		dictionary_test.runTest(number);
+	}
+
+	// Body classes
+	{
+		UsdsArrayTest body_array_test;
+		body_array_test.runTest(number);
 
 	}
+
 };
 

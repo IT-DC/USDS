@@ -132,10 +132,10 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryParser::initBodyFromBinary(Body* body) throw(...)
+void BinaryParser::initBodyFromBinary(Dictionary* dict, Body* body) throw(...)
 try
 {
-	bodyParser.parse(&bodyBinary, body);
+	bodyParser.parse(&bodyBinary, dict, body);
 }
 catch (ErrorStack& err)
 {

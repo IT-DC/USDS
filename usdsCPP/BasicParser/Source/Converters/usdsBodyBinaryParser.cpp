@@ -2,6 +2,7 @@
 #include "base\binary\usdsBinaryInput.h"
 
 #include "body\usdsBody.h"
+#include "dictionary\usdsDictionary.h"
 
 using namespace usds;
 
@@ -50,17 +51,18 @@ BodyBinaryParser::~BodyBinaryParser()
 
 };
 
-void BodyBinaryParser::parse(BinaryInput* buff, Body* body_object) throw (...)
+void BodyBinaryParser::parse(BinaryInput* buff, Dictionary* dict_object, Body* body_object) throw (...)
 try
 {
 	usdsBuff = buff;
 	body = body_object;
+	dict = dict_object;
 
 	while (!usdsBuff->isEnd())
 	{
 		int tag_ID;
 		usdsBuff->readUVarint(&tag_ID);
-		UsdsBaseType* tag = body->addTag(tag_ID);
+		UsdsBaseType* tag = body->addTag(dict->getTag(tag_ID));
 		// read specific Tag parameters
 		(this->*(readIndex[tag->getType()]))(tag);
 		tag = tag->getNext();

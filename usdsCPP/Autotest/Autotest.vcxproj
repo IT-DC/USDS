@@ -77,6 +77,7 @@
     <ClInclude Include="Include\unitTest\base\usdsBinaryOutputTest.h" />
     <ClInclude Include="Include\unitTest\Base\usdsErrorTest.h" />
     <ClInclude Include="Include\unitTest\base\usdsObjectPoolTest.h" />
+    <ClInclude Include="Include\unitTest\body\usdsArrayTest.h" />
     <ClInclude Include="Include\unitTest\dictionary\dictionaryArrayTest.h" />
     <ClInclude Include="Include\unitTest\dictionary\dictionarySimpleTest.h" />
     <ClInclude Include="Include\unitTest\dictionary\dictionaryStringTest.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="Source\UnitTest\Base\usdsBinaryOutputTest.cpp" />
     <ClCompile Include="Source\UnitTest\Base\usdsErrorTest.cpp" />
     <ClCompile Include="Source\UnitTest\Base\usdsObjectPoolTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsArrayTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryArrayTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionarySimpleTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryStringTest.cpp" />
