@@ -33,6 +33,9 @@ void Dictionary::setID(int id, unsigned char major, unsigned char minor) throw (
 DictionaryBaseType* Dictionary::addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...)
 try
 {
+	if (finalized)
+		throw ErrorMessage(DICTIONARY__FINALIZED_ALREADY, "The dictionary is filalized already");
+
 	if (tag_type == USDS_TAG)
 		throw ErrorMessage(DICTIONARY__UNSUPPORTED_TYPE, "Tag type can not be TAG");
 	
@@ -66,6 +69,9 @@ catch (ErrorStack& err)
 DictionaryBaseType* Dictionary::addField(usdsTypes field_type, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw (...)
 try
 {
+	if (finalized)
+		throw ErrorMessage(DICTIONARY__FINALIZED_ALREADY, "The dictionary is filalized already");
+
 	return objectPool.addObject(field_type, parent, id, name, name_size);
 }
 catch (ErrorMessage& err)
@@ -84,6 +90,9 @@ catch (ErrorStack& err)
 void Dictionary::finalizeDictionary() throw(...)
 try
 {
+	if (finalized)
+		throw ErrorMessage(DICTIONARY__FINALIZED_ALREADY, "The dictionary is filalized already");
+
 	if (dictionaryID == -1)
 		throw ErrorStack("Dictionary::getDictionaryID") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary ID not initialized");
 
@@ -129,10 +138,12 @@ try
 }
 catch (ErrorMessage& err)
 {
+	indexed = false;
 	throw ErrorStack("Dictionary::finalizeDictionary") << err;
 }
 catch (ErrorStack& err)
 {
+	indexed = false;
 	err.addLevel("Dictionary::finalizeDictionary");
 	throw;
 };
