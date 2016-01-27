@@ -4,9 +4,9 @@
 #include "base\usdsErrors.h"
 #include "base\usdsTypes.h"
 
+#include "dictionary\usdsDictionary.h"
 #include "base\objectPool\usdsObjectPool.h"
 #include "base\binary\usdsBinaryOutput.h"
-#include "dictionary\usdsDictionary.h"
 #include "body\usdsBody.h"
 
 #include "converters\usdsBinaryCreator.h"

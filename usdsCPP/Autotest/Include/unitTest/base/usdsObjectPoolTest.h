@@ -23,7 +23,6 @@ private:
 	void test_10();
 	void test_11();
 	void test_12();
-	void test_13();
 
 	int testNumbers;
 

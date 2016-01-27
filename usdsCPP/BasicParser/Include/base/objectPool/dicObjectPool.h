@@ -30,7 +30,7 @@ namespace usds
 
 		// Clear pool, it does not release memory
 		void clear();
-
+		/*
 		DictionaryTagLink* addTagLink(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
 		DictionaryBoolean* addBoolean(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
 		//DictionaryByte* addByte(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
@@ -64,19 +64,13 @@ namespace usds
 		//DictionaryPolymorph* addPolymorhp(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
 		DictionaryStruct* addStruct(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
 		//DictionaryFunction* addFunction(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		*/
 
 	private:
 
-		// Pool of objects
-		TemplateObjectPool<DictionaryTagLink, Dictionary> tagLinkObjects;
-		TemplateObjectPool<DictionaryBoolean, Dictionary> booleanObjects;
-		TemplateObjectPool<DictionaryInt, Dictionary> intObjects;
-		TemplateObjectPool<DictionaryLong, Dictionary> longObjects;
-		TemplateObjectPool<DictionaryDouble, Dictionary> doubleObjects;
-		TemplateObjectPool<DictionaryUVarint, Dictionary> uVarintObjects;
-		TemplateObjectPool<DictionaryString, Dictionary> stringObjects;
-		TemplateObjectPool<DictionaryArray, Dictionary> arrayObjects;
-		TemplateObjectPool<DictionaryStruct, Dictionary> structObjects;
+		BasePoolClass* pools[USDS_LAST_TYPE];
+
+		
 
 	};
 

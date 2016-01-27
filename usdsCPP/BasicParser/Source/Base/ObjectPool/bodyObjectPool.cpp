@@ -43,28 +43,28 @@ try
 	switch (object_type)
 	{
 	case USDS_BOOLEAN:
-		object = booleanObjects.addObject();
+		object = (UsdsBaseType*)booleanObjects.addObject();
 		break;
 	case USDS_INT:
-		object = intObjects.addObject();
+		object = (UsdsBaseType*)intObjects.addObject();
 		break;
 	case USDS_LONG:
-		object = longObjects.addObject();
+		object = (UsdsBaseType*)longObjects.addObject();
 		break;
 	case USDS_DOUBLE:
-		object = doubleObjects.addObject();
+		object = (UsdsBaseType*)doubleObjects.addObject();
 		break;
 	case USDS_UNSIGNED_VARINT:
-		object = uVarintObjects.addObject();
+		object = (UsdsBaseType*)uVarintObjects.addObject();
 		break;
 	case USDS_STRING:
-		object = stringObjects.addObject();
+		object = (UsdsBaseType*)stringObjects.addObject();
 		break;
 	case USDS_ARRAY:
-		object = arrayObjects.addObject();
+		object = (UsdsBaseType*)arrayObjects.addObject();
 		break;
 	case USDS_STRUCT:
-		object = structObjects.addObject();
+		object = (UsdsBaseType*)structObjects.addObject();
 		break;
 	}
 	if (object == 0)
@@ -98,7 +98,7 @@ catch (ErrorStack& err)
 UsdsBoolean* BodyObjectPool::addBoolean(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
 try
 {
-	UsdsBoolean* object = booleanObjects.addObject();
+	UsdsBoolean* object = (UsdsBoolean*)booleanObjects.addObject();
 	try
 	{
 		object->init(dict_parent, body_parent);
@@ -119,7 +119,7 @@ catch (ErrorStack& err)
 UsdsInt* BodyObjectPool::addInt(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
 try
 {
-	UsdsInt* object = intObjects.addObject();
+	UsdsInt* object = (UsdsInt*)intObjects.addObject();
 	try
 	{
 		object->init(dict_parent, body_parent);
@@ -141,7 +141,7 @@ catch (ErrorStack& err)
 UsdsLong* BodyObjectPool::addLong(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
 try
 {
-	UsdsLong* object = longObjects.addObject();
+	UsdsLong* object = (UsdsLong*)longObjects.addObject();
 	try
 	{
 		object->init(dict_parent, body_parent);
@@ -163,7 +163,7 @@ catch (ErrorStack& err)
 UsdsDouble* BodyObjectPool::addDouble(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
 try
 {
-	UsdsDouble* object = doubleObjects.addObject();
+	UsdsDouble* object = (UsdsDouble*)doubleObjects.addObject();
 	try
 	{
 		object->init(dict_parent, body_parent);
@@ -184,7 +184,7 @@ catch (ErrorStack& err)
 UsdsUVarint* BodyObjectPool::addUVarint(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
 try
 {
-	UsdsUVarint* object = uVarintObjects.addObject();
+	UsdsUVarint* object = (UsdsUVarint*)uVarintObjects.addObject();
 	try
 	{
 		object->init(dict_parent, body_parent);
@@ -206,7 +206,7 @@ catch (ErrorStack& err)
 UsdsString* BodyObjectPool::addString(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
 try
 {
-	UsdsString* object = stringObjects.addObject();
+	UsdsString* object = (UsdsString*)stringObjects.addObject();
 	try
 	{
 		object->init(dict_parent, body_parent);
@@ -228,7 +228,7 @@ catch (ErrorStack& err)
 UsdsArray* BodyObjectPool::addArray(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
 try
 {
-	UsdsArray* object = arrayObjects.addObject();
+	UsdsArray* object = (UsdsArray*)arrayObjects.addObject();
 	try
 	{
 		object->init(dict_parent, body_parent);
@@ -250,7 +250,7 @@ catch (ErrorStack& err)
 UsdsStruct* BodyObjectPool::addStruct(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
 try
 {
-	UsdsStruct* object = structObjects.addObject();
+	UsdsStruct* object = (UsdsStruct*)structObjects.addObject();
 	try
 	{
 		object->init(dict_parent, body_parent);

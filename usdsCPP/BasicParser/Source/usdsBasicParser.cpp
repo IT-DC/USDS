@@ -52,7 +52,7 @@ try
 	if (object != 0)
 		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary ID=" << id << " v." << int(major) << "." << int(minor) << " already exists";
 	
-	object = dictionaryPool.addObject();
+	object = (Dictionary*)dictionaryPool.addObject();
 	dictionaries.push_back(object);
 	object->clear();
 	object->setID(id, major, minor);

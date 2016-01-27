@@ -47,8 +47,7 @@ void ObjectPoolTest::runTest(int number)
 	test_10();
 	test_11();
 	test_12();
-	test_13();
-
+	
 };
 
 void ObjectPoolTest::test_1()
@@ -74,13 +73,13 @@ void ObjectPoolTest::test_1()
 	testPool* object_5;
 
 	// Step 1
-	(testObjects.addObject())->value = 1;
-	(testObjects.addObject())->value = 2;
-	(testObjects.addObject())->value = 3;
-	(testObjects.addObject())->value = 4;
-	(testObjects.addObject())->value = 5;
+	((testPool*)testObjects.addObject())->value = 1;
+	((testPool*)testObjects.addObject())->value = 2;
+	((testPool*)testObjects.addObject())->value = 3;
+	((testPool*)testObjects.addObject())->value = 4;
+	((testPool*)testObjects.addObject())->value = 5;
 
-	object = testObjects.getFirstElement();
+	object = (testPool*)testObjects.getFirstElement();
 	for (int i = 1; i <= 5; i++)
 	{
 		if (object->value != i)
@@ -88,9 +87,9 @@ void ObjectPoolTest::test_1()
 			std::cout << "Failed at the step 1\n";
 			throw test_number;
 		}
-		object = (testPool*)(object->_nextInPool);
+		object = (testPool*)testObjects.getNextElement(object);
 	}
-	object = testObjects.getLastElement();
+	object = (testPool*)testObjects.getLastElement();
 	for (int i = 5; i <= 1; i--)
 	{
 		if (object->value != i)
@@ -98,7 +97,7 @@ void ObjectPoolTest::test_1()
 			std::cout << "Failed at the step 1\n";
 			throw test_number;
 		}
-		object = (testPool*)(object->_previousInPool);
+		object = (testPool*)testObjects.getPreviousElement(object);
 	}
 
 
@@ -118,14 +117,14 @@ void ObjectPoolTest::test_1()
 	// Step 3
 	for (int i = 1; i <= 3; i++)
 	{
-		object = testObjects.addObject();
+		object = (testPool*)testObjects.addObject();
 		if (object->value != i)
 		{
 			std::cout << "Failed at the step 3\n";
 			throw test_number;
 		}
 	}
-	object_4 = (testPool*)(object->_nextInPool);
+	object_4 = (testPool*)testObjects.getNextElement(object);
 	if (object_4->value != 4)
 	{
 		std::cout << "Failed at the step 3\n";
@@ -139,7 +138,7 @@ void ObjectPoolTest::test_1()
 
 	// Step 4
 	object_4->remove();
-	object = testObjects.getFirstElement();
+	object = (testPool*)testObjects.getFirstElement();
 	for (int i = 1; i <= 5; i++)
 	{
 		if (object->value != i)
@@ -147,12 +146,12 @@ void ObjectPoolTest::test_1()
 			std::cout << "Failed at the step 4\n";
 			throw test_number;
 		}
-		object = (testPool*)(object->_nextInPool);
+		object = (testPool*)testObjects.getNextElement(object);
 	}
 
 	// Step 5
-	object_5 = (testPool*)(object_4->_nextInPool);
-	object = testObjects.getFirstElement();
+	object_5 = (testPool*)testObjects.getNextElement(object_4);
+	object = (testPool*)testObjects.getFirstElement();
 	for (int i = 1; i <= 5; i++)
 	{
 		if (object->value != i)
@@ -160,13 +159,13 @@ void ObjectPoolTest::test_1()
 			std::cout << "Failed at the step 5\n";
 			throw test_number;
 		}
-		object = (testPool*)(object->_nextInPool);
+		object = (testPool*)testObjects.getNextElement(object);
 	}
 
 	// Step 6
-	object = testObjects.getFirstElement();
+	object = (testPool*)testObjects.getFirstElement();
 	object->remove();
-	object = testObjects.getFirstElement();
+	object = (testPool*)testObjects.getFirstElement();
 	if (object->value!=2)
 	{
 		std::cout << "Failed at the step 6\n";
@@ -179,14 +178,14 @@ void ObjectPoolTest::test_1()
 			std::cout << "Failed at the step 6\n";
 			throw test_number;
 		}
-		object = (testPool*)(object->_nextInPool);
+		object = (testPool*)testObjects.getNextElement(object);
 	}
 	if (object->value != 1)
 	{
 		std::cout << "Failed at the step 6\n";
 		throw test_number;
 	}
-	if (testObjects.getFullSize() != 5 || testObjects.getAllocatedSize() != 2 || testObjects.getLastAllocatedElement()->value!=3)
+	if (testObjects.getFullSize() != 5 || testObjects.getAllocatedSize() != 2 || ((testPool*)testObjects.getLastAllocatedElement())->value != 3)
 	{
 		std::cout << "Failed at the step 6\n";
 		throw test_number;
@@ -194,11 +193,11 @@ void ObjectPoolTest::test_1()
 
 
 	// step 7
-	object = testObjects.getFirstElement();
-	object = (testPool*)(object->_nextInPool);
+	object = (testPool*)testObjects.getFirstElement();
+	object = (testPool*)testObjects.getNextElement(object);
 	object->remove();
-	object = testObjects.getFirstElement();
-	if (object->_previousInPool!=0)
+	object = (testPool*)testObjects.getFirstElement();
+	if (testObjects.getPreviousElement(object) != 0)
 	{
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
@@ -208,36 +207,36 @@ void ObjectPoolTest::test_1()
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
 	}
-	object = (testPool*)(object->_nextInPool);
+	object = (testPool*)testObjects.getNextElement(object);
 	if (object->value != 4)
 	{
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
 	}
-	object = (testPool*)(object->_nextInPool);
+	object = (testPool*)testObjects.getNextElement(object);
 	if (object->value != 5)
 	{
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
 	}
-	object = (testPool*)(object->_nextInPool);
+	object = (testPool*)testObjects.getNextElement(object);
 	if (object->value != 1)
 	{
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
 	}
-	object = (testPool*)(object->_nextInPool);
+	object = (testPool*)testObjects.getNextElement(object);
 	if (object->value != 3)
 	{
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
 	}
-	if (testObjects.getFullSize() != 5 || testObjects.getAllocatedSize() != 1 || testObjects.getLastAllocatedElement()->value != 2)
+	if (testObjects.getFullSize() != 5 || testObjects.getAllocatedSize() != 1 || ((testPool*)testObjects.getLastAllocatedElement())->value != 2)
 	{
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
 	}
-	if (object->_nextInPool != 0)
+	if (testObjects.getNextElement(object) != 0)
 	{
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
@@ -245,8 +244,8 @@ void ObjectPoolTest::test_1()
 	
 
 	// Step 8
-	object = testObjects.getLastElement();
-	if (object->_nextInPool != 0)
+	object = (testPool*)testObjects.getLastElement();
+	if (testObjects.getNextElement(object) != 0)
 	{
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
@@ -256,31 +255,31 @@ void ObjectPoolTest::test_1()
 		std::cout << "Failed at the step 8\n";
 		throw test_number;
 	}
-	object = (testPool*)(object->_previousInPool);
+	object = (testPool*)testObjects.getPreviousElement(object);
 	if (object->value != 1)
 	{
 		std::cout << "Failed at the step 8\n";
 		throw test_number;
 	}
-	object = (testPool*)(object->_previousInPool);
+	object = (testPool*)testObjects.getPreviousElement(object);
 	if (object->value != 5)
 	{
 		std::cout << "Failed at the step 8\n";
 		throw test_number;
 	}
-	object = (testPool*)(object->_previousInPool);
+	object = (testPool*)testObjects.getPreviousElement(object);
 	if (object->value != 4)
 	{
 		std::cout << "Failed at the step 8\n";
 		throw test_number;
 	}
-	object = (testPool*)(object->_previousInPool);
+	object = (testPool*)testObjects.getPreviousElement(object);
 	if (object->value != 2)
 	{
 		std::cout << "Failed at the step 8\n";
 		throw test_number;
 	}
-	if (object->_previousInPool != 0)
+	if (testObjects.getPreviousElement(object) != 0)
 	{
 		std::cout << "Failed at the step 7\n";
 		throw test_number;
@@ -882,49 +881,3 @@ void ObjectPoolTest::test_12()
 	std::cout << "Successful!\n";
 }
 
-void ObjectPoolTest::test_13()
-{
-	int test_number = UNIT_TESTS__OBJECT_POOL_13;
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
-
-	class testPool : public usds::BasePoolObject
-	{
-	public:
-		testPool(testPool* parent) { value = 0; };
-		~testPool() {};
-
-		int value;
-
-	};
-	usds::TemplateObjectPool<testPool, testPool> testObjects(0);
-
-	// step 1
-
-	testPool* object = testObjects.addObject();
-	if (*(object->_firstInPool) != object || *(object->_firstReservedInPool) != 0 || *(object->_lastInPool) != object)
-	{
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
-	}
-
-	// step 2
-	object->remove();
-	if (*(object->_firstInPool) != object || *(object->_firstReservedInPool) != object || *(object->_lastInPool) != object)
-	{
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
-	}
-
-	// step 3
-	testPool* object_2 = testObjects.addObject();
-	if (object != object_2 || *(object_2->_firstInPool) != object || *(object_2->_firstReservedInPool) != 0 || *(object_2->_lastInPool) != object)
-	{
-		std::cout << "Failed at the step 3\n";
-		throw test_number;
-	}
-
-	std::cout << "Successful!\n";
-}

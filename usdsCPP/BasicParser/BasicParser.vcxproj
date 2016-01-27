@@ -134,6 +134,7 @@
     <ClCompile Include="Source\Base\Binary\usdsBinaryOutput.cpp" />
     <ClCompile Include="Source\Base\ObjectPool\bodyObjectPool.cpp" />
     <ClCompile Include="Source\Base\ObjectPool\dicObjectPool.cpp" />
+    <ClCompile Include="Source\Base\ObjectPool\usdsObjectPool.cpp" />
     <ClCompile Include="Source\Base\usdsErrors.cpp" />
     <ClCompile Include="Source\Base\usdsTypes.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsArray.cpp" />

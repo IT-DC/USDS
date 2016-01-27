@@ -281,6 +281,9 @@
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryTagLink.cpp">
       <Filter>Dictionary\Data types</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Base\ObjectPool\usdsObjectPool.cpp">
+      <Filter>Base\Object Pool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.y">

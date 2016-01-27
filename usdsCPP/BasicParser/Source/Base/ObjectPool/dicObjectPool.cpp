@@ -1,5 +1,3 @@
-#include "base\objectPool\dicObjectPool.h"
-
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryBoolean.h"
@@ -10,22 +8,24 @@
 #include "dictionary\dataTypes\dictionaryUVarint.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
 
+#include "base\objectPool\dicObjectPool.h"
+
 using namespace usds;
 
 //========================================================================================================
 
-DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict) :
-	tagLinkObjects(dict),
-	booleanObjects(dict),
-	intObjects(dict),
-	longObjects(dict),
-	doubleObjects(dict),
-	uVarintObjects(dict),
-	arrayObjects(dict),
-	stringObjects(dict),
-	structObjects(dict)
+DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 {
-
+	pools[USDS_NO_TYPE] = 0;
+	pools[USDS_TAG] = new TemplateObjectPool<DictionaryTagLink, Dictionary>(dict);
+	pools[USDS_BOOLEAN] = new TemplateObjectPool<DictionaryBoolean, Dictionary>(dict);
+	pools[USDS_INT] = new TemplateObjectPool<DictionaryInt, Dictionary>(dict);
+	pools[USDS_LONG] = new TemplateObjectPool<DictionaryLong, Dictionary>(dict);
+	pools[USDS_DOUBLE] = new TemplateObjectPool<DictionaryDouble, Dictionary>(dict);
+	pools[USDS_UNSIGNED_VARINT] = new TemplateObjectPool<DictionaryUVarint, Dictionary>(dict);
+	pools[USDS_STRING] = new TemplateObjectPool<DictionaryString, Dictionary>(dict);
+	pools[USDS_ARRAY] = new TemplateObjectPool<DictionaryArray, Dictionary>(dict);
+	pools[USDS_STRUCT] = new TemplateObjectPool<DictionaryStruct, Dictionary>(dict);
 };
 
 DictionaryObjectPool::~DictionaryObjectPool()
@@ -36,41 +36,10 @@ DictionaryObjectPool::~DictionaryObjectPool()
 DictionaryBaseType* DictionaryObjectPool::addObject(usdsTypes object_type, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryBaseType* object = 0;
-
-	switch (object_type)
-	{
-	case USDS_TAG:
-		object = tagLinkObjects.addObject();
-		break;
-	case USDS_BOOLEAN:
-		object = booleanObjects.addObject();
-		break;
-	case USDS_INT:
-		object = intObjects.addObject();
-		break;
-	case USDS_LONG:
-		object = longObjects.addObject();
-		break;
-	case USDS_DOUBLE:
-		object = doubleObjects.addObject();
-		break;
-	case USDS_UNSIGNED_VARINT:
-		object = uVarintObjects.addObject();
-		break;
-	case USDS_STRING:
-		object = stringObjects.addObject();
-		break;
-	case USDS_ARRAY:
-		object = arrayObjects.addObject();
-		break;
-	case USDS_STRUCT:
-		object = structObjects.addObject();
-		break;
-	}
-
-	if (object == 0)
+	if (pools[object_type] == 0)
 		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << object_type;
+
+	DictionaryBaseType* object = (DictionaryBaseType*)(pools[object_type])->addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -95,11 +64,11 @@ catch (ErrorStack& err)
 };
 
 //========================================================================================================
-
+/*
 DictionaryTagLink* DictionaryObjectPool::addTagLink(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryTagLink* object = tagLinkObjects.addObject();
+	//DictionaryTagLink* object = (DictionaryTagLink*)tagLinkObjects.addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -120,7 +89,7 @@ catch (ErrorStack& err)
 DictionaryBoolean* DictionaryObjectPool::addBoolean(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryBoolean* object = booleanObjects.addObject();
+	DictionaryBoolean* object = (DictionaryBoolean*)booleanObjects.addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -141,7 +110,7 @@ catch (ErrorStack& err)
 DictionaryInt* DictionaryObjectPool::addInt(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryInt* object = intObjects.addObject();
+	DictionaryInt* object = (DictionaryInt*)intObjects.addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -162,7 +131,7 @@ catch (ErrorStack& err)
 DictionaryLong* DictionaryObjectPool::addLong(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryLong* object = longObjects.addObject();
+	DictionaryLong* object = (DictionaryLong*)longObjects.addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -184,7 +153,7 @@ catch (ErrorStack& err)
 DictionaryDouble* DictionaryObjectPool::addDouble(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryDouble* object = doubleObjects.addObject();
+	DictionaryDouble* object = (DictionaryDouble*)doubleObjects.addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -205,7 +174,7 @@ catch (ErrorStack& err)
 DictionaryUVarint* DictionaryObjectPool::addUVarint(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryUVarint* object = uVarintObjects.addObject();
+	DictionaryUVarint* object = (DictionaryUVarint*)uVarintObjects.addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -226,7 +195,7 @@ catch (ErrorStack& err)
 DictionaryString* DictionaryObjectPool::addString(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryString* object = stringObjects.addObject();
+	DictionaryString* object = (DictionaryString*)stringObjects.addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -247,7 +216,7 @@ catch (ErrorStack& err)
 DictionaryArray* DictionaryObjectPool::addArray(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryArray* object = arrayObjects.addObject();
+	DictionaryArray* object = (DictionaryArray*)arrayObjects.addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -268,7 +237,7 @@ catch (ErrorStack& err)
 DictionaryStruct* DictionaryObjectPool::addStruct(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	DictionaryStruct* object = structObjects.addObject();
+	DictionaryStruct* object = (DictionaryStruct*)structObjects.addObject();
 	try
 	{
 		object->init(parent, id, name, name_size);
@@ -285,18 +254,14 @@ catch (ErrorStack& err)
 	err.addLevel("DictionaryObjectPool::addStruct") << (void*)parent << id << name << name_size;
 	throw;
 };
-
+*/
 //========================================================================================================
 void DictionaryObjectPool::clear()
 {
-	tagLinkObjects.clearPool();
-	booleanObjects.clearPool();
-	intObjects.clearPool();
-	longObjects.clearPool();
-	doubleObjects.clearPool();
-	uVarintObjects.clearPool();
-	stringObjects.clearPool();
-	arrayObjects.clearPool();
-	structObjects.clearPool();
+	for (int i = 0; i < USDS_LAST_TYPE; i++)
+	{
+		if (pools[i] != 0)
+			pools[i]->clearPool();
+	}
 
 };
