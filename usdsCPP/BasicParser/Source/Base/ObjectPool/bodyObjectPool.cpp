@@ -13,22 +13,53 @@
 using namespace usds;
 
 
-BodyObjectPool::BodyObjectPool(Body* parent_body) :
-	booleanObjects(parent_body),
-	intObjects(parent_body),
-	longObjects(parent_body),
-	doubleObjects(parent_body),
-	uVarintObjects(parent_body),
-	arrayObjects(parent_body),
-	stringObjects(parent_body),
-	structObjects(parent_body)
+BodyObjectPool::BodyObjectPool(Body* parent_body) 
 {
-	
+	pools[USDS_NO_TYPE] = 0;
+	pools[USDS_TAG] = 0;
+	pools[USDS_BOOLEAN] = new TemplateObjectPool<UsdsBoolean, Body>(parent_body);
+	pools[USDS_BYTE] = 0;
+	pools[USDS_UNSIGNED_BYTE] = 0;
+	pools[USDS_SHORT] = 0;
+	pools[USDS_UNSIGNED_SHORT] = 0;
+	pools[USDS_BIGENDIAN_SHORT] = 0;
+	pools[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
+	pools[USDS_INT] = new TemplateObjectPool<UsdsInt, Body>(parent_body);
+	pools[USDS_UNSIGNED_INT] = 0;
+	pools[USDS_BIGENDIAN_INT] = 0;
+	pools[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
+	pools[USDS_LONG] = new TemplateObjectPool<UsdsLong, Body>(parent_body);
+	pools[USDS_UNSIGNED_LONG] = 0;
+	pools[USDS_BIGENDIAN_LONG] = 0;
+	pools[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
+	pools[USDS_INT128] = 0;
+	pools[USDS_UNSIGNED_INT128] = 0;
+	pools[USDS_BIGENDIAN_INT128] = 0;
+	pools[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
+	pools[USDS_FLOAT] = 0;
+	pools[USDS_BIGENDIAN_FLOAT] = 0;
+	pools[USDS_DOUBLE] = new TemplateObjectPool<UsdsDouble, Body>(parent_body);
+	pools[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
+	pools[USDS_VARINT] = 0;
+	pools[USDS_UNSIGNED_VARINT] = new TemplateObjectPool<UsdsUVarint, Body>(parent_body);
+	pools[USDS_STRING] = new TemplateObjectPool<UsdsString, Body>(parent_body);
+	pools[USDS_ARRAY] = new TemplateObjectPool<UsdsArray, Body>(parent_body);
+	pools[USDS_LIST] = 0;
+	pools[USDS_MAP] = 0;
+	pools[USDS_POLYMORPH] = 0;
+	pools[USDS_STRUCT] = new TemplateObjectPool<UsdsStruct, Body>(parent_body);
+	pools[USDS_FUNCTION] = 0;
+
+
 }
 
 BodyObjectPool::~BodyObjectPool()
 {
-
+	for (int i = 0; i < USDS_LAST_TYPE; i++)
+	{
+		if (pools[i] != 0)
+			delete(pools[i]);
+	}
 }
 
 UsdsBaseType* BodyObjectPool::addObject(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
@@ -39,37 +70,14 @@ try
 	
 	usdsTypes object_type = dict_parent->getType();
 
-	UsdsBaseType*object = 0;
-	switch (object_type)
-	{
-	case USDS_BOOLEAN:
-		object = (UsdsBaseType*)booleanObjects.addObject();
-		break;
-	case USDS_INT:
-		object = (UsdsBaseType*)intObjects.addObject();
-		break;
-	case USDS_LONG:
-		object = (UsdsBaseType*)longObjects.addObject();
-		break;
-	case USDS_DOUBLE:
-		object = (UsdsBaseType*)doubleObjects.addObject();
-		break;
-	case USDS_UNSIGNED_VARINT:
-		object = (UsdsBaseType*)uVarintObjects.addObject();
-		break;
-	case USDS_STRING:
-		object = (UsdsBaseType*)stringObjects.addObject();
-		break;
-	case USDS_ARRAY:
-		object = (UsdsBaseType*)arrayObjects.addObject();
-		break;
-	case USDS_STRUCT:
-		object = (UsdsBaseType*)structObjects.addObject();
-		break;
-	}
-	if (object == 0)
+	if (object_type <= USDS_NO_TYPE || object_type >= USDS_LAST_TYPE)
+		throw ErrorMessage(BODY_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << object_type;
+	// TODO: remove it when all type is ready
+	if (pools[object_type] == 0)
 		throw ErrorMessage(BODY_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << typeName(object_type);
 
+
+	UsdsBaseType*object = (UsdsBaseType*)(pools[object_type])->addObject();
 	try
 	{
 		object->init(dict_parent, body_parent);
@@ -93,6 +101,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
+/*
 //===============================================================================================================================
 
 UsdsBoolean* BodyObjectPool::addBoolean(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
@@ -268,18 +277,15 @@ catch (ErrorStack& err)
 	err.addLevel("BodyObjectPool::addStruct") << (void*)dict_parent << (void*)body_parent;
 	throw;
 };
-
+*/
 //===============================================================================================================================
 
 void BodyObjectPool::clear()
 {
-	booleanObjects.clearPool();
-	intObjects.clearPool();
-	longObjects.clearPool();
-	doubleObjects.clearPool();
-	uVarintObjects.clearPool();
-	stringObjects.clearPool();
-	arrayObjects.clearPool();
-	structObjects.clearPool();
+	for (int i = 0; i < USDS_LAST_TYPE; i++)
+	{
+		if (pools[i] != 0)
+			pools[i]->clearPool();
+	}
 
 };

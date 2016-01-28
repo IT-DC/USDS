@@ -58,11 +58,10 @@ BasePoolObject* BasePoolClass::addObject() throw(...)
 	{
 		object = createObject();
 		lastElement->nextInPool = object;
-		lastElement = object;
 		object->nextInPool = 0;
 		object->previousInPool = lastElement;
 		object->parentPool = this;
-
+		lastElement = object;
 		return object;
 	}
 	else
@@ -85,7 +84,10 @@ BasePoolObject* BasePoolClass::getLastElement()
 
 BasePoolObject* BasePoolClass::getLastAllocatedElement()
 {
-	return firstReservedElement->previousInPool; 
+	if (firstReservedElement == 0)
+		return lastElement;
+	else
+		return firstReservedElement->previousInPool; 
 }
 
 BasePoolObject* BasePoolClass::getNextElement(BasePoolObject* object)

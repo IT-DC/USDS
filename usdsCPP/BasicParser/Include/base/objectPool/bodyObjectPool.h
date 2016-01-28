@@ -31,6 +31,7 @@ namespace usds
 		// Clear pool, it does not release memory
 		void clear();
 
+		/*
 		UsdsBoolean* addBoolean(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
 		//UsdsBaseType* addByte(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
 		//UsdsBaseType* addUByte(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
@@ -63,18 +64,11 @@ namespace usds
 		//UsdsBaseType* addPolymorhp(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
 		UsdsStruct* addStruct(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
 		//UsdsBaseType* addFunction(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
-		
+		*/
 	private:
 
 		// Pool of objects
-		TemplateObjectPool<UsdsBoolean, Body> booleanObjects;
-		TemplateObjectPool<UsdsInt, Body> intObjects;
-		TemplateObjectPool<UsdsLong, Body> longObjects;
-		TemplateObjectPool<UsdsDouble, Body> doubleObjects;
-		TemplateObjectPool<UsdsUVarint, Body> uVarintObjects;
-		TemplateObjectPool<UsdsString, Body> stringObjects;
-		TemplateObjectPool<UsdsArray, Body> arrayObjects;
-		TemplateObjectPool<UsdsStruct, Body> structObjects;
+		BasePoolClass* pools[USDS_LAST_TYPE];
 
 	};
 

@@ -102,13 +102,13 @@ void ObjectPoolTest::test_1()
 
 
 	// Step 2
-	if (testObjects.getFullSize() != 5 || testObjects.getAllocatedSize() != 5)
+	if (testObjects.getFullSize() != 5 || testObjects.getAllocatedSize() != 5 || ((testPool*)testObjects.getLastAllocatedElement())->value != 5)
 	{
 		std::cout << "Failed at the step 2\n";
 		throw test_number;
 	}
 	testObjects.clearPool();
-	if (testObjects.getFullSize() != 5 || testObjects.getAllocatedSize() != 0)
+	if (testObjects.getFullSize() != 5 || testObjects.getAllocatedSize() != 0 || testObjects.getLastAllocatedElement()!=0)
 	{
 		std::cout << "Failed at the step 2\n";
 		throw test_number;
@@ -118,7 +118,7 @@ void ObjectPoolTest::test_1()
 	for (int i = 1; i <= 3; i++)
 	{
 		object = (testPool*)testObjects.addObject();
-		if (object->value != i)
+		if (object->value != i || ((testPool*)testObjects.getLastAllocatedElement())->value != i)
 		{
 			std::cout << "Failed at the step 3\n";
 			throw test_number;
@@ -185,6 +185,7 @@ void ObjectPoolTest::test_1()
 		std::cout << "Failed at the step 6\n";
 		throw test_number;
 	}
+
 	if (testObjects.getFullSize() != 5 || testObjects.getAllocatedSize() != 2 || ((testPool*)testObjects.getLastAllocatedElement())->value != 3)
 	{
 		std::cout << "Failed at the step 6\n";

@@ -19,25 +19,57 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_NO_TYPE] = 0;
 	pools[USDS_TAG] = new TemplateObjectPool<DictionaryTagLink, Dictionary>(dict);
 	pools[USDS_BOOLEAN] = new TemplateObjectPool<DictionaryBoolean, Dictionary>(dict);
+	pools[USDS_BYTE] = 0;
+	pools[USDS_UNSIGNED_BYTE] = 0;
+	pools[USDS_SHORT] = 0;
+	pools[USDS_UNSIGNED_SHORT] = 0;
+	pools[USDS_BIGENDIAN_SHORT] = 0;
+	pools[USDS_BIGENDIAN_UNSIGNED_SHORT] = 0;
 	pools[USDS_INT] = new TemplateObjectPool<DictionaryInt, Dictionary>(dict);
+	pools[USDS_UNSIGNED_INT] = 0;
+	pools[USDS_BIGENDIAN_INT] = 0;
+	pools[USDS_BIGENDIAN_UNSIGNED_INT] = 0;
 	pools[USDS_LONG] = new TemplateObjectPool<DictionaryLong, Dictionary>(dict);
+	pools[USDS_UNSIGNED_LONG] = 0;
+	pools[USDS_BIGENDIAN_LONG] = 0;
+	pools[USDS_BIGENDIAN_UNSIGNED_LONG] = 0;
+	pools[USDS_INT128] = 0;
+	pools[USDS_UNSIGNED_INT128] = 0;
+	pools[USDS_BIGENDIAN_INT128] = 0;
+	pools[USDS_BIGENDIAN_UNSIGNED_INT128] = 0;
+	pools[USDS_FLOAT] = 0;
+	pools[USDS_BIGENDIAN_FLOAT] = 0;
 	pools[USDS_DOUBLE] = new TemplateObjectPool<DictionaryDouble, Dictionary>(dict);
+	pools[USDS_USDS_BIGENDIAN_DOUBLE] = 0;
+	pools[USDS_VARINT] = 0;
 	pools[USDS_UNSIGNED_VARINT] = new TemplateObjectPool<DictionaryUVarint, Dictionary>(dict);
 	pools[USDS_STRING] = new TemplateObjectPool<DictionaryString, Dictionary>(dict);
 	pools[USDS_ARRAY] = new TemplateObjectPool<DictionaryArray, Dictionary>(dict);
+	pools[USDS_LIST] = 0;
+	pools[USDS_MAP] = 0;
+	pools[USDS_POLYMORPH] = 0;
 	pools[USDS_STRUCT] = new TemplateObjectPool<DictionaryStruct, Dictionary>(dict);
+	pools[USDS_FUNCTION] = 0;
 };
 
 DictionaryObjectPool::~DictionaryObjectPool()
 {
+	for (int i = 0; i < USDS_LAST_TYPE; i++)
+	{
+		if (pools[i] != 0)
+			delete(pools[i]);
+	}
 
 };
 
 DictionaryBaseType* DictionaryObjectPool::addObject(usdsTypes object_type, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
 try
 {
-	if (pools[object_type] == 0)
+	if (object_type <= USDS_NO_TYPE || object_type >= USDS_LAST_TYPE)
 		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << object_type;
+	// TODO: remove it when all type is ready
+	if (pools[object_type] == 0)
+		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << typeName(object_type);
 
 	DictionaryBaseType* object = (DictionaryBaseType*)(pools[object_type])->addObject();
 	try
