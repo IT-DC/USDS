@@ -214,7 +214,7 @@ try
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 
-	*value = fields[id]->getIntValue();
+	fields[id]->getValue(value);
 }
 catch (ErrorMessage& msg)
 {
@@ -233,7 +233,7 @@ try
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 
-	*value = fields[id]->getLongValue();
+	fields[id]->getValue(value);
 }
 catch (ErrorMessage& msg)
 {
@@ -251,7 +251,7 @@ try
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
-	*value = fields[id]->getDoubleValue();
+	fields[id]->getValue(value);
 }
 catch (ErrorMessage& msg)
 {
@@ -269,7 +269,7 @@ try
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
-	*value = fields[id]->getStringValue();
+	fields[id]->getValue(value);
 
 }
 catch (ErrorMessage& msg)
@@ -288,7 +288,7 @@ try
 	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
-	*value = fields[id]->getBooleanValue();
+	fields[id]->getValue(value);
 
 }
 catch (ErrorMessage& msg)
@@ -308,7 +308,7 @@ try
 {
 	if (id < 1 || id > fieldNumber)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-	*value = fields[id]->getIntValue();
+	fields[id]->getValue(value);
 }
 catch (ErrorMessage& msg)
 {
@@ -325,7 +325,7 @@ try
 {
 	if (id < 1 || id > fieldNumber)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-	*value = fields[id]->getLongValue();
+	fields[id]->getValue(value);
 }
 catch (ErrorMessage& msg)
 {
@@ -342,7 +342,7 @@ try
 {
 	if (id < 1 || id > fieldNumber)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-	*value = fields[id]->getDoubleValue();
+	fields[id]->getValue(value);
 }
 catch (ErrorMessage& msg)
 {
@@ -359,7 +359,7 @@ try
 {
 	if (id < 1 || id > fieldNumber)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-	*value = fields[id]->getStringValue();
+	fields[id]->getValue(value);
 }
 catch (ErrorMessage& msg)
 {
@@ -376,7 +376,7 @@ try
 {
 	if (id < 1 || id > fieldNumber)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-	*value = fields[id]->getBooleanValue();
+	fields[id]->getValue(value);
 }
 catch (ErrorMessage& msg)
 {

@@ -57,7 +57,7 @@ void UsdsArrayTest::test_1()
 	dict.finalizeDictionary();
 	body_array = (usds::UsdsArray*)body.addTag(dict_array);
 	
-	if (body_array->getElementType() != usds::USDS_INT || body_array->getElementNumber()!=0)
+	if (body_array->getElementType() != usds::USDS_INT || body_array->size()!=0)
 	{	
 		std::cout << "Failed at the step 2\n";
 		throw test_number;
@@ -65,8 +65,8 @@ void UsdsArrayTest::test_1()
 
 	// step 3
 	int int_value = 5;
-	body_array->addElement(int_value);
-	if (body_array->getElementNumber() != 1 || body_array->getElementIntValue(0) != int_value)
+	body_array->pushBack(int_value);
+	if (body_array->size() != 1 || body_array->getValue<int>(0) != int_value)
 	{
 		std::cout << "Failed at the step 2\n";
 		throw test_number;

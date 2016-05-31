@@ -263,7 +263,7 @@ try
 	{
 		for (size_t i = 0; i < element_number; i++)
 		{
-			UsdsBaseType* element = ((UsdsArray*)object)->addTagElement();
+			UsdsBaseType* element = ((UsdsArray*)object)->pushTagBack();
 			// read specific object parameters
 			(this->*(readIndex[element->getType()]))(element);
 		}

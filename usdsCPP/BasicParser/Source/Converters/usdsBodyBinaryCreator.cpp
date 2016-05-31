@@ -249,7 +249,7 @@ catch (ErrorStack& err)
 void BodyBinaryCreator::writeArray(UsdsBaseType* object) throw (...)
 try
 {
-	int element_number = ((UsdsArray*)object)->getElementNumber();
+	int element_number = ((UsdsArray*)object)->size();
 	usdsBuff->writeUVarint(element_number);
 	if (typeSize(((UsdsArray*)object)->getElementType()) == 0)
 	{

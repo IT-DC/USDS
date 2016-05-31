@@ -284,7 +284,7 @@ void BodyJsonCreator::writeArray(UsdsBaseType* object) throw (...)
 
 try
 {
-	int element_number = ((UsdsArray*)object)->getElementNumber();
+	int element_number = ((UsdsArray*)object)->size();
 	int i = 0;
 	*textBuff += '\n';
 	textBuff->append(shiftLevel, '\t');
@@ -297,7 +297,7 @@ try
 
 		while (true)
 		{
-			UsdsBaseType* tag = (((UsdsArray*)object)->getTagElement(i));
+			UsdsBaseType* tag = (((UsdsArray*)object)->getTag(i));
 			// write specific Tag parameters
 			(this->*(writeIndex[tag->getType()]))(tag);
 			i++;
