@@ -15,33 +15,33 @@ namespace usds
 		size_t size() throw(...);
 		usdsTypes getElementType() throw(...);
 
-		void pushBack(int value) throw (...);
-		void pushBack(long long value) throw (...);
-		void pushBack(unsigned long long value) throw (...);
+		void pushBack(int32_t value) throw (...);
+		void pushBack(int64_t value) throw (...);
+		void pushBack(uint64_t value) throw (...);
 		void pushBack(double value) throw (...);
 		void pushBack(const char* value) throw (...);
 		void pushBack(const char* value, size_t size) throw (...);
 		void pushBack(bool value) throw (...);
 
-		void pushBefore(size_t number, int value) throw (...);
-		void pushBefore(size_t number, long long value) throw (...);
-		void pushBefore(size_t number, unsigned long long value) throw (...);
+		void pushBefore(size_t number, int32_t value) throw (...);
+		void pushBefore(size_t number, int64_t value) throw (...);
+		void pushBefore(size_t number, uint64_t value) throw (...);
 		void pushBefore(size_t number, double value) throw (...);
 		void pushBefore(size_t number, const char* value) throw (...);
 		void pushBefore(size_t number, const char* value, size_t size) throw (...);
 		void pushBefore(size_t number, bool value) throw (...);
 
-		void setValue(size_t number, int value) throw (...);
-		void setValue(size_t number, long long value) throw (...);
-		void setValue(size_t number, unsigned long long value) throw (...);
+		void setValue(size_t number, int32_t value) throw (...);
+		void setValue(size_t number, int64_t value) throw (...);
+		void setValue(size_t number, uint64_t value) throw (...);
 		void setValue(size_t number, double value) throw (...);
 		void setValue(size_t number, const char* value) throw (...);
 		void setValue(size_t number, const char* value, size_t size) throw (...);
 		void setValue(size_t number, bool value) throw (...);
 
-		void getValue(size_t number, int* value) throw (...);
-		void getValue(size_t number, long long* value) throw (...);
-		void getValue(size_t number, unsigned long long* value) throw (...);
+		void getValue(size_t number, int32_t* value) throw (...);
+		void getValue(size_t number, int64_t* value) throw (...);
+		void getValue(size_t number, uint64_t* value) throw (...);
 		void getValue(size_t number, double* value) throw (...);
 		void getValue(size_t number, const char** value) throw (...);
 		void getValue(size_t number, const char** value, size_t* size) throw (...);

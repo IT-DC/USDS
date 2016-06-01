@@ -48,7 +48,7 @@ size_t UsdsBaseType::getNameSize() throw(...)
 	return parentDictionaryObject->getNameSize();
 };
 
-int UsdsBaseType::getID() throw(...)
+int32_t UsdsBaseType::getID() throw(...)
 {
 	return parentDictionaryObject->getID();
 };
@@ -98,19 +98,19 @@ void UsdsBaseType::setParent(UsdsBaseType* parent)
 
 //=============================================================================================
 
-void UsdsBaseType::setValue(int value) throw (...)
+void UsdsBaseType::setValue(int32_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from int to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from int32_t to " << getTypeName());
 };
 
-void UsdsBaseType::setValue(long long value) throw (...)
+void UsdsBaseType::setValue(int64_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from long long to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from int64_t to " << getTypeName());
 };
 
-void UsdsBaseType::setValue(unsigned long long value) throw (...)
+void UsdsBaseType::setValue(uint64_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from unsigned long long to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from uint64_t to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(double value) throw (...)
@@ -135,19 +135,19 @@ void UsdsBaseType::setValue(bool value) throw (...)
 
 //=============================================================================================
 
-void UsdsBaseType::getValue(int* value) throw (...)
+void UsdsBaseType::getValue(int32_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to int*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to int32_t*");
 };
 
-void UsdsBaseType::getValue(long long* value) throw (...)
+void UsdsBaseType::getValue(int64_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to long long*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to int64_t*");
 };
 
-void UsdsBaseType::getValue(unsigned long long* value) throw (...)
+void UsdsBaseType::getValue(uint64_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to unsigned long long*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to uint64_t*");
 };
 
 void UsdsBaseType::getValue(double* value) throw (...)

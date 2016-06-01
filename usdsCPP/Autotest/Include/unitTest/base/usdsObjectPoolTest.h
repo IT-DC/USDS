@@ -1,13 +1,15 @@
 #ifndef USDS_OBJECT_POOL_TEST_H
 #define USDS_OBJECT_POOL_TEST_H
 
+#include "usdsAutotest.h"
+
 class ObjectPoolTest
 {
 public:
 	ObjectPoolTest() {};
 	~ObjectPoolTest() {};
 
-	void runTest(int number);
+	void runTest(int32_t number);
 
 private:
 
@@ -24,7 +26,7 @@ private:
 	void test_11();
 	void test_12();
 
-	int testNumbers;
+	int32_t testNumbers;
 
 };
 

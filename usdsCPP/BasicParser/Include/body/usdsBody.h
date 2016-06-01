@@ -32,7 +32,7 @@ namespace usds
 		UsdsBaseType* getFirstTag() throw(...);
 		UsdsBaseType* getLastTag() throw(...);
 
-		UsdsBaseType* getFirstTag(int tag_id) throw(...);
+		UsdsBaseType* getFirstTag(int32_t tag_id) throw(...);
 
 
 		void clear();

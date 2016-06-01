@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-void DictionaryBaseType::init(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+void DictionaryBaseType::init(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	if (name == 0)
@@ -51,7 +51,7 @@ size_t DictionaryBaseType::getNameSize() throw(...)
 	return objectName.size();
 };
 
-int DictionaryBaseType::getID() throw(...)
+int32_t DictionaryBaseType::getID() throw(...)
 {
 
 	return objectID;

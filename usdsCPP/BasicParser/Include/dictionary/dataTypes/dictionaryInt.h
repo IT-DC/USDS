@@ -17,11 +17,11 @@ namespace usds
 		virtual void initType();
 		virtual void finalize() throw (...) { };
 
-		void setDefault(int value);
+		void setDefault(int32_t value);
 
 	private:
 		bool isDefault;
-		int defaultValue;
+		int32_t defaultValue;
 
 	};
 };

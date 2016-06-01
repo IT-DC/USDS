@@ -11,15 +11,15 @@ namespace usds
 		UsdsLong(Body* parent_body);
 		virtual ~UsdsLong();
 
-		virtual void setValue(long long value) throw (...);
+		virtual void setValue(int64_t value) throw (...);
 
-		virtual long long getLongValue() throw (...);
+		virtual int64_t getLongValue() throw (...);
 
 	private:
 
 		virtual void initType();
 
-		long long objectValue;
+		int64_t objectValue;
 
 	};
 

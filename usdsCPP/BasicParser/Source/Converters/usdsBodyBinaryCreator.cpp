@@ -249,12 +249,12 @@ catch (ErrorStack& err)
 void BodyBinaryCreator::writeArray(UsdsBaseType* object) throw (...)
 try
 {
-	int element_number = ((UsdsArray*)object)->size();
+	int32_t element_number = ((UsdsArray*)object)->size();
 	usdsBuff->writeUVarint(element_number);
 	if (typeSize(((UsdsArray*)object)->getElementType()) == 0)
 	{
 		UsdsBaseType** objects = (UsdsBaseType**)(((UsdsArray*)object)->getArrayBinary());
-		for (int i = 0; i < element_number; i++)
+		for (int32_t i = 0; i < element_number; i++)
 		{
 			UsdsBaseType* object = objects[i];
 			// write specific object parameters
@@ -292,8 +292,8 @@ void BodyBinaryCreator::writePolymorph(UsdsBaseType* object) throw (...)
 void BodyBinaryCreator::writeStruct(UsdsBaseType* object) throw (...)
 try
 {
-	int field_number = ((UsdsStruct*)object)->getFieldNumber();
-	for (int id = 1; id <= field_number; id++)
+	int32_t field_number = ((UsdsStruct*)object)->getFieldNumber();
+	for (int32_t id = 1; id <= field_number; id++)
 	{
 		UsdsBaseType* field = ((UsdsStruct*)object)->getField(id);
 		// write specific Field parameters

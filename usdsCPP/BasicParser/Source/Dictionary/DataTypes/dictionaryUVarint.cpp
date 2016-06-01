@@ -13,7 +13,7 @@ void DictionaryUVarint::initType()
 	isDefault = false;
 };
 
-void DictionaryUVarint::setDefault(long long value)
+void DictionaryUVarint::setDefault(int64_t value)
 {
 	isDefault = true;
 	defaultValue = value;

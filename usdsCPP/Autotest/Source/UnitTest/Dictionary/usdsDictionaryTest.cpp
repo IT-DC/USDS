@@ -1,4 +1,3 @@
-#include "usdsAutotest.h"
 #include "unitTest\dictionary\usdsDictionaryTest.h"
 
 #include "dictionary\usdsDictionary.h"
@@ -9,7 +8,7 @@
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 
-void DictionaryTest::runTest(int number)
+void DictionaryTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__DICTIONARY))
 		return;
@@ -29,7 +28,7 @@ void DictionaryTest::runTest(int number)
 // Test empty dictionary
 void DictionaryTest::test_1()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_1;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_1;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -187,7 +186,7 @@ void DictionaryTest::test_1()
 // Test dictionary identifier 
 void DictionaryTest::test_2()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_2;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_2;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -240,7 +239,7 @@ void DictionaryTest::test_2()
 // Test errors in "Find" 
 void DictionaryTest::test_3()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_3;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_3;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -345,7 +344,7 @@ void DictionaryTest::test_3()
 // Test AddTag
 void DictionaryTest::test_4()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_4;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_4;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -460,7 +459,7 @@ void DictionaryTest::test_4()
 // Test Tag finalization
 void DictionaryTest::test_5()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_5;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_5;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -571,7 +570,7 @@ void DictionaryTest::test_5()
 // Test Tag navigation
 void DictionaryTest::test_6()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_6;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_6;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -657,7 +656,7 @@ void DictionaryTest::test_6()
 // Test dictionary binary
 void DictionaryTest::test_7()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_7;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_7;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -669,7 +668,7 @@ void DictionaryTest::test_7()
 	usds::DictionaryInt* tag_1 = (usds::DictionaryInt*)dict.addTag(usds::USDS_INT, 1, "int_1", 0);
 
 	size_t size = 0;
-	const unsigned char* binary = 0;
+	const uint8_t* binary = 0;
 
 	// step 1
 	try
@@ -697,8 +696,8 @@ void DictionaryTest::test_7()
 	}
 
 	// step 3
-	unsigned char sample_binary[] = { usds::USDS_TAG_SIGNATURE , 1, 5, 'i', 'n', 't', '_', '1', usds::USDS_INT };
-	for (int i = 0; i < 9; i++)
+	uint8_t sample_binary[] = { usds::USDS_TAG_SIGNATURE , 1, 5, 'i', 'n', 't', '_', '1', usds::USDS_INT };
+	for (int32_t i = 0; i < 9; i++)
 	{
 		if (sample_binary[i] != binary[i])
 		{

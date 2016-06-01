@@ -1,13 +1,15 @@
 #ifndef USDS_BINARY_INPUT_TEST_H
 #define USDS_BINARY_INPUT_TEST_H
 
+#include "usdsAutotest.h"
+
 class BinaryInputTest
 {
 public:
 	BinaryInputTest() {};
 	~BinaryInputTest() {};
 
-	void runTest(int number);
+	void runTest(int32_t number);
 
 private:
 
@@ -25,7 +27,7 @@ private:
 	void test_12();
 	void test_13();
 
-	int testNumbers;
+	int32_t testNumbers;
 
 };
 

@@ -13,46 +13,46 @@ namespace usds
 		UsdsStruct(Body* parent_body);
 		virtual ~UsdsStruct();
 
-		void setFieldValue(const char* name, int value) throw (...);
-		void setFieldValue(const char* name, long long value) throw (...);
+		void setFieldValue(const char* name, int32_t value) throw (...);
+		void setFieldValue(const char* name, int64_t value) throw (...);
 		void setFieldValue(const char* name, double value) throw (...);
 		void setFieldValue(const char* name, const char* value) throw (...);
 		void setFieldValue(const char* name, bool value) throw (...);
 
-		void setFieldValue(int id, int value) throw (...);
-		void setFieldValue(int id, long long value) throw (...);
-		void setFieldValue(int id, double value) throw (...);
-		void setFieldValue(int id, const char* value) throw (...);
-		void setFieldValue(int id, bool value) throw (...);
+		void setFieldValue(int32_t id, int32_t value) throw (...);
+		void setFieldValue(int32_t id, int64_t value) throw (...);
+		void setFieldValue(int32_t id, double value) throw (...);
+		void setFieldValue(int32_t id, const char* value) throw (...);
+		void setFieldValue(int32_t id, bool value) throw (...);
 
-		void getFieldValue(const char* name, int* value) throw (...);
-		void getFieldValue(const char* name, long long* value) throw (...);
+		void getFieldValue(const char* name, int32_t* value) throw (...);
+		void getFieldValue(const char* name, int64_t* value) throw (...);
 		void getFieldValue(const char* name, double* value) throw (...);
 		void getFieldValue(const char* name, const char** value) throw (...);
 		void getFieldValue(const char* name, bool* value) throw (...);
 
-		void getFieldValue(int id, int* value) throw (...);
-		void getFieldValue(int id, long long* value) throw (...);
-		void getFieldValue(int id, double* value) throw (...);
-		void getFieldValue(int id, const char** value) throw (...);
-		void getFieldValue(int id, bool* value) throw (...);
+		void getFieldValue(int32_t id, int32_t* value) throw (...);
+		void getFieldValue(int32_t id, int64_t* value) throw (...);
+		void getFieldValue(int32_t id, double* value) throw (...);
+		void getFieldValue(int32_t id, const char** value) throw (...);
+		void getFieldValue(int32_t id, bool* value) throw (...);
 
 
-		UsdsBaseType* getField(int id) throw (...);
+		UsdsBaseType* getField(int32_t id) throw (...);
 
 		UsdsArray* getArrayField(const char* name) throw (...);
-		UsdsArray* getArrayField(int id) throw (...);
+		UsdsArray* getArrayField(int32_t id) throw (...);
 
-		int getFieldNumber() throw (...);
+		int32_t getFieldNumber() throw (...);
 
 	private:
 		// it's executed in init()
 		virtual void initType();
 
 		UsdsBaseType** fields;
-		int fieldsBuffSize; // in bytes
+		int32_t fieldsBuffSize; // in bytes
 
-		int fieldNumber;
+		int32_t fieldNumber;
 
 	};
 }

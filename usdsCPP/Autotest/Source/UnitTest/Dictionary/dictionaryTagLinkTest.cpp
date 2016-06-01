@@ -1,10 +1,9 @@
-#include "usdsAutotest.h"
 #include "unitTest\dictionary\dictionaryTagLinkTest.h"
 
 #include "dictionary\usdsDictionary.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 
-void DictionaryTagLinkTest::runTest(int number)
+void DictionaryTagLinkTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__DICTIONARY_TAG_LINK))
 		return;
@@ -20,7 +19,7 @@ void DictionaryTagLinkTest::runTest(int number)
 
 void DictionaryTagLinkTest::test_1()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_TAG_LINK_1;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_TAG_LINK_1;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -95,7 +94,7 @@ void DictionaryTagLinkTest::test_1()
 
 void DictionaryTagLinkTest::test_2()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_TAG_LINK_2;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_TAG_LINK_2;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -156,7 +155,7 @@ void DictionaryTagLinkTest::test_2()
 
 void DictionaryTagLinkTest::test_3()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_TAG_LINK_3;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_TAG_LINK_3;
 	if (!needStart(testNumbers, test_number))
 		return;
 

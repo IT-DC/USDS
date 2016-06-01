@@ -64,7 +64,7 @@ try
 	outBuffer = buff;
 
 	// Write tags
-	for (int id = 1; id <= dict->getTagNumber(); id++)
+	for (int32_t id = 1; id <= dict->getTagNumber(); id++)
 	{
 		outBuffer->writeUByte(USDS_TAG_SIGNATURE);
 		DictionaryBaseType* tag = dict->getTag(id);
@@ -271,8 +271,8 @@ void DictionaryBinaryCreator::writeStruct(DictionaryBaseType* object) throw (...
 try
 {
 	//write fields
-	int fieldNumber = ((DictionaryStruct*)object)->getFieldNumber();
-	for (int id = 1; id <= fieldNumber; id++)
+	int32_t fieldNumber = ((DictionaryStruct*)object)->getFieldNumber();
+	for (int32_t id = 1; id <= fieldNumber; id++)
 	{
 		DictionaryBaseType* field = ((DictionaryStruct*)object)->getField(id);
 		outBuffer->writeUByte(USDS_FIELD_SIGNATURE);

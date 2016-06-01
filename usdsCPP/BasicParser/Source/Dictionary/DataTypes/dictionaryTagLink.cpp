@@ -65,7 +65,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void DictionaryTagLink::setTag(int tag_id) throw (...)
+void DictionaryTagLink::setTag(int32_t tag_id) throw (...)
 try
 {
 	if (tag_id <= 0)

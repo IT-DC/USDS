@@ -2,9 +2,7 @@
 
 #include "base\usdsErrors.h"
 
-#include "usdsAutotest.h"
-
-void ErrorTest::runTest(int number)
+void ErrorTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__USDS_ERRORS))
 		return;
@@ -52,7 +50,7 @@ void ErrorTest::test_1()
 	}
 
 	// Step 4
-	error_class.addString(": 12345", 6) << ", " << (int)5 << ", " << (unsigned int)6 << ", " << (long long)7 << ", " << (unsigned long long)8 << ", " << "9" << ", " << std::string("10");
+	error_class.addString(": 12345", 6) << ", " << (int32_t)5 << ", " << (uint32_t)6 << ", " << (int64_t)7 << ", " << (uint64_t)8 << ", " << "9" << ", " << std::string("10");
 	message = error_class.getMessage();
 	if (strcmp(message, "Message: 1234, 5, 6, 7, 8, 9, 10") != 0)
 	{
@@ -130,11 +128,11 @@ void ErrorTest::test_3()
 	}
 
 	// step 4
-	error_stack.addStringAttribute("12345", 4) << true << (unsigned char)5 << (int)6 << (unsigned int)7 << (long long)8 << (unsigned long long)9 << (double)10.001 << "11"
-		<< (void*)12 << (unsigned char*)13 << (unsigned long long*)14 << (unsigned int*)15 << (int*)16 << (char**)17 << (std::string*)18;
+	error_stack.addStringAttribute("12345", 4) << true << (uint8_t)5 << (int32_t)6 << (uint32_t)7 << (int64_t)8 << (uint64_t)9 << (double)10.001 << "11"
+		<< (void*)12 << (uint8_t*)13 << (uint64_t*)14 << (uint32_t*)15 << (int32_t*)16 << (char**)17 << (std::string*)18;
 	path = error_stack.getFullMessage();
-	if (strcmp(path, "Error code: 0\nError message: \"no message\"\nStack:\npath=FuncName(const char* \"1234\", bool true, unsigned char 5, int 6, unsigned int 7, long long 8, unsigned long long 9, double 10.001"\
-		", const char* \"11\", void* 0000000C, unsigned char* 0000000D, unsigned long long* 0000000E, unsigned int* 0000000F, int* 00000010, void* 00000011, string* 00000012)\n") != 0)
+	if (strcmp(path, "Error code: 0\nError message: \"no message\"\nStack:\npath=FuncName(const char* \"1234\", bool true, uint8_t 5, int32_t 6, uint32_t 7, int64_t 8, uint64_t 9, double 10.001"\
+		", const char* \"11\", void* 0000000C, uint8_t* 0000000D, uint64_t* 0000000E, uint32_t* 0000000F, int32_t* 00000010, void* 00000011, string* 00000012)\n") != 0)
 	{
 		std::cout << "Failed at the step 4\n";
 		throw UNIT_TESTS__USDS_ERRORS_3;
@@ -162,7 +160,7 @@ void ErrorTest::test_4()
 				}
 				catch (usds::ErrorMessage& err)
 				{
-					throw usds::ErrorStack("FuncName") << 666 << "www" << (unsigned int)888 << err;
+					throw usds::ErrorStack("FuncName") << 666 << "www" << (uint32_t)888 << err;
 				}
 			}
 			catch (usds::ErrorStack& stack)
@@ -180,7 +178,7 @@ void ErrorTest::test_4()
 					throw UNIT_TESTS__USDS_ERRORS_4;
 				}
 				// Step 3
-				if(strcmp(stack.getFullMessage(), "Error code: 1001\nError message: \"Message: 999;\"\nStack:\ncode=1001 message=\"Message: 999;\" path=FuncName(int 666, const char* \"www\", unsigned int 888)\n") != 0)
+				if(strcmp(stack.getFullMessage(), "Error code: 1001\nError message: \"Message: 999;\"\nStack:\ncode=1001 message=\"Message: 999;\" path=FuncName(int32_t 666, const char* \"www\", uint32_t 888)\n") != 0)
 				{
 					std::cout << "Failed at the step 3\n";
 					throw UNIT_TESTS__USDS_ERRORS_4;
@@ -205,7 +203,7 @@ void ErrorTest::test_4()
 				throw UNIT_TESTS__USDS_ERRORS_4;
 			}
 			// Step 6
-			if (strcmp(stack.getFullMessage(), "Error code: 1001\nError message: \"Message: 999;\"\nStack:\npath=FuncName2()\n\t--> code=1001 message=\"Message: 999;\" path=FuncName(int 666, const char* \"www\", unsigned int 888)\n") != 0)
+			if (strcmp(stack.getFullMessage(), "Error code: 1001\nError message: \"Message: 999;\"\nStack:\npath=FuncName2()\n\t--> code=1001 message=\"Message: 999;\" path=FuncName(int32_t 666, const char* \"www\", uint32_t 888)\n") != 0)
 			{
 				std::cout << "Failed at the step 6\n";
 				throw UNIT_TESTS__USDS_ERRORS_4;
@@ -230,7 +228,7 @@ void ErrorTest::test_4()
 			throw UNIT_TESTS__USDS_ERRORS_4;
 		}
 		// Step 9
-		if (strcmp(stack.getFullMessage(), "Error code: 1002\nError message: \"Message 2: 555\"\nStack:\ncode=1002 message=\"Message 2: 555\" path=FuncName3(void* A0B1C3D4)\n\t--> path=FuncName2()\n\t\t--> code=1001 message=\"Message: 999;\" path=FuncName(int 666, const char* \"www\", unsigned int 888)\n") != 0)
+		if (strcmp(stack.getFullMessage(), "Error code: 1002\nError message: \"Message 2: 555\"\nStack:\ncode=1002 message=\"Message 2: 555\" path=FuncName3(void* A0B1C3D4)\n\t--> path=FuncName2()\n\t\t--> code=1001 message=\"Message: 999;\" path=FuncName(int32_t 666, const char* \"www\", uint32_t 888)\n") != 0)
 		{
 			std::cout << "Failed at the step 9\n";
 			throw UNIT_TESTS__USDS_ERRORS_4;

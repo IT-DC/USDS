@@ -1,4 +1,3 @@
-#include "usdsAutotest.h"
 #include "unitTest\dictionary\dictionaryArrayTest.h"
 
 #include "dictionary\usdsDictionary.h"
@@ -6,7 +5,7 @@
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 #include "dictionary\dataTypes\dictionaryString.h"
 
-void DictionaryArrayTest::runTest(int number)
+void DictionaryArrayTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__DICTIONARY_ARRAY))
 		return;
@@ -22,7 +21,7 @@ void DictionaryArrayTest::runTest(int number)
 // Test simple types for array's element
 void DictionaryArrayTest::test_1()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_ARRAY_1;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_ARRAY_1;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -183,7 +182,7 @@ void DictionaryArrayTest::test_1()
 // test TAG as element for array
 void DictionaryArrayTest::test_2()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_ARRAY_2;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_ARRAY_2;
 	if (!needStart(testNumbers, test_number))
 		return;
 

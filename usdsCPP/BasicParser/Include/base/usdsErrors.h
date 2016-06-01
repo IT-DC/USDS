@@ -4,6 +4,24 @@
 #include <string>
 #include <list>
 
+#ifdef _MSC_VER
+	#if _MSC_VER >= 1600
+		#pragma warning (disable : 4005)
+		#include <cstdint>
+	#else
+		typedef __int8              int8_t;
+		typedef __int16             int16_t;
+		typedef __int32             int32_t;
+		typedef __int64             int64_t;
+		typedef unsigned __int8     uint8_t;
+		typedef unsigned __int16    uint16_t;
+		typedef unsigned __int32    uint32_t;
+		typedef unsigned __int64    uint64_t;
+	#endif
+	#elif __GNUC__ >= 3
+		#include <cstdint>
+#endif
+
 namespace usds
 {
 	enum errorCodes
@@ -128,10 +146,10 @@ namespace usds
 		ErrorMessage(errorCodes code, const char* utf8_message);
 		~ErrorMessage();
 
-		ErrorMessage& operator<<(const int value);
-		ErrorMessage& operator<<(const unsigned int value);
-		ErrorMessage& operator<<(const long long value);
-		ErrorMessage& operator<<(const unsigned long long value);
+		ErrorMessage& operator<<(const int32_t value);
+		ErrorMessage& operator<<(const uint32_t value);
+		ErrorMessage& operator<<(const int64_t value);
+		ErrorMessage& operator<<(const uint64_t value);
 		ErrorMessage& operator<<(const char* utf8_message);
 		ErrorMessage& operator<<(const std::string& utf8_message);
 		
@@ -156,19 +174,19 @@ namespace usds
 		ErrorStack& operator<<(ErrorMessage& message);
 
 		ErrorStack& operator<<(const bool value);
-		ErrorStack& operator<<(const unsigned char value);
-		ErrorStack& operator<<(const int value);
-		ErrorStack& operator<<(const unsigned int value);
-		ErrorStack& operator<<(const long long value);
-		ErrorStack& operator<<(const unsigned long long value);
+		ErrorStack& operator<<(const uint8_t value);
+		ErrorStack& operator<<(const int32_t value);
+		ErrorStack& operator<<(const uint32_t value);
+		ErrorStack& operator<<(const int64_t value);
+		ErrorStack& operator<<(const uint64_t value);
 		ErrorStack& operator<<(const double value);
 		ErrorStack& operator<<(const char* utf8_path);
 		
 		ErrorStack& operator<<(const void* value);
-		ErrorStack& operator<<(const unsigned char* value);
-		ErrorStack& operator<<(const unsigned long long* value);
-		ErrorStack& operator<<(const unsigned int* value);
-		ErrorStack& operator<<(const int* value);
+		ErrorStack& operator<<(const uint8_t* value);
+		ErrorStack& operator<<(const uint64_t* value);
+		ErrorStack& operator<<(const uint32_t* value);
+		ErrorStack& operator<<(const int32_t* value);
 		ErrorStack& operator<<(const char** value);
 		ErrorStack& operator<<(const std::string* value);
 

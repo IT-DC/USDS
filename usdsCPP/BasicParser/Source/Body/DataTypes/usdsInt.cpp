@@ -17,13 +17,13 @@ void UsdsInt::initType()
 
 };
 
-void UsdsInt::setValue(int value) throw (...)
+void UsdsInt::setValue(int32_t value) throw (...)
 {
 	
 	objectValue = value;
 };
 
-int UsdsInt::getIntValue() throw (...)
+int32_t UsdsInt::getIntValue() throw (...)
 {
 
 	return objectValue;

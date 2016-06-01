@@ -31,7 +31,7 @@ usdsTypes UsdsArray::getElementType() throw(...)
 
 //====================================================================================================================
 
-void UsdsArray::pushBack(int value) throw (...)
+void UsdsArray::pushBack(int32_t value) throw (...)
 try
 {
 	switch (elementType)
@@ -58,13 +58,13 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsArray::pushBack(long long value) throw (...)
+void UsdsArray::pushBack(int64_t value) throw (...)
 {
 
 
 };
 
-void UsdsArray::pushBack(unsigned long long value) throw (...)
+void UsdsArray::pushBack(uint64_t value) throw (...)
 {
 
 
@@ -120,7 +120,7 @@ catch (ErrorStack& err)
 
 //====================================================================================================================
 
-void UsdsArray::getValue(size_t number, int* value) throw (...)
+void UsdsArray::getValue(size_t number, int32_t* value) throw (...)
 try
 {
 	if (number > elementNumber)
@@ -148,13 +148,13 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsArray::getValue(size_t number, long long* value) throw (...)
+void UsdsArray::getValue(size_t number, int64_t* value) throw (...)
 {
 
 
 };
 
-void UsdsArray::getValue(size_t number, unsigned long long* value) throw (...)
+void UsdsArray::getValue(size_t number, uint64_t* value) throw (...)
 {
 
 
@@ -223,7 +223,7 @@ size_t UsdsArray::getArrayBinarySize() throw(...)
 void UsdsArray::setArrayBinary(const void* binary, size_t binary_size) throw(...)
 try
 {
-	int element_size = typeSize(elementType);
+	int32_t element_size = typeSize(elementType);
 	if (element_size == 0)
 		throw ErrorMessage(BODY_ARRAY__UNFIXED_ELEMENT_SIZE) << "Element type '" << typeName(elementType) << "' is unfixed";
 	elementValues.writeByteArray(binary, binary_size);

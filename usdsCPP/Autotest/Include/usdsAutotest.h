@@ -4,6 +4,24 @@
 #include <iostream>
 #include <ctime>
 
+#ifdef _MSC_VER
+	#if _MSC_VER >= 1600
+		#pragma warning (disable : 4005)
+		#include <cstdint>
+	#else
+		typedef __int8              int8_t;
+		typedef __int16             int16_t;
+		typedef __int32             int32_t;
+		typedef __int64             int64_t;
+		typedef unsigned __int8     uint8_t;
+		typedef unsigned __int16    uint16_t;
+		typedef unsigned __int32    uint32_t;
+		typedef unsigned __int64    uint64_t;
+	#endif
+	#elif __GNUC__ >= 3
+		#include <cstdint>
+#endif
+
 enum testNumbers
 {
 	ANY_TEST = 0,
@@ -81,7 +99,7 @@ enum testNumbers
 	STRESS_TESTS = 300000
 };
 
-extern bool needStart(int current_number, int my_number);
+extern bool needStart(int32_t current_number, int32_t my_number);
 
 extern void printTime();
 

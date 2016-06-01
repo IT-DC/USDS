@@ -13,7 +13,7 @@ void DictionaryLong::initType()
 	isDefault = false;
 };
 
-void DictionaryLong::setDefault(long long value)
+void DictionaryLong::setDefault(int64_t value)
 {
 	isDefault = true;
 	defaultValue = value;

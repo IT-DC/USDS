@@ -1,4 +1,3 @@
-#include "usdsAutotest.h"
 #include "unitTest\body\usdsArrayTest.h"
 
 #include "body\dataTypes\usdsArray.h"
@@ -7,7 +6,7 @@
 #include "dictionary\usdsDictionary.h"
 
 
-void UsdsArrayTest::runTest(int number)
+void UsdsArrayTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__BODY_ARRAY))
 		return;
@@ -23,7 +22,7 @@ void UsdsArrayTest::runTest(int number)
 // Test INT type for array's element
 void UsdsArrayTest::test_1()
 {
-	int test_number = UNIT_TESTS__BODY_ARRAY_1;
+	int32_t test_number = UNIT_TESTS__BODY_ARRAY_1;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -64,7 +63,7 @@ void UsdsArrayTest::test_1()
 	}
 
 	// step 3
-	int int_value = 5;
+	int32_t int_value = 5;
 	body_array->pushBack(int_value);
 	if (body_array->size() != 1 || body_array->getValue<int>(0) != int_value)
 	{

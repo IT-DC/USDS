@@ -5,7 +5,7 @@
 
 #pragma warning(disable : 4996)
 
-int main(int argc, char* argv[])
+int32_t main(int32_t argc, char* argv[])
 {
 	testNumbers tests = ANY_TEST;
 	
@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-bool needStart(int current_number, int my_number)
+bool needStart(int32_t current_number, int32_t my_number)
 {
 	if (current_number == ANY_TEST)
 		return true;

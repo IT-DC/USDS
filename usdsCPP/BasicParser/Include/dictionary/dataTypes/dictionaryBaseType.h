@@ -18,12 +18,12 @@ namespace usds
 		DictionaryBaseType(Dictionary* dict) { dictionary = dict; };
 		virtual ~DictionaryBaseType() { };
 
-		void init(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...);
+		void init(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...);
 		virtual void finalize() throw(...) = 0;
 
 		const char* getName() throw(...);
 		size_t getNameSize() throw(...);
-		int getID() throw(...);
+		int32_t getID() throw(...);
 
 		usdsTypes getType();
 		const char* getTypeName();
@@ -44,7 +44,7 @@ namespace usds
 
 	protected:
 		std::string objectName;
-		int objectID;
+		int32_t objectID;
 
 		// restrictions
 		bool isRoot;

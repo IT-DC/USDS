@@ -26,40 +26,40 @@ namespace usds
 		virtual ~BasicParser();
 
 		// Settings
-		const unsigned char usdsMajor;
-		const unsigned char usdsMinor;
+		const uint8_t usdsMajor;
+		const uint8_t usdsMinor;
 
 		// Dictionary constructors
-		void addDictionaryFromText(const char* text_dictionary, int size, usdsEncodes encode) throw(...);
+		void addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncodes encode) throw(...);
 		void CurrentDictionaryToText(usdsEncodes encode, std::string* text) throw(...);
 		// add clean dictionary
-		Dictionary* addNewDictionary(int id, unsigned char major, unsigned char minor) throw(...);
+		Dictionary* addNewDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...);
 
 		// Working with several dictionaries
-		void selectDictionary(int id, unsigned char major, unsigned char minor) throw(...);
+		void selectDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...);
 
 		// Return parameters for current dictionary
-		int getDictionaryID() throw(...);
-		unsigned char getDictionaryMajor() throw(...);
-		unsigned char getDictionaryMinor() throw(...);
+		int32_t getDictionaryID() throw(...);
+		uint8_t getDictionaryMajor() throw(...);
+		uint8_t getDictionaryMinor() throw(...);
 
 		// Find id by names
-		int getTagID(const char* name) throw(...);
-		int getFieldID(int tag_id, const char* name) throw(...);
+		int32_t getTagID(const char* name) throw(...);
+		int32_t getFieldID(int32_t tag_id, const char* name) throw(...);
 		UsdsBaseType* getFirstTag(const char* name) throw(...);
 		UsdsStruct* getFirstStructTag(const char* name) throw(...);
 
 		// Body constructions
-		UsdsBaseType* addTag(int id) throw(...);
+		UsdsBaseType* addTag(int32_t id) throw(...);
 		UsdsStruct* addStructTag(const char* name) throw(...);
-		UsdsStruct* addStructTag(int id) throw(...);
+		UsdsStruct* addStructTag(int32_t id) throw(...);
 
 		// encode
 		void encode(BinaryOutput* buff, bool with_head, bool with_dictionary, bool with_body) throw(...);
 		void getJSON(usdsEncodes encode, std::string* text) throw(...);
 
 		// decode
-		void decode(const unsigned char* data, size_t data_size) throw(...);
+		void decode(const uint8_t* data, size_t data_size) throw(...);
 
 		// clear
 		void clear();		// it does not release memory in buffers
@@ -67,7 +67,7 @@ namespace usds
 
 	private:
 
-		Dictionary* findDictionary(int id, unsigned char major, unsigned char minor) throw(...);
+		Dictionary* findDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...);
 
 		// Object pool of Dictionaries
 		TemplateObjectPool<Dictionary, BasicParser> dictionaryPool;

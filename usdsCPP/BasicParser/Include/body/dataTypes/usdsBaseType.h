@@ -21,7 +21,7 @@ namespace usds
 
 		const char* getName() throw(...);
 		size_t getNameSize() throw(...);
-		int getID() throw(...);
+		int32_t getID() throw(...);
 		usdsTypes getType();
 		const char* getTypeName();
 
@@ -33,17 +33,17 @@ namespace usds
 		void setPrevious(UsdsBaseType* previous);
 		void setParent(UsdsBaseType* parent);
 
-		virtual void setValue(int value) throw (...);
-		virtual void setValue(long long value) throw (...);
-		virtual void setValue(unsigned long long value) throw (...);
+		virtual void setValue(int32_t value) throw (...);
+		virtual void setValue(int64_t value) throw (...);
+		virtual void setValue(uint64_t value) throw (...);
 		virtual void setValue(double value) throw (...);
 		virtual void setValue(const char* value) throw (...);
 		virtual void setValue(const char* value, size_t size) throw (...);
 		virtual void setValue(bool value) throw (...);
 
-		virtual void getValue(int* value) throw (...);
-		virtual void getValue(long long* value) throw (...);
-		virtual void getValue(unsigned long long* value) throw (...);
+		virtual void getValue(int32_t* value) throw (...);
+		virtual void getValue(int64_t* value) throw (...);
+		virtual void getValue(uint64_t* value) throw (...);
 		virtual void getValue(double* value) throw (...);
 		virtual void getValue(const char** value) throw (...);
 		virtual void getValue(const char** value, size_t* size) throw (...);

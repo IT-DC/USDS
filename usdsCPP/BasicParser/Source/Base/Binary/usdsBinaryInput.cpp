@@ -11,7 +11,7 @@ BinaryInput::BinaryInput()
 
 BinaryInput::~BinaryInput() {};
 
-void BinaryInput::setBinary(const unsigned char* buff, size_t size) throw(...)
+void BinaryInput::setBinary(const uint8_t* buff, size_t size) throw(...)
 try
 {
 	if (buff == 0)
@@ -36,10 +36,10 @@ void BinaryInput::clear()
 	buffCurrentPos = 0;
 };
 
-int BinaryInput::readUVarint(unsigned long long* value) throw(...)
+int32_t BinaryInput::readUVarint(uint64_t* value) throw(...)
 try
 {
-	unsigned long long buf = 0;
+	uint64_t buf = 0;
 	*value = 0;
 
 	if (buffCurrentPos >= buffLastPos)
@@ -59,7 +59,7 @@ try
 	}
 
 	// bytes 1-8
-	for (int i = 1; i <= 8; i++)
+	for (int32_t i = 1; i <= 8; i++)
 	{
 		if (buffCurrentPos >= buffLastPos)
 			throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
@@ -96,10 +96,10 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readUVarint") << value << err;
 };
 
-int BinaryInput::readUVarint(unsigned int* value) throw(...)
+int32_t BinaryInput::readUVarint(uint32_t* value) throw(...)
 try
 {
-	unsigned int buf = 0;
+	uint32_t buf = 0;
 	*value = 0;
 
 	if (buffCurrentPos >= buffLastPos)
@@ -119,7 +119,7 @@ try
 	}
 
 	// bytes 1-3
-	for (int i = 1; i <= 3; i++)
+	for (int32_t i = 1; i <= 3; i++)
 	{
 		if (buffCurrentPos >= buffLastPos)
 			throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
@@ -157,10 +157,10 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readUVarint") << value << err;
 };
 
-int BinaryInput::readUVarint(int* value) throw(...)
+int32_t BinaryInput::readUVarint(int32_t* value) throw(...)
 try
 {
-	int buf = 0;
+	int32_t buf = 0;
 	*value = 0;
 
 	if (buffCurrentPos >= buffLastPos)
@@ -180,7 +180,7 @@ try
 	}
 
 	// bytes 1-3
-	for (int i = 1; i <= 3; i++)
+	for (int32_t i = 1; i <= 3; i++)
 	{
 		if (buffCurrentPos >= buffLastPos)
 			throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'unsigned varint'");
@@ -207,7 +207,7 @@ try
 	if (*buffCurrentPos == 0)
 		throw ErrorMessage(BIN_IN__UVARINT_ERROR_FORMAT, "Binary format error: byte 4 of the UNSIGNED VARINT can not be 0");
 	if (*buffCurrentPos > 7)
-		throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read unsigned varint: the size is more than signed int (4 byte)");
+		throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read unsigned varint: the size is more than signed int32_t (4 byte)");
 	buf = *buffCurrentPos;
 	*value += (buf << 28);
 	buffCurrentPos++;
@@ -218,14 +218,14 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readUVarint") << value << err;
 };
 
-int BinaryInput::readInt() throw(...)
+int32_t BinaryInput::readInt() throw(...)
 try
 {
 	// buffer overflow
 	if (buffCurrentPos + 4 > buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'int'");
 
-	int value;
+	int32_t value;
 	memcpy(&value, buffCurrentPos, 4);
 	buffCurrentPos += 4;
 
@@ -236,14 +236,14 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readInt") << err;
 };
 
-long long BinaryInput::readLong() throw(...)
+int64_t BinaryInput::readLong() throw(...)
 try
 {
 	// buffer overflow
 	if (buffCurrentPos + 8 > buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'long'");
 
-	long long value;
+	int64_t value;
 	memcpy(&value, buffCurrentPos, 8);
 	buffCurrentPos += 8;
 
@@ -317,7 +317,7 @@ try
 	else if (*buffCurrentPos == 0)
 		value = false;
 	else
-		throw ErrorMessage(BIN_IN__BOOLEAN_ERROR_FORMAT, "Error value for BOOLEAN: ") << (int)*buffCurrentPos << ", must be 0 or 0xFF";
+		throw ErrorMessage(BIN_IN__BOOLEAN_ERROR_FORMAT, "Error value for BOOLEAN: ") << (int32_t)*buffCurrentPos << ", must be 0 or 0xFF";
 	
 	buffCurrentPos++;
 
@@ -328,14 +328,14 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readBool") << err;
 };
 
-unsigned char BinaryInput::readUByte() throw(...)
+uint8_t BinaryInput::readUByte() throw(...)
 try
 {
 	// buffer overflow
 	if (buffCurrentPos >= buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read the Byte");
 
-	unsigned char value = buffCurrentPos[0];
+	uint8_t value = buffCurrentPos[0];
 	buffCurrentPos++;
 	return value;
 
@@ -345,14 +345,14 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readUByte") << err;
 };
 
-char BinaryInput::readByte() throw(...)
+int8_t BinaryInput::readByte() throw(...)
 try
 {
 	// buffer overflow
 	if (buffCurrentPos >= buffLastPos)
 		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read a Byte");
 
-	char value = buffCurrentPos[0];
+	int8_t value = buffCurrentPos[0];
 	buffCurrentPos++;
 	return value;
 
@@ -403,7 +403,7 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::isEnd") << err;
 };
 
-const unsigned char* BinaryInput::getCurrentPosition() throw(...)
+const uint8_t* BinaryInput::getCurrentPosition() throw(...)
 try
 {
 	if (usdsBuff == 0)
@@ -415,7 +415,7 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::getCurrentPosition") << err;
 };
 
-const unsigned char* BinaryInput::getFirstPosition() throw(...)
+const uint8_t* BinaryInput::getFirstPosition() throw(...)
 try
 {
 	if (usdsBuff == 0)

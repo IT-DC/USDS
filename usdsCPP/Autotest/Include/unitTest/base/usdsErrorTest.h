@@ -1,13 +1,15 @@
 #ifndef USDS_ERROR_TEST_H
 #define USDS_ERROR_TEST_H
 
+#include "usdsAutotest.h"
+
 class ErrorTest
 {
 public:
 	ErrorTest() {};
 	~ErrorTest() {};
 
-	void runTest(int number);
+	void runTest(int32_t number);
 
 private:
 	
@@ -16,7 +18,7 @@ private:
 	void test_3();
 	void test_4();
 
-	int testNumbers;
+	int32_t testNumbers;
 
 };
 

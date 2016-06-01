@@ -22,27 +22,27 @@ namespace usds
 		~Dictionary();
 
 		// Dictionary construction
-		void setID(int id, unsigned char major, unsigned char minor) throw (...);
+		void setID(int32_t id, uint8_t major, uint8_t minor) throw (...);
 		
 		// construction
-		DictionaryBaseType* addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...);
-		DictionaryBaseType* addField(usdsTypes field_type, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw (...);
+		DictionaryBaseType* addTag(usdsTypes tag_type, int32_t id, const char* name, size_t name_size) throw (...);
+		DictionaryBaseType* addField(usdsTypes field_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw (...);
 
 		// Replace Tag names to tag ID, check errors
 		void finalizeDictionary() throw(...);
 
 		// Dictionary information
-		int getDictionaryID()  throw (...);
-		unsigned char getMajorVersion() throw (...);
-		unsigned char getMinorVersion() throw (...);
+		int32_t getDictionaryID()  throw (...);
+		uint8_t getMajorVersion() throw (...);
+		uint8_t getMinorVersion() throw (...);
 		
 		DictionaryBaseType* getFirstTag() throw (...);
 		DictionaryBaseType* getLastTag() throw (...);
 
 		// Find Tag ID by Name
 		// returns 0 if tag not found
-		int findTagID(const char* name) throw (...);
-		int findTagID(const char* name, size_t name_size) throw (...);
+		int32_t findTagID(const char* name) throw (...);
+		int32_t findTagID(const char* name, size_t name_size) throw (...);
 		
 		// Find Tag by Name
 		// returns 0 if tag not found
@@ -50,11 +50,11 @@ namespace usds
 		DictionaryBaseType* findTag(const char* name, size_t name_size) throw (...);
 
 		// Get tag by ID
-		DictionaryBaseType* getTag(int tag_id) throw (...);
-		int getTagNumber() throw (...);
+		DictionaryBaseType* getTag(int32_t tag_id) throw (...);
+		int32_t getTagNumber() throw (...);
 
 		// Encode dictionary
-		const unsigned char* getBinary(size_t* size) throw(...);
+		const uint8_t* getBinary(size_t* size) throw(...);
 		// add existing binary
 		void setBinary(const void* data, size_t size) throw(...);
 
@@ -62,17 +62,17 @@ namespace usds
 		void clear();
 
 	private:
-		unsigned char majorVersion;
-		unsigned char minorVersion;
-		int dictionaryID;
+		uint8_t majorVersion;
+		uint8_t minorVersion;
+		int32_t dictionaryID;
 
 		DictionaryBaseType* firstTag;
 		DictionaryBaseType* lastTag;
 		void connectTagToDictionary(DictionaryBaseType* tag);
 
 		// tag index
-		int tagMaxID;
-		int tagNumber;
+		int32_t tagMaxID;
+		int32_t tagNumber;
 		std::vector<DictionaryBaseType*> tagIndex;
 		bool finalized;
 		bool indexed;

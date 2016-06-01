@@ -14,7 +14,7 @@ BinaryParser::~BinaryParser()
 
 };
 
-void BinaryParser::setBinary(const unsigned char* data, int data_size) throw(...)
+void BinaryParser::setBinary(const uint8_t* data, size_t data_size) throw(...)
 try
 {
 	headExists = false;
@@ -22,14 +22,14 @@ try
 	bodyExists = false;
 
 	binary.setBinary(data, data_size);
-	unsigned char signature = binary.readUByte();
+	uint8_t signature = binary.readUByte();
 
 	// analize binary
 	// try to read Head
 	if (signature == USDS_MAJOR_SIGNATURE)
 	{
 		// read all head
-		unsigned char head[3];
+		uint8_t head[3];
 		binary.readByteArray(head, 3);
 		if (head[0] != USDS_MINOR_SIGNATURE || head[1] != USDS_MAJOR_VERSION || head[2] != USDS_MINOR_VERSION)
 			throw ErrorMessage(BINARY_PARSER__UNKNOWN_FORMAT, "Unknown format of the binary, head must be '$S10'");
@@ -56,7 +56,7 @@ try
 		// read dictionary size
 		size_t dict_size;
 		binary.readUVarint(&dict_size);
-		const unsigned char* dict_data = binary.getCurrentPosition();
+		const uint8_t* dict_data = binary.getCurrentPosition();
 		// try to move to the end of the dictionary
 		binary.stepForward(dict_size);
 		dictionaryBinary.setBinary(dict_data, dict_size);
@@ -70,7 +70,7 @@ try
 	// try to read Body
 	if (signature == USDS_BODY_SIGNATURE)
 	{
-		const unsigned char* body_data = binary.getCurrentPosition();
+		const uint8_t* body_data = binary.getCurrentPosition();
 		size_t body_size = data_size - (body_data - data);
 		bodyBinary.setBinary(body_data, body_size);
 		bodyExists = true;
@@ -99,17 +99,17 @@ bool BinaryParser::isDictionaryIncluded()
 	return dictionaryExists;
 };
 
-int BinaryParser::getDictionaryID()
+int32_t BinaryParser::getDictionaryID()
 {
 	return dictionaryID;
 };
 
-unsigned char BinaryParser::getDictionaryMajor()
+uint8_t BinaryParser::getDictionaryMajor()
 {
 	return dictionaryMajor;
 };
 
-unsigned char BinaryParser::getDictionaryMinor()
+uint8_t BinaryParser::getDictionaryMinor()
 {
 	return dictionaryMinor;
 };

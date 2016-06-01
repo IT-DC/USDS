@@ -21,7 +21,7 @@ ErrorMessage::~ErrorMessage()
 
 };
 
-ErrorMessage& ErrorMessage::operator << (const int value)
+ErrorMessage& ErrorMessage::operator << (const int32_t value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -30,7 +30,7 @@ ErrorMessage& ErrorMessage::operator << (const int value)
 	return *this;
 };
 
-ErrorMessage& ErrorMessage::operator << (const unsigned int value)
+ErrorMessage& ErrorMessage::operator << (const uint32_t value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -40,7 +40,7 @@ ErrorMessage& ErrorMessage::operator << (const unsigned int value)
 };
 
 
-ErrorMessage& ErrorMessage::operator << (const long long value)
+ErrorMessage& ErrorMessage::operator << (const int64_t value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -49,7 +49,7 @@ ErrorMessage& ErrorMessage::operator << (const long long value)
 	return *this;
 };
 
-ErrorMessage& ErrorMessage::operator << (const unsigned long long value)
+ErrorMessage& ErrorMessage::operator << (const uint64_t value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -151,22 +151,22 @@ ErrorStack& ErrorStack::operator << (const bool value)
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator << (const unsigned char value)
+ErrorStack& ErrorStack::operator << (const uint8_t value)
 {
 	std::stringstream buff;
-	buff << (unsigned int)value;
+	buff << (uint32_t)value;
 
 	std::string* path = &(stack.front().path);
 
 	if (path->back() != '(')
 		*path += ", ";
-	*path += "unsigned char ";
+	*path += "uint8_t ";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator << (const int value)
+ErrorStack& ErrorStack::operator << (const int32_t value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -175,13 +175,13 @@ ErrorStack& ErrorStack::operator << (const int value)
 
 	if (path->back() != '(')
 		*path += ", ";
-	*path += "int ";
+	*path += "int32_t ";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator << (const unsigned int value)
+ErrorStack& ErrorStack::operator << (const uint32_t value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -190,13 +190,13 @@ ErrorStack& ErrorStack::operator << (const unsigned int value)
 
 	if (path->back() != '(')
 		*path += ", ";
-	*path += "unsigned int ";
+	*path += "uint32_t ";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator << (const long long value)
+ErrorStack& ErrorStack::operator << (const int64_t value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -205,13 +205,13 @@ ErrorStack& ErrorStack::operator << (const long long value)
 
 	if (path->back() != '(')
 		*path += ", ";
-	*path += "long long ";
+	*path += "int64_t ";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator << (const unsigned long long value)
+ErrorStack& ErrorStack::operator << (const uint64_t value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -220,7 +220,7 @@ ErrorStack& ErrorStack::operator << (const unsigned long long value)
 
 	if (path->back() != '(')
 		*path += ", ";
-	*path += "unsigned long long ";
+	*path += "uint64_t ";
 	*path += buff.str();
 
 	return *this;
@@ -279,7 +279,7 @@ ErrorStack& ErrorStack::operator << (const void* value)
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator<<(const unsigned char* value)
+ErrorStack& ErrorStack::operator<<(const uint8_t* value)
 {
 	std::stringstream buff;
 	buff << (void*)value;
@@ -289,13 +289,13 @@ ErrorStack& ErrorStack::operator<<(const unsigned char* value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "unsigned char* ";
+	*path += "uint8_t* ";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator<<(const unsigned long long* value)
+ErrorStack& ErrorStack::operator<<(const uint64_t* value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -305,13 +305,13 @@ ErrorStack& ErrorStack::operator<<(const unsigned long long* value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "unsigned long long* ";
+	*path += "uint64_t* ";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator<<(const unsigned int* value)
+ErrorStack& ErrorStack::operator<<(const uint32_t* value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -321,13 +321,13 @@ ErrorStack& ErrorStack::operator<<(const unsigned int* value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "unsigned int* ";
+	*path += "uint32_t* ";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator<<(const int* value)
+ErrorStack& ErrorStack::operator<<(const int32_t* value)
 {
 	std::stringstream buff;
 	buff << value;
@@ -337,7 +337,7 @@ ErrorStack& ErrorStack::operator<<(const int* value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "int* ";
+	*path += "int32_t* ";
 	*path += buff.str();
 
 	return *this;
@@ -419,7 +419,7 @@ const char* ErrorStack::getMessage()
 const char* ErrorStack::getFullMessage()
 {
 	std::stringstream buff;
-	int level = 0;
+	int32_t level = 0;
 
 	fullMessage = "Error code: ";
 	buff << lastCode;

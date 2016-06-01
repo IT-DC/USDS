@@ -22,7 +22,7 @@ try
 	BisonDictionaryTextParser textParser(usdsParser, &scanner, &errors, 0, 0, 0);
 
 	// Parse!
-	int ret = textParser.parse();
+	int32_t ret = textParser.parse();
 	if (ret != 0)
 		throw ErrorMessage(DICTIONARY_TEXT_PARSER__ERROR, errors.str().c_str());
 

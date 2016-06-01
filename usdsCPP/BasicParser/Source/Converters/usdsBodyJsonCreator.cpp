@@ -135,7 +135,7 @@ void BodyJsonCreator::writeBEUShort(UsdsBaseType* object) throw (...)
 void BodyJsonCreator::writeInt(UsdsBaseType* object) throw (...)
 try
 {
-	int value = ((UsdsInt*)object)->getIntValue();
+	int32_t value = ((UsdsInt*)object)->getIntValue();
 	*textBuff += std::to_string(value);
 }
 catch (ErrorStack& err)
@@ -162,7 +162,7 @@ void BodyJsonCreator::writeBEUInt(UsdsBaseType* object) throw (...)
 void BodyJsonCreator::writeLong(UsdsBaseType* object) throw (...)
 try
 {
-	long long value = ((UsdsLong*)object)->getLongValue();
+	int64_t value = ((UsdsLong*)object)->getLongValue();
 	*textBuff += std::to_string(value);
 }
 catch (ErrorStack& err)
@@ -242,7 +242,7 @@ void BodyJsonCreator::writeVarint(UsdsBaseType* object) throw (...)
 void BodyJsonCreator::writeUVarint(UsdsBaseType* object) throw (...)
 try
 {
-	unsigned long long value = ((UsdsUVarint*)object)->getULongValue();
+	uint64_t value = ((UsdsUVarint*)object)->getULongValue();
 	*textBuff += std::to_string(value);
 }
 catch (ErrorStack& err)
@@ -284,8 +284,8 @@ void BodyJsonCreator::writeArray(UsdsBaseType* object) throw (...)
 
 try
 {
-	int element_number = ((UsdsArray*)object)->size();
-	int i = 0;
+	int32_t element_number = ((UsdsArray*)object)->size();
+	int32_t i = 0;
 	*textBuff += '\n';
 	textBuff->append(shiftLevel, '\t');
 	*textBuff += '[';
@@ -326,8 +326,8 @@ try
 	textBuff->append(shiftLevel, '\t');
 	*textBuff += "{\n";
 	shiftLevel++;
-	int field_number = ((UsdsStruct*)object)->getFieldNumber();
-	int id = 1;
+	int32_t field_number = ((UsdsStruct*)object)->getFieldNumber();
+	int32_t id = 1;
 	while (true)
 	{
 		UsdsBaseType* field = ((UsdsStruct*)object)->getField(id);

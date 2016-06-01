@@ -51,7 +51,7 @@ namespace usds
 
 	};
 
-	int typeSizes[] =
+	int32_t typeSizes[] =
 	{
 		USDS_NO_TYPE_SIZE,
 		USDS_TAG_SIZE,
@@ -90,7 +90,7 @@ namespace usds
 		USDS_LAST_TYPE_SIZE
 	};
 
-	int typeSize(usdsTypes code) throw(...)
+	int32_t typeSize(usdsTypes code) throw(...)
 	{
 		if (code <= 0 || code >= USDS_LAST_TYPE)
 			throw ErrorStack("typeSize") << code << (ErrorMessage(USDS_TYPES__ERROR_TYPE_CODE) << "Unknown type code " << code);

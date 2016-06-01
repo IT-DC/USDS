@@ -60,7 +60,7 @@ try
 
 	while (!usdsBuff->isEnd())
 	{
-		int tag_ID;
+		int32_t tag_ID;
 		usdsBuff->readUVarint(&tag_ID);
 		UsdsBaseType* tag = body->addTag(dict->getTag(tag_ID));
 		// read specific Tag parameters
@@ -228,7 +228,7 @@ void BodyBinaryParser::readVarint(UsdsBaseType* object) throw (...)
 void BodyBinaryParser::readUVarint(UsdsBaseType* object) throw (...)
 try
 {
-	unsigned long long value;
+	uint64_t value;
 	usdsBuff->readUVarint(&value);
 	object->setValue(value);
 }
@@ -257,7 +257,7 @@ try
 {
 	size_t element_number;
 	usdsBuff->readUVarint(&element_number);
-	int element_size = typeSize(((UsdsArray*)object)->getElementType());
+	int32_t element_size = typeSize(((UsdsArray*)object)->getElementType());
 	
 	if (element_size == 0)
 	{
@@ -299,8 +299,8 @@ void BodyBinaryParser::readPolymorph(UsdsBaseType* object) throw (...)
 void BodyBinaryParser::readStruct(UsdsBaseType* object) throw (...)
 try
 {
-	int field_number = ((UsdsStruct*)object)->getFieldNumber();
-	for (int id = 1; id <= field_number; id++)
+	int32_t field_number = ((UsdsStruct*)object)->getFieldNumber();
+	for (int32_t id = 1; id <= field_number; id++)
 	{
 		UsdsBaseType* field = ((UsdsStruct*)object)->getField(id);
 		// read specific Field parameters

@@ -17,7 +17,7 @@ BasicParser::~BasicParser()
 
 //====================================================================================================================
 // Dictionary constructors
-void BasicParser::addDictionaryFromText(const char* text_dictionary, int size, usdsEncodes encode) throw(...)
+void BasicParser::addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncodes encode) throw(...)
 try 
 {
 	dictionaryTextParser.parse(text_dictionary, encode, this);
@@ -45,7 +45,7 @@ catch (ErrorStack& err)
 	throw;
 }
 
-Dictionary* BasicParser::addNewDictionary(int id, unsigned char major, unsigned char minor) throw(...)
+Dictionary* BasicParser::addNewDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...)
 try
 {
 	Dictionary* object = findDictionary(id, major, minor);
@@ -73,7 +73,7 @@ catch (ErrorStack& err)
 //====================================================================================================================
 // Working with several dictionaries
 
-void BasicParser::selectDictionary(int id, unsigned char major, unsigned char minor) throw(...)
+void BasicParser::selectDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...)
 try
 {
 	Dictionary* object = findDictionary(id, major, minor);
@@ -95,7 +95,7 @@ catch (ErrorStack& err)
 
 //====================================================================================================================
 // Settings
-int BasicParser::getDictionaryID() throw(...)
+int32_t BasicParser::getDictionaryID() throw(...)
 try
 {
 	return currentDictionary->getDictionaryID();
@@ -106,7 +106,7 @@ catch (ErrorStack& err)
 	throw;
 }
 
-unsigned char BasicParser::getDictionaryMajor() throw(...)
+uint8_t BasicParser::getDictionaryMajor() throw(...)
 try
 {
 	return currentDictionary->getMajorVersion();
@@ -117,7 +117,7 @@ catch (ErrorStack& err)
 	throw;
 }
 
-unsigned char BasicParser::getDictionaryMinor() throw(...)
+uint8_t BasicParser::getDictionaryMinor() throw(...)
 try
 {
 	return currentDictionary->getMinorVersion();
@@ -129,7 +129,7 @@ catch (ErrorStack& err)
 }
 
 //====================================================================================================================
-int BasicParser::getTagID(const char* name) throw(...)
+int32_t BasicParser::getTagID(const char* name) throw(...)
 try
 {
 
@@ -141,7 +141,7 @@ catch (ErrorStack& err)
 	throw;
 }
 
-int BasicParser::getFieldID(int tag_id, const char* name) throw(...)
+int32_t BasicParser::getFieldID(int32_t tag_id, const char* name) throw(...)
 try
 {
 	DictionaryBaseType* tag = currentDictionary->getTag(tag_id);
@@ -170,7 +170,7 @@ UsdsStruct* BasicParser::getFirstStructTag(const char* name) throw(...)
 
 //====================================================================================================================
 // Body constructions
-UsdsBaseType* BasicParser::addTag(int id) throw(...)
+UsdsBaseType* BasicParser::addTag(int32_t id) throw(...)
 try
 {
 	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
@@ -207,7 +207,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-UsdsStruct* BasicParser::addStructTag(int id) throw(...)
+UsdsStruct* BasicParser::addStructTag(int32_t id) throw(...)
 try
 {
 	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
@@ -272,16 +272,16 @@ catch (ErrorStack& err)
 //====================================================================================================================
 // Decode
 
-void BasicParser::decode(const unsigned char* data, size_t data_size) throw(...)
+void BasicParser::decode(const uint8_t* data, size_t data_size) throw(...)
 try
 {
 	binaryParser.setBinary(data, data_size);
 
 	if (binaryParser.isHeadIncluded())
 	{
-		int dict_id = binaryParser.getDictionaryID();
-		unsigned char dict_major = binaryParser.getDictionaryMajor();
-		unsigned char dict_minor = binaryParser.getDictionaryMinor();
+		int32_t dict_id = binaryParser.getDictionaryID();
+		uint8_t dict_major = binaryParser.getDictionaryMajor();
+		uint8_t dict_minor = binaryParser.getDictionaryMinor();
 		if (currentDictionary == 0)
 		{
 			addNewDictionary(dict_id, dict_major, dict_minor);
@@ -345,7 +345,7 @@ void BasicParser::clearBody()
 //====================================================================================================================
 // private
 
-Dictionary* BasicParser::findDictionary(int id, unsigned char major, unsigned char minor) throw(...)
+Dictionary* BasicParser::findDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...)
 try
 {
 	for (std::list<Dictionary*>::iterator it = dictionaries.begin(); it != dictionaries.end(); it++)

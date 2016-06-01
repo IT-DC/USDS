@@ -17,13 +17,13 @@ void UsdsLong::initType()
 
 };
 
-void UsdsLong::setValue(long long value) throw (...)
+void UsdsLong::setValue(int64_t value) throw (...)
 {
 
 	objectValue = value;
 };
 
-long long UsdsLong::getLongValue() throw (...)
+int64_t UsdsLong::getLongValue() throw (...)
 {
 
 	return objectValue;

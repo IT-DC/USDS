@@ -73,7 +73,7 @@ UsdsBaseType* Body::getFirstTag() throw(...)
 
 };
 
-UsdsBaseType* Body::getFirstTag(int tag_id) throw(...)
+UsdsBaseType* Body::getFirstTag(int32_t tag_id) throw(...)
 try
 {
 	UsdsBaseType* tag = firstTag;

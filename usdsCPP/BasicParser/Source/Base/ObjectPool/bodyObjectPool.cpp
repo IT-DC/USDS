@@ -55,7 +55,7 @@ BodyObjectPool::BodyObjectPool(Body* parent_body)
 
 BodyObjectPool::~BodyObjectPool()
 {
-	for (int i = 0; i < USDS_LAST_TYPE; i++)
+	for (int32_t i = 0; i < USDS_LAST_TYPE; i++)
 	{
 		if (pools[i] != 0)
 			delete(pools[i]);
@@ -282,7 +282,7 @@ catch (ErrorStack& err)
 
 void BodyObjectPool::clear()
 {
-	for (int i = 0; i < USDS_LAST_TYPE; i++)
+	for (int32_t i = 0; i < USDS_LAST_TYPE; i++)
 	{
 		if (pools[i] != 0)
 			pools[i]->clearPool();

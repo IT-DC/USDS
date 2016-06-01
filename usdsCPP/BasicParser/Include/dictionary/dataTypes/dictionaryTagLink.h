@@ -18,13 +18,13 @@ namespace usds
 		virtual void finalize() throw (...);
 
 		void setTag(const char* tag_name, size_t name_size) throw (...);
-		void setTag(int tag_id) throw (...);
+		void setTag(int32_t tag_id) throw (...);
 
 		DictionaryBaseType* getTag() throw (...);
 
 	private:
 		DictionaryBaseType* tag;
-		int tagID;
+		int32_t tagID;
 		std::string tagName;
 
 	};

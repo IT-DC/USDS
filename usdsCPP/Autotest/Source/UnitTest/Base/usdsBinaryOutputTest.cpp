@@ -1,9 +1,8 @@
-#include "usdsAutotest.h"
 #include "unitTest\base\usdsBinaryOutputTest.h"
 
 #include "base\binary\usdsBinaryOutput.h"
 
-void BinaryOutputTest::runTest(int number)
+void BinaryOutputTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__BINARY_OUTPUT))
 		return;
@@ -20,7 +19,7 @@ void BinaryOutputTest::runTest(int number)
 
 void BinaryOutputTest::test_1()
 {
-	int test_number = UNIT_TESTS__BINARY_OUTPUT_1;
+	int32_t test_number = UNIT_TESTS__BINARY_OUTPUT_1;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -64,7 +63,7 @@ void BinaryOutputTest::test_1()
 
 void BinaryOutputTest::test_2()
 {
-	int test_number = UNIT_TESTS__BINARY_OUTPUT_2;
+	int32_t test_number = UNIT_TESTS__BINARY_OUTPUT_2;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -72,8 +71,8 @@ void BinaryOutputTest::test_2()
 
 	usds::BinaryOutput binary;
 	size_t size;
-	int varint_size;
-	const unsigned char* buff;
+	int32_t varint_size;
+	const uint8_t* buff;
 
 	// step 1
 	varint_size = binary.writeUVarint(0x8000000000000001ull);
@@ -94,7 +93,7 @@ void BinaryOutputTest::test_2()
 	}
 
 	// step 3
-	int value = 0x7FFFFFFF;
+	int32_t value = 0x7FFFFFFF;
 	varint_size = binary.writeUVarint(value);
 	buff = binary.getBinary(&size);
 	if (varint_size != 5 || size != 20 || buff[15] != 255 || buff[16] != 255 || buff[17] != 255 || buff[18] != 255 || buff[19] != 7)
@@ -150,7 +149,7 @@ void BinaryOutputTest::test_2()
 	}
 
 	// step 8
-	unsigned char value_uchar = 254;
+	uint8_t value_uchar = 254;
 	binary.writeUByte(value_uchar);
 	buff = binary.getBinary(&size);
 	if (size != 41 || buff[40] != 0xFE)
@@ -160,7 +159,7 @@ void BinaryOutputTest::test_2()
 	}
 
 	// step 9
-	char value_char = -1;
+	int8_t value_char = -1;
 	binary.writeByte(value_char);
 	buff = binary.getBinary(&size);
 	if (size != 42 || buff[41] != 0xFF)
@@ -195,18 +194,18 @@ void BinaryOutputTest::test_2()
 
 void BinaryOutputTest::test_3()
 {
-	int test_number = UNIT_TESTS__BINARY_OUTPUT_3;
+	int32_t test_number = UNIT_TESTS__BINARY_OUTPUT_3;
 	if (!needStart(testNumbers, test_number))
 		return;
 
 	std::cout << test_number << ": ";
 
 	usds::BinaryOutput binary;
-	const unsigned char* buff;
+	const uint8_t* buff;
 	size_t size = 0;
 
 	// step 1
-	unsigned char buff_1[] = { 0, 1, 2, 3 };
+	uint8_t buff_1[] = { 0, 1, 2, 3 };
 	binary.writeByteArray(buff_1, 4);
 	buff = binary.getBinary(&size);
 	if (size != 4 || buff[0] != 0 || buff[1] != 1 || buff[2] != 2 || buff[3] != 3)
@@ -225,7 +224,7 @@ void BinaryOutputTest::test_3()
 	}
 
 	// step 3
-	unsigned char buff_2[1000];
+	uint8_t buff_2[1000];
 	binary.writeByteArray(buff_2, 1000);
 	buff = binary.getBinary(&size);
 	if (size != 1005 || buff[0] != 4)
@@ -262,7 +261,7 @@ void BinaryOutputTest::test_3()
 	}
 
 	// step 7
-	unsigned char buff_read[4];
+	uint8_t buff_read[4];
 	binary.readByteArray(8, buff_read, 4);
 	if (buff_read[0] != 0 || buff_read[1] != 1 || buff_read[2] != 2 || buff_read[3] != 3)
 	{
@@ -285,7 +284,7 @@ void BinaryOutputTest::test_3()
 
 void BinaryOutputTest::test_4()
 {
-	int test_number = UNIT_TESTS__BINARY_OUTPUT_4;
+	int32_t test_number = UNIT_TESTS__BINARY_OUTPUT_4;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -328,8 +327,8 @@ void BinaryOutputTest::test_4()
 	// step 3
 	try
 	{
-		unsigned char buff[1000];
-		unsigned char buff_out[1001];
+		uint8_t buff[1000];
+		uint8_t buff_out[1001];
 		binary->writeByteArray(buff, 1000);
 		binary->readByteArray(0, buff_out, 1001);
 		std::cout << "Failed at the step 3\n";
@@ -347,7 +346,7 @@ void BinaryOutputTest::test_4()
 	// step 4
 	try
 	{
-		unsigned char buff[1000];
+		uint8_t buff[1000];
 #ifdef _WIN64
 		binary->writeByteArray(buff, 0xFFFFFFFFFFFFFFFF);
 #else
@@ -368,7 +367,7 @@ void BinaryOutputTest::test_4()
 	// step 5
 	try
 	{
-		unsigned char buff[1000];
+		uint8_t buff[1000];
 #ifdef _WIN64
 		binary->writeByteArray(buff, 0xFFFFFFFFFFFF0000);
 #else

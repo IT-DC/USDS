@@ -64,17 +64,17 @@ try
 	while (!binary->isEnd())
 	{
 		// read signature
-		unsigned char signature = binary->readUByte();
+		uint8_t signature = binary->readUByte();
 		if (signature != USDS_TAG_SIGNATURE)
 			throw ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT) << "Unexpected signature '" << signature << "'";
 
 		// read main attributes
-		int tag_id;
+		int32_t tag_id;
 		binary->readUVarint(&tag_id);
 		size_t name_size;
 		binary->readUVarint(&name_size);
 		const void* name = binary->readByteArray(name_size);
-		int tag_type = binary->readByte();
+		int32_t tag_type = binary->readByte();
 		DictionaryBaseType* tag = dictionary->addTag((usdsTypes)tag_type, tag_id, (const char*)name, name_size);
 		// read specific Tag parameters
 		(this->*(readIndex[tag_type]))(tag);
@@ -98,7 +98,7 @@ catch (ErrorStack& err)
 
 void DictionaryBinaryParser::readTag(DictionaryBaseType* object) throw (...)
 {
-	int tag_type = 0;
+	int32_t tag_type = 0;
 	binary->readUVarint(&tag_type);
 	((DictionaryTagLink*)object)->setTag(tag_type);
 };
@@ -236,7 +236,7 @@ void DictionaryBinaryParser::readUVarint(DictionaryBaseType* object) throw (...)
 void DictionaryBinaryParser::readString(DictionaryBaseType* object) throw (...)
 try
 {
-	int encode = binary->readByte();
+	int32_t encode = binary->readByte();
 	((DictionaryString*)object)->setEncode((usdsEncodes)encode);
 
 }
@@ -281,19 +281,19 @@ void DictionaryBinaryParser::readPolymorph(DictionaryBaseType* object) throw (..
 void DictionaryBinaryParser::readStruct(DictionaryBaseType* object) throw (...)
 try
 {
-	unsigned char signature = binary->readUByte();
+	uint8_t signature = binary->readUByte();
 	if (signature != USDS_FIELD_SIGNATURE)
 		throw ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT) << "Unexpected signature '" << signature << "'";
 
 	while (signature == USDS_FIELD_SIGNATURE)
 	{
 		// read main attributes
-		int field_id;
+		int32_t field_id;
 		binary->readUVarint(&field_id);
 		size_t name_size;
 		binary->readUVarint(&name_size);
 		const void* name = binary->readByteArray(name_size);
-		int field_type = binary->readByte();
+		int32_t field_type = binary->readByte();
 		DictionaryBaseType* field = ((DictionaryStruct*)object)->addField((usdsTypes)field_type, field_id, (const char*)name, name_size);
 		// read specific Field parameters
 		(this->*(readIndex[field_type]))(field);

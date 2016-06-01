@@ -17,7 +17,7 @@ Dictionary::~Dictionary()
 //====================================================================================================================
 // Dictionary construction
 //====================================================================================================================
-void Dictionary::setID(int id, unsigned char major, unsigned char minor) throw (...)
+void Dictionary::setID(int32_t id, uint8_t major, uint8_t minor) throw (...)
 {
 	if (id < 0)
 		throw ErrorStack("Dictionary::setID") << id << major << minor << (ErrorMessage(DICTIONARY__ID_ERROR_VALUE) << "Dictionary ID must be >= 0. Your value: " << id);
@@ -30,7 +30,7 @@ void Dictionary::setID(int id, unsigned char major, unsigned char minor) throw (
 
 //====================================================================================================================
 // Tags construction
-DictionaryBaseType* Dictionary::addTag(usdsTypes tag_type, int id, const char* name, size_t name_size) throw (...)
+DictionaryBaseType* Dictionary::addTag(usdsTypes tag_type, int32_t id, const char* name, size_t name_size) throw (...)
 try
 {
 	if (finalized)
@@ -40,7 +40,7 @@ try
 		throw ErrorMessage(DICTIONARY__UNSUPPORTED_TYPE, "Tag type can not be TAG");
 	
 	// check name
-	int tag_id;
+	int32_t tag_id;
 	tag_id = findTagID(name, name_size);
 	if (tag_id != 0)
 		throw ErrorMessage(DICTIONARY__TAG_ALREADY_EXISTS) << "Tag with name '" << name << "' already exists in dictionary.";
@@ -66,7 +66,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-DictionaryBaseType* Dictionary::addField(usdsTypes field_type, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw (...)
+DictionaryBaseType* Dictionary::addField(usdsTypes field_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw (...)
 try
 {
 	if (finalized)
@@ -110,7 +110,7 @@ try
 
 	while (tag != 0)
 	{
-		int id = tag->getID();
+		int32_t id = tag->getID();
 		if (tagIndex[id] != 0)
 			throw ErrorMessage(DICTIONARY__TAG_ID_ERROR_VALUE) << "Not unique tag ID: " << id;
 
@@ -122,13 +122,13 @@ try
 	// Sort tags
 	firstTag = 0;
 	lastTag = 0;
-	for (int i = 1; i <= tagNumber; i++)
+	for (int32_t i = 1; i <= tagNumber; i++)
 	{
 		connectTagToDictionary(tagIndex[i]);
 	}
 	
 	// Finalize tags: replace TagName to TagID in Links, check errors
-	for (int i = 1; i <= tagNumber; i++)
+	for (int32_t i = 1; i <= tagNumber; i++)
 	{
 		(tagIndex[i])->finalize();
 	}
@@ -151,19 +151,19 @@ catch (ErrorStack& err)
 //====================================================================================================================
 // Dictionary information
 //====================================================================================================================
-int Dictionary::getDictionaryID()  throw (...)
+int32_t Dictionary::getDictionaryID()  throw (...)
 {
 	if (dictionaryID == -1)
 		throw ErrorStack("Dictionary::getDictionaryID") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	return dictionaryID;
 };
-unsigned char Dictionary::getMajorVersion() throw (...)
+uint8_t Dictionary::getMajorVersion() throw (...)
 {
 	if (dictionaryID == -1)
 		throw ErrorStack("Dictionary::getMajorVersion") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	return majorVersion;
 };
-unsigned char Dictionary::getMinorVersion() throw (...)
+uint8_t Dictionary::getMinorVersion() throw (...)
 {
 	if (dictionaryID == -1)
 		throw ErrorStack("Dictionary::getMinorVersion") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
@@ -189,7 +189,7 @@ DictionaryBaseType* Dictionary::getLastTag() throw (...)
 };
 
 //====================================================================================================================
-int Dictionary::findTagID(const char* name) throw (...)
+int32_t Dictionary::findTagID(const char* name) throw (...)
 {
 	if (name == 0)
 		throw ErrorStack("Dictionary::findTagID") << name << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
@@ -206,7 +206,7 @@ int Dictionary::findTagID(const char* name) throw (...)
 	return 0;
 };
 
-int Dictionary::findTagID(const char* name, size_t name_size) throw (...)
+int32_t Dictionary::findTagID(const char* name, size_t name_size) throw (...)
 {
 	if (name == 0)
 		throw ErrorStack("Dictionary::findTagID") << name << name_size << ErrorMessage(DICTIONARY__NULL_NAME, "Name can not be NULL");
@@ -269,7 +269,7 @@ DictionaryBaseType* Dictionary::findTag(const char* name, size_t name_size) thro
 
 //====================================================================================================================
 
-DictionaryBaseType* Dictionary::getTag(int tag_id) throw (...)
+DictionaryBaseType* Dictionary::getTag(int32_t tag_id) throw (...)
 try
 {
 	if (!indexed)
@@ -285,7 +285,7 @@ catch (ErrorMessage& msg)
 	throw ErrorStack("Dictionary::getTag") << tag_id << msg;
 };
 
-int Dictionary::getTagNumber() throw (...)
+int32_t Dictionary::getTagNumber() throw (...)
 {
 	return tagNumber;
 };
@@ -293,7 +293,7 @@ int Dictionary::getTagNumber() throw (...)
 //====================================================================================================================
 // encode
 
-const unsigned char* Dictionary::getBinary(size_t* size) throw (...)
+const uint8_t* Dictionary::getBinary(size_t* size) throw (...)
 try
 {
 	if (!finalized)

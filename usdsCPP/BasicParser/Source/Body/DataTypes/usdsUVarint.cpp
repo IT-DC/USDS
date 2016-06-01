@@ -17,7 +17,7 @@ void UsdsUVarint::initType()
 
 };
 
-void UsdsUVarint::setValue(int value) throw (...)
+void UsdsUVarint::setValue(int32_t value) throw (...)
 {
 	if (value < 0)
 		throw ErrorStack("UsdsUVarint::setValue") << value << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value must be in range [0, 2147483647], current valu: " << value);
@@ -25,7 +25,7 @@ void UsdsUVarint::setValue(int value) throw (...)
 	objectValue = value;
 };
 
-void UsdsUVarint::setValue(long long value) throw (...)
+void UsdsUVarint::setValue(int64_t value) throw (...)
 {
 	if (value < 0)
 		throw ErrorStack("UsdsUVarint::setValue") << value << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value must be in range [0, (2^63 – 1)], current valu: " << value);
@@ -33,13 +33,13 @@ void UsdsUVarint::setValue(long long value) throw (...)
 	objectValue = value;
 };
 
-void UsdsUVarint::setValue(unsigned long long value) throw (...)
+void UsdsUVarint::setValue(uint64_t value) throw (...)
 {
 
 	objectValue = value;
 };
 
-int UsdsUVarint::getIntValue() throw (...)
+int32_t UsdsUVarint::getIntValue() throw (...)
 {
 	if (objectValue > 2147483647)
 		throw ErrorStack("UsdsUVarint::getIntValue") << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value is too big for 'int': " << objectValue);
@@ -47,16 +47,16 @@ int UsdsUVarint::getIntValue() throw (...)
 	return int(objectValue);
 };
 
-long long UsdsUVarint::getLongValue() throw (...)
+int64_t UsdsUVarint::getLongValue() throw (...)
 {
 	if (objectValue > 9223372036854775807)
-		throw ErrorStack("UsdsUVarint::getLongValue") << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value is too big for 'long long': " << objectValue);
+		throw ErrorStack("UsdsUVarint::getLongValue") << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value is too big for 'int64_t': " << objectValue);
 
 	return objectValue;
 
 };
 
-unsigned long long UsdsUVarint::getULongValue() throw (...)
+uint64_t UsdsUVarint::getULongValue() throw (...)
 {
 	return objectValue;
 };

@@ -1,13 +1,15 @@
 #ifndef USDS_DICTIONARY_TEST_H
 #define USDS_DICTIONARY_TEST_H
 
+#include "usdsAutotest.h"
+
 class DictionaryTest
 {
 public:
 	DictionaryTest() {};
 	~DictionaryTest() {};
 
-	void runTest(int number);
+	void runTest(int32_t number);
 
 private:
 
@@ -19,7 +21,7 @@ private:
 	void test_6();
 	void test_7();
 
-	int testNumbers;
+	int32_t testNumbers;
 
 };
 

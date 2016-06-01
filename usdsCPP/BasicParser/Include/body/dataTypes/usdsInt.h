@@ -11,15 +11,15 @@ namespace usds
 		UsdsInt(Body* parent_body);
 		virtual ~UsdsInt();
 
-		virtual void setValue(int value) throw (...);
+		virtual void setValue(int32_t value) throw (...);
 
-		virtual int getIntValue() throw (...);
+		virtual int32_t getIntValue() throw (...);
 
 	private:
 
 		virtual void initType();
 
-		int objectValue;
+		int32_t objectValue;
 
 	};
 

@@ -1,4 +1,3 @@
-#include "usdsAutotest.h"
 #include "unitTest\base\usdsObjectPoolTest.h"
 
 
@@ -27,7 +26,7 @@
 #include "body\dataTypes\usdsStruct.h"
 #include "body\dataTypes\usdsUVarint.h"
 
-void ObjectPoolTest::runTest(int number)
+void ObjectPoolTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__OBJECT_POOL))
 		return;
@@ -52,7 +51,7 @@ void ObjectPoolTest::runTest(int number)
 
 void ObjectPoolTest::test_1()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_1;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_1;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -64,7 +63,7 @@ void ObjectPoolTest::test_1()
 		testPool(testPool* parent) { value = 0; };
 		~testPool() {};
 
-		int value;
+		int32_t value;
 
 	};
 	usds::TemplateObjectPool<testPool, testPool> testObjects(0);
@@ -80,7 +79,7 @@ void ObjectPoolTest::test_1()
 	((testPool*)testObjects.addObject())->value = 5;
 
 	object = (testPool*)testObjects.getFirstElement();
-	for (int i = 1; i <= 5; i++)
+	for (int32_t i = 1; i <= 5; i++)
 	{
 		if (object->value != i)
 		{
@@ -90,7 +89,7 @@ void ObjectPoolTest::test_1()
 		object = (testPool*)testObjects.getNextElement(object);
 	}
 	object = (testPool*)testObjects.getLastElement();
-	for (int i = 5; i <= 1; i--)
+	for (int32_t i = 5; i <= 1; i--)
 	{
 		if (object->value != i)
 		{
@@ -115,7 +114,7 @@ void ObjectPoolTest::test_1()
 	}
 
 	// Step 3
-	for (int i = 1; i <= 3; i++)
+	for (int32_t i = 1; i <= 3; i++)
 	{
 		object = (testPool*)testObjects.addObject();
 		if (object->value != i || ((testPool*)testObjects.getLastAllocatedElement())->value != i)
@@ -139,7 +138,7 @@ void ObjectPoolTest::test_1()
 	// Step 4
 	object_4->remove();
 	object = (testPool*)testObjects.getFirstElement();
-	for (int i = 1; i <= 5; i++)
+	for (int32_t i = 1; i <= 5; i++)
 	{
 		if (object->value != i)
 		{
@@ -152,7 +151,7 @@ void ObjectPoolTest::test_1()
 	// Step 5
 	object_5 = (testPool*)testObjects.getNextElement(object_4);
 	object = (testPool*)testObjects.getFirstElement();
-	for (int i = 1; i <= 5; i++)
+	for (int32_t i = 1; i <= 5; i++)
 	{
 		if (object->value != i)
 		{
@@ -171,7 +170,7 @@ void ObjectPoolTest::test_1()
 		std::cout << "Failed at the step 6\n";
 		throw test_number;
 	}
-	for (int i = 1; i <= 4; i++)
+	for (int32_t i = 1; i <= 4; i++)
 	{
 		if (object->value != i+1)
 		{
@@ -293,7 +292,7 @@ void ObjectPoolTest::test_1()
 
 void ObjectPoolTest::test_2()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_2;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_2;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -375,7 +374,7 @@ void ObjectPoolTest::test_2()
 
 void ObjectPoolTest::test_3()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_3;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_3;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -407,7 +406,7 @@ void ObjectPoolTest::test_3()
 
 void ObjectPoolTest::test_4()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_4;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_4;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -461,7 +460,7 @@ void ObjectPoolTest::test_4()
 
 void ObjectPoolTest::test_5()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_5;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_5;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -515,7 +514,7 @@ void ObjectPoolTest::test_5()
 
 void ObjectPoolTest::test_6()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_6;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_6;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -569,7 +568,7 @@ void ObjectPoolTest::test_6()
 
 void ObjectPoolTest::test_7()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_7;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_7;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -623,7 +622,7 @@ void ObjectPoolTest::test_7()
 
 void ObjectPoolTest::test_8()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_8;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_8;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -677,7 +676,7 @@ void ObjectPoolTest::test_8()
 
 void ObjectPoolTest::test_9()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_9;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_9;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -732,7 +731,7 @@ void ObjectPoolTest::test_9()
 
 void ObjectPoolTest::test_10()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_10;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_10;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -790,7 +789,7 @@ void ObjectPoolTest::test_10()
 
 void ObjectPoolTest::test_11()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_11;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_11;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -850,7 +849,7 @@ void ObjectPoolTest::test_11()
 
 void ObjectPoolTest::test_12()
 {
-	int test_number = UNIT_TESTS__OBJECT_POOL_12;
+	int32_t test_number = UNIT_TESTS__OBJECT_POOL_12;
 	if (!needStart(testNumbers, test_number))
 		return;
 

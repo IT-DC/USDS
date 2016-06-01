@@ -16,12 +16,12 @@ namespace usds
 		BinaryParser();
 		~BinaryParser();
 
-		void setBinary(const unsigned char* data, int data_size) throw(...);
+		void setBinary(const uint8_t* data, size_t data_size) throw(...);
 		bool isHeadIncluded();
 		bool isDictionaryIncluded();
-		int getDictionaryID();
-		unsigned char getDictionaryMajor();
-		unsigned char getDictionaryMinor();
+		int32_t getDictionaryID();
+		uint8_t getDictionaryMajor();
+		uint8_t getDictionaryMinor();
 		bool isBodyIncluded();
 
 		void initDictionaryFromBinary(Dictionary* dict) throw(...);
@@ -30,9 +30,9 @@ namespace usds
 	private:
 	
 		bool headExists;
-		int dictionaryID;
-		unsigned char dictionaryMajor;
-		unsigned char dictionaryMinor;
+		int32_t dictionaryID;
+		uint8_t dictionaryMajor;
+		uint8_t dictionaryMinor;
 		size_t documentSize;
 		
 		bool dictionaryExists;

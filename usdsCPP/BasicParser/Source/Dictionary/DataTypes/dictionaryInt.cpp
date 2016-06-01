@@ -13,7 +13,7 @@ void DictionaryInt::initType()
 	isDefault = false;
 };
 
-void DictionaryInt::setDefault(int value)
+void DictionaryInt::setDefault(int32_t value)
 {
 	isDefault = true;
 	defaultValue = value;

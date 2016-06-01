@@ -17,11 +17,11 @@ namespace usds
 		virtual void initType();
 		virtual void finalize() throw (...) { };
 
-		void setDefault(long long value);
+		void setDefault(int64_t value);
 
 	private:
 		bool isDefault;
-		unsigned long long defaultValue;
+		uint64_t defaultValue;
 
 	};
 

@@ -54,7 +54,7 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 
 DictionaryObjectPool::~DictionaryObjectPool()
 {
-	for (int i = 0; i < USDS_LAST_TYPE; i++)
+	for (int32_t i = 0; i < USDS_LAST_TYPE; i++)
 	{
 		if (pools[i] != 0)
 			delete(pools[i]);
@@ -62,7 +62,7 @@ DictionaryObjectPool::~DictionaryObjectPool()
 
 };
 
-DictionaryBaseType* DictionaryObjectPool::addObject(usdsTypes object_type, DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryBaseType* DictionaryObjectPool::addObject(usdsTypes object_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	if (object_type <= USDS_NO_TYPE || object_type >= USDS_LAST_TYPE)
@@ -97,7 +97,7 @@ catch (ErrorStack& err)
 
 //========================================================================================================
 /*
-DictionaryTagLink* DictionaryObjectPool::addTagLink(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryTagLink* DictionaryObjectPool::addTagLink(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	//DictionaryTagLink* object = (DictionaryTagLink*)tagLinkObjects.addObject();
@@ -118,7 +118,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-DictionaryBoolean* DictionaryObjectPool::addBoolean(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryBoolean* DictionaryObjectPool::addBoolean(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	DictionaryBoolean* object = (DictionaryBoolean*)booleanObjects.addObject();
@@ -139,7 +139,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-DictionaryInt* DictionaryObjectPool::addInt(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryInt* DictionaryObjectPool::addInt(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	DictionaryInt* object = (DictionaryInt*)intObjects.addObject();
@@ -160,7 +160,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-DictionaryLong* DictionaryObjectPool::addLong(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryLong* DictionaryObjectPool::addLong(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	DictionaryLong* object = (DictionaryLong*)longObjects.addObject();
@@ -182,7 +182,7 @@ catch (ErrorStack& err)
 };
 
 
-DictionaryDouble* DictionaryObjectPool::addDouble(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryDouble* DictionaryObjectPool::addDouble(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	DictionaryDouble* object = (DictionaryDouble*)doubleObjects.addObject();
@@ -203,7 +203,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-DictionaryUVarint* DictionaryObjectPool::addUVarint(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryUVarint* DictionaryObjectPool::addUVarint(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	DictionaryUVarint* object = (DictionaryUVarint*)uVarintObjects.addObject();
@@ -224,7 +224,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-DictionaryString* DictionaryObjectPool::addString(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryString* DictionaryObjectPool::addString(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	DictionaryString* object = (DictionaryString*)stringObjects.addObject();
@@ -245,7 +245,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-DictionaryArray* DictionaryObjectPool::addArray(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryArray* DictionaryObjectPool::addArray(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	DictionaryArray* object = (DictionaryArray*)arrayObjects.addObject();
@@ -266,7 +266,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-DictionaryStruct* DictionaryObjectPool::addStruct(DictionaryBaseType* parent, int id, const char* name, size_t name_size) throw(...)
+DictionaryStruct* DictionaryObjectPool::addStruct(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	DictionaryStruct* object = (DictionaryStruct*)structObjects.addObject();
@@ -290,7 +290,7 @@ catch (ErrorStack& err)
 //========================================================================================================
 void DictionaryObjectPool::clear()
 {
-	for (int i = 0; i < USDS_LAST_TYPE; i++)
+	for (int32_t i = 0; i < USDS_LAST_TYPE; i++)
 	{
 		if (pools[i] != 0)
 			pools[i]->clearPool();

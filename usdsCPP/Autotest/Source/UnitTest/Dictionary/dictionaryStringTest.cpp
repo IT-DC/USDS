@@ -1,9 +1,8 @@
-#include "usdsAutotest.h"
 #include "unitTest\dictionary\dictionaryStringTest.h"
 
 #include "dictionary\dataTypes\dictionaryString.h"
 
-void DictionaryStringTest::runTest(int number)
+void DictionaryStringTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__DICTIONARY_STRING))
 		return;
@@ -19,7 +18,7 @@ void DictionaryStringTest::runTest(int number)
 
 void DictionaryStringTest::test_1()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_STRING_1;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_STRING_1;
 	if (!needStart(testNumbers, test_number))
 		return;
 

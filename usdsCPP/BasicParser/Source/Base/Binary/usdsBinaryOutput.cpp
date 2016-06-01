@@ -10,7 +10,7 @@ try
 	defaultFrontBuffSize = 64;
 	try
 	{
-		usdsBuff = new unsigned char[defaultDocSize];
+		usdsBuff = new uint8_t[defaultDocSize];
 	}
 	catch (...)
 	{
@@ -44,7 +44,7 @@ void BinaryOutput::clear()
 	buffCurrentPos = buffFirstPos;
 };
 
-const unsigned char* BinaryOutput::getBinary(size_t* size) throw(...)
+const uint8_t* BinaryOutput::getBinary(size_t* size) throw(...)
 {
 	if (size == 0)
 		throw ErrorStack("BinaryOutput::getBinary") << size << ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer for Size can not be NULL");
@@ -57,17 +57,17 @@ size_t BinaryOutput::getSize()
 	return buffCurrentPos - buffFirstPos;
 };
 
-const unsigned char* BinaryOutput::getBinary() throw(...)
+const uint8_t* BinaryOutput::getBinary() throw(...)
 {
 	return buffFirstPos;
 };
 
 //==============================================================================================================
 
-int BinaryOutput::writeUVarint(unsigned long long value) throw(...)
+int32_t BinaryOutput::writeUVarint(uint64_t value) throw(...)
 try
 {
-	checkSize(17);	// 8 bytes - "long long", 9 bytes - shiftes
+	checkSize(17);	// 8 bytes - "int64_t", 9 bytes - shiftes
 
 	// step 1 of 10
 	memcpy(buffCurrentPos, &value, 8);
@@ -78,7 +78,7 @@ try
 	buffCurrentPos[8] = 0;
 
 	// step 2 of 10
-	*((unsigned long long*)buffCurrentPos) <<= 1;
+	*((uint64_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -88,7 +88,7 @@ try
 		return 2;
 
 	// step 3 of 10
-	*((unsigned long long*)buffCurrentPos) <<= 1;
+	*((uint64_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -98,7 +98,7 @@ try
 		return 3;
 
 	// step 4 of 10
-	*((unsigned long long*)buffCurrentPos) <<= 1;
+	*((uint64_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -108,7 +108,7 @@ try
 		return 4;
 
 	// step 5 of 10
-	*((unsigned long long*)buffCurrentPos) <<= 1;
+	*((uint64_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -118,7 +118,7 @@ try
 		return 5;
 
 	// step 6 of 10
-	*((unsigned long long*)buffCurrentPos) <<= 1;
+	*((uint64_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -128,7 +128,7 @@ try
 		return 6;
 
 	// step 7 of 10
-	*((unsigned long long*)buffCurrentPos) <<= 1;
+	*((uint64_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -138,7 +138,7 @@ try
 		return 7;
 
 	// step 8 of 10
-	*((unsigned long long*)buffCurrentPos) <<= 1;
+	*((uint64_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -148,7 +148,7 @@ try
 		return 8;
 
 	// step 9 of 10
-	*((unsigned long long*)buffCurrentPos) <<= 1;
+	*((uint64_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -169,9 +169,9 @@ catch (ErrorStack& err)
 };
 
 
-int BinaryOutput::writeUVarint(unsigned int value) throw(...)
+int32_t BinaryOutput::writeUVarint(uint32_t value) throw(...)
 try {
-	checkSize(12);	// 4 bytes - "unsigned int", 8 bytes - shiftes
+	checkSize(12);	// 4 bytes - "uint32_t", 8 bytes - shiftes
 
 	// step 1 of 5
 	memcpy(buffCurrentPos, &value, 4);
@@ -181,7 +181,7 @@ try {
 	buffCurrentPos[3] = 0;
 
 	// step 2 of 5
-	*((unsigned int*)buffCurrentPos) <<= 1;
+	*((uint32_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -191,7 +191,7 @@ try {
 		return 2;
 
 	// step 3 of 5
-	*((unsigned int*)buffCurrentPos) <<= 1;
+	*((uint32_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -201,7 +201,7 @@ try {
 		return 3;
 
 	// step 4 of 5
-	*((unsigned int*)buffCurrentPos) <<= 1;
+	*((uint32_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -211,7 +211,7 @@ try {
 		return 4;
 
 	// step 5 of 5
-	*((unsigned int*)buffCurrentPos) <<= 1;
+	*((uint32_t*)buffCurrentPos) <<= 1;
 	if (*(buffCurrentPos - 1) & 128)
 		*buffCurrentPos |= 1;
 	else
@@ -225,13 +225,13 @@ catch (ErrorStack& err)
 	throw;
 };
 
-int BinaryOutput::writeUVarint(int value) throw(...)
+int32_t BinaryOutput::writeUVarint(int32_t value) throw(...)
 try
 {
 	if (value < 0)
 		throw ErrorMessage(BIN_OUT__NEGATIVE_VALUE, "Value must be > 0. Current value = ") << value;
 
-	return writeUVarint(unsigned int(value));
+	return writeUVarint(uint32_t(value));
 }
 catch (ErrorMessage& msg)
 {
@@ -244,7 +244,7 @@ catch (ErrorStack& err)
 };
 
 
-void BinaryOutput::writeInt(int value) throw(...)
+void BinaryOutput::writeInt(int32_t value) throw(...)
 try 
 {
 	checkSize(4);
@@ -257,7 +257,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::writeLong(long long value) throw(...)
+void BinaryOutput::writeLong(int64_t value) throw(...)
 try 
 {
 	checkSize(8);
@@ -307,7 +307,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::writeUByte(unsigned char value) throw(...)
+void BinaryOutput::writeUByte(uint8_t value) throw(...)
 try 
 {
 	checkSize(1);
@@ -320,7 +320,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::writeByte(char value) throw(...)
+void BinaryOutput::writeByte(int8_t value) throw(...)
 try
 {
 	checkSize(1);
@@ -358,7 +358,7 @@ void BinaryOutput::writeType(usdsTypes value) throw(...)
 try
 {
 	checkSize(1);
-	*buffCurrentPos = ((unsigned char*)(&value))[0];
+	*buffCurrentPos = ((uint8_t*)(&value))[0];
 	buffCurrentPos++;
 
 }
@@ -372,7 +372,7 @@ void BinaryOutput::writeSignature(usdsSignature value) throw(...)
 try
 {
 	checkSize(1);
-	*buffCurrentPos = ((unsigned char*)(&value))[0];
+	*buffCurrentPos = ((uint8_t*)(&value))[0];
 	buffCurrentPos++;
 
 }
@@ -405,10 +405,10 @@ try
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW, "USDS out buffer owerflow. Old size: ") << buff_current_size << ", buffer minimal increas: " << min_increase;
 
 	// Create new array and copy data
-	unsigned char* new_usds_buff = 0;
+	uint8_t* new_usds_buff = 0;
 	try
 	{
-		new_usds_buff = new unsigned char[new_size];
+		new_usds_buff = new uint8_t[new_size];
 	}
 	catch (...)
 	{
@@ -451,7 +451,7 @@ catch (ErrorMessage& msg)
 	throw ErrorStack("BinaryOutput::pushFrontSize") << msg;
 }
 
-void BinaryOutput::pushFrontUByte(unsigned char value) throw(...)
+void BinaryOutput::pushFrontUByte(uint8_t value) throw(...)
 try
 {
 	// check front buff
@@ -466,7 +466,7 @@ catch (ErrorMessage& msg)
 	throw ErrorStack("BinaryOutput::pushFrontUByte") << value << msg;
 }
 
-void BinaryOutput::pushFrontInt(int value) throw(...)
+void BinaryOutput::pushFrontInt(int32_t value) throw(...)
 try
 {
 	// check front buff
@@ -500,7 +500,7 @@ catch (ErrorMessage& msg)
 	throw ErrorStack("BinaryOutput::readByteArray") << position << value << size << msg;
 };
 
-void BinaryOutput::readInt(size_t position, int* value) throw(...)
+void BinaryOutput::readInt(size_t position, int32_t* value) throw(...)
 try
 {
 	if (value == 0)

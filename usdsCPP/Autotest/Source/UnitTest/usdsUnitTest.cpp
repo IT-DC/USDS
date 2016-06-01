@@ -1,5 +1,3 @@
-#include "usdsAutotest.h"
-
 #include "unitTest\usdsUnitTest.h"
 
 #include "unitTest\base\usdsErrorTest.h"
@@ -16,7 +14,7 @@
 
 #include "unitTest\body\usdsArrayTest.h"
 
-void UnitTest::runTest(int number)
+void UnitTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS))
 		return;

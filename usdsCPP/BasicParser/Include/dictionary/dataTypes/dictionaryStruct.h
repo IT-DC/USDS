@@ -17,21 +17,21 @@ namespace usds
 		virtual ~DictionaryStruct();
 
 		// add existing fields
-		DictionaryBaseType* addField(usdsTypes field_type, int id, const char* name, size_t name_size) throw(...);
+		DictionaryBaseType* addField(usdsTypes field_type, int32_t id, const char* name, size_t name_size) throw(...);
 
 		DictionaryBaseType* getFirstField();
 		DictionaryBaseType* getLastField();
 
-		int getFieldNumber() throw (...);
+		int32_t getFieldNumber() throw (...);
 		
-		DictionaryBaseType* getField(int id) throw (...);
+		DictionaryBaseType* getField(int32_t id) throw (...);
 		DictionaryBaseType* getField(const char* name) throw (...);
 		DictionaryBaseType* getField(const char* name, size_t name_size) throw (...);
 
 		// Find field ID by Name
 		// return 0 if field not found
-		int findFieldID(const char* name) throw (...);
-		int findFieldID(const char* name, size_t name_size) throw (...);
+		int32_t findFieldID(const char* name) throw (...);
+		int32_t findFieldID(const char* name, size_t name_size) throw (...);
 
 		// Dictionary finalization
 		virtual void finalize() throw (...);
@@ -46,10 +46,10 @@ namespace usds
 		DictionaryBaseType* lastField;
 
 		// field index
-		int fieldMaxID;
-		int fieldNumber;
+		int32_t fieldMaxID;
+		int32_t fieldNumber;
 		DictionaryBaseType** fieldIndex;
-		int buffIndexSize;
+		int32_t buffIndexSize;
 		bool indexed;
 
 	};

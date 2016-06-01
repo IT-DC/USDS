@@ -22,10 +22,10 @@ UsdsStruct::~UsdsStruct()
 
 //================================================================================================
 
-void UsdsStruct::setFieldValue(const char* name, int value) throw (...)
+void UsdsStruct::setFieldValue(const char* name, int32_t value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
@@ -41,10 +41,10 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::setFieldValue(const char* name, long long value) throw (...)
+void UsdsStruct::setFieldValue(const char* name, int64_t value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
@@ -63,7 +63,7 @@ catch (ErrorStack& err)
 void UsdsStruct::setFieldValue(const char* name, double value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
@@ -82,7 +82,7 @@ catch (ErrorStack& err)
 void UsdsStruct::setFieldValue(const char* name, const char* value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
@@ -101,7 +101,7 @@ catch (ErrorStack& err)
 void UsdsStruct::setFieldValue(const char* name, bool value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->setValue(value);
@@ -119,7 +119,7 @@ catch (ErrorStack& err)
 
 //================================================================================================
 
-void UsdsStruct::setFieldValue(int id, int value) throw (...)
+void UsdsStruct::setFieldValue(int32_t id, int32_t value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -136,7 +136,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::setFieldValue(int id, long long value) throw (...)
+void UsdsStruct::setFieldValue(int32_t id, int64_t value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -153,7 +153,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::setFieldValue(int id, double value) throw (...)
+void UsdsStruct::setFieldValue(int32_t id, double value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -170,7 +170,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::setFieldValue(int id, const char* value) throw (...)
+void UsdsStruct::setFieldValue(int32_t id, const char* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -188,7 +188,7 @@ catch (ErrorStack& err)
 };
 
 
-void UsdsStruct::setFieldValue(int id, bool value) throw (...)
+void UsdsStruct::setFieldValue(int32_t id, bool value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -207,10 +207,10 @@ catch (ErrorStack& err)
 
 //================================================================================================
 
-void UsdsStruct::getFieldValue(const char* name, int* value) throw (...)
+void UsdsStruct::getFieldValue(const char* name, int32_t* value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 
@@ -226,10 +226,10 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::getFieldValue(const char* name, long long* value) throw (...)
+void UsdsStruct::getFieldValue(const char* name, int64_t* value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 
@@ -248,7 +248,7 @@ catch (ErrorStack& err)
 void UsdsStruct::getFieldValue(const char* name, double* value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->getValue(value);
@@ -266,7 +266,7 @@ catch (ErrorStack& err)
 void UsdsStruct::getFieldValue(const char* name, const char** value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->getValue(value);
@@ -285,7 +285,7 @@ catch (ErrorStack& err)
 void UsdsStruct::getFieldValue(const char* name, bool* value) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
 	fields[id]->getValue(value);
@@ -303,7 +303,7 @@ catch (ErrorStack& err)
 
 //================================================================================================
 
-void UsdsStruct::getFieldValue(int id, int* value) throw (...)
+void UsdsStruct::getFieldValue(int32_t id, int32_t* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -320,7 +320,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::getFieldValue(int id, long long* value) throw (...)
+void UsdsStruct::getFieldValue(int32_t id, int64_t* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -337,7 +337,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::getFieldValue(int id, double* value) throw (...)
+void UsdsStruct::getFieldValue(int32_t id, double* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -354,7 +354,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::getFieldValue(int id, const char** value) throw (...)
+void UsdsStruct::getFieldValue(int32_t id, const char** value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -371,7 +371,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::getFieldValue(int id, bool* value) throw (...)
+void UsdsStruct::getFieldValue(int32_t id, bool* value) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -389,7 +389,7 @@ catch (ErrorStack& err)
 };
 //================================================================================================
 
-UsdsBaseType* UsdsStruct::getField(int id) throw (...)
+UsdsBaseType* UsdsStruct::getField(int32_t id) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -405,7 +405,7 @@ catch (ErrorMessage& msg)
 UsdsArray* UsdsStruct::getArrayField(const char* name) throw (...)
 try
 {
-	int id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
+	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";;
 	if (fields[id]->getType() != USDS_ARRAY)
@@ -422,7 +422,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-UsdsArray* UsdsStruct::getArrayField(int id) throw (...)
+UsdsArray* UsdsStruct::getArrayField(int32_t id) throw (...)
 try
 {
 	if (id < 1 || id > fieldNumber)
@@ -443,7 +443,7 @@ catch (ErrorStack& err)
 
 //================================================================================================
 
-int UsdsStruct::getFieldNumber() throw (...)
+int32_t UsdsStruct::getFieldNumber() throw (...)
 {
 
 	return fieldNumber;
@@ -464,7 +464,7 @@ void UsdsStruct::initType()
 	}
 
 	// create clear fields
-	for (int id = 1; id <= fieldNumber; id++)
+	for (int32_t id = 1; id <= fieldNumber; id++)
 	{
 		DictionaryBaseType* field = ((DictionaryStruct*)parentDictionaryObject)->getField(id);
 		fields[id] = parentBody->addField(field, this);

@@ -1,9 +1,8 @@
-#include "usdsAutotest.h"
 #include "unitTest\base\usdsBinaryInputTest.h"
 
 #include "base\binary\usdsBinaryInput.h"
 
-void BinaryInputTest::runTest(int number)
+void BinaryInputTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__BINARY_INPUT))
 		return;
@@ -55,7 +54,7 @@ void BinaryInputTest::test_1()
 	// step 2
 	try
 	{
-		unsigned char buff;
+		uint8_t buff;
 		binary.setBinary(&buff, 0);
 		std::cout << "Failed at the step 2\n";
 		throw UNIT_TESTS__BINARY_INPUT_1;
@@ -74,7 +73,7 @@ void BinaryInputTest::test_1()
 
 void BinaryInputTest::test_2()
 {
-	// int readUVarint(unsigned long long* value) throw(...);
+	// int32_t readUVarint(uint64_t* value) throw(...);
 	
 	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_2))
 		return;
@@ -82,8 +81,8 @@ void BinaryInputTest::test_2()
 	std::cout << UNIT_TESTS__BINARY_INPUT_2 << ": ";
 
 	usds::BinaryInput binary;
-	unsigned long long value = 0;
-	int size = 0;
+	uint64_t value = 0;
+	int32_t size = 0;
 
 	// step 1
 	try
@@ -102,7 +101,7 @@ void BinaryInputTest::test_2()
 	}
 
 	// Step 2
-	unsigned char buff_1[] = { 255, 0 };
+	uint8_t buff_1[] = { 255, 0 };
 	binary.setBinary(buff_1, 2);
 	try
 	{
@@ -120,7 +119,7 @@ void BinaryInputTest::test_2()
 	}
 
 	// Step 3
-	unsigned char buff_2[] = { 128, 128, 128, 128, 128, 128, 128, 128, 128, 2 };
+	uint8_t buff_2[] = { 128, 128, 128, 128, 128, 128, 128, 128, 128, 2 };
 	binary.setBinary(buff_2, 10);
 	try
 	{
@@ -138,7 +137,7 @@ void BinaryInputTest::test_2()
 	}
 
 	// Step 4
-	unsigned char buff_3[] = { 128, 128 };
+	uint8_t buff_3[] = { 128, 128 };
 	binary.setBinary(buff_3, 2);
 	try
 	{
@@ -156,7 +155,7 @@ void BinaryInputTest::test_2()
 	}
 
 	// Step 5
-	unsigned char buff_4[] = { 1, 0 };
+	uint8_t buff_4[] = { 1, 0 };
 	binary.setBinary(buff_4, 2);
 	size = binary.readUVarint(&value);
 
@@ -167,7 +166,7 @@ void BinaryInputTest::test_2()
 	}
 
 	// Step 6
-	unsigned char buff_5[] = { 128, 1 };
+	uint8_t buff_5[] = { 128, 1 };
 	binary.setBinary(buff_5, 2);
 	size = binary.readUVarint(&value);
 
@@ -178,7 +177,7 @@ void BinaryInputTest::test_2()
 	}
 
 	// Step 7
-	unsigned char buff_6[] = { 129, 128, 128, 128, 128, 128, 128, 128, 128, 1 };
+	uint8_t buff_6[] = { 129, 128, 128, 128, 128, 128, 128, 128, 128, 1 };
 	binary.setBinary(buff_6, 10);
 	size = binary.readUVarint(&value);
 	if (size != 10 || value != 0x8000000000000001ull)
@@ -188,7 +187,7 @@ void BinaryInputTest::test_2()
 	}
 
 	// Step 8
-	unsigned char buff_7[] = { 255, 255, 255, 255, 255, 255, 255, 255, 255, 1 };
+	uint8_t buff_7[] = { 255, 255, 255, 255, 255, 255, 255, 255, 255, 1 };
 	binary.setBinary(buff_7, 10);
 	size = binary.readUVarint(&value);
 	if (size != 10 || value != 0xFFFFFFFFFFFFFFFFull)
@@ -202,7 +201,7 @@ void BinaryInputTest::test_2()
 
 void BinaryInputTest::test_3()
 {
-	// int readUVarint(unsigned int* value) throw(...);
+	// int32_t readUVarint(uint32_t* value) throw(...);
 	
 	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_3))
 		return;
@@ -210,8 +209,8 @@ void BinaryInputTest::test_3()
 	std::cout << UNIT_TESTS__BINARY_INPUT_3 << ": ";
 
 	usds::BinaryInput binary;
-	unsigned int value = 0;
-	int size = 0;
+	uint32_t value = 0;
+	int32_t size = 0;
 
 	// step 1
 	try
@@ -230,7 +229,7 @@ void BinaryInputTest::test_3()
 	}
 
 	// Step 2
-	unsigned char buff_1[] = { 255, 0 };
+	uint8_t buff_1[] = { 255, 0 };
 	binary.setBinary(buff_1, 2);
 	try
 	{
@@ -248,7 +247,7 @@ void BinaryInputTest::test_3()
 	}
 
 	// Step 3
-	unsigned char buff_2[] = { 128, 128, 128, 128, 16};
+	uint8_t buff_2[] = { 128, 128, 128, 128, 16};
 	binary.setBinary(buff_2, 5);
 	try
 	{
@@ -266,7 +265,7 @@ void BinaryInputTest::test_3()
 	}
 
 	// Step 4
-	unsigned char buff_3[] = { 128, 128 };
+	uint8_t buff_3[] = { 128, 128 };
 	binary.setBinary(buff_3, 2);
 	try
 	{
@@ -284,7 +283,7 @@ void BinaryInputTest::test_3()
 	}
 
 	// Step 5
-	unsigned char buff_4[] = { 1, 0 };
+	uint8_t buff_4[] = { 1, 0 };
 	binary.setBinary(buff_4, 2);
 	size = binary.readUVarint(&value);
 
@@ -295,7 +294,7 @@ void BinaryInputTest::test_3()
 	}
 
 	// Step 6
-	unsigned char buff_5[] = { 128, 1 };
+	uint8_t buff_5[] = { 128, 1 };
 	binary.setBinary(buff_5, 2);
 	size = binary.readUVarint(&value);
 
@@ -306,7 +305,7 @@ void BinaryInputTest::test_3()
 	}
 
 	// Step 7
-	unsigned char buff_6[] = { 129, 128, 128, 128, 15 };
+	uint8_t buff_6[] = { 129, 128, 128, 128, 15 };
 	binary.setBinary(buff_6, 5);
 	size = binary.readUVarint(&value);
 	if (size != 5 || value != 0xF0000001u)
@@ -316,7 +315,7 @@ void BinaryInputTest::test_3()
 	}
 
 	// Step 8
-	unsigned char buff_7[] = { 255, 255, 255, 255, 15};
+	uint8_t buff_7[] = { 255, 255, 255, 255, 15};
 	binary.setBinary(buff_7, 5);
 	size = binary.readUVarint(&value);
 	if (size != 5 || value != 0xFFFFFFFFu)
@@ -330,7 +329,7 @@ void BinaryInputTest::test_3()
 
 void BinaryInputTest::test_4()
 {
-	// int readUVarint(int* value) throw(...);
+	// int32_t readUVarint(int32_t* value) throw(...);
 
 	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_4))
 		return;
@@ -338,8 +337,8 @@ void BinaryInputTest::test_4()
 	std::cout << UNIT_TESTS__BINARY_INPUT_4 << ": ";
 
 	usds::BinaryInput binary;
-	int value = 0;
-	int size = 0;
+	int32_t value = 0;
+	int32_t size = 0;
 
 	// step 1
 	try
@@ -358,7 +357,7 @@ void BinaryInputTest::test_4()
 	}
 
 	// Step 2
-	unsigned char buff_1[] = { 255, 0 };
+	uint8_t buff_1[] = { 255, 0 };
 	binary.setBinary(buff_1, 2);
 	try
 	{
@@ -376,7 +375,7 @@ void BinaryInputTest::test_4()
 	}
 
 	// Step 3
-	unsigned char buff_2[] = { 128, 128, 128, 128, 8 };
+	uint8_t buff_2[] = { 128, 128, 128, 128, 8 };
 	binary.setBinary(buff_2, 5);
 	try
 	{
@@ -394,7 +393,7 @@ void BinaryInputTest::test_4()
 	}
 
 	// Step 4
-	unsigned char buff_3[] = { 128, 128 };
+	uint8_t buff_3[] = { 128, 128 };
 	binary.setBinary(buff_3, 2);
 	try
 	{
@@ -412,7 +411,7 @@ void BinaryInputTest::test_4()
 	}
 
 	// Step 5
-	unsigned char buff_4[] = { 1, 0 };
+	uint8_t buff_4[] = { 1, 0 };
 	binary.setBinary(buff_4, 2);
 	size = binary.readUVarint(&value);
 
@@ -423,7 +422,7 @@ void BinaryInputTest::test_4()
 	}
 
 	// Step 6
-	unsigned char buff_5[] = { 128, 1 };
+	uint8_t buff_5[] = { 128, 1 };
 	binary.setBinary(buff_5, 2);
 	size = binary.readUVarint(&value);
 
@@ -434,7 +433,7 @@ void BinaryInputTest::test_4()
 	}
 
 	// Step 7
-	unsigned char buff_6[] = { 129, 128, 128, 128, 7 };
+	uint8_t buff_6[] = { 129, 128, 128, 128, 7 };
 	binary.setBinary(buff_6, 5);
 	size = binary.readUVarint(&value);
 	if (size != 5 || value != 0x70000001)
@@ -444,7 +443,7 @@ void BinaryInputTest::test_4()
 	}
 
 	// Step 8
-	unsigned char buff_7[] = { 255, 255, 255, 255, 7 };
+	uint8_t buff_7[] = { 255, 255, 255, 255, 7 };
 	binary.setBinary(buff_7, 5);
 	size = binary.readUVarint(&value);
 	if (size != 5 || value != 0x7FFFFFFF)
@@ -459,7 +458,7 @@ void BinaryInputTest::test_4()
 
 void BinaryInputTest::test_5()
 {
-	// int readInt() throw(...);
+	// int32_t readInt() throw(...);
 
 	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_5))
 		return;
@@ -485,7 +484,7 @@ void BinaryInputTest::test_5()
 	}
 
 	// step 2
-	unsigned char buff_1[] = { 255, 255 };
+	uint8_t buff_1[] = { 255, 255 };
 	binary.setBinary(buff_1, 2);
 	try
 	{
@@ -503,10 +502,10 @@ void BinaryInputTest::test_5()
 	}
 
 	// step 3
-	unsigned char buff_2[] = { 255, 255 , 255, 0 , 255, 0, 255, 255};
+	uint8_t buff_2[] = { 255, 255 , 255, 0 , 255, 0, 255, 255};
 	binary.setBinary(buff_2, 8);
-	int value_1 = binary.readInt();
-	int value_2 = binary.readInt();
+	int32_t value_1 = binary.readInt();
+	int32_t value_2 = binary.readInt();
 	if (value_1 != 16777215 || value_2 != -65281)
 	{
 		std::cout << "Failed at the step 3\n";
@@ -518,7 +517,7 @@ void BinaryInputTest::test_5()
 
 void BinaryInputTest::test_6()
 {
-	// long long readLong() throw(...);
+	// int64_t readLong() throw(...);
 
 	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_6))
 		return;
@@ -544,7 +543,7 @@ void BinaryInputTest::test_6()
 	}
 
 	// step 2
-	unsigned char buff_1[] = { 255, 255, 255, 255, 255, 255, 255 };
+	uint8_t buff_1[] = { 255, 255, 255, 255, 255, 255, 255 };
 	binary.setBinary(buff_1, 7);
 	try
 	{
@@ -562,10 +561,10 @@ void BinaryInputTest::test_6()
 	}
 
 	// step 3
-	unsigned char buff_2[] = { 255, 255, 255, 0, 255, 0, 255, 0, 1, 0, 0, 255, 255, 255, 255, 255 };
+	uint8_t buff_2[] = { 255, 255, 255, 0, 255, 0, 255, 0, 1, 0, 0, 255, 255, 255, 255, 255 };
 	binary.setBinary(buff_2, 16);
-	long long value_1 = binary.readLong();
-	long long value_2 = binary.readLong();
+	int64_t value_1 = binary.readLong();
+	int64_t value_2 = binary.readLong();
 	if (value_1 != 0xFF00FF00FFFFFFll || value_2 != -16777215ll)
 	{
 		std::cout << "Failed at the step 3\n";
@@ -604,7 +603,7 @@ void BinaryInputTest::test_7()
 	}
 
 	// step 2
-	unsigned char buff_1[] = { 255, 255, 255, 255, 255, 255, 255 };
+	uint8_t buff_1[] = { 255, 255, 255, 255, 255, 255, 255 };
 	binary.setBinary(buff_1, 7);
 	try
 	{
@@ -622,7 +621,7 @@ void BinaryInputTest::test_7()
 	}
 
 	// step 3
-	unsigned char buff_2[] = { 0, 0, 0, 0, 0, 0, 0xF0, 0x3F, 0x02, 0, 0, 0, 0, 0, 0, 0xC0 };
+	uint8_t buff_2[] = { 0, 0, 0, 0, 0, 0, 0xF0, 0x3F, 0x02, 0, 0, 0, 0, 0, 0, 0xC0 };
 	binary.setBinary(buff_2, 16);
 	double value_1 = binary.readDouble();
 	double value_2 = binary.readDouble();
@@ -645,7 +644,7 @@ void BinaryInputTest::test_8()
 	std::cout << UNIT_TESTS__BINARY_INPUT_8 << ": ";
 
 	usds::BinaryInput binary;
-	unsigned char buff[] = { 0, 0, 0, 0 };
+	uint8_t buff[] = { 0, 0, 0, 0 };
 	size_t size = 4;
 
 	// step 1
@@ -665,7 +664,7 @@ void BinaryInputTest::test_8()
 	}
 
 	// step 2
-	unsigned char buff_1[] = { 255, 255, 255};
+	uint8_t buff_1[] = { 255, 255, 255};
 	binary.setBinary(buff_1, 3);
 	try
 	{
@@ -683,7 +682,7 @@ void BinaryInputTest::test_8()
 	}
 
 	// step 3
-	unsigned char buff_2[] = { 1, 2, 3, 4 };
+	uint8_t buff_2[] = { 1, 2, 3, 4 };
 	binary.setBinary(buff_2, 4);
 	binary.readByteArray(buff, size);
 	
@@ -740,7 +739,7 @@ void BinaryInputTest::test_9()
 	}
 
 	// step 2
-	unsigned char buff_1[] = { 255, 255, 255 };
+	uint8_t buff_1[] = { 255, 255, 255 };
 	binary.setBinary(buff_1, 3);
 	try
 	{
@@ -758,9 +757,9 @@ void BinaryInputTest::test_9()
 	}
 
 	// step 3
-	unsigned char buff_2[] = { 1, 2, 3, 4 };
+	uint8_t buff_2[] = { 1, 2, 3, 4 };
 	binary.setBinary(buff_2, 4);
-	const unsigned char* buff = (const unsigned char*)binary.readByteArray(4);
+	const uint8_t* buff = (const uint8_t*)binary.readByteArray(4);
 
 	if (buff[0] != 1 || buff[1] != 2 || buff[2] != 3 || buff[3] != 4)
 	{
@@ -799,7 +798,7 @@ void BinaryInputTest::test_10()
 	}
 
 	// step 2
-	unsigned char buff_1[] = { 10, 10 };
+	uint8_t buff_1[] = { 10, 10 };
 	binary.setBinary(buff_1, 2);
 	try
 	{
@@ -817,7 +816,7 @@ void BinaryInputTest::test_10()
 	}
 
 	// step 3
-	unsigned char buff_2[] = { 255, 0};
+	uint8_t buff_2[] = { 255, 0};
 	binary.setBinary(buff_2, 2);
 	bool value_1 = binary.readBool();
 	bool value_2 = binary.readBool();
@@ -832,7 +831,7 @@ void BinaryInputTest::test_10()
 
 void BinaryInputTest::test_11()
 {
-	// unsigned char readUByte() throw(...);
+	// uint8_t readUByte() throw(...);
 
 	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_11))
 		return;
@@ -858,10 +857,10 @@ void BinaryInputTest::test_11()
 	}
 
 	// step 2
-	unsigned char buff_1[] = { 255, 0 };
+	uint8_t buff_1[] = { 255, 0 };
 	binary.setBinary(buff_1, 2);
-	unsigned char value_1 = binary.readUByte();
-	unsigned char value_2 = binary.readUByte();
+	uint8_t value_1 = binary.readUByte();
+	uint8_t value_2 = binary.readUByte();
 	if (value_1 != 255 || value_2 != 0)
 	{
 		std::cout << "Failed at the step 2\n";
@@ -873,7 +872,7 @@ void BinaryInputTest::test_11()
 
 void BinaryInputTest::test_12()
 {
-	// unsigned char readByte() throw(...);
+	// uint8_t readByte() throw(...);
 
 	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_12))
 		return;
@@ -899,10 +898,10 @@ void BinaryInputTest::test_12()
 	}
 
 	// step 2
-	unsigned char buff_1[] = { 255, 10 };
+	uint8_t buff_1[] = { 255, 10 };
 	binary.setBinary(buff_1, 2);
-	char value_1 = binary.readByte();
-	char value_2 = binary.readByte();
+	int8_t value_1 = binary.readByte();
+	int8_t value_2 = binary.readByte();
 	if (value_1 != -1 || value_2 != 10)
 	{
 		std::cout << "Failed at the step 2\n";
@@ -915,7 +914,7 @@ void BinaryInputTest::test_12()
 void BinaryInputTest::test_13()
 {
 	// navigation
-	int test_number = UNIT_TESTS__BINARY_INPUT_13;
+	int32_t test_number = UNIT_TESTS__BINARY_INPUT_13;
 
 	if (!needStart(testNumbers, test_number))
 		return;
@@ -1021,7 +1020,7 @@ void BinaryInputTest::test_13()
 	}
 
 	// step 7
-	unsigned char buff[] = { 1, 2, 3 };
+	uint8_t buff[] = { 1, 2, 3 };
 	binary.setBinary(buff, 3);
 	try
 	{
@@ -1040,7 +1039,7 @@ void BinaryInputTest::test_13()
 
 	// step 8
 	binary.stepForward(1);
-	const unsigned char* value = binary.getCurrentPosition();
+	const uint8_t* value = binary.getCurrentPosition();
 	if (*value != 2)
 	{
 		std::cout << "Failed at the step 8\n";

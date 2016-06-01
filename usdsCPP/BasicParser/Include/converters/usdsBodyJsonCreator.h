@@ -58,7 +58,7 @@ namespace usds
 		void writeStruct(UsdsBaseType* object) throw (...);
 		void writeFunction(UsdsBaseType* object) throw (...);
 
-		int shiftLevel;
+		int32_t shiftLevel;
 
 	};
 

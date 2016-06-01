@@ -22,14 +22,14 @@ DictionaryStruct::~DictionaryStruct()
 		delete[] fieldIndex;
 }
 
-DictionaryBaseType* DictionaryStruct::addField(usdsTypes field_type, int id, const char* name, size_t name_size) throw(...)
+DictionaryBaseType* DictionaryStruct::addField(usdsTypes field_type, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	if (indexed)
 		throw ErrorMessage(DIC_STRUCT__STRUCT_IS_FINALIZED, "Can not add a field: the structure is finalized already");
 	
 	// check name
-	int field_id;
+	int32_t field_id;
 	field_id = findFieldID(name, name_size);
 	if (field_id != 0)
 		throw ErrorMessage(DIC_STRUCT__FIELD_ALREADY_EXISTS) << "Field with name '" << name << "' not unique in the tag " << objectName;
@@ -66,14 +66,14 @@ DictionaryBaseType* DictionaryStruct::getLastField()
 	return lastField;
 };
 
-int DictionaryStruct::getFieldNumber() throw (...)
+int32_t DictionaryStruct::getFieldNumber() throw (...)
 {
 
 	return fieldNumber;
 };
 
 //==============================================================================================
-DictionaryBaseType* DictionaryStruct::getField(int id) throw (...)
+DictionaryBaseType* DictionaryStruct::getField(int32_t id) throw (...)
 {
 	if (!indexed)
 		throw ErrorStack("DictionaryStruct::getField") << id << ErrorMessage(DIC_STRUCT__STRUCT_IS_NOT_FINALIZED, "Function is not available: struct is not finalized.");
@@ -128,7 +128,7 @@ DictionaryBaseType* DictionaryStruct::getField(const char* name, size_t name_siz
 };
 
 
-int DictionaryStruct::findFieldID(const char* name) throw (...)
+int32_t DictionaryStruct::findFieldID(const char* name) throw (...)
 {
 	if (name == 0)
 		throw ErrorStack("DictionaryStruct::findFieldID") << name << ErrorMessage(DIC_STRUCT__NULL_NAME, "Name can not be NULL");
@@ -146,7 +146,7 @@ int DictionaryStruct::findFieldID(const char* name) throw (...)
 
 };
 
-int DictionaryStruct::findFieldID(const char* name, size_t name_size) throw (...)
+int32_t DictionaryStruct::findFieldID(const char* name, size_t name_size) throw (...)
 {
 	if (name == 0)
 		throw ErrorStack("DictionaryStruct::findFieldID") << name << name_size << ErrorMessage(DIC_STRUCT__NULL_NAME, "Name can not be NULL");
@@ -201,13 +201,13 @@ try
 			throw ErrorMessage(DIC_STRUCT__ALLOCATE_ERROR, "Memory allocation error");
 		}
 	}
-	for (int id = 1; id <= fieldNumber; id++)
+	for (int32_t id = 1; id <= fieldNumber; id++)
 		fieldIndex[id] = 0;
 
 	DictionaryBaseType* field = firstField;
 	while (field != 0)
 	{
-		int id = field->getID();
+		int32_t id = field->getID();
 		// check id - unique in a tag
 		if (fieldIndex[id] != 0)
 			throw ErrorMessage(DIC_STRUCT__FIELD_ALREADY_EXISTS) << "Not unique field ID = " << id << " in Tag ID = " << objectID;
@@ -219,13 +219,13 @@ try
 	// sort fields
 	firstField = 0;
 	lastField = 0;
-	for (int id = 1; id <= fieldNumber; id++)
+	for (int32_t id = 1; id <= fieldNumber; id++)
 	{
 		connectFieldToTag(fieldIndex[id]);
 	}
 
 	// Finalize fields: replace TagName to TagID in Links
-	for (int id = 1; id <= fieldNumber; id++)
+	for (int32_t id = 1; id <= fieldNumber; id++)
 	{
 		field = fieldIndex[id];
 		field->finalize();

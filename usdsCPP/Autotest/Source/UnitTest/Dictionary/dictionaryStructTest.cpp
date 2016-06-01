@@ -1,4 +1,3 @@
-#include "usdsAutotest.h"
 #include "unitTest\dictionary\dictionaryStructTest.h"
 
 #include "dictionary\usdsDictionary.h"
@@ -11,7 +10,7 @@
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 
-void DictionaryStructTest::runTest(int number)
+void DictionaryStructTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__DICTIONARY_STRUCT))
 		return;
@@ -28,7 +27,7 @@ void DictionaryStructTest::runTest(int number)
 // Test empty Structure
 void DictionaryStructTest::test_1()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_STRUCT_1;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_STRUCT_1;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -202,7 +201,7 @@ void DictionaryStructTest::test_1()
 // Test simple fields
 void DictionaryStructTest::test_2()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_STRUCT_2;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_STRUCT_2;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -411,7 +410,7 @@ void DictionaryStructTest::test_2()
 // Test TAG fields
 void DictionaryStructTest::test_3()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_STRUCT_3;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_STRUCT_3;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -484,7 +483,7 @@ void DictionaryStructTest::test_3()
 // test fields errors
 void DictionaryStructTest::test_4()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_STRUCT_3;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_STRUCT_3;
 	if (!needStart(testNumbers, test_number))
 		return;
 

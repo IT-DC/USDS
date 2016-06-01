@@ -11,19 +11,19 @@ namespace usds
 		UsdsUVarint(Body* parent_body);
 		virtual ~UsdsUVarint();
 
-		virtual void setValue(int value) throw (...);
-		virtual void setValue(long long value) throw (...);
-		virtual void setValue(unsigned long long value) throw (...);
+		virtual void setValue(int32_t value) throw (...);
+		virtual void setValue(int64_t value) throw (...);
+		virtual void setValue(uint64_t value) throw (...);
 
-		virtual int getIntValue() throw (...);
-		virtual long long getLongValue() throw (...);
-		virtual unsigned long long getULongValue() throw (...);
+		virtual int32_t getIntValue() throw (...);
+		virtual int64_t getLongValue() throw (...);
+		virtual uint64_t getULongValue() throw (...);
 
 	private:
 
 		virtual void initType();
 
-		unsigned long long objectValue;
+		uint64_t objectValue;
 
 
 	};

@@ -1,4 +1,3 @@
-#include "usdsAutotest.h"
 #include "unitTest\dictionary\dictionarySimpleTest.h"
 
 #include "dictionary\dataTypes\dictionaryBoolean.h"
@@ -7,7 +6,7 @@
 #include "dictionary\dataTypes\dictionaryLong.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
 
-void DictionarySimpleTest::runTest(int number)
+void DictionarySimpleTest::runTest(int32_t number)
 {
 	if (!needStart(number, UNIT_TESTS__DICTIONARY_SIMPLE))
 		return;
@@ -23,7 +22,7 @@ void DictionarySimpleTest::runTest(int number)
 
 void DictionarySimpleTest::test_1()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_SIMPLE_1;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_SIMPLE_1;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -81,7 +80,7 @@ void DictionarySimpleTest::test_1()
 // Test for Base class - main attributes
 void DictionarySimpleTest::test_2()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_SIMPLE_2;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_SIMPLE_2;
 	if (!needStart(testNumbers, test_number))
 		return;
 
@@ -194,7 +193,7 @@ void DictionarySimpleTest::test_2()
 // Test for Base class - navigation
 void DictionarySimpleTest::test_3()
 {
-	int test_number = UNIT_TESTS__DICTIONARY_SIMPLE_3;
+	int32_t test_number = UNIT_TESTS__DICTIONARY_SIMPLE_3;
 	if (!needStart(testNumbers, test_number))
 		return;
 

@@ -63,7 +63,7 @@ try
 	textBuff << "USDS DICTIONARY ID=" << dict->getDictionaryID() << " v." << int(dict->getMajorVersion()) << "." << int(dict->getMinorVersion()) << "\n";
 	textBuff << "{\n";
 	// get all tags
-	for (int tag_id = 1; tag_id <= dict->getTagNumber(); tag_id++)
+	for (int32_t tag_id = 1; tag_id <= dict->getTagNumber(); tag_id++)
 	{
 		DictionaryBaseType* tag = dict->getTag(tag_id);
 		textBuff << "\t" << tag->getID() << ": ";
@@ -275,8 +275,8 @@ void DictionaryTextCreator::writeStruct(DictionaryBaseType* object)
 try
 {
 	textBuff << " " << object->getName() << "\n\t{\n";
-	int fieldNumber = ((DictionaryStruct*)object)->getFieldNumber();
-	for (int i = 1; i <= fieldNumber; i++)
+	int32_t fieldNumber = ((DictionaryStruct*)object)->getFieldNumber();
+	for (int32_t i = 1; i <= fieldNumber; i++)
 	{
 		DictionaryBaseType* field = ((DictionaryStruct*)object)->getField(i);
 		textBuff << "\t\t" << field->getID() << ": ";
