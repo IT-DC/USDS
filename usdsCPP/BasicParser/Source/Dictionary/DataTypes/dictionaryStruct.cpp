@@ -123,7 +123,7 @@ DictionaryBaseType* DictionaryStruct::getField(const char* name, size_t name_siz
 		field = field->getNext();
 	}
 
-	throw ErrorStack("DictionaryStruct::getField").addStringAttribute(name, name_size) << name_size << ((ErrorMessage(DIC_STRUCT__FIELD_NOT_FOUND) << "Field '").addString(name, name_size) << "' not found");
+	throw ErrorStack("DictionaryStruct::getField").addStringAndSize(name, name_size) << ((ErrorMessage(DIC_STRUCT__FIELD_NOT_FOUND) << "Field '").addString(name, name_size) << "' not found");
 	return 0;
 };
 

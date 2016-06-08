@@ -18,8 +18,8 @@
 		typedef unsigned __int32    uint32_t;
 		typedef unsigned __int64    uint64_t;
 	#endif
-	#elif __GNUC__ >= 3
-		#include <cstdint>
+#elif __GNUC__ >= 3
+	#include <cstdint>
 #endif
 
 namespace usds
@@ -146,15 +146,24 @@ namespace usds
 		ErrorMessage(errorCodes code, const char* utf8_message);
 		~ErrorMessage();
 
+		ErrorMessage& operator<<(const bool value);
+		ErrorMessage& operator<<(const int8_t value);
+		ErrorMessage& operator<<(const uint8_t value);
+		ErrorMessage& operator<<(const int16_t value);
+		ErrorMessage& operator<<(const uint16_t value);
 		ErrorMessage& operator<<(const int32_t value);
 		ErrorMessage& operator<<(const uint32_t value);
 		ErrorMessage& operator<<(const int64_t value);
 		ErrorMessage& operator<<(const uint64_t value);
-		ErrorMessage& operator<<(const char* utf8_message);
-		ErrorMessage& operator<<(const std::string& utf8_message);
-		
-		ErrorMessage& addString(const char* name, size_t size);
+		ErrorMessage& operator<<(const float value);
+		ErrorMessage& operator<<(const double value);
+		ErrorMessage& operator<<(const char* utf8_value);
+		ErrorMessage& operator<<(const std::string& utf8_value);
+		ErrorMessage& operator<<(const std::string* utf8_value);
+		ErrorMessage& operator<<(const void* value);
 
+		ErrorMessage& addString(const char* utf8_value, size_t size);
+		
 		errorCodes getCode();
 		const char* getMessage();
 
@@ -174,23 +183,35 @@ namespace usds
 		ErrorStack& operator<<(ErrorMessage& message);
 
 		ErrorStack& operator<<(const bool value);
+		ErrorStack& operator<<(const int8_t value);
 		ErrorStack& operator<<(const uint8_t value);
+		ErrorStack& operator<<(const int16_t value);
+		ErrorStack& operator<<(const uint16_t value);
 		ErrorStack& operator<<(const int32_t value);
 		ErrorStack& operator<<(const uint32_t value);
 		ErrorStack& operator<<(const int64_t value);
 		ErrorStack& operator<<(const uint64_t value);
+		ErrorStack& operator<<(const float value);
 		ErrorStack& operator<<(const double value);
-		ErrorStack& operator<<(const char* utf8_path);
+		ErrorStack& operator<<(const char* utf8_value);
+		ErrorStack& operator<<(const std::string* utf8_value);
+		ErrorStack& operator<<(const std::string& utf8_value);
 		
 		ErrorStack& operator<<(const void* value);
+		ErrorStack& operator<<(const bool* value);
+		ErrorStack& operator<<(const int8_t* value);
 		ErrorStack& operator<<(const uint8_t* value);
-		ErrorStack& operator<<(const uint64_t* value);
-		ErrorStack& operator<<(const uint32_t* value);
+		ErrorStack& operator<<(const int16_t* value);
+		ErrorStack& operator<<(const uint16_t* value);
 		ErrorStack& operator<<(const int32_t* value);
+		ErrorStack& operator<<(const uint32_t* value);
+		ErrorStack& operator<<(const int64_t* value);
+		ErrorStack& operator<<(const uint64_t* value);
+		ErrorStack& operator<<(const float* value);
+		ErrorStack& operator<<(const double* value);
 		ErrorStack& operator<<(const char** value);
-		ErrorStack& operator<<(const std::string* value);
-
-		ErrorStack& addStringAttribute(const char* name, size_t size);
+		
+		ErrorStack& addStringAndSize(const char* utf8_value, size_t size);
 
 		errorCodes getCode();
 		const char* getMessage();

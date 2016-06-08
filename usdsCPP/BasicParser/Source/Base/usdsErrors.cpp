@@ -21,6 +21,54 @@ ErrorMessage::~ErrorMessage()
 
 };
 
+ErrorMessage& ErrorMessage::operator << (const bool value)
+{
+	std::stringstream buff;
+	if (value)
+		buff << "true";
+	else
+		buff << "false";
+	message += buff.str();
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::operator << (const int8_t value)
+{
+	std::stringstream buff;
+	buff << (int32_t)value;
+	message += buff.str();
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::operator << (const uint8_t value)
+{
+	std::stringstream buff;
+	buff << (uint32_t)value;
+	message += buff.str();
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::operator << (const int16_t value)
+{
+	std::stringstream buff;
+	buff << value;
+	message += buff.str();
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::operator << (const uint16_t value)
+{
+	std::stringstream buff;
+	buff << value;
+	message += buff.str();
+
+	return *this;
+};
+
 ErrorMessage& ErrorMessage::operator << (const int32_t value)
 {
 	std::stringstream buff;
@@ -38,7 +86,6 @@ ErrorMessage& ErrorMessage::operator << (const uint32_t value)
 
 	return *this;
 };
-
 
 ErrorMessage& ErrorMessage::operator << (const int64_t value)
 {
@@ -58,26 +105,64 @@ ErrorMessage& ErrorMessage::operator << (const uint64_t value)
 	return *this;
 };
 
-ErrorMessage& ErrorMessage::operator << (const char* utf8_message)
+ErrorMessage& ErrorMessage::operator << (const float value)
 {
-	if (utf8_message != 0)
-		message += utf8_message;
+	std::stringstream buff;
+	buff << value;
+	message += buff.str();
 
 	return *this;
 };
 
-ErrorMessage& ErrorMessage::operator << (const std::string& utf8_message)
+ErrorMessage& ErrorMessage::operator << (const double value)
 {
-	message += utf8_message;
+	std::stringstream buff;
+	buff << value;
+	message += buff.str();
 
 	return *this;
 };
 
-ErrorMessage& ErrorMessage::addString(const char* name, size_t size)
+ErrorMessage& ErrorMessage::operator << (const char* utf8_value)
 {
-	if (name != 0)
-		message.append(name, size);
+	if (utf8_value != 0)
+		message += utf8_value;
 
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::operator << (const std::string& utf8_value)
+{
+	message += utf8_value;
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::operator << (const std::string* utf8_value)
+{
+	message += *utf8_value;
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::operator << (const void* value)
+{
+	std::stringstream buff;
+	buff << "0x" << value;
+	message += buff.str();
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::addString(const char* utf8_value, size_t size)
+{
+	if (utf8_value != 0)
+	{
+		if (size != 0)
+			message.append(utf8_value, size);
+		else
+			message += utf8_value;
+	}
 	return *this;
 };
 
@@ -151,6 +236,21 @@ ErrorStack& ErrorStack::operator << (const bool value)
 	return *this;
 };
 
+ErrorStack& ErrorStack::operator << (const int8_t value)
+{
+	std::stringstream buff;
+	buff << (int32_t)value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+	*path += "int8_t ";
+	*path += buff.str();
+
+	return *this;
+};
+
 ErrorStack& ErrorStack::operator << (const uint8_t value)
 {
 	std::stringstream buff;
@@ -161,6 +261,36 @@ ErrorStack& ErrorStack::operator << (const uint8_t value)
 	if (path->back() != '(')
 		*path += ", ";
 	*path += "uint8_t ";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator << (const int16_t value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+	*path += "int16_t ";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator << (const uint16_t value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+	*path += "uint16_t ";
 	*path += buff.str();
 
 	return *this;
@@ -226,6 +356,20 @@ ErrorStack& ErrorStack::operator << (const uint64_t value)
 	return *this;
 };
 
+ErrorStack& ErrorStack::operator << (const float value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+	*path += "float ";
+	*path += buff.str();
+
+	return *this;
+};
 
 ErrorStack& ErrorStack::operator << (const double value)
 {
@@ -242,23 +386,58 @@ ErrorStack& ErrorStack::operator << (const double value)
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator << (const char* utf8_path)
+ErrorStack& ErrorStack::operator << (const char* utf8_value)
 {
 	std::string* path = &(stack.front().path);
 
 	if (path->back() != '(')
 		*path += ", ";
 
-	if (utf8_path != 0)
+	if (utf8_value != 0)
 	{
 		*path += "const char* \"";
-		*path += utf8_path;
+		*path += utf8_value;
 		*path += '"';
 	}
 	else
 	{
 		*path += "const char* 0";
 	}
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const std::string* utf8_value)
+{
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	if (utf8_value != 0)
+	{
+		*path += "string* \"";
+		*path += *utf8_value;
+		*path += '"';
+	}
+	else
+		*path += "string* 0";
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator << (const std::string& utf8_value)
+{
+	std::stringstream buff;
+	buff << utf8_value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+	*path += "string \"";
+	*path += buff.str();
+	*path += "\"";
 
 	return *this;
 };
@@ -273,7 +452,39 @@ ErrorStack& ErrorStack::operator << (const void* value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "void* ";
+	*path += "void* 0x";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator << (const bool* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "bool* 0x";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const int8_t* value)
+{
+	std::stringstream buff;
+	buff << (void*)value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "int8_t* 0x";
 	*path += buff.str();
 
 	return *this;
@@ -289,39 +500,39 @@ ErrorStack& ErrorStack::operator<<(const uint8_t* value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "uint8_t* ";
+	*path += "uint8_t* 0x";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator<<(const uint64_t* value)
+ErrorStack& ErrorStack::operator<<(const int16_t* value)
 {
 	std::stringstream buff;
-	buff << value;
+	buff << (void*)value;
 
 	std::string* path = &(stack.front().path);
 
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "uint64_t* ";
+	*path += "int16_t* 0x";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator<<(const uint32_t* value)
+ErrorStack& ErrorStack::operator<<(const uint16_t* value)
 {
 	std::stringstream buff;
-	buff << value;
+	buff << (void*)value;
 
 	std::string* path = &(stack.front().path);
 
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "uint32_t* ";
+	*path += "uint16_t* 0x";
 	*path += buff.str();
 
 	return *this;
@@ -337,7 +548,87 @@ ErrorStack& ErrorStack::operator<<(const int32_t* value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "int32_t* ";
+	*path += "int32_t* 0x";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const uint32_t* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "uint32_t* 0x";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const int64_t* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "int64_t* 0x";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const uint64_t* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "uint64_t* 0x";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const float* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "float* 0x";
+	*path += buff.str();
+
+	return *this;
+};
+
+ErrorStack& ErrorStack::operator<<(const double* value)
+{
+	std::stringstream buff;
+	buff << value;
+
+	std::string* path = &(stack.front().path);
+
+	if (path->back() != '(')
+		*path += ", ";
+
+	*path += "double* 0x";
 	*path += buff.str();
 
 	return *this;
@@ -353,44 +644,36 @@ ErrorStack& ErrorStack::operator<<(const char** value)
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "const char** ";
+	*path += "char** 0x";
 	*path += buff.str();
 
 	return *this;
 };
 
-ErrorStack& ErrorStack::operator<<(const std::string* value)
+ErrorStack& ErrorStack::addStringAndSize(const char* utf8_value, size_t size)
 {
 	std::stringstream buff;
-	buff << value;
-
+	buff << size;
+	
 	std::string* path = &(stack.front().path);
 
 	if (path->back() != '(')
 		*path += ", ";
 
-	*path += "string* ";
-	*path += buff.str();
-
-	return *this;
-};
-
-ErrorStack& ErrorStack::addStringAttribute(const char* name, size_t size)
-{
-	std::string* path = &(stack.front().path);
-
-	if (path->back() != '(')
-		*path += ", ";
-
-	if (name != 0)
+	if (utf8_value != 0)
 	{
 		*path += "const char* \"";
-		path->append(name, size);
-		*path += '"';
+		if (size != 0)
+			path->append(utf8_value, size);
+		else
+			*path += utf8_value;
+		*path += "\", size_t ";
+		*path += buff.str();
 	}
 	else
 	{
-		*path += "const char* 0";
+		*path += "const char* 0, size_t ";
+		*path += buff.str();
 	}
 	
 	return *this;
