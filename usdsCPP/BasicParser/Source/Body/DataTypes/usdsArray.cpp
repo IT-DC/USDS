@@ -30,8 +30,32 @@ usdsTypes UsdsArray::getElementType() throw(...)
 
 
 //====================================================================================================================
+// pushBack
 
-void UsdsArray::pushBack(int32_t value) throw (...)
+void UsdsArray::pushBack(bool value) throw (...)
+try
+{
+	switch (elementType)
+	{
+
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from bool to " << typeName(elementType);
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+//------------------------------------------------------------------------------------------------------------
+
+void UsdsArray::pushBack(int8_t value) throw (...)
 try
 {
 	switch (elementType)
@@ -43,7 +67,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from Int to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int8_t to " << typeName(elementType);
 
 	}
 
@@ -58,41 +82,316 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsArray::pushBack(int64_t value) throw (...)
+//------------------------------------------------------------------------------------------------------------
+
+void UsdsArray::pushBack(uint8_t value) throw (...)
+try
 {
+	switch (elementType)
+	{
+	case USDS_INT:
+		elementValues.writeInt(value);
+		elementNumber++;
+		break;
 
 
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from uint8_t to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
 };
+
+//------------------------------------------------------------------------------------------------------------
+
+void UsdsArray::pushBack(int16_t value) throw (...)
+try
+{
+	switch (elementType)
+	{
+	case USDS_INT:
+		elementValues.writeInt(value);
+		elementNumber++;
+		break;
+
+
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int16_t to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+//------------------------------------------------------------------------------------------------------------
+
+void UsdsArray::pushBack(uint16_t value) throw (...)
+try
+{
+	switch (elementType)
+	{
+	case USDS_INT:
+		elementValues.writeInt(value);
+		elementNumber++;
+		break;
+
+
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int16_t to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+//------------------------------------------------------------------------------------------------------------
+
+void UsdsArray::pushBack(int32_t value) throw (...)
+try
+{
+	switch (elementType)
+	{
+	case USDS_INT:
+		elementValues.writeInt(value);
+		elementNumber++;
+		break;
+
+
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int32_t to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+//------------------------------------------------------------------------------------------------------------
+
+void UsdsArray::pushBack(uint32_t value) throw (...)
+try
+{
+	switch (elementType)
+	{
+	case USDS_INT:
+		if (value > 2147483647)
+			throw ErrorStack("UsdsArray::setValue") << value << (ErrorMessage(BODY_ARRAY__TOO_BIG_VALUE) << "Value must be in range[-2147483648, 2147483647], current value : " << value);
+		elementValues.writeInt(value);
+		elementNumber++;
+		break;
+
+
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from uint32_t to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+//------------------------------------------------------------------------------------------------------------
+
+void UsdsArray::pushBack(int64_t value) throw (...)
+try
+{
+	switch (elementType)
+	{
+	case USDS_INT:
+		if (value > 2147483647 || value < -2147483648ll)
+			throw ErrorStack("UsdsArray::setValue") << value << (ErrorMessage(BODY_ARRAY__TOO_BIG_VALUE) << "Value must be in range[-2147483648, 2147483647], current value : " << value);
+		elementValues.writeInt((int32_t)value);
+		elementNumber++;
+		break;
+
+
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int64_t to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+//------------------------------------------------------------------------------------------------------------
 
 void UsdsArray::pushBack(uint64_t value) throw (...)
+try
 {
+	switch (elementType)
+	{
+	case USDS_INT:
+		if (value > 2147483647)
+			throw ErrorStack("UsdsArray::setValue") << value << (ErrorMessage(BODY_ARRAY__TOO_BIG_VALUE) << "Value must be in range[-2147483648, 2147483647], current value : " << value);
+		elementValues.writeInt((int32_t)value);
+		elementNumber++;
+		break;
 
 
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from uint64_t to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
 };
+
+//------------------------------------------------------------------------------------------------------------
+
+void UsdsArray::pushBack(float value) throw (...)
+try
+{
+	switch (elementType)
+	{
+
+
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from float to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+//------------------------------------------------------------------------------------------------------------
 
 void UsdsArray::pushBack(double value) throw (...)
+try
 {
+	switch (elementType)
+	{
 
 
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from double to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
 };
+
+//------------------------------------------------------------------------------------------------------------
 
 void UsdsArray::pushBack(const char* value) throw (...)
+try
 {
+	switch (elementType)
+	{
 
 
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from const char* to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
 };
+
+//------------------------------------------------------------------------------------------------------------
 
 void UsdsArray::pushBack(const char* value, size_t size) throw (...)
+try
 {
+	switch (elementType)
+	{
 
 
+	default:
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from const char* to " << typeName(elementType);
+
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << size << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value << size;
+	throw;
 };
 
-void UsdsArray::pushBack(bool value) throw (...)
-{
-
-
-};
+//------------------------------------------------------------------------------------------------------------
 
 UsdsBaseType* UsdsArray::pushTagBack() throw(...)
 try
@@ -119,6 +418,7 @@ catch (ErrorStack& err)
 
 
 //====================================================================================================================
+// getValue
 
 void UsdsArray::getValue(size_t number, int32_t* value) throw (...)
 try

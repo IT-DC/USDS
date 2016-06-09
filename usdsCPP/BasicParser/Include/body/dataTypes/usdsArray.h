@@ -15,37 +15,62 @@ namespace usds
 		size_t size() throw(...);
 		usdsTypes getElementType() throw(...);
 
+		void pushBack(bool value) throw (...);
+		void pushBack(int8_t value) throw (...);
+		void pushBack(uint8_t value) throw (...);
+		void pushBack(int16_t value) throw (...);
+		void pushBack(uint16_t value) throw (...);
 		void pushBack(int32_t value) throw (...);
+		void pushBack(uint32_t value) throw (...);
 		void pushBack(int64_t value) throw (...);
 		void pushBack(uint64_t value) throw (...);
+		void pushBack(float value) throw (...);
 		void pushBack(double value) throw (...);
 		void pushBack(const char* value) throw (...);
 		void pushBack(const char* value, size_t size) throw (...);
-		void pushBack(bool value) throw (...);
-
+		
+		void pushBefore(size_t number, bool value) throw (...);
+		void pushBefore(size_t number, int8_t value) throw (...);
+		void pushBefore(size_t number, uint8_t value) throw (...);
+		void pushBefore(size_t number, int16_t value) throw (...);
+		void pushBefore(size_t number, uint16_t value) throw (...);
 		void pushBefore(size_t number, int32_t value) throw (...);
+		void pushBefore(size_t number, uint32_t value) throw (...);
 		void pushBefore(size_t number, int64_t value) throw (...);
 		void pushBefore(size_t number, uint64_t value) throw (...);
+		void pushBefore(size_t number, float value) throw (...);
 		void pushBefore(size_t number, double value) throw (...);
 		void pushBefore(size_t number, const char* value) throw (...);
 		void pushBefore(size_t number, const char* value, size_t size) throw (...);
-		void pushBefore(size_t number, bool value) throw (...);
 
+		void setValue(size_t number, bool value) throw (...);
+		void setValue(size_t number, int8_t value) throw (...);
+		void setValue(size_t number, uint8_t value) throw (...);
+		void setValue(size_t number, int16_t value) throw (...);
+		void setValue(size_t number, uint16_t value) throw (...);
 		void setValue(size_t number, int32_t value) throw (...);
+		void setValue(size_t number, uint32_t value) throw (...);
 		void setValue(size_t number, int64_t value) throw (...);
 		void setValue(size_t number, uint64_t value) throw (...);
+		void setValue(size_t number, float value) throw (...);
 		void setValue(size_t number, double value) throw (...);
 		void setValue(size_t number, const char* value) throw (...);
 		void setValue(size_t number, const char* value, size_t size) throw (...);
-		void setValue(size_t number, bool value) throw (...);
 
+		void getValue(size_t number, bool* value) throw (...);
+		void getValue(size_t number, int8_t* value) throw (...);
+		void getValue(size_t number, uint8_t* value) throw (...);
+		void getValue(size_t number, int16_t* value) throw (...);
+		void getValue(size_t number, uint16_t* value) throw (...);
 		void getValue(size_t number, int32_t* value) throw (...);
+		void getValue(size_t number, uint32_t* value) throw (...);
 		void getValue(size_t number, int64_t* value) throw (...);
 		void getValue(size_t number, uint64_t* value) throw (...);
+		void getValue(size_t number, float* value) throw (...);
 		void getValue(size_t number, double* value) throw (...);
 		void getValue(size_t number, const char** value) throw (...);
 		void getValue(size_t number, const char** value, size_t* size) throw (...);
-		void getValue(size_t number, bool* value) throw (...);
+
 		template <typename out_type> out_type getValue(size_t number) throw (...);
 
 		UsdsBaseType* pushTagBack() throw(...);
