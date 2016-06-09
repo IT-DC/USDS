@@ -36,7 +36,7 @@ catch (ErrorStack& err)
 {
 	err.addLevel("UsdsBaseType::init") << (void*)dict_parent << (void*)body_parent;
 	throw;
-};;
+};
 
 const char* UsdsBaseType::getName() throw(...)
 {

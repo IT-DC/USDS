@@ -70,8 +70,6 @@ try
 	
 	usdsTypes object_type = dict_parent->getType();
 
-	if (object_type <= USDS_NO_TYPE || object_type >= USDS_LAST_TYPE)
-		throw ErrorMessage(BODY_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << object_type;
 	// TODO: remove it when all type is ready
 	if (pools[object_type] == 0)
 		throw ErrorMessage(BODY_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << typeName(object_type);

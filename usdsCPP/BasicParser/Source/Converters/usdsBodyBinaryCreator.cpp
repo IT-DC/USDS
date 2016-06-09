@@ -121,7 +121,7 @@ void BodyBinaryCreator::writeBEUShort(UsdsBaseType* object) throw (...)
 void BodyBinaryCreator::writeInt(UsdsBaseType* object) throw (...)
 try
 {
-	usdsBuff->writeInt(((UsdsInt*)object)->getIntValue());
+	usdsBuff->writeInt(((UsdsInt*)object)->getValue<int32_t>());
 }
 catch (ErrorStack& err)
 {

@@ -61,6 +61,7 @@ namespace usds
 		virtual void getValue(const char** value) throw (...);
 		virtual void getValue(const char** value, size_t* size) throw (...);
 		
+		template <typename out_type> out_type getValue() throw (...);
 
 	protected:
 
@@ -78,6 +79,19 @@ namespace usds
 		UsdsBaseType* previousObject;
 
 
+	};
+
+	template <typename out_type> out_type UsdsBaseType::getValue() throw (...)
+		try
+	{
+		out_type value;
+		getValue(&value);
+		return value;
+	}
+	catch (ErrorStack& err)
+	{
+		err.addLevel("template <typename out_type> out_type UsdsInt::getValue");
+		throw;
 	};
 }
 

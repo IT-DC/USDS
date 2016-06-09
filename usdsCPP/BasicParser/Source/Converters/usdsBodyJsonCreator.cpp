@@ -135,7 +135,7 @@ void BodyJsonCreator::writeBEUShort(UsdsBaseType* object) throw (...)
 void BodyJsonCreator::writeInt(UsdsBaseType* object) throw (...)
 try
 {
-	int32_t value = ((UsdsInt*)object)->getIntValue();
+	int32_t value = ((UsdsInt*)object)->getValue<int32_t>();
 	*textBuff += std::to_string(value);
 }
 catch (ErrorStack& err)

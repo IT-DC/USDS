@@ -11,9 +11,29 @@ namespace usds
 		UsdsInt(Body* parent_body);
 		virtual ~UsdsInt();
 
+		virtual void setValue(int8_t value) throw (...);
+		virtual void setValue(uint8_t value) throw (...);
+		virtual void setValue(int16_t value) throw (...);
+		virtual void setValue(uint16_t value) throw (...);
 		virtual void setValue(int32_t value) throw (...);
+		virtual void setValue(uint32_t value) throw (...);
+		virtual void setValue(int64_t value) throw (...);
+		virtual void setValue(uint64_t value) throw (...);
 
-		virtual int32_t getIntValue() throw (...);
+		using UsdsBaseType::setValue;
+
+		virtual void getValue(int8_t* value) throw (...);
+		virtual void getValue(uint8_t* value) throw (...);
+		virtual void getValue(int16_t* value) throw (...);
+		virtual void getValue(uint16_t* value) throw (...);
+		virtual void getValue(int32_t* value) throw (...);
+		virtual void getValue(uint32_t* value) throw (...);
+		virtual void getValue(int64_t* value) throw (...);
+		virtual void getValue(uint64_t* value) throw (...);
+
+		using UsdsBaseType::getValue;
+
+		int32_t getValue();
 
 	private:
 
@@ -23,6 +43,7 @@ namespace usds
 
 	};
 
+	
 }
 
 #endif

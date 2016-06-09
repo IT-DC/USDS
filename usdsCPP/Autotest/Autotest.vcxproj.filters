@@ -52,6 +52,9 @@
     <ClCompile Include="Source\UnitTest\Body\usdsArrayTest.cpp">
       <Filter>Unit tests\Body</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsIntTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAutotest.h" />
@@ -89,6 +92,9 @@
       <Filter>Unit tests\Dictionary</Filter>
     </ClInclude>
     <ClInclude Include="Include\unitTest\body\usdsArrayTest.h">
+      <Filter>Unit tests\Body</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\unitTest\body\usdsIntTest.h">
       <Filter>Unit tests\Body</Filter>
     </ClInclude>
   </ItemGroup>

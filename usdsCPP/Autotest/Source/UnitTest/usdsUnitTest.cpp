@@ -12,6 +12,7 @@
 #include "unitTest\dictionary\dictionaryTagLinkTest.h"
 #include "unitTest\dictionary\usdsDictionaryTest.h"
 
+#include "unitTest\body\usdsIntTest.h"
 #include "unitTest\body\usdsArrayTest.h"
 
 void UnitTest::runTest(int32_t number)
@@ -63,6 +64,9 @@ void UnitTest::runTest(int32_t number)
 
 	// Body classes
 	{
+		UsdsIntTest body_int_test;
+		body_int_test.runTest(number);
+
 		UsdsArrayTest body_array_test;
 		body_array_test.runTest(number);
 
