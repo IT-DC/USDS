@@ -1,33 +1,13 @@
-#include "unitTest\dictionary\dictionaryArrayTest.h"
+#include "usdsAutotest.h"
 
 #include "dictionary\usdsDictionary.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 #include "dictionary\dataTypes\dictionaryString.h"
 
-void DictionaryArrayTest::runTest(int32_t number)
-{
-	if (!needStart(number, UNIT_TESTS__DICTIONARY_ARRAY))
-		return;
-	testNumbers = number;
-
-	std::cout << UNIT_TESTS__DICTIONARY_ARRAY << " ------------- Dictionary Array Class ---------------\n";
-	
-	test_1();
-	test_2();
-
-};
-
 // Test simple types for array's element
 void DictionaryArrayTest::test_1()
 {
-	int32_t test_number = UNIT_TESTS__DICTIONARY_ARRAY_1;
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
-
-
 	usds::Dictionary dict(0);
 	dict.setID(1, 0, 0);
 	usds::DictionaryArray* object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
@@ -37,16 +17,13 @@ void DictionaryArrayTest::test_1()
 	try
 	{
 		object->setElementType(usds::USDS_NO_TYPE);
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
-
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::USDS_TYPES__ERROR_TYPE_CODE)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw test_number;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -55,16 +32,13 @@ void DictionaryArrayTest::test_1()
 	try
 	{
 		object->setElementType(usds::USDS_ARRAY);
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
-
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_ARRAY__ERROR_ELEMENT_TYPE)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw test_number;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -73,16 +47,13 @@ void DictionaryArrayTest::test_1()
 	try
 	{
 		object->setElementType(usds::USDS_STRUCT);
-		std::cout << "Failed at the step 3\n";
-		throw test_number;
-
+		throw "Failed at the step 3\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_ARRAY__ERROR_ELEMENT_TYPE)
 		{
-			std::cout << "Failed at the step 3\n";
-			throw test_number;
+			throw "Failed at the step 3\n";
 		}
 	}
 
@@ -93,25 +64,21 @@ void DictionaryArrayTest::test_1()
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 4\n";
-		throw test_number;
+		throw "Failed at the step 4\n";
 	}
 
 	// step 5
 
 	try
 	{
-		object->setElementType(usds::USDS_UNSIGNED_VARINT);
-		std::cout << "Failed at the step 5\n";
-		throw test_number;
-
+		object->setElementType(usds::USDS_UVARINT);
+		throw "Failed at the step 5\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_ARRAY__ALREADY_INITIALIZED)
 		{
-			std::cout << "Failed at the step 5\n";
-			throw test_number;
+			throw "Failed at the step 5\n";
 		}
 	}
 	
@@ -123,12 +90,11 @@ void DictionaryArrayTest::test_1()
 	
 	try
 	{
-		object->setElementType(usds::USDS_UNSIGNED_VARINT);
+		object->setElementType(usds::USDS_UVARINT);
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 6\n";
-		throw test_number;
+		throw "Failed at the step 6\n";
 	}
 
 	// step 7
@@ -143,23 +109,20 @@ void DictionaryArrayTest::test_1()
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 7\n";
-		throw test_number;
+		throw "Failed at the step 7\n";
 	}
 
 	// step 8
 	try
 	{
 		dict.finalizeDictionary();
-		std::cout << "Failed at the step 8\n";
-		throw test_number;
+		throw "Failed at the step 8\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRING__ERROR_ENCODE)
 		{
-			std::cout << "Failed at the step 8\n";
-			throw test_number;
+			throw "Failed at the step 8\n";
 		}
 	}
 
@@ -171,22 +134,14 @@ void DictionaryArrayTest::test_1()
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 9\n";
-		throw test_number;
+		throw "Failed at the step 9\n";
 	}
 
-
-	std::cout << "Successful!\n";
 }
 
 // test TAG as element for array
 void DictionaryArrayTest::test_2()
 {
-	int32_t test_number = UNIT_TESTS__DICTIONARY_ARRAY_2;
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
 	// step 1
 
 	usds::Dictionary dict(0);
@@ -196,15 +151,13 @@ void DictionaryArrayTest::test_2()
 	try
 	{
 		object->getElementType();
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_ARRAY__NOT_INITIALIZED)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw test_number;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -212,15 +165,13 @@ void DictionaryArrayTest::test_2()
 	try
 	{
 		object->finalize();
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_ARRAY__NOT_INITIALIZED)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw test_number;
+			throw "Failed at the step 2\n";
 		}
 	}
 	
@@ -234,8 +185,7 @@ void DictionaryArrayTest::test_2()
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw test_number;
+		throw "Failed at the step 3\n";
 	}
 
 	// step 4
@@ -243,14 +193,12 @@ void DictionaryArrayTest::test_2()
 	{
 		if (((usds::DictionaryTagLink*)(object->getElement()))->getTag()->getType() != usds::USDS_INT)
 		{
-			std::cout << "Failed at the step 4\n";
-			throw test_number;
+			throw "Failed at the step 4\n";
 		}
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 4\n";
-		throw test_number;
+		throw "Failed at the step 4\n";
 	}
 
 
@@ -269,8 +217,7 @@ void DictionaryArrayTest::test_2()
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 5\n";
-		throw test_number;
+		throw "Failed at the step 5\n";
 	}
 
 	// step 6
@@ -278,14 +225,12 @@ void DictionaryArrayTest::test_2()
 	{
 		if (((usds::DictionaryTagLink*)(object->getElement()))->getTag()->getType() != usds::USDS_INT)
 		{
-			std::cout << "Failed at the step 6\n";
-			throw test_number;
+			throw "Failed at the step 6\n";
 		}
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 6\n";
-		throw test_number;
+		throw "Failed at the step 6\n";
 	}
 
 	// step 7
@@ -299,15 +244,13 @@ void DictionaryArrayTest::test_2()
 		usds::DictionaryTagLink* tag_link = (usds::DictionaryTagLink*)object->setElementType(usds::USDS_TAG);
 		tag_link->setTag(1);
 		dict.finalizeDictionary();
-		std::cout << "Failed at the step 7\n";
-		throw test_number;
+		throw "Failed at the step 7\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_ARRAY__RECURSION_ERROR)
 		{
-			std::cout << "Failed at the step 7\n";
-			throw test_number;
+			throw "Failed at the step 7\n";
 		}
 	}
 
@@ -322,18 +265,15 @@ void DictionaryArrayTest::test_2()
 		usds::DictionaryTagLink* tag_link = (usds::DictionaryTagLink*)object->setElementType(usds::USDS_TAG);
 		tag_link->setTag("array", 0);
 		dict.finalizeDictionary();
-		std::cout << "Failed at the step 8\n";
-		throw test_number;
+		throw "Failed at the step 8\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_ARRAY__RECURSION_ERROR)
 		{
-			std::cout << "Failed at the step 8\n";
-			throw test_number;
+			throw "Failed at the step 8\n";
 		}
 	}
 
-	std::cout << "Successful!\n";
 }
 

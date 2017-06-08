@@ -72,9 +72,9 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::TYPE_VARINT);
 						}
 
-"UNSIGNED"[ \t\r]+"VARINT" {
-							yylval->typeVal = USDS_UNSIGNED_VARINT;
-							return (token::TYPE_UNSIGNED_VARINT);
+"UVARINT" {
+							yylval->typeVal = USDS_UVARINT;
+							return (token::TYPE_UVARINT);
 						}
 
 "STRING"				{

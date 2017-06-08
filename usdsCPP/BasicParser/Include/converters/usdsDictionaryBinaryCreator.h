@@ -1,8 +1,8 @@
 #ifndef USDS_DICTIONARY_BINARY_CREATOR_H
 #define USDS_DICTIONARY_BINARY_CREATOR_H
 
-#include "base\usdsTypes.h"
-#include "base\usdsErrors.h"
+#include "usdsTypes.h"
+#include "usdsErrors.h"
 
 namespace usds
 {

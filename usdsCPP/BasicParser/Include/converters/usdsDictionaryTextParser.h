@@ -1,8 +1,8 @@
 #ifndef USDS_DICTIONARY_TEXT_PARSER_H
 #define USDS_DICTIONARY_TEXT_PARSER_H
 
-#include "base\usdsTypes.h"
-#include "base\usdsErrors.h"
+#include "usdsTypes.h"
+#include "usdsErrors.h"
 
 #include <sstream>
 #include <list>

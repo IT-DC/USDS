@@ -1,10 +1,10 @@
 #ifndef DICTIONARY_STRUCT_H
 #define DICTIONARY_STRUCT_H
 
-#include "base\usdsTypes.h"
-#include "base\usdsErrors.h"
+#include "usdsTypes.h"
+#include "usdsErrors.h"
 
-#include "dictionary\dataTypes\dictionaryBaseType.h"
+#include "dictionary\dictionaryBaseType.h"
 
 #include <vector>
 

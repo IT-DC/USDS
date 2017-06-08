@@ -4,16 +4,6 @@
     <Filter Include="Converters">
       <UniqueIdentifier>{aebf2beb-2d2a-423d-862d-5f26928374c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Base">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Base\Binary">
-      <UniqueIdentifier>{3458fc91-dfb6-4a8b-97d2-d2fd90830b87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base\Object Pool">
-      <UniqueIdentifier>{9f3a603a-94b5-482f-87cc-e5057b1b819a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Dictionary">
       <UniqueIdentifier>{525a1e12-29cb-4538-a129-fa0cdef7dab6}</UniqueIdentifier>
     </Filter>
@@ -52,38 +42,14 @@
     <ClInclude Include="Source\Converters\DictionaryTextParser\stack.hh">
       <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </ClInclude>
-    <ClInclude Include="Include\base\usdsErrors.h">
-      <Filter>Base</Filter>
-    </ClInclude>
     <ClInclude Include="Include\usdsBasicParser.h" />
-    <ClInclude Include="Include\base\binary\usdsBinaryInput.h">
-      <Filter>Base\Binary</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\binary\usdsBinaryOutput.h">
-      <Filter>Base\Binary</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\usdsTypes.h">
-      <Filter>Base</Filter>
-    </ClInclude>
     <ClInclude Include="Include\dictionary\usdsDictionary.h">
       <Filter>Dictionary</Filter>
     </ClInclude>
     <ClInclude Include="Include\body\usdsBody.h">
       <Filter>Body</Filter>
     </ClInclude>
-    <ClInclude Include="Include\base\objectPool\bodyObjectPool.h">
-      <Filter>Base\Object Pool</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\objectPool\dicObjectPool.h">
-      <Filter>Base\Object Pool</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\base\objectPool\usdsObjectPool.h">
-      <Filter>Base\Object Pool</Filter>
-    </ClInclude>
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryArray.h">
-      <Filter>Dictionary\Data types</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\dictionary\dataTypes\dictionaryBaseType.h">
       <Filter>Dictionary\Data types</Filter>
     </ClInclude>
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryBoolean.h">
@@ -108,9 +74,6 @@
       <Filter>Dictionary\Data types</Filter>
     </ClInclude>
     <ClInclude Include="Include\body\dataTypes\usdsArray.h">
-      <Filter>Body\Data types</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\body\dataTypes\usdsBaseType.h">
       <Filter>Body\Data types</Filter>
     </ClInclude>
     <ClInclude Include="Include\body\dataTypes\usdsBoolean.h">
@@ -164,6 +127,19 @@
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryTagLink.h">
       <Filter>Dictionary\Data types</Filter>
     </ClInclude>
+    <ClInclude Include="Include\usdsErrors.h" />
+    <ClInclude Include="Include\body\bodyObjectPool.h">
+      <Filter>Body</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\dicObjectPool.h">
+      <Filter>Dictionary</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\usdsBaseType.h">
+      <Filter>Body</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\dictionaryBaseType.h">
+      <Filter>Dictionary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -172,35 +148,14 @@
     <ClCompile Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.cpp">
       <Filter>Converters\Parsers\Dictionary Text Parser</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Base\usdsErrors.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
     <ClCompile Include="Source\usdsBasicParser.cpp" />
-    <ClCompile Include="Source\Base\Binary\usdsBinaryInput.cpp">
-      <Filter>Base\Binary</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Base\Binary\usdsBinaryOutput.cpp">
-      <Filter>Base\Binary</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Base\usdsTypes.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Dictionary\usdsDictionary.cpp">
       <Filter>Dictionary</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Base\ObjectPool\dicObjectPool.cpp">
-      <Filter>Base\Object Pool</Filter>
     </ClCompile>
     <ClCompile Include="Source\Body\usdsBody.cpp">
       <Filter>Body</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Base\ObjectPool\bodyObjectPool.cpp">
-      <Filter>Base\Object Pool</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryArray.cpp">
-      <Filter>Dictionary\Data types</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryBaseType.cpp">
       <Filter>Dictionary\Data types</Filter>
     </ClCompile>
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryBoolean.cpp">
@@ -225,9 +180,6 @@
       <Filter>Dictionary\Data types</Filter>
     </ClCompile>
     <ClCompile Include="Source\Body\DataTypes\usdsArray.cpp">
-      <Filter>Body\Data types</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Body\DataTypes\usdsBaseType.cpp">
       <Filter>Body\Data types</Filter>
     </ClCompile>
     <ClCompile Include="Source\Body\DataTypes\usdsBoolean.cpp">
@@ -281,8 +233,17 @@
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryTagLink.cpp">
       <Filter>Dictionary\Data types</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Base\ObjectPool\usdsObjectPool.cpp">
-      <Filter>Base\Object Pool</Filter>
+    <ClCompile Include="Source\Body\bodyObjectPool.cpp">
+      <Filter>Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\dicObjectPool.cpp">
+      <Filter>Dictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\usdsBaseType.cpp">
+      <Filter>Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\dictionaryBaseType.cpp">
+      <Filter>Dictionary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

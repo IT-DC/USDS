@@ -10,29 +10,29 @@ BodyBinaryCreator::BodyBinaryCreator()
 	writeIndex[USDS_TAG] = &BodyBinaryCreator::writeTag;
 	writeIndex[USDS_BOOLEAN] = &BodyBinaryCreator::writeBoolean;
 	writeIndex[USDS_BYTE] = &BodyBinaryCreator::writeByte;
-	writeIndex[USDS_UNSIGNED_BYTE] = &BodyBinaryCreator::writeUByte;
+	writeIndex[USDS_UBYTE] = &BodyBinaryCreator::writeUByte;
 	writeIndex[USDS_SHORT] = &BodyBinaryCreator::writeShort;
-	writeIndex[USDS_UNSIGNED_SHORT] = &BodyBinaryCreator::writeUShort;
+	writeIndex[USDS_USHORT] = &BodyBinaryCreator::writeUShort;
 	writeIndex[USDS_BIGENDIAN_SHORT] = &BodyBinaryCreator::writeBEShort;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = &BodyBinaryCreator::writeBEUShort;
+	writeIndex[USDS_BIGENDIAN_USHORT] = &BodyBinaryCreator::writeBEUShort;
 	writeIndex[USDS_INT] = &BodyBinaryCreator::writeInt;
-	writeIndex[USDS_UNSIGNED_INT] = &BodyBinaryCreator::writeUInt;
+	writeIndex[USDS_UINT] = &BodyBinaryCreator::writeUInt;
 	writeIndex[USDS_BIGENDIAN_INT] = &BodyBinaryCreator::writeBEInt;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT] = &BodyBinaryCreator::writeBEUInt;
+	writeIndex[USDS_BIGENDIAN_UINT] = &BodyBinaryCreator::writeBEUInt;
 	writeIndex[USDS_LONG] = &BodyBinaryCreator::writeLong;
-	writeIndex[USDS_UNSIGNED_LONG] = &BodyBinaryCreator::writeULong;
+	writeIndex[USDS_ULONG] = &BodyBinaryCreator::writeULong;
 	writeIndex[USDS_BIGENDIAN_LONG] = &BodyBinaryCreator::writeBELong;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = &BodyBinaryCreator::writeBEULong;
+	writeIndex[USDS_BIGENDIAN_ULONG] = &BodyBinaryCreator::writeBEULong;
 	writeIndex[USDS_INT128] = &BodyBinaryCreator::writeInt128;
-	writeIndex[USDS_UNSIGNED_INT128] = &BodyBinaryCreator::writeUInt128;
+	writeIndex[USDS_UINT128] = &BodyBinaryCreator::writeUInt128;
 	writeIndex[USDS_BIGENDIAN_INT128] = &BodyBinaryCreator::writeBEInt128;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = &BodyBinaryCreator::writeBEUInt128;
+	writeIndex[USDS_BIGENDIAN_UINT128] = &BodyBinaryCreator::writeBEUInt128;
 	writeIndex[USDS_FLOAT] = &BodyBinaryCreator::writeFloat;
 	writeIndex[USDS_BIGENDIAN_FLOAT] = &BodyBinaryCreator::writeBEFloat;
 	writeIndex[USDS_DOUBLE] = &BodyBinaryCreator::writeDouble;
-	writeIndex[USDS_USDS_BIGENDIAN_DOUBLE] = &BodyBinaryCreator::writeBEDouble;
+	writeIndex[USDS_BIGENDIAN_DOUBLE] = &BodyBinaryCreator::writeBEDouble;
 	writeIndex[USDS_VARINT] = &BodyBinaryCreator::writeVarint;
-	writeIndex[USDS_UNSIGNED_VARINT] = &BodyBinaryCreator::writeUVarint;
+	writeIndex[USDS_UVARINT] = &BodyBinaryCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &BodyBinaryCreator::writeString;
 	writeIndex[USDS_ARRAY] = &BodyBinaryCreator::writeArray;
 	writeIndex[USDS_LIST] = &BodyBinaryCreator::writeList;
@@ -251,7 +251,7 @@ try
 {
 	int32_t element_number = ((UsdsArray*)object)->size();
 	usdsBuff->writeUVarint(element_number);
-	if (typeSize(((UsdsArray*)object)->getElementType()) == 0)
+	if (usdsTypeSize(((UsdsArray*)object)->getElementType()) == 0)
 	{
 		UsdsBaseType** objects = (UsdsBaseType**)(((UsdsArray*)object)->getArrayBinary());
 		for (int32_t i = 0; i < element_number; i++)

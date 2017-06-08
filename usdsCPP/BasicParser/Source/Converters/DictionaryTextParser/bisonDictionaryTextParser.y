@@ -2,8 +2,8 @@
 	#include "usdsBasicParser.h"
 	#include "dictionary\usdsDictionary.h"
 
+	#include "dictionary\dictionaryBaseType.h"
 	#include "dictionary\dataTypes\dictionaryArray.h"
-	#include "dictionary\dataTypes\dictionaryBaseType.h"
 	#include "dictionary\dataTypes\dictionaryBoolean.h"
 	#include "dictionary\dataTypes\dictionaryDouble.h"
 	#include "dictionary\dataTypes\dictionaryInt.h"
@@ -55,7 +55,7 @@
 %token<typeVal> TYPE_LONG "LONG"
 %token<typeVal> TYPE_DOUBLE "DOUBLE"
 %token<typeVal> TYPE_VARINT "VARINT"
-%token<typeVal> TYPE_UNSIGNED_VARINT "UNSIGNED VARINT"
+%token<typeVal> TYPE_UVARINT "UVARINT"
 %token<typeVal> TYPE_STRING "STRING"
 %token<typeVal> TYPE_STRUCT "STRUCT"
 %token<typeVal> TYPE_ARRAY "ARRAY"
@@ -149,7 +149,7 @@ field:
 		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
 		delete [] $4;
 	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UNSIGNED_VARINT TEXT_NAME ';'
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UVARINT TEXT_NAME ';'
 	{
 		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
 		delete [] $4;

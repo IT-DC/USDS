@@ -1,9 +1,9 @@
 #include "converters\usdsDictionaryBinaryCreator.h"
 #include "dictionary\usdsDictionary.h"
-#include "base\binary\usdsBinaryOutput.h"
+#include "usdsBinaryOutput.h"
 
-#include "base\usdsErrors.h"
-#include "base\usdsTypes.h"
+#include "usdsErrors.h"
+#include "usdsTypes.h"
 
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryBoolean.h"
@@ -23,29 +23,29 @@ DictionaryBinaryCreator::DictionaryBinaryCreator()
 	writeIndex[USDS_TAG] = &DictionaryBinaryCreator::writeTag;
 	writeIndex[USDS_BOOLEAN] = &DictionaryBinaryCreator::writeBoolean;
 	writeIndex[USDS_BYTE] = &DictionaryBinaryCreator::writeByte;
-	writeIndex[USDS_UNSIGNED_BYTE] = &DictionaryBinaryCreator::writeUByte;
+	writeIndex[USDS_UBYTE] = &DictionaryBinaryCreator::writeUByte;
 	writeIndex[USDS_SHORT] = &DictionaryBinaryCreator::writeShort;
-	writeIndex[USDS_UNSIGNED_SHORT] = &DictionaryBinaryCreator::writeUShort;
+	writeIndex[USDS_USHORT] = &DictionaryBinaryCreator::writeUShort;
 	writeIndex[USDS_BIGENDIAN_SHORT] = &DictionaryBinaryCreator::writeBEShort;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = &DictionaryBinaryCreator::writeBEUShort;
+	writeIndex[USDS_BIGENDIAN_USHORT] = &DictionaryBinaryCreator::writeBEUShort;
 	writeIndex[USDS_INT] = &DictionaryBinaryCreator::writeInt;
-	writeIndex[USDS_UNSIGNED_INT] = &DictionaryBinaryCreator::writeUInt;
+	writeIndex[USDS_UINT] = &DictionaryBinaryCreator::writeUInt;
 	writeIndex[USDS_BIGENDIAN_INT] = &DictionaryBinaryCreator::writeBEInt;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT] = &DictionaryBinaryCreator::writeBEUInt;
+	writeIndex[USDS_BIGENDIAN_UINT] = &DictionaryBinaryCreator::writeBEUInt;
 	writeIndex[USDS_LONG] = &DictionaryBinaryCreator::writeLong;
-	writeIndex[USDS_UNSIGNED_LONG] = &DictionaryBinaryCreator::writeULong;
+	writeIndex[USDS_ULONG] = &DictionaryBinaryCreator::writeULong;
 	writeIndex[USDS_BIGENDIAN_LONG] = &DictionaryBinaryCreator::writeBELong;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = &DictionaryBinaryCreator::writeBEULong;
+	writeIndex[USDS_BIGENDIAN_ULONG] = &DictionaryBinaryCreator::writeBEULong;
 	writeIndex[USDS_INT128] = &DictionaryBinaryCreator::writeInt128;
-	writeIndex[USDS_UNSIGNED_INT128] = &DictionaryBinaryCreator::writeUInt128;
+	writeIndex[USDS_UINT128] = &DictionaryBinaryCreator::writeUInt128;
 	writeIndex[USDS_BIGENDIAN_INT128] = &DictionaryBinaryCreator::writeBEInt128;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = &DictionaryBinaryCreator::writeBEUInt128;
+	writeIndex[USDS_BIGENDIAN_UINT128] = &DictionaryBinaryCreator::writeBEUInt128;
 	writeIndex[USDS_FLOAT] = &DictionaryBinaryCreator::writeFloat;
 	writeIndex[USDS_BIGENDIAN_FLOAT] = &DictionaryBinaryCreator::writeBEFloat;
 	writeIndex[USDS_DOUBLE] = &DictionaryBinaryCreator::writeDouble;
-	writeIndex[USDS_USDS_BIGENDIAN_DOUBLE] = &DictionaryBinaryCreator::writeBEDouble;
+	writeIndex[USDS_BIGENDIAN_DOUBLE] = &DictionaryBinaryCreator::writeBEDouble;
 	writeIndex[USDS_VARINT] = &DictionaryBinaryCreator::writeVarint;
-	writeIndex[USDS_UNSIGNED_VARINT] = &DictionaryBinaryCreator::writeUVarint;
+	writeIndex[USDS_UVARINT] = &DictionaryBinaryCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &DictionaryBinaryCreator::writeString;
 	writeIndex[USDS_ARRAY] = &DictionaryBinaryCreator::writeArray;
 	writeIndex[USDS_LIST] = &DictionaryBinaryCreator::writeList;

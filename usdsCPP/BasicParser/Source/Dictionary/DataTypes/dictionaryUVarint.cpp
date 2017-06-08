@@ -5,7 +5,7 @@ using namespace usds;
 DictionaryUVarint::DictionaryUVarint(Dictionary* dict) : DictionaryBaseType(dict)
 {
 
-	objectType = USDS_UNSIGNED_VARINT;
+	objectType = USDS_UVARINT;
 };
 
 void DictionaryUVarint::initType()

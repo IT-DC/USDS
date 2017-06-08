@@ -1,8 +1,8 @@
 #ifndef USDS_BODY_BINARY_PARSER_H
 #define USDS_BODY_BINARY_PARSER_H
 
-#include "base\usdsErrors.h"
-#include "base\usdsTypes.h"
+#include "usdsErrors.h"
+#include "usdsTypes.h"
 
 namespace usds
 {

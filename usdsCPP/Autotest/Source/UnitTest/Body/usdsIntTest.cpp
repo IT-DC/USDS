@@ -1,32 +1,13 @@
-#include "unitTest\body\usdsIntTest.h"
+#include "usdsAutotest.h"
 
 #include "body\dataTypes\usdsInt.h"
 #include "body\usdsBody.h"
 #include "dictionary\dataTypes\dictionaryInt.h"
 #include "dictionary\usdsDictionary.h"
 
-void UsdsIntTest::runTest(int32_t number)
-{
-	if (!needStart(number, UNIT_TESTS__BODY_INT_1))
-		return;
-	testNumbers = number;
-
-	std::cout << UNIT_TESTS__BODY_INT_1 << " ---------------- Body Int Class ------------------\n";
-
-	test_1();
-	test_2();
-
-};
-
 // Test setValue for UsdsIntTest
 void UsdsIntTest::test_1()
 {
-	int32_t test_number = UNIT_TESTS__BODY_INT_1;
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
-
 	usds::Dictionary dict(0);
 	dict.setID(1, 0, 0);
 	usds::Body body;
@@ -39,8 +20,7 @@ void UsdsIntTest::test_1()
 	body_int = (usds::UsdsInt*)body.addTag(dict_int);
 	if (body_int->getType() != usds::USDS_INT)
 	{
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
+		throw "Failed at the step 1\n";
 	}
 
 	// step 2
@@ -48,15 +28,13 @@ void UsdsIntTest::test_1()
 	try
 	{
 		body_int->setValue(bool_value);
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw test_number;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -65,8 +43,7 @@ void UsdsIntTest::test_1()
 	body_int->setValue(int8_value);
 	if (body_int->getValue() != -1)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw test_number;
+		throw "Failed at the step 3\n";
 	}
 
 	// step 4
@@ -74,8 +51,7 @@ void UsdsIntTest::test_1()
 	body_int->setValue(uint8_value);
 	if (body_int->getValue() != 255)
 	{
-		std::cout << "Failed at the step 4\n";
-		throw test_number;
+		throw "Failed at the step 4\n";
 	}
 
 	// step 5
@@ -83,8 +59,7 @@ void UsdsIntTest::test_1()
 	body_int->setValue(int16_value);
 	if (body_int->getValue() != -10000)
 	{
-		std::cout << "Failed at the step 5\n";
-		throw test_number;
+		throw "Failed at the step 5\n";
 	}
 
 	// step 6
@@ -92,8 +67,7 @@ void UsdsIntTest::test_1()
 	body_int->setValue(uint16_value);
 	if (body_int->getValue() != 20000)
 	{
-		std::cout << "Failed at the step 6\n";
-		throw test_number;
+		throw "Failed at the step 6\n";
 	}
 
 	// step 7
@@ -101,8 +75,7 @@ void UsdsIntTest::test_1()
 	body_int->setValue(int32_value);
 	if (body_int->getValue() != -100000)
 	{
-		std::cout << "Failed at the step 7\n";
-		throw test_number;
+		throw "Failed at the step 7\n";
 	}
 
 	// step 8
@@ -110,8 +83,7 @@ void UsdsIntTest::test_1()
 	body_int->setValue(uint32_value);
 	if (body_int->getValue() != 200000)
 	{
-		std::cout << "Failed at the step 8\n";
-		throw test_number;
+		throw "Failed at the step 8\n";
 	}
 
 	// step 9
@@ -119,15 +91,13 @@ void UsdsIntTest::test_1()
 	try
 	{
 		body_int->setValue(uint32_value);
-		std::cout << "Failed at the step 9\n";
-		throw test_number;
+		throw "Failed at the step 9\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
 		{
-			std::cout << "Failed at the step 9\n";
-			throw test_number;
+			throw "Failed at the step 9\n";
 		}
 	}
 
@@ -136,8 +106,7 @@ void UsdsIntTest::test_1()
 	body_int->setValue(int64_value);
 	if (body_int->getValue() != -200000)
 	{
-		std::cout << "Failed at the step 10\n";
-		throw test_number;
+		throw "Failed at the step 10\n";
 	}
 
 	// step 11
@@ -145,15 +114,13 @@ void UsdsIntTest::test_1()
 	try
 	{
 		body_int->setValue(int64_value);
-		std::cout << "Failed at the step 11\n";
-		throw test_number;
+		throw "Failed at the step 11\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
 		{
-			std::cout << "Failed at the step 11\n";
-			throw test_number;
+			throw "Failed at the step 11\n";
 		}
 	}
 
@@ -162,8 +129,7 @@ void UsdsIntTest::test_1()
 	body_int->setValue(uint64_value);
 	if (body_int->getValue() != 200000)
 	{
-		std::cout << "Failed at the step 12\n";
-		throw test_number;
+		throw "Failed at the step 12\n";
 	}
 
 	// step 13
@@ -171,15 +137,13 @@ void UsdsIntTest::test_1()
 	try
 	{
 		body_int->setValue(uint64_value);
-		std::cout << "Failed at the step 13\n";
-		throw test_number;
+		throw "Failed at the step 13\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
 		{
-			std::cout << "Failed at the step 13\n";
-			throw test_number;
+			throw "Failed at the step 13\n";
 		}
 	}
 
@@ -188,15 +152,13 @@ void UsdsIntTest::test_1()
 	try
 	{
 		body_int->setValue(float_value);
-		std::cout << "Failed at the step 14\n";
-		throw test_number;
+		throw "Failed at the step 14\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 14\n";
-			throw test_number;
+			throw "Failed at the step 14\n";
 		}
 	}
 
@@ -205,15 +167,13 @@ void UsdsIntTest::test_1()
 	try
 	{
 		body_int->setValue(double_value);
-		std::cout << "Failed at the step 15\n";
-		throw test_number;
+		throw "Failed at the step 15\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 15\n";
-			throw test_number;
+			throw "Failed at the step 15\n";
 		}
 	}
 
@@ -222,15 +182,13 @@ void UsdsIntTest::test_1()
 	try
 	{
 		body_int->setValue(char_value);
-		std::cout << "Failed at the step 16\n";
-		throw test_number;
+		throw "Failed at the step 16\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 16\n";
-			throw test_number;
+			throw "Failed at the step 16\n";
 		}
 	}
 
@@ -238,30 +196,21 @@ void UsdsIntTest::test_1()
 	try
 	{
 		body_int->setValue(char_value, 1);
-		std::cout << "Failed at the step 17\n";
-		throw test_number;
+		throw "Failed at the step 17\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 17\n";
-			throw test_number;
+			throw "Failed at the step 17\n";
 		}
 	}
 
-	std::cout << "Successful!\n";
 }
 
 // Test getValue for UsdsIntTest
 void UsdsIntTest::test_2()
 {
-	int32_t test_number = UNIT_TESTS__BODY_INT_2;
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
-
 	usds::Dictionary dict(0);
 	dict.setID(1, 0, 0);
 	usds::Body body;
@@ -274,8 +223,7 @@ void UsdsIntTest::test_2()
 	body_int = (usds::UsdsInt*)body.addTag(dict_int);
 	if (body_int->getType() != usds::USDS_INT)
 	{
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
+		throw "Failed at the step 1\n";
 	}
 
 	// step 2
@@ -283,15 +231,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<bool>();
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw test_number;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -299,8 +245,7 @@ void UsdsIntTest::test_2()
 	body_int->setValue(-100);
 	if (body_int->getValue<int8_t>() != -100)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw test_number;
+		throw "Failed at the step 3\n";
 	}
 
 	// step 4
@@ -308,15 +253,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<int8_t>();
-		std::cout << "Failed at the step 4\n";
-		throw test_number;
+		throw "Failed at the step 4\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
 		{
-			std::cout << "Failed at the step 4\n";
-			throw test_number;
+			throw "Failed at the step 4\n";
 		}
 	}
 
@@ -324,8 +267,7 @@ void UsdsIntTest::test_2()
 	body_int->setValue(200);
 	if (body_int->getValue<uint8_t>() != 200)
 	{
-		std::cout << "Failed at the step 5\n";
-		throw test_number;
+		throw "Failed at the step 5\n";
 	}
 
 	// step 6
@@ -333,15 +275,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<uint8_t>();
-		std::cout << "Failed at the step 6\n";
-		throw test_number;
+		throw "Failed at the step 6\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
 		{
-			std::cout << "Failed at the step 6\n";
-			throw test_number;
+			throw "Failed at the step 6\n";
 		}
 	}
 
@@ -349,8 +289,7 @@ void UsdsIntTest::test_2()
 	body_int->setValue(-10000);
 	if (body_int->getValue<int16_t>() != -10000)
 	{
-		std::cout << "Failed at the step 7\n";
-		throw test_number;
+		throw "Failed at the step 7\n";
 	}
 
 	// step 8
@@ -358,15 +297,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<int16_t>();
-		std::cout << "Failed at the step 8\n";
-		throw test_number;
+		throw "Failed at the step 8\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
 		{
-			std::cout << "Failed at the step 8\n";
-			throw test_number;
+			throw "Failed at the step 8\n";
 		}
 	}
 
@@ -374,8 +311,7 @@ void UsdsIntTest::test_2()
 	body_int->setValue(30000);
 	if (body_int->getValue<uint16_t>() != 30000)
 	{
-		std::cout << "Failed at the step 9\n";
-		throw test_number;
+		throw "Failed at the step 9\n";
 	}
 
 	// step 10
@@ -383,15 +319,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<uint16_t>();
-		std::cout << "Failed at the step 10\n";
-		throw test_number;
+		throw "Failed at the step 10\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
 		{
-			std::cout << "Failed at the step 10\n";
-			throw test_number;
+			throw "Failed at the step 10\n";
 		}
 	}
 
@@ -399,24 +333,21 @@ void UsdsIntTest::test_2()
 	body_int->setValue(1000000);
 	if (body_int->getValue<int32_t>() != 1000000)
 	{
-		std::cout << "Failed at the step 11\n";
-		throw test_number;
+		throw "Failed at the step 11\n";
 	}
 
 	// step 12
 	body_int->setValue(1000000);
 	if (body_int->getValue<int64_t>() != 1000000)
 	{
-		std::cout << "Failed at the step 12\n";
-		throw test_number;
+		throw "Failed at the step 12\n";
 	}
 
 	// step 13
 	body_int->setValue(1000000);
 	if (body_int->getValue<uint64_t>() != 1000000)
 	{
-		std::cout << "Failed at the step 13\n";
-		throw test_number;
+		throw "Failed at the step 13\n";
 	}
 
 	// step 14
@@ -424,15 +355,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<uint64_t>();
-		std::cout << "Failed at the step 14\n";
-		throw test_number;
+		throw "Failed at the step 14\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
 		{
-			std::cout << "Failed at the step 14\n";
-			throw test_number;
+			throw "Failed at the step 14\n";
 		}
 	}
 
@@ -441,15 +370,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<float>();
-		std::cout << "Failed at the step 15\n";
-		throw test_number;
+		throw "Failed at the step 15\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 15\n";
-			throw test_number;
+			throw "Failed at the step 15\n";
 		}
 	}
 
@@ -458,15 +385,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<double>();
-		std::cout << "Failed at the step 16\n";
-		throw test_number;
+		throw "Failed at the step 16\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 16\n";
-			throw test_number;
+			throw "Failed at the step 16\n";
 		}
 	}
 
@@ -475,15 +400,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<double>();
-		std::cout << "Failed at the step 17\n";
-		throw test_number;
+		throw "Failed at the step 17\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 17\n";
-			throw test_number;
+			throw "Failed at the step 17\n";
 		}
 	}
 
@@ -492,15 +415,13 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue<const char*>();
-		std::cout << "Failed at the step 18\n";
-		throw test_number;
+		throw "Failed at the step 18\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 18\n";
-			throw test_number;
+			throw "Failed at the step 18\n";
 		}
 	}
 
@@ -511,18 +432,14 @@ void UsdsIntTest::test_2()
 	try
 	{
 		body_int->getValue(&const_char_value, &size_t_value);
-		std::cout << "Failed at the step 19\n";
-		throw test_number;
+		throw "Failed at the step 19\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
 		{
-			std::cout << "Failed at the step 19\n";
-			throw test_number;
+			throw "Failed at the step 19\n";
 		}
 	}
 
-
-	std::cout << "Successful!\n";
 }

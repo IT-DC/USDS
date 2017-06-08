@@ -1,6 +1,6 @@
 #include "converters\usdsBinaryParser.h"
 #include "dictionary\usdsDictionary.h"
-#include "base\usdsErrors.h"
+#include "usdsErrors.h"
 
 using namespace usds;
 

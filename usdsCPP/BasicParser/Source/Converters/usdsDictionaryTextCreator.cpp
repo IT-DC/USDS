@@ -20,29 +20,29 @@ DictionaryTextCreator::DictionaryTextCreator()
 	writeIndex[USDS_TAG] = &DictionaryTextCreator::writeTag;
 	writeIndex[USDS_BOOLEAN] = &DictionaryTextCreator::writeBoolean;
 	writeIndex[USDS_BYTE] = &DictionaryTextCreator::writeByte;
-	writeIndex[USDS_UNSIGNED_BYTE] = &DictionaryTextCreator::writeUByte;
+	writeIndex[USDS_UBYTE] = &DictionaryTextCreator::writeUByte;
 	writeIndex[USDS_SHORT] = &DictionaryTextCreator::writeShort;
-	writeIndex[USDS_UNSIGNED_SHORT] = &DictionaryTextCreator::writeUShort;
+	writeIndex[USDS_USHORT] = &DictionaryTextCreator::writeUShort;
 	writeIndex[USDS_BIGENDIAN_SHORT] = &DictionaryTextCreator::writeBEShort;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = &DictionaryTextCreator::writeBEUShort;
+	writeIndex[USDS_BIGENDIAN_USHORT] = &DictionaryTextCreator::writeBEUShort;
 	writeIndex[USDS_INT] = &DictionaryTextCreator::writeInt;
-	writeIndex[USDS_UNSIGNED_INT] = &DictionaryTextCreator::writeUInt;
+	writeIndex[USDS_UINT] = &DictionaryTextCreator::writeUInt;
 	writeIndex[USDS_BIGENDIAN_INT] = &DictionaryTextCreator::writeBEInt;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT] = &DictionaryTextCreator::writeBEUInt;
+	writeIndex[USDS_BIGENDIAN_UINT] = &DictionaryTextCreator::writeBEUInt;
 	writeIndex[USDS_LONG] = &DictionaryTextCreator::writeLong;
-	writeIndex[USDS_UNSIGNED_LONG] = &DictionaryTextCreator::writeULong;
+	writeIndex[USDS_ULONG] = &DictionaryTextCreator::writeULong;
 	writeIndex[USDS_BIGENDIAN_LONG] = &DictionaryTextCreator::writeBELong;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = &DictionaryTextCreator::writeBEULong;
+	writeIndex[USDS_BIGENDIAN_ULONG] = &DictionaryTextCreator::writeBEULong;
 	writeIndex[USDS_INT128] = &DictionaryTextCreator::writeInt128;
-	writeIndex[USDS_UNSIGNED_INT128] = &DictionaryTextCreator::writeUInt128;
+	writeIndex[USDS_UINT128] = &DictionaryTextCreator::writeUInt128;
 	writeIndex[USDS_BIGENDIAN_INT128] = &DictionaryTextCreator::writeBEInt128;
-	writeIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = &DictionaryTextCreator::writeBEUInt128;
+	writeIndex[USDS_BIGENDIAN_UINT128] = &DictionaryTextCreator::writeBEUInt128;
 	writeIndex[USDS_FLOAT] = &DictionaryTextCreator::writeFloat;
 	writeIndex[USDS_BIGENDIAN_FLOAT] = &DictionaryTextCreator::writeBEFloat;
 	writeIndex[USDS_DOUBLE] = &DictionaryTextCreator::writeDouble;
-	writeIndex[USDS_USDS_BIGENDIAN_DOUBLE] = &DictionaryTextCreator::writeBEDouble;
+	writeIndex[USDS_BIGENDIAN_DOUBLE] = &DictionaryTextCreator::writeBEDouble;
 	writeIndex[USDS_VARINT] = &DictionaryTextCreator::writeVarint;
-	writeIndex[USDS_UNSIGNED_VARINT] = &DictionaryTextCreator::writeUVarint;
+	writeIndex[USDS_UVARINT] = &DictionaryTextCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &DictionaryTextCreator::writeString;
 	writeIndex[USDS_ARRAY] = &DictionaryTextCreator::writeArray;
 	writeIndex[USDS_LIST] = &DictionaryTextCreator::writeList;
@@ -226,7 +226,7 @@ void DictionaryTextCreator::writeUVarint(DictionaryBaseType* object) throw (...)
 void DictionaryTextCreator::writeString(DictionaryBaseType* object)
 try
 {
-		textBuff << "STRING<" << encodeName(((DictionaryString*)object)->getEncode()) << "> " << object->getName();
+		textBuff << "STRING<" << usdsEncodeName(((DictionaryString*)object)->getEncode()) << "> " << object->getName();
 	
 }
 catch (ErrorStack& err)
@@ -246,7 +246,7 @@ try
 	}
 	else
 	{
-		textBuff << typeName(element_type);
+		textBuff << usdsTypeName(element_type);
 	}
 	textBuff << "> " << object->getName();
 }

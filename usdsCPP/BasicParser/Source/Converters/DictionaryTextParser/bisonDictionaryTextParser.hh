@@ -105,7 +105,7 @@ namespace usds {
      TYPE_LONG = 262,
      TYPE_DOUBLE = 263,
      TYPE_VARINT = 264,
-     TYPE_UNSIGNED_VARINT = 265,
+     TYPE_UVARINT = 265,
      TYPE_STRING = 266,
      TYPE_STRUCT = 267,
      TYPE_ARRAY = 268,

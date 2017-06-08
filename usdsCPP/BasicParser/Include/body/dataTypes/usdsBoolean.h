@@ -1,7 +1,7 @@
 #ifndef USDS_BOOLEAN_H
 #define USDS_BOOLEAN_H
 
-#include "body\dataTypes\usdsBaseType.h"
+#include "body\usdsBaseType.h"
 
 namespace usds
 {

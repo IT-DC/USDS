@@ -1,8 +1,8 @@
 #ifndef USDS_DICTIONARY_TEXT_CREATOR_H
 #define USDS_DICTIONARY_TEXT_CREATOR_H
 
-#include "base\usdsErrors.h"
-#include "base\usdsTypes.h"
+#include "usdsErrors.h"
+#include "usdsTypes.h"
 
 #include <sstream>
 

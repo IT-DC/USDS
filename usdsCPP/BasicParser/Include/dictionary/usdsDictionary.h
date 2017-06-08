@@ -1,10 +1,10 @@
 #ifndef USDS_DICTIONARY_H
 #define USDS_DICTIONARY_H
 
-#include "base\usdsErrors.h"
-#include "base\usdsTypes.h"
-#include "base\objectPool\dicObjectPool.h"
-#include "base\binary\usdsBinaryOutput.h"
+#include "usdsErrors.h"
+#include "usdsTypes.h"
+#include "dictionary\dicObjectPool.h"
+#include "usdsBinaryOutput.h"
 
 #include <string>
 #include <vector>

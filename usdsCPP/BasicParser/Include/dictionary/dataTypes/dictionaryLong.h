@@ -1,10 +1,10 @@
 #ifndef DICTIONARY_LONG_H
 #define DICTIONARY_LONG_H
 
-#include "base\usdsTypes.h"
-#include "base\usdsErrors.h"
+#include "usdsTypes.h"
+#include "usdsErrors.h"
 
-#include "dictionary\dataTypes\dictionaryBaseType.h"
+#include "dictionary\dictionaryBaseType.h"
 
 namespace usds
 {

@@ -40,8 +40,8 @@
 	#include "usdsBasicParser.h"
 	#include "dictionary\usdsDictionary.h"
 
+	#include "dictionary\dictionaryBaseType.h"
 	#include "dictionary\dataTypes\dictionaryArray.h"
-	#include "dictionary\dataTypes\dictionaryBaseType.h"
 	#include "dictionary\dataTypes\dictionaryBoolean.h"
 	#include "dictionary\dataTypes\dictionaryDouble.h"
 	#include "dictionary\dataTypes\dictionaryInt.h"
@@ -1021,12 +1021,12 @@ namespace usds {
   {
     "$end", "error", "$undefined", "USDS_DICTIONARY_ID",
   "DICTIONARY_VERSION", "\"BOOLEAN\"", "\"INT\"", "\"LONG\"", "\"DOUBLE\"",
-  "\"VARINT\"", "\"UNSIGNED VARINT\"", "\"STRING\"", "\"STRUCT\"",
-  "\"ARRAY\"", "\"<Text encode>\"", "USDS_RESTRICT", "\"notRoot\"",
-  "\"true or false\"", "\"unsigned integer number\"", "\"object name\"",
-  "'{'", "'}'", "':'", "';'", "'='", "'.'", "'<'", "'>'", "$accept",
-  "dictionary", "$@1", "tags", "tag", "struct_tag", "struct_restricts",
-  "struct_restrict", "fields", "field", YY_NULL
+  "\"VARINT\"", "\"UVARINT\"", "\"STRING\"", "\"STRUCT\"", "\"ARRAY\"",
+  "\"<Text encode>\"", "USDS_RESTRICT", "\"notRoot\"", "\"true or false\"",
+  "\"unsigned integer number\"", "\"object name\"", "'{'", "'}'", "':'",
+  "';'", "'='", "'.'", "'<'", "'>'", "$accept", "dictionary", "$@1",
+  "tags", "tag", "struct_tag", "struct_restricts", "struct_restrict",
+  "fields", "field", YY_NULL
   };
 
 #if DICTIONARY_TEXTDEBUG

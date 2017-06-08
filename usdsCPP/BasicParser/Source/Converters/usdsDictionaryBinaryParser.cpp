@@ -1,5 +1,5 @@
 #include "converters\usdsDictionaryBinaryParser.h"
-#include "base\binary\usdsBinaryInput.h"
+#include "usdsBinaryInput.h"
 #include "dictionary\usdsDictionary.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
 #include "dictionary\dataTypes\dictionaryString.h"
@@ -15,29 +15,29 @@ DictionaryBinaryParser::DictionaryBinaryParser()
 	readIndex[USDS_TAG] = &DictionaryBinaryParser::readTag;
 	readIndex[USDS_BOOLEAN] = &DictionaryBinaryParser::readBoolean;
 	readIndex[USDS_BYTE] = &DictionaryBinaryParser::readByte;
-	readIndex[USDS_UNSIGNED_BYTE] = &DictionaryBinaryParser::readUByte;
+	readIndex[USDS_UBYTE] = &DictionaryBinaryParser::readUByte;
 	readIndex[USDS_SHORT] = &DictionaryBinaryParser::readShort;
-	readIndex[USDS_UNSIGNED_SHORT] = &DictionaryBinaryParser::readUShort;
+	readIndex[USDS_USHORT] = &DictionaryBinaryParser::readUShort;
 	readIndex[USDS_BIGENDIAN_SHORT] = &DictionaryBinaryParser::readBEShort;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = &DictionaryBinaryParser::readBEUShort;
+	readIndex[USDS_BIGENDIAN_USHORT] = &DictionaryBinaryParser::readBEUShort;
 	readIndex[USDS_INT] = &DictionaryBinaryParser::readInt;
-	readIndex[USDS_UNSIGNED_INT] = &DictionaryBinaryParser::readUInt;
+	readIndex[USDS_UINT] = &DictionaryBinaryParser::readUInt;
 	readIndex[USDS_BIGENDIAN_INT] = &DictionaryBinaryParser::readBEInt;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_INT] = &DictionaryBinaryParser::readBEUInt;
+	readIndex[USDS_BIGENDIAN_UINT] = &DictionaryBinaryParser::readBEUInt;
 	readIndex[USDS_LONG] = &DictionaryBinaryParser::readLong;
-	readIndex[USDS_UNSIGNED_LONG] = &DictionaryBinaryParser::readULong;
+	readIndex[USDS_ULONG] = &DictionaryBinaryParser::readULong;
 	readIndex[USDS_BIGENDIAN_LONG] = &DictionaryBinaryParser::readBELong;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = &DictionaryBinaryParser::readBEULong;
+	readIndex[USDS_BIGENDIAN_ULONG] = &DictionaryBinaryParser::readBEULong;
 	readIndex[USDS_INT128] = &DictionaryBinaryParser::readInt128;
-	readIndex[USDS_UNSIGNED_INT128] = &DictionaryBinaryParser::readUInt128;
+	readIndex[USDS_UINT128] = &DictionaryBinaryParser::readUInt128;
 	readIndex[USDS_BIGENDIAN_INT128] = &DictionaryBinaryParser::readBEInt128;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = &DictionaryBinaryParser::readBEUInt128;
+	readIndex[USDS_BIGENDIAN_UINT128] = &DictionaryBinaryParser::readBEUInt128;
 	readIndex[USDS_FLOAT] = &DictionaryBinaryParser::readFloat;
 	readIndex[USDS_BIGENDIAN_FLOAT] = &DictionaryBinaryParser::readBEFloat;
 	readIndex[USDS_DOUBLE] = &DictionaryBinaryParser::readDouble;
-	readIndex[USDS_USDS_BIGENDIAN_DOUBLE] = &DictionaryBinaryParser::readBEDouble;
+	readIndex[USDS_BIGENDIAN_DOUBLE] = &DictionaryBinaryParser::readBEDouble;
 	readIndex[USDS_VARINT] = &DictionaryBinaryParser::readVarint;
-	readIndex[USDS_UNSIGNED_VARINT] = &DictionaryBinaryParser::readUVarint;
+	readIndex[USDS_UVARINT] = &DictionaryBinaryParser::readUVarint;
 	readIndex[USDS_STRING] = &DictionaryBinaryParser::readString;
 	readIndex[USDS_ARRAY] = &DictionaryBinaryParser::readArray;
 	readIndex[USDS_LIST] = &DictionaryBinaryParser::readList;

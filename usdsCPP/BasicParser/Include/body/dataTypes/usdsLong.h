@@ -1,7 +1,7 @@
 #ifndef USDS_LONG_H
 #define USDS_LONG_H
 
-#include "body\dataTypes\usdsBaseType.h"
+#include "body\usdsBaseType.h"
 
 namespace usds
 {

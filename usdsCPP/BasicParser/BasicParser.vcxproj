@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -18,13 +18,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
@@ -53,7 +53,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Develop\iconv\include;$(ProjectDir)Include;$(ProjectDir)Source\Converters\FlexLexer</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Develop\icon\include;$(ProjectDir)Include;$(ProjectDir)Source\Converters\FlexLexer;$(SolutionDir)Common\Include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -62,6 +62,9 @@
     <BuildLog>
       <Path>$(ProjectDir)log\$(Configuration)\$(MSBuildProjectName).log</Path>
     </BuildLog>
+    <Lib>
+      <AdditionalDependencies>$(SolutionDir)Common\bin\usdsCommon32_d.lib;%(AdditionalLibraryDirectories)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -85,15 +88,8 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Include\base\binary\usdsBinaryInput.h" />
-    <ClInclude Include="Include\base\binary\usdsBinaryOutput.h" />
-    <ClInclude Include="Include\base\objectPool\bodyObjectPool.h" />
-    <ClInclude Include="Include\base\objectPool\dicObjectPool.h" />
-    <ClInclude Include="Include\base\objectPool\usdsObjectPool.h" />
-    <ClInclude Include="Include\base\usdsErrors.h" />
-    <ClInclude Include="Include\base\usdsTypes.h" />
+    <ClInclude Include="Include\body\bodyObjectPool.h" />
     <ClInclude Include="Include\body\dataTypes\usdsArray.h" />
-    <ClInclude Include="Include\body\dataTypes\usdsBaseType.h" />
     <ClInclude Include="Include\body\dataTypes\usdsBoolean.h" />
     <ClInclude Include="Include\body\dataTypes\usdsDouble.h" />
     <ClInclude Include="Include\body\dataTypes\usdsInt.h" />
@@ -101,6 +97,7 @@
     <ClInclude Include="Include\body\dataTypes\usdsString.h" />
     <ClInclude Include="Include\body\dataTypes\usdsStruct.h" />
     <ClInclude Include="Include\body\dataTypes\usdsUVarint.h" />
+    <ClInclude Include="Include\body\usdsBaseType.h" />
     <ClInclude Include="Include\body\usdsBody.h" />
     <ClInclude Include="Include\converters\usdsBinaryCreator.h" />
     <ClInclude Include="Include\converters\usdsBinaryParser.h" />
@@ -112,7 +109,6 @@
     <ClInclude Include="Include\converters\usdsDictionaryTextCreator.h" />
     <ClInclude Include="Include\converters\usdsDictionaryTextParser.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryArray.h" />
-    <ClInclude Include="Include\dictionary\dataTypes\dictionaryBaseType.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryBoolean.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryDouble.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryInt.h" />
@@ -121,8 +117,11 @@
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryStruct.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryTagLink.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryUVarint.h" />
+    <ClInclude Include="Include\dictionary\dicObjectPool.h" />
+    <ClInclude Include="Include\dictionary\dictionaryBaseType.h" />
     <ClInclude Include="Include\dictionary\usdsDictionary.h" />
     <ClInclude Include="Include\usdsBasicParser.h" />
+    <ClInclude Include="Include\usdsErrors.h" />
     <ClInclude Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.hh" />
     <ClInclude Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.h" />
     <ClInclude Include="Source\Converters\DictionaryTextParser\location.hh" />
@@ -130,15 +129,8 @@
     <ClInclude Include="Source\Converters\DictionaryTextParser\stack.hh" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Base\Binary\usdsBinaryInput.cpp" />
-    <ClCompile Include="Source\Base\Binary\usdsBinaryOutput.cpp" />
-    <ClCompile Include="Source\Base\ObjectPool\bodyObjectPool.cpp" />
-    <ClCompile Include="Source\Base\ObjectPool\dicObjectPool.cpp" />
-    <ClCompile Include="Source\Base\ObjectPool\usdsObjectPool.cpp" />
-    <ClCompile Include="Source\Base\usdsErrors.cpp" />
-    <ClCompile Include="Source\Base\usdsTypes.cpp" />
+    <ClCompile Include="Source\Body\bodyObjectPool.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsArray.cpp" />
-    <ClCompile Include="Source\Body\DataTypes\usdsBaseType.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsBoolean.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsDouble.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsInt.cpp" />
@@ -146,6 +138,7 @@
     <ClCompile Include="Source\Body\DataTypes\usdsString.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsStruct.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsUVarint.cpp" />
+    <ClCompile Include="Source\Body\usdsBaseType.cpp" />
     <ClCompile Include="Source\Body\usdsBody.cpp" />
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc" />
     <ClCompile Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.cpp" />
@@ -159,7 +152,6 @@
     <ClCompile Include="Source\Converters\usdsDictionaryBinaryParser.cpp" />
     <ClCompile Include="Source\Converters\usdsDictionaryTextCreator.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryArray.cpp" />
-    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryBaseType.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryBoolean.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryDouble.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryInt.cpp" />
@@ -168,6 +160,8 @@
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryStruct.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryTagLink.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUVarint.cpp" />
+    <ClCompile Include="Source\Dictionary\dicObjectPool.cpp" />
+    <ClCompile Include="Source\Dictionary\dictionaryBaseType.cpp" />
     <ClCompile Include="Source\Dictionary\usdsDictionary.cpp" />
     <ClCompile Include="Source\usdsBasicParser.cpp" />
   </ItemGroup>

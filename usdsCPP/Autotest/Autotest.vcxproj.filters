@@ -16,9 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\usdsAutotest.cpp" />
-    <ClCompile Include="Source\UnitTest\usdsUnitTest.cpp">
-      <Filter>Unit tests</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UnitTest\Base\usdsErrorTest.cpp">
       <Filter>Unit tests\Base</Filter>
     </ClCompile>
@@ -58,44 +55,5 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAutotest.h" />
-    <ClInclude Include="Include\unitTest\usdsUnitTest.h">
-      <Filter>Unit tests</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\Base\usdsErrorTest.h">
-      <Filter>Unit tests\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\base\usdsBinaryInputTest.h">
-      <Filter>Unit tests\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\base\usdsBinaryOutputTest.h">
-      <Filter>Unit tests\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\base\usdsObjectPoolTest.h">
-      <Filter>Unit tests\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\dictionary\dictionaryArrayTest.h">
-      <Filter>Unit tests\Dictionary</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\dictionary\dictionarySimpleTest.h">
-      <Filter>Unit tests\Dictionary</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\dictionary\dictionaryStringTest.h">
-      <Filter>Unit tests\Dictionary</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\dictionary\dictionaryStructTest.h">
-      <Filter>Unit tests\Dictionary</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\dictionary\dictionaryTagLinkTest.h">
-      <Filter>Unit tests\Dictionary</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\dictionary\usdsDictionaryTest.h">
-      <Filter>Unit tests\Dictionary</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\body\usdsArrayTest.h">
-      <Filter>Unit tests\Body</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\unitTest\body\usdsIntTest.h">
-      <Filter>Unit tests\Body</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

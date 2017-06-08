@@ -1,4 +1,4 @@
-#include "unitTest\dictionary\dictionaryStructTest.h"
+#include "usdsAutotest.h"
 
 #include "dictionary\usdsDictionary.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
@@ -10,29 +10,9 @@
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 
-void DictionaryStructTest::runTest(int32_t number)
-{
-	if (!needStart(number, UNIT_TESTS__DICTIONARY_STRUCT))
-		return;
-	testNumbers = number;
-
-	std::cout << UNIT_TESTS__DICTIONARY_STRING << " ------------- Dictionary Struct Class --------------\n";
-
-	test_1();
-	test_2();
-	test_3();
-	test_4();
-};
-
 // Test empty Structure
 void DictionaryStructTest::test_1()
 {
-	int32_t test_number = UNIT_TESTS__DICTIONARY_STRUCT_1;
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
-
 	// step 1
 
 	usds::Dictionary dict(0);
@@ -41,31 +21,30 @@ void DictionaryStructTest::test_1()
 	
 	if (object->getType() != usds::USDS_STRUCT)
 	{
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
+		throw "Failed at the step 1\n";
 	}
 
 	// step 2
 
 	if (object->getFirstField() != 0 || object->getLastField() != 0 || object->getFieldNumber() != 0)
 	{
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
+		throw "Failed at the step 2\n";
+		
 	}
 
 	// step 3
 	try
 	{
 		object->finalize();
-		std::cout << "Failed at the step 3\n";
-		throw test_number;
+		throw "Failed at the step 3\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__NO_FIELD)
 		{
-			std::cout << "Failed at the step 3\n";
-			throw test_number;
+			throw "Failed at the step 3\n";
+			
 		}
 	}
 
@@ -73,15 +52,15 @@ void DictionaryStructTest::test_1()
 	try
 	{
 		object->getField(1);
-		std::cout << "Failed at the step 4\n";
-		throw test_number;
+		throw "Failed at the step 4\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__STRUCT_IS_NOT_FINALIZED)
 		{
-			std::cout << "Failed at the step 4\n";
-			throw test_number;
+			throw "Failed at the step 4\n";
+			
 		}
 	}
 
@@ -89,15 +68,15 @@ void DictionaryStructTest::test_1()
 	try
 	{
 		object->getField((const char*)0);
-		std::cout << "Failed at the step 5\n";
-		throw test_number;
+		throw "Failed at the step 5\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__NULL_NAME)
 		{
-			std::cout << "Failed at the step 5\n";
-			throw test_number;
+			throw "Failed at the step 5\n";
+			
 		}
 	}
 
@@ -105,15 +84,15 @@ void DictionaryStructTest::test_1()
 	try
 	{
 		object->getField("int");
-		std::cout << "Failed at the step 6\n";
-		throw test_number;
+		throw "Failed at the step 6\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__FIELD_NOT_FOUND)
 		{
-			std::cout << "Failed at the step 6\n";
-			throw test_number;
+			throw "Failed at the step 6\n";
+			
 		}
 	}
 
@@ -121,15 +100,15 @@ void DictionaryStructTest::test_1()
 	try
 	{
 		object->getField(0, 0);
-		std::cout << "Failed at the step 7\n";
-		throw test_number;
+		throw "Failed at the step 7\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__NULL_NAME)
 		{
-			std::cout << "Failed at the step 7\n";
-			throw test_number;
+			throw "Failed at the step 7\n";
+			
 		}
 	}
 
@@ -137,15 +116,15 @@ void DictionaryStructTest::test_1()
 	try
 	{
 		object->getField("int", 0);
-		std::cout << "Failed at the step 8\n";
-		throw test_number;
+		throw "Failed at the step 8\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__FIELD_NOT_FOUND)
 		{
-			std::cout << "Failed at the step 8\n";
-			throw test_number;
+			throw "Failed at the step 8\n";
+			
 		}
 	}
 
@@ -153,60 +132,53 @@ void DictionaryStructTest::test_1()
 	try
 	{
 		object->findFieldID(0);
-		std::cout << "Failed at the step 9\n";
-		throw test_number;
+		throw "Failed at the step 9\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__NULL_NAME)
 		{
-			std::cout << "Failed at the step 9\n";
-			throw test_number;
+			throw "Failed at the step 9\n";
+			
 		}
 	}
 
 	// step 10
 	if (object->findFieldID("int") != 0)
 	{
-		std::cout << "Failed at the step 10\n";
-		throw test_number;
+		throw "Failed at the step 10\n";
+		
 	}
 
 	// step 11
 	try
 	{
 		object->findFieldID(0, 0);
-		std::cout << "Failed at the step 11\n";
-		throw test_number;
+		throw "Failed at the step 11\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__NULL_NAME)
 		{
-			std::cout << "Failed at the step 11\n";
-			throw test_number;
+			throw "Failed at the step 11\n";
+			
 		}
 	}
 
 	// step 12
 	if (object->findFieldID("int", 0) != 0)
 	{
-		std::cout << "Failed at the step 12\n";
-		throw test_number;
+		throw "Failed at the step 12\n";
+		
 	}
 
-	std::cout << "Successful!\n";
 }
 
 // Test simple fields
 void DictionaryStructTest::test_2()
 {
-	int32_t test_number = UNIT_TESTS__DICTIONARY_STRUCT_2;
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
-
 	// step 1
 
 	
@@ -217,15 +189,15 @@ void DictionaryStructTest::test_2()
 	try
 	{
 		object->addField(usds::USDS_INT, 0, "int", 0);
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
+		throw "Failed at the step 1\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_BASE_TYPE__TAG_ID_ERROR_VALUE)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw test_number;
+			throw "Failed at the step 1\n";
+			
 		}
 	}
 
@@ -234,15 +206,15 @@ void DictionaryStructTest::test_2()
 	try
 	{
 		object->addField(usds::USDS_INT, 1, 0, 0);
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
+		throw "Failed at the step 2\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__NULL_NAME)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw test_number;
+			throw "Failed at the step 2\n";
+			
 		}
 	}
 	
@@ -261,86 +233,86 @@ void DictionaryStructTest::test_2()
 		field_string = (usds::DictionaryString*)object->addField(usds::USDS_STRING, 4, "string", 0);
 		if (field_boolean == 0 || field_int == 0 || field_double == 0 || field_string == 0)
 		{
-			std::cout << "Failed at the step 3\n";
-			throw test_number;
+			throw "Failed at the step 3\n";
+			
 		}
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw test_number;
+		throw "Failed at the step 3\n";
+		
 	}
 
 	// step 4
 	try
 	{
 		object->addField(usds::USDS_INT, 5, "int", 0);
-		std::cout << "Failed at the step 4\n";
-		throw test_number;
+		throw "Failed at the step 4\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__FIELD_ALREADY_EXISTS)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw test_number;
+			throw "Failed at the step 2\n";
+			
 		}
 	}
 
 	// step 5
 	if (object->getFirstField() != (usds::DictionaryBaseType*)field_boolean || object->getLastField() != (usds::DictionaryBaseType*)field_string || object->getFieldNumber() != 4)
 	{
-		std::cout << "Failed at the step 5\n";
-		throw test_number;
+		throw "Failed at the step 5\n";
+		
 	}
 	
 	// step 6
 	if (object->findFieldID("boolean") != 1 || object->findFieldID("int") != 2 || object->findFieldID("double") != 3 || object->findFieldID("string") != 4)
 	{
-		std::cout << "Failed at the step 6\n";
-		throw test_number;
+		throw "Failed at the step 6\n";
+		
 	}
 
 	// step 7
 	if (field_boolean->getNext() != field_int || field_boolean->getPrevious() != 0 || field_boolean->getParent() != object)
 	{
-		std::cout << "Failed at the step 7\n";
-		throw test_number;
+		throw "Failed at the step 7\n";
+		
 	}
 
 	// step 8
 	if (field_int->getNext() != field_double || field_int->getPrevious() != field_boolean || field_int->getParent() != object)
 	{
-		std::cout << "Failed at the step 8\n";
-		throw test_number;
+		throw "Failed at the step 8\n";
+		
 	}
 
 	// step 9
 	if (field_double->getNext() != field_string || field_double->getPrevious() != field_int || field_double->getParent() != object)
 	{
-		std::cout << "Failed at the step 9\n";
-		throw test_number;
+		throw "Failed at the step 9\n";
+		
 	}
 
 	// step 10
 	if (field_string->getNext() != 0 || field_string->getPrevious() != field_double || field_string->getParent() != object)
 	{
-		std::cout << "Failed at the step 10\n";
-		throw test_number;
+		throw "Failed at the step 10\n";
+		
 	}
 
 	// step 11
 	if (field_boolean->getType() != usds::USDS_BOOLEAN || field_int->getType() != usds::USDS_INT || field_double->getType() != usds::USDS_DOUBLE || field_string->getType() != usds::USDS_STRING)
 	{
-		std::cout << "Failed at the step 11\n";
-		throw test_number;
+		throw "Failed at the step 11\n";
+		
 	}
 
 	// step 12
 	if (object->findFieldID("intt") != 0 || object->findFieldID("intt", 0) != 0 || object->findFieldID("intt", 3) != 2)
 	{
-		std::cout << "Failed at the step 12\n";
-		throw test_number;
+		throw "Failed at the step 12\n";
+		
 	}
 
 	// step 13
@@ -348,14 +320,14 @@ void DictionaryStructTest::test_2()
 	{
 		if (object->getField("int") != field_int || object->getField("int", 0) != field_int || object->getField("intt", 3) != field_int)
 		{
-			std::cout << "Failed at the step 13\n";
-			throw test_number;
+			throw "Failed at the step 13\n";
+			
 		}
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 13\n";
-		throw test_number;
+		throw "Failed at the step 13\n";
+		
 	}
 
 
@@ -363,15 +335,15 @@ void DictionaryStructTest::test_2()
 	try
 	{
 		dict.finalizeDictionary();
-		std::cout << "Failed at the step 14\n";
-		throw test_number;
+		throw "Failed at the step 14\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRING__ERROR_ENCODE)
 		{
-			std::cout << "Failed at the step 14\n";
-			throw test_number;
+			throw "Failed at the step 14\n";
+			
 		}
 	}
 	
@@ -383,8 +355,8 @@ void DictionaryStructTest::test_2()
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 15\n";
-		throw test_number;
+		throw "Failed at the step 15\n";
+		
 	}
 
 	// step 16
@@ -392,30 +364,22 @@ void DictionaryStructTest::test_2()
 	{
 		if (object->getField(1) != field_boolean || object->getField(2) != field_int || object->getField(3) != field_double || object->getField(4) != field_string)
 		{
-			std::cout << "Failed at the step 16\n";
-			throw test_number;
+			throw "Failed at the step 16\n";
+			
 		}
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 16\n";
-		throw test_number;
+		throw "Failed at the step 16\n";
+		
 	}
 
-
-	std::cout << "Successful!\n";
 }
 
 
 // Test TAG fields
 void DictionaryStructTest::test_3()
 {
-	int32_t test_number = UNIT_TESTS__DICTIONARY_STRUCT_3;
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
-
 	// step 1
 	usds::Dictionary dict(0);
 	dict.setID(1, 0, 0);
@@ -430,15 +394,15 @@ void DictionaryStructTest::test_3()
 	try
 	{
 		dict.finalizeDictionary();
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
+		throw "Failed at the step 1\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_TAG_LINK__NOT_INITIALIZED)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw test_number;
+			throw "Failed at the step 1\n";
+			
 		}
 	}
 
@@ -450,8 +414,8 @@ void DictionaryStructTest::test_3()
 	}
 	catch (usds::ErrorStack)
 	{
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
+		throw "Failed at the step 2\n";
+		
 	}
 
 	// step 3
@@ -464,31 +428,23 @@ void DictionaryStructTest::test_3()
 	try
 	{
 		dict.finalizeDictionary();
-		std::cout << "Failed at the step 3\n";
-		throw test_number;
+		throw "Failed at the step 3\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__RECURSION_ERROR)
 		{
-			std::cout << "Failed at the step 3\n";
-			throw test_number;
+			throw "Failed at the step 3\n";
+			
 		}
 	}
 
-
-	std::cout << "Successful!\n";
 }
 
 // test fields errors
 void DictionaryStructTest::test_4()
 {
-	int32_t test_number = UNIT_TESTS__DICTIONARY_STRUCT_3;
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
-
 	// step 1
 	usds::Dictionary dict(0);
 	dict.setID(1, 0, 0);
@@ -498,15 +454,15 @@ void DictionaryStructTest::test_4()
 	try
 	{
 		dict.finalizeDictionary();
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
+		throw "Failed at the step 1\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__FIELD_ID_ERROR_VALUE)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw test_number;
+			throw "Failed at the step 1\n";
+			
 		}
 	}
 
@@ -515,17 +471,16 @@ void DictionaryStructTest::test_4()
 	try
 	{
 		dict.finalizeDictionary();
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
+		throw "Failed at the step 2\n";
+		
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::DIC_STRUCT__FIELD_ALREADY_EXISTS)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw test_number;
+			throw "Failed at the step 2\n";
+			
 		}
 	}
-	
-	std::cout << "Successful!\n";
+
 }

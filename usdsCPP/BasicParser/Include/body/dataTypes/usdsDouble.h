@@ -1,7 +1,7 @@
 #ifndef USDS_DOUBLE_H
 #define USDS_DOUBLE_H
 
-#include "body\dataTypes\usdsBaseType.h"
+#include "body\usdsBaseType.h"
 
 namespace usds
 {

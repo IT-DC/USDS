@@ -1,111 +1,122 @@
 #ifndef USDS_AUTOTEST_H
 #define USDS_AUTOTEST_H
 
-#include <iostream>
-#include <ctime>
-
-#ifdef _MSC_VER
-	#if _MSC_VER >= 1600
-		#pragma warning (disable : 4005)
-		#include <cstdint>
-	#else
-		typedef __int8              int8_t;
-		typedef __int16             int16_t;
-		typedef __int32             int32_t;
-		typedef __int64             int64_t;
-		typedef unsigned __int8     uint8_t;
-		typedef unsigned __int16    uint16_t;
-		typedef unsigned __int32    uint32_t;
-		typedef unsigned __int64    uint64_t;
-	#endif
-	#elif __GNUC__ >= 3
-		#include <cstdint>
-#endif
-
-enum testNumbers
+class BinaryOutputTest
 {
-	ANY_TEST = 0,
-	UNIT_TESTS = 100000,
-		UNIT_TESTS__USDS_ERRORS = 101000,
-			UNIT_TESTS__USDS_ERRORS_1 = 101001,
-			UNIT_TESTS__USDS_ERRORS_2 = 101002,
-			UNIT_TESTS__USDS_ERRORS_3 = 101003,
-			UNIT_TESTS__USDS_ERRORS_4 = 101004,
-			UNIT_TESTS__USDS_ERRORS_5 = 101005,
-		UNIT_TESTS__BINARY_INPUT = 102000,
-			UNIT_TESTS__BINARY_INPUT_1 = 102001,
-			UNIT_TESTS__BINARY_INPUT_2 = 102002,
-			UNIT_TESTS__BINARY_INPUT_3 = 102003,
-			UNIT_TESTS__BINARY_INPUT_4 = 102004,
-			UNIT_TESTS__BINARY_INPUT_5 = 102005,
-			UNIT_TESTS__BINARY_INPUT_6 = 102006,
-			UNIT_TESTS__BINARY_INPUT_7 = 102007,
-			UNIT_TESTS__BINARY_INPUT_8 = 102008,
-			UNIT_TESTS__BINARY_INPUT_9 = 102009,
-			UNIT_TESTS__BINARY_INPUT_10 = 102010,
-			UNIT_TESTS__BINARY_INPUT_11 = 102011,
-			UNIT_TESTS__BINARY_INPUT_12 = 102012,
-			UNIT_TESTS__BINARY_INPUT_13 = 102013,
-		UNIT_TESTS__BINARY_OUTPUT = 103000,
-			UNIT_TESTS__BINARY_OUTPUT_1 = 103001,
-			UNIT_TESTS__BINARY_OUTPUT_2 = 103002,
-			UNIT_TESTS__BINARY_OUTPUT_3 = 103003,
-			UNIT_TESTS__BINARY_OUTPUT_4 = 103004,
-		UNIT_TESTS__OBJECT_POOL = 104000,
-			UNIT_TESTS__OBJECT_POOL_1 = 104001,
-			UNIT_TESTS__OBJECT_POOL_2 = 104002,
-			UNIT_TESTS__OBJECT_POOL_3 = 104003,
-			UNIT_TESTS__OBJECT_POOL_4 = 104004,
-			UNIT_TESTS__OBJECT_POOL_5 = 104005,
-			UNIT_TESTS__OBJECT_POOL_6 = 104006,
-			UNIT_TESTS__OBJECT_POOL_7 = 104007,
-			UNIT_TESTS__OBJECT_POOL_8 = 104008,
-			UNIT_TESTS__OBJECT_POOL_9 = 104009,
-			UNIT_TESTS__OBJECT_POOL_10 = 104010,
-			UNIT_TESTS__OBJECT_POOL_11 = 104011,
-			UNIT_TESTS__OBJECT_POOL_12 = 104012,
-		UNIT_TESTS__DICTIONARY_ARRAY = 105000,
-			UNIT_TESTS__DICTIONARY_ARRAY_1 = 105001,
-			UNIT_TESTS__DICTIONARY_ARRAY_2 = 105002,
-		UNIT_TESTS__DICTIONARY_SIMPLE = 106000,
-			UNIT_TESTS__DICTIONARY_SIMPLE_1 = 106001,
-			UNIT_TESTS__DICTIONARY_SIMPLE_2 = 106002,
-			UNIT_TESTS__DICTIONARY_SIMPLE_3 = 106003,
-		UNIT_TESTS__DICTIONARY_STRING = 107000,
-			UNIT_TESTS__DICTIONARY_STRING_1 = 107001,
-			UNIT_TESTS__DICTIONARY_STRING_2 = 107002,
-			UNIT_TESTS__DICTIONARY_STRING_3 = 107003,
-		UNIT_TESTS__DICTIONARY_STRUCT = 108000,
-			UNIT_TESTS__DICTIONARY_STRUCT_1 = 108001,
-			UNIT_TESTS__DICTIONARY_STRUCT_2 = 108002,
-			UNIT_TESTS__DICTIONARY_STRUCT_3 = 108003,
-			UNIT_TESTS__DICTIONARY_STRUCT_4 = 108004,
-		UNIT_TESTS__DICTIONARY_TAG_LINK = 109000,
-			UNIT_TESTS__DICTIONARY_TAG_LINK_1 = 109001,
-			UNIT_TESTS__DICTIONARY_TAG_LINK_2 = 109002,
-			UNIT_TESTS__DICTIONARY_TAG_LINK_3 = 109003,
-		UNIT_TESTS__DICTIONARY = 110000,
-			UNIT_TESTS__DICTIONARY_1 = 110001,
-			UNIT_TESTS__DICTIONARY_2 = 110002,
-			UNIT_TESTS__DICTIONARY_3 = 110003,
-			UNIT_TESTS__DICTIONARY_4 = 110004,
-			UNIT_TESTS__DICTIONARY_5 = 110005,
-			UNIT_TESTS__DICTIONARY_6 = 110006,
-			UNIT_TESTS__DICTIONARY_7 = 110007,
-		UNIT_TESTS__BODY_INT = 120000,
-			UNIT_TESTS__BODY_INT_1 = 120001,
-			UNIT_TESTS__BODY_INT_2 = 120002,
-		UNIT_TESTS__BODY_ARRAY = 130000,
-			UNIT_TESTS__BODY_ARRAY_1 = 130001,
-			UNIT_TESTS__BODY_ARRAY_2 = 130002,
-			UNIT_TESTS__BODY_ARRAY_3 = 130003,
-	INTAGRATION_TESTS = 200000,
-	STRESS_TESTS = 300000
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+	static void test_4();
 };
 
-extern bool needStart(int32_t current_number, int32_t my_number);
+class ObjectPoolTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+	static void test_4();
+	static void test_5();
+	static void test_6();
+	static void test_7();
+	static void test_8();
+	static void test_9();
+	static void test_10();
+	static void test_11();
+	static void test_12();
+};
 
-extern void printTime();
+class DictionaryStructTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+	static void test_4();
+};
 
+class BinaryInputTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+	static void test_4();
+	static void test_5();
+	static void test_6();
+	static void test_7();
+	static void test_8();
+	static void test_9();
+	static void test_10();
+	static void test_11();
+	static void test_12();
+	static void test_13();
+};
+
+class DictionaryStringTest
+{
+public:
+	static void test_1();
+};
+
+class ErrorTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+	static void test_4();
+	static void test_5();
+};
+
+class UsdsIntTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class DictionaryArrayTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class UsdsArrayTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class DictionaryTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+	static void test_4();
+	static void test_5();
+	static void test_6();
+	static void test_7();
+};
+
+class DictionaryTagLinkTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+};
+
+class DictionarySimpleTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+};
 
 #endif

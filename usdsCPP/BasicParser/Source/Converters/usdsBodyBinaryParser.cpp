@@ -1,5 +1,5 @@
 #include "converters\usdsBodyBinaryParser.h"
-#include "base\binary\usdsBinaryInput.h"
+#include "usdsBinaryInput.h"
 
 #include "body\usdsBody.h"
 #include "dictionary\usdsDictionary.h"
@@ -12,29 +12,29 @@ BodyBinaryParser::BodyBinaryParser()
 	readIndex[USDS_TAG] = &BodyBinaryParser::readTag;
 	readIndex[USDS_BOOLEAN] = &BodyBinaryParser::readBoolean;
 	readIndex[USDS_BYTE] = &BodyBinaryParser::readByte;
-	readIndex[USDS_UNSIGNED_BYTE] = &BodyBinaryParser::readUByte;
+	readIndex[USDS_UBYTE] = &BodyBinaryParser::readUByte;
 	readIndex[USDS_SHORT] = &BodyBinaryParser::readShort;
-	readIndex[USDS_UNSIGNED_SHORT] = &BodyBinaryParser::readUShort;
+	readIndex[USDS_USHORT] = &BodyBinaryParser::readUShort;
 	readIndex[USDS_BIGENDIAN_SHORT] = &BodyBinaryParser::readBEShort;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_SHORT] = &BodyBinaryParser::readBEUShort;
+	readIndex[USDS_BIGENDIAN_USHORT] = &BodyBinaryParser::readBEUShort;
 	readIndex[USDS_INT] = &BodyBinaryParser::readInt;
-	readIndex[USDS_UNSIGNED_INT] = &BodyBinaryParser::readUInt;
+	readIndex[USDS_UINT] = &BodyBinaryParser::readUInt;
 	readIndex[USDS_BIGENDIAN_INT] = &BodyBinaryParser::readBEInt;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_INT] = &BodyBinaryParser::readBEUInt;
+	readIndex[USDS_BIGENDIAN_UINT] = &BodyBinaryParser::readBEUInt;
 	readIndex[USDS_LONG] = &BodyBinaryParser::readLong;
-	readIndex[USDS_UNSIGNED_LONG] = &BodyBinaryParser::readULong;
+	readIndex[USDS_ULONG] = &BodyBinaryParser::readULong;
 	readIndex[USDS_BIGENDIAN_LONG] = &BodyBinaryParser::readBELong;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_LONG] = &BodyBinaryParser::readBEULong;
+	readIndex[USDS_BIGENDIAN_ULONG] = &BodyBinaryParser::readBEULong;
 	readIndex[USDS_INT128] = &BodyBinaryParser::readInt128;
-	readIndex[USDS_UNSIGNED_INT128] = &BodyBinaryParser::readUInt128;
+	readIndex[USDS_UINT128] = &BodyBinaryParser::readUInt128;
 	readIndex[USDS_BIGENDIAN_INT128] = &BodyBinaryParser::readBEInt128;
-	readIndex[USDS_BIGENDIAN_UNSIGNED_INT128] = &BodyBinaryParser::readBEUInt128;
+	readIndex[USDS_BIGENDIAN_UINT128] = &BodyBinaryParser::readBEUInt128;
 	readIndex[USDS_FLOAT] = &BodyBinaryParser::readFloat;
 	readIndex[USDS_BIGENDIAN_FLOAT] = &BodyBinaryParser::readBEFloat;
 	readIndex[USDS_DOUBLE] = &BodyBinaryParser::readDouble;
-	readIndex[USDS_USDS_BIGENDIAN_DOUBLE] = &BodyBinaryParser::readBEDouble;
+	readIndex[USDS_BIGENDIAN_DOUBLE] = &BodyBinaryParser::readBEDouble;
 	readIndex[USDS_VARINT] = &BodyBinaryParser::readVarint;
-	readIndex[USDS_UNSIGNED_VARINT] = &BodyBinaryParser::readUVarint;
+	readIndex[USDS_UVARINT] = &BodyBinaryParser::readUVarint;
 	readIndex[USDS_STRING] = &BodyBinaryParser::readString;
 	readIndex[USDS_ARRAY] = &BodyBinaryParser::readArray;
 	readIndex[USDS_LIST] = &BodyBinaryParser::readList;
@@ -257,7 +257,7 @@ try
 {
 	size_t element_number;
 	usdsBuff->readUVarint(&element_number);
-	int32_t element_size = typeSize(((UsdsArray*)object)->getElementType());
+	int32_t element_size = usdsTypeSize(((UsdsArray*)object)->getElementType());
 	
 	if (element_size == 0)
 	{

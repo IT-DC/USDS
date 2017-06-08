@@ -1,53 +1,22 @@
-#include "unitTest\base\usdsBinaryInputTest.h"
+#include "usdsAutotest.h"
 
-#include "base\binary\usdsBinaryInput.h"
-
-void BinaryInputTest::runTest(int32_t number)
-{
-	if (!needStart(number, UNIT_TESTS__BINARY_INPUT))
-		return;
-	testNumbers = number;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT << " ---------------- Class BinaryInput -----------------\n";
-
-	test_1();
-	test_2();
-	test_3();
-	test_4();
-	test_5();
-	test_6();
-	test_7();
-	test_8();
-	test_9();
-	test_10();
-	test_11();
-	test_12();
-	test_13();
-
-};
+#include "usdsBinaryInput.h"
 
 void BinaryInputTest::test_1()
 {
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_1))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_1 << ": ";
-
 	usds::BinaryInput binary;
 
 	// step 1
 	try
 	{
 		binary.setBinary(0, 1);
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_1;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__NULL_BUFF)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_1;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -56,30 +25,19 @@ void BinaryInputTest::test_1()
 	{
 		uint8_t buff;
 		binary.setBinary(&buff, 0);
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_1;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__NULL_SIZE)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_1;
+			throw "Failed at the step 2\n";
 		}
 	}
-	
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_2()
 {
-	// int32_t readUVarint(uint64_t* value) throw(...);
-	
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_2))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_2 << ": ";
-
 	usds::BinaryInput binary;
 	uint64_t value = 0;
 	int32_t size = 0;
@@ -88,15 +46,13 @@ void BinaryInputTest::test_2()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_2;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_2;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -106,15 +62,13 @@ void BinaryInputTest::test_2()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_2;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__UVARINT_ERROR_FORMAT)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_2;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -124,15 +78,13 @@ void BinaryInputTest::test_2()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 3\n";
-		throw UNIT_TESTS__BINARY_INPUT_2;
+		throw "Failed at the step 3\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BEEG_UVARINT)
 		{
-			std::cout << "Failed at the step 3\n";
-			throw UNIT_TESTS__BINARY_INPUT_2;
+			throw "Failed at the step 3\n";
 		}
 	}
 
@@ -142,15 +94,13 @@ void BinaryInputTest::test_2()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 4\n";
-		throw UNIT_TESTS__BINARY_INPUT_2;
+		throw "Failed at the step 4\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 4\n";
-			throw UNIT_TESTS__BINARY_INPUT_2;
+			throw "Failed at the step 4\n";
 		}
 	}
 
@@ -161,8 +111,7 @@ void BinaryInputTest::test_2()
 
 	if (size != 1 || value != 1)
 	{
-		std::cout << "Failed at the step 5\n";
-		throw UNIT_TESTS__BINARY_INPUT_2;
+		throw "Failed at the step 5\n";
 	}
 
 	// Step 6
@@ -172,8 +121,7 @@ void BinaryInputTest::test_2()
 
 	if (size != 2 || value != 128)
 	{
-		std::cout << "Failed at the step 6\n";
-		throw UNIT_TESTS__BINARY_INPUT_2;
+		throw "Failed at the step 6\n";
 	}
 
 	// Step 7
@@ -182,8 +130,7 @@ void BinaryInputTest::test_2()
 	size = binary.readUVarint(&value);
 	if (size != 10 || value != 0x8000000000000001ull)
 	{
-		std::cout << "Failed at the step 7\n";
-		throw UNIT_TESTS__BINARY_INPUT_2;
+		throw "Failed at the step 7\n";
 	}
 
 	// Step 8
@@ -192,22 +139,13 @@ void BinaryInputTest::test_2()
 	size = binary.readUVarint(&value);
 	if (size != 10 || value != 0xFFFFFFFFFFFFFFFFull)
 	{
-		std::cout << "Failed at the step 8\n";
-		throw UNIT_TESTS__BINARY_INPUT_2;
+		throw "Failed at the step 8\n";
 	}
 
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_3()
 {
-	// int32_t readUVarint(uint32_t* value) throw(...);
-	
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_3))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_3 << ": ";
-
 	usds::BinaryInput binary;
 	uint32_t value = 0;
 	int32_t size = 0;
@@ -216,15 +154,13 @@ void BinaryInputTest::test_3()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_3;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_3;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -234,15 +170,13 @@ void BinaryInputTest::test_3()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_3;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__UVARINT_ERROR_FORMAT)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_3;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -252,15 +186,13 @@ void BinaryInputTest::test_3()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 3\n";
-		throw UNIT_TESTS__BINARY_INPUT_3;
+		throw "Failed at the step 3\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BEEG_UVARINT)
 		{
-			std::cout << "Failed at the step 3\n";
-			throw UNIT_TESTS__BINARY_INPUT_3;
+			throw "Failed at the step 3\n";
 		}
 	}
 
@@ -270,15 +202,13 @@ void BinaryInputTest::test_3()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 4\n";
-		throw UNIT_TESTS__BINARY_INPUT_3;
+		throw "Failed at the step 4\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 4\n";
-			throw UNIT_TESTS__BINARY_INPUT_3;
+			throw "Failed at the step 4\n";
 		}
 	}
 
@@ -289,8 +219,7 @@ void BinaryInputTest::test_3()
 
 	if (size != 1 || value != 1)
 	{
-		std::cout << "Failed at the step 5\n";
-		throw UNIT_TESTS__BINARY_INPUT_3;
+		throw "Failed at the step 5\n";
 	}
 
 	// Step 6
@@ -300,8 +229,7 @@ void BinaryInputTest::test_3()
 
 	if (size != 2 || value != 128)
 	{
-		std::cout << "Failed at the step 6\n";
-		throw UNIT_TESTS__BINARY_INPUT_3;
+		throw "Failed at the step 6\n";
 	}
 
 	// Step 7
@@ -310,8 +238,7 @@ void BinaryInputTest::test_3()
 	size = binary.readUVarint(&value);
 	if (size != 5 || value != 0xF0000001u)
 	{
-		std::cout << "Failed at the step 7\n";
-		throw UNIT_TESTS__BINARY_INPUT_3;
+		throw "Failed at the step 7\n";
 	}
 
 	// Step 8
@@ -320,22 +247,13 @@ void BinaryInputTest::test_3()
 	size = binary.readUVarint(&value);
 	if (size != 5 || value != 0xFFFFFFFFu)
 	{
-		std::cout << "Failed at the step 8\n";
-		throw UNIT_TESTS__BINARY_INPUT_3;
+		throw "Failed at the step 8\n";
 	}
 
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_4()
 {
-	// int32_t readUVarint(int32_t* value) throw(...);
-
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_4))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_4 << ": ";
-
 	usds::BinaryInput binary;
 	int32_t value = 0;
 	int32_t size = 0;
@@ -344,15 +262,13 @@ void BinaryInputTest::test_4()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_4;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_4;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -362,15 +278,13 @@ void BinaryInputTest::test_4()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_4;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__UVARINT_ERROR_FORMAT)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_4;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -380,15 +294,13 @@ void BinaryInputTest::test_4()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 3\n";
-		throw UNIT_TESTS__BINARY_INPUT_4;
+		throw "Failed at the step 3\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BEEG_UVARINT)
 		{
-			std::cout << "Failed at the step 3\n";
-			throw UNIT_TESTS__BINARY_INPUT_4;
+			throw "Failed at the step 3\n";
 		}
 	}
 
@@ -398,15 +310,13 @@ void BinaryInputTest::test_4()
 	try
 	{
 		size = binary.readUVarint(&value);
-		std::cout << "Failed at the step 4\n";
-		throw UNIT_TESTS__BINARY_INPUT_4;
+		throw "Failed at the step 4\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 4\n";
-			throw UNIT_TESTS__BINARY_INPUT_4;
+			throw "Failed at the step 4\n";
 		}
 	}
 
@@ -417,8 +327,7 @@ void BinaryInputTest::test_4()
 
 	if (size != 1 || value != 1)
 	{
-		std::cout << "Failed at the step 5\n";
-		throw UNIT_TESTS__BINARY_INPUT_4;
+		throw "Failed at the step 5\n";
 	}
 
 	// Step 6
@@ -428,8 +337,7 @@ void BinaryInputTest::test_4()
 
 	if (size != 2 || value != 128)
 	{
-		std::cout << "Failed at the step 6\n";
-		throw UNIT_TESTS__BINARY_INPUT_4;
+		throw "Failed at the step 6\n";
 	}
 
 	// Step 7
@@ -438,8 +346,7 @@ void BinaryInputTest::test_4()
 	size = binary.readUVarint(&value);
 	if (size != 5 || value != 0x70000001)
 	{
-		std::cout << "Failed at the step 7\n";
-		throw UNIT_TESTS__BINARY_INPUT_4;
+		throw "Failed at the step 7\n";
 	}
 
 	// Step 8
@@ -448,38 +355,27 @@ void BinaryInputTest::test_4()
 	size = binary.readUVarint(&value);
 	if (size != 5 || value != 0x7FFFFFFF)
 	{
-		std::cout << "Failed at the step 8\n";
-		throw UNIT_TESTS__BINARY_INPUT_4;
+		throw "Failed at the step 8\n";
 	}
 
-	std::cout << "Successful!\n";
 };
 
 
 void BinaryInputTest::test_5()
 {
-	// int32_t readInt() throw(...);
-
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_5))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_5 << ": ";
-
 	usds::BinaryInput binary;
 
 	// step 1
 	try
 	{
 		binary.readInt();
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_5;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_5;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -489,15 +385,13 @@ void BinaryInputTest::test_5()
 	try
 	{
 		binary.readInt();
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_5;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_5;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -508,37 +402,26 @@ void BinaryInputTest::test_5()
 	int32_t value_2 = binary.readInt();
 	if (value_1 != 16777215 || value_2 != -65281)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw UNIT_TESTS__BINARY_INPUT_5;
+		throw "Failed at the step 3\n";
 	}
 
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_6()
 {
-	// int64_t readLong() throw(...);
-
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_6))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_6 << ": ";
-
 	usds::BinaryInput binary;
 
 	// step 1
 	try
 	{
 		binary.readLong();
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_6;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_6;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -548,15 +431,13 @@ void BinaryInputTest::test_6()
 	try
 	{
 		binary.readLong();
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_6;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_6;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -567,38 +448,26 @@ void BinaryInputTest::test_6()
 	int64_t value_2 = binary.readLong();
 	if (value_1 != 0xFF00FF00FFFFFFll || value_2 != -16777215ll)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw UNIT_TESTS__BINARY_INPUT_6;
+		throw "Failed at the step 3\n";
 	}
 
-
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_7()
 {
-	// double readDouble() throw(...);
-
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_7))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_7 << ": ";
-
 	usds::BinaryInput binary;
 
 	// step 1
 	try
 	{
 		binary.readDouble();
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_7;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_7;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -608,15 +477,13 @@ void BinaryInputTest::test_7()
 	try
 	{
 		binary.readDouble();
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_7;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_7;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -627,22 +494,13 @@ void BinaryInputTest::test_7()
 	double value_2 = binary.readDouble();
 	if (value_1 != 1.0000000000000000 || value_2 != -2.0000000000000009)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw UNIT_TESTS__BINARY_INPUT_7;
+		throw "Failed at the step 3\n";
 	}
 
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_8()
 {
-	// void readByteArray(void* buff, size_t size) throw(...);
-
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_8))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_8 << ": ";
-
 	usds::BinaryInput binary;
 	uint8_t buff[] = { 0, 0, 0, 0 };
 	size_t size = 4;
@@ -651,15 +509,13 @@ void BinaryInputTest::test_8()
 	try
 	{
 		binary.readByteArray(buff, size);
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_8;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_8;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -669,15 +525,13 @@ void BinaryInputTest::test_8()
 	try
 	{
 		binary.readByteArray(buff, size);
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_8;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_8;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -688,53 +542,40 @@ void BinaryInputTest::test_8()
 	
 	if (buff[0] != 1 || buff[1] != 2 || buff[2] != 3 || buff[3] != 4)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw UNIT_TESTS__BINARY_INPUT_8;
+		throw "Failed at the step 3\n";
 	}
 
 	// step 4
 	try
 	{
 		binary.readByteArray(0, size);
-		std::cout << "Failed at the step 4\n";
-		throw UNIT_TESTS__BINARY_INPUT_8;
+		throw "Failed at the step 4\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__NULL_BUFF)
 		{
-			std::cout << "Failed at the step 4\n";
-			throw UNIT_TESTS__BINARY_INPUT_8;
+			throw "Failed at the step 4\n";
 		}
 	}
 
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_9()
 {
-	// const void* readByteArray(size_t size) throw(...);
-
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_8))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_9 << ": ";
-
 	usds::BinaryInput binary;
 
 	// step 1
 	try
 	{
 		binary.readByteArray(4);
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_9;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_9;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -744,15 +585,13 @@ void BinaryInputTest::test_9()
 	try
 	{
 		binary.readByteArray(4);
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_9;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_9;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -763,37 +602,26 @@ void BinaryInputTest::test_9()
 
 	if (buff[0] != 1 || buff[1] != 2 || buff[2] != 3 || buff[3] != 4)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw UNIT_TESTS__BINARY_INPUT_9;
+		throw "Failed at the step 3\n";
 	}
 
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_10()
 {
-	// bool readBool() throw(...);
-
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_10))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_10 << ": ";
-
 	usds::BinaryInput binary;
 
 	// step 1
 	try
 	{
 		binary.readBool();
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_10;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_10;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -803,15 +631,13 @@ void BinaryInputTest::test_10()
 	try
 	{
 		binary.readBool();
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_10;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BOOLEAN_ERROR_FORMAT)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw UNIT_TESTS__BINARY_INPUT_10;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -822,37 +648,26 @@ void BinaryInputTest::test_10()
 	bool value_2 = binary.readBool();
 	if (value_1 != true || value_2 != false)
 	{
-		std::cout << "Failed at the step 3\n";
-		throw UNIT_TESTS__BINARY_INPUT_10;
+		throw "Failed at the step 3\n";
 	}
 
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_11()
 {
-	// uint8_t readUByte() throw(...);
-
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_11))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_11 << ": ";
-
 	usds::BinaryInput binary;
 
 	// step 1
 	try
 	{
 		binary.readUByte();
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_11;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_11;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -863,37 +678,26 @@ void BinaryInputTest::test_11()
 	uint8_t value_2 = binary.readUByte();
 	if (value_1 != 255 || value_2 != 0)
 	{
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_11;
+		throw "Failed at the step 2\n";
 	}
 
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_12()
 {
-	// uint8_t readByte() throw(...);
-
-	if (!needStart(testNumbers, UNIT_TESTS__BINARY_INPUT_12))
-		return;
-
-	std::cout << UNIT_TESTS__BINARY_INPUT_12 << ": ";
-
 	usds::BinaryInput binary;
 
 	// step 1
 	try
 	{
 		binary.readByte();
-		std::cout << "Failed at the step 1\n";
-		throw UNIT_TESTS__BINARY_INPUT_12;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw UNIT_TESTS__BINARY_INPUT_12;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -904,38 +708,26 @@ void BinaryInputTest::test_12()
 	int8_t value_2 = binary.readByte();
 	if (value_1 != -1 || value_2 != 10)
 	{
-		std::cout << "Failed at the step 2\n";
-		throw UNIT_TESTS__BINARY_INPUT_11;
+		throw "Failed at the step 2\n";
 	}
 
-	std::cout << "Successful!\n";
 };
 
 void BinaryInputTest::test_13()
 {
-	// navigation
-	int32_t test_number = UNIT_TESTS__BINARY_INPUT_13;
-
-	if (!needStart(testNumbers, test_number))
-		return;
-
-	std::cout << test_number << ": ";
-
 	usds::BinaryInput binary;
 
 	// step 1
 	try
 	{
 		binary.stepBack(1);
-		std::cout << "Failed at the step 1\n";
-		throw test_number;
+		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 1\n";
-			throw test_number;
+			throw "Failed at the step 1\n";
 		}
 	}
 
@@ -943,15 +735,13 @@ void BinaryInputTest::test_13()
 	try
 	{
 		binary.stepForward(1);
-		std::cout << "Failed at the step 2\n";
-		throw test_number;
+		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 2\n";
-			throw test_number;
+			throw "Failed at the step 2\n";
 		}
 	}
 
@@ -959,15 +749,13 @@ void BinaryInputTest::test_13()
 	try
 	{
 		binary.isEnd();
-		std::cout << "Failed at the step 3\n";
-		throw test_number;
+		throw "Failed at the step 3\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__NULL_BUFF)
 		{
-			std::cout << "Failed at the step 3\n";
-			throw test_number;
+			throw "Failed at the step 3\n";
 		}
 	}
 
@@ -975,15 +763,13 @@ void BinaryInputTest::test_13()
 	try
 	{
 		binary.getCurrentPosition();
-		std::cout << "Failed at the step 4\n";
-		throw test_number;
+		throw "Failed at the step 4\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__NULL_BUFF)
 		{
-			std::cout << "Failed at the step 4\n";
-			throw test_number;
+			throw "Failed at the step 4\n";
 		}
 	}
 
@@ -991,15 +777,13 @@ void BinaryInputTest::test_13()
 	try
 	{
 		binary.getFirstPosition();
-		std::cout << "Failed at the step 5\n";
-		throw test_number;
+		throw "Failed at the step 5\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__NULL_BUFF)
 		{
-			std::cout << "Failed at the step 5\n";
-			throw test_number;
+			throw "Failed at the step 5\n";
 		}
 	}
 
@@ -1007,15 +791,13 @@ void BinaryInputTest::test_13()
 	try
 	{
 		binary.getDataSize();
-		std::cout << "Failed at the step 6\n";
-		throw test_number;
+		throw "Failed at the step 6\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__NULL_BUFF)
 		{
-			std::cout << "Failed at the step 6\n";
-			throw test_number;
+			throw "Failed at the step 6\n";
 		}
 	}
 
@@ -1025,15 +807,13 @@ void BinaryInputTest::test_13()
 	try
 	{
 		binary.stepBack(1);
-		std::cout << "Failed at the step 7\n";
-		throw test_number;
+		throw "Failed at the step 7\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 7\n";
-			throw test_number;
+			throw "Failed at the step 7\n";
 		}
 	}
 
@@ -1042,31 +822,27 @@ void BinaryInputTest::test_13()
 	const uint8_t* value = binary.getCurrentPosition();
 	if (*value != 2)
 	{
-		std::cout << "Failed at the step 8\n";
-		throw test_number;
+		throw "Failed at the step 8\n";
 	}
 
 	// step 9
 	binary.stepForward(2);
 	if (!binary.isEnd())
 	{
-		std::cout << "Failed at the step 9\n";
-		throw test_number;
+		throw "Failed at the step 9\n";
 	}
 
 	// step 10
 	try
 	{
 		binary.stepForward(1);
-		std::cout << "Failed at the step 10\n";
-		throw test_number;
+		throw "Failed at the step 10\n";
 	}
 	catch (usds::ErrorStack& err)
 	{
 		if (err.getCode() != usds::BIN_IN__BUFF_OVERFLOW)
 		{
-			std::cout << "Failed at the step 10\n";
-			throw test_number;
+			throw "Failed at the step 10\n";
 		}
 	}
 
@@ -1075,33 +851,27 @@ void BinaryInputTest::test_13()
 	value = binary.getCurrentPosition();
 	if (*value != 3)
 	{
-		std::cout << "Failed at the step 11\n";
-		throw test_number;
+		throw "Failed at the step 11\n";
 	}
 
 	// step 12
 	if (binary.getDataSize() != 3)
 	{
-		std::cout << "Failed at the step 12\n";
-		throw test_number;
+		throw "Failed at the step 12\n";
 	}
 
 	// step 13
 	value = binary.getFirstPosition();
 	if (*value != 1)
 	{
-		std::cout << "Failed at the step 13\n";
-		throw test_number;
+		throw "Failed at the step 13\n";
 	}
 
 	// step 14
 	value = binary.getCurrentPosition();
 	if (*value != 3)
 	{
-		std::cout << "Failed at the step 14\n";
-		throw test_number;
+		throw "Failed at the step 14\n";
 	}
 
-
-	std::cout << "Successful!\n";
 };

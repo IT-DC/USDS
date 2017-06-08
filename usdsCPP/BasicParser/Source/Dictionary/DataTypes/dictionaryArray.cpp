@@ -21,7 +21,7 @@ try
 {
 	if (element != 0)
 		throw ErrorMessage(DIC_ARRAY__ALREADY_INITIALIZED, "Element's type is already initialized");
-	if (typeSize(type_id) == 0 && type_id != USDS_VARINT && type_id != USDS_UNSIGNED_VARINT && type_id != USDS_STRING && type_id != USDS_TAG)
+	if (usdsTypeSize(type_id) == 0 && type_id != USDS_VARINT && type_id != USDS_UVARINT && type_id != USDS_STRING && type_id != USDS_TAG)
 		throw ErrorMessage(DIC_ARRAY__ERROR_ELEMENT_TYPE, "Unsupported type for array's element. Use type TAG.");
 	
 	element = dictionary->addField(type_id, this, 1, "_array_element", 0);

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{b85a56b1-5360-4483-817f-80af6708e79c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="USDS Types">
+      <UniqueIdentifier>{6f922859-9bb1-4c40-b38e-84da1e8f77fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectPool">
+      <UniqueIdentifier>{66e43a26-8789-4363-8e3e-7ea2807d7bde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binary">
+      <UniqueIdentifier>{54f7ee8e-8d1b-40dd-91ca-3f74152ba178}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\usdsTypes.cpp">
+      <Filter>USDS Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\objectPool.cpp">
+      <Filter>ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\errorMessage.cpp">
+      <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\usdsBinaryInput.cpp">
+      <Filter>Binary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\usdsBinaryOutput.cpp">
+      <Filter>Binary</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\usdsTypes.h">
+      <Filter>USDS Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\objectPool.h">
+      <Filter>ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\errorMessage.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\usdsBinaryInput.h">
+      <Filter>Binary</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\usdsBinaryOutput.h">
+      <Filter>Binary</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

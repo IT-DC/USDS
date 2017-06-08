@@ -1,11 +1,32 @@
 #ifndef USDS_ARRAY_H
 #define USDS_ARRAY_H
 
-#include "body\dataTypes\usdsBaseType.h"
-#include "base\binary\usdsBinaryOutput.h"
+#include "body\usdsBaseType.h"
+#include "usdsBinaryOutput.h"
 
 namespace usds
 {
+	class UsdsArray;
+
+	class UsdsArrayProxy
+	{
+	public:
+		UsdsArrayProxy(UsdsArray* parent);
+		~UsdsArrayProxy();
+
+		UsdsArrayProxy* setIndex(size_t value);
+
+		operator bool();
+		operator int32_t();
+		operator UsdsBaseType*();
+
+
+	private:
+		UsdsArray* parentArray;
+		size_t index;
+
+	};
+
 	class UsdsArray : public UsdsBaseType
 	{
 	public:
@@ -77,6 +98,8 @@ namespace usds
 		UsdsBaseType* pushTagBefore(size_t number) throw(...);
 		UsdsBaseType* getTag(size_t number) throw(...);
 
+		UsdsArrayProxy* operator[](size_t number);
+
 		void erase(size_t number) throw (...);
 
 		const void* getArrayBinary() throw(...);
@@ -93,6 +116,8 @@ namespace usds
 
 		BinaryOutput elementValues;
 		size_t elementNumber;
+
+		UsdsArrayProxy elementProxy;
 
 	};
 

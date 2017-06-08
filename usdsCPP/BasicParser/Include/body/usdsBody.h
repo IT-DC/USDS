@@ -1,10 +1,10 @@
 #ifndef USDS_BODY_H
 #define USDS_BODY_H
 
-#include "base\usdsErrors.h"
-#include "base\usdsTypes.h"
+#include "usdsErrors.h"
+#include "usdsTypes.h"
 
-#include "base\objectPool\bodyObjectPool.h"
+#include "body\bodyObjectPool.h"
 
 #include "body\dataTypes\usdsArray.h"
 #include "body\dataTypes\usdsBoolean.h"

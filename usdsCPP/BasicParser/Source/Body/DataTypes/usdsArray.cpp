@@ -5,7 +5,7 @@
 
 using namespace usds;
 
-UsdsArray::UsdsArray(Body* parent_body) : UsdsBaseType(parent_body)
+UsdsArray::UsdsArray(Body* parent_body) : UsdsBaseType(parent_body), elementProxy(this)
 {
 	objectType = USDS_ARRAY;
 }
@@ -39,7 +39,7 @@ try
 	{
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from bool to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from bool to " << usdsTypeName(elementType);
 	}
 
 }
@@ -67,7 +67,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int8_t to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int8_t to " << usdsTypeName(elementType);
 
 	}
 
@@ -96,7 +96,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from uint8_t to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from uint8_t to " << usdsTypeName(elementType);
 
 	}
 
@@ -125,7 +125,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int16_t to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int16_t to " << usdsTypeName(elementType);
 
 	}
 
@@ -154,7 +154,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int16_t to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int16_t to " << usdsTypeName(elementType);
 
 	}
 
@@ -183,7 +183,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int32_t to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int32_t to " << usdsTypeName(elementType);
 
 	}
 
@@ -214,7 +214,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from uint32_t to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from uint32_t to " << usdsTypeName(elementType);
 
 	}
 
@@ -245,7 +245,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int64_t to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from int64_t to " << usdsTypeName(elementType);
 
 	}
 
@@ -276,7 +276,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from uint64_t to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from uint64_t to " << usdsTypeName(elementType);
 
 	}
 
@@ -301,7 +301,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from float to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from float to " << usdsTypeName(elementType);
 
 	}
 
@@ -326,7 +326,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from double to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from double to " << usdsTypeName(elementType);
 
 	}
 
@@ -351,7 +351,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from const char* to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from const char* to " << usdsTypeName(elementType);
 
 	}
 
@@ -376,7 +376,7 @@ try
 
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from const char* to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from const char* to " << usdsTypeName(elementType);
 
 	}
 
@@ -397,7 +397,7 @@ UsdsBaseType* UsdsArray::pushTagBack() throw(...)
 try
 {
 	if (elementType != USDS_TAG)
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_TAG) << "Array element must be TAG, current value " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_TAG) << "Array element must be TAG, current value " << usdsTypeName(elementType);
 	
 	UsdsBaseType* element = parentBody->addField(arrayDictionaryElement, this);
 	elementValues.writeByteArray(&element, sizeof(size_t));
@@ -433,7 +433,7 @@ try
 		break;
 
 	default:
-		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from Int to " << typeName(elementType);
+		throw ErrorMessage(BODY_ARRAY__UNSUPPORTED_CONVERSION) << "Unsupported conversion for Element's type: from Int to " << usdsTypeName(elementType);
 
 	}
 
@@ -505,7 +505,22 @@ catch (ErrorStack& err)
 	throw;
 };
 
+//====================================================================================================================
 
+UsdsArrayProxy* UsdsArray::operator[](size_t number)
+try
+{
+	return elementProxy.setIndex(number);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::operator[]") << number << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::operator[]") << number;
+	throw;
+};
 
 //====================================================================================================================
 const void* UsdsArray::getArrayBinary() throw(...)
@@ -523,9 +538,9 @@ size_t UsdsArray::getArrayBinarySize() throw(...)
 void UsdsArray::setArrayBinary(const void* binary, size_t binary_size) throw(...)
 try
 {
-	int32_t element_size = typeSize(elementType);
+	int32_t element_size = usdsTypeSize(elementType);
 	if (element_size == 0)
-		throw ErrorMessage(BODY_ARRAY__UNFIXED_ELEMENT_SIZE) << "Element type '" << typeName(elementType) << "' is unfixed";
+		throw ErrorMessage(BODY_ARRAY__UNFIXED_ELEMENT_SIZE) << "Element type '" << usdsTypeName(elementType) << "' is unfixed";
 	elementValues.writeByteArray(binary, binary_size);
 	elementNumber = binary_size / element_size;
 }
@@ -560,3 +575,60 @@ catch (ErrorStack& err)
 	err.addLevel("UsdsArray::initType");
 	throw;
 };
+
+//====================================================================================================================
+// UsdsArrayProxy
+
+UsdsArrayProxy::UsdsArrayProxy(UsdsArray* parent)
+{
+	parentArray = parent;
+
+};
+
+UsdsArrayProxy::~UsdsArrayProxy() { };
+
+UsdsArrayProxy* UsdsArrayProxy::setIndex(size_t value)
+{
+	index = value;
+	return this;
+};
+
+//====================================================================================================================
+// UsdsArrayProxy - type conversion
+
+UsdsArrayProxy::operator bool()
+try
+{
+	return parentArray->getValue<bool>(index);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArrayProxy::operator bool()");
+	throw;
+};
+
+UsdsArrayProxy::operator int32_t()
+try
+{
+	return parentArray->getValue<int32_t>(index);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArrayProxy::operator int32_t()");
+	throw;
+};
+
+UsdsArrayProxy::operator UsdsBaseType*()
+try
+{
+	return parentArray->getTag(index);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArrayProxy::operator UsdsBaseType*()");
+	throw;
+};
+
+//====================================================================================================================
+// UsdsArrayProxy - operator !=
+

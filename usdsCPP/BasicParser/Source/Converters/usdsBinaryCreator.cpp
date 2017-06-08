@@ -1,9 +1,9 @@
 #include "converters\usdsBinaryCreator.h"
-#include "base\binary\usdsBinaryOutput.h"
+#include "usdsBinaryOutput.h"
 #include "dictionary\usdsDictionary.h"
 
-#include "base\usdsTypes.h"
-#include "base\usdsErrors.h"
+#include "usdsTypes.h"
+#include "usdsErrors.h"
 
 using namespace usds;
 

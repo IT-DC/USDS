@@ -1,7 +1,7 @@
 #ifndef USDS_BINARY_PARSER_H
 #define USDS_BINARY_PARSER_H
 
-#include "base\binary\usdsBinaryInput.h"
+#include "usdsBinaryInput.h"
 #include "converters\usdsDictionaryBinaryParser.h"
 #include "converters\usdsBodyBinaryParser.h"
 
