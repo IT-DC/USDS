@@ -2,7 +2,7 @@
 
 using namespace usds;
 
-void DictionaryBaseType::init(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
+void DictionaryBaseType::initType(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	if (name == 0)
@@ -16,7 +16,7 @@ try
 	nextObject = 0;
 	previousObject = 0;
 
-	initType();
+	additionalInitType();
 
 	parentObject = parent;
 
@@ -31,11 +31,11 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	throw ErrorStack("DictionaryBaseType::init") << (void*)parent << id << name << name_size << msg;
+	throw ErrorStack("DictionaryBaseType::initType") << (void*)parent << id << name << name_size << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("DictionaryBaseType::init") << (void*)parent << id << name << name_size;
+	err.addLevel("DictionaryBaseType::initType") << (void*)parent << id << name << name_size;
 	throw;
 };
 
@@ -55,16 +55,6 @@ int32_t DictionaryBaseType::getID() throw(...)
 {
 
 	return objectID;
-};
-
-usdsTypes DictionaryBaseType::getType()
-{
-	return objectType;
-};
-
-const char* DictionaryBaseType::getTypeName()
-{
-	return usdsTypeName(objectType);
 };
 
 DictionaryBaseType* DictionaryBaseType::getNext() throw (...)

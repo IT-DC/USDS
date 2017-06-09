@@ -11,13 +11,16 @@ namespace usds
 		UsdsBoolean(Body* parent_body);
 		virtual ~UsdsBoolean();
 
-		virtual void setValue(bool value) throw (...);
+		usdsTypes getType() { return USDS_BOOLEAN; };
+		const char* getTypeName() { return "BOOLEAN"; };
 
-		virtual bool getBooleanValue() throw (...);
+		void setValue(bool value) throw (...);
+
+		bool getValue() throw (...);
 
 	private:
 
-		virtual void initType();
+		void additionalInitObject();
 		
 		bool objectValue;
 

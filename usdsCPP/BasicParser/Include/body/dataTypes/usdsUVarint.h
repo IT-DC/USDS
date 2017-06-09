@@ -11,17 +11,20 @@ namespace usds
 		UsdsUVarint(Body* parent_body);
 		virtual ~UsdsUVarint();
 
-		virtual void setValue(int32_t value) throw (...);
-		virtual void setValue(int64_t value) throw (...);
-		virtual void setValue(uint64_t value) throw (...);
+		usdsTypes getType() { return USDS_UVARINT; };
+		const char* getTypeName() { return "UVARINT"; };
 
-		virtual int32_t getIntValue() throw (...);
-		virtual int64_t getLongValue() throw (...);
-		virtual uint64_t getULongValue() throw (...);
+		void setValue(int32_t value) throw (...);
+		void setValue(int64_t value) throw (...);
+		void setValue(uint64_t value) throw (...);
+
+		int32_t getIntValue() throw (...);
+		int64_t getLongValue() throw (...);
+		uint64_t getULongValue() throw (...);
 
 	private:
 
-		virtual void initType();
+		void additionalInitObject();
 
 		uint64_t objectValue;
 

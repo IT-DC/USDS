@@ -34,11 +34,14 @@ namespace usds
 		int32_t findFieldID(const char* name, size_t name_size) throw (...);
 
 		// Dictionary finalization
-		virtual void finalize() throw (...);
-		// it's executed in DicBaseTag.init()
-		virtual void initType();
+		void finalize() throw (...);
+
+		usdsTypes getType() { return USDS_STRUCT; };
+		const char* getTypeName() { return "STRUCT"; };
 
 	private:
+		// it's executed in DicBaseTag.initType()
+		void additionalInitType();
 
 
 		void connectFieldToTag(DictionaryBaseType* field);

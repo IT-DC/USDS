@@ -11,15 +11,18 @@ namespace usds
 		UsdsString(Body* parent_body);
 		virtual ~UsdsString();
 
-		virtual void setValue(const char* value) throw (...);
-		virtual void setValue(const char* value, size_t size) throw (...);
+		usdsTypes getType() { return USDS_STRING; };
+		const char* getTypeName() { return "STRING"; };
 
-		virtual const char* getStringValue() throw (...);
-		virtual const char* getStringValue(size_t* size) throw (...);
+		void setValue(const char* value) throw (...);
+		void setValue(const char* value, size_t size) throw (...);
+
+		const char* getValue() throw (...);
+		size_t getSize() throw (...);
 
 	private:
 
-		virtual void initType();
+		void additionalInitObject();
 
 		char* objectValue;
 		size_t valueSize;

@@ -18,15 +18,19 @@ namespace usds
 		DictionaryBaseType(Dictionary* dict) { dictionary = dict; };
 		virtual ~DictionaryBaseType() { };
 
-		void init(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...);
+		// For initialization in ObjectPool
+		void initType(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...);
+	protected:
+		virtual void additionalInitType() = 0;	// it's executed in initType()
+	public:
 		virtual void finalize() throw(...) = 0;
 
 		const char* getName() throw(...);
 		size_t getNameSize() throw(...);
 		int32_t getID() throw(...);
 
-		usdsTypes getType();
-		const char* getTypeName();
+		virtual usdsTypes getType() = 0;
+		virtual const char* getTypeName() = 0;
 
 		DictionaryBaseType* getNext() throw (...);
 		DictionaryBaseType* getPrevious() throw (...);
@@ -39,9 +43,6 @@ namespace usds
 		void setRoot(bool is_root) throw(...);
 		bool getRootStatus() { return isRoot; };
 
-		// it's executed in init()
-		virtual void initType() = 0;
-
 	protected:
 		std::string objectName;
 		int32_t objectID;
@@ -50,8 +51,6 @@ namespace usds
 		bool isRoot;
 
 		Dictionary* dictionary;
-
-		usdsTypes objectType;
 
 	private:
 		DictionaryBaseType* parentObject;

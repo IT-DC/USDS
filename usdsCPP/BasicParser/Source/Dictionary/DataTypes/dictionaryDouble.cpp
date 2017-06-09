@@ -5,10 +5,9 @@ using namespace usds;
 DictionaryDouble::DictionaryDouble(Dictionary* dict) : DictionaryBaseType(dict)
 {
 
-	objectType = USDS_DOUBLE;
 };
 
-void DictionaryDouble::initType()
+void DictionaryDouble::additionalInitType()
 {
 	isDefault = false;
 };

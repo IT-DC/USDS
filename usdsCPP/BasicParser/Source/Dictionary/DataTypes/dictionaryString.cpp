@@ -5,10 +5,9 @@ using namespace usds;
 DictionaryString::DictionaryString(Dictionary* dict) : DictionaryBaseType(dict)
 {
 
-	objectType = USDS_STRING;
 };
 
-void DictionaryString::initType()
+void DictionaryString::additionalInitType()
 {
 	isDefault = false;
 	encode = USDS_NO_ENCODE;

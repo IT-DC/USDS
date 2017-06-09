@@ -17,13 +17,15 @@ namespace usds
 		UsdsBaseType(Body* parent_body);
 		virtual ~UsdsBaseType();
 
-		void init(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
+		// For initialization in ObjectPool
+		void initObject(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...);
 
 		const char* getName() throw(...);
 		size_t getNameSize() throw(...);
 		int32_t getID() throw(...);
-		usdsTypes getType();
-		const char* getTypeName();
+		
+		virtual usdsTypes getType() = 0;
+		virtual const char* getTypeName() = 0;
 
 		UsdsBaseType* getNext() throw (...);
 		UsdsBaseType* getPrevious() throw (...);
@@ -65,13 +67,11 @@ namespace usds
 
 	protected:
 
-		// it's executed in init()
-		virtual void initType() = 0;
+		// it's executed in initObject()
+		virtual void additionalInitObject() = 0;
 
 		DictionaryBaseType* parentDictionaryObject;
 		Body* parentBody;
-
-		usdsTypes objectType;
 
 	private:
 		UsdsBaseType* parentObject;
@@ -82,7 +82,7 @@ namespace usds
 	};
 
 	template <typename out_type> out_type UsdsBaseType::getValue() throw (...)
-		try
+	try
 	{
 		out_type value;
 		getValue(&value);

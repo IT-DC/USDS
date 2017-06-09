@@ -11,7 +11,6 @@ UsdsStruct::UsdsStruct(Body* parent_body) : UsdsBaseType(parent_body)
 	fields = new UsdsBaseType*[fieldsBuffSize+1];
 	fieldNumber = 0;
 
-	objectType = USDS_STRUCT;
 };
 
 UsdsStruct::~UsdsStruct()
@@ -452,7 +451,7 @@ int32_t UsdsStruct::getFieldNumber() throw (...)
 
 //================================================================================================
 
-void UsdsStruct::initType()
+void UsdsStruct::additionalInitObject()
 {
 	fieldNumber = ((DictionaryStruct*)parentDictionaryObject)->getFieldNumber();
 	

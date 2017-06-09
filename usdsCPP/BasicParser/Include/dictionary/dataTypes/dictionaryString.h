@@ -16,8 +16,10 @@ namespace usds
 		DictionaryString(Dictionary* dict);
 		virtual ~DictionaryString() {  };
 
-		virtual void initType();
-		virtual void finalize() throw (...);
+		void finalize() throw (...);
+
+		usdsTypes getType() { return USDS_STRING; };
+		const char* getTypeName() { return "STRING"; };
 
 		void setDefault(const char* value);
 		void setEncode(usdsEncodes value) throw(...);
@@ -25,6 +27,8 @@ namespace usds
 		usdsEncodes getEncode() throw(...);
 
 	private:
+		void additionalInitType();
+
 		bool isDefault;
 		std::string defaultValue;
 		usdsEncodes encode;

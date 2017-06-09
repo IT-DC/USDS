@@ -14,7 +14,7 @@ void DictionaryStringTest::test_1()
 
 	// step 2
 
-	object.init(0, 1, "string", 0);
+	object.initType(0, 1, "string", 0);
 	if (object.getEncode() != usds::USDS_NO_ENCODE)
 	{
 		throw "Failed at the step 2\n";

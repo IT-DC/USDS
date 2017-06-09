@@ -91,7 +91,7 @@ catch (ErrorStack& err)
 void BodyJsonCreator::writeBoolean(UsdsBaseType* object) throw (...)
 try
 {
-	if (((UsdsBoolean*)object)->getBooleanValue())
+	if (((UsdsBoolean*)object)->getValue())
 		*textBuff += "true";
 	else
 		*textBuff += "false";
@@ -162,7 +162,7 @@ void BodyJsonCreator::writeBEUInt(UsdsBaseType* object) throw (...)
 void BodyJsonCreator::writeLong(UsdsBaseType* object) throw (...)
 try
 {
-	int64_t value = ((UsdsLong*)object)->getLongValue();
+	int64_t value = ((UsdsLong*)object)->getValue();
 	*textBuff += std::to_string(value);
 }
 catch (ErrorStack& err)
@@ -220,7 +220,7 @@ void BodyJsonCreator::writeDouble(UsdsBaseType* object) throw (...)
 
 try
 {
-	double value = ((UsdsDouble*)object)->getDoubleValue();
+	double value = ((UsdsDouble*)object)->getValue();
 	*textBuff += std::to_string(value);
 }
 catch (ErrorStack& err)
@@ -254,7 +254,7 @@ catch (ErrorStack& err)
 void BodyJsonCreator::writeString(UsdsBaseType* object) throw (...)
 try
 {
-	const char* value = ((UsdsString*)object)->getStringValue();
+	const char* value = ((UsdsString*)object)->getValue();
 	*textBuff += "\"";
 	*textBuff += value;
 	*textBuff += "\"";

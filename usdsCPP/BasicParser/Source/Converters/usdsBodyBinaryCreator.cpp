@@ -80,7 +80,7 @@ void BodyBinaryCreator::writeTag(UsdsBaseType* object) throw (...)
 void BodyBinaryCreator::writeBoolean(UsdsBaseType* object) throw (...)
 try
 {
-	usdsBuff->writeBool(((UsdsBoolean*)object)->getBooleanValue());
+	usdsBuff->writeBool(((UsdsBoolean*)object)->getValue());
 }
 catch (ErrorStack& err)
 {
@@ -147,7 +147,7 @@ void BodyBinaryCreator::writeBEUInt(UsdsBaseType* object) throw (...)
 void BodyBinaryCreator::writeLong(UsdsBaseType* object) throw (...)
 try
 {
-	usdsBuff->writeLong(((UsdsLong*)object)->getLongValue());
+	usdsBuff->writeLong(((UsdsLong*)object)->getValue());
 }
 catch (ErrorStack& err)
 {
@@ -203,7 +203,7 @@ void BodyBinaryCreator::writeBEFloat(UsdsBaseType* object) throw (...)
 void BodyBinaryCreator::writeDouble(UsdsBaseType* object) throw (...)
 try
 {
-	usdsBuff->writeDouble(((UsdsDouble*)object)->getDoubleValue());
+	usdsBuff->writeDouble(((UsdsDouble*)object)->getValue());
 }
 catch (ErrorStack& err)
 {
@@ -235,8 +235,8 @@ catch (ErrorStack& err)
 void BodyBinaryCreator::writeString(UsdsBaseType* object) throw (...)
 try
 {
-	size_t size;
-	const char* text = ((UsdsString*)object)->getStringValue(&size);
+	size_t size = ((UsdsString*)object)->getSize();
+	const char* text = ((UsdsString*)object)->getValue();
 	usdsBuff->writeUVarint(size);
 	usdsBuff->writeByteArray(text, size);
 }

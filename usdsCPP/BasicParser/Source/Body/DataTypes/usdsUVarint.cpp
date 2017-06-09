@@ -4,14 +4,14 @@ using namespace usds;
 
 UsdsUVarint::UsdsUVarint(Body* parent_body) : UsdsBaseType(parent_body)
 {
-	objectType = USDS_UVARINT;
+	
 }
 
 UsdsUVarint::~UsdsUVarint()
 {
 }
 
-void UsdsUVarint::initType()
+void UsdsUVarint::additionalInitObject()
 {
 
 

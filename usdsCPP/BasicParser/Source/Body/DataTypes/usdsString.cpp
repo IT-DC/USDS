@@ -8,8 +8,6 @@ using namespace usds;
 
 UsdsString::UsdsString(Body* parent_body) : UsdsBaseType(parent_body)
 {
-	objectType = USDS_STRING;
-	
 	buffSize = 16;
 	valueSize = 0;
 	objectValue = new char[buffSize];
@@ -20,7 +18,7 @@ UsdsString::~UsdsString()
 	delete[] objectValue;
 }
 
-void UsdsString::initType()
+void UsdsString::additionalInitObject()
 {
 
 
@@ -53,14 +51,14 @@ void UsdsString::setValue(const char* value, size_t size) throw (...)
 
 };
 
-const char* UsdsString::getStringValue() throw (...)
+const char* UsdsString::getValue() throw (...)
 {
 
 	return objectValue;
 };
 
-const char* UsdsString::getStringValue(size_t* size) throw (...)
+size_t UsdsString::getSize() throw (...)
 {
-	*size = valueSize;
-	return objectValue;
+
+	return valueSize;
 };

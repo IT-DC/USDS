@@ -74,7 +74,7 @@ try
 	DictionaryBaseType* object = (DictionaryBaseType*)(pools[object_type])->addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (ErrorStack)
 	{
@@ -103,7 +103,7 @@ try
 	//DictionaryTagLink* object = (DictionaryTagLink*)tagLinkObjects.addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (...)
 	{
@@ -124,7 +124,7 @@ try
 	DictionaryBoolean* object = (DictionaryBoolean*)booleanObjects.addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (...)
 	{
@@ -145,7 +145,7 @@ try
 	DictionaryInt* object = (DictionaryInt*)intObjects.addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (...)
 	{
@@ -166,7 +166,7 @@ try
 	DictionaryLong* object = (DictionaryLong*)longObjects.addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (...)
 	{
@@ -188,7 +188,7 @@ try
 	DictionaryDouble* object = (DictionaryDouble*)doubleObjects.addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (...)
 	{
@@ -209,7 +209,7 @@ try
 	DictionaryUVarint* object = (DictionaryUVarint*)uVarintObjects.addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (...)
 	{
@@ -230,7 +230,7 @@ try
 	DictionaryString* object = (DictionaryString*)stringObjects.addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (...)
 	{
@@ -251,7 +251,7 @@ try
 	DictionaryArray* object = (DictionaryArray*)arrayObjects.addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (...)
 	{
@@ -272,7 +272,7 @@ try
 	DictionaryStruct* object = (DictionaryStruct*)structObjects.addObject();
 	try
 	{
-		object->init(parent, id, name, name_size);
+		object->initType(parent, id, name, name_size);
 	}
 	catch (...)
 	{

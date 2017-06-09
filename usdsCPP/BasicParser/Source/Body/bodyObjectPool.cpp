@@ -78,7 +78,7 @@ try
 	UsdsBaseType*object = (UsdsBaseType*)(pools[object_type])->addObject();
 	try
 	{
-		object->init(dict_parent, body_parent);
+		object->initObject(dict_parent, body_parent);
 	}
 	catch (ErrorStack)
 	{
@@ -108,7 +108,7 @@ try
 	UsdsBoolean* object = (UsdsBoolean*)booleanObjects.addObject();
 	try
 	{
-		object->init(dict_parent, body_parent);
+		object->additionalInitObject(dict_parent, body_parent);
 	}
 	catch (...)
 	{
@@ -129,7 +129,7 @@ try
 	UsdsInt* object = (UsdsInt*)intObjects.addObject();
 	try
 	{
-		object->init(dict_parent, body_parent);
+		object->additionalInitObject(dict_parent, body_parent);
 	}
 	catch (...)
 	{
@@ -151,7 +151,7 @@ try
 	UsdsLong* object = (UsdsLong*)longObjects.addObject();
 	try
 	{
-		object->init(dict_parent, body_parent);
+		object->additionalInitObject(dict_parent, body_parent);
 	}
 	catch (...)
 	{
@@ -173,7 +173,7 @@ try
 	UsdsDouble* object = (UsdsDouble*)doubleObjects.addObject();
 	try
 	{
-		object->init(dict_parent, body_parent);
+		object->additionalInitObject(dict_parent, body_parent);
 	}
 	catch (...)
 	{
@@ -194,7 +194,7 @@ try
 	UsdsUVarint* object = (UsdsUVarint*)uVarintObjects.addObject();
 	try
 	{
-		object->init(dict_parent, body_parent);
+		object->additionalInitObject(dict_parent, body_parent);
 	}
 	catch (...)
 	{
@@ -216,7 +216,7 @@ try
 	UsdsString* object = (UsdsString*)stringObjects.addObject();
 	try
 	{
-		object->init(dict_parent, body_parent);
+		object->additionalInitObject(dict_parent, body_parent);
 	}
 	catch (...)
 	{
@@ -238,7 +238,7 @@ try
 	UsdsArray* object = (UsdsArray*)arrayObjects.addObject();
 	try
 	{
-		object->init(dict_parent, body_parent);
+		object->additionalInitObject(dict_parent, body_parent);
 	}
 	catch (...)
 	{
@@ -260,7 +260,7 @@ try
 	UsdsStruct* object = (UsdsStruct*)structObjects.addObject();
 	try
 	{
-		object->init(dict_parent, body_parent);
+		object->additionalInitObject(dict_parent, body_parent);
 	}
 	catch (...)
 	{

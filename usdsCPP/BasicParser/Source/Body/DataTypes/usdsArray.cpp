@@ -7,7 +7,7 @@ using namespace usds;
 
 UsdsArray::UsdsArray(Body* parent_body) : UsdsBaseType(parent_body), elementProxy(this)
 {
-	objectType = USDS_ARRAY;
+
 }
 
 UsdsArray::~UsdsArray()
@@ -556,7 +556,7 @@ catch (ErrorStack& err)
 
 //====================================================================================================================
 
-void UsdsArray::initType()
+void UsdsArray::additionalInitObject()
 try
 {
 	elementType = ((DictionaryArray*)parentDictionaryObject)->getElementType();
@@ -568,11 +568,11 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	throw ErrorStack("UsdsArray::initType") << msg;
+	throw ErrorStack("UsdsArray::additionalInitType") << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("UsdsArray::initType");
+	err.addLevel("UsdsArray::additionalInitType");
 	throw;
 };
 

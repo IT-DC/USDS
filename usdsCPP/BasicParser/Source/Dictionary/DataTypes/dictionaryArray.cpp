@@ -6,11 +6,10 @@ using namespace usds;
 
 DictionaryArray::DictionaryArray(Dictionary* dict) : DictionaryBaseType(dict)
 {
-	objectType = USDS_ARRAY;
 
 };
 
-void DictionaryArray::initType()
+void DictionaryArray::additionalInitType()
 {
 	element = 0;
 

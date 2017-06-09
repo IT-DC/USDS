@@ -58,7 +58,7 @@ void DictionarySimpleTest::test_2()
 	usds::DictionaryBoolean bool_object(0);
 	try
 	{
-		bool_object.init(0, 0, "bool", 0);
+		bool_object.initType(0, 0, "bool", 0);
 		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -73,7 +73,7 @@ void DictionarySimpleTest::test_2()
 
 	try
 	{
-		bool_object.init(0, 1, 0, 0);
+		bool_object.initType(0, 1, 0, 0);
 		throw "Failed at the step 2\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -88,7 +88,7 @@ void DictionarySimpleTest::test_2()
 
 	try
 	{
-		bool_object.init(0, 1, "boolaa", 4);
+		bool_object.initType(0, 1, "boolaa", 4);
 		if (strcmp(bool_object.getName(), "bool") != 0 || bool_object.getNameSize() != 4)
 		{
 			throw "Failed at the step 3\n";
@@ -103,7 +103,7 @@ void DictionarySimpleTest::test_2()
 
 	try
 	{
-		bool_object.init(0, 1, "bool", 0);
+		bool_object.initType(0, 1, "bool", 0);
 		if (strcmp(bool_object.getName(), "bool") != 0)
 		{
 			throw "Failed at the step 4\n";
@@ -150,7 +150,7 @@ void DictionarySimpleTest::test_3()
 	// step 1
 
 	usds::DictionaryBoolean bool_object(0);
-	bool_object.init(0, 1, "bool", 0);
+	bool_object.initType(0, 1, "bool", 0);
 
 	try
 	{
@@ -167,7 +167,7 @@ void DictionarySimpleTest::test_3()
 	// step 2
 
 	usds::DictionaryInt int_object(0);
-	int_object.init(&bool_object, 2, "int", 0);
+	int_object.initType(&bool_object, 2, "int", 0);
 
 	if (int_object.getParent() != &bool_object || int_object.getPrevious() != 0 || int_object.getNext() != 0)
 	{

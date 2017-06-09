@@ -11,25 +11,28 @@ namespace usds
 		UsdsInt(Body* parent_body);
 		virtual ~UsdsInt();
 
-		virtual void setValue(int8_t value) throw (...);
-		virtual void setValue(uint8_t value) throw (...);
-		virtual void setValue(int16_t value) throw (...);
-		virtual void setValue(uint16_t value) throw (...);
-		virtual void setValue(int32_t value) throw (...);
-		virtual void setValue(uint32_t value) throw (...);
-		virtual void setValue(int64_t value) throw (...);
-		virtual void setValue(uint64_t value) throw (...);
+		usdsTypes getType() { return USDS_INT; };
+		const char* getTypeName() { return "INT"; };
+
+		void setValue(int8_t value) throw (...);
+		void setValue(uint8_t value) throw (...);
+		void setValue(int16_t value) throw (...);
+		void setValue(uint16_t value) throw (...);
+		void setValue(int32_t value) throw (...);
+		void setValue(uint32_t value) throw (...);
+		void setValue(int64_t value) throw (...);
+		void setValue(uint64_t value) throw (...);
 
 		using UsdsBaseType::setValue;
 
-		virtual void getValue(int8_t* value) throw (...);
-		virtual void getValue(uint8_t* value) throw (...);
-		virtual void getValue(int16_t* value) throw (...);
-		virtual void getValue(uint16_t* value) throw (...);
-		virtual void getValue(int32_t* value) throw (...);
-		virtual void getValue(uint32_t* value) throw (...);
-		virtual void getValue(int64_t* value) throw (...);
-		virtual void getValue(uint64_t* value) throw (...);
+		void getValue(int8_t* value) throw (...);
+		void getValue(uint8_t* value) throw (...);
+		void getValue(int16_t* value) throw (...);
+		void getValue(uint16_t* value) throw (...);
+		void getValue(int32_t* value) throw (...);
+		void getValue(uint32_t* value) throw (...);
+		void getValue(int64_t* value) throw (...);
+		void getValue(uint64_t* value) throw (...);
 
 		using UsdsBaseType::getValue;
 
@@ -37,7 +40,7 @@ namespace usds
 
 	private:
 
-		virtual void initType();
+		void additionalInitObject();
 
 		int32_t objectValue;
 

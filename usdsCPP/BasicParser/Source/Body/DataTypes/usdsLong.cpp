@@ -4,14 +4,14 @@ using namespace usds;
 
 UsdsLong::UsdsLong(Body* parent_body) : UsdsBaseType(parent_body)
 {
-	objectType = USDS_LONG;
+
 }
 
 UsdsLong::~UsdsLong()
 {
 }
 
-void UsdsLong::initType()
+void UsdsLong::additionalInitObject()
 {
 
 
@@ -23,7 +23,7 @@ void UsdsLong::setValue(int64_t value) throw (...)
 	objectValue = value;
 };
 
-int64_t UsdsLong::getLongValue() throw (...)
+int64_t UsdsLong::getValue() throw (...)
 {
 
 	return objectValue;

@@ -13,6 +13,9 @@ namespace usds
 		UsdsStruct(Body* parent_body);
 		virtual ~UsdsStruct();
 
+		usdsTypes getType() { return USDS_STRUCT; };
+		const char* getTypeName() { return "STRUCT"; };
+
 		void setFieldValue(const char* name, int32_t value) throw (...);
 		void setFieldValue(const char* name, int64_t value) throw (...);
 		void setFieldValue(const char* name, double value) throw (...);
@@ -46,8 +49,8 @@ namespace usds
 		int32_t getFieldNumber() throw (...);
 
 	private:
-		// it's executed in init()
-		virtual void initType();
+		// it's executed in initObject()
+		void additionalInitObject();
 
 		UsdsBaseType** fields;
 		int32_t fieldsBuffSize; // in bytes

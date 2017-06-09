@@ -11,13 +11,16 @@ namespace usds
 		UsdsDouble(Body* parent_body);
 		virtual ~UsdsDouble();
 
-		virtual void setValue(double value) throw (...);
+		usdsTypes getType() { return USDS_DOUBLE; };
+		const char* getTypeName() { return "DOUBLE"; };
 
-		virtual double getDoubleValue() throw (...);
+		void setValue(double value) throw (...);
+
+		double getValue() throw (...);
 
 	private:
 
-		virtual void initType();
+		void additionalInitObject();
 
 		double objectValue;
 

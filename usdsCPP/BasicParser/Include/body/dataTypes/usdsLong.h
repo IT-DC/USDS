@@ -11,13 +11,16 @@ namespace usds
 		UsdsLong(Body* parent_body);
 		virtual ~UsdsLong();
 
-		virtual void setValue(int64_t value) throw (...);
+		usdsTypes getType() { return USDS_LONG; };
+		const char* getTypeName() { return "LONG"; };
 
-		virtual int64_t getLongValue() throw (...);
+		void setValue(int64_t value) throw (...);
+
+		int64_t getValue() throw (...);
 
 	private:
 
-		virtual void initType();
+		void additionalInitObject();
 
 		int64_t objectValue;
 

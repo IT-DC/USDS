@@ -5,10 +5,9 @@ using namespace usds;
 DictionaryInt::DictionaryInt(Dictionary* dict) : DictionaryBaseType(dict)
 {
 
-	objectType = USDS_INT;
 };
 
-void DictionaryInt::initType()
+void DictionaryInt::additionalInitType()
 {
 	isDefault = false;
 };

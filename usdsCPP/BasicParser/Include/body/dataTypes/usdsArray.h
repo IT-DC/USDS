@@ -33,6 +33,9 @@ namespace usds
 		UsdsArray(Body* parent_body);
 		virtual ~UsdsArray();
 
+		usdsTypes getType() { return USDS_ARRAY; };
+		const char* getTypeName() { return "ARRAY"; };
+
 		size_t size() throw(...);
 		usdsTypes getElementType() throw(...);
 
@@ -109,7 +112,7 @@ namespace usds
 
 	private:
 
-		virtual void initType();
+		void additionalInitObject();
 
 		usdsTypes elementType;
 		DictionaryBaseType* arrayDictionaryElement;

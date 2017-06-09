@@ -4,11 +4,10 @@ using namespace usds;
 
 DictionaryBoolean::DictionaryBoolean(Dictionary* dict) : DictionaryBaseType(dict)
 {
-	objectType = USDS_BOOLEAN;
 
 };
 
-void DictionaryBoolean::initType()
+void DictionaryBoolean::additionalInitType()
 {
 	isDefault = false;
 	

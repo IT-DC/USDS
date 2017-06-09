@@ -12,7 +12,6 @@ DictionaryStruct::DictionaryStruct(Dictionary* dict) : DictionaryBaseType(dict)
 	buffIndexSize = 0;
 	fieldIndex = 0;
 
-	objectType = USDS_STRUCT;
 };
 
 
@@ -29,8 +28,7 @@ try
 		throw ErrorMessage(DIC_STRUCT__STRUCT_IS_FINALIZED, "Can not add a field: the structure is finalized already");
 	
 	// check name
-	int32_t field_id;
-	field_id = findFieldID(name, name_size);
+	int32_t field_id = findFieldID(name, name_size);
 	if (field_id != 0)
 		throw ErrorMessage(DIC_STRUCT__FIELD_ALREADY_EXISTS) << "Field with name '" << name << "' not unique in the tag " << objectName;
 	
@@ -248,7 +246,7 @@ catch (ErrorStack& err)
 	throw;
 }
 
-void DictionaryStruct::initType()
+void DictionaryStruct::additionalInitType()
 {
 	firstField = 0;
 	lastField = 0;

@@ -13,7 +13,7 @@ UsdsBaseType::~UsdsBaseType()
 {
 }
 
-void UsdsBaseType::init(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
+void UsdsBaseType::initObject(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
 try
 {
 	if (dict_parent == 0)
@@ -25,16 +25,16 @@ try
 	parentDictionaryObject = dict_parent;
 	parentObject = body_parent;
 
-	initType();
+	additionalInitObject();
 
 }
 catch (ErrorMessage& msg)
 {
-	throw ErrorStack("UsdsBaseType::init") << (void*)dict_parent << (void*)body_parent << msg;
+	throw ErrorStack("UsdsBaseType::additionalInitObject") << (void*)dict_parent << (void*)body_parent << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("UsdsBaseType::init") << (void*)dict_parent << (void*)body_parent;
+	err.addLevel("UsdsBaseType::additionalInitObject") << (void*)dict_parent << (void*)body_parent;
 	throw;
 };
 
@@ -51,16 +51,6 @@ size_t UsdsBaseType::getNameSize() throw(...)
 int32_t UsdsBaseType::getID() throw(...)
 {
 	return parentDictionaryObject->getID();
-};
-
-usdsTypes UsdsBaseType::getType()
-{
-	return objectType;
-};
-
-const char* UsdsBaseType::getTypeName()
-{
-	return usdsTypeName(objectType);
 };
 
 //=============================================================================================

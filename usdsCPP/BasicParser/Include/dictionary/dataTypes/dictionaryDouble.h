@@ -14,12 +14,16 @@ namespace usds
 		DictionaryDouble(Dictionary* dict);
 		virtual ~DictionaryDouble() {  };
 
-		virtual void initType();
-		virtual void finalize() throw (...) { };
+		void finalize() throw (...) { };
+
+		usdsTypes getType() { return USDS_DOUBLE; };
+		const char* getTypeName() { return "DOUBLE"; };
 
 		void setDefault(double value);
 
 	private:
+		void additionalInitType();
+
 		bool isDefault;
 		double defaultValue;
 

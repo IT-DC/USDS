@@ -18,8 +18,10 @@ namespace usds
 		DictionaryArray(Dictionary* dict);
 		virtual ~DictionaryArray() {  };
 
-		virtual void initType();
-		virtual void finalize() throw (...);
+		void finalize() throw (...);
+
+		usdsTypes getType() {return USDS_ARRAY;};
+		const char* getTypeName() {return "ARRAY";};
 
 		usdsTypes getElementType() throw (...);
 		DictionaryBaseType* getElement() throw (...);
@@ -27,6 +29,8 @@ namespace usds
 		DictionaryBaseType* setElementType(usdsTypes type_id) throw (...);
 
 	private:
+		virtual void additionalInitType();
+
 		DictionaryBaseType* element;
 
 	};

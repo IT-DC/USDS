@@ -14,12 +14,16 @@ namespace usds
 		DictionaryBoolean(Dictionary* dict);
 		virtual ~DictionaryBoolean() {  };
 
-		virtual void initType();
-		virtual void finalize() throw (...) { };
+		void finalize() throw (...) { };
+		
+		usdsTypes getType() { return USDS_BOOLEAN; };
+		const char* getTypeName() { return "BOOLEAN"; };
 
 		void setDefault(bool value);
 
 	private:
+		void additionalInitType();
+
 		bool isDefault;
 		bool defaultValue;
 

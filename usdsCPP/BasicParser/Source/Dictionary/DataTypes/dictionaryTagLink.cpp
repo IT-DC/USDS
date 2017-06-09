@@ -5,11 +5,10 @@ using namespace usds;
 
 DictionaryTagLink::DictionaryTagLink(Dictionary* dict) : DictionaryBaseType(dict)
 {
-	objectType = USDS_TAG;
 
 }
 
-void DictionaryTagLink::initType()
+void DictionaryTagLink::additionalInitType()
 {
 	tag = 0;
 	tagID = -1;

@@ -14,12 +14,16 @@ namespace usds
 		DictionaryUVarint(Dictionary* dict);
 		virtual ~DictionaryUVarint() {  };
 
-		virtual void initType();
 		virtual void finalize() throw (...) { };
+
+		usdsTypes getType() { return USDS_UVARINT; };
+		const char* getTypeName() { return "UVARINT"; };
 
 		void setDefault(int64_t value);
 
 	private:
+		void additionalInitType();
+
 		bool isDefault;
 		uint64_t defaultValue;
 
