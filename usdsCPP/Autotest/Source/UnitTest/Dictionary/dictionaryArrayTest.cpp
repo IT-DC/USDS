@@ -21,7 +21,7 @@ void DictionaryArrayTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::USDS_TYPES__ERROR_TYPE_CODE)
+		if (err.getCode() != usds::DIC_ARRAY__ERROR_ELEMENT_TYPE)
 		{
 			throw "Failed at the step 1\n";
 		}
@@ -29,6 +29,7 @@ void DictionaryArrayTest::test_1()
 
 	// step 2
 
+	/*
 	try
 	{
 		object->setElementType(usds::USDS_ARRAY);
@@ -56,6 +57,7 @@ void DictionaryArrayTest::test_1()
 			throw "Failed at the step 3\n";
 		}
 	}
+	*/
 
 	// step 4
 	try

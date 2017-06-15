@@ -51,7 +51,6 @@ namespace usds
 		void readUVarint(DictionaryBaseType* object) throw (...);
 		void readString(DictionaryBaseType* object) throw (...);
 		void readArray(DictionaryBaseType* object) throw (...);
-		void readList(DictionaryBaseType* object) throw (...);
 		void readMap(DictionaryBaseType* object) throw (...);
 		void readPolymorph(DictionaryBaseType* object) throw (...);
 		void readStruct(DictionaryBaseType* object) throw (...);

@@ -6,27 +6,6 @@
 
 namespace usds
 {
-	class UsdsArray;
-
-	class UsdsArrayProxy
-	{
-	public:
-		UsdsArrayProxy(UsdsArray* parent);
-		~UsdsArrayProxy();
-
-		UsdsArrayProxy* setIndex(size_t value);
-
-		operator bool();
-		operator int32_t();
-		operator UsdsBaseType*();
-
-
-	private:
-		UsdsArray* parentArray;
-		size_t index;
-
-	};
-
 	class UsdsArray : public UsdsBaseType
 	{
 	public:
@@ -36,7 +15,8 @@ namespace usds
 		usdsTypes getType() { return USDS_ARRAY; };
 		const char* getTypeName() { return "ARRAY"; };
 
-		size_t size() throw(...);
+		size_t getSize() throw(...);
+		size_t setSize() throw(...);
 		usdsTypes getElementType() throw(...);
 
 		void pushBack(bool value) throw (...);
@@ -53,19 +33,18 @@ namespace usds
 		void pushBack(const char* value) throw (...);
 		void pushBack(const char* value, size_t size) throw (...);
 		
-		void pushBefore(size_t number, bool value) throw (...);
-		void pushBefore(size_t number, int8_t value) throw (...);
-		void pushBefore(size_t number, uint8_t value) throw (...);
-		void pushBefore(size_t number, int16_t value) throw (...);
-		void pushBefore(size_t number, uint16_t value) throw (...);
-		void pushBefore(size_t number, int32_t value) throw (...);
-		void pushBefore(size_t number, uint32_t value) throw (...);
-		void pushBefore(size_t number, int64_t value) throw (...);
-		void pushBefore(size_t number, uint64_t value) throw (...);
-		void pushBefore(size_t number, float value) throw (...);
-		void pushBefore(size_t number, double value) throw (...);
-		void pushBefore(size_t number, const char* value) throw (...);
-		void pushBefore(size_t number, const char* value, size_t size) throw (...);
+		void pushBack(bool* value, size_t array_size) throw (...);
+		void pushBack(int8_t* value, size_t array_size) throw (...);
+		void pushBack(uint8_t* value, size_t array_size) throw (...);
+		void pushBack(int16_t* value, size_t array_size) throw (...);
+		void pushBack(uint16_t* value, size_t array_size) throw (...);
+		void pushBack(int32_t* value, size_t array_size) throw (...);
+		void pushBack(uint32_t* value, size_t array_size) throw (...);
+		void pushBack(int64_t* value, size_t array_size) throw (...);
+		void pushBack(uint64_t* value, size_t array_size) throw (...);
+		void pushBack(float* value, size_t array_size) throw (...);
+		void pushBack(double* value, size_t array_size) throw (...);
+		void pushBack(const char** value, size_t array_size) throw (...);
 
 		void setValue(size_t number, bool value) throw (...);
 		void setValue(size_t number, int8_t value) throw (...);
@@ -98,17 +77,9 @@ namespace usds
 		template <typename out_type> out_type getValue(size_t number) throw (...);
 
 		UsdsBaseType* pushTagBack() throw(...);
-		UsdsBaseType* pushTagBefore(size_t number) throw(...);
 		UsdsBaseType* getTag(size_t number) throw(...);
 
-		UsdsArrayProxy* operator[](size_t number);
-
 		void erase(size_t number) throw (...);
-
-		const void* getArrayBinary() throw(...);
-		size_t getArrayBinarySize() throw(...);
-
-		void setArrayBinary(const void* binary, size_t binary_size) throw(...);
 
 	private:
 
@@ -120,9 +91,7 @@ namespace usds
 		BinaryOutput elementValues;
 		size_t elementNumber;
 
-		UsdsArrayProxy elementProxy;
-
-	};
+};
 
 	template <typename out_type> out_type UsdsArray::getValue(size_t number) throw (...)
 	try

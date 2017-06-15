@@ -5,7 +5,7 @@
 
 using namespace usds;
 
-UsdsArray::UsdsArray(Body* parent_body) : UsdsBaseType(parent_body), elementProxy(this)
+UsdsArray::UsdsArray(Body* parent_body) : UsdsBaseType(parent_body)
 {
 
 }
@@ -16,7 +16,7 @@ UsdsArray::~UsdsArray()
 
 //====================================================================================================================
 
-size_t UsdsArray::size() throw(...)
+size_t UsdsArray::getSize() throw(...)
 {
 
 	return elementNumber;
@@ -507,55 +507,6 @@ catch (ErrorStack& err)
 
 //====================================================================================================================
 
-UsdsArrayProxy* UsdsArray::operator[](size_t number)
-try
-{
-	return elementProxy.setIndex(number);
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("UsdsArray::operator[]") << number << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("UsdsArray::operator[]") << number;
-	throw;
-};
-
-//====================================================================================================================
-const void* UsdsArray::getArrayBinary() throw(...)
-{
-
-	return elementValues.getBinary();
-};
-
-size_t UsdsArray::getArrayBinarySize() throw(...)
-{
-
-	return elementValues.getSize();
-};
-
-void UsdsArray::setArrayBinary(const void* binary, size_t binary_size) throw(...)
-try
-{
-	int32_t element_size = usdsTypeSize(elementType);
-	if (element_size == 0)
-		throw ErrorMessage(BODY_ARRAY__UNFIXED_ELEMENT_SIZE) << "Element type '" << usdsTypeName(elementType) << "' is unfixed";
-	elementValues.writeByteArray(binary, binary_size);
-	elementNumber = binary_size / element_size;
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("UsdsArray::setArrayBinary") << binary << binary_size << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("UsdsArray::setArrayBinary") << binary << binary_size;
-	throw;
-};
-
-//====================================================================================================================
-
 void UsdsArray::additionalInitObject()
 try
 {
@@ -576,59 +527,4 @@ catch (ErrorStack& err)
 	throw;
 };
 
-//====================================================================================================================
-// UsdsArrayProxy
-
-UsdsArrayProxy::UsdsArrayProxy(UsdsArray* parent)
-{
-	parentArray = parent;
-
-};
-
-UsdsArrayProxy::~UsdsArrayProxy() { };
-
-UsdsArrayProxy* UsdsArrayProxy::setIndex(size_t value)
-{
-	index = value;
-	return this;
-};
-
-//====================================================================================================================
-// UsdsArrayProxy - type conversion
-
-UsdsArrayProxy::operator bool()
-try
-{
-	return parentArray->getValue<bool>(index);
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("UsdsArrayProxy::operator bool()");
-	throw;
-};
-
-UsdsArrayProxy::operator int32_t()
-try
-{
-	return parentArray->getValue<int32_t>(index);
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("UsdsArrayProxy::operator int32_t()");
-	throw;
-};
-
-UsdsArrayProxy::operator UsdsBaseType*()
-try
-{
-	return parentArray->getTag(index);
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("UsdsArrayProxy::operator UsdsBaseType*()");
-	throw;
-};
-
-//====================================================================================================================
-// UsdsArrayProxy - operator !=
 

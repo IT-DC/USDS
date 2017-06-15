@@ -54,7 +54,6 @@ namespace usds
 		void readUVarint(UsdsBaseType* object) throw (...);
 		void readString(UsdsBaseType* object) throw (...);
 		void readArray(UsdsBaseType* object) throw (...);
-		void readList(UsdsBaseType* object) throw (...);
 		void readMap(UsdsBaseType* object) throw (...);
 		void readPolymorph(UsdsBaseType* object) throw (...);
 		void readStruct(UsdsBaseType* object) throw (...);

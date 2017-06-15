@@ -6,7 +6,9 @@ using namespace usds;
 
 Dictionary::Dictionary(BasicParser* parent) : objectPool(this)
 {
-	dictionaryID = -1;
+	dictionaryID = 0;
+	majorVersion = 0;
+	minorVersion = 0;
 };
 
 Dictionary::~Dictionary()
@@ -17,11 +19,9 @@ Dictionary::~Dictionary()
 //====================================================================================================================
 // Dictionary construction
 //====================================================================================================================
-void Dictionary::setID(int32_t id, uint8_t major, uint8_t minor) throw (...)
+void Dictionary::setID(uint32_t id, uint8_t major, uint8_t minor) throw (...)
 {
-	if (id < 0)
-		throw ErrorStack("Dictionary::setID") << id << major << minor << (ErrorMessage(DICTIONARY__ID_ERROR_VALUE) << "Dictionary ID must be >= 0. Your value: " << id);
-	
+
 	dictionaryID = id;
 	majorVersion = major;
 	minorVersion = minor;
@@ -93,9 +93,6 @@ try
 	if (finalized)
 		throw ErrorMessage(DICTIONARY__FINALIZED_ALREADY, "The dictionary is filalized already");
 
-	if (dictionaryID == -1)
-		throw ErrorStack("Dictionary::getDictionaryID") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary ID not initialized");
-
 	if (tagNumber == 0)
 		throw ErrorMessage(DICTIONARY__NO_TAGS, "Dictionary can't be empty.");
 
@@ -151,22 +148,16 @@ catch (ErrorStack& err)
 //====================================================================================================================
 // Dictionary information
 //====================================================================================================================
-int32_t Dictionary::getDictionaryID()  throw (...)
+uint32_t Dictionary::getDictionaryID()  throw (...)
 {
-	if (dictionaryID == -1)
-		throw ErrorStack("Dictionary::getDictionaryID") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	return dictionaryID;
 };
 uint8_t Dictionary::getMajorVersion() throw (...)
 {
-	if (dictionaryID == -1)
-		throw ErrorStack("Dictionary::getMajorVersion") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	return majorVersion;
 };
 uint8_t Dictionary::getMinorVersion() throw (...)
 {
-	if (dictionaryID == -1)
-		throw ErrorStack("Dictionary::getMinorVersion") << ErrorMessage(DICTIONARY__NOT_INITIALIZED, "Dictionary not initialized");
 	return minorVersion;
 };
 
@@ -336,7 +327,7 @@ catch (ErrorStack& err)
 //====================================================================================================================
 void Dictionary::clear()
 {
-	dictionaryID = -1;
+	dictionaryID = 0;
 	
 	firstTag = 0;
 	lastTag = 0;

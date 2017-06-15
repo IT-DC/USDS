@@ -68,6 +68,16 @@ void UsdsInt::setValue(uint64_t value) throw (...)
 	objectValue = (int32_t)value;
 };
 
+int32_t UsdsInt::get()
+{
+	return objectValue;
+};
+
+void UsdsInt::set(int32_t value)
+{
+	objectValue = value;
+};
+
 
 void UsdsInt::getValue(int8_t* value) throw (...)
 {
@@ -121,7 +131,3 @@ void UsdsInt::getValue(uint64_t* value) throw (...)
 	*value = objectValue;
 };
 
-int32_t UsdsInt::getValue()
-{
-	return objectValue;
-};

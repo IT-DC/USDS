@@ -41,7 +41,7 @@ void UsdsIntTest::test_1()
 	// step 3
 	int8_t int8_value = -1;
 	body_int->setValue(int8_value);
-	if (body_int->getValue() != -1)
+	if (body_int->getValue<int8_t>() != -1)
 	{
 		throw "Failed at the step 3\n";
 	}
@@ -49,7 +49,7 @@ void UsdsIntTest::test_1()
 	// step 4
 	uint8_t uint8_value = 255;
 	body_int->setValue(uint8_value);
-	if (body_int->getValue() != 255)
+	if (body_int->getValue<uint8_t>() != 255)
 	{
 		throw "Failed at the step 4\n";
 	}
@@ -57,7 +57,7 @@ void UsdsIntTest::test_1()
 	// step 5
 	int16_t int16_value = -10000;
 	body_int->setValue(int16_value);
-	if (body_int->getValue() != -10000)
+	if (body_int->getValue<int16_t>() != -10000)
 	{
 		throw "Failed at the step 5\n";
 	}
@@ -65,7 +65,7 @@ void UsdsIntTest::test_1()
 	// step 6
 	uint16_t uint16_value = 20000;
 	body_int->setValue(uint16_value);
-	if (body_int->getValue() != 20000)
+	if (body_int->getValue<int16_t>() != 20000)
 	{
 		throw "Failed at the step 6\n";
 	}
@@ -73,7 +73,7 @@ void UsdsIntTest::test_1()
 	// step 7
 	int32_t int32_value = -100000;
 	body_int->setValue(int32_value);
-	if (body_int->getValue() != -100000)
+	if (body_int->getValue<int32_t>() != -100000)
 	{
 		throw "Failed at the step 7\n";
 	}
@@ -81,7 +81,7 @@ void UsdsIntTest::test_1()
 	// step 8
 	uint32_t uint32_value = 200000;
 	body_int->setValue(uint32_value);
-	if (body_int->getValue() != 200000)
+	if (body_int->getValue<int32_t>() != 200000)
 	{
 		throw "Failed at the step 8\n";
 	}
@@ -104,7 +104,7 @@ void UsdsIntTest::test_1()
 	// step 10
 	int64_t int64_value = -200000;
 	body_int->setValue(int64_value);
-	if (body_int->getValue() != -200000)
+	if (body_int->getValue<int64_t>() != -200000)
 	{
 		throw "Failed at the step 10\n";
 	}
@@ -127,7 +127,7 @@ void UsdsIntTest::test_1()
 	// step 12
 	uint64_t uint64_value = 200000;
 	body_int->setValue(uint64_value);
-	if (body_int->getValue() != 200000)
+	if (body_int->getValue<uint64_t>() != 200000)
 	{
 		throw "Failed at the step 12\n";
 	}
@@ -204,6 +204,14 @@ void UsdsIntTest::test_1()
 		{
 			throw "Failed at the step 17\n";
 		}
+	}
+
+	// step 18
+	uint32_value = 300000;
+	body_int->set(uint32_value);
+	if (body_int->get() != 300000)
+	{
+		throw "Failed at the step 18\n";
 	}
 
 }

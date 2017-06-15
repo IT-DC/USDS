@@ -14,6 +14,7 @@ namespace usds
 		usdsTypes getType() { return USDS_INT; };
 		const char* getTypeName() { return "INT"; };
 
+		// Slow methods (virtual)
 		void setValue(int8_t value) throw (...);
 		void setValue(uint8_t value) throw (...);
 		void setValue(int16_t value) throw (...);
@@ -36,7 +37,10 @@ namespace usds
 
 		using UsdsBaseType::getValue;
 
-		int32_t getValue();
+
+		// Fast methods (not virtual)
+		int32_t get() throw (...);
+		void set(int32_t value) throw (...);
 
 	private:
 

@@ -40,9 +40,8 @@ DictionaryBinaryParser::DictionaryBinaryParser()
 	readIndex[USDS_UVARINT] = &DictionaryBinaryParser::readUVarint;
 	readIndex[USDS_STRING] = &DictionaryBinaryParser::readString;
 	readIndex[USDS_ARRAY] = &DictionaryBinaryParser::readArray;
-	readIndex[USDS_LIST] = &DictionaryBinaryParser::readList;
 	readIndex[USDS_MAP] = &DictionaryBinaryParser::readMap;
-	readIndex[USDS_POLYMORPH] = &DictionaryBinaryParser::readPolymorph;
+	readIndex[USDS_POLYARRAY] = &DictionaryBinaryParser::readPolymorph;
 	readIndex[USDS_STRUCT] = &DictionaryBinaryParser::readStruct;
 	readIndex[USDS_FUNCTION] = &DictionaryBinaryParser::readFunction;
 
@@ -262,11 +261,6 @@ catch (ErrorStack& err)
 	err.addLevel("DictionaryBinaryParser::readArray") << (void*)object;
 	throw;
 }
-
-void DictionaryBinaryParser::readList(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readList") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type LIST for Dictionary Binary Parser");
-};
 
 void DictionaryBinaryParser::readMap(DictionaryBaseType* object) throw (...)
 {

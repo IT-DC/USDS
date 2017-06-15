@@ -35,9 +35,8 @@ BodyBinaryCreator::BodyBinaryCreator()
 	writeIndex[USDS_UVARINT] = &BodyBinaryCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &BodyBinaryCreator::writeString;
 	writeIndex[USDS_ARRAY] = &BodyBinaryCreator::writeArray;
-	writeIndex[USDS_LIST] = &BodyBinaryCreator::writeList;
 	writeIndex[USDS_MAP] = &BodyBinaryCreator::writeMap;
-	writeIndex[USDS_POLYMORPH] = &BodyBinaryCreator::writePolymorph;
+	writeIndex[USDS_POLYARRAY] = &BodyBinaryCreator::writePolymorph;
 	writeIndex[USDS_STRUCT] = &BodyBinaryCreator::writeStruct;
 	writeIndex[USDS_FUNCTION] = &BodyBinaryCreator::writeFunction;
 
@@ -80,7 +79,7 @@ void BodyBinaryCreator::writeTag(UsdsBaseType* object) throw (...)
 void BodyBinaryCreator::writeBoolean(UsdsBaseType* object) throw (...)
 try
 {
-	usdsBuff->writeBool(((UsdsBoolean*)object)->getValue());
+	usdsBuff->writeBoolean(((UsdsBoolean*)object)->getValue());
 }
 catch (ErrorStack& err)
 {
@@ -249,9 +248,9 @@ catch (ErrorStack& err)
 void BodyBinaryCreator::writeArray(UsdsBaseType* object) throw (...)
 try
 {
-	int32_t element_number = ((UsdsArray*)object)->size();
+	int32_t element_number = ((UsdsArray*)object)->getSize();
 	usdsBuff->writeUVarint(element_number);
-	if (usdsTypeSize(((UsdsArray*)object)->getElementType()) == 0)
+	/*if (usdsTypeSize(((UsdsArray*)object)->getElementType()) == 0)
 	{
 		UsdsBaseType** objects = (UsdsBaseType**)(((UsdsArray*)object)->getArrayBinary());
 		for (int32_t i = 0; i < element_number; i++)
@@ -266,17 +265,12 @@ try
 		size_t size = ((UsdsArray*)object)->getArrayBinarySize();
 		const void* objects = ((UsdsArray*)object)->getArrayBinary();
 		usdsBuff->writeByteArray(objects, size);
-	}
+	}*/
 }
 catch (ErrorStack& err)
 {
 	err.addLevel("BodyBinaryCreator::writeArray") << (void*)object;
 	throw;
-};
-
-void BodyBinaryCreator::writeList(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeList") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type LIST for Binary Creator");
 };
 
 void BodyBinaryCreator::writeMap(UsdsBaseType* object) throw (...)

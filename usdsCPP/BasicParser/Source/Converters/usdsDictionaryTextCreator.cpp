@@ -45,9 +45,8 @@ DictionaryTextCreator::DictionaryTextCreator()
 	writeIndex[USDS_UVARINT] = &DictionaryTextCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &DictionaryTextCreator::writeString;
 	writeIndex[USDS_ARRAY] = &DictionaryTextCreator::writeArray;
-	writeIndex[USDS_LIST] = &DictionaryTextCreator::writeList;
 	writeIndex[USDS_MAP] = &DictionaryTextCreator::writeMap;
-	writeIndex[USDS_POLYMORPH] = &DictionaryTextCreator::writePolymorph;
+	writeIndex[USDS_POLYARRAY] = &DictionaryTextCreator::writePolymorph;
 	writeIndex[USDS_STRUCT] = &DictionaryTextCreator::writeStruct;
 	writeIndex[USDS_FUNCTION] = &DictionaryTextCreator::writeFunction;
 };
@@ -254,11 +253,6 @@ catch (ErrorStack& err)
 {
 	err.addLevel("DictionaryTextCreator::writeArray") << (void*)object;
 	throw;
-};
-
-void DictionaryTextCreator::writeList(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryTextCreator::writeList") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type LIST for Dictionary Text Creator");
 };
 
 void DictionaryTextCreator::writeMap(DictionaryBaseType* object) throw (...)

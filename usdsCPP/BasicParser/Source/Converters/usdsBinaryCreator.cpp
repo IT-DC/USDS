@@ -25,11 +25,11 @@ try
 
 	size_t dict_size = 0;
 	const uint8_t* dict_binary = dict->getBinary(&dict_size);
-	binary->writeByte(USDS_DICTIONARY_SIGNATURE_WITH_SIZE);
+	binary->writeSignature(USDS_DICTIONARY_SIGNATURE_WITH_SIZE);
 	binary->writeUVarint(dict_size);
 	binary->writeByteArray(dict_binary, dict_size);
 
-	binary->writeByte(USDS_BODY_SIGNATURE);
+	binary->writeSignature(USDS_BODY_SIGNATURE);
 	bodyBinaryCreator.generate(binary, body);
 	
 	addHeadToBinary();
@@ -49,11 +49,11 @@ try
 	// add head
 	binary->pushFrontUByte(dictionary->getMinorVersion());
 	binary->pushFrontUByte(dictionary->getMajorVersion());
-	binary->pushFrontInt(dictionary->getDictionaryID());
-	binary->pushFrontUByte(USDS_MINOR_VERSION);
-	binary->pushFrontUByte(USDS_MAJOR_VERSION);
-	binary->pushFrontUByte(USDS_MINOR_SIGNATURE);
-	binary->pushFrontUByte(USDS_MAJOR_SIGNATURE);
+	binary->pushFrontUInt(dictionary->getDictionaryID());
+	binary->pushFrontSignature(USDS_MINOR_VERSION);
+	binary->pushFrontSignature(USDS_MAJOR_VERSION);
+	binary->pushFrontSignature(USDS_MINOR_SIGNATURE);
+	binary->pushFrontSignature(USDS_MAJOR_SIGNATURE);
 }
 catch (ErrorStack& err)
 {

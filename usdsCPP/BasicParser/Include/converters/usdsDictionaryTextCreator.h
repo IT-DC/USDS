@@ -52,7 +52,6 @@ namespace usds
 		void writeUVarint(DictionaryBaseType* object) throw (...);
 		void writeString(DictionaryBaseType* object) throw (...);
 		void writeArray(DictionaryBaseType* object) throw (...);
-		void writeList(DictionaryBaseType* object) throw (...);
 		void writeMap(DictionaryBaseType* object) throw (...);
 		void writePolymorph(DictionaryBaseType* object) throw (...);
 		void writeStruct(DictionaryBaseType* object) throw (...);

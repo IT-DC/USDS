@@ -45,9 +45,8 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_UVARINT] = new TemplateObjectPool<DictionaryUVarint, Dictionary>(dict);
 	pools[USDS_STRING] = new TemplateObjectPool<DictionaryString, Dictionary>(dict);
 	pools[USDS_ARRAY] = new TemplateObjectPool<DictionaryArray, Dictionary>(dict);
-	pools[USDS_LIST] = 0;
 	pools[USDS_MAP] = 0;
-	pools[USDS_POLYMORPH] = 0;
+	pools[USDS_POLYARRAY] = 0;
 	pools[USDS_STRUCT] = new TemplateObjectPool<DictionaryStruct, Dictionary>(dict);
 	pools[USDS_FUNCTION] = 0;
 };

@@ -35,9 +35,8 @@ BodyJsonCreator::BodyJsonCreator()
 	writeIndex[USDS_UVARINT] = &BodyJsonCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &BodyJsonCreator::writeString;
 	writeIndex[USDS_ARRAY] = &BodyJsonCreator::writeArray;
-	writeIndex[USDS_LIST] = &BodyJsonCreator::writeList;
 	writeIndex[USDS_MAP] = &BodyJsonCreator::writeMap;
-	writeIndex[USDS_POLYMORPH] = &BodyJsonCreator::writePolymorph;
+	writeIndex[USDS_POLYARRAY] = &BodyJsonCreator::writePolymorph;
 	writeIndex[USDS_STRUCT] = &BodyJsonCreator::writeStruct;
 	writeIndex[USDS_FUNCTION] = &BodyJsonCreator::writeFunction;
 
@@ -265,11 +264,6 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BodyJsonCreator::writeList(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeList") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type LIST for JSON Creator");
-};
-
 void BodyJsonCreator::writeMap(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyJsonCreator::writeMap") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type MAP for JSON Creator");
@@ -284,7 +278,7 @@ void BodyJsonCreator::writeArray(UsdsBaseType* object) throw (...)
 
 try
 {
-	int32_t element_number = ((UsdsArray*)object)->size();
+	int32_t element_number = ((UsdsArray*)object)->getSize();
 	int32_t i = 0;
 	*textBuff += '\n';
 	textBuff->append(shiftLevel, '\t');

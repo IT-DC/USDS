@@ -22,7 +22,7 @@ namespace usds
 		~Dictionary();
 
 		// Dictionary construction
-		void setID(int32_t id, uint8_t major, uint8_t minor) throw (...);
+		void setID(uint32_t id, uint8_t major, uint8_t minor) throw (...);
 		
 		// construction
 		DictionaryBaseType* addTag(usdsTypes tag_type, int32_t id, const char* name, size_t name_size) throw (...);
@@ -32,7 +32,7 @@ namespace usds
 		void finalizeDictionary() throw(...);
 
 		// Dictionary information
-		int32_t getDictionaryID()  throw (...);
+		uint32_t getDictionaryID()  throw (...);
 		uint8_t getMajorVersion() throw (...);
 		uint8_t getMinorVersion() throw (...);
 		
@@ -53,6 +53,7 @@ namespace usds
 		DictionaryBaseType* getTag(int32_t tag_id) throw (...);
 		int32_t getTagNumber() throw (...);
 
+		// TODO kill it
 		// Encode dictionary
 		const uint8_t* getBinary(size_t* size) throw(...);
 		// add existing binary
@@ -64,7 +65,7 @@ namespace usds
 	private:
 		uint8_t majorVersion;
 		uint8_t minorVersion;
-		int32_t dictionaryID;
+		uint32_t dictionaryID;
 
 		DictionaryBaseType* firstTag;
 		DictionaryBaseType* lastTag;
@@ -79,6 +80,7 @@ namespace usds
 
 		DictionaryObjectPool objectPool;
 
+		// TODO kill it
 		BinaryOutput binary;
 
 	};

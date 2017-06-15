@@ -52,7 +52,6 @@ namespace usds
 		void writeUVarint(UsdsBaseType* object) throw (...);
 		void writeString(UsdsBaseType* object) throw (...);
 		void writeArray(UsdsBaseType* object) throw (...);
-		void writeList(UsdsBaseType* object) throw (...);
 		void writeMap(UsdsBaseType* object) throw (...);
 		void writePolymorph(UsdsBaseType* object) throw (...);
 		void writeStruct(UsdsBaseType* object) throw (...);

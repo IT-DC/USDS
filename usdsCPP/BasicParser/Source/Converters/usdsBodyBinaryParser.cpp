@@ -37,9 +37,8 @@ BodyBinaryParser::BodyBinaryParser()
 	readIndex[USDS_UVARINT] = &BodyBinaryParser::readUVarint;
 	readIndex[USDS_STRING] = &BodyBinaryParser::readString;
 	readIndex[USDS_ARRAY] = &BodyBinaryParser::readArray;
-	readIndex[USDS_LIST] = &BodyBinaryParser::readList;
 	readIndex[USDS_MAP] = &BodyBinaryParser::readMap;
-	readIndex[USDS_POLYMORPH] = &BodyBinaryParser::readPolymorph;
+	readIndex[USDS_POLYARRAY] = &BodyBinaryParser::readPolymorph;
 	readIndex[USDS_STRUCT] = &BodyBinaryParser::readStruct;
 	readIndex[USDS_FUNCTION] = &BodyBinaryParser::readFunction;
 
@@ -272,18 +271,13 @@ try
 	{
 		size_t binary_size = element_number * element_size;
 		const void* elements = usdsBuff->readByteArray(binary_size);
-		((UsdsArray*)object)->setArrayBinary(elements, binary_size);
+		//((UsdsArray*)object)->setArrayBinary(elements, binary_size);
 	}
 }
 catch (ErrorStack& err)
 {
 	err.addLevel("BodyBinaryParser::readArray") << (void*)object;
 	throw;
-};
-
-void BodyBinaryParser::readList(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readList") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type LIST for Body Binary Parser");
 };
 
 void BodyBinaryParser::readMap(UsdsBaseType* object) throw (...)

@@ -48,9 +48,8 @@ DictionaryBinaryCreator::DictionaryBinaryCreator()
 	writeIndex[USDS_UVARINT] = &DictionaryBinaryCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &DictionaryBinaryCreator::writeString;
 	writeIndex[USDS_ARRAY] = &DictionaryBinaryCreator::writeArray;
-	writeIndex[USDS_LIST] = &DictionaryBinaryCreator::writeList;
 	writeIndex[USDS_MAP] = &DictionaryBinaryCreator::writeMap;
-	writeIndex[USDS_POLYMORPH] = &DictionaryBinaryCreator::writePolymorph;
+	writeIndex[USDS_POLYARRAY] = &DictionaryBinaryCreator::writePolymorph;
 	writeIndex[USDS_STRUCT] = &DictionaryBinaryCreator::writeStruct;
 	writeIndex[USDS_FUNCTION] = &DictionaryBinaryCreator::writeFunction;
 
@@ -66,13 +65,13 @@ try
 	// Write tags
 	for (int32_t id = 1; id <= dict->getTagNumber(); id++)
 	{
-		outBuffer->writeUByte(USDS_TAG_SIGNATURE);
+		outBuffer->writeSignature(USDS_TAG_SIGNATURE);
 		DictionaryBaseType* tag = dict->getTag(id);
 		outBuffer->writeUVarint(tag->getID());
 		size_t size = tag->getNameSize();
 		outBuffer->writeUVarint(size);
 		outBuffer->writeByteArray((void*)tag->getName(), size);
-		outBuffer->writeByte(tag->getType());
+		outBuffer->writeType(tag->getType());
 		// write specific Tag parameters
 		(this->*(writeIndex[tag->getType()]))(tag);
 	}
@@ -223,7 +222,7 @@ void DictionaryBinaryCreator::writeUVarint(DictionaryBaseType* object) throw (..
 void DictionaryBinaryCreator::writeString(DictionaryBaseType* object) throw (...)
 try
 {
-	outBuffer->writeByte(((DictionaryString*)object)->getEncode());
+	outBuffer->writeEncode(((DictionaryString*)object)->getEncode());
 
 }
 catch (ErrorStack& err)
@@ -238,7 +237,7 @@ try
 	DictionaryBaseType* element = ((DictionaryArray*)object)->getElement();
 	usdsTypes element_type = element->getType();
 	
-	outBuffer->writeByte(element_type);
+	outBuffer->writeType(element_type);
 	(this->*(writeIndex[element_type]))(element);
 	
 }
@@ -250,11 +249,6 @@ catch (ErrorStack& err)
 {
 	err.addLevel("DictionaryBinaryCreator::writeArray") << (void*)object;
 	throw;
-};
-
-void DictionaryBinaryCreator::writeList(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeList") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type LIST for Dictionary Binary Creator");
 };
 
 void DictionaryBinaryCreator::writeMap(DictionaryBaseType* object) throw (...)
@@ -275,12 +269,12 @@ try
 	for (int32_t id = 1; id <= fieldNumber; id++)
 	{
 		DictionaryBaseType* field = ((DictionaryStruct*)object)->getField(id);
-		outBuffer->writeUByte(USDS_FIELD_SIGNATURE);
+		outBuffer->writeSignature(USDS_FIELD_SIGNATURE);
 		outBuffer->writeUVarint(field->getID());
 		size_t size = field->getNameSize();
 		outBuffer->writeUVarint(size);
 		outBuffer->writeByteArray((void*)field->getName(), size);
-		outBuffer->writeByte(field->getType());
+		outBuffer->writeType(field->getType());
 		// write specific Field parameters
 		(this->*(writeIndex[field->getType()]))(field);
 	}
@@ -288,8 +282,8 @@ try
 	// write tag restrictions
 	if (!object->getRootStatus())
 	{
-		outBuffer->writeUByte(USDS_TAG_RESTRICTION_SIGNATURE);
-		outBuffer->writeUByte(USDS_TAG_RESTRICTION_NOT_ROOT_SIGNATURE); // == root is false
+		outBuffer->writeSignature(USDS_TAG_RESTRICTION_SIGNATURE);
+		outBuffer->writeSignature(USDS_TAG_RESTRICTION_NOT_ROOT_SIGNATURE); // == root is false
 	}
 
 }

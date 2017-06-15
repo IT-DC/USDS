@@ -23,7 +23,7 @@ void DictionaryTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::DICTIONARY__NOT_INITIALIZED)
+		if (err.getCode() != usds::DICTIONARY__NO_TAGS)
 		{
 			throw "Failed at the step 1\n";
 			
@@ -31,55 +31,16 @@ void DictionaryTest::test_1()
 	}
 
 	// step 2
-	try
-	{
-		dict.getDictionaryID();
+	if (dict.getDictionaryID() != 0)
 		throw "Failed at the step 2\n";
-		
-
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::DICTIONARY__NOT_INITIALIZED)
-		{
-			throw "Failed at the step 2\n";
-			
-		}
-	}
 
 	// step 3
-	try
-	{
-		dict.getMajorVersion();
+	if (dict.getMajorVersion() != 0)
 		throw "Failed at the step 3\n";
-		
-
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::DICTIONARY__NOT_INITIALIZED)
-		{
-			throw "Failed at the step 3\n";
-			
-		}
-	}
 
 	// step 4
-	try
-	{
-		dict.getMinorVersion();
+	if (dict.getMinorVersion() != 0)
 		throw "Failed at the step 4\n";
-		
-
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::DICTIONARY__NOT_INITIALIZED)
-		{
-			throw "Failed at the step 4\n";
-			
-		}
-	}
 
 	// step 5
 	try
@@ -162,36 +123,21 @@ void DictionaryTest::test_1()
 // Test dictionary identifier 
 void DictionaryTest::test_2()
 {
-	// step 1
 	usds::Dictionary dict(0);
-	try
-	{
-		dict.setID(-2, 2, 4);
-		throw "Failed at the step 1\n";
-		
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::DICTIONARY__ID_ERROR_VALUE)
-		{
-			throw "Failed at the step 1\n";
-			
-		}
-	}
 	
-	// step 2
+	// step 1
 	dict.setID(25, 2, 4);
 	if (dict.getDictionaryID() != 25 || dict.getMajorVersion() != 2 || dict.getMinorVersion() != 4)
 	{
-		throw "Failed at the step 2\n";
+		throw "Failed at the step 1\n";
 		
 	}
 
-	// step 3
+	// step 2
 	try
 	{
 		dict.finalizeDictionary();
-		throw "Failed at the step 3\n";
+		throw "Failed at the step 2\n";
 		
 	}
 	catch (usds::ErrorStack& err)
