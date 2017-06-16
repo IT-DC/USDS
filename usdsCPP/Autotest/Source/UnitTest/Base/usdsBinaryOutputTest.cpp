@@ -4,7 +4,7 @@
 
 void BinaryOutputTest::test_1()
 {
-	usds::BinaryOutput binary;
+	usds::BinaryOutput binary(64);
 
 	// step 1
 	size_t size = 0;
@@ -13,7 +13,7 @@ void BinaryOutputTest::test_1()
 		throw "Failed at the step 1\n";
 	}
 	// step 2
-	if (size != 0 || binary.getSize()!=0 || !binary.isEmpty())
+	if (size != 0 || binary.getSize()!=0)
 	{
 		throw "Failed at the step 2\n";
 	}
@@ -31,11 +31,25 @@ void BinaryOutputTest::test_1()
 		}
 	}
 
+	// step 4
+	try
+	{
+		size = binary.getBufferSize();
+		binary.setBufferSize(size + 2000);
+		size_t new_size = binary.getBufferSize();
+		if ((size + 2000) > new_size)
+			throw "Failed at the step 4\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 4\n";
+	}
+
 }
 
 void BinaryOutputTest::test_2()
 {
-	usds::BinaryOutput binary;
+	usds::BinaryOutput binary(64);
 	size_t size;
 	int32_t varint_size;
 	const uint8_t* buff;
@@ -147,7 +161,7 @@ void BinaryOutputTest::test_2()
 
 void BinaryOutputTest::test_3()
 {
-	usds::BinaryOutput binary;
+	usds::BinaryOutput binary(64);
 	const uint8_t* buff;
 	size_t size = 0;
 
@@ -220,7 +234,7 @@ void BinaryOutputTest::test_3()
 	// step 9
 	binary.clear();
 	buff = binary.getBinary(&size);
-	if (size != 0 || !binary.isEmpty())
+	if (size != 0 || binary.getSize() != 0)
 	{
 		throw "Failed at the step 9\n";
 	}
@@ -229,7 +243,7 @@ void BinaryOutputTest::test_3()
 
 void BinaryOutputTest::test_4()
 {
-	usds::BinaryOutput* binary = new usds::BinaryOutput();
+	usds::BinaryOutput* binary = new usds::BinaryOutput(64);
 
 	// step 1
 	try
@@ -319,7 +333,7 @@ void BinaryOutputTest::test_4()
 
 void BinaryOutputTest::test_5()
 {
-	usds::BinaryOutput binary;
+	usds::BinaryOutput binary(64);
 
 	// step 1
 	try
@@ -387,7 +401,7 @@ void BinaryOutputTest::test_5()
 
 void BinaryOutputTest::test_6()
 {
-	usds::BinaryOutput binary;
+	usds::BinaryOutput binary(64);
 
 	// step 1
 	int8_t value = 120;
@@ -637,7 +651,7 @@ void BinaryOutputTest::test_6()
 
 void BinaryOutputTest::test_7()
 {
-	usds::BinaryOutput binary;
+	usds::BinaryOutput binary(64);
 
 	// step 1
 	int16_t value = 120;
@@ -851,7 +865,7 @@ void BinaryOutputTest::test_7()
 
 void BinaryOutputTest::test_8()
 {
-	usds::BinaryOutput binary;
+	usds::BinaryOutput binary(64);
 
 	// step 1
 	int32_t value = 120;
@@ -1041,7 +1055,7 @@ void BinaryOutputTest::test_8()
 
 void BinaryOutputTest::test_9()
 {
-	usds::BinaryOutput binary;
+	usds::BinaryOutput binary(64);
 
 	// step 1
 	int64_t value = 120;
@@ -1227,3 +1241,802 @@ void BinaryOutputTest::test_9()
 	}
 
 }
+
+void BinaryOutputTest::test_10()
+{
+	usds::BinaryOutput binary(0);
+
+	// step 1
+	uint8_t value = 120;
+	try
+	{
+		binary.write(usds::USDS_BYTE, value);
+		if (binary.getBinary()[0] != 120)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	}
+	
+	// step 2
+	value = 200;
+	try
+	{
+		binary.write(usds::USDS_BYTE, value);
+		throw "Failed at the step 2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 2\n";
+	}
+	
+	// step 3
+	try
+	{
+		binary.write(usds::USDS_UBYTE, value);
+		if (binary.getBinary()[1] != 200)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	}
+
+
+	// step 4
+	try
+	{
+		binary.write(usds::USDS_INT, value);
+		if (binary.getBinary()[2] != 200 || binary.getBinary()[3] != 0 || binary.getBinary()[4] != 0 || binary.getBinary()[5] != 0)
+			throw "Failed at the step 4\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 4\n";
+	}
+
+	// step 5
+	try
+	{
+		binary.write(usds::USDS_LONG, value);
+		if (binary.getBinary()[6] != 200 || binary.getBinary()[7] != 0 || binary.getBinary()[8] != 0 || binary.getBinary()[9] != 0
+			|| binary.getBinary()[10] != 0 || binary.getBinary()[11] != 0 || binary.getBinary()[12] != 0 || binary.getBinary()[13] != 0)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	}
+
+	// step 6
+	value = 0;
+	try
+	{
+		binary.read(0, usds::USDS_BYTE, &value);
+		if (value != 120)
+			throw "Failed at the step 6\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 6\n";
+	}
+
+	// step 7
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_BYTE, &value);
+		throw "Failed at the step 7\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 7\n";
+	}
+
+	// step 8
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_UBYTE, &value);
+		if (value != 200)
+			throw "Failed at the step 8\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 8\n";
+	}
+
+	// step 11
+	value = 0;
+	try
+	{
+		binary.read(2, usds::USDS_INT, &value);
+		if (value != 200)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	}
+
+	// step 12
+	value = 0;
+	try
+	{
+		binary.read(0, usds::USDS_INT, &value);
+		throw "Failed at the step 12\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 12\n";
+	}
+
+	// step 13
+	value = 0;
+	try
+	{
+		binary.write(usds::USDS_UBYTE, 255);
+		binary.write(usds::USDS_UBYTE, 255);
+		binary.read(1, usds::USDS_INT, &value);
+		throw "Failed at the step 13\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 13\n";
+	}
+
+	// step 14
+	value = 0;
+	try
+	{
+		binary.read(6, usds::USDS_LONG, &value);
+		if (value != 200)
+			throw "Failed at the step 14\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 14\n";
+	}
+
+	// step 15
+	value = 0;
+	try
+	{
+		binary.read(0, usds::USDS_LONG, &value);
+		throw "Failed at the step 15\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 15\n";
+	}
+
+	// step 16
+	value = 0;
+	try
+	{
+		binary.read(8, usds::USDS_LONG, &value);
+		throw "Failed at the step 16\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 16\n";
+	}
+
+
+};
+
+
+void BinaryOutputTest::test_11()
+{
+	usds::BinaryOutput binary(64);
+
+	// step 1
+	uint16_t value = 120;
+	try
+	{
+		binary.write(usds::USDS_BYTE, value);
+		if (binary.getBinary()[0] != 120)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	}
+
+	// step 2
+	value = 200;
+	try
+	{
+		binary.write(usds::USDS_BYTE, value);
+		throw "Failed at the step 2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 2\n";
+	}
+
+	// step 3
+	value = 200;
+	try
+	{
+		binary.write(usds::USDS_UBYTE, value);
+		if (binary.getBinary()[1] != 200)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	}
+
+	// step 4
+	value = 400;
+	try
+	{
+		binary.write(usds::USDS_UBYTE, value);
+		throw "Failed at the step 4\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 4\n";
+	}
+
+	// step 5
+	value = 10000;
+	try
+	{
+		binary.write(usds::USDS_INT, value);
+		if (binary.getBinary()[2] != 0x10 || binary.getBinary()[3] != 0x27 || binary.getBinary()[4] != 0 || binary.getBinary()[5] != 0)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	}
+
+	// step 6
+	value = 20000;
+	try
+	{
+		binary.write(usds::USDS_LONG, value);
+		if (binary.getBinary()[6] != 0x20 || binary.getBinary()[7] != 0x4E || binary.getBinary()[8] != 0 || binary.getBinary()[9] != 0 ||
+			binary.getBinary()[10] != 0 || binary.getBinary()[11] != 0 || binary.getBinary()[12] != 0 || binary.getBinary()[13] != 0)
+			throw "Failed at the step 6\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 6\n";
+	}
+
+	// step 7
+	value = 0;
+	try
+	{
+		binary.read(0, usds::USDS_BYTE, &value);
+		if (value != 120)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	}
+
+	// step 8
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_BYTE, &value);
+		throw "Failed at the step 8\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 8\n";
+	}
+
+	// step 9
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_UBYTE, &value);
+		if (value != 200)
+			throw "Failed at the step 9\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 9\n";
+	}
+
+	// step 10
+	value = 0;
+	try
+	{
+		binary.read(2, usds::USDS_INT, &value);
+		if (value != 10000)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	}
+
+	// step 11
+	value = 0;
+	try
+	{
+		binary.read(0, usds::USDS_INT, &value);
+		throw "Failed at the step 11\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 11\n";
+	}
+
+	// step 12
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_INT, &value);
+		throw "Failed at the step 12\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 12\n";
+	}
+
+	// step 13
+	value = 0;
+	try
+	{
+		binary.read(6, usds::USDS_LONG, &value);
+		if (value != 20000)
+			throw "Failed at the step 13\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 13\n";
+	}
+
+	// step 14
+	value = 0;
+	try
+	{
+		binary.read(0, usds::USDS_LONG, &value);
+		throw "Failed at the step 14\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 14\n";
+	}
+
+	// step 15
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_LONG, &value);
+		throw "Failed at the step 15\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 15\n";
+	}
+
+}
+
+void BinaryOutputTest::test_12()
+{
+	usds::BinaryOutput binary(64);
+
+	// step 1
+	uint32_t value = 120;
+	try
+	{
+		binary.write(usds::USDS_BYTE, value);
+		if (binary.getBinary()[0] != 120)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	}
+
+	// step 2
+	value = 200;
+	try
+	{
+		binary.write(usds::USDS_BYTE, value);
+		throw "Failed at the step 2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 2\n";
+	}
+
+	// step 3
+	value = 200;
+	try
+	{
+		binary.write(usds::USDS_UBYTE, value);
+		if (binary.getBinary()[1] != 200)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	}
+
+	// step 4
+	value = 400;
+	try
+	{
+		binary.write(usds::USDS_UBYTE, value);
+		throw "Failed at the step 4\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 4\n";
+	}
+
+	// step 5
+	value = 1000000000;
+	try
+	{
+		binary.write(usds::USDS_INT, value);
+		if (binary.getBinary()[2] != 0 || binary.getBinary()[3] != 0xCA || binary.getBinary()[4] != 0x9A || binary.getBinary()[5] != 0x3B)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	}
+
+	// step 6
+	value = 4000000000;
+	try
+	{
+		binary.write(usds::USDS_INT, value);
+		throw "Failed at the step 6\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 6\n";
+	}
+
+	// step 8
+	value = 4000000000;
+	try
+	{
+		binary.write(usds::USDS_LONG, value);
+		if (binary.getBinary()[6] != 0 || binary.getBinary()[7] != 0x28 || binary.getBinary()[8] != 0x6B || binary.getBinary()[9] != 0xEE ||
+			binary.getBinary()[10] != 0 || binary.getBinary()[11] != 0 || binary.getBinary()[12] != 0 || binary.getBinary()[13] != 0)
+			throw "Failed at the step 8\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 8\n";
+	}
+
+	// step 9
+	value = 0;
+	try
+	{
+		binary.read(0, usds::USDS_BYTE, &value);
+		if (value != 120)
+			throw "Failed at the step 9\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 9\n";
+	}
+
+	// step 10
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_BYTE, &value);
+		throw "Failed at the step 10\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 10\n";
+	}
+
+	// step 11
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_UBYTE, &value);
+		if (value != 200)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	}
+
+	// step 12
+	value = 0;
+	try
+	{
+		binary.read(2, usds::USDS_INT, &value);
+		if (value != 1000000000)
+			throw "Failed at the step 12\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 12\n";
+	}
+
+	// step 13
+	value = 0;
+	try
+	{
+		binary.write(usds::USDS_UBYTE, 255);
+		binary.read(11, usds::USDS_INT, &value);
+		throw "Failed at the step 13\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 13\n";
+	}
+
+	// step 14
+	value = 0;
+	try
+	{
+		binary.read(6, usds::USDS_LONG, &value);
+		if (value != 4000000000)
+			throw "Failed at the step 14\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 14\n";
+	}
+
+	// step 15
+	value = 0;
+	try
+	{
+		binary.read(0, usds::USDS_LONG, &value);
+		throw "Failed at the step 15\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 15\n";
+	}
+
+	// step 16
+	value = 0;
+	try
+	{
+		binary.read(7, usds::USDS_LONG, &value);
+		throw "Failed at the step 16\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 16\n";
+	}
+
+};
+
+void BinaryOutputTest::test_13()
+{
+	usds::BinaryOutput binary(64);
+
+	// step 1
+	uint64_t value = 120;
+	try
+	{
+		binary.write(usds::USDS_BYTE, value);
+		if (binary.getBinary()[0] != 120)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	}
+
+	// step 2
+	value = 200;
+	try
+	{
+		binary.write(usds::USDS_BYTE, value);
+		throw "Failed at the step 2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 2\n";
+	}
+
+	// step 3
+	value = 200;
+	try
+	{
+		binary.write(usds::USDS_UBYTE, value);
+		if (binary.getBinary()[1] != 200)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	}
+
+	// step 4
+	value = 400;
+	try
+	{
+		binary.write(usds::USDS_UBYTE, value);
+		throw "Failed at the step 4\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 4\n";
+	}
+
+	// step 5
+	value = 1000000000;
+	try
+	{
+		binary.write(usds::USDS_INT, value);
+		if (binary.getBinary()[2] != 0 || binary.getBinary()[3] != 0xCA || binary.getBinary()[4] != 0x9A || binary.getBinary()[5] != 0x3B)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	}
+
+	// step 6
+	value = 10000000000;
+	try
+	{
+		binary.write(usds::USDS_INT, value);
+		throw "Failed at the step 6\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 6\n";
+	}
+
+	// step 7
+	value = 10000000000;
+	try
+	{
+		binary.write(usds::USDS_LONG, value);
+		if (binary.getBinary()[6] != 0 || binary.getBinary()[7] != 0xE4 || binary.getBinary()[8] != 0x0B || binary.getBinary()[9] != 0x54 ||
+			binary.getBinary()[10] != 0x2 || binary.getBinary()[11] != 0 || binary.getBinary()[12] != 0 || binary.getBinary()[13] != 0)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	}
+
+	// step 8
+	value = UINT64_MAX;
+	try
+	{
+		binary.write(usds::USDS_LONG, value);
+		throw "Failed at the step 8\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 8\n";
+	}
+
+	// step 9
+	value = 0;
+	try
+	{
+		binary.read(0, usds::USDS_BYTE, &value);
+		if (value != 120)
+			throw "Failed at the step 9\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 9\n";
+	}
+
+	// step 10
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_BYTE, &value);
+		throw "Failed at the step 10\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 10\n";
+	}
+
+	// step 11
+	value = 0;
+	try
+	{
+		binary.read(1, usds::USDS_UBYTE, &value);
+		if (value != 200)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	}
+
+	// step 12
+	value = 0;
+	try
+	{
+		binary.read(2, usds::USDS_INT, &value);
+		if (value != 1000000000)
+			throw "Failed at the step 12\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 12\n";
+	}
+
+	// step 13
+	value = 0;
+	try
+	{
+		binary.write(usds::USDS_UBYTE, 255);
+		binary.read(11, usds::USDS_INT, &value);
+		throw "Failed at the step 13\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 13\n";
+	}
+
+	// step 14
+	value = 0;
+	try
+	{
+		binary.read(6, usds::USDS_LONG, &value);
+		if (value != 10000000000)
+			throw "Failed at the step 14\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 14\n";
+	}
+
+	// step 15
+	value = 0;
+	try
+	{
+		binary.read(7, usds::USDS_LONG, &value);
+		throw "Failed at the step 15\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+			throw "Failed at the step 15\n";
+	}
+
+};

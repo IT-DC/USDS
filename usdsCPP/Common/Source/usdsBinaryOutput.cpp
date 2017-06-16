@@ -2,12 +2,12 @@
 
 using namespace usds;
 
-BinaryOutput::BinaryOutput() throw(...)
+BinaryOutput::BinaryOutput(size_t front_buffer_size) throw(...)
 try
 {
 	usdsBuff = 0;
 	defaultDocSize = 4096;
-	defaultFrontBuffSize = 64;
+	defaultFrontBuffSize = front_buffer_size;
 	try
 	{
 		usdsBuff = new uint8_t[defaultDocSize];
@@ -32,12 +32,6 @@ BinaryOutput::~BinaryOutput()
 		delete[] usdsBuff;
 };
 
-bool BinaryOutput::isEmpty()
-{
-	
-	return (buffCurrentPos == buffFirstPos);
-};
-
 void BinaryOutput::clear()
 {
 	buffFirstPos = usdsBuff + defaultFrontBuffSize;
@@ -52,14 +46,34 @@ const uint8_t* BinaryOutput::getBinary(size_t* size) throw(...)
 	return buffFirstPos;
 };
 
+const uint8_t* BinaryOutput::getBinary() throw(...)
+{
+	return buffFirstPos;
+};
+
 size_t BinaryOutput::getSize()
 {
 	return buffCurrentPos - buffFirstPos;
 };
 
-const uint8_t* BinaryOutput::getBinary() throw(...)
+size_t BinaryOutput::getBufferSize()
 {
-	return buffFirstPos;
+	return buffLastPos - buffFirstPos;
+}
+
+void BinaryOutput::setBufferSize(size_t new_size) throw(...)
+try
+{
+	size_t buff_current_size = buffLastPos - buffFirstPos;
+	if (buff_current_size >= new_size)
+		return;
+
+	checkSize(new_size - (buffCurrentPos - buffFirstPos));
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::setBufferSize") << new_size;
+	throw;
 };
 
 //==============================================================================================================
@@ -409,9 +423,9 @@ try
 	size_t doc_current_size = buffCurrentPos - buffFirstPos;
 	size_t front_buff_current_size = buffFirstPos - usdsBuff;
 	size_t new_size = buff_current_size + buff_current_size / 4;
-	if ((new_size - buff_current_size) < min_increase)
-		new_size = buff_current_size + min_increase;
-	// Size have to be a multiple of 64 byte
+	if (((new_size - doc_current_size) - front_buff_current_size) < min_increase)
+		new_size = doc_current_size + front_buff_current_size + min_increase;
+	// Size has to be a multiple of 64 byte
 	new_size = (new_size / 64 + 1) * 64;
 
 	// Buffer overflow
@@ -622,6 +636,52 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::write(usdsTypes usds_type, uint8_t value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_BYTE:
+	{
+		if (value > 127)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		int8_t proxy_value = (int8_t)value;
+		writeByte(proxy_value);
+		break;
+	}
+	case USDS_UBYTE:
+	{
+		writeUByte(value);
+		break;
+	}
+	case USDS_INT:
+	{
+		int32_t proxy_value = value;
+		writeInt(proxy_value);
+		break;
+	}
+	case USDS_LONG:
+	{
+		int64_t proxy_value = value;
+		writeLong(proxy_value);
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from uint8_t to " << usdsTypeName(usds_type);
+	}
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::write") << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::write") << usds_type << value;
+	throw;
+};
+
+
 void BinaryOutput::write(usdsTypes usds_type, int16_t value) throw(...)
 try
 {
@@ -669,6 +729,54 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::write(usdsTypes usds_type, uint16_t value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_BYTE:
+	{
+		if (value > 127)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		int8_t proxy_value = (int8_t)value;
+		writeByte(proxy_value);
+		break;
+	}
+	case USDS_UBYTE:
+	{
+		if (value > 255)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		uint8_t proxy_value = (uint8_t)value;
+		writeUByte(proxy_value);
+		break;
+	}
+	case USDS_INT:
+	{
+		int32_t proxy_value = value;
+		writeInt(proxy_value);
+		break;
+	}
+	case USDS_LONG:
+	{
+		int64_t proxy_value = value;
+		writeLong(proxy_value);
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from uint16_t to " << usdsTypeName(usds_type);
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::write") << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::write") << usds_type << value;
+	throw;
+};
+
+
 void BinaryOutput::write(usdsTypes usds_type, int32_t value) throw(...)
 try
 {
@@ -715,6 +823,56 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::write(usdsTypes usds_type, uint32_t value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_BYTE:
+	{
+		if (value > 127)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		int8_t proxy_value = (int8_t)value;
+		writeByte(proxy_value);
+		break;
+	}
+	case USDS_UBYTE:
+	{
+		if (value > 255)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		uint8_t proxy_value = (uint8_t)value;
+		writeUByte(proxy_value);
+		break;
+	}
+	case USDS_INT:
+	{
+		if (value > INT32_MAX)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		int32_t proxy_value = (int32_t)value;
+		writeInt(proxy_value);
+		break;
+	}
+	case USDS_LONG:
+	{
+		int64_t proxy_value = value;
+		writeLong(proxy_value);
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from uint32_t to " << usdsTypeName(usds_type);
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::write") << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::write") << usds_type << value;
+	throw;
+};
+
+
 void BinaryOutput::write(usdsTypes usds_type, int64_t value) throw(...)
 try
 {
@@ -751,6 +909,57 @@ try
 	}
 	default:
 		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from int64_t to " << usdsTypeName(usds_type);
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::write") << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::write") << usds_type << value;
+	throw;
+};
+
+void BinaryOutput::write(usdsTypes usds_type, uint64_t value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_BYTE:
+	{
+		if (value > 127)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		int8_t proxy_value = (int8_t)value;
+		writeByte(proxy_value);
+		break;
+	}
+	case USDS_UBYTE:
+	{
+		if (value > 255)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		uint8_t proxy_value = (uint8_t)value;
+		writeUByte(proxy_value);
+		break;
+	}
+	case USDS_INT:
+	{
+		if (value > INT32_MAX)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		int32_t proxy_value = (int32_t)value;
+		writeInt(proxy_value);
+		break;
+	}
+	case USDS_LONG:
+	{
+		if (value > INT64_MAX)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [-(2^63), (2^63–1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+		int64_t proxy_value = (int64_t)value;
+		writeLong(proxy_value);
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from uint64_t to " << usdsTypeName(usds_type);
 	}
 }
 catch (ErrorMessage& msg)
@@ -961,6 +1170,58 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::read(size_t position, usdsTypes usds_type, uint8_t* value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_BYTE:
+	{
+		int8_t proxy_value;
+		readByte(position, &proxy_value);
+		if (proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[0, 255] for type uint8_t. Value in USDS binary: " << *value;
+		*value = (uint8_t)proxy_value;
+		break;
+	}
+	case USDS_UBYTE:
+	{
+		readUByte(position, value);
+		break;
+	}
+	case USDS_INT:
+	{
+		int32_t proxy_value;
+		readInt(position, &proxy_value);
+		if (proxy_value > 255 || proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[0, 255] for type uint8_t. Value in USDS binary: " << *value;
+		*value = (uint8_t)proxy_value;
+		break;
+	}
+	case USDS_LONG:
+	{
+		int64_t proxy_value;
+		readLong(position, &proxy_value);
+		if (proxy_value > 255 || proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[0, 255] for type uint8_t. Value in USDS binary: " << *value;
+		*value = (uint8_t)proxy_value;
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to uint8_t";
+
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::read") << position << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::read") << position << usds_type << value;
+	throw;
+};
+
 void BinaryOutput::read(size_t position, usdsTypes usds_type, int16_t* value) throw(...)
 try
 {
@@ -1000,6 +1261,60 @@ try
 	}
 	default:
 		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to int16_t";
+
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::read") << position << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::read") << position << usds_type << value;
+	throw;
+};
+
+void BinaryOutput::read(size_t position, usdsTypes usds_type, uint16_t* value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_BYTE:
+	{
+		int8_t proxy_value;
+		readByte(position, &proxy_value);
+		if (proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[0, 65535] for type uint16_t. Value in USDS binary: " << *value;
+		*value = (uint16_t)proxy_value;
+		break;
+	}
+	case USDS_UBYTE:
+	{
+		uint8_t proxy_value;
+		readUByte(position, &proxy_value);
+		*value = proxy_value;
+		break;
+	}
+	case USDS_INT:
+	{
+		int32_t proxy_value;
+		readInt(position, &proxy_value);
+		if (proxy_value > 65535 || proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[0, 65535] for type uint16_t. Value in USDS binary: " << *value;
+		*value = (uint16_t)proxy_value;
+		break;
+	}
+	case USDS_LONG:
+	{
+		int64_t proxy_value;
+		readLong(position, &proxy_value);
+		if (proxy_value > 65535 || proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range[0, 65535] for type uint16_t. Value in USDS binary: " << *value;
+		*value = (uint16_t)proxy_value;
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to uint16_t";
 
 	}
 }
@@ -1061,6 +1376,60 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::read(size_t position, usdsTypes usds_type, uint32_t* value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_BYTE:
+	{
+		int8_t proxy_value;
+		readByte(position, &proxy_value);
+		if (proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [0, 4294967295] for type uint32_t. Value in USDS binary: " << *value;
+		*value = (uint32_t)proxy_value;
+		break;
+	}
+	case USDS_UBYTE:
+	{
+		uint8_t proxy_value;
+		readUByte(position, &proxy_value);
+		*value = proxy_value;
+		break;
+	}
+	case USDS_INT:
+	{
+		int32_t proxy_value;
+		readInt(position, &proxy_value);
+		if (proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [0, 4294967295] for type uint32_t. Value in USDS binary: " << *value;
+		*value = (uint32_t)proxy_value;
+		break;
+	}
+	case USDS_LONG:
+	{
+		int64_t proxy_value;
+		readLong(position, &proxy_value);
+		if (proxy_value > UINT32_MAX || proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [0, 4294967295] for type uint32_t. Value in USDS binary: " << *value;
+		*value = (uint32_t)proxy_value;
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to uint32_t";
+
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::read") << position << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::read") << position << usds_type << value;
+	throw;
+};
+
 void BinaryOutput::read(size_t position, usdsTypes usds_type, int64_t* value) throw(...)
 try
 {
@@ -1107,5 +1476,57 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::read(size_t position, usdsTypes usds_type, uint64_t* value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_BYTE:
+	{
+		int8_t proxy_value;
+		readByte(position, &proxy_value);
+		if (proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [0, (2^64-1)] for type uint64_t. Value in USDS binary: " << *value;
+		*value = (uint64_t)proxy_value;
+		break;
+	}
+	case USDS_UBYTE:
+	{
+		uint8_t proxy_value;
+		readUByte(position, &proxy_value);
+		*value = proxy_value;
+		break;
+	}
+	case USDS_INT:
+	{
+		int32_t proxy_value;
+		readInt(position, &proxy_value);
+		if (proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [0, (2^64-1)] for type uint64_t. Value in USDS binary: " << *value;
+		*value = (uint64_t)proxy_value;
+		break;
+	}
+	case USDS_LONG:
+	{
+		int64_t proxy_value;
+		readLong(position, &proxy_value);
+		if (proxy_value < 0)
+			throw ErrorMessage(BIN_OUT__VALUE_CONVERSION) << "Value must be in range [0, (2^64-1)] for type uint64_t. Value in USDS binary: " << *value;
+		*value = (uint64_t)proxy_value;
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to int64_t";
 
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::read") << position << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::read") << position << usds_type << value;
+	throw;
+};
 

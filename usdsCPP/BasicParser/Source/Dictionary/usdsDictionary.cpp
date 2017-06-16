@@ -4,7 +4,7 @@
 
 using namespace usds;
 
-Dictionary::Dictionary(BasicParser* parent) : objectPool(this)
+Dictionary::Dictionary(BasicParser* parent) : objectPool(this), binary(64)
 {
 	dictionaryID = 0;
 	majorVersion = 0;
@@ -290,7 +290,7 @@ try
 	if (!finalized)
 		throw ErrorMessage(DICTIONARY__NOT_FINALIZED, "Dictionary not finalized");
 	
-	if (binary.isEmpty())
+	if (binary.getSize() == 0)
 	{
 		DictionaryBinaryCreator creator;
 		creator.generate(&binary, this);

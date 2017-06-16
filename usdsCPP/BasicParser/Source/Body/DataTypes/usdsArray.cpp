@@ -5,7 +5,7 @@
 
 using namespace usds;
 
-UsdsArray::UsdsArray(Body* parent_body) : UsdsBaseType(parent_body)
+UsdsArray::UsdsArray(Body* parent_body) : UsdsBaseType(parent_body), elementValues(0)
 {
 
 }

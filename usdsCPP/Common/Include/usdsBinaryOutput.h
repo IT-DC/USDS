@@ -14,19 +14,23 @@ namespace usds
 		BIN_OUT__BEEG_VALUE = 14,
 		BIN_OUT__NULL_POINTER = 15,
 		BIN_OUT__UNSUPPORTED_CONVERSION = 16,
-		BIN_OUT__VALUE_CONVERSION = 17
+		BIN_OUT__VALUE_CONVERSION = 17,
+		BIN_OUT__ALREADY_INITIALIZED = 18
 	};
 
 	class BinaryOutput
 	{
 	public:
-		BinaryOutput() throw(...);
+		BinaryOutput(size_t front_buffer_size) throw(...);
 		~BinaryOutput();
 
 		const uint8_t* getBinary(size_t* size) throw(...);
 		const uint8_t* getBinary() throw(...);
 		size_t getSize();
-		bool isEmpty();
+		
+		// Working only with a data buffer, without front buffer
+		size_t getBufferSize();
+		void setBufferSize(size_t new_size) throw(...);
 
 		void clear();		// it does not release memory in the buffer
 
@@ -49,6 +53,7 @@ namespace usds
 		void readByteArray(size_t position, void* value, size_t size) throw(...);
 
 		// For usds headers
+		// Working only with the front buffer
 		void pushFrontSize() throw(...);
 		void pushFrontUByte(uint8_t value) throw(...);
 		void pushFrontUInt(uint32_t value) throw(...);
@@ -85,6 +90,9 @@ namespace usds
 		void read(size_t position, usdsTypes usds_type, uint64_t* value) throw(...);
 		void read(size_t position, usdsTypes usds_type, float* value) throw(...);
 		void read(size_t position, usdsTypes usds_type, double* value) throw(...);
+
+		void writePointer(void* value) throw(...);
+		void readPointer(size_t position, void* value) throw(...);
 
 	private:
 		// Buffer for USDS output document
