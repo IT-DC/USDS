@@ -285,12 +285,12 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::writeDouble(double value) throw(...)
+void BinaryOutput::writeFloat(float value) throw(...)
 try 
 {
-	checkSize(8);
-	memcpy(buffCurrentPos, &value, 8);
-	buffCurrentPos += 8;
+	checkSize(4);
+	memcpy(buffCurrentPos, &value, 4);
+	buffCurrentPos += 4;
 	
 }
 catch (ErrorStack& err)
@@ -298,6 +298,21 @@ catch (ErrorStack& err)
 	err.addLevel("BinaryOutput::writeDouble") << value;
 	throw;
 };
+
+void BinaryOutput::writeDouble(double value) throw(...)
+try
+{
+	checkSize(8);
+	memcpy(buffCurrentPos, &value, 8);
+	buffCurrentPos += 8;
+
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeDouble") << value;
+	throw;
+};
+
 
 void BinaryOutput::writeByteArray(const void* value, size_t size) throw(...)
 try
@@ -972,6 +987,60 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::write(usdsTypes usds_type, float value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_FLOAT:
+	{
+		writeFloat(value);
+		break;
+	}
+	case USDS_DOUBLE:
+	{
+		double proxy_value = value;
+		writeDouble(proxy_value);
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from float to " << usdsTypeName(usds_type);
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::write") << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::write") << usds_type << value;
+	throw;
+};
+
+void BinaryOutput::write(usdsTypes usds_type, double value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_DOUBLE:
+	{
+		writeDouble(value);
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from double to " << usdsTypeName(usds_type);
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::write") << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::write") << usds_type << value;
+	throw;
+};
+
 //===================================================================================================================
 
 void BinaryOutput::readBoolean(size_t position, bool* value) throw(...)
@@ -1089,6 +1158,52 @@ catch (ErrorMessage& msg)
 catch (ErrorStack& err)
 {
 	err.addLevel("BinaryOutput::readLong") << position << value;
+	throw;
+};
+
+void BinaryOutput::readFloat(size_t position, float* value) throw(...)
+try
+{
+	if (value == 0)
+		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
+
+	// check buff size
+	size_t doc_size = buffCurrentPos - buffFirstPos;
+	if ((position + USDS_FLOAT_SIZE) > (doc_size))
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_FLOAT_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
+
+	memcpy(value, buffFirstPos + position, USDS_FLOAT_SIZE);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::readFloat") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::readFloat") << position << value;
+	throw;
+};
+
+void BinaryOutput::readDouble(size_t position, double* value) throw(...)
+try
+{
+	if (value == 0)
+		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
+
+	// check buff size
+	size_t doc_size = buffCurrentPos - buffFirstPos;
+	if ((position + USDS_DOUBLE_SIZE) > (doc_size))
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_DOUBLE_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
+
+	memcpy(value, buffFirstPos + position, USDS_DOUBLE_SIZE);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::readDouble") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::readDouble") << position << value;
 	throw;
 };
 
@@ -1529,4 +1644,98 @@ catch (ErrorStack& err)
 	err.addLevel("BinaryOutput::read") << position << usds_type << value;
 	throw;
 };
+
+void BinaryOutput::read(size_t position, usdsTypes usds_type, float* value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_FLOAT:
+	{
+		readFloat(position, value);
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to float";
+
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::read") << position << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::read") << position << usds_type << value;
+	throw;
+};
+
+void BinaryOutput::read(size_t position, usdsTypes usds_type, double* value) throw(...)
+try
+{
+	switch (usds_type)
+	{
+	case USDS_FLOAT:
+	{
+		float proxy_value;
+		readFloat(position, &proxy_value);
+		*value = proxy_value;
+		break;
+	}
+	case USDS_DOUBLE:
+	{
+		readDouble(position, value);
+		break;
+	}
+	default:
+		throw ErrorMessage(BIN_OUT__UNSUPPORTED_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to double";
+
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::read") << position << usds_type << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::read") << position << usds_type << value;
+	throw;
+};
+
+void BinaryOutput::writePointer(void* value) throw(...)
+try
+{
+	checkSize(sizeof(void*));
+	memcpy(buffCurrentPos, &value, sizeof(void*));
+	buffCurrentPos += sizeof(void*);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writePointer") << value;
+	throw;
+};
+
+void BinaryOutput::readPointer(size_t position, void** value) throw(...)
+try
+{
+	if (value == 0)
+		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
+
+	// check buff size
+	size_t doc_size = buffCurrentPos - buffFirstPos;
+	if ((position + sizeof(void*)) > (doc_size))
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << sizeof(void*) << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
+
+	memcpy(value, buffFirstPos + position, sizeof(void*));
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BinaryOutput::readPointer") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::readPointer") << position << value;
+	throw;
+};
+
 

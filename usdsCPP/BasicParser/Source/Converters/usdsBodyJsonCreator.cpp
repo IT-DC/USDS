@@ -291,7 +291,7 @@ try
 
 		while (true)
 		{
-			UsdsBaseType* tag = (((UsdsArray*)object)->getTag(i));
+			UsdsBaseType* tag = (((UsdsArray*)object)->getElement(i));
 			// write specific Tag parameters
 			(this->*(writeIndex[tag->getType()]))(tag);
 			i++;

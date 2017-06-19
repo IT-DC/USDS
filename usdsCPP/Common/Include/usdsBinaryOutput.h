@@ -40,6 +40,7 @@ namespace usds
 		void writeUByte(uint8_t value) throw(...);
 		void writeInt(int32_t value) throw(...);
 		void writeLong(int64_t value) throw(...);
+		void writeFloat(float value) throw(...);
 		void writeDouble(double value) throw(...);
 		size_t writeUVarint(uint64_t value) throw(...);
 		size_t writeUVarint(uint32_t value) throw(...);
@@ -77,6 +78,7 @@ namespace usds
 		void readUByte(size_t position, uint8_t* value) throw(...);
 		void readInt(size_t position, int32_t* value) throw(...);
 		void readLong(size_t position, int64_t* value) throw(...);
+		void readFloat(size_t position, float* value) throw(...);
 		void readDouble(size_t position, double* value) throw(...);
 
 		void read(size_t position, usdsTypes usds_type, bool* value) throw(...);
@@ -92,7 +94,7 @@ namespace usds
 		void read(size_t position, usdsTypes usds_type, double* value) throw(...);
 
 		void writePointer(void* value) throw(...);
-		void readPointer(size_t position, void* value) throw(...);
+		void readPointer(size_t position, void** value) throw(...);
 
 	private:
 		// Buffer for USDS output document

@@ -13,7 +13,6 @@ void DictionaryArrayTest::test_1()
 	usds::DictionaryArray* object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 
 	// step 1
-
 	try
 	{
 		object->setElementType(usds::USDS_NO_TYPE);
@@ -26,38 +25,6 @@ void DictionaryArrayTest::test_1()
 			throw "Failed at the step 1\n";
 		}
 	}
-
-	// step 2
-
-	/*
-	try
-	{
-		object->setElementType(usds::USDS_ARRAY);
-		throw "Failed at the step 2\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::DIC_ARRAY__ERROR_ELEMENT_TYPE)
-		{
-			throw "Failed at the step 2\n";
-		}
-	}
-
-	// step 3
-
-	try
-	{
-		object->setElementType(usds::USDS_STRUCT);
-		throw "Failed at the step 3\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::DIC_ARRAY__ERROR_ELEMENT_TYPE)
-		{
-			throw "Failed at the step 3\n";
-		}
-	}
-	*/
 
 	// step 4
 	try

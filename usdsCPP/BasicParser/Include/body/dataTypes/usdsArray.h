@@ -15,9 +15,14 @@ namespace usds
 		usdsTypes getType() { return USDS_ARRAY; };
 		const char* getTypeName() { return "ARRAY"; };
 
-		size_t getSize() throw(...);
-		size_t setSize() throw(...);
-		usdsTypes getElementType() throw(...);
+		size_t getSize();
+		usdsTypes getElementType();
+		const char* getElementName();
+		size_t getElementNameSize();
+		int32_t getElementId();
+
+		void setBufferSize(size_t buffer_size) throw(...);
+		size_t getBufferSize();
 
 		void pushBack(bool value) throw (...);
 		void pushBack(int8_t value) throw (...);
@@ -46,38 +51,38 @@ namespace usds
 		void pushBack(double* value, size_t array_size) throw (...);
 		void pushBack(const char** value, size_t array_size) throw (...);
 
-		void setValue(size_t number, bool value) throw (...);
-		void setValue(size_t number, int8_t value) throw (...);
-		void setValue(size_t number, uint8_t value) throw (...);
-		void setValue(size_t number, int16_t value) throw (...);
-		void setValue(size_t number, uint16_t value) throw (...);
-		void setValue(size_t number, int32_t value) throw (...);
-		void setValue(size_t number, uint32_t value) throw (...);
-		void setValue(size_t number, int64_t value) throw (...);
-		void setValue(size_t number, uint64_t value) throw (...);
-		void setValue(size_t number, float value) throw (...);
-		void setValue(size_t number, double value) throw (...);
-		void setValue(size_t number, const char* value) throw (...);
-		void setValue(size_t number, const char* value, size_t size) throw (...);
+		void setValue(size_t position, bool value) throw (...);
+		void setValue(size_t position, int8_t value) throw (...);
+		void setValue(size_t position, uint8_t value) throw (...);
+		void setValue(size_t position, int16_t value) throw (...);
+		void setValue(size_t position, uint16_t value) throw (...);
+		void setValue(size_t position, int32_t value) throw (...);
+		void setValue(size_t position, uint32_t value) throw (...);
+		void setValue(size_t position, int64_t value) throw (...);
+		void setValue(size_t position, uint64_t value) throw (...);
+		void setValue(size_t position, float value) throw (...);
+		void setValue(size_t position, double value) throw (...);
+		void setValue(size_t position, const char* value) throw (...);
+		void setValue(size_t position, const char* value, size_t size) throw (...);
 
-		void getValue(size_t number, bool* value) throw (...);
-		void getValue(size_t number, int8_t* value) throw (...);
-		void getValue(size_t number, uint8_t* value) throw (...);
-		void getValue(size_t number, int16_t* value) throw (...);
-		void getValue(size_t number, uint16_t* value) throw (...);
-		void getValue(size_t number, int32_t* value) throw (...);
-		void getValue(size_t number, uint32_t* value) throw (...);
-		void getValue(size_t number, int64_t* value) throw (...);
-		void getValue(size_t number, uint64_t* value) throw (...);
-		void getValue(size_t number, float* value) throw (...);
-		void getValue(size_t number, double* value) throw (...);
-		void getValue(size_t number, const char** value) throw (...);
-		void getValue(size_t number, const char** value, size_t* size) throw (...);
+		void getValue(size_t position, bool* value) throw (...);
+		void getValue(size_t position, int8_t* value) throw (...);
+		void getValue(size_t position, uint8_t* value) throw (...);
+		void getValue(size_t position, int16_t* value) throw (...);
+		void getValue(size_t position, uint16_t* value) throw (...);
+		void getValue(size_t position, int32_t* value) throw (...);
+		void getValue(size_t position, uint32_t* value) throw (...);
+		void getValue(size_t position, int64_t* value) throw (...);
+		void getValue(size_t position, uint64_t* value) throw (...);
+		void getValue(size_t position, float* value) throw (...);
+		void getValue(size_t position, double* value) throw (...);
+		void getValue(size_t position, const char** value) throw (...);
+		void getValue(size_t position, const char** value, size_t* size) throw (...);
 
 		template <typename out_type> out_type getValue(size_t number) throw (...);
 
-		UsdsBaseType* pushTagBack() throw(...);
-		UsdsBaseType* getTag(size_t number) throw(...);
+		UsdsBaseType* pushElementBack() throw(...);
+		UsdsBaseType* getElement(size_t position) throw(...);
 
 		void erase(size_t number) throw (...);
 
@@ -90,8 +95,9 @@ namespace usds
 
 		BinaryOutput elementValues;
 		size_t elementNumber;
+		size_t elementSize;
 
-};
+	};
 
 	template <typename out_type> out_type UsdsArray::getValue(size_t number) throw (...)
 	try
