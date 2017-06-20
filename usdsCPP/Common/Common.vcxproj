@@ -23,6 +23,7 @@
     <ClCompile Include="Source\objectPool.cpp" />
     <ClCompile Include="Source\usdsBinaryInput.cpp" />
     <ClCompile Include="Source\usdsBinaryOutput.cpp" />
+    <ClCompile Include="Source\usdsTypeConverter.cpp" />
     <ClCompile Include="Source\usdsTypes.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +31,7 @@
     <ClInclude Include="Include\objectPool.h" />
     <ClInclude Include="Include\usdsBinaryInput.h" />
     <ClInclude Include="Include\usdsBinaryOutput.h" />
+    <ClInclude Include="Include\usdsTypeConverter.h" />
     <ClInclude Include="Include\usdsTypes.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

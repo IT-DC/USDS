@@ -95,7 +95,7 @@ void UsdsIntTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 		{
 			throw "Failed at the step 9\n";
 		}
@@ -118,7 +118,7 @@ void UsdsIntTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 		{
 			throw "Failed at the step 11\n";
 		}
@@ -141,7 +141,7 @@ void UsdsIntTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 		{
 			throw "Failed at the step 13\n";
 		}
@@ -265,7 +265,7 @@ void UsdsIntTest::test_2()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 		{
 			throw "Failed at the step 4\n";
 		}
@@ -287,7 +287,7 @@ void UsdsIntTest::test_2()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 		{
 			throw "Failed at the step 6\n";
 		}
@@ -309,7 +309,7 @@ void UsdsIntTest::test_2()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 		{
 			throw "Failed at the step 8\n";
 		}
@@ -331,7 +331,7 @@ void UsdsIntTest::test_2()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 		{
 			throw "Failed at the step 10\n";
 		}
@@ -367,7 +367,7 @@ void UsdsIntTest::test_2()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_INT__TOO_BIG_VALUE)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 		{
 			throw "Failed at the step 14\n";
 		}

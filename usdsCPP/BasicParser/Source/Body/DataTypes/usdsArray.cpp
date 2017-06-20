@@ -103,9 +103,178 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void UsdsArray::pushBack(int8_t value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
 
+	elementValues.write(elementType, value);
+	elementNumber++;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+void UsdsArray::pushBack(uint8_t value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	elementValues.write(elementType, value);
+	elementNumber++;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+void UsdsArray::pushBack(int16_t value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	elementValues.write(elementType, value);
+	elementNumber++;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+void UsdsArray::pushBack(uint16_t value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	elementValues.write(elementType, value);
+	elementNumber++;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
 
 void UsdsArray::pushBack(int32_t value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	elementValues.write(elementType, value);
+	elementNumber++;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+void UsdsArray::pushBack(uint32_t value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	elementValues.write(elementType, value);
+	elementNumber++;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+void UsdsArray::pushBack(int64_t value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	elementValues.write(elementType, value);
+	elementNumber++;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+void UsdsArray::pushBack(uint64_t value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	elementValues.write(elementType, value);
+	elementNumber++;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+void UsdsArray::pushBack(float value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	elementValues.write(elementType, value);
+	elementNumber++;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushBack") << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushBack") << value;
+	throw;
+};
+
+void UsdsArray::pushBack(double value) throw (...)
 try
 {
 	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
@@ -148,6 +317,89 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void UsdsArray::getValue(size_t position, int8_t* value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	if (position >= elementNumber)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
+
+	elementValues.read(position * elementSize, elementType, value);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getValue") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getValue") << position << value;
+	throw;
+};
+
+void UsdsArray::getValue(size_t position, uint8_t* value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	if (position >= elementNumber)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
+
+	elementValues.read(position * elementSize, elementType, value);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getValue") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getValue") << position << value;
+	throw;
+};
+
+void UsdsArray::getValue(size_t position, int16_t* value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	if (position >= elementNumber)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
+
+	elementValues.read(position * elementSize, elementType, value);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getValue") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getValue") << position << value;
+	throw;
+};
+
+void UsdsArray::getValue(size_t position, uint16_t* value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	if (position >= elementNumber)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
+
+	elementValues.read(position * elementSize, elementType, value);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getValue") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getValue") << position << value;
+	throw;
+};
 
 void UsdsArray::getValue(size_t position, int32_t* value) throw (...)
 try
@@ -170,7 +422,110 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void UsdsArray::getValue(size_t position, uint32_t* value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
 
+	if (position >= elementNumber)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
+
+	elementValues.read(position * elementSize, elementType, value);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getValue") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getValue") << position << value;
+	throw;
+};
+
+void UsdsArray::getValue(size_t position, int64_t* value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	if (position >= elementNumber)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
+
+	elementValues.read(position * elementSize, elementType, value);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getValue") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getValue") << position << value;
+	throw;
+};
+
+void UsdsArray::getValue(size_t position, uint64_t* value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	if (position >= elementNumber)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
+
+	elementValues.read(position * elementSize, elementType, value);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getValue") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getValue") << position << value;
+	throw;
+};
+
+void UsdsArray::getValue(size_t position, float* value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	if (position >= elementNumber)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
+
+	elementValues.read(position * elementSize, elementType, value);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getValue") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getValue") << position << value;
+	throw;
+};
+
+void UsdsArray::getValue(size_t position, double* value) throw (...)
+try
+{
+	if (elementSize == 0 && (elementType != USDS_UVARINT || elementType != USDS_VARINT))
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+
+	if (position >= elementNumber)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
+
+	elementValues.read(position * elementSize, elementType, value);
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getValue") << position << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getValue") << position << value;
+	throw;
+};
 
 //====================================================================================================================
 

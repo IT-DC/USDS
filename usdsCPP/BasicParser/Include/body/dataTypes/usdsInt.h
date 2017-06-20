@@ -2,6 +2,7 @@
 #define USDS_INT_H
 
 #include "body\usdsBaseType.h"
+#include "usdsTypeConverter.h"
 
 namespace usds
 {

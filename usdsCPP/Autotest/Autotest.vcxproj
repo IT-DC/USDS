@@ -80,6 +80,7 @@
     <ClCompile Include="Source\UnitTest\Base\usdsBinaryOutputTest.cpp" />
     <ClCompile Include="Source\UnitTest\Base\usdsErrorTest.cpp" />
     <ClCompile Include="Source\UnitTest\Base\usdsObjectPoolTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Base\usdsTypeConversionTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsArrayTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsIntTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryArrayTest.cpp" />

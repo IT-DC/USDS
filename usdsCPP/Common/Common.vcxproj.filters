@@ -30,6 +30,9 @@
     <ClCompile Include="Source\usdsBinaryOutput.cpp">
       <Filter>Binary</Filter>
     </ClCompile>
+    <ClCompile Include="Source\usdsTypeConverter.cpp">
+      <Filter>Binary</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsTypes.h">
@@ -45,6 +48,9 @@
       <Filter>Binary</Filter>
     </ClInclude>
     <ClInclude Include="Include\usdsBinaryOutput.h">
+      <Filter>Binary</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\usdsTypeConverter.h">
       <Filter>Binary</Filter>
     </ClInclude>
   </ItemGroup>

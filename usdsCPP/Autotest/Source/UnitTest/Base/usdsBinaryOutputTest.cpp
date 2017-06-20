@@ -381,7 +381,7 @@ void BinaryOutputTest::test_5()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__UNSUPPORTED_CONVERSION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 			throw "Failed at the step 4\n";
 	}
 
@@ -393,7 +393,7 @@ void BinaryOutputTest::test_5()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__UNSUPPORTED_CONVERSION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 			throw "Failed at the step 5\n";
 	}
 
@@ -437,7 +437,7 @@ void BinaryOutputTest::test_6()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 3\n";
 	}
 
@@ -527,7 +527,7 @@ void BinaryOutputTest::test_6()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 10\n";
 	}
 
@@ -553,7 +553,7 @@ void BinaryOutputTest::test_6()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 12\n";
 	}
 
@@ -566,7 +566,7 @@ void BinaryOutputTest::test_6()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 13\n";
 	}
 
@@ -592,7 +592,7 @@ void BinaryOutputTest::test_6()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 15\n";
 	}
 
@@ -605,7 +605,7 @@ void BinaryOutputTest::test_6()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 16\n";
 	}
 
@@ -675,7 +675,7 @@ void BinaryOutputTest::test_7()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 2\n";
 	}
 
@@ -688,7 +688,7 @@ void BinaryOutputTest::test_7()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 3\n";
 	}
 
@@ -714,7 +714,7 @@ void BinaryOutputTest::test_7()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 5\n";
 	}
 
@@ -727,7 +727,7 @@ void BinaryOutputTest::test_7()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 6\n";
 	}
 
@@ -806,7 +806,7 @@ void BinaryOutputTest::test_7()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 12\n";
 	}
 
@@ -819,7 +819,7 @@ void BinaryOutputTest::test_7()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 13\n";
 	}
 
@@ -845,7 +845,7 @@ void BinaryOutputTest::test_7()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 15\n";
 	}
 
@@ -858,7 +858,7 @@ void BinaryOutputTest::test_7()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 16\n";
 	}
 }
@@ -889,7 +889,7 @@ void BinaryOutputTest::test_8()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 2\n";
 	}
 
@@ -902,7 +902,7 @@ void BinaryOutputTest::test_8()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 3\n";
 	}
 
@@ -928,7 +928,7 @@ void BinaryOutputTest::test_8()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 5\n";
 	}
 
@@ -941,7 +941,7 @@ void BinaryOutputTest::test_8()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 6\n";
 	}
 
@@ -1033,7 +1033,7 @@ void BinaryOutputTest::test_8()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 13\n";
 	}
 
@@ -1046,7 +1046,7 @@ void BinaryOutputTest::test_8()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 14\n";
 	}
 
@@ -1079,7 +1079,7 @@ void BinaryOutputTest::test_9()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 2\n";
 	}
 
@@ -1092,7 +1092,7 @@ void BinaryOutputTest::test_9()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 3\n";
 	}
 
@@ -1118,7 +1118,7 @@ void BinaryOutputTest::test_9()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 5\n";
 	}
 
@@ -1131,7 +1131,7 @@ void BinaryOutputTest::test_9()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 6\n";
 	}
 
@@ -1157,7 +1157,7 @@ void BinaryOutputTest::test_9()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 7.1\n";
 	}
 
@@ -1170,7 +1170,7 @@ void BinaryOutputTest::test_9()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 7.2\n";
 	}
 
@@ -1268,7 +1268,7 @@ void BinaryOutputTest::test_10()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 2\n";
 	}
 	
@@ -1332,7 +1332,7 @@ void BinaryOutputTest::test_10()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 7\n";
 	}
 
@@ -1371,7 +1371,7 @@ void BinaryOutputTest::test_10()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 12\n";
 	}
 
@@ -1386,7 +1386,7 @@ void BinaryOutputTest::test_10()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 13\n";
 	}
 
@@ -1412,7 +1412,7 @@ void BinaryOutputTest::test_10()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 15\n";
 	}
 
@@ -1425,7 +1425,7 @@ void BinaryOutputTest::test_10()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 16\n";
 	}
 
@@ -1459,7 +1459,7 @@ void BinaryOutputTest::test_11()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 2\n";
 	}
 
@@ -1485,7 +1485,7 @@ void BinaryOutputTest::test_11()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 4\n";
 	}
 
@@ -1538,7 +1538,7 @@ void BinaryOutputTest::test_11()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 8\n";
 	}
 
@@ -1577,7 +1577,7 @@ void BinaryOutputTest::test_11()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 11\n";
 	}
 
@@ -1590,7 +1590,7 @@ void BinaryOutputTest::test_11()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 12\n";
 	}
 
@@ -1616,7 +1616,7 @@ void BinaryOutputTest::test_11()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 14\n";
 	}
 
@@ -1629,7 +1629,7 @@ void BinaryOutputTest::test_11()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 15\n";
 	}
 
@@ -1661,7 +1661,7 @@ void BinaryOutputTest::test_12()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 2\n";
 	}
 
@@ -1687,7 +1687,7 @@ void BinaryOutputTest::test_12()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 4\n";
 	}
 
@@ -1713,7 +1713,7 @@ void BinaryOutputTest::test_12()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 6\n";
 	}
 
@@ -1753,7 +1753,7 @@ void BinaryOutputTest::test_12()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 10\n";
 	}
 
@@ -1793,7 +1793,7 @@ void BinaryOutputTest::test_12()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 13\n";
 	}
 
@@ -1819,7 +1819,7 @@ void BinaryOutputTest::test_12()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 15\n";
 	}
 
@@ -1832,7 +1832,7 @@ void BinaryOutputTest::test_12()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 16\n";
 	}
 
@@ -1864,7 +1864,7 @@ void BinaryOutputTest::test_13()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 2\n";
 	}
 
@@ -1890,7 +1890,7 @@ void BinaryOutputTest::test_13()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 4\n";
 	}
 
@@ -1916,7 +1916,7 @@ void BinaryOutputTest::test_13()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 6\n";
 	}
 
@@ -1943,7 +1943,7 @@ void BinaryOutputTest::test_13()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 8\n";
 	}
 
@@ -1969,7 +1969,7 @@ void BinaryOutputTest::test_13()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 10\n";
 	}
 
@@ -2009,7 +2009,7 @@ void BinaryOutputTest::test_13()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 13\n";
 	}
 
@@ -2035,7 +2035,7 @@ void BinaryOutputTest::test_13()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__VALUE_CONVERSION)
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 15\n";
 	}
 
@@ -2094,7 +2094,7 @@ void BinaryOutputTest::test_14()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__UNSUPPORTED_CONVERSION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 			throw "Failed at the step 4\n";
 	}
 
@@ -2144,7 +2144,7 @@ void BinaryOutputTest::test_14()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__UNSUPPORTED_CONVERSION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 			throw "Failed at the step 8\n";
 	}
 
@@ -2176,7 +2176,7 @@ void BinaryOutputTest::test_15()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__UNSUPPORTED_CONVERSION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 			throw "Failed at the step 2\n";
 	}
 
@@ -2239,7 +2239,7 @@ void BinaryOutputTest::test_15()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BIN_OUT__UNSUPPORTED_CONVERSION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 			throw "Failed at the step 7\n";
 	}
 }

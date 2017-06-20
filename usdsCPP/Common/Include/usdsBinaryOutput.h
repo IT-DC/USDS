@@ -3,6 +3,7 @@
 
 #include "errorMessage.h"
 #include "usdsTypes.h"
+#include "usdsTypeConverter.h"
 
 namespace usds
 {
@@ -13,9 +14,7 @@ namespace usds
 		BIN_OUT__NEGATIVE_VALUE = 13,
 		BIN_OUT__BEEG_VALUE = 14,
 		BIN_OUT__NULL_POINTER = 15,
-		BIN_OUT__UNSUPPORTED_CONVERSION = 16,
-		BIN_OUT__VALUE_CONVERSION = 17,
-		BIN_OUT__ALREADY_INITIALIZED = 18
+		BIN_OUT__ALREADY_INITIALIZED = 16
 	};
 
 	class BinaryOutput
