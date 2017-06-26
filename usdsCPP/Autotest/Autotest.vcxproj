@@ -82,7 +82,12 @@
     <ClCompile Include="Source\UnitTest\Base\usdsObjectPoolTest.cpp" />
     <ClCompile Include="Source\UnitTest\Base\usdsTypeConversionTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsArrayTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsBooleanTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsByteTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsDoubleTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsIntTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsLongTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsUByteTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryArrayTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionarySimpleTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryStringTest.cpp" />

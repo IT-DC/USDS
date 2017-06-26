@@ -32,7 +32,7 @@ void UsdsIntTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 2\n";
 		}
@@ -156,7 +156,7 @@ void UsdsIntTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 14\n";
 		}
@@ -171,47 +171,18 @@ void UsdsIntTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 15\n";
 		}
 	}
 
 	// step 16
-	const char* char_value = "5";
-	try
-	{
-		body_int->setValue(char_value);
-		throw "Failed at the step 16\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
-		{
-			throw "Failed at the step 16\n";
-		}
-	}
-
-	// step 17
-	try
-	{
-		body_int->setValue(char_value, 1);
-		throw "Failed at the step 17\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
-		{
-			throw "Failed at the step 17\n";
-		}
-	}
-
-	// step 18
 	uint32_value = 300000;
 	body_int->set(uint32_value);
 	if (body_int->get() != 300000)
 	{
-		throw "Failed at the step 18\n";
+		throw "Failed at the step 16\n";
 	}
 
 }
@@ -243,7 +214,7 @@ void UsdsIntTest::test_2()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 2\n";
 		}
@@ -382,7 +353,7 @@ void UsdsIntTest::test_2()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 15\n";
 		}
@@ -397,56 +368,9 @@ void UsdsIntTest::test_2()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 16\n";
-		}
-	}
-
-	// step 17
-	body_int->setValue(-100000);
-	try
-	{
-		body_int->getValue<double>();
-		throw "Failed at the step 17\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
-		{
-			throw "Failed at the step 17\n";
-		}
-	}
-
-	// step 18
-	body_int->setValue(-100000);
-	try
-	{
-		body_int->getValue<const char*>();
-		throw "Failed at the step 18\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
-		{
-			throw "Failed at the step 18\n";
-		}
-	}
-
-	// step 19
-	body_int->setValue(-100000);
-	const char* const_char_value = 0;
-	size_t size_t_value = 0;
-	try
-	{
-		body_int->getValue(&const_char_value, &size_t_value);
-		throw "Failed at the step 19\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BODY_BASE_TYPE__UNSUPPORTED_CONVERTION)
-		{
-			throw "Failed at the step 19\n";
 		}
 	}
 

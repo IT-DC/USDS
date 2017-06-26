@@ -84,7 +84,7 @@ try
 	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
-	fields[id]->setValue(value);
+	//fields[id]->setValue(value);
 
 }
 catch (ErrorMessage& msg)
@@ -174,7 +174,7 @@ try
 {
 	if (id < 1 || id > fieldNumber)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-	fields[id]->setValue(value);
+	//fields[id]->setValue(value);
 }
 catch (ErrorMessage& msg)
 {
@@ -268,7 +268,7 @@ try
 	int32_t id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(name);
 	if (id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << name << "' is not found in the tag '" << getName() << "'";
-	fields[id]->getValue(value);
+	//fields[id]->getValue(value);
 
 }
 catch (ErrorMessage& msg)
@@ -358,7 +358,7 @@ try
 {
 	if (id < 1 || id > fieldNumber)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << id;
-	fields[id]->getValue(value);
+	//fields[id]->getValue(value);
 }
 catch (ErrorMessage& msg)
 {

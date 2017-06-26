@@ -18,14 +18,29 @@ void UsdsDouble::additionalInitObject()
 
 };
 
-void UsdsDouble::setValue(double value) throw (...)
+void UsdsDouble::setValue(float value) throw (...)
 {
-
 	objectValue = value;
 };
 
-double UsdsDouble::getValue() throw (...)
+void UsdsDouble::setValue(double value) throw (...)
+{
+	objectValue = value;
+};
+
+void UsdsDouble::getValue(double* value) throw (...)
 {
 
-	return objectValue;
+	*value = objectValue;
 };
+
+void UsdsDouble::set(double value) throw (...)
+{
+	objectValue = value;
+};
+
+double UsdsDouble::get()
+{
+	return objectValue;
+}
+

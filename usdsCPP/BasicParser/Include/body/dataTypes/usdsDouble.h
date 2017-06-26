@@ -14,9 +14,21 @@ namespace usds
 		usdsTypes getType() { return USDS_DOUBLE; };
 		const char* getTypeName() { return "DOUBLE"; };
 
+		// Slow methods (virtual)
+		void setValue(float value) throw (...);
 		void setValue(double value) throw (...);
 
-		double getValue() throw (...);
+		using UsdsBaseType::setValue;
+		
+		void getValue(double* value) throw (...);
+
+		using UsdsBaseType::getValue;
+
+
+		// Fast methods (not virtual)
+		double get();
+		void set(double value);
+
 
 	private:
 

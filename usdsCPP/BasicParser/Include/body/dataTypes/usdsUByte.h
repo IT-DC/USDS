@@ -1,18 +1,18 @@
-#ifndef USDS_UVARINT_H
-#define USDS_UVARINT_H
+#ifndef USDS_UBYTE_H
+#define USDS_UBYTE_H
 
 #include "body\usdsBaseType.h"
 
 namespace usds
 {
-	class UsdsUVarint : public UsdsBaseType
+	class UsdsUByte : public UsdsBaseType
 	{
 	public:
-		UsdsUVarint(Body* parent_body);
-		virtual ~UsdsUVarint();
+		UsdsUByte(Body* parent_body);
+		virtual ~UsdsUByte();
 
-		usdsTypes getType() { return USDS_UVARINT; };
-		const char* getTypeName() { return "UVARINT"; };
+		usdsTypes getType() { return USDS_UBYTE; };
+		const char* getTypeName() { return "UBYTE"; };
 
 		// Slow methods (virtual)
 		void setValue(int8_t value) throw (...);
@@ -38,18 +38,17 @@ namespace usds
 		using UsdsBaseType::getValue;
 
 		// Fast methods (not virtual)
-		uint64_t get();
-		void set(uint64_t value);
-
+		uint8_t get() throw (...);
+		void set(uint8_t value) throw (...);
 
 	private:
 
 		void additionalInitObject();
 
-		uint64_t objectValue;
-
+		uint8_t objectValue;
 
 	};
+
 
 }
 

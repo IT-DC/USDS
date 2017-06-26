@@ -1,9 +1,11 @@
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryBoolean.h"
-#include "dictionary\dataTypes\dictionaryDouble.h"
+#include "dictionary\dataTypes\dictionaryByte.h"
+#include "dictionary\dataTypes\dictionaryUByte.h"
 #include "dictionary\dataTypes\dictionaryInt.h"
 #include "dictionary\dataTypes\dictionaryLong.h"
+#include "dictionary\dataTypes\dictionaryDouble.h"
 #include "dictionary\dataTypes\dictionaryString.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
@@ -19,8 +21,8 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_NO_TYPE] = 0;
 	pools[USDS_TAG] = new TemplateObjectPool<DictionaryTagLink, Dictionary>(dict);
 	pools[USDS_BOOLEAN] = new TemplateObjectPool<DictionaryBoolean, Dictionary>(dict);
-	pools[USDS_BYTE] = 0;
-	pools[USDS_UBYTE] = 0;
+	pools[USDS_BYTE] = new TemplateObjectPool<DictionaryByte, Dictionary>(dict);
+	pools[USDS_UBYTE] = new TemplateObjectPool<DictionaryUByte, Dictionary>(dict);
 	pools[USDS_SHORT] = 0;
 	pools[USDS_USHORT] = 0;
 	pools[USDS_BIGENDIAN_SHORT] = 0;
@@ -94,198 +96,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-//========================================================================================================
-/*
-DictionaryTagLink* DictionaryObjectPool::addTagLink(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
-try
-{
-	//DictionaryTagLink* object = (DictionaryTagLink*)tagLinkObjects.addObject();
-	try
-	{
-		object->initType(parent, id, name, name_size);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("DictionaryObjectPool::addTagLink") << (void*)parent << id << name << name_size;
-	throw;
-};
 
-DictionaryBoolean* DictionaryObjectPool::addBoolean(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
-try
-{
-	DictionaryBoolean* object = (DictionaryBoolean*)booleanObjects.addObject();
-	try
-	{
-		object->initType(parent, id, name, name_size);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("DictionaryObjectPool::addBoolean") << (void*)parent << id << name << name_size;
-	throw;
-};
-
-DictionaryInt* DictionaryObjectPool::addInt(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
-try
-{
-	DictionaryInt* object = (DictionaryInt*)intObjects.addObject();
-	try
-	{
-		object->initType(parent, id, name, name_size);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("DictionaryObjectPool::addInt") << (void*)parent << id << name << name_size;
-	throw;
-};
-
-DictionaryLong* DictionaryObjectPool::addLong(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
-try
-{
-	DictionaryLong* object = (DictionaryLong*)longObjects.addObject();
-	try
-	{
-		object->initType(parent, id, name, name_size);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("DictionaryObjectPool::addLong") << (void*)parent << id << name << name_size;
-	throw;
-};
-
-
-DictionaryDouble* DictionaryObjectPool::addDouble(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
-try
-{
-	DictionaryDouble* object = (DictionaryDouble*)doubleObjects.addObject();
-	try
-	{
-		object->initType(parent, id, name, name_size);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("DictionaryObjectPool::addDouble") << (void*)parent << id << name << name_size;
-	throw;
-};
-
-DictionaryUVarint* DictionaryObjectPool::addUVarint(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
-try
-{
-	DictionaryUVarint* object = (DictionaryUVarint*)uVarintObjects.addObject();
-	try
-	{
-		object->initType(parent, id, name, name_size);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("DictionaryObjectPool::addUVarint") <<(void*)parent << id << name << name_size;
-	throw;
-};
-
-DictionaryString* DictionaryObjectPool::addString(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
-try
-{
-	DictionaryString* object = (DictionaryString*)stringObjects.addObject();
-	try
-	{
-		object->initType(parent, id, name, name_size);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("DictionaryObjectPool::addString") << (void*)parent << id << name << name_size;
-	throw;
-};
-
-DictionaryArray* DictionaryObjectPool::addArray(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
-try
-{
-	DictionaryArray* object = (DictionaryArray*)arrayObjects.addObject();
-	try
-	{
-		object->initType(parent, id, name, name_size);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("DictionaryObjectPool::addArray") << (void*)parent << id << name << name_size;
-	throw;
-};
-
-DictionaryStruct* DictionaryObjectPool::addStruct(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
-try
-{
-	DictionaryStruct* object = (DictionaryStruct*)structObjects.addObject();
-	try
-	{
-		object->initType(parent, id, name, name_size);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("DictionaryObjectPool::addStruct") << (void*)parent << id << name << name_size;
-	throw;
-};
-*/
 //========================================================================================================
 void DictionaryObjectPool::clear()
 {

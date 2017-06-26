@@ -1,7 +1,11 @@
 #include "usdsAutotest.h"
 
+#include "dictionary/usdsDictionary.h"
+
 #include "dictionary\dataTypes\dictionaryBoolean.h"
 #include "dictionary\dataTypes\dictionaryDouble.h"
+#include "dictionary\dataTypes\dictionaryByte.h"
+#include "dictionary\dataTypes\dictionaryUByte.h"
 #include "dictionary\dataTypes\dictionaryInt.h"
 #include "dictionary\dataTypes\dictionaryLong.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
@@ -47,6 +51,23 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 5\n";
 	}
+
+	// step 6
+
+	usds::DictionaryByte byte_object(0);
+	if (byte_object.getType() != usds::USDS_BYTE)
+	{
+		throw "Failed at the step 6\n";
+	}
+
+	// step 7
+
+	usds::DictionaryUByte ubyte_object(0);
+	if (ubyte_object.getType() != usds::USDS_UBYTE)
+	{
+		throw "Failed at the step 7\n";
+	}
+
 
 }
 
@@ -184,5 +205,38 @@ void DictionarySimpleTest::test_3()
 	{
 		throw "Failed at the step 3\n";
 	}
+
+}
+
+void DictionarySimpleTest::test_4()
+{
+	usds::Dictionary dict(0);
+	dict.setID(1, 0, 0);
+
+	// step 1
+	try
+	{
+		usds::DictionaryByte* byte_object = (usds::DictionaryByte*)dict.addTag(usds::USDS_BYTE, 1, "byte", 0);
+		if (byte_object->getType() != usds::USDS_BYTE)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	}
+
+	// step 2
+	try
+	{
+		usds::DictionaryUByte* ubyte_object = (usds::DictionaryUByte*)dict.addTag(usds::USDS_UBYTE, 2, "ubyte", 0);
+		if (ubyte_object->getType() != usds::USDS_UBYTE)
+			throw "Failed at the step 2\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 2\n";
+	}
+
+
 
 }

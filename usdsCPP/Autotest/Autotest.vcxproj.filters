@@ -55,6 +55,21 @@
     <ClCompile Include="Source\UnitTest\Base\usdsTypeConversionTest.cpp">
       <Filter>Unit tests\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsByteTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsUByteTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsDoubleTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsLongTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsBooleanTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAutotest.h" />

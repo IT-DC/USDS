@@ -17,46 +17,165 @@ void UsdsUVarint::additionalInitObject()
 
 };
 
-void UsdsUVarint::setValue(int32_t value) throw (...)
+void UsdsUVarint::setValue(int8_t value) throw (...)
+try
 {
-	if (value < 0)
-		throw ErrorStack("UsdsUVarint::setValue") << value << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value must be in range [0, 2147483647], current value: " << value);
+	usdsTypeWrite(value, USDS_UVARINT, (uint8_t*)(&objectValue));
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::setValue") << value;
+	throw;
+};
 
+void UsdsUVarint::setValue(uint8_t value) throw (...)
+{
+
+	objectValue = value;
+};
+
+void UsdsUVarint::setValue(int16_t value) throw (...)
+try
+{
+	usdsTypeWrite(value, USDS_UVARINT, (uint8_t*)(&objectValue));
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::setValue") << value;
+	throw;
+};
+
+void UsdsUVarint::setValue(uint16_t value) throw (...)
+{
+
+	objectValue = value;
+};
+
+void UsdsUVarint::setValue(int32_t value) throw (...)
+try
+{
+	usdsTypeWrite(value, USDS_UVARINT, (uint8_t*)(&objectValue));
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::setValue") << value;
+	throw;
+};
+
+void UsdsUVarint::setValue(uint32_t value) throw (...)
+{
 	objectValue = value;
 };
 
 void UsdsUVarint::setValue(int64_t value) throw (...)
+try
 {
-	if (value < 0)
-		throw ErrorStack("UsdsUVarint::setValue") << value << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value must be in range [0, (2^63 – 1)], current value: " << value);
-
-	objectValue = value;
+	usdsTypeWrite(value, USDS_UVARINT, (uint8_t*)(&objectValue));
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::setValue") << value;
+	throw;
 };
 
 void UsdsUVarint::setValue(uint64_t value) throw (...)
 {
-
 	objectValue = value;
 };
 
-int32_t UsdsUVarint::getIntValue() throw (...)
-{
-	if (objectValue > 2147483647)
-		throw ErrorStack("UsdsUVarint::getIntValue") << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value is too big for 'int': " << objectValue);
-
-	return int(objectValue);
-};
-
-int64_t UsdsUVarint::getLongValue() throw (...)
-{
-	if (objectValue > 9223372036854775807)
-		throw ErrorStack("UsdsUVarint::getLongValue") << (ErrorMessage(BODY_UVARINT__ERROR_VALUE) << "Value is too big for 'int64_t': " << objectValue);
-
-	return objectValue;
-
-};
-
-uint64_t UsdsUVarint::getULongValue() throw (...)
+uint64_t UsdsUVarint::get()
 {
 	return objectValue;
 };
+
+void UsdsUVarint::set(uint64_t value)
+{
+	objectValue = value;
+};
+
+
+void UsdsUVarint::getValue(int8_t* value) throw (...)
+try
+{
+	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::getValue") << value;
+	throw;
+};
+
+void UsdsUVarint::getValue(uint8_t* value) throw (...)
+try
+{
+	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::getValue") << value;
+	throw;
+};
+
+void UsdsUVarint::getValue(int16_t* value) throw (...)
+try
+{
+	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::getValue") << value;
+	throw;
+};
+
+void UsdsUVarint::getValue(uint16_t* value) throw (...)
+try
+{
+	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::getValue") << value;
+	throw;
+};
+
+void UsdsUVarint::getValue(int32_t* value) throw (...)
+try
+{
+	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::getValue") << value;
+	throw;
+};
+
+void UsdsUVarint::getValue(uint32_t* value) throw (...)
+try
+{
+	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::getValue") << value;
+	throw;
+};
+
+void UsdsUVarint::getValue(int64_t* value) throw (...)
+try
+{
+	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsUVarint::getValue") << value;
+	throw;
+};
+
+void UsdsUVarint::getValue(uint64_t* value) throw (...)
+{
+	*value = objectValue;
+};
+
+
+
+

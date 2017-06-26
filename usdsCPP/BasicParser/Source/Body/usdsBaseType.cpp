@@ -91,135 +91,114 @@ void UsdsBaseType::setParent(UsdsBaseType* parent)
 
 void UsdsBaseType::setValue(bool value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from bool to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from bool to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(int8_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from int8_t to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from int8_t to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(uint8_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from uint8_t to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from uint8_t to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(int16_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from int16_t to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from int16_t to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(uint16_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from uint16_t to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from uint16_t to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(int32_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from int32_t to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from int32_t to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(uint32_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from uint32_t to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from uint32_t to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(int64_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from int64_t to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from int64_t to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(uint64_t value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from uint64_t to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from uint64_t to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(float value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from float to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from float to " << getTypeName());
 };
 
 void UsdsBaseType::setValue(double value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from double to " << getTypeName());
+	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from double to " << getTypeName());
 };
-
-void UsdsBaseType::setValue(const char* value) throw (...)
-{
-	throw ErrorStack("UsdsBaseType::setValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from const char* to " << getTypeName());
-};
-
-void UsdsBaseType::setValue(const char* value, size_t size) throw (...)
-{
-	throw ErrorStack("UsdsBaseType::setValue").addStringAndSize(value, size) << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from const char* to " << getTypeName());
-};
-
 
 //=============================================================================================
 
 void UsdsBaseType::getValue(bool* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to bool*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to bool*");
 };
 
 void UsdsBaseType::getValue(int8_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to int8_t*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to int8_t*");
 };
 
 void UsdsBaseType::getValue(uint8_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to uint8_t*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to uint8_t*");
 };
 
 void UsdsBaseType::getValue(int16_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to int16_t*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to int16_t*");
 };
 
 void UsdsBaseType::getValue(uint16_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to uint16_t*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to uint16_t*");
 };
 
 void UsdsBaseType::getValue(int32_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to int32_t*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to int32_t*");
 };
 
 void UsdsBaseType::getValue(uint32_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to uint32_t*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to uint32_t*");
 };
 
 void UsdsBaseType::getValue(int64_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to int64_t*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to int64_t*");
 };
 
 void UsdsBaseType::getValue(uint64_t* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to uint64_t*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to uint64_t*");
 };
 
 void UsdsBaseType::getValue(float* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to float*");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to float*");
 };
 
 void UsdsBaseType::getValue(double* value) throw (...)
 {
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to double*");
-};
-
-void UsdsBaseType::getValue(const char** value) throw (...)
-{
-	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to const char**");
-};
-
-void UsdsBaseType::getValue(const char** value, size_t* size) throw (...)
-{
-	throw ErrorStack("UsdsBaseType::getValue") << value << size << (ErrorMessage(BODY_BASE_TYPE__UNSUPPORTED_CONVERTION) << "Unsupported conversion from " << getTypeName() << " to const char**");
+	throw ErrorStack("UsdsBaseType::getValue") << value << (ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion from " << getTypeName() << " to double*");
 };
 
 

@@ -2,7 +2,6 @@
 #define USDS_INT_H
 
 #include "body\usdsBaseType.h"
-#include "usdsTypeConverter.h"
 
 namespace usds
 {
@@ -40,8 +39,8 @@ namespace usds
 
 
 		// Fast methods (not virtual)
-		int32_t get() throw (...);
-		void set(int32_t value) throw (...);
+		int32_t get();
+		void set(int32_t value);
 
 	private:
 

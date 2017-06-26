@@ -5,6 +5,8 @@
 #include "usdsTypes.h"
 #include "objectPool.h"
 
+#include "usdsTypeConverter.h"
+
 namespace usds
 {
 	class DictionaryBaseType;
@@ -35,8 +37,6 @@ namespace usds
 		virtual void setValue(uint64_t value) throw (...);
 		virtual void setValue(float value) throw (...);
 		virtual void setValue(double value) throw (...);
-		virtual void setValue(const char* value) throw (...);
-		virtual void setValue(const char* value, size_t size) throw (...);
 
 		virtual void getValue(bool* value) throw (...);
 		virtual void getValue(int8_t* value) throw (...);
@@ -49,11 +49,8 @@ namespace usds
 		virtual void getValue(uint64_t* value) throw (...);
 		virtual void getValue(float* value) throw (...);
 		virtual void getValue(double* value) throw (...);
-		virtual void getValue(const char** value) throw (...);
-		virtual void getValue(const char** value, size_t* size) throw (...);
 
 		template <typename out_type> out_type getValue() throw (...);
-
 
 		// Internal methods
 		// For initialization in ObjectPool

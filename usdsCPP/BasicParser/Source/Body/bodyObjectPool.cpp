@@ -3,9 +3,11 @@
 #include "dictionary\dictionaryBaseType.h"
 #include "body\dataTypes\usdsArray.h"
 #include "body\dataTypes\usdsBoolean.h"
-#include "body\dataTypes\usdsDouble.h"
+#include "body\dataTypes\usdsByte.h"
+#include "body\dataTypes\usdsUByte.h"
 #include "body\dataTypes\usdsInt.h"
 #include "body\dataTypes\usdsLong.h"
+#include "body\dataTypes\usdsDouble.h"
 #include "body\dataTypes\usdsString.h"
 #include "body\dataTypes\usdsStruct.h"
 #include "body\dataTypes\usdsUVarint.h"
@@ -18,8 +20,8 @@ BodyObjectPool::BodyObjectPool(Body* parent_body)
 	pools[USDS_NO_TYPE] = 0;
 	pools[USDS_TAG] = 0;
 	pools[USDS_BOOLEAN] = new TemplateObjectPool<UsdsBoolean, Body>(parent_body);
-	pools[USDS_BYTE] = 0;
-	pools[USDS_UBYTE] = 0;
+	pools[USDS_BYTE] = new TemplateObjectPool<UsdsByte, Body>(parent_body);
+	pools[USDS_UBYTE] = new TemplateObjectPool<UsdsUByte, Body>(parent_body);
 	pools[USDS_SHORT] = 0;
 	pools[USDS_USHORT] = 0;
 	pools[USDS_BIGENDIAN_SHORT] = 0;
@@ -98,183 +100,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-/*
-//===============================================================================================================================
 
-UsdsBoolean* BodyObjectPool::addBoolean(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
-try
-{
-	UsdsBoolean* object = (UsdsBoolean*)booleanObjects.addObject();
-	try
-	{
-		object->additionalInitObject(dict_parent, body_parent);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BodyObjectPool::addBoolean") << (void*)dict_parent << (void*)body_parent;
-	throw;
-};
-
-UsdsInt* BodyObjectPool::addInt(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
-try
-{
-	UsdsInt* object = (UsdsInt*)intObjects.addObject();
-	try
-	{
-		object->additionalInitObject(dict_parent, body_parent);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BodyObjectPool::addInt") << (void*)dict_parent << (void*)body_parent;
-	throw;
-};
-
-UsdsLong* BodyObjectPool::addLong(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
-try
-{
-	UsdsLong* object = (UsdsLong*)longObjects.addObject();
-	try
-	{
-		object->additionalInitObject(dict_parent, body_parent);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BodyObjectPool::addLong") << (void*)dict_parent << (void*)body_parent;
-	throw;
-};
-
-UsdsDouble* BodyObjectPool::addDouble(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
-try
-{
-	UsdsDouble* object = (UsdsDouble*)doubleObjects.addObject();
-	try
-	{
-		object->additionalInitObject(dict_parent, body_parent);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BodyObjectPool::addDouble") << (void*)dict_parent << (void*)body_parent;
-	throw;
-};
-
-UsdsUVarint* BodyObjectPool::addUVarint(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
-try
-{
-	UsdsUVarint* object = (UsdsUVarint*)uVarintObjects.addObject();
-	try
-	{
-		object->additionalInitObject(dict_parent, body_parent);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BodyObjectPool::addUVarint") << (void*)dict_parent << (void*)body_parent;
-	throw;
-};
-
-UsdsString* BodyObjectPool::addString(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
-try
-{
-	UsdsString* object = (UsdsString*)stringObjects.addObject();
-	try
-	{
-		object->additionalInitObject(dict_parent, body_parent);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BodyObjectPool::addString") << (void*)dict_parent << (void*)body_parent;
-	throw;
-};
-
-UsdsArray* BodyObjectPool::addArray(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
-try
-{
-	UsdsArray* object = (UsdsArray*)arrayObjects.addObject();
-	try
-	{
-		object->additionalInitObject(dict_parent, body_parent);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BodyObjectPool::addArray") << (void*)dict_parent << (void*)body_parent;
-	throw;
-};
-
-UsdsStruct* BodyObjectPool::addStruct(DictionaryBaseType* dict_parent, UsdsBaseType* body_parent) throw(...)
-try
-{
-	UsdsStruct* object = (UsdsStruct*)structObjects.addObject();
-	try
-	{
-		object->additionalInitObject(dict_parent, body_parent);
-	}
-	catch (...)
-	{
-		object->remove();
-		throw;
-	}
-	return object;
-
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BodyObjectPool::addStruct") << (void*)dict_parent << (void*)body_parent;
-	throw;
-};
-*/
 //===============================================================================================================================
 
 void BodyObjectPool::clear()

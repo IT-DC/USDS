@@ -140,6 +140,18 @@
     <ClInclude Include="Include\dictionary\dictionaryBaseType.h">
       <Filter>Dictionary</Filter>
     </ClInclude>
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryByte.h">
+      <Filter>Dictionary\Data types</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryUByte.h">
+      <Filter>Dictionary\Data types</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\dataTypes\usdsByte.h">
+      <Filter>Body\Data types</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\dataTypes\usdsUByte.h">
+      <Filter>Body\Data types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -244,6 +256,18 @@
     </ClCompile>
     <ClCompile Include="Source\Dictionary\dictionaryBaseType.cpp">
       <Filter>Dictionary</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryByte.cpp">
+      <Filter>Dictionary\Data types</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUByte.cpp">
+      <Filter>Dictionary\Data types</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\DataTypes\usdsByte.cpp">
+      <Filter>Body\Data types</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\DataTypes\usdsUByte.cpp">
+      <Filter>Body\Data types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

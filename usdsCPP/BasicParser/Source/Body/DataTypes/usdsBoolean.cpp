@@ -13,16 +13,23 @@ UsdsBoolean::~UsdsBoolean()
 
 void UsdsBoolean::setValue(bool value) throw (...)
 {
-
 	objectValue = value;
 };
 
-bool UsdsBoolean::getValue() throw (...)
+void UsdsBoolean::getValue(bool* value) throw (...)
 {
-
-	return objectValue;
+	*value = objectValue;
 };
 
+void UsdsBoolean::set(bool value) throw (...)
+{
+	objectValue = value;
+};
+
+bool UsdsBoolean::get() throw (...)
+{
+	return objectValue;
+};
 
 void UsdsBoolean::additionalInitObject()
 {

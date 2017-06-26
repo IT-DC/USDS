@@ -87,6 +87,19 @@ void UsdsTypeConversionTest::test_1()
 			throw "Failed at the step 6\n";
 		}
 	}
+
+	// step 7
+	uint64_t dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		if (value != dest_uint64_value)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	};
 }
 
 void UsdsTypeConversionTest::test_2()
@@ -173,6 +186,38 @@ void UsdsTypeConversionTest::test_2()
 			throw "Failed at the step 6\n";
 		}
 	}
+
+	// step 7
+	value = 111;
+	uint64_t dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		if (value != dest_uint64_value)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	};
+
+	// step 8
+	value = -111;
+	dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		throw "Failed at the step 8\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 8\n";
+		}
+	}
+
+
 };
 
 void UsdsTypeConversionTest::test_3()
@@ -309,6 +354,37 @@ void UsdsTypeConversionTest::test_3()
 			throw "Failed at the step 9\n";
 		}
 	}
+
+	// step 10
+	value = 11111;
+	uint64_t dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		if (value != dest_uint64_value)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	};
+
+	// step 11
+	value = -11111;
+	dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		throw "Failed at the step 11\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 11\n";
+		}
+	}
+
 };
 
 void UsdsTypeConversionTest::test_4()
@@ -413,6 +489,19 @@ void UsdsTypeConversionTest::test_4()
 			throw "Failed at the step 7\n";
 		}
 	}
+
+	// step 8
+	uint64_t dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		if (value != dest_uint64_value)
+			throw "Failed at the step 8\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 8\n";
+	};
 };
 
 void UsdsTypeConversionTest::test_5()
@@ -549,6 +638,36 @@ void UsdsTypeConversionTest::test_5()
 			throw "Failed at the step 9\n";
 		}
 	}
+
+	// step 10
+	value = INT32_MAX;
+	uint64_t dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		if (value != dest_uint64_value)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	};
+
+	// step 11
+	value = -11111;
+	dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		throw "Failed at the step 11\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 11\n";
+		}
+	}
 };
 
 void UsdsTypeConversionTest::test_6()
@@ -668,6 +787,20 @@ void UsdsTypeConversionTest::test_6()
 			throw "Failed at the step 8\n";
 		}
 	}
+
+	// step 9
+	value = UINT32_MAX;
+	uint64_t dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		if (value != dest_uint64_value)
+			throw "Failed at the step 9\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 9\n";
+	};
 };
 
 void UsdsTypeConversionTest::test_7()
@@ -834,6 +967,36 @@ void UsdsTypeConversionTest::test_7()
 			throw "Failed at the step 11\n";
 		}
 	}
+
+	// step 12
+	value = INT64_MAX;
+	uint64_t dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		if (value != dest_uint64_value)
+			throw "Failed at the step 12\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 12\n";
+	};
+
+	// step 13
+	value = -11111;
+	dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		throw "Failed at the step 13\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 13\n";
+		}
+	}
 };
 
 void UsdsTypeConversionTest::test_8()
@@ -968,6 +1131,20 @@ void UsdsTypeConversionTest::test_8()
 			throw "Failed at the step 9\n";
 		}
 	}
+
+	// step 10
+	value = UINT64_MAX;
+	uint64_t dest_uint64_value = 0;
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_uint64_value);
+		if (value != dest_uint64_value)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	};
 };
 
 void UsdsTypeConversionTest::test_9()
@@ -1014,6 +1191,21 @@ void UsdsTypeConversionTest::test_9()
 		}
 	}
 
+	// step 4
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_float_value);
+		throw "Failed at the step 4\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
+		{
+			throw "Failed at the step 4\n";
+		}
+	}
+
+
 };
 
 void UsdsTypeConversionTest::test_10()
@@ -1058,6 +1250,20 @@ void UsdsTypeConversionTest::test_10()
 		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 3\n";
+		}
+	}
+
+	// step 4
+	try
+	{
+		usdsTypeWrite(value, usds::USDS_UVARINT, (uint8_t*)&dest_double_value);
+		throw "Failed at the step 4\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
+		{
+			throw "Failed at the step 4\n";
 		}
 	}
 
@@ -1205,6 +1411,34 @@ void UsdsTypeConversionTest::test_11()
 		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 10\n";
+		}
+	}
+
+	// step 11
+	uint64_t source_uint64_value = 103;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		if (value != source_uint64_value)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	};
+
+	// step 12
+	source_uint64_value = 200;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		throw "Failed at the step 12\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 12\n";
 		}
 	}
 
@@ -1356,6 +1590,33 @@ void UsdsTypeConversionTest::test_12()
 		}
 	}
 
+	// step 11
+	uint64_t source_uint64_value = 203;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		if (value != source_uint64_value)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	};
+
+	// step 12
+	source_uint64_value = 300;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		throw "Failed at the step 12\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 12\n";
+		}
+	}
 }
 
 void UsdsTypeConversionTest::test_13()
@@ -1485,6 +1746,34 @@ void UsdsTypeConversionTest::test_13()
 		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 9\n";
+		}
+	}
+
+	// step 10
+	uint64_t source_uint64_value = 10003;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		if (value != source_uint64_value)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	};
+
+	// step 11
+	source_uint64_value = 40000;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		throw "Failed at the step 11\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 11\n";
 		}
 	}
 }
@@ -1634,6 +1923,34 @@ void UsdsTypeConversionTest::test_14()
 		}
 	}
 
+	// step 11
+	uint64_t source_uint64_value = 50000;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		if (value != source_uint64_value)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	};
+
+	// step 12
+	source_uint64_value = 70000;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		throw "Failed at the step 12\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 12\n";
+		}
+	}
+
 }
 
 void UsdsTypeConversionTest::test_15()
@@ -1733,6 +2050,34 @@ void UsdsTypeConversionTest::test_15()
 		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 9\n";
+		}
+	}
+
+	// step 10
+	uint64_t source_uint64_value = INT32_MAX;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		if (value != source_uint64_value)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	};
+
+	// step 11
+	source_uint64_value = INT64_MAX;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		throw "Failed at the step 11\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 11\n";
 		}
 	}
 }
@@ -1866,6 +2211,34 @@ void UsdsTypeConversionTest::test_16()
 			throw "Failed at the step 10\n";
 		}
 	}
+
+	// step 11
+	uint64_t source_uint64_value = UINT32_MAX;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		if (value != source_uint64_value)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	};
+
+	// step 12
+	source_uint64_value = INT64_MAX;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		throw "Failed at the step 12\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 12\n";
+		}
+	}
 }
 
 void UsdsTypeConversionTest::test_17()
@@ -1935,6 +2308,34 @@ void UsdsTypeConversionTest::test_17()
 		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 5\n";
+		}
+	}
+
+	// step 6
+	uint64_t source_uint64_value = INT64_MAX;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		if (value != source_uint64_value)
+			throw "Failed at the step 6\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 6\n";
+	};
+
+	// step 7
+	source_uint64_value = UINT64_MAX;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		throw "Failed at the step 7\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 7\n";
 		}
 	}
 }
@@ -2053,6 +2454,19 @@ void UsdsTypeConversionTest::test_18()
 			throw "Failed at the step 8\n";
 		}
 	}
+
+	// step 9
+	uint64_t source_uint64_value = UINT64_MAX;
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_uint64_value, usds::USDS_UVARINT, &value);
+		if (value != source_uint64_value)
+			throw "Failed at the step 9\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 9\n";
+	};
 }
 
 void UsdsTypeConversionTest::test_19()
@@ -2099,7 +2513,23 @@ void UsdsTypeConversionTest::test_19()
 			throw "Failed at the step 3\n";
 		}
 	}
+
+	// step 4
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_float_value, usds::USDS_UVARINT, &value);
+		throw "Failed at the step 4\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
+		{
+			throw "Failed at the step 4\n";
+		}
+	}
+
 }
+
 
 void UsdsTypeConversionTest::test_20()
 {
@@ -2142,6 +2572,20 @@ void UsdsTypeConversionTest::test_20()
 		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 		{
 			throw "Failed at the step 3\n";
+		}
+	}
+
+	// step 4
+	try
+	{
+		usdsTypeRead((uint8_t*)&source_float_value, usds::USDS_UVARINT, &value);
+		throw "Failed at the step 4\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
+		{
+			throw "Failed at the step 4\n";
 		}
 	}
 }

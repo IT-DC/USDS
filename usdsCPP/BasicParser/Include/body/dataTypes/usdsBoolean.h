@@ -14,9 +14,18 @@ namespace usds
 		usdsTypes getType() { return USDS_BOOLEAN; };
 		const char* getTypeName() { return "BOOLEAN"; };
 
+		// Slow methods (virtual)
 		void setValue(bool value) throw (...);
 
-		bool getValue() throw (...);
+		using UsdsBaseType::setValue;
+
+		void getValue(bool* value) throw (...);
+
+		using UsdsBaseType::getValue;
+
+		// Fast methods (not virtual)
+		bool get();
+		void set(bool value);
 
 	private:
 
