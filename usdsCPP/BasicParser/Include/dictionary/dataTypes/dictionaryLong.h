@@ -19,13 +19,8 @@ namespace usds
 		usdsTypes getType() { return USDS_LONG; };
 		const char* getTypeName() { return "LONG"; };
 
-		void setDefault(int64_t value);
-
 	private:
 		void additionalInitType();
-
-		bool isDefault;
-		int64_t defaultValue;
 
 	};
 

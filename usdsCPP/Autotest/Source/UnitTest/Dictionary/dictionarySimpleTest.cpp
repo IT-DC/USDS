@@ -3,12 +3,16 @@
 #include "dictionary/usdsDictionary.h"
 
 #include "dictionary\dataTypes\dictionaryBoolean.h"
-#include "dictionary\dataTypes\dictionaryDouble.h"
 #include "dictionary\dataTypes\dictionaryByte.h"
 #include "dictionary\dataTypes\dictionaryUByte.h"
 #include "dictionary\dataTypes\dictionaryInt.h"
+#include "dictionary\dataTypes\dictionaryUInt.h"
 #include "dictionary\dataTypes\dictionaryLong.h"
+#include "dictionary\dataTypes\dictionaryFloat.h"
+#include "dictionary\dataTypes\dictionaryDouble.h"
+#include "dictionary\dataTypes\dictionaryULong.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
+
 
 void DictionarySimpleTest::test_1()
 {
@@ -68,6 +72,29 @@ void DictionarySimpleTest::test_1()
 		throw "Failed at the step 7\n";
 	}
 
+	// step 8
+
+	usds::DictionaryULong ulong_object(0);
+	if (ulong_object.getType() != usds::USDS_ULONG)
+	{
+		throw "Failed at the step 8\n";
+	}
+
+	// step 9
+
+	usds::DictionaryFloat float_object(0);
+	if (float_object.getType() != usds::USDS_FLOAT)
+	{
+		throw "Failed at the step 9\n";
+	}
+
+	// step 10
+
+	usds::DictionaryUInt uint_object(0);
+	if (uint_object.getType() != usds::USDS_UINT)
+	{
+		throw "Failed at the step 9\n";
+	}
 
 }
 
@@ -237,6 +264,40 @@ void DictionarySimpleTest::test_4()
 		throw "Failed at the step 2\n";
 	}
 
+	// step 3
+	try
+	{
+		usds::DictionaryULong* ulong_object = (usds::DictionaryULong*)dict.addTag(usds::USDS_ULONG, 3, "ulong", 0);
+		if (ulong_object->getType() != usds::USDS_ULONG)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	}
 
+	// step 4
+	try
+	{
+		usds::DictionaryFloat* float_object = (usds::DictionaryFloat*)dict.addTag(usds::USDS_FLOAT, 4, "float", 0);
+		if (float_object->getType() != usds::USDS_FLOAT)
+			throw "Failed at the step 4\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 4\n";
+	}
+
+	// step 5
+	try
+	{
+		usds::DictionaryUInt* uint_object = (usds::DictionaryUInt*)dict.addTag(usds::USDS_UINT, 5, "uint", 0);
+		if (uint_object->getType() != usds::USDS_UINT)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	}
 
 }

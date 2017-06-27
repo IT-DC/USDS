@@ -27,13 +27,19 @@ namespace usds
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
 		}
+		case USDS_UINT:
+		{
+			uint32_t proxy_value = value;
+			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
+			break;
+		}
 		case USDS_LONG:
 		{
 			int64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_LONG_SIZE);
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			uint64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_ULONG_SIZE);
@@ -71,13 +77,21 @@ namespace usds
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (value < 0)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+			uint32_t proxy_value = (uint32_t)value;
+			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
+			break;
+		}
 		case USDS_LONG:
 		{
 			int64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_LONG_SIZE);
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (value < 0)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
@@ -119,13 +133,21 @@ namespace usds
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (value < 0)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+			uint32_t proxy_value = (uint32_t)value;
+			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
+			break;
+		}
 		case USDS_LONG:
 		{
 			int64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_LONG_SIZE);
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (value < 0)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
@@ -167,13 +189,19 @@ namespace usds
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
 		}
+		case USDS_UINT:
+		{
+			uint32_t proxy_value = value;
+			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
+			break;
+		}
 		case USDS_LONG:
 		{
 			int64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_LONG_SIZE);
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			uint64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_ULONG_SIZE);
@@ -212,13 +240,21 @@ namespace usds
 			memcpy(destination, &value, USDS_INT_SIZE);
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (value < 0)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+			uint32_t proxy_value = (uint32_t)value;
+			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
+			break;
+		}
 		case USDS_LONG:
 		{
 			int64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_LONG_SIZE);
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (value < 0)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
@@ -264,13 +300,18 @@ namespace usds
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
 		}
+		case USDS_UINT:
+		{
+			memcpy(destination, &value, USDS_UINT_SIZE);
+			break;
+		}
 		case USDS_LONG:
 		{
 			int64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_LONG_SIZE);
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			uint64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_ULONG_SIZE);
@@ -312,12 +353,20 @@ namespace usds
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (value < 0 || value > UINT32_MAX)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+			uint32_t proxy_value = (uint32_t)value;
+			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
+			break;
+		}
 		case USDS_LONG:
 		{
 			memcpy(destination, &value, USDS_LONG_SIZE);
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (value < 0)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
@@ -361,6 +410,14 @@ namespace usds
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (value > UINT32_MAX)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+			uint32_t proxy_value = (uint32_t)value;
+			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
+			break;
+		}
 		case USDS_LONG:
 		{
 			if (value > INT64_MAX)
@@ -369,7 +426,7 @@ namespace usds
 			memcpy(destination, &proxy_value, USDS_LONG_SIZE);
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			memcpy(destination, &value, USDS_ULONG_SIZE);
 			break;
@@ -451,6 +508,13 @@ namespace usds
 			*destination = (int8_t)(*((int32_t*)source));
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (*((uint32_t*)source) > 127)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type int8_t. Value in USDS binary: " << *((uint32_t*)source);
+			*destination = (int8_t)(*((uint32_t*)source));
+			break;
+		}
 		case USDS_LONG:
 		{
 			if (*((int64_t*)source) > 127 || *((int64_t*)source) < -128)
@@ -458,7 +522,7 @@ namespace usds
 			*destination = (int8_t)(*((int64_t*)source));
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (*((uint64_t*)source) > 127)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type int8_t. Value in USDS binary: " << *((uint64_t*)source);
@@ -498,6 +562,13 @@ namespace usds
 			*destination = (uint8_t)(*((int32_t*)source));
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (*((uint32_t*)source) > 255)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type uint8_t. Value in USDS binary: " << *((uint32_t*)source);
+			*destination = (uint8_t)(*((uint32_t*)source));
+			break;
+		}
 		case USDS_LONG:
 		{
 			if (*((int64_t*)source) > 255 || *((int64_t*)source) < 0)
@@ -505,7 +576,7 @@ namespace usds
 			*destination = (uint8_t)(*((int64_t*)source));
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (*((uint64_t*)source) > 255)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type uint8_t. Value in USDS binary: " << *((uint64_t*)source);
@@ -543,6 +614,13 @@ namespace usds
 			*destination = (int16_t)(*((int32_t*)source));
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (*((uint32_t*)source) > 32767)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type int16_t. Value in USDS binary: " << *((uint32_t*)source);
+			*destination = (int16_t)(*((uint32_t*)source));
+			break;
+		}
 		case USDS_LONG:
 		{
 			if (*((int64_t*)source) > 32767 || *((int64_t*)source) < -32768)
@@ -550,7 +628,7 @@ namespace usds
 			*destination = (int16_t)(*((int64_t*)source));
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (*((uint64_t*)source) > 32767)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type int16_t. Value in USDS binary: " << *((uint64_t*)source);
@@ -590,6 +668,13 @@ namespace usds
 			*destination = (uint16_t)(*((int32_t*)source));
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (*((uint32_t*)source) > 65535)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type uint16_t. Value in USDS binary: " << *((uint32_t*)source);
+			*destination = (uint16_t)(*((uint32_t*)source));
+			break;
+		}
 		case USDS_LONG:
 		{
 			if (*((int64_t*)source) > 65535 || *((int64_t*)source) < 0)
@@ -597,7 +682,7 @@ namespace usds
 			*destination = (uint16_t)(*((int64_t*)source));
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (*((uint64_t*)source) > 65535)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type uint16_t. Value in USDS binary: " << *((uint64_t*)source);
@@ -633,6 +718,13 @@ namespace usds
 			*destination = *((int32_t*)source);
 			break;
 		}
+		case USDS_UINT:
+		{
+			if (*((uint32_t*)source) > INT32_MAX)
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type int32_t. Value in USDS binary: " << *((uint32_t*)source);
+			*destination = (int32_t)(*((uint32_t*)source));
+			break;
+		}
 		case USDS_LONG:
 		{
 			if (*((int64_t*)source) > INT32_MAX || *((int64_t*)source) < INT32_MIN)
@@ -640,7 +732,7 @@ namespace usds
 			*destination = (int32_t)(*((int64_t*)source));
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (*((uint64_t*)source) > INT32_MAX)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type int32_t. Value in USDS binary: " << *((uint64_t*)source);
@@ -680,6 +772,11 @@ namespace usds
 			*destination = (uint32_t)(*((int32_t*)source));
 			break;
 		}
+		case USDS_UINT:
+		{
+			*destination = *((uint32_t*)source);
+			break;
+		}
 		case USDS_LONG:
 		{
 			if (*((int64_t*)source) > UINT32_MAX || *((int64_t*)source) < 0)
@@ -687,7 +784,7 @@ namespace usds
 			*destination = (uint32_t)(*((int64_t*)source));
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (*((uint64_t*)source) > UINT32_MAX)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, 4294967295] for type uint32_t. Value in USDS binary: " << *((uint64_t*)source);
@@ -724,12 +821,17 @@ namespace usds
 			*destination = *((int32_t*)source);
 			break;
 		}
+		case USDS_UINT:
+		{
+			*destination = *((uint32_t*)source);
+			break;
+		}
 		case USDS_LONG:
 		{
 			*destination = *((int64_t*)source);
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			if (*((uint64_t*)source) > INT64_MAX)
 				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-(2^63), (2^63–1)] for type int64_t. Value in USDS binary: " << *((uint64_t*)source);
@@ -770,6 +872,11 @@ namespace usds
 			*destination = (uint64_t)(*((int32_t*)source));
 			break;
 		}
+		case USDS_UINT:
+		{
+			*destination = *((uint32_t*)source);
+			break;
+		}
 		case USDS_LONG:
 		{
 			if (*((int64_t*)source) < 0)
@@ -777,7 +884,7 @@ namespace usds
 			*destination = (uint64_t)(*((int64_t*)source));
 			break;
 		}
-		case USDS_UVARINT:
+		case USDS_ULONG:
 		{
 			*destination = *((uint64_t*)source);
 			break;

@@ -4,7 +4,10 @@
 #include "dictionary\dataTypes\dictionaryByte.h"
 #include "dictionary\dataTypes\dictionaryUByte.h"
 #include "dictionary\dataTypes\dictionaryInt.h"
+#include "dictionary\dataTypes\dictionaryUInt.h"
 #include "dictionary\dataTypes\dictionaryLong.h"
+#include "dictionary\dataTypes\dictionaryULong.h"
+#include "dictionary\dataTypes\dictionaryFloat.h"
 #include "dictionary\dataTypes\dictionaryDouble.h"
 #include "dictionary\dataTypes\dictionaryString.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
@@ -28,18 +31,18 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_BIGENDIAN_SHORT] = 0;
 	pools[USDS_BIGENDIAN_USHORT] = 0;
 	pools[USDS_INT] = new TemplateObjectPool<DictionaryInt, Dictionary>(dict);
-	pools[USDS_UINT] = 0;
+	pools[USDS_UINT] = new TemplateObjectPool<DictionaryUInt, Dictionary>(dict);
 	pools[USDS_BIGENDIAN_INT] = 0;
 	pools[USDS_BIGENDIAN_UINT] = 0;
 	pools[USDS_LONG] = new TemplateObjectPool<DictionaryLong, Dictionary>(dict);
-	pools[USDS_ULONG] = 0;
+	pools[USDS_ULONG] = new TemplateObjectPool<DictionaryULong, Dictionary>(dict);
 	pools[USDS_BIGENDIAN_LONG] = 0;
 	pools[USDS_BIGENDIAN_ULONG] = 0;
 	pools[USDS_INT128] = 0;
 	pools[USDS_UINT128] = 0;
 	pools[USDS_BIGENDIAN_INT128] = 0;
 	pools[USDS_BIGENDIAN_UINT128] = 0;
-	pools[USDS_FLOAT] = 0;
+	pools[USDS_FLOAT] = new TemplateObjectPool<DictionaryFloat, Dictionary>(dict);
 	pools[USDS_BIGENDIAN_FLOAT] = 0;
 	pools[USDS_DOUBLE] = new TemplateObjectPool<DictionaryDouble, Dictionary>(dict);
 	pools[USDS_BIGENDIAN_DOUBLE] = 0;

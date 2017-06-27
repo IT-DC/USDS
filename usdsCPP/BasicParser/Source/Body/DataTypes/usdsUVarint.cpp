@@ -20,7 +20,7 @@ void UsdsUVarint::additionalInitObject()
 void UsdsUVarint::setValue(int8_t value) throw (...)
 try
 {
-	usdsTypeWrite(value, USDS_UVARINT, (uint8_t*)(&objectValue));
+	usdsTypeWrite(value, USDS_ULONG, (uint8_t*)(&objectValue));
 }
 catch (ErrorStack& err)
 {
@@ -37,7 +37,7 @@ void UsdsUVarint::setValue(uint8_t value) throw (...)
 void UsdsUVarint::setValue(int16_t value) throw (...)
 try
 {
-	usdsTypeWrite(value, USDS_UVARINT, (uint8_t*)(&objectValue));
+	usdsTypeWrite(value, USDS_ULONG, (uint8_t*)(&objectValue));
 }
 catch (ErrorStack& err)
 {
@@ -54,7 +54,7 @@ void UsdsUVarint::setValue(uint16_t value) throw (...)
 void UsdsUVarint::setValue(int32_t value) throw (...)
 try
 {
-	usdsTypeWrite(value, USDS_UVARINT, (uint8_t*)(&objectValue));
+	usdsTypeWrite(value, USDS_ULONG, (uint8_t*)(&objectValue));
 }
 catch (ErrorStack& err)
 {
@@ -70,7 +70,7 @@ void UsdsUVarint::setValue(uint32_t value) throw (...)
 void UsdsUVarint::setValue(int64_t value) throw (...)
 try
 {
-	usdsTypeWrite(value, USDS_UVARINT, (uint8_t*)(&objectValue));
+	usdsTypeWrite(value, USDS_ULONG, (uint8_t*)(&objectValue));
 }
 catch (ErrorStack& err)
 {
@@ -97,7 +97,7 @@ void UsdsUVarint::set(uint64_t value)
 void UsdsUVarint::getValue(int8_t* value) throw (...)
 try
 {
-	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+	usdsTypeRead((uint8_t*)&objectValue, USDS_ULONG, value);
 }
 catch (ErrorStack& err)
 {
@@ -108,7 +108,7 @@ catch (ErrorStack& err)
 void UsdsUVarint::getValue(uint8_t* value) throw (...)
 try
 {
-	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+	usdsTypeRead((uint8_t*)&objectValue, USDS_ULONG, value);
 }
 catch (ErrorStack& err)
 {
@@ -119,7 +119,7 @@ catch (ErrorStack& err)
 void UsdsUVarint::getValue(int16_t* value) throw (...)
 try
 {
-	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+	usdsTypeRead((uint8_t*)&objectValue, USDS_ULONG, value);
 }
 catch (ErrorStack& err)
 {
@@ -130,7 +130,7 @@ catch (ErrorStack& err)
 void UsdsUVarint::getValue(uint16_t* value) throw (...)
 try
 {
-	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+	usdsTypeRead((uint8_t*)&objectValue, USDS_ULONG, value);
 }
 catch (ErrorStack& err)
 {
@@ -141,7 +141,7 @@ catch (ErrorStack& err)
 void UsdsUVarint::getValue(int32_t* value) throw (...)
 try
 {
-	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+	usdsTypeRead((uint8_t*)&objectValue, USDS_ULONG, value);
 }
 catch (ErrorStack& err)
 {
@@ -152,7 +152,7 @@ catch (ErrorStack& err)
 void UsdsUVarint::getValue(uint32_t* value) throw (...)
 try
 {
-	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+	usdsTypeRead((uint8_t*)&objectValue, USDS_ULONG, value);
 }
 catch (ErrorStack& err)
 {
@@ -163,7 +163,7 @@ catch (ErrorStack& err)
 void UsdsUVarint::getValue(int64_t* value) throw (...)
 try
 {
-	usdsTypeRead((uint8_t*)&objectValue, USDS_UVARINT, value);
+	usdsTypeRead((uint8_t*)&objectValue, USDS_ULONG, value);
 }
 catch (ErrorStack& err)
 {

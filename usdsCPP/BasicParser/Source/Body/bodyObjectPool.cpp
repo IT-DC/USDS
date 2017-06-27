@@ -7,6 +7,8 @@
 #include "body\dataTypes\usdsUByte.h"
 #include "body\dataTypes\usdsInt.h"
 #include "body\dataTypes\usdsLong.h"
+#include "body\dataTypes\usdsULong.h"
+#include "body\dataTypes\usdsFloat.h"
 #include "body\dataTypes\usdsDouble.h"
 #include "body\dataTypes\usdsString.h"
 #include "body\dataTypes\usdsStruct.h"
@@ -31,14 +33,14 @@ BodyObjectPool::BodyObjectPool(Body* parent_body)
 	pools[USDS_BIGENDIAN_INT] = 0;
 	pools[USDS_BIGENDIAN_UINT] = 0;
 	pools[USDS_LONG] = new TemplateObjectPool<UsdsLong, Body>(parent_body);
-	pools[USDS_ULONG] = 0;
+	pools[USDS_ULONG] = new TemplateObjectPool<UsdsULong, Body>(parent_body);
 	pools[USDS_BIGENDIAN_LONG] = 0;
 	pools[USDS_BIGENDIAN_ULONG] = 0;
 	pools[USDS_INT128] = 0;
 	pools[USDS_UINT128] = 0;
 	pools[USDS_BIGENDIAN_INT128] = 0;
 	pools[USDS_BIGENDIAN_UINT128] = 0;
-	pools[USDS_FLOAT] = 0;
+	pools[USDS_FLOAT] = new TemplateObjectPool<UsdsFloat, Body>(parent_body);
 	pools[USDS_BIGENDIAN_FLOAT] = 0;
 	pools[USDS_DOUBLE] = new TemplateObjectPool<UsdsDouble, Body>(parent_body);
 	pools[USDS_BIGENDIAN_DOUBLE] = 0;
