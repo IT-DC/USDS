@@ -179,6 +179,7 @@
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryFloat.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryInt.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryLong.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryShort.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryString.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryStruct.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryTagLink.cpp" />

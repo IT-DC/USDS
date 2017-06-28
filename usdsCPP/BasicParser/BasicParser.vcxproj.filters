@@ -317,11 +317,17 @@
     <ClCompile Include="Source\Body\DataTypes\usdsUInt.cpp">
       <Filter>Body\Data types</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUShort.cpp">
       <Filter>Dictionary\Data types</Filter>
     </ClCompile>
-    </ClCompile>
+    <ClCompile Include="Source\Body\DataTypes\usdsShort.cpp">
       <Filter>Body\Data types</Filter>
     </ClCompile>
+    <ClCompile Include="Include\body\dataTypes\usdsUShort.cpp">
+      <Filter>Body\Data types</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryShort.cpp">
+      <Filter>Dictionary\Data types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
