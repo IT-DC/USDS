@@ -157,6 +157,38 @@ void BinaryOutputTest::test_2()
 		throw "Failed at the step 11\n";
 	}
 
+	// step 12
+	binary.writeUShort(62000);
+	buff = binary.getBinary(&size);
+	if (size != 49 || buff[47] != 0x30 || buff[48] != 0xF2)
+	{
+		throw "Failed at the step 12\n";
+	}
+
+	// step 13
+	binary.writeShort(32000);
+	buff = binary.getBinary(&size);
+	if (size != 51 || buff[49] != 0 || buff[50] != 0x7D)
+	{
+		throw "Failed at the step 13\n";
+	}
+
+	// step 14
+	binary.writeUInt(4000000000);
+	buff = binary.getBinary(&size);
+	if (size != 55 || buff[51] != 0 || buff[52] != 0x28 || buff[53] != 0x6B || buff[54] != 0xEE)
+	{
+		throw "Failed at the step 14\n";
+	}
+
+	// step 15
+	binary.writeULong(0x8877665544332211);
+	buff = binary.getBinary(&size);
+	if (size != 63 || buff[55] != 0x11 || buff[56] != 0x22 || buff[57] != 0x33 || buff[58] != 0x44 || buff[59] != 0x55 || buff[60] != 0x66 || buff[61] != 0x77 || buff[62] != 0x88)
+	{
+		throw "Failed at the step 14\n";
+	}
+
 }
 
 void BinaryOutputTest::test_3()
@@ -347,21 +379,8 @@ void BinaryOutputTest::test_5()
 		throw "Failed at the step 1\n";
 	}
 
-	// step 2
-	bool value = false;
-	try
-	{
-		binary.readBoolean(0, &value);
-		if (value != true)
-			throw "Failed at the step 3\n";
-	}
-	catch (...)
-	{
-		throw "Failed at the step 3\n";
-	}
-
 	// step 3
-
+	bool value = false;
 	try
 	{
 		binary.read(0, usds::USDS_BOOLEAN, &value);
@@ -467,44 +486,6 @@ void BinaryOutputTest::test_6()
 		throw "Failed at the step 5\n";
 	}
 
-	// step 6
-	value = 0;
-	try
-	{
-		binary.readByte(1, &value);
-		if (value != 120)
-			throw "Failed at the step 6\n";
-	}
-	catch (...)
-	{
-		throw "Failed at the step 6\n";
-	}
-
-	// step 7
-	try
-	{
-		binary.readByte(14, &value);
-		throw "Failed at the step 7\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BIN_OUT__BUFFER_OVERFLOW)
-			throw "Failed at the step 7\n";
-	}
-
-	// step 8
-	uint8_t uint8_value = 0;
-	try
-	{
-		binary.readUByte(2, &uint8_value);
-		if (uint8_value != 255)
-			throw "Failed at the step 8\n";
-	}
-	catch (...)
-	{
-		throw "Failed at the step 8\n";
-	}
-
 	// step 9
 	value = 0;
 	try
@@ -607,43 +588,6 @@ void BinaryOutputTest::test_6()
 	{
 		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
 			throw "Failed at the step 16\n";
-	}
-
-	// step 17
-	int64_t int64_value = 0;
-	try
-	{
-		binary.readLong(6, &int64_value);
-		if (int64_value != 120)
-			throw "Failed at the step 17\n";
-	}
-	catch (...)
-	{
-		throw "Failed at the step 17\n";
-	}
-
-	// step 18
-	try
-	{
-		binary.readLong(7, &int64_value);
-		throw "Failed at the step 18\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BIN_OUT__BUFFER_OVERFLOW)
-			throw "Failed at the step 18\n";
-	}
-
-	// step 19
-	try
-	{
-		binary.readUByte(14, &uint8_value);
-		throw "Failed at the step 19\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BIN_OUT__BUFFER_OVERFLOW)
-			throw "Failed at the step 19\n";
 	}
 
 }
@@ -2098,31 +2042,6 @@ void BinaryOutputTest::test_14()
 			throw "Failed at the step 4\n";
 	}
 
-	// step 5
-	value = 0;
-	try
-	{
-		binary.readFloat(0, &value);
-		if (value != 0.25F)
-			throw "Failed at the step 5\n";
-	}
-	catch (...)
-	{
-		throw "Failed at the step 5\n";
-	}
-
-	// step 6
-	try
-	{
-		binary.readFloat(13, &value);
-		throw "Failed at the step 6\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BIN_OUT__BUFFER_OVERFLOW)
-			throw "Failed at the step 6\n";
-	}
-
 	// step 7
 	value = 0;
 	try
@@ -2178,31 +2097,6 @@ void BinaryOutputTest::test_15()
 	{
 		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
 			throw "Failed at the step 2\n";
-	}
-
-	// step 3
-	value = 0;
-	try
-	{
-		binary.readDouble(0, &value);
-		if (value != 0.25)
-			throw "Failed at the step 3\n";
-	}
-	catch (...)
-	{
-		throw "Failed at the step 3\n";
-	}
-
-	// step 4
-	try
-	{
-		binary.readDouble(1, &value);
-		throw "Failed at the step 4\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BIN_OUT__BUFFER_OVERFLOW)
-			throw "Failed at the step 4\n";
 	}
 
 	// step 5

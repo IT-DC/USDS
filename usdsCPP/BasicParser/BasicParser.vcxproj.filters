@@ -167,6 +167,21 @@
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryUInt.h">
       <Filter>Dictionary\Data types</Filter>
     </ClInclude>
+    <ClInclude Include="Include\body\dataTypes\usdsUInt.h">
+      <Filter>Body\Data types</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryShort.h">
+      <Filter>Dictionary\Data types</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryUShort.h">
+      <Filter>Dictionary\Data types</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\dataTypes\usdsShort.h">
+      <Filter>Body\Data types</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\body\dataTypes\usdsUShort.h">
+      <Filter>Body\Data types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -298,6 +313,15 @@
     </ClCompile>
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUInt.cpp">
       <Filter>Dictionary\Data types</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Body\DataTypes\usdsUInt.cpp">
+      <Filter>Body\Data types</Filter>
+    </ClCompile>
+      <Filter>Dictionary\Data types</Filter>
+    </ClCompile>
+    </ClCompile>
+      <Filter>Body\Data types</Filter>
+    </ClCompile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

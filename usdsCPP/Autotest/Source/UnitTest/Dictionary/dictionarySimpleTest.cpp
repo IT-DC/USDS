@@ -5,6 +5,8 @@
 #include "dictionary\dataTypes\dictionaryBoolean.h"
 #include "dictionary\dataTypes\dictionaryByte.h"
 #include "dictionary\dataTypes\dictionaryUByte.h"
+#include "dictionary\dataTypes\dictionaryShort.h"
+#include "dictionary\dataTypes\dictionaryUShort.h"
 #include "dictionary\dataTypes\dictionaryInt.h"
 #include "dictionary\dataTypes\dictionaryUInt.h"
 #include "dictionary\dataTypes\dictionaryLong.h"
@@ -93,9 +95,24 @@ void DictionarySimpleTest::test_1()
 	usds::DictionaryUInt uint_object(0);
 	if (uint_object.getType() != usds::USDS_UINT)
 	{
-		throw "Failed at the step 9\n";
+		throw "Failed at the step 10\n";
 	}
 
+	// step 11
+
+	usds::DictionaryShort short_object(0);
+	if (short_object.getType() != usds::USDS_SHORT)
+	{
+		throw "Failed at the step 11\n";
+	}
+
+	// step 12
+
+	usds::DictionaryUShort ushort_object(0);
+	if (ushort_object.getType() != usds::USDS_USHORT)
+	{
+		throw "Failed at the step 12\n";
+	}
 }
 
 // Test for Base class - main attributes
@@ -299,5 +316,30 @@ void DictionarySimpleTest::test_4()
 	{
 		throw "Failed at the step 5\n";
 	}
+
+	// step 6
+	try
+	{
+		usds::DictionaryShort* short_object = (usds::DictionaryShort*)dict.addTag(usds::USDS_SHORT, 6, "short", 0);
+		if (short_object->getType() != usds::USDS_SHORT)
+			throw "Failed at the step 6\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 6\n";
+	}
+
+	// step 7
+	try
+	{
+		usds::DictionaryUShort* ushort_object = (usds::DictionaryUShort*)dict.addTag(usds::USDS_USHORT, 7, "ushort", 0);
+		if (ushort_object->getType() != usds::USDS_USHORT)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	}
+
 
 }

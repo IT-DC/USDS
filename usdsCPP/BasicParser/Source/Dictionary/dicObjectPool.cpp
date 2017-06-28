@@ -3,6 +3,8 @@
 #include "dictionary\dataTypes\dictionaryBoolean.h"
 #include "dictionary\dataTypes\dictionaryByte.h"
 #include "dictionary\dataTypes\dictionaryUByte.h"
+#include "dictionary\dataTypes\dictionaryShort.h"
+#include "dictionary\dataTypes\dictionaryUShort.h"
 #include "dictionary\dataTypes\dictionaryInt.h"
 #include "dictionary\dataTypes\dictionaryUInt.h"
 #include "dictionary\dataTypes\dictionaryLong.h"
@@ -26,8 +28,8 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_BOOLEAN] = new TemplateObjectPool<DictionaryBoolean, Dictionary>(dict);
 	pools[USDS_BYTE] = new TemplateObjectPool<DictionaryByte, Dictionary>(dict);
 	pools[USDS_UBYTE] = new TemplateObjectPool<DictionaryUByte, Dictionary>(dict);
-	pools[USDS_SHORT] = 0;
-	pools[USDS_USHORT] = 0;
+	pools[USDS_SHORT] = new TemplateObjectPool<DictionaryShort, Dictionary>(dict);
+	pools[USDS_USHORT] = new TemplateObjectPool<DictionaryUShort, Dictionary>(dict);
 	pools[USDS_BIGENDIAN_SHORT] = 0;
 	pools[USDS_BIGENDIAN_USHORT] = 0;
 	pools[USDS_INT] = new TemplateObjectPool<DictionaryInt, Dictionary>(dict);

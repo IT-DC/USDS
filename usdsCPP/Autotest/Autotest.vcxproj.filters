@@ -79,6 +79,15 @@
     <ClCompile Include="Source\UnitTest\Body\usdsFloat.cpp">
       <Filter>Unit tests\Body</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsUIntTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsShortTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsUShortTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAutotest.h" />

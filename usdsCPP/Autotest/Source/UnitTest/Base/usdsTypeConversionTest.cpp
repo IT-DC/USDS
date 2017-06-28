@@ -3003,4 +3003,890 @@ void UsdsTypeConversionTest::test_22()
 
 }
 
+void UsdsTypeConversionTest::test_23()
+{
+
+	int16_t dest_int16_value;
+
+	// step 1
+	try
+	{
+		dest_int16_value = 0;
+		int8_t value = 127;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	};
+
+	// step 2
+	try
+	{
+		dest_int16_value = 0;
+		int8_t value = -127;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 2\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 2\n";
+	};
+
+	// step 3
+	try
+	{
+		dest_int16_value = 0;
+		uint8_t value = 255;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	};
+
+	// step 4
+	try
+	{
+		dest_int16_value = 0;
+		int16_t value = 32000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 4\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 4\n";
+	};
+
+	// step 5
+	try
+	{
+		dest_int16_value = 0;
+		int16_t value = -32000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	};
+
+	// step 6
+	try
+	{
+		dest_int16_value = 0;
+		uint16_t value = 32000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 6\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 6\n";
+	};
+
+	// step 6.1
+	try
+	{
+		dest_int16_value = 0;
+		uint16_t value = 33000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		throw "Failed at the step 6.1\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 6.1\n";
+		}
+	}
+
+	// step 7
+	try
+	{
+		dest_int16_value = 0;
+		int32_t value = INT16_MAX;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	};
+
+	// step 8
+	try
+	{
+		dest_int16_value = 0;
+		int32_t value = -33000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		throw "Failed at the step 8\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 8\n";
+		}
+	}
+
+	// step 9
+	try
+	{
+		dest_int16_value = 0;
+		int32_t value = 33000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		throw "Failed at the step 9\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 9\n";
+		}
+	}
+
+	// step 10
+	try
+	{
+		dest_int16_value = 0;
+		uint32_t value = INT16_MAX;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	};
+
+	// step 11
+	try
+	{
+		dest_int16_value = 0;
+		uint32_t value = 33000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		throw "Failed at the step 11\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 11\n";
+		}
+	}
+
+	// step 12
+	try
+	{
+		dest_int16_value = 0;
+		int64_t value = INT16_MAX;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	};
+
+	// step 13
+	try
+	{
+		dest_int16_value = 0;
+		int64_t value = 33000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		throw "Failed at the step 13\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 13\n";
+		}
+	}
+
+	// step 14
+	try
+	{
+		dest_int16_value = 0;
+		int64_t value = -33000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		throw "Failed at the step 14\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 14\n";
+		}
+	}
+
+	// step 15
+	try
+	{
+		dest_int16_value = 0;
+		uint64_t value = INT16_MAX;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		if (value != dest_int16_value)
+			throw "Failed at the step 15\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 15\n";
+	};
+
+	// step 16
+	try
+	{
+		dest_int16_value = 0;
+		uint64_t value = 33000;
+		usdsTypeWrite(value, usds::USDS_SHORT, (uint8_t*)&dest_int16_value);
+		throw "Failed at the step 16\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 16\n";
+		}
+	}
+
+}
+
+void UsdsTypeConversionTest::test_24()
+{
+	int16_t source;
+
+	// step 1
+	try
+	{
+		source = 127;
+		int8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		if (value != source)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	};
+
+	// step 2
+	try
+	{
+		source = 128;
+		int8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		throw "Failed at the step 2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 2\n";
+		}
+	}
+
+	// step 3
+	try
+	{
+		source = -129;
+		int8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		throw "Failed at the step 3\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 3\n";
+		}
+	}
+
+	// step 4
+	try
+	{
+		source = 255;
+		uint8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		if (value != source)
+			throw "Failed at the step 4\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 4\n";
+	};
+
+	// step 5
+	try
+	{
+		source = 256;
+		uint8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		throw "Failed at the step 5\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 5\n";
+		}
+	}
+
+	// step 6
+	try
+	{
+		source = -1;
+		uint8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		throw "Failed at the step 6\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 6\n";
+		}
+	}
+
+	// step 7
+	try
+	{
+		source = INT16_MAX;
+		int16_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		if (value != source)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	};
+
+	// step 8
+	try
+	{
+		source = INT16_MAX;
+		uint16_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		if (value != source)
+			throw "Failed at the step 8\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 8\n";
+	};
+
+	// step 9
+	try
+	{
+		source = -1;
+		uint16_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		throw "Failed at the step 9\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 9\n";
+		}
+	}
+
+	// step 10
+	try
+	{
+		source = INT16_MAX;
+		int32_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		if (value != source)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	};
+
+	// step 11
+	try
+	{
+		source = INT16_MAX;
+		uint32_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		if (value != source)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	};
+
+	// step 12
+	try
+	{
+		source = -1;
+		uint32_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		throw "Failed at the step 12\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 12\n";
+		}
+	}
+
+	// step 13
+	try
+	{
+		source = INT16_MAX;
+		int64_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		if (value != source)
+			throw "Failed at the step 13\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 13\n";
+	};
+
+	// step 14
+	try
+	{
+		source = INT16_MAX;
+		uint64_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		if (value != source)
+			throw "Failed at the step 14\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 14\n";
+	};
+
+	// step 15
+	try
+	{
+		source = -1;
+		uint64_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_SHORT, &value);
+		throw "Failed at the step 15\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 15\n";
+		}
+	}
+
+}
+
+void UsdsTypeConversionTest::test_25()
+{
+
+	uint16_t dest_uint16_value;
+
+	// step 1
+	try
+	{
+		dest_uint16_value = 0;
+		int8_t value = 127;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		if (value != dest_uint16_value)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	};
+
+	// step 2
+	try
+	{
+		dest_uint16_value = 0;
+		int8_t value = -1;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		throw "Failed at the step 2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 2\n";
+		}
+	}
+
+	// step 3
+	try
+	{
+		dest_uint16_value = 0;
+		uint8_t value = 255;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		if (value != dest_uint16_value)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	};
+
+	// step 4
+	try
+	{
+		dest_uint16_value = 0;
+		int16_t value = INT16_MAX;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		if (value != dest_uint16_value)
+			throw "Failed at the step 4\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 4\n";
+	};
+
+	// step 5
+	try
+	{
+		dest_uint16_value = 0;
+		int16_t value = -1;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		throw "Failed at the step 5\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 5\n";
+		}
+	}
+
+	// step 6
+	try
+	{
+		dest_uint16_value = 0;
+		uint16_t value = UINT16_MAX;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		if (value != dest_uint16_value)
+			throw "Failed at the step 6\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 6\n";
+	};
+
+	// step 7
+	try
+	{
+		dest_uint16_value = 0;
+		int32_t value = UINT16_MAX;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		if (value != dest_uint16_value)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	};
+
+	// step 8
+	try
+	{
+		dest_uint16_value = 0;
+		int32_t value = -1;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		throw "Failed at the step 8\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 8\n";
+		}
+	}
+
+	// step 9
+	try
+	{
+		dest_uint16_value = 0;
+		uint32_t value = UINT16_MAX;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		if (value != dest_uint16_value)
+			throw "Failed at the step 9\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 9\n";
+	};
+
+	// step 10
+	try
+	{
+		dest_uint16_value = 0;
+		uint32_t value = 66000;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		throw "Failed at the step 10\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 10\n";
+		}
+	}
+
+	// step 11
+	try
+	{
+		dest_uint16_value = 0;
+		int64_t value = UINT16_MAX;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		if (value != dest_uint16_value)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	};
+
+	// step 12
+	try
+	{
+		dest_uint16_value = 0;
+		int64_t value = 66000;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		throw "Failed at the step 12\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 12\n";
+		}
+	}
+
+	// step 13
+	try
+	{
+		dest_uint16_value = 0;
+		int64_t value = -1;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		throw "Failed at the step 13\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 13\n";
+		}
+	}
+
+	// step 14
+	try
+	{
+		dest_uint16_value = 0;
+		uint64_t value = UINT16_MAX;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		if (value != dest_uint16_value)
+			throw "Failed at the step 14\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 14\n";
+	};
+
+	// step 15
+	try
+	{
+		dest_uint16_value = 0;
+		uint64_t value = 66000;
+		usdsTypeWrite(value, usds::USDS_USHORT, (uint8_t*)&dest_uint16_value);
+		throw "Failed at the step 15\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 15\n";
+		}
+	}
+
+}
+
+void UsdsTypeConversionTest::test_26()
+{
+	uint16_t source;
+
+	// step 1
+	try
+	{
+		source = 127;
+		int8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		if (value != source)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	};
+
+	// step 2
+	try
+	{
+		source = 128;
+		int8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		throw "Failed at the step 2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 2\n";
+		}
+	}
+
+	// step 3
+	try
+	{
+		source = 255;
+		uint8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		if (value != source)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	};
+
+	// step 4
+	try
+	{
+		source = 256;
+		uint8_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		throw "Failed at the step 4\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 4\n";
+		}
+	}
+
+	// step 5
+	try
+	{
+		source = INT16_MAX;
+		int16_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		if (value != source)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	};
+
+	// step 6
+	try
+	{
+		source = 33000;
+		int16_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		throw "Failed at the step 6\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 6\n";
+		}
+	}
+
+	// step 7
+	try
+	{
+		source = UINT16_MAX;
+		uint16_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		if (value != source)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	};
+
+	// step 8
+	try
+	{
+		source = UINT16_MAX;
+		int32_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		if (value != source)
+			throw "Failed at the step 8\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 8\n";
+	};
+
+	// step 9
+	try
+	{
+		source = UINT16_MAX;
+		uint32_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		if (value != source)
+			throw "Failed at the step 9\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 9\n";
+	};
+
+	// step 10
+	try
+	{
+		source = UINT16_MAX;
+		int64_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		if (value != source)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	};
+
+	// step 11
+	try
+	{
+		source = UINT16_MAX;
+		uint64_t value = 0;
+		usdsTypeRead((uint8_t*)&source, usds::USDS_USHORT, &value);
+		if (value != source)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	};
+
+}
+
 

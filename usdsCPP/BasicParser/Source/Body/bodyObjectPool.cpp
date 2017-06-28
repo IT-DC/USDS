@@ -5,7 +5,10 @@
 #include "body\dataTypes\usdsBoolean.h"
 #include "body\dataTypes\usdsByte.h"
 #include "body\dataTypes\usdsUByte.h"
+#include "body\dataTypes\usdsShort.h"
+#include "body\dataTypes\usdsUShort.h"
 #include "body\dataTypes\usdsInt.h"
+#include "body\dataTypes\usdsUInt.h"
 #include "body\dataTypes\usdsLong.h"
 #include "body\dataTypes\usdsULong.h"
 #include "body\dataTypes\usdsFloat.h"
@@ -24,12 +27,12 @@ BodyObjectPool::BodyObjectPool(Body* parent_body)
 	pools[USDS_BOOLEAN] = new TemplateObjectPool<UsdsBoolean, Body>(parent_body);
 	pools[USDS_BYTE] = new TemplateObjectPool<UsdsByte, Body>(parent_body);
 	pools[USDS_UBYTE] = new TemplateObjectPool<UsdsUByte, Body>(parent_body);
-	pools[USDS_SHORT] = 0;
-	pools[USDS_USHORT] = 0;
+	pools[USDS_SHORT] = new TemplateObjectPool<UsdsShort, Body>(parent_body);
+	pools[USDS_USHORT] = new TemplateObjectPool<UsdsUShort, Body>(parent_body);
 	pools[USDS_BIGENDIAN_SHORT] = 0;
 	pools[USDS_BIGENDIAN_USHORT] = 0;
 	pools[USDS_INT] = new TemplateObjectPool<UsdsInt, Body>(parent_body);
-	pools[USDS_UINT] = 0;
+	pools[USDS_UINT] = new TemplateObjectPool<UsdsUInt, Body>(parent_body);
 	pools[USDS_BIGENDIAN_INT] = 0;
 	pools[USDS_BIGENDIAN_UINT] = 0;
 	pools[USDS_LONG] = new TemplateObjectPool<UsdsLong, Body>(parent_body);

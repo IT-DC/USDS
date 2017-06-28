@@ -257,6 +257,31 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::writeShort(int16_t value) throw(...)
+try
+{
+	checkSize(USDS_SHORT_SIZE);
+	memcpy(buffCurrentPos, &value, USDS_SHORT_SIZE);
+	buffCurrentPos += USDS_SHORT_SIZE;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeShort") << value;
+	throw;
+};
+
+void BinaryOutput::writeUShort(uint16_t value) throw(...)
+try
+{
+	checkSize(USDS_USHORT_SIZE);
+	memcpy(buffCurrentPos, &value, USDS_USHORT_SIZE);
+	buffCurrentPos += USDS_USHORT_SIZE;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeShort") << value;
+	throw;
+};
 
 void BinaryOutput::writeInt(int32_t value) throw(...)
 try 
@@ -271,6 +296,19 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BinaryOutput::writeUInt(uint32_t value) throw(...)
+try
+{
+	checkSize(USDS_UINT_SIZE);
+	memcpy(buffCurrentPos, &value, USDS_UINT_SIZE);
+	buffCurrentPos += USDS_UINT_SIZE;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeUInt") << value;
+	throw;
+};
+
 void BinaryOutput::writeLong(int64_t value) throw(...)
 try 
 {
@@ -282,6 +320,19 @@ try
 catch (ErrorStack& err)
 {
 	err.addLevel("BinaryOutput::writeLong") << value;
+	throw;
+};
+
+void BinaryOutput::writeULong(uint64_t value) throw(...)
+try
+{
+	checkSize(USDS_ULONG_SIZE);
+	memcpy(buffCurrentPos, &value, USDS_ULONG_SIZE);
+	buffCurrentPos += USDS_ULONG_SIZE;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeUInt") << value;
 	throw;
 };
 
@@ -750,185 +801,24 @@ catch (ErrorStack& err)
 
 //===================================================================================================================
 
-void BinaryOutput::readBoolean(size_t position, bool* value) throw(...)
-try
-{
-	if (value == 0)
-		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
-
-	// check buff size
-	size_t doc_size = buffCurrentPos - buffFirstPos;
-	if ((position + USDS_BOOLEAN_SIZE) > (doc_size))
-		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_BOOLEAN_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
-	if ((buffFirstPos+position)[0] == 0)
-		*value = false;
-	else
-		*value = true;
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("BinaryOutput::readBoolean") << position << value << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BinaryOutput::readBoolean") << position << value;
-	throw;
-};
-
-void BinaryOutput::readByte(size_t position, int8_t* value) throw(...)
-try
-{
-	if (value == 0)
-		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
-	
-	// check buff size
-	size_t doc_size = buffCurrentPos - buffFirstPos;
-	if ((position + USDS_BYTE_SIZE) > (doc_size))
-		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_BYTE_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
-
-	*value = (buffFirstPos + position)[0];
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("BinaryOutput::readByte") << position << value << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BinaryOutput::readByte") << position << value;
-	throw;
-};
-
-void BinaryOutput::readUByte(size_t position, uint8_t* value) throw(...)
-try
-{
-	if (value == 0)
-		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
-
-	// check buff size
-	size_t doc_size = buffCurrentPos - buffFirstPos;
-	if ((position + USDS_UBYTE_SIZE) > (doc_size))
-		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_UBYTE_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
-
-	*value = (buffFirstPos + position)[0];
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("BinaryOutput::readUByte") << position << value << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BinaryOutput::readUByte") << position << value;
-	throw;
-};
-
-
-void BinaryOutput::readInt(size_t position, int32_t* value) throw(...)
-try
-{
-	if (value == 0)
-		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
-
-	// check buff size
-	size_t doc_size = buffCurrentPos - buffFirstPos;
-	if ((position + USDS_INT_SIZE) > (doc_size))
-		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_INT_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
-
-	memcpy(value, buffFirstPos + position, USDS_INT_SIZE);
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("BinaryOutput::readInt") << position << value << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BinaryOutput::readInt") << position << value;
-	throw;
-};
-
-void BinaryOutput::readLong(size_t position, int64_t* value) throw(...)
-try
-{
-	if (value == 0)
-		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
-
-	// check buff size
-	size_t doc_size = buffCurrentPos - buffFirstPos;
-	if ((position + USDS_LONG_SIZE) > (doc_size))
-		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_LONG_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
-
-	memcpy(value, buffFirstPos + position, USDS_LONG_SIZE);
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("BinaryOutput::readLong") << position << value << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BinaryOutput::readLong") << position << value;
-	throw;
-};
-
-void BinaryOutput::readFloat(size_t position, float* value) throw(...)
-try
-{
-	if (value == 0)
-		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
-
-	// check buff size
-	size_t doc_size = buffCurrentPos - buffFirstPos;
-	if ((position + USDS_FLOAT_SIZE) > (doc_size))
-		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_FLOAT_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
-
-	memcpy(value, buffFirstPos + position, USDS_FLOAT_SIZE);
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("BinaryOutput::readFloat") << position << value << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BinaryOutput::readFloat") << position << value;
-	throw;
-};
-
-void BinaryOutput::readDouble(size_t position, double* value) throw(...)
-try
-{
-	if (value == 0)
-		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
-
-	// check buff size
-	size_t doc_size = buffCurrentPos - buffFirstPos;
-	if ((position + USDS_DOUBLE_SIZE) > (doc_size))
-		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_DOUBLE_SIZE << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
-
-	memcpy(value, buffFirstPos + position, USDS_DOUBLE_SIZE);
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("BinaryOutput::readDouble") << position << value << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BinaryOutput::readDouble") << position << value;
-	throw;
-};
-
-
-//===================================================================================================================
-
 void BinaryOutput::read(size_t position, usdsTypes usds_type, bool* value) throw(...)
 try
 {
-	switch (usds_type)
-	{
-	case USDS_BOOLEAN:
-		readBoolean(position, value);
-		break;
-	default:
+	if (value == 0)
+		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
+
+	if (usds_type != USDS_BOOLEAN)
 		throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to bool";
 
-	}
+	// check buff size
+	size_t doc_size = buffCurrentPos - buffFirstPos;
+	if ((position + USDS_BOOLEAN_SIZE) > doc_size)
+		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << USDS_BOOLEAN_SIZE << " byte from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
+
+	if ((buffFirstPos + position)[0] == 0)
+		*value = false;
+	else
+		*value = true;
 }
 catch (ErrorMessage& msg)
 {

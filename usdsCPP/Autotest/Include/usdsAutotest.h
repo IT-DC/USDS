@@ -22,7 +22,34 @@ public:
 	static void test_16();
 };
 
-class ObjectPoolTest
+class UsdsByteTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class UsdsDoubleTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class DictionaryStringTest
+{
+public:
+	static void test_1();
+};
+
+class UsdsFloatTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class UsdsArrayTest
 {
 public:
 	static void test_1();
@@ -37,13 +64,20 @@ public:
 	static void test_10();
 	static void test_11();
 	static void test_12();
+	static void test_13();
+	static void test_14();
+	static void test_15();
+	static void test_16();
+	static void test_17();
+	static void test_18();
 };
 
-class UsdsULongTest
+class DictionaryTagLinkTest
 {
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
 };
 
 class UsdsTypeConversionTest
@@ -71,9 +105,27 @@ public:
 	static void test_20();
 	static void test_21();
 	static void test_22();
+	static void test_23();
+	static void test_24();
+	static void test_25();
+	static void test_26();
 };
 
-class UsdsByteTest
+class UsdsUIntTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class UsdsUShortTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class UsdsUVarintTest
 {
 public:
 	static void test_1();
@@ -98,26 +150,6 @@ public:
 	static void test_13();
 };
 
-class DictionaryStringTest
-{
-public:
-	static void test_1();
-};
-
-class UsdsDoubleTest
-{
-public:
-	static void test_1();
-	static void test_2();
-};
-
-class UsdsUByteTest
-{
-public:
-	static void test_1();
-	static void test_2();
-};
-
 class UsdsBooleanTest
 {
 public:
@@ -135,33 +167,11 @@ public:
 	static void test_5();
 };
 
-class UsdsFloatTest
+class UsdsULongTest
 {
 public:
 	static void test_1();
 	static void test_2();
-};
-
-class UsdsUVarintTest
-{
-public:
-	static void test_1();
-	static void test_2();
-};
-
-class DictionaryArrayTest
-{
-public:
-	static void test_1();
-	static void test_2();
-};
-
-class DictionaryTagLinkTest
-{
-public:
-	static void test_1();
-	static void test_2();
-	static void test_3();
 };
 
 class DictionaryTest
@@ -176,7 +186,7 @@ public:
 	static void test_7();
 };
 
-class UsdsArrayTest
+class ObjectPoolTest
 {
 public:
 	static void test_1();
@@ -191,9 +201,20 @@ public:
 	static void test_10();
 	static void test_11();
 	static void test_12();
-	static void test_13();
-	static void test_14();
-	static void test_15();
+};
+
+class UsdsShortTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class UsdsUByteTest
+{
+public:
+	static void test_1();
+	static void test_2();
 };
 
 class DictionaryStructTest
@@ -203,6 +224,13 @@ public:
 	static void test_2();
 	static void test_3();
 	static void test_4();
+};
+
+class DictionaryArrayTest
+{
+public:
+	static void test_1();
+	static void test_2();
 };
 
 class UsdsLongTest

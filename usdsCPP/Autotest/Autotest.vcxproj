@@ -88,8 +88,11 @@
     <ClCompile Include="Source\UnitTest\Body\usdsFloat.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsIntTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsLongTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsShortTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsUByteTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsUIntTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsULongTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsUShortTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsUVarintTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryArrayTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionarySimpleTest.cpp" />

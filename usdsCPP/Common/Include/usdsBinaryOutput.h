@@ -37,8 +37,12 @@ namespace usds
 		void writeBoolean(bool value) throw(...);
 		void writeByte(int8_t value) throw(...);
 		void writeUByte(uint8_t value) throw(...);
+		void writeShort(int16_t value) throw(...);
+		void writeUShort(uint16_t value) throw(...);
 		void writeInt(int32_t value) throw(...);
+		void writeUInt(uint32_t value) throw(...);
 		void writeLong(int64_t value) throw(...);
+		void writeULong(uint64_t value) throw(...);
 		void writeFloat(float value) throw(...);
 		void writeDouble(double value) throw(...);
 		size_t writeUVarint(uint64_t value) throw(...);
@@ -71,14 +75,6 @@ namespace usds
 		void write(usdsTypes usds_type, uint64_t value) throw(...);
 		void write(usdsTypes usds_type, float value) throw(...);
 		void write(usdsTypes usds_type, double value) throw(...);
-
-		void readBoolean(size_t position, bool* value) throw(...);
-		void readByte(size_t position, int8_t* value) throw(...);
-		void readUByte(size_t position, uint8_t* value) throw(...);
-		void readInt(size_t position, int32_t* value) throw(...);
-		void readLong(size_t position, int64_t* value) throw(...);
-		void readFloat(size_t position, float* value) throw(...);
-		void readDouble(size_t position, double* value) throw(...);
 
 		void read(size_t position, usdsTypes usds_type, bool* value) throw(...);
 		void read(size_t position, usdsTypes usds_type, int8_t* value) throw(...);
