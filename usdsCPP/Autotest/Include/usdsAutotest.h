@@ -20,9 +20,17 @@ public:
 	static void test_14();
 	static void test_15();
 	static void test_16();
+	static void test_17();
 };
 
 class UsdsByteTest
+{
+public:
+	static void test_1();
+	static void test_2();
+};
+
+class UsdsVarintTest
 {
 public:
 	static void test_1();
@@ -111,11 +119,13 @@ public:
 	static void test_26();
 };
 
-class UsdsUIntTest
+class DictionaryStructTest
 {
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
+	static void test_4();
 };
 
 class UsdsUShortTest
@@ -148,6 +158,12 @@ public:
 	static void test_11();
 	static void test_12();
 	static void test_13();
+	static void test_14();
+	static void test_15();
+	static void test_16();
+	static void test_17();
+	static void test_18();
+	static void test_19();
 };
 
 class UsdsBooleanTest
@@ -217,13 +233,11 @@ public:
 	static void test_2();
 };
 
-class DictionaryStructTest
+class UsdsUIntTest
 {
 public:
 	static void test_1();
 	static void test_2();
-	static void test_3();
-	static void test_4();
 };
 
 class DictionaryArrayTest

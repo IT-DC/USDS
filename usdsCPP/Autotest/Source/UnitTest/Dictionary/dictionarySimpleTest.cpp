@@ -13,6 +13,7 @@
 #include "dictionary\dataTypes\dictionaryFloat.h"
 #include "dictionary\dataTypes\dictionaryDouble.h"
 #include "dictionary\dataTypes\dictionaryULong.h"
+#include "dictionary\dataTypes\dictionaryVarint.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
 
 
@@ -113,7 +114,17 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 12\n";
 	}
+
+	// step 13
+
+	usds::DictionaryVarint varint_object(0);
+	if (varint_object.getType() != usds::USDS_VARINT)
+	{
+		throw "Failed at the step 13\n";
+	}
+
 }
+
 
 // Test for Base class - main attributes
 void DictionarySimpleTest::test_2()
@@ -339,6 +350,18 @@ void DictionarySimpleTest::test_4()
 	catch (...)
 	{
 		throw "Failed at the step 7\n";
+	}
+
+	// step 8
+	try
+	{
+		usds::DictionaryVarint* varint_object = (usds::DictionaryVarint*)dict.addTag(usds::USDS_VARINT, 8, "varint", 0);
+		if (varint_object->getType() != usds::USDS_VARINT)
+			throw "Failed at the step 8\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 8\n";
 	}
 
 

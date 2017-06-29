@@ -2167,11 +2167,244 @@ void BinaryOutputTest::test_16()
 	{
 		throw "Failed at the step 2\n";
 	}
+}
 
+void BinaryOutputTest::test_17()
+{
+	usds::BinaryOutput binary(64);
 
+	// step 1
+	int64_t value = 1;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 1 || binary.getSize() != 1 || binary.getBinary()[0] != 2)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	}
+
+	// step 2
+	binary.clear();
+	value = -1;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 1 || binary.getSize() != 1 || binary.getBinary()[0] != 3)
+			throw "Failed at the step 2\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 2\n";
+	}
+
+	// step 3
+	binary.clear();
+	value = 63;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 1 || binary.getSize() != 1 || binary.getBinary()[0] != 126)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	}
+
+	// step 4
+	binary.clear();
+	value = -63;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 1 || binary.getSize() != 1 || binary.getBinary()[0] != 127)
+			throw "Failed at the step 4\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 4\n";
+	}
+
+	// step 5
+	binary.clear();
+	value = 0;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 1 || binary.getSize() != 1 || binary.getBinary()[0] != 0)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	}
+
+	// step 6
+	binary.clear();
+	value = 64;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 2 || binary.getSize() != 2 || binary.getBinary()[0] != 128 || binary.getBinary()[1] != 1)
+			throw "Failed at the step 6\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 6\n";
+	}
+
+	// step 7
+	binary.clear();
+	value = -64;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 2 || binary.getSize() != 2 || binary.getBinary()[0] != 129 || binary.getBinary()[1] != 1)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	}
+
+	// step 8
+	binary.clear();
+	value = 8191;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 2 || binary.getSize() != 2 || binary.getBinary()[0] != 254 || binary.getBinary()[1] != 127)
+			throw "Failed at the step 8\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 8\n";
+	}
+
+	// step 9
+	binary.clear();
+	value = -8191;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 2 || binary.getSize() != 2 || binary.getBinary()[0] != 255 || binary.getBinary()[1] != 127)
+			throw "Failed at the step 9\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 9\n";
+	}
+
+	// step 10
+	binary.clear();
+	value = 8192;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 3 || binary.getSize() != 3 || binary.getBinary()[0] != 128 || binary.getBinary()[1] != 128 || binary.getBinary()[2] != 1)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	}
+
+	// step 11
+	binary.clear();
+	value = -8192;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 3 || binary.getSize() != 3 || binary.getBinary()[0] != 129 || binary.getBinary()[1] != 128 || binary.getBinary()[2] != 1)
+			throw "Failed at the step 10\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 10\n";
+	}
+
+	// step 12
+	binary.clear();
+	value = 1048575;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 3 || binary.getSize() != 3 || binary.getBinary()[0] != 254 || binary.getBinary()[1] != 255 || binary.getBinary()[2] != 127)
+			throw "Failed at the step 12\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 12\n";
+	}
+
+	// step 13
+	binary.clear();
+	value = -1048575;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 3 || binary.getSize() != 3 || binary.getBinary()[0] != 255 || binary.getBinary()[1] != 255 || binary.getBinary()[2] != 127)
+			throw "Failed at the step 13\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 13\n";
+	}
+
+	// step 14
+	binary.clear();
+	value = INT64_MAX;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 10 || binary.getSize() != 10 || 
+			binary.getBinary()[0] != 254 || binary.getBinary()[1] != 255 || binary.getBinary()[2] != 255 || binary.getBinary()[3] != 255 ||
+			binary.getBinary()[4] != 255 || binary.getBinary()[5] != 255 || binary.getBinary()[6] != 255 || binary.getBinary()[7] != 255 ||
+			binary.getBinary()[8] != 255 || binary.getBinary()[9] != 1)
+			throw "Failed at the step 14\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 14\n";
+	}
+
+	// step 15
+	binary.clear();
+	value = INT64_MIN + 1;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 10 || binary.getSize() != 10 ||
+			binary.getBinary()[0] != 255 || binary.getBinary()[1] != 255 || binary.getBinary()[2] != 255 || binary.getBinary()[3] != 255 ||
+			binary.getBinary()[4] != 255 || binary.getBinary()[5] != 255 || binary.getBinary()[6] != 255 || binary.getBinary()[7] != 255 ||
+			binary.getBinary()[8] != 255 || binary.getBinary()[9] != 1)
+			throw "Failed at the step 15\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 15\n";
+	}
+
+	// step 16
+	binary.clear();
+	value = INT64_MIN;
+	try
+	{
+		size_t size = binary.writeVarint(value);
+		if (size != 10 || binary.getSize() != 10 ||
+			binary.getBinary()[0] != 129 || binary.getBinary()[1] != 128 || binary.getBinary()[2] != 128 || binary.getBinary()[3] != 128 ||
+			binary.getBinary()[4] != 128 || binary.getBinary()[5] != 128 || binary.getBinary()[6] != 128 || binary.getBinary()[7] != 128 ||
+			binary.getBinary()[8] != 128 || binary.getBinary()[9] != 2)
+			throw "Failed at the step 16\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 16\n";
+	}
 
 
 }
-
-
 

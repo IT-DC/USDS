@@ -1,4 +1,5 @@
 #include "usdsBinaryOutput.h"
+#include <math.h>
 
 using namespace usds;
 
@@ -81,7 +82,7 @@ catch (ErrorStack& err)
 size_t BinaryOutput::writeUVarint(uint64_t value) throw(...)
 try
 {
-	checkSize(17);	// 8 bytes - "int64_t", 9 bytes - shiftes
+	checkSize(17);	// 8 bytes - "uint64_t", 9 bytes - shiftes
 
 	// step 1 of 10
 	memcpy(buffCurrentPos, &value, 8);
@@ -1105,5 +1106,63 @@ catch (ErrorStack& err)
 	err.addLevel("BinaryOutput::readPointer") << position << value;
 	throw;
 };
+
+size_t BinaryOutput::writeVarint(int64_t value) throw(...)
+try
+{
+	checkSize(17);	// 8 bytes - "int64_t", 9 bytes - shiftes
+
+	// step 1 of 10
+	memcpy(buffCurrentPos, &value, 8);
+	buffCurrentPos[8] = 0;
+
+	// create absolute value
+	if (value < 0)
+	{
+		*((uint64_t*)buffCurrentPos) = 0xFFFFFFFFFFFFFFFFULL - *((uint64_t*)buffCurrentPos);
+		*((uint64_t*)buffCurrentPos) += 1ULL;
+		if (buffCurrentPos[7] >= 128)
+			buffCurrentPos[8] = 1;
+		*((uint64_t*)buffCurrentPos) <<= 1;
+		*((uint64_t*)buffCurrentPos) += 1;
+	}
+	else
+		*((uint64_t*)buffCurrentPos) <<= 1;
+
+	if (value < 64 && value > -64)
+	{
+		buffCurrentPos++;
+		return 1;
+	}
+	buffCurrentPos++;
+
+	size_t byte_size = 1;
+
+	while(1)
+	{
+		byte_size++;
+
+		*((uint64_t*)buffCurrentPos) <<= 1;
+		if (*(buffCurrentPos - 1) & 128)
+			*buffCurrentPos |= 1;
+		else
+			*(buffCurrentPos - 1) |= 128;
+		
+		if (*((uint64_t*)buffCurrentPos) < 128ULL)
+		{
+			buffCurrentPos++;
+			return byte_size;
+		}
+
+		buffCurrentPos++;
+		buffCurrentPos[7] = 0;
+	}
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::writeVarint") << value;
+	throw;
+};
+
 
 

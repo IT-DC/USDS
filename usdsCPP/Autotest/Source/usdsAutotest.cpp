@@ -1315,6 +1315,86 @@ int32_t main(int32_t argc, char* argv[])
 	test_number++;
 	if(execute_only != 0)
 	{
+		if(strcmp(execute_only, "BinaryOutputTest") == 0 || strcmp(execute_only, "BinaryOutputTest::test_17") == 0)
+		{
+			try
+			{
+				BinaryOutputTest::test_17();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "BinaryOutputTest") == 0 || strcmp(*it, "BinaryOutputTest::test_17") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				BinaryOutputTest::test_17();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryOutputTest::test_17' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
 		if(strcmp(execute_only, "UsdsByteTest") == 0 || strcmp(execute_only, "UsdsByteTest::test_1") == 0)
 		{
 			try
@@ -1467,6 +1547,166 @@ int32_t main(int32_t argc, char* argv[])
 			catch (...)
 			{
 				std::cout << "Test #" << test_number << " 'UsdsByteTest::test_2' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "UsdsVarintTest") == 0 || strcmp(execute_only, "UsdsVarintTest::test_1") == 0)
+		{
+			try
+			{
+				UsdsVarintTest::test_1();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "UsdsVarintTest") == 0 || strcmp(*it, "UsdsVarintTest::test_1") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				UsdsVarintTest::test_1();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_1' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "UsdsVarintTest") == 0 || strcmp(execute_only, "UsdsVarintTest::test_2") == 0)
+		{
+			try
+			{
+				UsdsVarintTest::test_2();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "UsdsVarintTest") == 0 || strcmp(*it, "UsdsVarintTest::test_2") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				UsdsVarintTest::test_2();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'UsdsVarintTest::test_2' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}
@@ -5635,78 +5875,78 @@ int32_t main(int32_t argc, char* argv[])
 	test_number++;
 	if(execute_only != 0)
 	{
-		if(strcmp(execute_only, "UsdsUIntTest") == 0 || strcmp(execute_only, "UsdsUIntTest::test_1") == 0)
+		if(strcmp(execute_only, "DictionaryStructTest") == 0 || strcmp(execute_only, "DictionaryStructTest::test_1") == 0)
 		{
 			try
 			{
-				UsdsUIntTest::test_1();
+				DictionaryStructTest::test_1();
 				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' is passed\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' is passed\n";
 			}
 			catch (const char* error_text)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' is failed: " << error_text << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' is failed: " << error_text << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorStack & err)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorMessage & msg)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (...)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed: unexpected exception\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}
 		else
 		{
 			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' ignored\n";
+			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' ignored\n";
 		}
 	}
 	else
 	{
 		bool need_ignore = false;
 		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
-			if(strcmp(*it, "UsdsUIntTest") == 0 || strcmp(*it, "UsdsUIntTest::test_1") == 0)
+			if(strcmp(*it, "DictionaryStructTest") == 0 || strcmp(*it, "DictionaryStructTest::test_1") == 0)
 				need_ignore = true;
 		if(need_ignore)
 		{
 			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' ignored\n";
+			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' ignored\n";
 		}
 		else
 		{
 			try
 			{
-				UsdsUIntTest::test_1();
+				DictionaryStructTest::test_1();
 				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' is passed\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' is passed\n";
 			}
 			catch (const char* error_text)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' is failed: " << error_text << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' is failed: " << error_text << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorStack & err)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorMessage & msg)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (...)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed: unexpected exception\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}
@@ -5715,78 +5955,238 @@ int32_t main(int32_t argc, char* argv[])
 	test_number++;
 	if(execute_only != 0)
 	{
-		if(strcmp(execute_only, "UsdsUIntTest") == 0 || strcmp(execute_only, "UsdsUIntTest::test_2") == 0)
+		if(strcmp(execute_only, "DictionaryStructTest") == 0 || strcmp(execute_only, "DictionaryStructTest::test_2") == 0)
 		{
 			try
 			{
-				UsdsUIntTest::test_2();
+				DictionaryStructTest::test_2();
 				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' is passed\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' is passed\n";
 			}
 			catch (const char* error_text)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' is failed: " << error_text << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' is failed: " << error_text << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorStack & err)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorMessage & msg)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (...)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed: unexpected exception\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}
 		else
 		{
 			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' ignored\n";
+			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' ignored\n";
 		}
 	}
 	else
 	{
 		bool need_ignore = false;
 		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
-			if(strcmp(*it, "UsdsUIntTest") == 0 || strcmp(*it, "UsdsUIntTest::test_2") == 0)
+			if(strcmp(*it, "DictionaryStructTest") == 0 || strcmp(*it, "DictionaryStructTest::test_2") == 0)
 				need_ignore = true;
 		if(need_ignore)
 		{
 			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' ignored\n";
+			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' ignored\n";
 		}
 		else
 		{
 			try
 			{
-				UsdsUIntTest::test_2();
+				DictionaryStructTest::test_2();
 				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' is passed\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' is passed\n";
 			}
 			catch (const char* error_text)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' is failed: " << error_text << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' is failed: " << error_text << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorStack & err)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorMessage & msg)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (...)
 			{
-				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed: unexpected exception\n";
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryStructTest") == 0 || strcmp(execute_only, "DictionaryStructTest::test_3") == 0)
+		{
+			try
+			{
+				DictionaryStructTest::test_3();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryStructTest") == 0 || strcmp(*it, "DictionaryStructTest::test_3") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryStructTest::test_3();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryStructTest") == 0 || strcmp(execute_only, "DictionaryStructTest::test_4") == 0)
+		{
+			try
+			{
+				DictionaryStructTest::test_4();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryStructTest") == 0 || strcmp(*it, "DictionaryStructTest::test_4") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryStructTest::test_4();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}
@@ -7147,6 +7547,486 @@ int32_t main(int32_t argc, char* argv[])
 			catch (...)
 			{
 				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_13' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "BinaryInputTest") == 0 || strcmp(execute_only, "BinaryInputTest::test_14") == 0)
+		{
+			try
+			{
+				BinaryInputTest::test_14();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "BinaryInputTest") == 0 || strcmp(*it, "BinaryInputTest::test_14") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				BinaryInputTest::test_14();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_14' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "BinaryInputTest") == 0 || strcmp(execute_only, "BinaryInputTest::test_15") == 0)
+		{
+			try
+			{
+				BinaryInputTest::test_15();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "BinaryInputTest") == 0 || strcmp(*it, "BinaryInputTest::test_15") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				BinaryInputTest::test_15();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_15' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "BinaryInputTest") == 0 || strcmp(execute_only, "BinaryInputTest::test_16") == 0)
+		{
+			try
+			{
+				BinaryInputTest::test_16();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "BinaryInputTest") == 0 || strcmp(*it, "BinaryInputTest::test_16") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				BinaryInputTest::test_16();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_16' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "BinaryInputTest") == 0 || strcmp(execute_only, "BinaryInputTest::test_17") == 0)
+		{
+			try
+			{
+				BinaryInputTest::test_17();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "BinaryInputTest") == 0 || strcmp(*it, "BinaryInputTest::test_17") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				BinaryInputTest::test_17();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_17' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "BinaryInputTest") == 0 || strcmp(execute_only, "BinaryInputTest::test_18") == 0)
+		{
+			try
+			{
+				BinaryInputTest::test_18();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "BinaryInputTest") == 0 || strcmp(*it, "BinaryInputTest::test_18") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				BinaryInputTest::test_18();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_18' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "BinaryInputTest") == 0 || strcmp(execute_only, "BinaryInputTest::test_19") == 0)
+		{
+			try
+			{
+				BinaryInputTest::test_19();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "BinaryInputTest") == 0 || strcmp(*it, "BinaryInputTest::test_19") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				BinaryInputTest::test_19();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'BinaryInputTest::test_19' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}
@@ -9715,78 +10595,78 @@ int32_t main(int32_t argc, char* argv[])
 	test_number++;
 	if(execute_only != 0)
 	{
-		if(strcmp(execute_only, "DictionaryStructTest") == 0 || strcmp(execute_only, "DictionaryStructTest::test_1") == 0)
+		if(strcmp(execute_only, "UsdsUIntTest") == 0 || strcmp(execute_only, "UsdsUIntTest::test_1") == 0)
 		{
 			try
 			{
-				DictionaryStructTest::test_1();
+				UsdsUIntTest::test_1();
 				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' is passed\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' is passed\n";
 			}
 			catch (const char* error_text)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' is failed: " << error_text << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' is failed: " << error_text << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorStack & err)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorMessage & msg)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (...)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed: unexpected exception\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}
 		else
 		{
 			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' ignored\n";
+			std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' ignored\n";
 		}
 	}
 	else
 	{
 		bool need_ignore = false;
 		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
-			if(strcmp(*it, "DictionaryStructTest") == 0 || strcmp(*it, "DictionaryStructTest::test_1") == 0)
+			if(strcmp(*it, "UsdsUIntTest") == 0 || strcmp(*it, "UsdsUIntTest::test_1") == 0)
 				need_ignore = true;
 		if(need_ignore)
 		{
 			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' ignored\n";
+			std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' ignored\n";
 		}
 		else
 		{
 			try
 			{
-				DictionaryStructTest::test_1();
+				UsdsUIntTest::test_1();
 				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' is passed\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' is passed\n";
 			}
 			catch (const char* error_text)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' is failed: " << error_text << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' is failed: " << error_text << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorStack & err)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorMessage & msg)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (...)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_1' failed: unexpected exception\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_1' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}
@@ -9795,238 +10675,78 @@ int32_t main(int32_t argc, char* argv[])
 	test_number++;
 	if(execute_only != 0)
 	{
-		if(strcmp(execute_only, "DictionaryStructTest") == 0 || strcmp(execute_only, "DictionaryStructTest::test_2") == 0)
+		if(strcmp(execute_only, "UsdsUIntTest") == 0 || strcmp(execute_only, "UsdsUIntTest::test_2") == 0)
 		{
 			try
 			{
-				DictionaryStructTest::test_2();
+				UsdsUIntTest::test_2();
 				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' is passed\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' is passed\n";
 			}
 			catch (const char* error_text)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' is failed: " << error_text << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' is failed: " << error_text << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorStack & err)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorMessage & msg)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (...)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed: unexpected exception\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}
 		else
 		{
 			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' ignored\n";
+			std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' ignored\n";
 		}
 	}
 	else
 	{
 		bool need_ignore = false;
 		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
-			if(strcmp(*it, "DictionaryStructTest") == 0 || strcmp(*it, "DictionaryStructTest::test_2") == 0)
+			if(strcmp(*it, "UsdsUIntTest") == 0 || strcmp(*it, "UsdsUIntTest::test_2") == 0)
 				need_ignore = true;
 		if(need_ignore)
 		{
 			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' ignored\n";
+			std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' ignored\n";
 		}
 		else
 		{
 			try
 			{
-				DictionaryStructTest::test_2();
+				UsdsUIntTest::test_2();
 				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' is passed\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' is passed\n";
 			}
 			catch (const char* error_text)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' is failed: " << error_text << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' is failed: " << error_text << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorStack & err)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (usds::ErrorMessage & msg)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 			catch (...)
 			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_2' failed: unexpected exception\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-		}
-	}
-
-	test_number++;
-	if(execute_only != 0)
-	{
-		if(strcmp(execute_only, "DictionaryStructTest") == 0 || strcmp(execute_only, "DictionaryStructTest::test_3") == 0)
-		{
-			try
-			{
-				DictionaryStructTest::test_3();
-				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' is passed\n";
-			}
-			catch (const char* error_text)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' is failed: " << error_text << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (usds::ErrorStack & err)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed, unexpected error:\n" << err.getFullMessage() << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (usds::ErrorMessage & msg)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed, unexpected message:\n" << msg.getMessage() << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (...)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed: unexpected exception\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-		}
-		else
-		{
-			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' ignored\n";
-		}
-	}
-	else
-	{
-		bool need_ignore = false;
-		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
-			if(strcmp(*it, "DictionaryStructTest") == 0 || strcmp(*it, "DictionaryStructTest::test_3") == 0)
-				need_ignore = true;
-		if(need_ignore)
-		{
-			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' ignored\n";
-		}
-		else
-		{
-			try
-			{
-				DictionaryStructTest::test_3();
-				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' is passed\n";
-			}
-			catch (const char* error_text)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' is failed: " << error_text << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (usds::ErrorStack & err)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed, unexpected error:\n" << err.getFullMessage() << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (usds::ErrorMessage & msg)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed, unexpected message:\n" << msg.getMessage() << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (...)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_3' failed: unexpected exception\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-		}
-	}
-
-	test_number++;
-	if(execute_only != 0)
-	{
-		if(strcmp(execute_only, "DictionaryStructTest") == 0 || strcmp(execute_only, "DictionaryStructTest::test_4") == 0)
-		{
-			try
-			{
-				DictionaryStructTest::test_4();
-				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' is passed\n";
-			}
-			catch (const char* error_text)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' is failed: " << error_text << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (usds::ErrorStack & err)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed, unexpected error:\n" << err.getFullMessage() << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (usds::ErrorMessage & msg)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed, unexpected message:\n" << msg.getMessage() << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (...)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed: unexpected exception\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-		}
-		else
-		{
-			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' ignored\n";
-		}
-	}
-	else
-	{
-		bool need_ignore = false;
-		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
-			if(strcmp(*it, "DictionaryStructTest") == 0 || strcmp(*it, "DictionaryStructTest::test_4") == 0)
-				need_ignore = true;
-		if(need_ignore)
-		{
-			ignored_test_number++;
-			std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' ignored\n";
-		}
-		else
-		{
-			try
-			{
-				DictionaryStructTest::test_4();
-				successful_test_number++;
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' is passed\n";
-			}
-			catch (const char* error_text)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' is failed: " << error_text << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (usds::ErrorStack & err)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed, unexpected error:\n" << err.getFullMessage() << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (usds::ErrorMessage & msg)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed, unexpected message:\n" << msg.getMessage() << "\n";
-				if(stop_after_first_error) return test_number - successful_test_number;
-			}
-			catch (...)
-			{
-				std::cout << "Test #" << test_number << " 'DictionaryStructTest::test_4' failed: unexpected exception\n";
+				std::cout << "Test #" << test_number << " 'UsdsUIntTest::test_2' failed: unexpected exception\n";
 				if(stop_after_first_error) return test_number - successful_test_number;
 			}
 		}

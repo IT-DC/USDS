@@ -12,7 +12,8 @@ namespace usds
 		BIN_IN__BUFF_OVERFLOW = 23,
 		BIN_IN__BEEG_UVARINT = 24,
 		BIN_IN__UVARINT_ERROR_FORMAT = 25,
-		BIN_IN__BOOLEAN_ERROR_FORMAT = 26
+		BIN_IN__BOOLEAN_ERROR_FORMAT = 26,
+		BIN_IN__VARINT_ERROR_FORMAT = 27
 	};
 
 	class BinaryInput
@@ -26,25 +27,34 @@ namespace usds
 		void clear();		// it does not release memory in buffer
 
 		// deserialization
-		int32_t readUVarint(uint64_t* value) throw(...);
-		int32_t readUVarint(uint32_t* value) throw(...);
-		int32_t readUVarint(int32_t* value) throw(...);
+		bool readBool() throw(...);
+		int8_t readByte() throw(...);
+		uint8_t readUByte() throw(...);
+		int16_t readShort() throw(...);
+		uint16_t readUShort() throw(...);
 		int32_t readInt() throw(...);
+		uint32_t readUInt() throw(...);
 		int64_t readLong() throw(...);
+		uint64_t readULong() throw(...);
+		float readFloat() throw(...);
 		double readDouble() throw(...);
+		
+		size_t readVarint(int64_t* value) throw(...);
+
+		size_t readUVarint(uint64_t* value) throw(...);
+		size_t readUVarint(uint32_t* value) throw(...);
+		size_t readUVarint(int32_t* value) throw(...);
+
 		void readByteArray(void* buff, size_t size) throw(...);
 		const void* readByteArray(size_t size) throw(...);
-		bool readBool() throw(...);
-		uint8_t readUByte() throw(...);
-		int8_t readByte() throw(...);
-
+		
 		void stepBack(size_t size) throw(...);
 		void stepForward(size_t size) throw(...);
 
 		bool isEnd() throw(...);
 		const uint8_t* getCurrentPosition() throw(...);
 		const uint8_t* getFirstPosition() throw(...);
-		size_t getDataSize() throw(...);
+		size_t getSize() throw(...);
 
 	private:
 		// Buffer for USDS input document

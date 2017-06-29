@@ -104,6 +104,7 @@
     <ClInclude Include="Include\body\dataTypes\usdsULong.h" />
     <ClInclude Include="Include\body\dataTypes\usdsUShort.h" />
     <ClInclude Include="Include\body\dataTypes\usdsUVarint.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsVarint.h" />
     <ClInclude Include="Include\body\usdsBaseType.h" />
     <ClInclude Include="Include\body\usdsBody.h" />
     <ClInclude Include="Include\converters\usdsBinaryCreator.h" />
@@ -131,6 +132,7 @@
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryULong.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryUShort.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryUVarint.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryVarint.h" />
     <ClInclude Include="Include\dictionary\dicObjectPool.h" />
     <ClInclude Include="Include\dictionary\dictionaryBaseType.h" />
     <ClInclude Include="Include\dictionary\usdsDictionary.h" />
@@ -159,6 +161,7 @@
     <ClCompile Include="Source\Body\DataTypes\usdsUInt.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsULong.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsUVarint.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsVarint.cpp" />
     <ClCompile Include="Source\Body\usdsBaseType.cpp" />
     <ClCompile Include="Source\Body\usdsBody.cpp" />
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc" />
@@ -188,6 +191,7 @@
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryULong.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUShort.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUVarint.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryVarint.cpp" />
     <ClCompile Include="Source\Dictionary\dicObjectPool.cpp" />
     <ClCompile Include="Source\Dictionary\dictionaryBaseType.cpp" />
     <ClCompile Include="Source\Dictionary\usdsDictionary.cpp" />

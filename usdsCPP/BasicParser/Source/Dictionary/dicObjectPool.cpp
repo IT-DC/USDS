@@ -12,6 +12,7 @@
 #include "dictionary\dataTypes\dictionaryFloat.h"
 #include "dictionary\dataTypes\dictionaryDouble.h"
 #include "dictionary\dataTypes\dictionaryString.h"
+#include "dictionary\dataTypes\dictionaryVarint.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
 
@@ -48,7 +49,7 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_BIGENDIAN_FLOAT] = 0;
 	pools[USDS_DOUBLE] = new TemplateObjectPool<DictionaryDouble, Dictionary>(dict);
 	pools[USDS_BIGENDIAN_DOUBLE] = 0;
-	pools[USDS_VARINT] = 0;
+	pools[USDS_VARINT] = new TemplateObjectPool<DictionaryVarint, Dictionary>(dict);
 	pools[USDS_UVARINT] = new TemplateObjectPool<DictionaryUVarint, Dictionary>(dict);
 	pools[USDS_STRING] = new TemplateObjectPool<DictionaryString, Dictionary>(dict);
 	pools[USDS_ARRAY] = new TemplateObjectPool<DictionaryArray, Dictionary>(dict);

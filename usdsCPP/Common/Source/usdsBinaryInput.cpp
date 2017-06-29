@@ -1,4 +1,5 @@
 #include "usdsBinaryInput.h"
+#include "usdsTypes.h"
 
 using namespace usds;
 
@@ -36,7 +37,7 @@ void BinaryInput::clear()
 	buffCurrentPos = 0;
 };
 
-int32_t BinaryInput::readUVarint(uint64_t* value) throw(...)
+size_t BinaryInput::readUVarint(uint64_t* value) throw(...)
 try
 {
 	uint64_t buf = 0;
@@ -96,7 +97,7 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readUVarint") << value << err;
 };
 
-int32_t BinaryInput::readUVarint(uint32_t* value) throw(...)
+size_t BinaryInput::readUVarint(uint32_t* value) throw(...)
 try
 {
 	uint32_t buf = 0;
@@ -157,7 +158,7 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readUVarint") << value << err;
 };
 
-int32_t BinaryInput::readUVarint(int32_t* value) throw(...)
+size_t BinaryInput::readUVarint(int32_t* value) throw(...)
 try
 {
 	int32_t buf = 0;
@@ -218,6 +219,8 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readUVarint") << value << err;
 };
 
+//=====================================================================================================================================
+
 int32_t BinaryInput::readInt() throw(...)
 try
 {
@@ -234,6 +237,24 @@ try
 catch (ErrorMessage& err)
 {
 	throw ErrorStack("BinaryInput::readInt") << err;
+};
+
+uint32_t BinaryInput::readUInt() throw(...)
+try
+{
+	// buffer overflow
+	if (buffCurrentPos + USDS_UINT_SIZE > buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'UINT'");
+
+	uint32_t value;
+	memcpy(&value, buffCurrentPos, USDS_UINT_SIZE);
+	buffCurrentPos += USDS_UINT_SIZE;
+
+	return value;
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("BinaryInput::readUInt") << err;
 };
 
 int64_t BinaryInput::readLong() throw(...)
@@ -254,6 +275,42 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::readLong") << err;
 };
 
+uint64_t BinaryInput::readULong() throw(...)
+try
+{
+	// buffer overflow
+	if (buffCurrentPos + USDS_ULONG_SIZE > buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'ULONG'");
+
+	uint64_t value;
+	memcpy(&value, buffCurrentPos, USDS_ULONG_SIZE);
+	buffCurrentPos += USDS_ULONG_SIZE;
+
+	return value;
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("BinaryInput::readULong") << err;
+};
+
+float BinaryInput::readFloat() throw(...)
+try
+{
+	// buffer overflow
+	if (buffCurrentPos + USDS_FLOAT_SIZE > buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'FLOAT'");
+
+	float value;
+	memcpy(&value, buffCurrentPos, USDS_FLOAT_SIZE);
+	buffCurrentPos += USDS_FLOAT_SIZE;
+
+	return value;
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("BinaryInput::readFloat") << err;
+};
+
 double BinaryInput::readDouble() throw(...)
 try
 {
@@ -270,38 +327,6 @@ try
 catch (ErrorMessage& err)
 {
 	throw ErrorStack("BinaryInput::readDouble") << err;
-};
-
-void BinaryInput::readByteArray(void* buff, size_t size) throw(...)
-try
-{
-	if (buff == 0)
-		throw ErrorMessage(BIN_IN__NULL_BUFF, "Output buffer can not be null");
-	// buffer overflow
-	if (buffCurrentPos + size > buffLastPos)
-		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read array, size: ") << size << " bytes";
-	memcpy(buff, buffCurrentPos, size);
-	buffCurrentPos += size;
-	
-}
-catch (ErrorMessage& err)
-{
-	throw ErrorStack("BinaryInput::readByteArray") << buff << size << err;
-};
-
-const void* BinaryInput::readByteArray(size_t size) throw(...)
-try
-{
-	// buffer overflow
-	if (buffCurrentPos + size > buffLastPos)
-		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'string', size: ") << size << " bytes";;
-	const void* value = (void*)buffCurrentPos;
-	buffCurrentPos += size;
-	return value;
-}
-catch (ErrorMessage& err)
-{
-	throw ErrorStack("BinaryInput::readByteArray") << size << err;
 };
 
 bool BinaryInput::readBool() throw(...)
@@ -361,6 +386,45 @@ catch (ErrorMessage& err)
 {
 	throw ErrorStack("BinaryInput::readByte") << err;
 };
+
+int16_t BinaryInput::readShort() throw(...)
+try
+{
+	// buffer overflow
+	if (buffCurrentPos + USDS_SHORT_SIZE > buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'SHORT'");
+
+	int16_t value;
+	memcpy(&value, buffCurrentPos, USDS_SHORT_SIZE);
+	buffCurrentPos += USDS_SHORT_SIZE;
+
+	return value;
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("BinaryInput::readShort") << err;
+};
+
+uint16_t BinaryInput::readUShort() throw(...)
+try
+{
+	// buffer overflow
+	if (buffCurrentPos + USDS_USHORT_SIZE > buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'USHORT'");
+
+	uint16_t value;
+	memcpy(&value, buffCurrentPos, USDS_USHORT_SIZE);
+	buffCurrentPos += USDS_USHORT_SIZE;
+
+	return value;
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("BinaryInput::readUShort") << err;
+};
+
+
+//==============================================================================================================================
 
 void BinaryInput::stepBack(size_t size) throw(...)
 try
@@ -427,7 +491,7 @@ catch (ErrorMessage& err)
 	throw ErrorStack("BinaryInput::getFirstPosition") << err;
 };
 
-size_t BinaryInput::getDataSize() throw(...)
+size_t BinaryInput::getSize() throw(...)
 try
 {
 	if (usdsBuff == 0)
@@ -436,5 +500,121 @@ try
 }
 catch (ErrorMessage& err)
 {
-	throw ErrorStack("BinaryInput::getDataSize") << err;
+	throw ErrorStack("BinaryInput::getSize") << err;
 };
+
+void BinaryInput::readByteArray(void* buff, size_t size) throw(...)
+try
+{
+	if (buff == 0)
+		throw ErrorMessage(BIN_IN__NULL_BUFF, "Output buffer can not be null");
+	// buffer overflow
+	if (buffCurrentPos + size > buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read array, size: ") << size << " bytes";
+	memcpy(buff, buffCurrentPos, size);
+	buffCurrentPos += size;
+
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("BinaryInput::readByteArray") << buff << size << err;
+};
+
+const void* BinaryInput::readByteArray(size_t size) throw(...)
+try
+{
+	// buffer overflow
+	if (buffCurrentPos + size > buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'string', size: ") << size << " bytes";;
+	const void* value = (void*)buffCurrentPos;
+	buffCurrentPos += size;
+	return value;
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("BinaryInput::readByteArray") << size << err;
+};
+
+size_t BinaryInput::readVarint(int64_t* value) throw(...)
+try
+{
+	if (usdsBuff == 0)
+		throw ErrorMessage(BIN_IN__NULL_BUFF, "Binary is not initialised");
+
+	if (buffCurrentPos >= buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'varint'");
+
+	if (*buffCurrentPos == 1)
+		throw ErrorMessage(BIN_IN__VARINT_ERROR_FORMAT) << "Binary format error: byte 0 of the VARINT can not be 1";
+
+	bool negative = *buffCurrentPos & 0x01;
+	uint64_t buf = (*buffCurrentPos) >> 1;
+	
+	// byte 0
+	if (buf < 64)
+	{
+		if (negative)
+		{
+			buf = ~buf;
+			buf++;
+		}
+		memcpy(value, &buf, sizeof(uint64_t));
+		buffCurrentPos++;
+		return 1;
+	};
+	buf &= 63ull;
+	buffCurrentPos++;
+
+	// bytes 1-8
+	for (size_t i = 1; i <= 8; i++)
+	{
+		if (buffCurrentPos >= buffLastPos)
+			throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'varint'");
+		if (*buffCurrentPos == 0)
+			throw ErrorMessage(BIN_IN__VARINT_ERROR_FORMAT) << "Binary format error: byte " << i << " of the VARINT can not be 0";
+		if (*buffCurrentPos < 128u)
+		{
+			uint64_t tmp = *buffCurrentPos;
+			buf += (tmp << (7 * i - 1));
+			if (negative)
+			{
+				buf = ~buf;
+				buf++;
+			}
+			memcpy(value, &buf, sizeof(uint64_t));
+			buffCurrentPos++;
+			return i + 1;
+		}
+		else
+		{
+			uint64_t tmp = (*buffCurrentPos) & 127;
+			buf += (tmp << (7 * i - 1));
+			buffCurrentPos++;
+		}
+	}
+
+	// byte 9
+	if (buffCurrentPos >= buffLastPos)
+		throw ErrorMessage(BIN_IN__BUFF_OVERFLOW, "Unexpected end of the buffer, can't read 'varint'");
+	if (*buffCurrentPos == 0)
+		throw ErrorMessage(BIN_IN__UVARINT_ERROR_FORMAT, "Binary format error: byte 10 of the VARINT can not be 0");
+	if (*buffCurrentPos > 2)
+		throw ErrorMessage(BIN_IN__BEEG_UVARINT, "Can't read varint: the size is more than 8 bytes");
+	uint64_t tmp = *buffCurrentPos;
+	buf += (tmp << 62);
+	if (negative)
+	{
+		buf = ~buf;
+		buf++;
+	}
+	memcpy(value, &buf, sizeof(uint64_t));
+	buffCurrentPos++;
+	return 10;
+
+}
+catch (ErrorMessage& err)
+{
+	throw ErrorStack("BinaryInput::readVarint") << value << err;
+};
+
+

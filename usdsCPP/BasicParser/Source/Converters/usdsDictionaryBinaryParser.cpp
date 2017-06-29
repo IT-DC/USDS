@@ -80,7 +80,7 @@ try
 	}
 
 	dictionary->finalizeDictionary();
-	dictionary->setBinary(binary->getFirstPosition(), binary->getDataSize());
+	dictionary->setBinary(binary->getFirstPosition(), binary->getSize());
 }
 catch (ErrorMessage& msg)
 {

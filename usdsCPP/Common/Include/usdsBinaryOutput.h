@@ -45,6 +45,8 @@ namespace usds
 		void writeULong(uint64_t value) throw(...);
 		void writeFloat(float value) throw(...);
 		void writeDouble(double value) throw(...);
+		
+		size_t writeVarint(int64_t value) throw(...);
 		size_t writeUVarint(uint64_t value) throw(...);
 		size_t writeUVarint(uint32_t value) throw(...);
 		size_t writeUVarint(int32_t value) throw(...);

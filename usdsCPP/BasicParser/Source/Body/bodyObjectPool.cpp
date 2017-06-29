@@ -15,6 +15,7 @@
 #include "body\dataTypes\usdsDouble.h"
 #include "body\dataTypes\usdsString.h"
 #include "body\dataTypes\usdsStruct.h"
+#include "body\dataTypes\usdsVarint.h"
 #include "body\dataTypes\usdsUVarint.h"
 
 using namespace usds;
@@ -47,7 +48,7 @@ BodyObjectPool::BodyObjectPool(Body* parent_body)
 	pools[USDS_BIGENDIAN_FLOAT] = 0;
 	pools[USDS_DOUBLE] = new TemplateObjectPool<UsdsDouble, Body>(parent_body);
 	pools[USDS_BIGENDIAN_DOUBLE] = 0;
-	pools[USDS_VARINT] = 0;
+	pools[USDS_VARINT] = new TemplateObjectPool<UsdsVarint, Body>(parent_body);
 	pools[USDS_UVARINT] = new TemplateObjectPool<UsdsUVarint, Body>(parent_body);
 	pools[USDS_STRING] = new TemplateObjectPool<UsdsString, Body>(parent_body);
 	pools[USDS_ARRAY] = new TemplateObjectPool<UsdsArray, Body>(parent_body);
