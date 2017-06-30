@@ -13,24 +13,14 @@ BodyJsonCreator::BodyJsonCreator()
 	writeIndex[USDS_UBYTE] = &BodyJsonCreator::writeUByte;
 	writeIndex[USDS_SHORT] = &BodyJsonCreator::writeShort;
 	writeIndex[USDS_USHORT] = &BodyJsonCreator::writeUShort;
-	writeIndex[USDS_BIGENDIAN_SHORT] = &BodyJsonCreator::writeBEShort;
-	writeIndex[USDS_BIGENDIAN_USHORT] = &BodyJsonCreator::writeBEUShort;
 	writeIndex[USDS_INT] = &BodyJsonCreator::writeInt;
 	writeIndex[USDS_INT] = &BodyJsonCreator::writeUInt;
-	writeIndex[USDS_BIGENDIAN_INT] = &BodyJsonCreator::writeBEInt;
-	writeIndex[USDS_BIGENDIAN_UINT] = &BodyJsonCreator::writeBEUInt;
 	writeIndex[USDS_LONG] = &BodyJsonCreator::writeLong;
 	writeIndex[USDS_ULONG] = &BodyJsonCreator::writeULong;
-	writeIndex[USDS_BIGENDIAN_LONG] = &BodyJsonCreator::writeBELong;
-	writeIndex[USDS_BIGENDIAN_ULONG] = &BodyJsonCreator::writeBEULong;
 	writeIndex[USDS_INT128] = &BodyJsonCreator::writeInt128;
 	writeIndex[USDS_UINT128] = &BodyJsonCreator::writeUInt128;
-	writeIndex[USDS_BIGENDIAN_INT128] = &BodyJsonCreator::writeBEInt128;
-	writeIndex[USDS_BIGENDIAN_UINT128] = &BodyJsonCreator::writeBEUInt128;
 	writeIndex[USDS_FLOAT] = &BodyJsonCreator::writeFloat;
-	writeIndex[USDS_BIGENDIAN_FLOAT] = &BodyJsonCreator::writeBEFloat;
 	writeIndex[USDS_DOUBLE] = &BodyJsonCreator::writeDouble;
-	writeIndex[USDS_BIGENDIAN_DOUBLE] = &BodyJsonCreator::writeBEDouble;
 	writeIndex[USDS_VARINT] = &BodyJsonCreator::writeVarint;
 	writeIndex[USDS_UVARINT] = &BodyJsonCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &BodyJsonCreator::writeString;
@@ -121,16 +111,6 @@ void BodyJsonCreator::writeUShort(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyJsonCreator::writeUShort") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED SHORT for JSON Creator");
 };
 
-void BodyJsonCreator::writeBEShort(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBEShort") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN SHORT for JSON Creator");
-};
-
-void BodyJsonCreator::writeBEUShort(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBEUShort") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED SHORT for JSON Creator");
-};
-
 void BodyJsonCreator::writeInt(UsdsBaseType* object) throw (...)
 try
 {
@@ -146,16 +126,6 @@ catch (ErrorStack& err)
 void BodyJsonCreator::writeUInt(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyJsonCreator::writeUInt") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT for JSON Creator");
-};
-
-void BodyJsonCreator::writeBEInt(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBEInt") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN INT for JSON Creator");
-};
-
-void BodyJsonCreator::writeBEUInt(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBEUInt") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED INT for JSON Creator");
 };
 
 void BodyJsonCreator::writeLong(UsdsBaseType* object) throw (...)
@@ -175,16 +145,6 @@ void BodyJsonCreator::writeULong(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyJsonCreator::writeULong") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED LONG for JSON Creator");
 };
 
-void BodyJsonCreator::writeBELong(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBELong") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN LONG for JSON Creator");
-};
-
-void BodyJsonCreator::writeBEULong(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBEULong") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED LONG for JSON Creator");
-};
-
 void BodyJsonCreator::writeInt128(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyJsonCreator::writeInt128") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT128 for JSON Creator");
@@ -195,24 +155,9 @@ void BodyJsonCreator::writeUInt128(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyJsonCreator::writeUInt128") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT128 for JSON Creator");
 };
 
-void BodyJsonCreator::writeBEInt128(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBEInt128") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN INT128 for JSON Creator");
-};
-
-void BodyJsonCreator::writeBEUInt128(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBEUInt128") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED INT128 for JSON Creator");
-};
-
 void BodyJsonCreator::writeFloat(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyJsonCreator::writeFloat") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type FLOAT for JSON Creator");
-};
-
-void BodyJsonCreator::writeBEFloat(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBEFloat") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN FLOAT for JSON Creator");
 };
 
 void BodyJsonCreator::writeDouble(UsdsBaseType* object) throw (...)
@@ -225,11 +170,6 @@ catch (ErrorStack& err)
 {
 	err.addLevel("BodyJsonCreator::writeDouble") << (void*)object;
 	throw;
-};
-
-void BodyJsonCreator::writeBEDouble(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writeBEDouble") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN DOUBLE for JSON Creator");
 };
 
 void BodyJsonCreator::writeVarint(UsdsBaseType* object) throw (...)

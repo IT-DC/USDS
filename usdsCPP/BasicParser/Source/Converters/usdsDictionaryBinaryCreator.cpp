@@ -26,24 +26,14 @@ DictionaryBinaryCreator::DictionaryBinaryCreator()
 	writeIndex[USDS_UBYTE] = &DictionaryBinaryCreator::writeUByte;
 	writeIndex[USDS_SHORT] = &DictionaryBinaryCreator::writeShort;
 	writeIndex[USDS_USHORT] = &DictionaryBinaryCreator::writeUShort;
-	writeIndex[USDS_BIGENDIAN_SHORT] = &DictionaryBinaryCreator::writeBEShort;
-	writeIndex[USDS_BIGENDIAN_USHORT] = &DictionaryBinaryCreator::writeBEUShort;
 	writeIndex[USDS_INT] = &DictionaryBinaryCreator::writeInt;
 	writeIndex[USDS_UINT] = &DictionaryBinaryCreator::writeUInt;
-	writeIndex[USDS_BIGENDIAN_INT] = &DictionaryBinaryCreator::writeBEInt;
-	writeIndex[USDS_BIGENDIAN_UINT] = &DictionaryBinaryCreator::writeBEUInt;
 	writeIndex[USDS_LONG] = &DictionaryBinaryCreator::writeLong;
 	writeIndex[USDS_ULONG] = &DictionaryBinaryCreator::writeULong;
-	writeIndex[USDS_BIGENDIAN_LONG] = &DictionaryBinaryCreator::writeBELong;
-	writeIndex[USDS_BIGENDIAN_ULONG] = &DictionaryBinaryCreator::writeBEULong;
 	writeIndex[USDS_INT128] = &DictionaryBinaryCreator::writeInt128;
 	writeIndex[USDS_UINT128] = &DictionaryBinaryCreator::writeUInt128;
-	writeIndex[USDS_BIGENDIAN_INT128] = &DictionaryBinaryCreator::writeBEInt128;
-	writeIndex[USDS_BIGENDIAN_UINT128] = &DictionaryBinaryCreator::writeBEUInt128;
 	writeIndex[USDS_FLOAT] = &DictionaryBinaryCreator::writeFloat;
-	writeIndex[USDS_BIGENDIAN_FLOAT] = &DictionaryBinaryCreator::writeBEFloat;
 	writeIndex[USDS_DOUBLE] = &DictionaryBinaryCreator::writeDouble;
-	writeIndex[USDS_BIGENDIAN_DOUBLE] = &DictionaryBinaryCreator::writeBEDouble;
 	writeIndex[USDS_VARINT] = &DictionaryBinaryCreator::writeVarint;
 	writeIndex[USDS_UVARINT] = &DictionaryBinaryCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &DictionaryBinaryCreator::writeString;
@@ -115,16 +105,6 @@ void DictionaryBinaryCreator::writeUShort(DictionaryBaseType* object) throw (...
 	throw ErrorStack("DictionaryBinaryCreator::writeUShort") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED SHORT for Dictionary Binary Creator");
 };
 
-void DictionaryBinaryCreator::writeBEShort(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBEShort") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN SHORT for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeBEUShort(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBEUShort") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED SHORT for Dictionary Binary Creator");
-};
-
 void DictionaryBinaryCreator::writeInt(DictionaryBaseType* object) throw (...)
 {
 
@@ -134,16 +114,6 @@ void DictionaryBinaryCreator::writeInt(DictionaryBaseType* object) throw (...)
 void DictionaryBinaryCreator::writeUInt(DictionaryBaseType* object) throw (...)
 {
 	throw ErrorStack("DictionaryBinaryCreator::writeUInt") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeBEInt(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBEInt") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN INT for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeBEUInt(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBEUInt") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED INT for Dictionary Binary Creator");
 };
 
 void DictionaryBinaryCreator::writeLong(DictionaryBaseType* object) throw (...)
@@ -157,16 +127,6 @@ void DictionaryBinaryCreator::writeULong(DictionaryBaseType* object) throw (...)
 	throw ErrorStack("DictionaryBinaryCreator::writeULong") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED LONG for Dictionary Binary Creator");
 };
 
-void DictionaryBinaryCreator::writeBELong(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBELong") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN LONG for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeBEULong(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBEULong") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED LONG for Dictionary Binary Creator");
-};
-
 void DictionaryBinaryCreator::writeInt128(DictionaryBaseType* object) throw (...)
 {
 	throw ErrorStack("DictionaryBinaryCreator::writeInt128") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT128 for Dictionary Binary Creator");
@@ -177,35 +137,15 @@ void DictionaryBinaryCreator::writeUInt128(DictionaryBaseType* object) throw (..
 	throw ErrorStack("DictionaryBinaryCreator::writeUInt128") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT128 for Dictionary Binary Creator");
 };
 
-void DictionaryBinaryCreator::writeBEInt128(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBEInt128") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN INT128 for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeBEUInt128(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBEUInt128") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED INT128 for Dictionary Binary Creator");
-};
-
 void DictionaryBinaryCreator::writeFloat(DictionaryBaseType* object) throw (...)
 {
 	throw ErrorStack("DictionaryBinaryCreator::writeFloat") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type FLOAT for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeBEFloat(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBEFloat") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN FLOAT for Dictionary Binary Creator");
 };
 
 void DictionaryBinaryCreator::writeDouble(DictionaryBaseType* object) throw (...)
 {
 
 	
-};
-
-void DictionaryBinaryCreator::writeBEDouble(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeBEDouble") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN DOUBLE for Dictionary Binary Creator");
 };
 
 void DictionaryBinaryCreator::writeVarint(DictionaryBaseType* object) throw (...)

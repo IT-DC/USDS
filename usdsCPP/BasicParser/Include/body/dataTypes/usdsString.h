@@ -14,6 +14,8 @@ namespace usds
 		usdsTypes getType() { return USDS_STRING; };
 		const char* getTypeName() { return "STRING"; };
 
+		usdsEncodes getEncode() throw(...);
+
 		void setValue(const char* value) throw (...);
 		void setValue(const char* value, size_t size) throw (...);
 

@@ -331,22 +331,7 @@ void DictionaryStructTest::test_2()
 	}
 
 
-	// step 14
-	try
-	{
-		dict.finalizeDictionary();
-		throw "Failed at the step 14\n";
-		
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::DIC_STRING__ERROR_ENCODE)
-		{
-			throw "Failed at the step 14\n";
-			
-		}
-	}
-	
+
 	// step 15
 	try
 	{

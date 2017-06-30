@@ -419,3 +419,29 @@ void UsdsUShortTest::test_2()
 	}
 
 }
+
+void UsdsUShortTest::test_3()
+{
+	usds::Dictionary dict(0);
+	dict.setID(1, 0, 0);
+	usds::Body body;
+	usds::DictionaryUShort* dict_little = 0;
+	usds::DictionaryUShort* dict_big = 0;
+	usds::UsdsUShort* body_little = 0;
+	usds::UsdsUShort* body_big = 0;
+
+	// step 1
+	dict_little = (usds::DictionaryUShort*)dict.addTag(usds::USDS_USHORT, 1, "little", 0);
+	dict_big = (usds::DictionaryUShort*)dict.addTag(usds::USDS_USHORT, 2, "big", 0);
+	dict_big->setBigendian(true);
+	dict.finalizeDictionary();
+	body_little = (usds::UsdsUShort*)body.addTag(dict_little);
+	if (body_little->isBigendian() == true)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	body_big = (usds::UsdsUShort*)body.addTag(dict_big);
+	if (body_big->isBigendian() == false)
+		throw "Failed at the step 2\n";
+
+}

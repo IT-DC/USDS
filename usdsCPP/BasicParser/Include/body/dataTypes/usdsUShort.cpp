@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsUShort.h"
 
+#include "dictionary\dataTypes\dictionaryUShort.h"
+
 using namespace usds;
 
 UsdsUShort::UsdsUShort(Body* parent_body) : UsdsBaseType(parent_body)
@@ -162,4 +164,9 @@ void UsdsUShort::getValue(uint64_t* value) throw (...)
 {
 	*value = objectValue;
 };
+
+bool UsdsUShort::isBigendian()
+{
+	return ((DictionaryUShort*)parentDictionaryObject)->getBigendian();
+}
 

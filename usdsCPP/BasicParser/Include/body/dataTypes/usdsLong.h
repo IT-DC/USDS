@@ -42,6 +42,8 @@ namespace usds
 		int64_t get();
 		void set(int64_t value);
 
+		bool isBigendian();
+
 	private:
 
 		void additionalInitObject();

@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsUInt.h"
 
+#include "dictionary\dataTypes\dictionaryUInt.h"
+
 using namespace usds;
 
 UsdsUInt::UsdsUInt(Body* parent_body) : UsdsBaseType(parent_body)
@@ -168,4 +170,9 @@ void UsdsUInt::getValue(uint64_t* value) throw (...)
 {
 	*value = objectValue;
 };
+
+bool UsdsUInt::isBigendian()
+{
+	return ((DictionaryUInt*)parentDictionaryObject)->getBigendian();
+}
 

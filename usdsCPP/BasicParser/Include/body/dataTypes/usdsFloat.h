@@ -29,6 +29,7 @@ namespace usds
 		float get();
 		void set(float value);
 
+		bool isBigendian();
 
 	private:
 

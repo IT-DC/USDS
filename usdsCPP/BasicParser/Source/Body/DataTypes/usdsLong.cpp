@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsLong.h"
 
+#include "dictionary\dataTypes\dictionaryLong.h"
+
 using namespace usds;
 
 UsdsLong::UsdsLong(Body* parent_body) : UsdsBaseType(parent_body)
@@ -161,4 +163,9 @@ catch (ErrorStack& err)
 	err.addLevel("UsdsLong::getValue") << value;
 	throw;
 };
+
+bool UsdsLong::isBigendian()
+{
+	return ((DictionaryLong*)parentDictionaryObject)->getBigendian();
+}
 

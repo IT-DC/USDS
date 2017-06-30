@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsFloat.h"
 
+#include "dictionary\dataTypes\dictionaryFloat.h"
+
 using namespace usds;
 
 UsdsFloat::UsdsFloat(Body* parent_body) : UsdsBaseType(parent_body)
@@ -44,4 +46,10 @@ float UsdsFloat::get()
 {
 	return objectValue;
 }
+
+bool UsdsFloat::isBigendian()
+{
+	return ((DictionaryFloat*)parentDictionaryObject)->getBigendian();
+}
+
 

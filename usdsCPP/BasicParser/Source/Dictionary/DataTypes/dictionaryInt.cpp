@@ -9,6 +9,6 @@ DictionaryInt::DictionaryInt(Dictionary* dict) : DictionaryBaseType(dict)
 
 void DictionaryInt::additionalInitType()
 {
-	
+	isBigendian = false;
 };
 

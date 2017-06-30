@@ -140,3 +140,29 @@ void UsdsFloatTest::test_2()
 
 }
 
+void UsdsFloatTest::test_3()
+{
+	usds::Dictionary dict(0);
+	dict.setID(1, 0, 0);
+	usds::Body body;
+	usds::DictionaryFloat* dict_little = 0;
+	usds::DictionaryFloat* dict_big = 0;
+	usds::UsdsFloat* body_little = 0;
+	usds::UsdsFloat* body_big = 0;
+
+	// step 1
+	dict_little = (usds::DictionaryFloat*)dict.addTag(usds::USDS_FLOAT, 1, "little", 0);
+	dict_big = (usds::DictionaryFloat*)dict.addTag(usds::USDS_FLOAT, 2, "big", 0);
+	dict_big->setBigendian(true);
+	dict.finalizeDictionary();
+	body_little = (usds::UsdsFloat*)body.addTag(dict_little);
+	if (body_little->isBigendian() == true)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	body_big = (usds::UsdsFloat*)body.addTag(dict_big);
+	if (body_big->isBigendian() == false)
+		throw "Failed at the step 2\n";
+
+}
+

@@ -1,6 +1,7 @@
 #include "usdsAutotest.h"
 
 #include "usdsBinaryInput.h"
+#include "usdsBinaryOutput.h"
 
 void BinaryInputTest::test_1()
 {
@@ -1293,14 +1294,87 @@ void BinaryInputTest::test_19()
 
 	// step 16
 	{
-		uint8_t buff[] = { 128, 128, 1 };
-		binary.setBinary(buff, 3);
+		uint8_t buff[] = { 254, 255, 255, 255, 255, 255, 255, 255, 255, 1 };
+		binary.setBinary(buff, 10);
 		size_t size = binary.readVarint(&value);
-		if (size != 3 || value != 8192)
+		if (size != 10 || value != INT64_MAX)
 		{
-			throw "Failed at the step 12\n";
+			throw "Failed at the step 16\n";
 		}
 	}
+
+	// step 17
+	{
+		uint8_t buff[] = { 255, 255, 255, 255, 255, 255, 255, 255, 255, 1 };
+		binary.setBinary(buff, 10);
+		size_t size = binary.readVarint(&value);
+		if (size != 10 || value != (INT64_MIN + 1))
+		{
+			throw "Failed at the step 17\n";
+		}
+	}
+
+	// step 18
+	{
+		uint8_t buff[] = { 129, 128, 128, 128, 128, 128, 128, 128, 128, 2 };
+		binary.setBinary(buff, 10);
+		size_t size = binary.readVarint(&value);
+		if (size != 10 || value != INT64_MIN )
+		{
+			throw "Failed at the step 18\n";
+		}
+	}
+
+	// step 19
+	{
+		usds::BinaryOutput binary_out(64);
+		for (int64_t i = -10000; i <= 10000; i++)
+		{
+			binary.clear();
+			binary_out.clear();
+			value = -20000;
+			binary_out.writeVarint(i);
+			binary.setBinary(binary_out.getBinary(), binary_out.getSize());
+			binary.readVarint(&value);
+			if (value != i)
+				throw "Failed at the step 19\n";
+		}
+	}
+
+	// step 20
+	{
+		usds::BinaryOutput binary_out(64);
+		for (int64_t i = -100000000; i <= 100000000; i += 1000)
+		{
+			binary.clear();
+			binary_out.clear();
+			value = -1;
+			binary_out.writeVarint(i);
+			binary.setBinary(binary_out.getBinary(), binary_out.getSize());
+			binary.readVarint(&value);
+			if (value != i)
+				throw "Failed at the step 20\n";
+		}
+	}
+
+	// step 21
+	{
+		usds::BinaryOutput binary_out(64);
+		int64_t i = INT64_MIN;
+		for (int32_t j= 0; j <= 65536; j++)
+		{
+			binary.clear();
+			binary_out.clear();
+			value = -1;
+			binary_out.writeVarint(i);
+			binary.setBinary(binary_out.getBinary(), binary_out.getSize());
+			binary.readVarint(&value);
+			if (value != i)
+				throw "Failed at the step 21\n";
+			i = i + 281474976710656LL;
+		}
+	}
+
 
 }
 

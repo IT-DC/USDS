@@ -9,6 +9,6 @@ DictionaryULong::DictionaryULong(Dictionary* dict) : DictionaryBaseType(dict)
 
 void DictionaryULong::additionalInitType()
 {
-
+	isBigendian = false;
 };
 

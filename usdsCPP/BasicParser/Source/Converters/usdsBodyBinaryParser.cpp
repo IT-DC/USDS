@@ -15,24 +15,14 @@ BodyBinaryParser::BodyBinaryParser()
 	readIndex[USDS_UBYTE] = &BodyBinaryParser::readUByte;
 	readIndex[USDS_SHORT] = &BodyBinaryParser::readShort;
 	readIndex[USDS_USHORT] = &BodyBinaryParser::readUShort;
-	readIndex[USDS_BIGENDIAN_SHORT] = &BodyBinaryParser::readBEShort;
-	readIndex[USDS_BIGENDIAN_USHORT] = &BodyBinaryParser::readBEUShort;
 	readIndex[USDS_INT] = &BodyBinaryParser::readInt;
 	readIndex[USDS_UINT] = &BodyBinaryParser::readUInt;
-	readIndex[USDS_BIGENDIAN_INT] = &BodyBinaryParser::readBEInt;
-	readIndex[USDS_BIGENDIAN_UINT] = &BodyBinaryParser::readBEUInt;
 	readIndex[USDS_LONG] = &BodyBinaryParser::readLong;
 	readIndex[USDS_ULONG] = &BodyBinaryParser::readULong;
-	readIndex[USDS_BIGENDIAN_LONG] = &BodyBinaryParser::readBELong;
-	readIndex[USDS_BIGENDIAN_ULONG] = &BodyBinaryParser::readBEULong;
 	readIndex[USDS_INT128] = &BodyBinaryParser::readInt128;
 	readIndex[USDS_UINT128] = &BodyBinaryParser::readUInt128;
-	readIndex[USDS_BIGENDIAN_INT128] = &BodyBinaryParser::readBEInt128;
-	readIndex[USDS_BIGENDIAN_UINT128] = &BodyBinaryParser::readBEUInt128;
 	readIndex[USDS_FLOAT] = &BodyBinaryParser::readFloat;
-	readIndex[USDS_BIGENDIAN_FLOAT] = &BodyBinaryParser::readBEFloat;
 	readIndex[USDS_DOUBLE] = &BodyBinaryParser::readDouble;
-	readIndex[USDS_BIGENDIAN_DOUBLE] = &BodyBinaryParser::readBEDouble;
 	readIndex[USDS_VARINT] = &BodyBinaryParser::readVarint;
 	readIndex[USDS_UVARINT] = &BodyBinaryParser::readUVarint;
 	readIndex[USDS_STRING] = &BodyBinaryParser::readString;
@@ -111,16 +101,6 @@ void BodyBinaryParser::readUShort(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyBinaryParser::readUShort") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED SHORT for Body Binary Parser");
 };
 
-void BodyBinaryParser::readBEShort(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBEShort") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN SHORT for Body Binary Parser");
-};
-
-void BodyBinaryParser::readBEUShort(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBEUShort") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED SHORT for Body Binary Parser");
-};
-
 void BodyBinaryParser::readInt(UsdsBaseType* object) throw (...)
 try
 {
@@ -135,16 +115,6 @@ catch (ErrorStack& err)
 void BodyBinaryParser::readUInt(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyBinaryParser::readUInt") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT for Body Binary Parser");
-};
-
-void BodyBinaryParser::readBEInt(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBEInt") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN INT for Body Binary Parser");
-};
-
-void BodyBinaryParser::readBEUInt(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBEUInt") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED INT for Body Binary Parser");
 };
 
 void BodyBinaryParser::readLong(UsdsBaseType* object) throw (...)
@@ -163,16 +133,6 @@ void BodyBinaryParser::readULong(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyBinaryParser::readULong") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED LONG for Body Binary Parser");
 };
 
-void BodyBinaryParser::readBELong(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBELong") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN LONG for Body Binary Parser");
-};
-
-void BodyBinaryParser::readBEULong(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBEULong") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED LONG for Body Binary Parser");
-};
-
 void BodyBinaryParser::readInt128(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyBinaryParser::readInt128") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT128 for Body Binary Parser");
@@ -183,24 +143,9 @@ void BodyBinaryParser::readUInt128(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyBinaryParser::readUInt128") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT128 for Body Binary Parser");
 };
 
-void BodyBinaryParser::readBEInt128(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBEInt128") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN INT128 for Body Binary Parser");
-};
-
-void BodyBinaryParser::readBEUInt128(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBEUInt128") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED INT128 for Body Binary Parser");
-};
-
 void BodyBinaryParser::readFloat(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyBinaryParser::readFloat") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type FLOAT for Body Binary Parser");
-};
-
-void BodyBinaryParser::readBEFloat(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBEFloat") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN FLOAT for Body Binary Parser");
 };
 
 void BodyBinaryParser::readDouble(UsdsBaseType* object) throw (...)
@@ -212,11 +157,6 @@ catch (ErrorStack& err)
 {
 	err.addLevel("BodyBinaryParser::readDouble") << (void*)object;
 	throw;
-};
-
-void BodyBinaryParser::readBEDouble(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readBEDouble") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN DOUBLE for Body Binary Parser");
 };
 
 void BodyBinaryParser::readVarint(UsdsBaseType* object) throw (...)

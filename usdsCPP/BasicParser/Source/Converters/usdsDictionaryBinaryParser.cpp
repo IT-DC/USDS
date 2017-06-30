@@ -18,24 +18,14 @@ DictionaryBinaryParser::DictionaryBinaryParser()
 	readIndex[USDS_UBYTE] = &DictionaryBinaryParser::readUByte;
 	readIndex[USDS_SHORT] = &DictionaryBinaryParser::readShort;
 	readIndex[USDS_USHORT] = &DictionaryBinaryParser::readUShort;
-	readIndex[USDS_BIGENDIAN_SHORT] = &DictionaryBinaryParser::readBEShort;
-	readIndex[USDS_BIGENDIAN_USHORT] = &DictionaryBinaryParser::readBEUShort;
 	readIndex[USDS_INT] = &DictionaryBinaryParser::readInt;
 	readIndex[USDS_UINT] = &DictionaryBinaryParser::readUInt;
-	readIndex[USDS_BIGENDIAN_INT] = &DictionaryBinaryParser::readBEInt;
-	readIndex[USDS_BIGENDIAN_UINT] = &DictionaryBinaryParser::readBEUInt;
 	readIndex[USDS_LONG] = &DictionaryBinaryParser::readLong;
 	readIndex[USDS_ULONG] = &DictionaryBinaryParser::readULong;
-	readIndex[USDS_BIGENDIAN_LONG] = &DictionaryBinaryParser::readBELong;
-	readIndex[USDS_BIGENDIAN_ULONG] = &DictionaryBinaryParser::readBEULong;
 	readIndex[USDS_INT128] = &DictionaryBinaryParser::readInt128;
 	readIndex[USDS_UINT128] = &DictionaryBinaryParser::readUInt128;
-	readIndex[USDS_BIGENDIAN_INT128] = &DictionaryBinaryParser::readBEInt128;
-	readIndex[USDS_BIGENDIAN_UINT128] = &DictionaryBinaryParser::readBEUInt128;
 	readIndex[USDS_FLOAT] = &DictionaryBinaryParser::readFloat;
-	readIndex[USDS_BIGENDIAN_FLOAT] = &DictionaryBinaryParser::readBEFloat;
 	readIndex[USDS_DOUBLE] = &DictionaryBinaryParser::readDouble;
-	readIndex[USDS_BIGENDIAN_DOUBLE] = &DictionaryBinaryParser::readBEDouble;
 	readIndex[USDS_VARINT] = &DictionaryBinaryParser::readVarint;
 	readIndex[USDS_UVARINT] = &DictionaryBinaryParser::readUVarint;
 	readIndex[USDS_STRING] = &DictionaryBinaryParser::readString;
@@ -128,16 +118,6 @@ void DictionaryBinaryParser::readUShort(DictionaryBaseType* object) throw (...)
 	throw ErrorStack("DictionaryBinaryParser::readUShort") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type UNSIGNED SHORT for Dictionary Binary Parser");
 };
 
-void DictionaryBinaryParser::readBEShort(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBEShort") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN SHORT for Dictionary Binary Parser");
-};
-
-void DictionaryBinaryParser::readBEUShort(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBEUShort") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN UNSIGNED SHORT for Dictionary Binary Parser");
-};
-
 void DictionaryBinaryParser::readInt(DictionaryBaseType* object) throw (...)
 {
 
@@ -147,16 +127,6 @@ void DictionaryBinaryParser::readInt(DictionaryBaseType* object) throw (...)
 void DictionaryBinaryParser::readUInt(DictionaryBaseType* object) throw (...)
 {
 	throw ErrorStack("DictionaryBinaryParser::readUInt") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type UNSIGNED INT for Dictionary Binary Parser");
-};
-
-void DictionaryBinaryParser::readBEInt(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBEInt") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN INT for Dictionary Binary Parser");
-};
-
-void DictionaryBinaryParser::readBEUInt(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBEUInt") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN UNSIGNED INT for Dictionary Binary Parser");
 };
 
 void DictionaryBinaryParser::readLong(DictionaryBaseType* object) throw (...)
@@ -170,16 +140,6 @@ void DictionaryBinaryParser::readULong(DictionaryBaseType* object) throw (...)
 	throw ErrorStack("DictionaryBinaryParser::readULong") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type UNSIGNED LONG for Dictionary Binary Parser");
 };
 
-void DictionaryBinaryParser::readBELong(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBELong") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN LONG for Dictionary Binary Parser");
-};
-
-void DictionaryBinaryParser::readBEULong(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBEULong") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN UNSIGNED LONG for Dictionary Binary Parser");
-};
-
 void DictionaryBinaryParser::readInt128(DictionaryBaseType* object) throw (...)
 {
 	throw ErrorStack("DictionaryBinaryParser::readInt128") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type UNSIGNED INT128 for Dictionary Binary Parser");
@@ -190,35 +150,15 @@ void DictionaryBinaryParser::readUInt128(DictionaryBaseType* object) throw (...)
 	throw ErrorStack("DictionaryBinaryParser::readUInt128") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type UNSIGNED INT128 for Dictionary Binary Parser");
 };
 
-void DictionaryBinaryParser::readBEInt128(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBEInt128") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN INT128 for Dictionary Binary Parser");
-};
-
-void DictionaryBinaryParser::readBEUInt128(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBEUInt128") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN UNSIGNED INT128 for Dictionary Binary Parser");
-};
-
 void DictionaryBinaryParser::readFloat(DictionaryBaseType* object) throw (...)
 {
 	throw ErrorStack("DictionaryBinaryParser::readFloat") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type FLOAT for Dictionary Binary Parser");
-};
-
-void DictionaryBinaryParser::readBEFloat(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBEFloat") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN FLOAT for Dictionary Binary Parser");
 };
 
 void DictionaryBinaryParser::readDouble(DictionaryBaseType* object) throw (...)
 {
 
 
-};
-
-void DictionaryBinaryParser::readBEDouble(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readBEDouble") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type BIGENDIAN DOUBLE for Dictionary Binary Parser");
 };
 
 void DictionaryBinaryParser::readVarint(DictionaryBaseType* object) throw (...)

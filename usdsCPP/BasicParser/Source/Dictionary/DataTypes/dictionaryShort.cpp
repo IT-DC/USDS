@@ -9,7 +9,7 @@ DictionaryShort::DictionaryShort(Dictionary* dict) : DictionaryBaseType(dict)
 
 void DictionaryShort::additionalInitType()
 {
-
+	isBigendian = false;
 };
 
 

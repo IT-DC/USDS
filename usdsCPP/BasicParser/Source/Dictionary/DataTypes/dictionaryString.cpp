@@ -9,15 +9,8 @@ DictionaryString::DictionaryString(Dictionary* dict) : DictionaryBaseType(dict)
 
 void DictionaryString::additionalInitType()
 {
-	isDefault = false;
-	encode = USDS_NO_ENCODE;
+	encode = USDS_NO_DEFAULT_ENCODE;
 
-};
-
-void DictionaryString::setDefault(const char* value)
-{
-	isDefault = true;
-	defaultValue = value;
 };
 
 void DictionaryString::setEncode(usdsEncodes value) throw(...)
@@ -34,6 +27,4 @@ usdsEncodes DictionaryString::getEncode() throw(...)
 void DictionaryString::finalize() throw (...)
 {
 
-	if (encode == USDS_NO_ENCODE)
-		throw ErrorStack("DictionaryString::finalize") << ErrorMessage(DIC_STRING__ERROR_ENCODE, "Encode was not set");
 }

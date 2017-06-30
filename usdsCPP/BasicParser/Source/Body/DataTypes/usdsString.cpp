@@ -24,6 +24,11 @@ void UsdsString::additionalInitObject()
 
 };
 
+usdsEncodes UsdsString::getEncode() throw(...)
+{
+	return ((DictionaryString*)parentDictionaryObject)->getEncode();
+};
+
 void UsdsString::setValue(const char* value) throw (...)
 {
 	valueSize = strlen(value);

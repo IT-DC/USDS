@@ -9,11 +9,6 @@ DictionaryDouble::DictionaryDouble(Dictionary* dict) : DictionaryBaseType(dict)
 
 void DictionaryDouble::additionalInitType()
 {
-	isDefault = false;
+	isBigendian = false;
 };
 
-void DictionaryDouble::setDefault(double value)
-{
-	isDefault = true;
-	defaultValue = value;
-};

@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsInt.h"
 
+#include "dictionary\dataTypes\dictionaryInt.h"
+
 using namespace usds;
 
 UsdsInt::UsdsInt(Body* parent_body) : UsdsBaseType(parent_body)
@@ -166,4 +168,9 @@ catch (ErrorStack& err)
 	err.addLevel("UsdsInt::getValue") << value;
 	throw;
 };
+
+bool UsdsInt::isBigendian()
+{
+	return ((DictionaryInt*)parentDictionaryObject)->getBigendian();
+}
 

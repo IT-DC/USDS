@@ -42,6 +42,7 @@ class UsdsDoubleTest
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
 };
 
 class DictionaryStringTest
@@ -55,6 +56,7 @@ class UsdsFloatTest
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
 };
 
 class UsdsArrayTest
@@ -133,6 +135,7 @@ class UsdsUShortTest
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
 };
 
 class UsdsUVarintTest
@@ -188,6 +191,7 @@ class UsdsULongTest
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
 };
 
 class DictionaryTest
@@ -224,6 +228,7 @@ class UsdsShortTest
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
 };
 
 class UsdsUByteTest
@@ -238,6 +243,7 @@ class UsdsUIntTest
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
 };
 
 class DictionaryArrayTest
@@ -252,6 +258,7 @@ class UsdsLongTest
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
 };
 
 class DictionarySimpleTest
@@ -268,6 +275,7 @@ class UsdsIntTest
 public:
 	static void test_1();
 	static void test_2();
+	static void test_3();
 };
 
 #endif

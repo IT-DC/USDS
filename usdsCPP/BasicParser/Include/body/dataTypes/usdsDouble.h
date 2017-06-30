@@ -24,11 +24,11 @@ namespace usds
 
 		using UsdsBaseType::getValue;
 
-
 		// Fast methods (not virtual)
 		double get();
 		void set(double value);
 
+		bool isBigendian();
 
 	private:
 

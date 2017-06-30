@@ -81,20 +81,6 @@ void DictionaryArrayTest::test_1()
 		throw "Failed at the step 7\n";
 	}
 
-	// step 8
-	try
-	{
-		dict.finalizeDictionary();
-		throw "Failed at the step 8\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::DIC_STRING__ERROR_ENCODE)
-		{
-			throw "Failed at the step 8\n";
-		}
-	}
-
 	// step 9
 	((usds::DictionaryString*)(object->getElement()))->setEncode(usds::USDS_UTF8);
 	try

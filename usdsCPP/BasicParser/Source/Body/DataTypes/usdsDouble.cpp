@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsDouble.h"
 
+#include "dictionary\dataTypes\dictionaryDouble.h"
+
 using namespace usds;
 
 UsdsDouble::UsdsDouble(Body* parent_body) : UsdsBaseType(parent_body)
@@ -42,5 +44,10 @@ void UsdsDouble::set(double value) throw (...)
 double UsdsDouble::get()
 {
 	return objectValue;
+}
+
+bool UsdsDouble::isBigendian()
+{
+	return ((DictionaryDouble*)parentDictionaryObject)->getBigendian();
 }
 

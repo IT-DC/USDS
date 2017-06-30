@@ -19,13 +19,13 @@ namespace usds
 		usdsTypes getType() { return USDS_DOUBLE; };
 		const char* getTypeName() { return "DOUBLE"; };
 
-		void setDefault(double value);
+		void setBigendian(bool is_bigendian) { isBigendian = is_bigendian; };
+		bool getBigendian() { return isBigendian; };
 
 	private:
 		void additionalInitType();
 
-		bool isDefault;
-		double defaultValue;
+		bool isBigendian;
 
 	};
 

@@ -13,24 +13,14 @@ BodyBinaryCreator::BodyBinaryCreator()
 	writeIndex[USDS_UBYTE] = &BodyBinaryCreator::writeUByte;
 	writeIndex[USDS_SHORT] = &BodyBinaryCreator::writeShort;
 	writeIndex[USDS_USHORT] = &BodyBinaryCreator::writeUShort;
-	writeIndex[USDS_BIGENDIAN_SHORT] = &BodyBinaryCreator::writeBEShort;
-	writeIndex[USDS_BIGENDIAN_USHORT] = &BodyBinaryCreator::writeBEUShort;
 	writeIndex[USDS_INT] = &BodyBinaryCreator::writeInt;
 	writeIndex[USDS_UINT] = &BodyBinaryCreator::writeUInt;
-	writeIndex[USDS_BIGENDIAN_INT] = &BodyBinaryCreator::writeBEInt;
-	writeIndex[USDS_BIGENDIAN_UINT] = &BodyBinaryCreator::writeBEUInt;
 	writeIndex[USDS_LONG] = &BodyBinaryCreator::writeLong;
 	writeIndex[USDS_ULONG] = &BodyBinaryCreator::writeULong;
-	writeIndex[USDS_BIGENDIAN_LONG] = &BodyBinaryCreator::writeBELong;
-	writeIndex[USDS_BIGENDIAN_ULONG] = &BodyBinaryCreator::writeBEULong;
 	writeIndex[USDS_INT128] = &BodyBinaryCreator::writeInt128;
 	writeIndex[USDS_UINT128] = &BodyBinaryCreator::writeUInt128;
-	writeIndex[USDS_BIGENDIAN_INT128] = &BodyBinaryCreator::writeBEInt128;
-	writeIndex[USDS_BIGENDIAN_UINT128] = &BodyBinaryCreator::writeBEUInt128;
 	writeIndex[USDS_FLOAT] = &BodyBinaryCreator::writeFloat;
-	writeIndex[USDS_BIGENDIAN_FLOAT] = &BodyBinaryCreator::writeBEFloat;
 	writeIndex[USDS_DOUBLE] = &BodyBinaryCreator::writeDouble;
-	writeIndex[USDS_BIGENDIAN_DOUBLE] = &BodyBinaryCreator::writeBEDouble;
 	writeIndex[USDS_VARINT] = &BodyBinaryCreator::writeVarint;
 	writeIndex[USDS_UVARINT] = &BodyBinaryCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &BodyBinaryCreator::writeString;
@@ -107,16 +97,6 @@ void BodyBinaryCreator::writeUShort(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyBinaryCreator::writeUShort") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED SHORT for Binary Creator");
 };
 
-void BodyBinaryCreator::writeBEShort(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBEShort") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN SHORT for Binary Creator");
-};
-
-void BodyBinaryCreator::writeBEUShort(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBEUShort") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED SHORT for Binary Creator");
-};
-
 void BodyBinaryCreator::writeInt(UsdsBaseType* object) throw (...)
 try
 {
@@ -131,16 +111,6 @@ catch (ErrorStack& err)
 void BodyBinaryCreator::writeUInt(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyBinaryCreator::writeUInt") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT for Binary Creator");
-};
-
-void BodyBinaryCreator::writeBEInt(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBEInt") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN INT for Binary Creator");
-};
-
-void BodyBinaryCreator::writeBEUInt(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBEUInt") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED INT for Binary Creator");
 };
 
 void BodyBinaryCreator::writeLong(UsdsBaseType* object) throw (...)
@@ -159,16 +129,6 @@ void BodyBinaryCreator::writeULong(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyBinaryCreator::writeULong") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED LONG for Binary Creator");
 };
 
-void BodyBinaryCreator::writeBELong(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBELong") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN LONG for Binary Creator");
-};
-
-void BodyBinaryCreator::writeBEULong(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBEULong") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED LONG for Binary Creator");
-};
-
 void BodyBinaryCreator::writeInt128(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyBinaryCreator::writeInt128") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT128 for Binary Creator");
@@ -179,24 +139,9 @@ void BodyBinaryCreator::writeUInt128(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyBinaryCreator::writeUInt128") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT128 for Binary Creator");
 };
 
-void BodyBinaryCreator::writeBEInt128(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBEInt128") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN INT128 for Binary Creator");
-};
-
-void BodyBinaryCreator::writeBEUInt128(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBEUInt128") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN UNSIGNED INT128 for Binary Creator");
-};
-
 void BodyBinaryCreator::writeFloat(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyBinaryCreator::writeFloat") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type FLOAT for Binary Creator");
-};
-
-void BodyBinaryCreator::writeBEFloat(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBEFloat") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN FLOAT for Binary Creator");
 };
 
 void BodyBinaryCreator::writeDouble(UsdsBaseType* object) throw (...)
@@ -208,11 +153,6 @@ catch (ErrorStack& err)
 {
 	err.addLevel("BodyBinaryCreator::writeDouble") << (void*)object;
 	throw;
-};
-
-void BodyBinaryCreator::writeBEDouble(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writeBEDouble") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type BIGENDIAN DOUBLE for Binary Creator");
 };
 
 void BodyBinaryCreator::writeVarint(UsdsBaseType* object) throw (...)

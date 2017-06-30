@@ -19,9 +19,13 @@ namespace usds
 		usdsTypes getType() { return USDS_UINT; };
 		const char* getTypeName() { return "UINT"; };
 
+		void setBigendian(bool is_bigendian) { isBigendian = is_bigendian; };
+		bool getBigendian() { return isBigendian; };
 
 	private:
 		void additionalInitType();
+
+		bool isBigendian;
 
 	};
 };

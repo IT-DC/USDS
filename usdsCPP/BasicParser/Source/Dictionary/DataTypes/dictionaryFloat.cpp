@@ -9,7 +9,7 @@ DictionaryFloat::DictionaryFloat(Dictionary* dict) : DictionaryBaseType(dict)
 
 void DictionaryFloat::additionalInitType()
 {
-	
+	isBigendian = false;
 };
 
 

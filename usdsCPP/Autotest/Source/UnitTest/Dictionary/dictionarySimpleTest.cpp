@@ -34,6 +34,11 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 2\n";
 	}
+	if (double_object.getBigendian() == true)
+		throw "Failed at the step 2.1\n";
+	double_object.setBigendian(true);
+	if (double_object.getBigendian() == false)
+		throw "Failed at the step 2.2\n";
 
 	// step 3
 
@@ -42,6 +47,11 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 3\n";
 	}
+	if (int_object.getBigendian() == true)
+		throw "Failed at the step 3.1\n";
+	int_object.setBigendian(true);
+	if (int_object.getBigendian() == false)
+		throw "Failed at the step 3.2\n";
 
 	// step 4
 
@@ -50,6 +60,11 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 4\n";
 	}
+	if (long_object.getBigendian() == true)
+		throw "Failed at the step 4.1\n";
+	long_object.setBigendian(true);
+	if (long_object.getBigendian() == false)
+		throw "Failed at the step 4.2\n";
 
 	// step 5
 
@@ -82,6 +97,11 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 8\n";
 	}
+	if (ulong_object.getBigendian() == true)
+		throw "Failed at the step 8.1\n";
+	ulong_object.setBigendian(true);
+	if (ulong_object.getBigendian() == false)
+		throw "Failed at the step 8.2\n";
 
 	// step 9
 
@@ -90,6 +110,11 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 9\n";
 	}
+	if (float_object.getBigendian() == true)
+		throw "Failed at the step 9.1\n";
+	float_object.setBigendian(true);
+	if (float_object.getBigendian() == false)
+		throw "Failed at the step 9.2\n";
 
 	// step 10
 
@@ -98,6 +123,11 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 10\n";
 	}
+	if (uint_object.getBigendian() == true)
+		throw "Failed at the step 10.1\n";
+	uint_object.setBigendian(true);
+	if (uint_object.getBigendian() == false)
+		throw "Failed at the step 10.2\n";
 
 	// step 11
 
@@ -106,6 +136,12 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 11\n";
 	}
+	if (short_object.getBigendian() == true)
+		throw "Failed at the step 11.1\n";
+	short_object.setBigendian(true);
+	if (short_object.getBigendian() == false)
+		throw "Failed at the step 11.2\n";
+
 
 	// step 12
 
@@ -114,6 +150,11 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 12\n";
 	}
+	if (ushort_object.getBigendian() == true)
+		throw "Failed at the step 12.1\n";
+	ushort_object.setBigendian(true);
+	if (ushort_object.getBigendian() == false)
+		throw "Failed at the step 12.2\n";
 
 	// step 13
 
@@ -122,6 +163,7 @@ void DictionarySimpleTest::test_1()
 	{
 		throw "Failed at the step 13\n";
 	}
+
 
 }
 
