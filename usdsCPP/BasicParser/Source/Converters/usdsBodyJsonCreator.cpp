@@ -192,7 +192,7 @@ catch (ErrorStack& err)
 void BodyJsonCreator::writeString(UsdsBaseType* object) throw (...)
 try
 {
-	const char* value = ((UsdsString*)object)->getValue();
+	const char* value = (const char*)((UsdsString*)object)->getByteValue();
 	*textBuff += "\"";
 	*textBuff += value;
 	*textBuff += "\"";

@@ -80,6 +80,7 @@ public:
 	static void test_16();
 	static void test_17();
 	static void test_18();
+	static void test_19();
 };
 
 class DictionaryTagLinkTest
@@ -167,6 +168,12 @@ public:
 	static void test_17();
 	static void test_18();
 	static void test_19();
+};
+
+class UsdsStringTest
+{
+public:
+	static void test_1();
 };
 
 class UsdsBooleanTest

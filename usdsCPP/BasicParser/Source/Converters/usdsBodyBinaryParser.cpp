@@ -182,8 +182,8 @@ try
 {
 	size_t size;
 	usdsBuff->readUVarint(&size);
-	const char* text = (const char*)usdsBuff->readByteArray(size);
-	((UsdsString*)object)->setValue(text, size);
+	uint8_t* text = (uint8_t*)usdsBuff->readByteArray(size);
+	((UsdsString*)object)->setByteValue(text, size);
 }
 catch (ErrorStack& err)
 {

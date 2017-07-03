@@ -21,13 +21,13 @@ namespace usds
 		usdsTypes getType() { return USDS_STRING; };
 		const char* getTypeName() { return "STRING"; };
 
-		void setEncode(usdsEncodes value) throw(...);
-		usdsEncodes getEncode() throw(...);
+		void setDefaultEncode(usdsEncodes value) throw(...);
+		usdsEncodes getDefaultEncode() throw(...);
 
 	private:
 		void additionalInitType();
 
-		usdsEncodes encode;
+		usdsEncodes defaultEncode;
 
 	};
 

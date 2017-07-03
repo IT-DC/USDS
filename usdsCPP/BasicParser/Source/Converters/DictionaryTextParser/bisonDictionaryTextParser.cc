@@ -579,7 +579,7 @@ namespace usds {
 #line 163 "bisonDictionaryTextParser.y"
     {
 		field = ((DictionaryStruct*)tag)->addField((yysemantic_stack_[(8) - (3)].typeVal), (yysemantic_stack_[(8) - (1)].intVal), (yysemantic_stack_[(8) - (7)].stringVal), 0);
-		((DictionaryString*)field)->setEncode((yysemantic_stack_[(8) - (5)].encodeVal));
+		((DictionaryString*)field)->setDefaultEncode((yysemantic_stack_[(8) - (5)].encodeVal));
 		delete [] (yysemantic_stack_[(8) - (7)].stringVal);
 	}
     break;

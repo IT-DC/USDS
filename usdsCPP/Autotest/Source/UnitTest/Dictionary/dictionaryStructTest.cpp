@@ -335,7 +335,7 @@ void DictionaryStructTest::test_2()
 	// step 15
 	try
 	{
-		field_string->setEncode(usds::USDS_UTF8);
+		field_string->setDefaultEncode(usds::USDS_UTF8);
 		dict.finalizeDictionary();
 	}
 	catch (usds::ErrorStack)

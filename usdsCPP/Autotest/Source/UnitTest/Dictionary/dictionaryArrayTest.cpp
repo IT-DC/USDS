@@ -82,7 +82,7 @@ void DictionaryArrayTest::test_1()
 	}
 
 	// step 9
-	((usds::DictionaryString*)(object->getElement()))->setEncode(usds::USDS_UTF8);
+	((usds::DictionaryString*)(object->getElement()))->setDefaultEncode(usds::USDS_UTF8);
 	try
 	{
 		dict.finalizeDictionary();

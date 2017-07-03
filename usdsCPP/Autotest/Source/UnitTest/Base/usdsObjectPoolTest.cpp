@@ -525,8 +525,8 @@ void ObjectPoolTest::test_9()
 
 	// step 1
 	usds::DictionaryString* dic_object = (usds::DictionaryString*)dic_pool.addObject(usds::USDS_STRING, 0, 5, "String", 0);
-	dic_object->setEncode(usds::USDS_UTF8);
-	if (dic_object->getID() != 5 || dic_object->getType() != usds::USDS_STRING || strcmp(dic_object->getName(), "String") != 0 || dic_object->getEncode() != usds::USDS_UTF8)
+	dic_object->setDefaultEncode(usds::USDS_UTF8);
+	if (dic_object->getID() != 5 || dic_object->getType() != usds::USDS_STRING || strcmp(dic_object->getName(), "String") != 0 || dic_object->getDefaultEncode() != usds::USDS_UTF8)
 	{
 		throw "Failed at the step 1\n";
 	}

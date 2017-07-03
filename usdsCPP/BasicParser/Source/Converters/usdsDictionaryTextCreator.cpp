@@ -165,7 +165,7 @@ void DictionaryTextCreator::writeUVarint(DictionaryBaseType* object) throw (...)
 void DictionaryTextCreator::writeString(DictionaryBaseType* object)
 try
 {
-		textBuff << "STRING<" << usdsEncodeName(((DictionaryString*)object)->getEncode()) << "> " << object->getName();
+		textBuff << "STRING<" << usdsEncodeName(((DictionaryString*)object)->getDefaultEncode()) << "> " << object->getName();
 	
 }
 catch (ErrorStack& err)

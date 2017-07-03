@@ -6,6 +6,7 @@
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
+#include "dictionary\dataTypes\dictionaryInt.h"
 #include "dictionary\usdsDictionary.h"
 
 void UsdsArrayTest::test_1()
@@ -633,7 +634,7 @@ void UsdsArrayTest::test_6()
 	// step 0.5
 	try
 	{
-		if (body_array->getElementType() != usds::USDS_INT || strcmp(body_array->getElementName(), "int") != 0 || body_array->getElementId() != 1)
+		if (body_array->getElementType() != usds::USDS_INT || strcmp(body_array->getElementName(), "int") != 0 || body_array->getElementId() != 1 || body_array->isBigendianElement() == true)
 			throw "Failed at the step 0.5\n";
 	}
 	catch (...)
@@ -3668,5 +3669,35 @@ void UsdsArrayTest::test_18()
 	}
 }
 
+void UsdsArrayTest::test_19()
+{
+	usds::Dictionary dict(0);
+	dict.setID(1, 0, 0);
+	usds::Body body;
+	usds::DictionaryArray* dict_array = 0;
+	usds::UsdsArray* body_array = 0;
+	
 
+	usds::DictionaryInt* dict_element = (usds::DictionaryInt*)dict.addTag(usds::USDS_INT, 1, "int", 0);
+	dict_element->setBigendian(true);
+	dict_array = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 2, "array", 0);
+	usds::DictionaryTagLink* dict_tag = (usds::DictionaryTagLink*)dict_array->setElementType(usds::USDS_TAG);
+	dict_tag->setTag(1);
+
+	dict.finalizeDictionary();
+	body_array = (usds::UsdsArray*)body.addTag(dict_array);
+
+	// step 0.5
+	try
+	{
+		if (body_array->isBigendianElement() == false)
+			throw "Failed at the step 0.5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	}
+
+
+}
 

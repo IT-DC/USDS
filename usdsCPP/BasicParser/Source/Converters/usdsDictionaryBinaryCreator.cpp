@@ -162,7 +162,7 @@ void DictionaryBinaryCreator::writeUVarint(DictionaryBaseType* object) throw (..
 void DictionaryBinaryCreator::writeString(DictionaryBaseType* object) throw (...)
 try
 {
-	outBuffer->writeEncode(((DictionaryString*)object)->getEncode());
+	outBuffer->writeEncode(((DictionaryString*)object)->getDefaultEncode());
 
 }
 catch (ErrorStack& err)

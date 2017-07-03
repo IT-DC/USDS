@@ -15,15 +15,15 @@ void DictionaryStringTest::test_1()
 	// step 2
 
 	object.initType(0, 1, "string", 0);
-	if (object.getEncode() != usds::USDS_NO_DEFAULT_ENCODE)
+	if (object.getDefaultEncode() != usds::USDS_NO_DEFAULT_ENCODE)
 	{
 		throw "Failed at the step 2\n";
 	}
 
 	// step 3
 
-	object.setEncode(usds::USDS_UTF8);
-	if (object.getEncode() != usds::USDS_UTF8)
+	object.setDefaultEncode(usds::USDS_UTF8);
+	if (object.getDefaultEncode() != usds::USDS_UTF8)
 	{
 		throw "Failed at the step 3\n";
 	}

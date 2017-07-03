@@ -70,10 +70,11 @@ namespace usds
 	enum usdsEncodes
 	{
 		USDS_NO_DEFAULT_ENCODE = 0,
-		USDS_UTF8 = 2,
-		USDS_UTF16 = 3,
-		USDS_UTF32 = 4,
-		USDS_UTF7 = 5,
+		USDS_UTF8 = 1,
+		USDS_UTF16LE = 2,
+		USDS_UTF16BE = 3,
+		USDS_UTF32LE = 4,
+		USDS_UTF32BE = 5,
 		USDS_LAST_ENCODE = 6
 	};
 

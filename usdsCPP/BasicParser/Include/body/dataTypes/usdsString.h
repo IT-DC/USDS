@@ -14,21 +14,29 @@ namespace usds
 		usdsTypes getType() { return USDS_STRING; };
 		const char* getTypeName() { return "STRING"; };
 
+		void setEncode(usdsEncodes encode) throw(...);
 		usdsEncodes getEncode() throw(...);
 
-		void setValue(const char* value) throw (...);
-		void setValue(const char* value, size_t size) throw (...);
+		void setFromUTF8(const char* value) throw (...);
+		void setFromUTF8(const char* value, size_t byte_size) throw (...);
 
-		const char* getValue() throw (...);
-		size_t getSize() throw (...);
+		const char* getUTF8Value(size_t* byte_size) throw (...);
+
+		const uint8_t* getByteValue() throw (...);
+		size_t getByteSize() throw (...);
+
+		void setByteValue(uint8_t* value, size_t byte_size);
 
 	private:
 
 		void additionalInitObject();
 
-		char* objectValue;
+		usdsEncodes textEncode;
+
+		uint8_t* objectValue;
 		size_t valueSize;
-		size_t buffSize;
+		size_t valueBufferSize;
+
 
 	};
 

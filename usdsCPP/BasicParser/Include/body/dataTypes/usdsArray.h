@@ -20,6 +20,7 @@ namespace usds
 		const char* getElementName();
 		size_t getElementNameSize();
 		int32_t getElementId();
+		bool isBigendianElement();
 
 		void setBufferSize(size_t buffer_size) throw(...);
 		size_t getBufferSize();

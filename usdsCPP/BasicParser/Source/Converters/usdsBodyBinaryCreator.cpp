@@ -174,8 +174,8 @@ catch (ErrorStack& err)
 void BodyBinaryCreator::writeString(UsdsBaseType* object) throw (...)
 try
 {
-	size_t size = ((UsdsString*)object)->getSize();
-	const char* text = ((UsdsString*)object)->getValue();
+	size_t size = ((UsdsString*)object)->getByteSize();
+	const uint8_t* text = ((UsdsString*)object)->getByteValue();
 	usdsBuff->writeUVarint(size);
 	usdsBuff->writeByteArray(text, size);
 }

@@ -176,7 +176,7 @@ void DictionaryBinaryParser::readString(DictionaryBaseType* object) throw (...)
 try
 {
 	int32_t encode = binary->readByte();
-	((DictionaryString*)object)->setEncode((usdsEncodes)encode);
+	((DictionaryString*)object)->setDefaultEncode((usdsEncodes)encode);
 
 }
 catch (ErrorStack& err)

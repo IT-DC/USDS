@@ -9,19 +9,19 @@ DictionaryString::DictionaryString(Dictionary* dict) : DictionaryBaseType(dict)
 
 void DictionaryString::additionalInitType()
 {
-	encode = USDS_NO_DEFAULT_ENCODE;
+	defaultEncode = USDS_NO_DEFAULT_ENCODE;
 
 };
 
-void DictionaryString::setEncode(usdsEncodes value) throw(...)
+void DictionaryString::setDefaultEncode(usdsEncodes value) throw(...)
 {
-	encode = value;
+	defaultEncode = value;
 };
 
-usdsEncodes DictionaryString::getEncode() throw(...)
+usdsEncodes DictionaryString::getDefaultEncode() throw(...)
 {
 
-	return encode;
+	return defaultEncode;
 };
 
 void DictionaryString::finalize() throw (...)

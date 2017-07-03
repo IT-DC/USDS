@@ -4,6 +4,15 @@
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 
+#include "dictionary\dataTypes\dictionaryShort.h"
+#include "dictionary\dataTypes\dictionaryUShort.h"
+#include "dictionary\dataTypes\dictionaryInt.h"
+#include "dictionary\dataTypes\dictionaryUInt.h"
+#include "dictionary\dataTypes\dictionaryLong.h"
+#include "dictionary\dataTypes\dictionaryULong.h"
+#include "dictionary\dataTypes\dictionaryFloat.h"
+#include "dictionary\dataTypes\dictionaryDouble.h"
+
 using namespace usds;
 
 UsdsArray::UsdsArray(Body* parent_body) : UsdsBaseType(parent_body), elementValues(0)
@@ -79,7 +88,31 @@ int32_t UsdsArray::getElementId()
 	return arrayDictionaryElement->getID();
 }
 
+bool UsdsArray::isBigendianElement()
+{
+	switch (elementType)
+	{
+	case USDS_SHORT:
+		return ((DictionaryShort*)arrayDictionaryElement)->getBigendian();
+	case USDS_USHORT:
+		return ((DictionaryUShort*)arrayDictionaryElement)->getBigendian();
+	case USDS_INT:
+		return ((DictionaryInt*)arrayDictionaryElement)->getBigendian();
+	case USDS_UINT:
+		return ((DictionaryUInt*)arrayDictionaryElement)->getBigendian();
+	case USDS_LONG:
+		return ((DictionaryLong*)arrayDictionaryElement)->getBigendian();
+	case USDS_ULONG:
+		return ((DictionaryULong*)arrayDictionaryElement)->getBigendian();
+	case USDS_FLOAT:
+		return ((DictionaryFloat*)arrayDictionaryElement)->getBigendian();
+	case USDS_DOUBLE:
+		return ((DictionaryDouble*)arrayDictionaryElement)->getBigendian();
+	default:
+		return false;
+	}
 
+}
 
 //====================================================================================================================
 // pushBack

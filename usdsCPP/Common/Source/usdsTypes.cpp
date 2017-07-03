@@ -78,12 +78,13 @@ namespace usds
 	
 	const char* encodeNames[] = 
 	{
-		"NO_ENCODE", 
-		"NO_ENCODE", 
-		"UTF-8", 
-		"UTF-16", 
-		"UTF-32", 
-		"UTF-7" 
+		"NO_DEFAULT_ENCODE",
+		"UTF-8",
+		"UTF-16LE",
+		"UTF-16BE",
+		"UTF-32LE",
+		"UTF-32BE",
+		"NO_ENCODE",
 	};
 
 	const char* usdsEncodeName(usdsEncodes code) throw(...)

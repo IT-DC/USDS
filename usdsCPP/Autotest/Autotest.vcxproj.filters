@@ -91,6 +91,9 @@
     <ClCompile Include="Source\UnitTest\Body\usdsVarint.cpp">
       <Filter>Unit tests\Body</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsStringTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAutotest.h" />

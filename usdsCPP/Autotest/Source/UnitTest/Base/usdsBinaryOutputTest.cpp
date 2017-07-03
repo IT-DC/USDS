@@ -150,9 +150,9 @@ void BinaryOutputTest::test_2()
 	// step 11
 	binary.writeType(usds::USDS_ARRAY);
 	binary.writeSignature(usds::USDS_TAG_SIGNATURE);
-	binary.writeEncode(usds::USDS_UTF16);
+	binary.writeEncode(usds::USDS_UTF16LE);
 	buff = binary.getBinary(&size);
-	if (size != 47 || buff[44] != usds::USDS_ARRAY || buff[45] != usds::USDS_TAG_SIGNATURE || buff[46] != usds::USDS_UTF16)
+	if (size != 47 || buff[44] != usds::USDS_ARRAY || buff[45] != usds::USDS_TAG_SIGNATURE || buff[46] != usds::USDS_UTF16LE)
 	{
 		throw "Failed at the step 11\n";
 	}
