@@ -66,7 +66,7 @@ void UsdsStringTest::test_1()
 	// test 4
 	size_t size = 0;
 	const char* value = body_string->getUTF8Value(&size);
-	if (size != 5)
+	if (size != 5 && strcmp(value, "Hello")!= 0)
 		throw "Failed at the step 4\n";
 	if (strncmp(value, "Hello", size) != 0)
 		throw "Failed at the step 4\n";
@@ -89,5 +89,53 @@ void UsdsStringTest::test_1()
 	if (strncmp(value, "Привет", size) != 0)
 		throw "Failed at the step 6\n";
 
+	// test 7
+	body_string->setFromUTF8("Привет", 12);
+	value = body_string->getUTF8Value();
+	if (strcmp(value, "Привет") != 0)
+		throw "Failed at the step 7\n";
+
+	// test 8
+	uint8_t* byte_value = body_string->reserveBinaryForValue(12);
+	uint8_t source_value[] = { 0xD0, 0x9F, 0xD1, 0x80, 0xD0, 0xB8, 0xD0, 0xB2, 0xD0, 0xB5, 0xD1, 0x82 };
+	memcpy(byte_value, source_value, 12);
+	value = body_string->getUTF8Value();
+	if (strcmp(value, "Привет") != 0)
+		throw "Failed at the step 8\n";
+
+	// test 9
+	const char* const_value = (const char*)body_string->getByteValue();
+	size = body_string->getByteSize();
+	if (strncmp(const_value, "Привет", size) != 0 || size != 12)
+		throw "Failed at the step 9\n";
+
+	// test 10
+	usds::UsdsString* body_string2 = (usds::UsdsString*)body.addTag(dict_string2);
+	try
+	{
+		body_string2->setEncode(usds::USDS_NO_DEFAULT_ENCODE);
+		throw "Failed at the step 10\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BODY_STRING__NO_ENCODE)
+		{
+			throw "Failed at the step 10\n";
+		}
+	}
+
+	// test 11
+	try
+	{
+		body_string2->setEncode(usds::USDS_UTF8);
+		throw "Failed at the step 11\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BODY_STRING__DEFAULT_ENCODE_IS_SET)
+		{
+			throw "Failed at the step 11\n";
+		}
+	}
 
 }

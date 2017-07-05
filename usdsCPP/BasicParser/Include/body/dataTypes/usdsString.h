@@ -20,12 +20,14 @@ namespace usds
 		void setFromUTF8(const char* value) throw (...);
 		void setFromUTF8(const char* value, size_t byte_size) throw (...);
 
+		const char* getUTF8Value() throw (...);
 		const char* getUTF8Value(size_t* byte_size) throw (...);
 
+		// For binary body parser
 		const uint8_t* getByteValue() throw (...);
 		size_t getByteSize() throw (...);
 
-		void setByteValue(uint8_t* value, size_t byte_size);
+		uint8_t* reserveBinaryForValue(size_t byte_size);
 
 	private:
 

@@ -259,7 +259,7 @@ try
 	textBuff->append(shiftLevel, '\t');
 	*textBuff += "{\n";
 	shiftLevel++;
-	int32_t field_number = ((UsdsStruct*)object)->getFieldNumber();
+	int32_t field_number = ((UsdsStruct*)object)->getFieldsNumber();
 	int32_t id = 1;
 	while (true)
 	{

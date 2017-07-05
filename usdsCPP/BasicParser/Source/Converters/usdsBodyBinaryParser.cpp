@@ -183,7 +183,7 @@ try
 	size_t size;
 	usdsBuff->readUVarint(&size);
 	uint8_t* text = (uint8_t*)usdsBuff->readByteArray(size);
-	((UsdsString*)object)->setByteValue(text, size);
+	((UsdsString*)object)->setFromUTF8((const char*)text, size);
 }
 catch (ErrorStack& err)
 {
@@ -233,7 +233,7 @@ void BodyBinaryParser::readPolymorph(UsdsBaseType* object) throw (...)
 void BodyBinaryParser::readStruct(UsdsBaseType* object) throw (...)
 try
 {
-	int32_t field_number = ((UsdsStruct*)object)->getFieldNumber();
+	int32_t field_number = ((UsdsStruct*)object)->getFieldsNumber();
 	for (int32_t id = 1; id <= field_number; id++)
 	{
 		UsdsBaseType* field = ((UsdsStruct*)object)->getField(id);

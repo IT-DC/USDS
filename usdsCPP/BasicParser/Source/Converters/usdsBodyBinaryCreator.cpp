@@ -226,7 +226,7 @@ void BodyBinaryCreator::writePolymorph(UsdsBaseType* object) throw (...)
 void BodyBinaryCreator::writeStruct(UsdsBaseType* object) throw (...)
 try
 {
-	int32_t field_number = ((UsdsStruct*)object)->getFieldNumber();
+	int32_t field_number = ((UsdsStruct*)object)->getFieldsNumber();
 	for (int32_t id = 1; id <= field_number; id++)
 	{
 		UsdsBaseType* field = ((UsdsStruct*)object)->getField(id);

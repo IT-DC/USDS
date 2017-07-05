@@ -89,7 +89,7 @@ namespace usds
 	}
 	catch (ErrorStack& err)
 	{
-		err.addLevel("template <typename out_type> out_type UsdsInt::getValue");
+		err.addLevel("template <typename out_type> out_type UsdsBaseType::getValue");
 		throw;
 	};
 }

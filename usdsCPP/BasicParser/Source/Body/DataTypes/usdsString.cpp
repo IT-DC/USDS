@@ -61,20 +61,19 @@ try
 	case USDS_UTF8:
 	{
 		size_t byte_size = strlen(value);
-		if (valueBufferSize < (byte_size))
+		if (valueBufferSize < (byte_size + 1))
 		{
 			delete[] objectValue;
-			valueBufferSize = byte_size;
-			objectValue = new uint8_t[byte_size];
+			valueBufferSize = byte_size + 1;
+			objectValue = new uint8_t[valueBufferSize];
 		}
-		memcpy(objectValue, value, byte_size);
+		memcpy(objectValue, value, valueBufferSize);
 		valueSize = byte_size;
 		return;
 	}
 	default:
 		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF-8 to " << usdsEncodeName(textEncode);
 	}
-
 }
 catch (ErrorMessage&msg)
 {
@@ -87,21 +86,20 @@ try
 	if (textEncode == USDS_NO_DEFAULT_ENCODE)
 		throw ErrorMessage(BODY_STRING__NO_ENCODE) << "Encode cannot be USDS_NO_DEFAULT_ENCODE";
 
-
-
 	switch (textEncode)
 	{
 	case USDS_UTF8:
 	{
 		if (byte_size != 0 && value[byte_size - 1] == 0)
 			byte_size--;
-		if (valueBufferSize < byte_size)
+		if (valueBufferSize < byte_size + 1)
 		{
 			delete[] objectValue;
-			valueBufferSize = byte_size;
-			objectValue = new uint8_t[byte_size];
+			valueBufferSize = byte_size + 1;
+			objectValue = new uint8_t[valueBufferSize];
 		}
 		memcpy(objectValue, value, byte_size);
+		objectValue[byte_size] = 0;
 		valueSize = byte_size;
 		return;
 	}
@@ -130,13 +128,32 @@ try
 	default:
 		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF8 to " << usdsEncodeName(textEncode);
 	}
-
 }
 catch (ErrorMessage&msg)
 {
 	throw ErrorStack("UsdsString::setEncode") << byte_size << msg;
 }
 
+const char* UsdsString::getUTF8Value() throw (...)
+try
+{
+	if (textEncode == USDS_NO_DEFAULT_ENCODE)
+		throw ErrorMessage(BODY_STRING__NO_ENCODE) << "Encode cannot be USDS_NO_DEFAULT_ENCODE";
+
+	switch (textEncode)
+	{
+	case USDS_UTF8:
+	{
+		return (const char*)objectValue;
+	}
+	default:
+		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF8 to " << usdsEncodeName(textEncode);
+	}
+}
+catch (ErrorMessage&msg)
+{
+	throw ErrorStack("UsdsString::setEncode") << msg;
+}
 
 const uint8_t* UsdsString::getByteValue() throw (...)
 {
@@ -148,14 +165,16 @@ size_t UsdsString::getByteSize() throw (...)
 	return valueSize;
 };
 
-void UsdsString::setByteValue(uint8_t* value, size_t byte_size)
+uint8_t* UsdsString::reserveBinaryForValue(size_t byte_size)
 {
-	if (valueBufferSize < byte_size)
+	if (valueBufferSize < byte_size + sizeof(uint32_t))
 	{
 		delete[] objectValue;
-		valueBufferSize = byte_size;
-		objectValue = new uint8_t[byte_size];
+		valueBufferSize = byte_size + sizeof(uint32_t);
+		objectValue = new uint8_t[valueBufferSize];
 	}
-
-	memcpy(objectValue, value, byte_size);
+	*((uint32_t*)(objectValue + byte_size)) = 0;
+	return objectValue;
 }
+
+
