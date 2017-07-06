@@ -13,8 +13,20 @@ void DictionaryBoolean::additionalInitType()
 	
 };
 
-void DictionaryBoolean::setDefault(bool value)
+void DictionaryBoolean::setDefaultValue(bool value)
 {
 	isDefault = true;
 	defaultValue = value;
 };
+
+
+bool DictionaryBoolean::getDefaultValue()
+{
+	return defaultValue;
+}
+
+bool DictionaryBoolean::hasDefaultValue()
+{
+	return isDefault;
+}
+

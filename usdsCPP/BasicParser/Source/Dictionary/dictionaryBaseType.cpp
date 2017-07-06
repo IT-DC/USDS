@@ -28,6 +28,8 @@ try
 	
 	isRoot = (parent == 0);
 	
+	nullableValue = false;
+	
 }
 catch (ErrorMessage& msg)
 {
@@ -98,4 +100,16 @@ void DictionaryBaseType::setRoot(bool is_root) throw(...)
 
 	isRoot = is_root;
 };
+
+
+DictionaryBaseType* DictionaryBaseType::setNullable(bool is_nullable)
+{
+	nullableValue = is_nullable;
+	return this;
+}
+
+bool DictionaryBaseType::isNullable()
+{
+	return nullableValue;
+}
 

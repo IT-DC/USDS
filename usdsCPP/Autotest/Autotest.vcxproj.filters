@@ -76,9 +76,6 @@
     <ClCompile Include="Source\UnitTest\Body\usdsULongTest.cpp">
       <Filter>Unit tests\Body</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UnitTest\Body\usdsFloat.cpp">
-      <Filter>Unit tests\Body</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UnitTest\Body\usdsUIntTest.cpp">
       <Filter>Unit tests\Body</Filter>
     </ClCompile>
@@ -92,6 +89,12 @@
       <Filter>Unit tests\Body</Filter>
     </ClCompile>
     <ClCompile Include="Source\UnitTest\Body\usdsStringTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsStructTest.cpp">
+      <Filter>Unit tests\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest\Body\usdsFloatTest.cpp">
       <Filter>Unit tests\Body</Filter>
     </ClCompile>
   </ItemGroup>

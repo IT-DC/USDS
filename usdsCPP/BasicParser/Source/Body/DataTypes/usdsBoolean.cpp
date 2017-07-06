@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsBoolean.h"
 
+#include "dictionary/dataTypes/dictionaryBoolean.h"
+
 using namespace usds;
 
 UsdsBoolean::UsdsBoolean(Body* parent_body) : UsdsBaseType(parent_body)
@@ -33,6 +35,6 @@ bool UsdsBoolean::get() throw (...)
 
 void UsdsBoolean::additionalInitObject()
 {
-
-
+	if (((DictionaryBoolean*)parentDictionaryObject)->hasDefaultValue())
+		objectValue = ((DictionaryBoolean*)parentDictionaryObject)->getDefaultValue();
 };

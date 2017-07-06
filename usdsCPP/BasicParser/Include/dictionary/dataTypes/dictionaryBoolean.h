@@ -19,8 +19,10 @@ namespace usds
 		usdsTypes getType() { return USDS_BOOLEAN; };
 		const char* getTypeName() { return "BOOLEAN"; };
 
-		void setDefault(bool value);
-
+		void setDefaultValue(bool value);
+		bool getDefaultValue();
+		bool hasDefaultValue();
+		
 	private:
 		void additionalInitType();
 

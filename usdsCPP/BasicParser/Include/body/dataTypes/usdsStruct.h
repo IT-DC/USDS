@@ -16,64 +16,71 @@ namespace usds
 		usdsTypes getType() { return USDS_STRUCT; };
 		const char* getTypeName() { return "STRUCT"; };
 
-		void setFieldValue(const char* name, bool value) throw (...);
-		void setFieldValue(const char* name, int8_t value) throw (...);
-		void setFieldValue(const char* name, uint8_t value) throw (...);
-		void setFieldValue(const char* name, int16_t value) throw (...);
-		void setFieldValue(const char* name, uint16_t value) throw (...);
-		void setFieldValue(const char* name, int32_t value) throw (...);
-		void setFieldValue(const char* name, uint32_t value) throw (...);
-		void setFieldValue(const char* name, int64_t value) throw (...);
-		void setFieldValue(const char* name, uint64_t value) throw (...);
-		void setFieldValue(const char* name, float value) throw (...);
-		void setFieldValue(const char* name, double value) throw (...);
-		void setFieldValue(const char* name, usdsEncodes encode, const char* value) throw (...);
+		void setFieldValue(const char* field_name, bool value) throw (...);
+		void setFieldValue(const char* field_name, int8_t value) throw (...);
+		void setFieldValue(const char* field_name, uint8_t value) throw (...);
+		void setFieldValue(const char* field_name, int16_t value) throw (...);
+		void setFieldValue(const char* field_name, uint16_t value) throw (...);
+		void setFieldValue(const char* field_name, int32_t value) throw (...);
+		void setFieldValue(const char* field_name, uint32_t value) throw (...);
+		void setFieldValue(const char* field_name, int64_t value) throw (...);
+		void setFieldValue(const char* field_name, uint64_t value) throw (...);
+		void setFieldValue(const char* field_name, float value) throw (...);
+		void setFieldValue(const char* field_name, double value) throw (...);
+		void setFieldValue(const char* field_name, usdsEncodes encode, const char* value) throw (...);
 
-		void setFieldValue(int32_t id, bool value) throw (...);
-		void setFieldValue(int32_t id, int8_t value) throw (...);
-		void setFieldValue(int32_t id, uint8_t value) throw (...);
-		void setFieldValue(int32_t id, int16_t value) throw (...);
-		void setFieldValue(int32_t id, uint16_t value) throw (...);
-		void setFieldValue(int32_t id, int32_t value) throw (...);
-		void setFieldValue(int32_t id, uint32_t value) throw (...);
-		void setFieldValue(int32_t id, int64_t value) throw (...);
-		void setFieldValue(int32_t id, uint64_t value) throw (...);
-		void setFieldValue(int32_t id, float value) throw (...);
-		void setFieldValue(int32_t id, double value) throw (...);
-		void setFieldValue(int32_t id, usdsEncodes encode, const char* value) throw (...);
+		void setFieldValue(int32_t field_id, bool value) throw (...);
+		void setFieldValue(int32_t field_id, int8_t value) throw (...);
+		void setFieldValue(int32_t field_id, uint8_t value) throw (...);
+		void setFieldValue(int32_t field_id, int16_t value) throw (...);
+		void setFieldValue(int32_t field_id, uint16_t value) throw (...);
+		void setFieldValue(int32_t field_id, int32_t value) throw (...);
+		void setFieldValue(int32_t field_id, uint32_t value) throw (...);
+		void setFieldValue(int32_t field_id, int64_t value) throw (...);
+		void setFieldValue(int32_t field_id, uint64_t value) throw (...);
+		void setFieldValue(int32_t field_id, float value) throw (...);
+		void setFieldValue(int32_t field_id, double value) throw (...);
+		void setFieldValue(int32_t field_id, usdsEncodes encode, const char* value) throw (...);
 		
-		void getFieldValue(const char* name, bool* value) throw (...);
-		void getFieldValue(const char* name, int8_t* value) throw (...);
-		void getFieldValue(const char* name, uint8_t* value) throw (...);
-		void getFieldValue(const char* name, int16_t* value) throw (...);
-		void getFieldValue(const char* name, uint16_t* value) throw (...);
-		void getFieldValue(const char* name, int32_t* value) throw (...);
-		void getFieldValue(const char* name, uint32_t* value) throw (...);
-		void getFieldValue(const char* name, int64_t* value) throw (...);
-		void getFieldValue(const char* name, uint64_t* value) throw (...);
-		void getFieldValue(const char* name, float* value) throw (...);
-		void getFieldValue(const char* name, double* value) throw (...);
-		void getFieldValue(const char* name, usdsEncodes encode, const char** value) throw (...);
+		void getFieldValue(const char* field_name, bool* value) throw (...);
+		void getFieldValue(const char* field_name, int8_t* value) throw (...);
+		void getFieldValue(const char* field_name, uint8_t* value) throw (...);
+		void getFieldValue(const char* field_name, int16_t* value) throw (...);
+		void getFieldValue(const char* field_name, uint16_t* value) throw (...);
+		void getFieldValue(const char* field_name, int32_t* value) throw (...);
+		void getFieldValue(const char* field_name, uint32_t* value) throw (...);
+		void getFieldValue(const char* field_name, int64_t* value) throw (...);
+		void getFieldValue(const char* field_name, uint64_t* value) throw (...);
+		void getFieldValue(const char* field_name, float* value) throw (...);
+		void getFieldValue(const char* field_name, double* value) throw (...);
+		void getFieldValue(const char* field_name, usdsEncodes encode, const char** value) throw (...);
 
-		template <typename out_type> out_type getFieldValue(const char* name) throw (...);
+		template <typename out_type> out_type getFieldValue(const char* field_name) throw (...);
 
-		void getFieldValue(int32_t id, bool* value) throw (...);
-		void getFieldValue(int32_t id, int8_t* value) throw (...);
-		void getFieldValue(int32_t id, uint8_t* value) throw (...);
-		void getFieldValue(int32_t id, int16_t* value) throw (...);
-		void getFieldValue(int32_t id, uint16_t* value) throw (...);
-		void getFieldValue(int32_t id, int32_t* value) throw (...);
-		void getFieldValue(int32_t id, uint32_t* value) throw (...);
-		void getFieldValue(int32_t id, int64_t* value) throw (...);
-		void getFieldValue(int32_t id, uint64_t* value) throw (...);
-		void getFieldValue(int32_t id, float* value) throw (...);
-		void getFieldValue(int32_t id, double* value) throw (...);
-		void getFieldValue(int32_t id, usdsEncodes encode, const char** value) throw (...);
+		void getFieldValue(int32_t field_id, bool* value) throw (...);
+		void getFieldValue(int32_t field_id, int8_t* value) throw (...);
+		void getFieldValue(int32_t field_id, uint8_t* value) throw (...);
+		void getFieldValue(int32_t field_id, int16_t* value) throw (...);
+		void getFieldValue(int32_t field_id, uint16_t* value) throw (...);
+		void getFieldValue(int32_t field_id, int32_t* value) throw (...);
+		void getFieldValue(int32_t field_id, uint32_t* value) throw (...);
+		void getFieldValue(int32_t field_id, int64_t* value) throw (...);
+		void getFieldValue(int32_t field_id, uint64_t* value) throw (...);
+		void getFieldValue(int32_t field_id, float* value) throw (...);
+		void getFieldValue(int32_t field_id, double* value) throw (...);
+		void getFieldValue(int32_t field_id, usdsEncodes encode, const char** value) throw (...);
 
-		template <typename out_type> out_type getFieldValue(int32_t id) throw (...);
+		template <typename out_type> out_type getFieldValue(int32_t field_id) throw (...);
 
-		UsdsBaseType* getField(int32_t id) throw (...);
-		UsdsBaseType* getField(const char* name) throw (...);
+		UsdsBaseType* getField(int32_t field_id) throw (...);
+		UsdsBaseType* getField(const char* field_name) throw (...);
+
+		void setFieldAsNull(const char* field_name) throw (...);
+		void setFieldAsNull(int32_t field_id) throw (...);
+		bool isNullValue(const char* field_name) throw (...);
+		bool isNullValue(int32_t field_id) throw (...);
+
+
 
 		int32_t getFieldsNumber() throw (...);
 
@@ -88,30 +95,30 @@ namespace usds
 
 	};
 
-	template <typename out_type> out_type UsdsStruct::getFieldValue(const char* name) throw (...)
+	template <typename out_type> out_type UsdsStruct::getFieldValue(const char* field_name) throw (...)
 	try
 	{
 		out_type value;
-		getFieldValue(name, &value);
+		getFieldValue(field_name, &value);
 		return value;
 	}
 	catch (ErrorStack& err)
 	{
-		err.addLevel("template <typename out_type> out_type UsdsStruct::getFieldValue") << name;
+		err.addLevel("template <typename out_type> out_type UsdsStruct::getFieldValue") << field_name;
 		throw;
 	};
 
 
-	template <typename out_type> out_type UsdsStruct::getFieldValue(int32_t id) throw (...)
+	template <typename out_type> out_type UsdsStruct::getFieldValue(int32_t field_id) throw (...)
 	try
 	{
 		out_type value;
-		getFieldValue(id, &value);
+		getFieldValue(field_id, &value);
 		return value;
 	}
 	catch (ErrorStack& err)
 	{
-		err.addLevel("template <typename out_type> out_type UsdsStruct::getFieldValue") << id;
+		err.addLevel("template <typename out_type> out_type UsdsStruct::getFieldValue") << field_id;
 		throw;
 	};
 }

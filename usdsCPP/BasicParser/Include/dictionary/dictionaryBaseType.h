@@ -21,7 +21,8 @@ namespace usds
 		// For initialization in ObjectPool
 		void initType(DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...);
 	protected:
-		virtual void additionalInitType() = 0;	// it's executed in initType()
+		virtual void additionalInitType() = 0;	// it's executing in initType()
+	
 	public:
 		virtual void finalize() throw(...) = 0;
 
@@ -43,6 +44,10 @@ namespace usds
 		void setRoot(bool is_root) throw(...);
 		bool getRootStatus() { return isRoot; };
 
+		// for fields
+		DictionaryBaseType* setNullable(bool is_nullable);
+		bool isNullable();
+
 	protected:
 		std::string objectName;
 		int32_t objectID;
@@ -57,6 +62,8 @@ namespace usds
 		DictionaryBaseType* nextObject;
 		DictionaryBaseType* previousObject;
 
+		// for fields
+		bool nullableValue;
 	};
 
 
