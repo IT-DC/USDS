@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsVarint.h"
 
+#include "dictionary/dataTypes/dictionaryVarint.h"
+
 using namespace usds;
 
 UsdsVarint::UsdsVarint(Body* parent_body) : UsdsBaseType(parent_body)
@@ -13,8 +15,8 @@ UsdsVarint::~UsdsVarint()
 
 void UsdsVarint::additionalInitObject()
 {
-
-
+	if (((DictionaryVarint*)parentDictionaryObject)->hasDefaultValue())
+		objectValue = ((DictionaryVarint*)parentDictionaryObject)->getDefaultValue();
 };
 
 void UsdsVarint::setValue(int8_t value) throw (...)

@@ -31,7 +31,7 @@ namespace usds
 
 	private:
 
-		void additionalInitObject();
+		void additionalInitObject() throw (...);
 
 		usdsEncodes textEncode;
 

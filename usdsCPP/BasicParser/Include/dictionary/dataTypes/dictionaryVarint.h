@@ -19,8 +19,15 @@ namespace usds
 		usdsTypes getType() { return USDS_VARINT; };
 		const char* getTypeName() { return "VARINT"; };
 
+		void setDefaultValue(int64_t value);
+		int64_t getDefaultValue();
+		bool hasDefaultValue();
+
 	private:
 		void additionalInitType();
+
+		bool isDefault;
+		int64_t defaultValue;
 
 	};
 };

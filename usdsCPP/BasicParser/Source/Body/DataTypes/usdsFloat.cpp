@@ -13,11 +13,10 @@ UsdsFloat::~UsdsFloat()
 {
 }
 
-
 void UsdsFloat::additionalInitObject()
 {
-
-
+	if (((DictionaryFloat*)parentDictionaryObject)->hasDefaultValue())
+		objectValue = ((DictionaryFloat*)parentDictionaryObject)->getDefaultValue();
 };
 
 void UsdsFloat::setValue(float value) throw (...)

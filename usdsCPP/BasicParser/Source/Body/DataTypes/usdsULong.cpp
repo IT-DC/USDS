@@ -15,8 +15,8 @@ UsdsULong::~UsdsULong()
 
 void UsdsULong::additionalInitObject()
 {
-
-
+	if (((DictionaryULong*)parentDictionaryObject)->hasDefaultValue())
+		objectValue = ((DictionaryULong*)parentDictionaryObject)->getDefaultValue();
 };
 
 void UsdsULong::setValue(int8_t value) throw (...)

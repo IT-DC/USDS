@@ -19,8 +19,15 @@ namespace usds
 		usdsTypes getType() { return USDS_UBYTE; };
 		const char* getTypeName() { return "UBYTE"; };
 
+		void setDefaultValue(uint8_t value);
+		uint8_t getDefaultValue();
+		bool hasDefaultValue();
+
 	private:
 		void additionalInitType();
+
+		bool isDefault;
+		uint8_t defaultValue;
 
 
 	};

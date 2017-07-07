@@ -19,7 +19,6 @@ void DictionaryBoolean::setDefaultValue(bool value)
 	defaultValue = value;
 };
 
-
 bool DictionaryBoolean::getDefaultValue()
 {
 	return defaultValue;

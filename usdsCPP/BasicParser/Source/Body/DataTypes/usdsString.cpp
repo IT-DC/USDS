@@ -22,10 +22,30 @@ UsdsString::~UsdsString()
 }
 
 void UsdsString::additionalInitObject()
+try
 {
 	textEncode = ((DictionaryString*)parentDictionaryObject)->getDefaultEncode();
-	valueSize = 0;
 
+	if (textEncode == USDS_NO_DEFAULT_ENCODE)
+	{
+		valueSize = 0;
+	}
+	else
+	{
+		if (((DictionaryString*)parentDictionaryObject)->hasDefaultValue())
+		{
+			setFromUTF8(((DictionaryString*)parentDictionaryObject)->getUTF8DefaultValue());
+		}
+		else
+		{
+			valueSize = 0;
+		}
+	}
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsString::additionalInitObject");
+	throw;
 };
 
 void UsdsString::setEncode(usdsEncodes encode) throw(...)
@@ -39,11 +59,25 @@ try
 		throw ErrorMessage(BODY_STRING__STRING_AREADY_INITIALIZED) << "Cannot change encode: string is not empty";
 
 	textEncode = encode;
+
+	if (((DictionaryString*)parentDictionaryObject)->hasDefaultValue())
+	{
+		setFromUTF8(((DictionaryString*)parentDictionaryObject)->getUTF8DefaultValue());
+	}
+	else
+	{
+		valueSize = 0;
+	}
 }
 catch (ErrorMessage&msg)
 {
 	throw ErrorStack("UsdsString::setEncode") << encode << msg;
 }
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsString::setEncode") << encode;
+	throw;
+};
 
 usdsEncodes UsdsString::getEncode() throw(...)
 {

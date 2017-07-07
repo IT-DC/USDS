@@ -7,6 +7,18 @@
 #include "dictionary\dataTypes\dictionaryStruct.h"
 
 #include "dictionary\dataTypes\dictionaryBoolean.h"
+#include "dictionary\dataTypes\dictionaryByte.h"
+#include "dictionary\dataTypes\dictionaryUByte.h"
+#include "dictionary\dataTypes\dictionaryShort.h"
+#include "dictionary\dataTypes\dictionaryUShort.h"
+#include "dictionary\dataTypes\dictionaryInt.h"
+#include "dictionary\dataTypes\dictionaryUInt.h"
+#include "dictionary\dataTypes\dictionaryLong.h"
+#include "dictionary\dataTypes\dictionaryULong.h"
+#include "dictionary\dataTypes\dictionaryFloat.h"
+#include "dictionary\dataTypes\dictionaryDouble.h"
+#include "dictionary\dataTypes\dictionaryVarint.h"
+#include "dictionary\dataTypes\dictionaryUVarint.h"
 #include "dictionary\dataTypes\dictionaryString.h"
 
 #include "body\dataTypes\usdsStruct.h"
@@ -528,9 +540,42 @@ void UsdsStructTest::test_3()
 	dict_bool->setDefaultValue(true);
 	dict_bool = (usds::DictionaryBoolean*)dict_struct->addField(usds::USDS_BOOLEAN, 3, "boolean3", 0);
 	dict_bool->setDefaultValue(false);
-	dict_struct->addField(usds::USDS_INT, 4, "int", 0);
-	dict_struct->addField(usds::USDS_DOUBLE, 5, "double", 0);
-	dict_struct->addField(usds::USDS_STRING, 6, "string", 0);
+	usds::DictionaryByte* dict_byte = (usds::DictionaryByte*)dict_struct->addField(usds::USDS_BYTE, 4, "byte", 0);
+	dict_byte->setDefaultValue(-123);
+	usds::DictionaryUByte* dict_ubyte = (usds::DictionaryUByte*)dict_struct->addField(usds::USDS_UBYTE, 5, "ubyte", 0);
+	dict_ubyte->setDefaultValue(222);
+	usds::DictionaryShort* dict_short = (usds::DictionaryShort*)dict_struct->addField(usds::USDS_SHORT, 6, "short", 0);
+	dict_short->setDefaultValue(-22222);
+	usds::DictionaryUShort* dict_ushort = (usds::DictionaryUShort*)dict_struct->addField(usds::USDS_USHORT, 7, "ushort", 0);
+	dict_ushort->setDefaultValue(44444);
+	usds::DictionaryInt* dict_int = (usds::DictionaryInt*)dict_struct->addField(usds::USDS_INT, 8, "int", 0);
+	dict_int->setDefaultValue(12345678);
+	usds::DictionaryUInt* dict_uint = (usds::DictionaryUInt*)dict_struct->addField(usds::USDS_UINT, 9, "uint", 0);
+	dict_uint->setDefaultValue(87654321);
+	usds::DictionaryLong* dict_long = (usds::DictionaryLong*)dict_struct->addField(usds::USDS_LONG, 10, "long", 0);
+	dict_long->setDefaultValue(1234567890);
+	usds::DictionaryULong* dict_ulong = (usds::DictionaryULong*)dict_struct->addField(usds::USDS_ULONG, 11, "ulong", 0);
+	dict_ulong->setDefaultValue(12345678901);
+	usds::DictionaryFloat* dict_float = (usds::DictionaryFloat*)dict_struct->addField(usds::USDS_FLOAT, 12, "float", 0);
+	dict_float->setDefaultValue(1.125);
+	usds::DictionaryDouble* dict_double = (usds::DictionaryDouble*)dict_struct->addField(usds::USDS_DOUBLE, 13, "double", 0);
+	dict_double->setDefaultValue(-1.125);
+	usds::DictionaryVarint* dict_varint = (usds::DictionaryVarint*)dict_struct->addField(usds::USDS_VARINT, 14, "varint", 0);
+	dict_varint->setDefaultValue(123454321);
+	usds::DictionaryUVarint* dict_uvarint = (usds::DictionaryUVarint*)dict_struct->addField(usds::USDS_UVARINT, 15, "uvarint", 0);
+	dict_uvarint->setDefaultValue(1234543210);
+	usds::DictionaryString* dict_string = (usds::DictionaryString*)dict_struct->addField(usds::USDS_STRING, 16, "string1", 0);
+	dict_string->setDefaultEncode(usds::USDS_UTF8);
+	dict_string->setDefaultValueFromUTF8("Hell world");
+	dict_string = (usds::DictionaryString*)dict_struct->addField(usds::USDS_STRING, 17, "string2", 0);
+	dict_string->setDefaultEncode(usds::USDS_UTF8);
+	dict_string->setDefaultValueFromUTF8("Hell world", 8);
+	dict_string = (usds::DictionaryString*)dict_struct->addField(usds::USDS_STRING, 18, "string3", 0);
+	dict_string->setDefaultEncode(usds::USDS_UTF8);
+	dict_string->setDefaultValueFromUTF8(0, 0);
+	dict_string = (usds::DictionaryString*)dict_struct->addField(usds::USDS_STRING, 19, "string4", 0);
+	dict_string->setDefaultValueFromUTF8("Hell world");
+	
 	dict.finalizeDictionary();
 	body_struct = (usds::UsdsStruct*)body.addTag(dict_struct);
 
@@ -542,6 +587,94 @@ void UsdsStructTest::test_3()
 		throw "Failed at the step 1\n";
 	if (body_struct->getFieldValue<bool>("boolean3") != false)
 		throw "Failed at the step 1\n";
+
+	// test 2
+	if (body_struct->getFieldValue<int32_t>("byte") != -123)
+		throw "Failed at the step 2\n";
+
+	// test 3
+	if (body_struct->getFieldValue<int32_t>("ubyte") != 222)
+		throw "Failed at the step 3\n";
+
+	// test 4
+	if (body_struct->getFieldValue<int32_t>("short") != -22222)
+		throw "Failed at the step 4\n";
+
+	// test 5
+	if (body_struct->getFieldValue<int32_t>("ushort") != 44444)
+		throw "Failed at the step 5\n";
+
+	// test 6
+	if (body_struct->getFieldValue<int32_t>("int") != 12345678)
+		throw "Failed at the step 6\n";
+
+	// test 7
+	if (body_struct->getFieldValue<int32_t>("uint") != 87654321)
+		throw "Failed at the step 7\n";
+	
+	// test 8
+	if (body_struct->getFieldValue<int64_t>("long") != 1234567890)
+		throw "Failed at the step 8\n";
+
+	// test 9
+	if (body_struct->getFieldValue<int64_t>("ulong") != 12345678901)
+		throw "Failed at the step 9\n";
+
+	// test 10
+	if (body_struct->getFieldValue<double>("float") != 1.125)
+		throw "Failed at the step 10\n";
+
+	// test 11
+	if (body_struct->getFieldValue<double>("double") != -1.125)
+		throw "Failed at the step 11\n";
+
+	// test 12
+	if (body_struct->getFieldValue<int64_t>("varint") != 123454321)
+		throw "Failed at the step 12\n";
+
+	// test 13
+	if (body_struct->getFieldValue<int64_t>("uvarint") != 1234543210)
+		throw "Failed at the step 13\n";
+
+	// test 14
+	const char* string_value = 0;
+	body_struct->getFieldValue("string1", usds::USDS_UTF8, &string_value);
+	if (strcmp(string_value, "Hell world") != 0)
+		throw "Failed at the step 14\n";
+
+	// test 15
+	string_value = 0;
+	body_struct->getFieldValue("string2", usds::USDS_UTF8, &string_value);
+	if (strcmp(string_value, "Hell wor") != 0)
+		throw "Failed at the step 15\n";
+
+	// test 16
+	string_value = 0;
+	body_struct->getFieldValue("string3", usds::USDS_UTF8, &string_value);
+	if (strcmp(string_value, "") != 0)
+		throw "Failed at the step 16\n";
+
+	// test 17
+	string_value = 0;
+	try
+	{
+		body_struct->getFieldValue("string4", usds::USDS_UTF8, &string_value);
+		throw "Failed at the step 17\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BODY_STRING__NO_ENCODE)
+		{
+			throw "Failed at the step 17\n";
+		}
+	}
+
+	// test 18
+	string_value = 0;
+	((usds::UsdsString*)body_struct->getField("string4"))->setEncode(usds::USDS_UTF8);
+	body_struct->getFieldValue("string4", usds::USDS_UTF8, &string_value);
+	if (strcmp(string_value, "Hell world") != 0)
+		throw "Failed at the step 18\n";
 
 
 }

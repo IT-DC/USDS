@@ -14,7 +14,7 @@ namespace usds
 	{
 	public:
 		DictionaryString(Dictionary* dict);
-		virtual ~DictionaryString() {  };
+		virtual ~DictionaryString();
 
 		void finalize() throw (...);
 
@@ -24,11 +24,19 @@ namespace usds
 		void setDefaultEncode(usdsEncodes value) throw(...);
 		usdsEncodes getDefaultEncode() throw(...);
 
+		void setDefaultValueFromUTF8(const char* value);
+		void setDefaultValueFromUTF8(const char* value, size_t byte_size);
+		const char* getUTF8DefaultValue();
+		bool hasDefaultValue();
+
 	private:
 		void additionalInitType();
 
 		usdsEncodes defaultEncode;
 
+		bool isDefault;
+		char* defaultValue;
+		size_t defaultValueBufferSize;
 	};
 
 

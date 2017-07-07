@@ -15,8 +15,8 @@ UsdsUShort::~UsdsUShort()
 
 void UsdsUShort::additionalInitObject()
 {
-
-
+	if (((DictionaryUShort*)parentDictionaryObject)->hasDefaultValue())
+		objectValue = ((DictionaryUShort*)parentDictionaryObject)->getDefaultValue();
 };
 
 void UsdsUShort::setValue(int8_t value) throw (...)

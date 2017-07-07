@@ -12,8 +12,18 @@ void DictionaryUVarint::additionalInitType()
 	isDefault = false;
 };
 
-void DictionaryUVarint::setDefault(int64_t value)
+void DictionaryUVarint::setDefaultValue(uint64_t value)
 {
 	isDefault = true;
 	defaultValue = value;
 };
+
+uint64_t DictionaryUVarint::getDefaultValue()
+{
+	return defaultValue;
+}
+
+bool DictionaryUVarint::hasDefaultValue()
+{
+	return isDefault;
+}

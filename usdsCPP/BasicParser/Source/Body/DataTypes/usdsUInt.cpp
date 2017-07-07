@@ -15,8 +15,8 @@ UsdsUInt::~UsdsUInt()
 
 void UsdsUInt::additionalInitObject()
 {
-
-
+	if (((DictionaryUInt*)parentDictionaryObject)->hasDefaultValue())
+		objectValue = ((DictionaryUInt*)parentDictionaryObject)->getDefaultValue();
 };
 
 void UsdsUInt::setValue(int8_t value) throw (...)

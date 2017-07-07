@@ -16,8 +16,8 @@ UsdsDouble::~UsdsDouble()
 
 void UsdsDouble::additionalInitObject()
 {
-
-
+	if (((DictionaryDouble*)parentDictionaryObject)->hasDefaultValue())
+		objectValue = ((DictionaryDouble*)parentDictionaryObject)->getDefaultValue();
 };
 
 void UsdsDouble::setValue(float value) throw (...)

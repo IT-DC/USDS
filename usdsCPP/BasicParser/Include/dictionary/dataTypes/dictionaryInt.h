@@ -22,10 +22,17 @@ namespace usds
 		void setBigendian(bool is_bigendian) { isBigendian = is_bigendian; };
 		bool getBigendian() { return isBigendian; };
 
+		void setDefaultValue(int32_t value);
+		int32_t getDefaultValue();
+		bool hasDefaultValue();
+
 	private:
 		void additionalInitType();
 
 		bool isBigendian;
+
+		bool isDefault;
+		int32_t defaultValue;
 	};
 };
 

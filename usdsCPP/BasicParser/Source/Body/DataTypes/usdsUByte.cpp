@@ -1,5 +1,7 @@
 #include "body\dataTypes\usdsUByte.h"
 
+#include "dictionary/dataTypes/dictionaryUByte.h"
+
 using namespace usds;
 
 UsdsUByte::UsdsUByte(Body* parent_body) : UsdsBaseType(parent_body)
@@ -13,8 +15,8 @@ UsdsUByte::~UsdsUByte()
 
 void UsdsUByte::additionalInitObject()
 {
-
-
+	if (((DictionaryUByte*)parentDictionaryObject)->hasDefaultValue())
+		objectValue = ((DictionaryUByte*)parentDictionaryObject)->getDefaultValue();
 };
 
 void UsdsUByte::setValue(int8_t value) throw (...)
