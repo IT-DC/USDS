@@ -11,7 +11,6 @@ using namespace usds;
 
 DictionaryBinaryParser::DictionaryBinaryParser()
 {
-	readIndex[USDS_NO_TYPE] = 0;
 	readIndex[USDS_TAG] = &DictionaryBinaryParser::readTag;
 	readIndex[USDS_BOOLEAN] = &DictionaryBinaryParser::readBoolean;
 	readIndex[USDS_BYTE] = &DictionaryBinaryParser::readByte;
@@ -30,9 +29,12 @@ DictionaryBinaryParser::DictionaryBinaryParser()
 	readIndex[USDS_UVARINT] = &DictionaryBinaryParser::readUVarint;
 	readIndex[USDS_STRING] = &DictionaryBinaryParser::readString;
 	readIndex[USDS_ARRAY] = &DictionaryBinaryParser::readArray;
-	readIndex[USDS_MAP] = &DictionaryBinaryParser::readMap;
-	readIndex[USDS_POLYARRAY] = &DictionaryBinaryParser::readPolymorph;
 	readIndex[USDS_STRUCT] = &DictionaryBinaryParser::readStruct;
+	readIndex[USDS_GUID] = &DictionaryBinaryParser::readGuid;
+	readIndex[USDS_MAP] = &DictionaryBinaryParser::readMap;
+	readIndex[USDS_DATE] = &DictionaryBinaryParser::readDate;
+	readIndex[USDS_TIME] = &DictionaryBinaryParser::readTime;
+	readIndex[USDS_DATETIME] = &DictionaryBinaryParser::readDateTime;
 	readIndex[USDS_FUNCTION] = &DictionaryBinaryParser::readFunction;
 
 };
@@ -207,11 +209,6 @@ void DictionaryBinaryParser::readMap(DictionaryBaseType* object) throw (...)
 	throw ErrorStack("DictionaryBinaryParser::readMap") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type MAP for Dictionary Binary Parser");
 };
 
-void DictionaryBinaryParser::readPolymorph(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryParser::readPolymorph") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type POLYMORPH for Dictionary Binary Parser");
-};
-
 void DictionaryBinaryParser::readStruct(DictionaryBaseType* object) throw (...)
 try
 {
@@ -263,4 +260,24 @@ catch (ErrorStack& err)
 void DictionaryBinaryParser::readFunction(DictionaryBaseType* object) throw (...)
 {
 	throw ErrorStack("DictionaryBinaryParser::readFunction") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type FUNCTION for Dictionary Binary Parser");
+};
+
+void DictionaryBinaryParser::readGuid(DictionaryBaseType* object) throw (...)
+{
+	throw ErrorStack("DictionaryBinaryParser::readGuid") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type GUID for Dictionary Binary Parser");
+};
+
+void DictionaryBinaryParser::readDate(DictionaryBaseType* object) throw (...)
+{
+	throw ErrorStack("DictionaryBinaryParser::readDate") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type DATE for Dictionary Binary Parser");
+};
+
+void DictionaryBinaryParser::readTime(DictionaryBaseType* object) throw (...)
+{
+	throw ErrorStack("DictionaryBinaryParser::readTime") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type TIME for Dictionary Binary Parser");
+};
+
+void DictionaryBinaryParser::readDateTime(DictionaryBaseType* object) throw (...)
+{
+	throw ErrorStack("DictionaryBinaryParser::readDateTime") << (void*)object << ErrorMessage(DICTIONARY_BINARY_PARSER__UNKNOWN_FORMAT, "Unsupported type DATETIME for Dictionary Binary Parser");
 };

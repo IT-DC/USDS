@@ -2,11 +2,13 @@
 #include "flexDictionaryTextScanner.h"
 
 #include "dictionary\usdsDictionary.h"
-#include "usdsBasicParser.h"
+
+#include <sstream>
+
 
 using namespace usds;
 
-void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, BasicParser* usdsParser) throw (...)
+void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, Dictionary* dict) throw (...)
 try
 {
 	if (encode != USDS_UTF8)
@@ -19,7 +21,7 @@ try
 	FlexDictionaryTextScanner scanner(&input, &output);
 	
 	std::stringstream errors;
-	BisonDictionaryTextParser textParser(usdsParser, &scanner, &errors, 0, 0, 0);
+	BisonDictionaryTextParser textParser(text_dict, dict, &scanner, 0, 0);
 
 	// Parse!
 	int32_t ret = textParser.parse();
@@ -29,10 +31,10 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	throw ErrorStack("DictionaryTextParser::parse") << (void*)text_dict << encode << (void*)usdsParser << msg;
+	throw ErrorStack("DictionaryTextParser::parse") << (void*)text_dict << encode << (void*)dict << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("DictionaryTextParser::parse") << (void*)text_dict << encode << (void*)usdsParser;
+	err.addLevel("DictionaryTextParser::parse") << (void*)text_dict << encode << (void*)dict;
 	throw;
 }

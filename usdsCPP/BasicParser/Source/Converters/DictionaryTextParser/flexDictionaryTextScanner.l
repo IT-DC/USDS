@@ -3,8 +3,6 @@
  * on Win32. The C++ scanner uses STL streams instead. */
 #define YY_NO_UNISTD_H
 
-#pragma warning(disable : 4996)
-
 #include "flexDictionaryTextScanner.h"
 using namespace usds;
 
@@ -134,9 +132,8 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* Field and tag names */ 
 %}
 [_a-zA-Z][_0-9a-zA-Z]*	{
-							yylval->stringVal = new char[yyleng+1];
-							strcpy(yylval->stringVal, yytext);
-							yytext[yyleng] = 0;
+							yylval->stringVal[0] = 1;
+							yylval->stringVal[1] = yyleng;
 							return (token::TEXT_NAME);
 						}
 

@@ -6,7 +6,6 @@ using namespace usds;
 
 BodyBinaryCreator::BodyBinaryCreator()
 {
-	writeIndex[USDS_NO_TYPE] = 0;
 	writeIndex[USDS_TAG] = &BodyBinaryCreator::writeTag;
 	writeIndex[USDS_BOOLEAN] = &BodyBinaryCreator::writeBoolean;
 	writeIndex[USDS_BYTE] = &BodyBinaryCreator::writeByte;
@@ -25,9 +24,12 @@ BodyBinaryCreator::BodyBinaryCreator()
 	writeIndex[USDS_UVARINT] = &BodyBinaryCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &BodyBinaryCreator::writeString;
 	writeIndex[USDS_ARRAY] = &BodyBinaryCreator::writeArray;
-	writeIndex[USDS_MAP] = &BodyBinaryCreator::writeMap;
-	writeIndex[USDS_POLYARRAY] = &BodyBinaryCreator::writePolymorph;
 	writeIndex[USDS_STRUCT] = &BodyBinaryCreator::writeStruct;
+	writeIndex[USDS_GUID] = &BodyBinaryCreator::writeGuid;
+	writeIndex[USDS_MAP] = &BodyBinaryCreator::writeMap;
+	writeIndex[USDS_DATE] = &BodyBinaryCreator::writeDate;
+	writeIndex[USDS_TIME] = &BodyBinaryCreator::writeTime;
+	writeIndex[USDS_DATETIME] = &BodyBinaryCreator::writeDateTime;
 	writeIndex[USDS_FUNCTION] = &BodyBinaryCreator::writeFunction;
 
 };
@@ -218,11 +220,6 @@ void BodyBinaryCreator::writeMap(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyBinaryCreator::writeMap") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type MAP for Binary Creator");
 };
 
-void BodyBinaryCreator::writePolymorph(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryCreator::writePolymorph") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type POLYMORPH for Binary Creator");
-};
-
 void BodyBinaryCreator::writeStruct(UsdsBaseType* object) throw (...)
 try
 {
@@ -244,3 +241,24 @@ void BodyBinaryCreator::writeFunction(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyBinaryCreator::writeFunction") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type FUNCTION for Binary Creator");
 };
+
+void BodyBinaryCreator::writeGuid(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyBinaryCreator::writeGuid") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type GUID for Binary Creator");
+};
+
+void BodyBinaryCreator::writeDate(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyBinaryCreator::writeDate") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type Date for Binary Creator");
+};
+
+void BodyBinaryCreator::writeTime(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyBinaryCreator::writeTime") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type Time for Binary Creator");
+};
+
+void BodyBinaryCreator::writeDateTime(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyBinaryCreator::writeDateTime") << (void*)object << ErrorMessage(BODY_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type DateTime for Binary Creator");
+};
+

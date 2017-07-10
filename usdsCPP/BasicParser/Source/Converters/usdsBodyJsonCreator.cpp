@@ -6,7 +6,6 @@ using namespace usds;
 
 BodyJsonCreator::BodyJsonCreator()
 {
-	writeIndex[USDS_NO_TYPE] = 0;
 	writeIndex[USDS_TAG] = &BodyJsonCreator::writeTag;
 	writeIndex[USDS_BOOLEAN] = &BodyJsonCreator::writeBoolean;
 	writeIndex[USDS_BYTE] = &BodyJsonCreator::writeByte;
@@ -25,9 +24,12 @@ BodyJsonCreator::BodyJsonCreator()
 	writeIndex[USDS_UVARINT] = &BodyJsonCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &BodyJsonCreator::writeString;
 	writeIndex[USDS_ARRAY] = &BodyJsonCreator::writeArray;
-	writeIndex[USDS_MAP] = &BodyJsonCreator::writeMap;
-	writeIndex[USDS_POLYARRAY] = &BodyJsonCreator::writePolymorph;
 	writeIndex[USDS_STRUCT] = &BodyJsonCreator::writeStruct;
+	writeIndex[USDS_GUID] = &BodyJsonCreator::writeGuid;
+	writeIndex[USDS_MAP] = &BodyJsonCreator::writeMap;
+	writeIndex[USDS_DATE] = &BodyJsonCreator::writeDate;
+	writeIndex[USDS_TIME] = &BodyJsonCreator::writeTime;
+	writeIndex[USDS_DATETIME] = &BodyJsonCreator::writeDateTime;
 	writeIndex[USDS_FUNCTION] = &BodyJsonCreator::writeFunction;
 
 };
@@ -208,11 +210,6 @@ void BodyJsonCreator::writeMap(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyJsonCreator::writeMap") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type MAP for JSON Creator");
 };
 
-void BodyJsonCreator::writePolymorph(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyJsonCreator::writePolymorph") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type POLYMORPH for JSON Creator");
-};
-
 void BodyJsonCreator::writeArray(UsdsBaseType* object) throw (...)
 
 try
@@ -292,3 +289,29 @@ void BodyJsonCreator::writeFunction(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyJsonCreator::writeFunction") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type FUNCTION for JSON Creator");
 };
+
+void BodyJsonCreator::writeTag(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyJsonCreator::writeTag") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type TAG for JSON Creator");
+};
+
+void BodyJsonCreator::writeGuid(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyJsonCreator::writeGuid") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type GUID for JSON Creator");
+};
+
+void BodyJsonCreator::writeDate(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyJsonCreator::writeDate") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type DATE for JSON Creator");
+};
+
+void BodyJsonCreator::writeTime(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyJsonCreator::writeTime") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type TIME for JSON Creator");
+};
+
+void BodyJsonCreator::writeDateTime(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyJsonCreator::writeDateTime") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type DATETIME for JSON Creator");
+};
+

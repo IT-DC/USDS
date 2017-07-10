@@ -253,6 +253,12 @@ public:
 	static void test_2();
 };
 
+class DictionaryTextParserTest
+{
+public:
+	static void test_1();
+};
+
 class UsdsUIntTest
 {
 public:

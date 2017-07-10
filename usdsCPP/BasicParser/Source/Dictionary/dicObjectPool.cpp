@@ -24,7 +24,6 @@ using namespace usds;
 
 DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 {
-	pools[USDS_NO_TYPE] = 0;
 	pools[USDS_TAG] = new TemplateObjectPool<DictionaryTagLink, Dictionary>(dict);
 	pools[USDS_BOOLEAN] = new TemplateObjectPool<DictionaryBoolean, Dictionary>(dict);
 	pools[USDS_BYTE] = new TemplateObjectPool<DictionaryByte, Dictionary>(dict);
@@ -43,9 +42,12 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_UVARINT] = new TemplateObjectPool<DictionaryUVarint, Dictionary>(dict);
 	pools[USDS_STRING] = new TemplateObjectPool<DictionaryString, Dictionary>(dict);
 	pools[USDS_ARRAY] = new TemplateObjectPool<DictionaryArray, Dictionary>(dict);
-	pools[USDS_MAP] = 0;
-	pools[USDS_POLYARRAY] = 0;
 	pools[USDS_STRUCT] = new TemplateObjectPool<DictionaryStruct, Dictionary>(dict);
+	pools[USDS_GUID] = 0;
+	pools[USDS_MAP] = 0;
+	pools[USDS_DATE] = 0;
+	pools[USDS_TIME] = 0;
+	pools[USDS_DATETIME] = 0;
 	pools[USDS_FUNCTION] = 0;
 };
 
@@ -62,7 +64,7 @@ DictionaryObjectPool::~DictionaryObjectPool()
 DictionaryBaseType* DictionaryObjectPool::addObject(usdsTypes object_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
-	if (object_type <= USDS_NO_TYPE || object_type >= USDS_LAST_TYPE)
+	if (object_type < USDS_TAG || object_type >= USDS_LAST_TYPE)
 		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << object_type;
 	// TODO: remove it when all type is ready
 	if (pools[object_type] == 0)

@@ -20,7 +20,7 @@ BasicParser::~BasicParser()
 void BasicParser::addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncodes encode) throw(...)
 try 
 {
-	dictionaryTextParser.parse(text_dictionary, encode, this);
+	dictionaryTextParser.parse(text_dictionary, encode, addNewDictionary(1, 0, 0));
 }
 catch (ErrorStack& err)
 {

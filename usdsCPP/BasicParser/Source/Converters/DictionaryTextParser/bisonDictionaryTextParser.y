@@ -22,16 +22,15 @@
 %skeleton "lalr1.cc"
 %debug
 %defines
-%define api.prefix dictionary_text
-%define namespace "usds"
-%define parser_class_name "BisonDictionaryTextParser"
+%define api.prefix {dictionary_text}
+%define api.namespace {usds}
+%define parser_class_name {BisonDictionaryTextParser}
 %locations
 
 
-%parse-param {class BasicParser* usdsParser}
-%parse-param {class FlexDictionaryTextScanner* scanner}
-%parse-param {std::stringstream* error_message}
+%parse-param {const char* input_text}
 %parse-param {class Dictionary* dict}
+%parse-param {class FlexDictionaryTextScanner* scanner}
 %parse-param {class DictionaryBaseType* tag}
 %parse-param {class DictionaryBaseType* field}
 
@@ -41,7 +40,7 @@
     bool  			boolVal;
 	int  			intVal;
     double 			doubleVal;
-    char*			stringVal;
+    size_t			stringVal[2];
 	usdsEncodes		encodeVal;
 	usdsTypes		typeVal;
 }
@@ -70,8 +69,6 @@
 %token<intVal> UNSIGNED_INTEGER_NUMBER "unsigned integer number"
 %token<stringVal> TEXT_NAME "object name"
 
-%destructor { delete [] $$; } TEXT_NAME
-
 %token '{'
 %token '}'
 %token ':'
@@ -90,7 +87,7 @@
 dictionary: 
 	USDS_DICTIONARY_ID '=' UNSIGNED_INTEGER_NUMBER DICTIONARY_VERSION UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER 
 	{
-		dict = usdsParser->addNewDictionary($3, $5, $7);
+		dict->setID($3, $5, $7);
 	}
 	'{' tags '}'
 	{
@@ -108,8 +105,7 @@ tag:
 
 struct_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_STRUCT TEXT_NAME 
 	{
-		tag = dict->addTag($3, $1, $4, 0);
-		delete [] $4;
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
 	}
 	;
 
@@ -131,47 +127,38 @@ fields: field | field fields;
 field:
 	UNSIGNED_INTEGER_NUMBER ':' TYPE_BOOLEAN TEXT_NAME ';'
 	{
-		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
-		delete [] $4;
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_INT TEXT_NAME ';'
 	{
-		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
-		delete [] $4;
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_LONG TEXT_NAME ';'
 	{
-		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
-		delete [] $4;
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE TEXT_NAME ';'
 	{
-		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
-		delete [] $4;
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UVARINT TEXT_NAME ';'
 	{
-		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
-		delete [] $4;
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING TEXT_NAME ';'
 	{
-		((DictionaryStruct*)tag)->addField($3, $1, $4, 0);
-		delete [] $4;
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}	
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
 	{
-		field = ((DictionaryStruct*)tag)->addField($3, $1, $7, 0);
-		((DictionaryString*)field)->setEncode($5);
-		delete [] $7;
+		field = ((DictionaryStruct*)tag)->addField($3, $1, input_text + $7[0], $7[1]);
+		((DictionaryString*)field)->setDefaultEncode($5);
 	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_ARRAY '<' TEXT_NAME '>' TEXT_NAME ';'
 	{
-		field = ((DictionaryStruct*)tag)->addField($3, $1, $7, 0);
+		field = ((DictionaryStruct*)tag)->addField($3, $1, input_text + $7[0], $7[1]);
 		DictionaryTagLink* element = (DictionaryTagLink*)(((DictionaryArray*)field)->setElementType(USDS_TAG));
-		element->setTag($5, 0);
-		delete [] $5;
-		delete [] $7;
+		element->setTag(input_text + $5[0], $5[1]);
 	}
 	;
 
@@ -181,11 +168,6 @@ field:
 
 void usds::BisonDictionaryTextParser::error(const usds::BisonDictionaryTextParser::location_type &loc, const std::string &msg)
 {
-	*error_message << "Error in Text Dictionary!\n";
-	*error_message << loc.begin.line;
-	*error_message << ".";
-	*error_message << loc.begin.column;
-	*error_message << ": ";
-	*error_message << msg;
+	throw ErrorMessage(usds::DICTIONARY_TEXT_PARSER__ERROR) << "Error in Text Dictionary!\n" << loc.begin.line << "." << loc.begin.column << ": " << msg;
 }
 

@@ -15,7 +15,7 @@ void DictionaryArrayTest::test_1()
 	// step 1
 	try
 	{
-		object->setElementType(usds::USDS_NO_TYPE);
+		object->setElementType(usds::USDS_LAST_TYPE);
 		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)

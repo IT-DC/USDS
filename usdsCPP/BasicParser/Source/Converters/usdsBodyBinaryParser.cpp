@@ -8,7 +8,6 @@ using namespace usds;
 
 BodyBinaryParser::BodyBinaryParser()
 {
-	readIndex[USDS_NO_TYPE] = 0;
 	readIndex[USDS_TAG] = &BodyBinaryParser::readTag;
 	readIndex[USDS_BOOLEAN] = &BodyBinaryParser::readBoolean;
 	readIndex[USDS_BYTE] = &BodyBinaryParser::readByte;
@@ -27,9 +26,12 @@ BodyBinaryParser::BodyBinaryParser()
 	readIndex[USDS_UVARINT] = &BodyBinaryParser::readUVarint;
 	readIndex[USDS_STRING] = &BodyBinaryParser::readString;
 	readIndex[USDS_ARRAY] = &BodyBinaryParser::readArray;
-	readIndex[USDS_MAP] = &BodyBinaryParser::readMap;
-	readIndex[USDS_POLYARRAY] = &BodyBinaryParser::readPolymorph;
 	readIndex[USDS_STRUCT] = &BodyBinaryParser::readStruct;
+	readIndex[USDS_GUID] = &BodyBinaryParser::readGuid;
+	readIndex[USDS_MAP] = &BodyBinaryParser::readMap;
+	readIndex[USDS_DATE] = &BodyBinaryParser::readDate;
+	readIndex[USDS_TIME] = &BodyBinaryParser::readTime;
+	readIndex[USDS_DATETIME] = &BodyBinaryParser::readDateTime;
 	readIndex[USDS_FUNCTION] = &BodyBinaryParser::readFunction;
 
 };
@@ -225,11 +227,6 @@ void BodyBinaryParser::readMap(UsdsBaseType* object) throw (...)
 	throw ErrorStack("BodyBinaryParser::readMap") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type MAP for Body Binary Parser");
 };
 
-void BodyBinaryParser::readPolymorph(UsdsBaseType* object) throw (...)
-{
-	throw ErrorStack("BodyBinaryParser::readPolymorph") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type POLYMORPH for Body Binary Parser");
-};
-
 void BodyBinaryParser::readStruct(UsdsBaseType* object) throw (...)
 try
 {
@@ -251,3 +248,25 @@ void BodyBinaryParser::readFunction(UsdsBaseType* object) throw (...)
 {
 	throw ErrorStack("BodyBinaryParser::readFunction") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type FUNCTION for Body Binary Parser");
 };
+
+void BodyBinaryParser::readGuid(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyBinaryParser::readGuid") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type GUID for Body Binary Parser");
+};
+
+void BodyBinaryParser::readDate(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyBinaryParser::readDate") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type DATE for Body Binary Parser");
+};
+
+void BodyBinaryParser::readTime(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyBinaryParser::readTime") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type TIME for Body Binary Parser");
+};
+
+void BodyBinaryParser::readDateTime(UsdsBaseType* object) throw (...)
+{
+	throw ErrorStack("BodyBinaryParser::readDateTime") << (void*)object << ErrorMessage(BODY_BINARY_PARSER__UNSUPPORTED_TYPE, "Unsupported type DATETIME for Body Binary Parser");
+};
+
+

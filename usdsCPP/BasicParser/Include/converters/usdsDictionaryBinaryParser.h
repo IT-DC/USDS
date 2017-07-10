@@ -41,9 +41,12 @@ namespace usds
 		void readUVarint(DictionaryBaseType* object) throw (...);
 		void readString(DictionaryBaseType* object) throw (...);
 		void readArray(DictionaryBaseType* object) throw (...);
-		void readMap(DictionaryBaseType* object) throw (...);
-		void readPolymorph(DictionaryBaseType* object) throw (...);
 		void readStruct(DictionaryBaseType* object) throw (...);
+		void readGuid(DictionaryBaseType* object) throw (...);
+		void readMap(DictionaryBaseType* object) throw (...);
+		void readDate(DictionaryBaseType* object) throw (...);
+		void readTime(DictionaryBaseType* object) throw (...);
+		void readDateTime(DictionaryBaseType* object) throw (...);
 		void readFunction(DictionaryBaseType* object) throw (...);
 
 		BinaryInput* binary;

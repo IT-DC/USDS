@@ -4,12 +4,9 @@
 #include "usdsTypes.h"
 #include "usdsErrors.h"
 
-#include <sstream>
-#include <list>
-
 namespace usds
 {
-	class BasicParser;
+	class Dictionary;
 
 	class DictionaryTextParser
 	{
@@ -17,7 +14,7 @@ namespace usds
 		DictionaryTextParser() {};
 		~DictionaryTextParser() {};
 
-		void parse(const char* text_dict, usdsEncodes encode, BasicParser* usdsParser) throw (...);
+		void parse(const char* text_dict, usdsEncodes encode, Dictionary* dict) throw (...);
 
 	};
 	

@@ -5,7 +5,6 @@ namespace usds
 
 	const char* typeNames[] =
 	{
-		"NO TYPE",
 		"TAG",
 		"BOOLEAN",
 		"BYTE",
@@ -24,9 +23,12 @@ namespace usds
 		"UVARINT",
 		"STRING",
 		"ARRAY",
-		"MAP",
-		"POLYARRAY",
 		"STRUCT",
+		"GUID",
+		"MAP",
+		"DATE",
+		"TIME",
+		"DATETIME",
 		"FUNCTION",
 		"NO TYPE"
 	};
@@ -42,7 +44,6 @@ namespace usds
 
 	int32_t typeSizes[] =
 	{
-		USDS_NO_TYPE_SIZE,
 		USDS_TAG_SIZE,
 		USDS_BOOLEAN_SIZE,
 		USDS_BYTE_SIZE,
@@ -61,9 +62,12 @@ namespace usds
 		USDS_UVARINT_SIZE,
 		USDS_STRING_SIZE,
 		USDS_ARRAY_SIZE,
-		USDS_MAP_SIZE,
-		USDS_POLYARRAY_SIZE,
 		USDS_STRUCT_SIZE,
+		USDS_GUID_SIZE,
+		USDS_MAP_SIZE,
+		USDS_DATE_SIZE,
+		USDS_TIME_SIZE,
+		USDS_DATETIME_SIZE,
 		USDS_FUNCTION_SIZE,
 		USDS_LAST_TYPE_SIZE
 	};

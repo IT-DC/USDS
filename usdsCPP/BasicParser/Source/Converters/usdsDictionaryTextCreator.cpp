@@ -16,7 +16,6 @@ using namespace usds;
 
 DictionaryTextCreator::DictionaryTextCreator()
 {
-	writeIndex[USDS_NO_TYPE] = 0;
 	writeIndex[USDS_TAG] = &DictionaryTextCreator::writeTag;
 	writeIndex[USDS_BOOLEAN] = &DictionaryTextCreator::writeBoolean;
 	writeIndex[USDS_BYTE] = &DictionaryTextCreator::writeByte;
@@ -35,9 +34,12 @@ DictionaryTextCreator::DictionaryTextCreator()
 	writeIndex[USDS_UVARINT] = &DictionaryTextCreator::writeUVarint;
 	writeIndex[USDS_STRING] = &DictionaryTextCreator::writeString;
 	writeIndex[USDS_ARRAY] = &DictionaryTextCreator::writeArray;
-	writeIndex[USDS_MAP] = &DictionaryTextCreator::writeMap;
-	writeIndex[USDS_POLYARRAY] = &DictionaryTextCreator::writePolymorph;
 	writeIndex[USDS_STRUCT] = &DictionaryTextCreator::writeStruct;
+	writeIndex[USDS_GUID] = &DictionaryTextCreator::writeGuid;
+	writeIndex[USDS_MAP] = &DictionaryTextCreator::writeMap;
+	writeIndex[USDS_DATE] = &DictionaryTextCreator::writeDate;
+	writeIndex[USDS_TIME] = &DictionaryTextCreator::writeTime;
+	writeIndex[USDS_DATETIME] = &DictionaryTextCreator::writeDateTime;
 	writeIndex[USDS_FUNCTION] = &DictionaryTextCreator::writeFunction;
 };
 
@@ -200,11 +202,6 @@ void DictionaryTextCreator::writeMap(DictionaryBaseType* object) throw (...)
 	throw ErrorStack("DictionaryTextCreator::writeMap") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type MAP for Dictionary Text Creator");
 };
 
-void DictionaryTextCreator::writePolymorph(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryTextCreator::writePolymorph") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type POLYMORPH for Dictionary Text Creator");
-};
-
 void DictionaryTextCreator::writeStruct(DictionaryBaseType* object)
 try
 {
@@ -233,3 +230,25 @@ void DictionaryTextCreator::writeFunction(DictionaryBaseType* object) throw (...
 {
 	throw ErrorStack("DictionaryTextCreator::writeFunction") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type FUNCTION for Dictionary Text Creator");
 };
+
+void DictionaryTextCreator::writeGuid(DictionaryBaseType* object) throw (...)
+{
+	throw ErrorStack("DictionaryTextCreator::writeGuid") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type GUID for Dictionary Text Creator");
+};
+
+void DictionaryTextCreator::writeDate(DictionaryBaseType* object) throw (...)
+{
+	throw ErrorStack("DictionaryTextCreator::writeDate") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type DATE for Dictionary Text Creator");
+};
+
+void DictionaryTextCreator::writeTime(DictionaryBaseType* object) throw (...)
+{
+	throw ErrorStack("DictionaryTextCreator::writeTime") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type TIME for Dictionary Text Creator");
+};
+
+void DictionaryTextCreator::writeDateTime(DictionaryBaseType* object) throw (...)
+{
+	throw ErrorStack("DictionaryTextCreator::writeDateTime") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type DATETIME for Dictionary Text Creator");
+};
+
+

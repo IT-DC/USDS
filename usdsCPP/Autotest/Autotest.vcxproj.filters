@@ -13,6 +13,12 @@
     <Filter Include="Unit tests\Body">
       <UniqueIdentifier>{f9aa53e3-1d13-4ac0-8f30-79852f0b5bca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unit tests\Converters">
+      <UniqueIdentifier>{07650cee-c60b-4ec9-a288-2c1333dd7e62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit tests\Converters\Parsers">
+      <UniqueIdentifier>{61075b7e-8395-4777-8902-4e68b2ceb405}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\usdsAutotest.cpp" />
@@ -96,6 +102,9 @@
     </ClCompile>
     <ClCompile Include="Source\UnitTest\Body\usdsFloatTest.cpp">
       <Filter>Unit tests\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTest\Converters\Parsers\usdsDictionaryTextParserTest.cpp">
+      <Filter>Unit tests\Converters\Parsers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

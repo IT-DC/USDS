@@ -238,7 +238,7 @@ void ObjectPoolTest::test_2()
 	// step 1
 	try
 	{
-		dic_pool.addObject(usds::USDS_NO_TYPE, 0, 0, 0, 0);
+		dic_pool.addObject(usds::USDS_LAST_TYPE, 0, 0, 0, 0);
 		throw "Failed at the step 1\n";
 	}
 	catch (usds::ErrorStack& err)
