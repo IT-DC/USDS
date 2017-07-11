@@ -126,8 +126,9 @@ void DictionaryTest::test_2()
 	usds::Dictionary dict(0);
 	
 	// step 1
-	dict.setID(25, 2, 4);
-	if (dict.getDictionaryID() != 25 || dict.getMajorVersion() != 2 || dict.getMinorVersion() != 4)
+	dict.setID("name", 25, 2, 4);
+	const char* name = dict.getDictionaryName();
+	if (dict.getDictionaryID() != 25 || dict.getMajorVersion() != 2 || dict.getMinorVersion() != 4 || strcmp(name, "name") != 0)
 	{
 		throw "Failed at the step 1\n";
 		
@@ -253,7 +254,7 @@ void DictionaryTest::test_3()
 void DictionaryTest::test_4()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 
 	// step 1
 	try
@@ -361,7 +362,7 @@ void DictionaryTest::test_4()
 void DictionaryTest::test_5()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 
 	// step 1
 	usds::DictionaryArray* array_tag = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
@@ -465,7 +466,7 @@ void DictionaryTest::test_5()
 void DictionaryTest::test_6()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 
 	usds::DictionaryInt* tag_1 = (usds::DictionaryInt*)dict.addTag(usds::USDS_INT, 1, "int_1", 0);
 	usds::DictionaryLong* tag_4 = (usds::DictionaryLong*)dict.addTag(usds::USDS_LONG, 4, "int_4", 0);
@@ -545,7 +546,7 @@ void DictionaryTest::test_7()
 {
 	// step 1
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryInt* tag_1 = (usds::DictionaryInt*)dict.addTag(usds::USDS_INT, 1, "int_1", 0);
 
 	size_t size = 0;

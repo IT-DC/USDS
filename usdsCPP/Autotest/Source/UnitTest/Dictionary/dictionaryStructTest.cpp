@@ -16,7 +16,7 @@ void DictionaryStructTest::test_1()
 	// step 1
 
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryStruct* object = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 1, "struct", 0);
 	
 	if (object->getType() != usds::USDS_STRUCT)
@@ -183,7 +183,7 @@ void DictionaryStructTest::test_2()
 
 	
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryStruct* object = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 1, "struct", 0);
 
 	try
@@ -367,7 +367,7 @@ void DictionaryStructTest::test_3()
 {
 	// step 1
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryStruct* struct_tag = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 1, "struct", 0);
 	dict.addTag(usds::USDS_INT, 2, "int", 0);
 	usds::DictionaryArray* array_tag = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 3, "array", 0);
@@ -406,7 +406,7 @@ void DictionaryStructTest::test_3()
 	// step 3
 
 	dict.clear();
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	struct_tag = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 1, "struct", 0);
 	field_1 = (usds::DictionaryTagLink*)struct_tag->addField(usds::USDS_TAG, 1, "tag", 0);
 	field_1->setTag(1);
@@ -432,7 +432,7 @@ void DictionaryStructTest::test_4()
 {
 	// step 1
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryStruct* struct_tag = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 1, "struct", 0);
 
 	struct_tag->addField(usds::USDS_INT, 2, "int", 0);

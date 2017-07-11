@@ -106,6 +106,7 @@ namespace usds {
 
   private:
     /// Compute max(min, lhs+rhs) (provided min <= lhs).
+#pragma warning(disable:4146)
     static unsigned int add_ (unsigned int lhs, int rhs, unsigned int min)
     {
       return (0 < rhs || -static_cast<unsigned int>(rhs) < lhs

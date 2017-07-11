@@ -9,7 +9,7 @@
 void UsdsULongTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryULong* dict_ulong = 0;
 	usds::UsdsULong* body_ulong = 0;
@@ -198,7 +198,7 @@ void UsdsULongTest::test_1()
 void UsdsULongTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryULong* dict_ulong = 0;
 	usds::UsdsULong* body_ulong = 0;
@@ -401,7 +401,7 @@ void UsdsULongTest::test_2()
 void UsdsULongTest::test_3()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryULong* dict_little = 0;
 	usds::DictionaryULong* dict_big = 0;

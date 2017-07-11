@@ -9,7 +9,7 @@
 void DictionaryArrayTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryArray* object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 
 	// step 1
@@ -54,7 +54,7 @@ void DictionaryArrayTest::test_1()
 	// step 6
 	
 	dict.clear();
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 	
 	try
@@ -69,7 +69,7 @@ void DictionaryArrayTest::test_1()
 	// step 7
 	
 	dict.clear();
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 	
 	try
@@ -100,7 +100,7 @@ void DictionaryArrayTest::test_2()
 	// step 1
 
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryArray* object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 
 	try
@@ -160,7 +160,7 @@ void DictionaryArrayTest::test_2()
 	// step 5
 
 	dict.clear();
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 
 	try
@@ -191,7 +191,7 @@ void DictionaryArrayTest::test_2()
 	// step 7
 
 	dict.clear();
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 
 	try
@@ -212,7 +212,7 @@ void DictionaryArrayTest::test_2()
 	// step 8
 
 	dict.clear();
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	object = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
 
 	try

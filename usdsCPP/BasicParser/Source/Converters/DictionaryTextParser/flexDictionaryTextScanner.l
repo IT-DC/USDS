@@ -18,7 +18,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 %option nodefault
 
 %{
-#define YY_USER_ACTION  yylloc->columns(yyleng);
+#define YY_USER_ACTION  yylloc->columns(yyleng); offset += yyleng;
 %}
 
 /* the manual says "somewhat more optimized" */
@@ -33,8 +33,9 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* =============================================================================== */
 /* Key words */ 
 %}
-"USDS"[ \t\r]+"DICTIONARY"[ \t\r]+"ID" {
-							return (token::USDS_DICTIONARY_ID);
+"USDS"					{
+							offset = yyleng;
+							return (token::USDS);
 						}
 
 "v."					{
@@ -50,16 +51,51 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::TYPE_BOOLEAN);
 						}
 
+"BYTE"					{
+							yylval->typeVal = USDS_BYTE;
+							return (token::TYPE_BYTE);
+						}
+
+"UBYTE"					{
+							yylval->typeVal = USDS_UBYTE;
+							return (token::TYPE_UBYTE);
+						}
+
+"SHORT"					{
+							yylval->typeVal = USDS_SHORT;
+							return (token::TYPE_SHORT);
+						}
+
+"USHORT"				{
+							yylval->typeVal = USDS_USHORT;
+							return (token::TYPE_USHORT);
+						}
+						
 "INT"					{
 							yylval->typeVal = USDS_INT;
 							return (token::TYPE_INT);
 						}
 
+"UINT"					{
+							yylval->typeVal = USDS_UINT;
+							return (token::TYPE_UINT);
+						}
+						
 "LONG"					{
 							yylval->typeVal = USDS_LONG;
 							return (token::TYPE_LONG);
 						}
 
+"ULONG"					{
+							yylval->typeVal = USDS_ULONG;
+							return (token::TYPE_ULONG);
+						}
+
+"FLOAT"				{
+							yylval->typeVal = USDS_FLOAT;
+							return (token::TYPE_FLOAT);
+						}
+						
 "DOUBLE"				{
 							yylval->typeVal = USDS_DOUBLE;
 							return (token::TYPE_DOUBLE);
@@ -78,16 +114,6 @@ typedef BisonDictionaryTextParser::token_type token_type;
 "STRING"				{
 							yylval->typeVal = USDS_STRING;
 							return (token::TYPE_STRING);
-						}
-
-"STRUCT"				{
-							yylval->typeVal = USDS_STRUCT;
-							return (token::TYPE_STRUCT);
-						}
-
-"ARRAY"					{
-							yylval->typeVal = USDS_ARRAY;
-							return (token::TYPE_ARRAY);
 						}
 
 %{
@@ -132,7 +158,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* Field and tag names */ 
 %}
 [_a-zA-Z][_0-9a-zA-Z]*	{
-							yylval->stringVal[0] = 1;
+							yylval->stringVal[0] = offset - yyleng;
 							yylval->stringVal[1] = yyleng;
 							return (token::TEXT_NAME);
 						}
@@ -159,6 +185,14 @@ typedef BisonDictionaryTextParser::token_type token_type;
 
 "}"						{
 							return '}';
+						}
+
+"["						{
+							return '[';
+						}
+
+"]"						{
+							return ']';
 						}
 						
 "="						{

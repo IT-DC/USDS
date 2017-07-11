@@ -308,7 +308,7 @@ void DictionarySimpleTest::test_3()
 void DictionarySimpleTest::test_4()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 
 	// step 1
 	try

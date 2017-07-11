@@ -20,7 +20,7 @@ BasicParser::~BasicParser()
 void BasicParser::addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncodes encode) throw(...)
 try 
 {
-	dictionaryTextParser.parse(text_dictionary, encode, addNewDictionary(1, 0, 0));
+	dictionaryTextParser.parse(text_dictionary, encode, addNewDictionary());
 }
 catch (ErrorStack& err)
 {
@@ -45,7 +45,7 @@ catch (ErrorStack& err)
 	throw;
 }
 
-Dictionary* BasicParser::addNewDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...)
+Dictionary* BasicParser::addNewDictionary(const char* name, int32_t id, uint8_t major, uint8_t minor) throw(...)
 try
 {
 	Dictionary* object = findDictionary(id, major, minor);
@@ -55,18 +55,38 @@ try
 	object = (Dictionary*)dictionaryPool.addObject();
 	dictionaries.push_back(object);
 	object->clear();
-	object->setID(id, major, minor);
+	object->setID(name, id, major, minor);
 	currentDictionary = object;
 
 	return object;
 }
 catch (ErrorMessage& msg)
 {
-	throw ErrorStack("BasicParser::addNewDictionary") << id << major << minor << msg;
+	throw ErrorStack("BasicParser::addNewDictionary") << name << id << major << minor << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("BasicParser::addNewDictionary") << id << major << minor;
+	err.addLevel("BasicParser::addNewDictionary") << name<< id << major << minor;
+	throw;
+}
+
+Dictionary* BasicParser::addNewDictionary() throw(...)
+try
+{
+	Dictionary* object = (Dictionary*)dictionaryPool.addObject();
+	dictionaries.push_back(object);
+	object->clear();
+	currentDictionary = object;
+
+	return object;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::addNewDictionary") << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::addNewDictionary");
 	throw;
 }
 
@@ -284,7 +304,7 @@ try
 		uint8_t dict_minor = binaryParser.getDictionaryMinor();
 		if (currentDictionary == 0)
 		{
-			addNewDictionary(dict_id, dict_major, dict_minor);
+			addNewDictionary();
 			binaryParser.initDictionaryFromBinary(currentDictionary);
 		}
 		else
@@ -297,7 +317,7 @@ try
 					if (!binaryParser.isDictionaryIncluded())
 						throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary ID=" << dict_id << " v." << int(dict_major) << "." << int(dict_minor) << " not found";
 
-					addNewDictionary(dict_id, dict_major, dict_minor);
+					addNewDictionary();
 					binaryParser.initDictionaryFromBinary(currentDictionary);
 				}
 				else

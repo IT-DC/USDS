@@ -14,7 +14,7 @@ namespace usds
 	class DictionaryStruct;
 	class DictionaryBaseType;
 	class BasicParser;
-
+	
 	class Dictionary : public BasePoolObject
 	{
 	public:
@@ -22,7 +22,8 @@ namespace usds
 		~Dictionary();
 
 		// Dictionary construction
-		void setID(uint32_t id, uint8_t major, uint8_t minor) throw (...);
+		void setID(const char* name, uint32_t id, uint8_t major, uint8_t minor) throw (...);
+		void setID(const char* name, size_t name_size, uint32_t id, uint8_t major, uint8_t minor) throw (...);
 		
 		// construction
 		DictionaryBaseType* addTag(usdsTypes tag_type, int32_t id, const char* name, size_t name_size) throw (...);
@@ -32,9 +33,10 @@ namespace usds
 		void finalizeDictionary() throw(...);
 
 		// Dictionary information
-		uint32_t getDictionaryID()  throw (...);
-		uint8_t getMajorVersion() throw (...);
-		uint8_t getMinorVersion() throw (...);
+		const char* getDictionaryName();
+		uint32_t getDictionaryID();
+		uint8_t getMajorVersion();
+		uint8_t getMinorVersion();
 		
 		DictionaryBaseType* getFirstTag() throw (...);
 		DictionaryBaseType* getLastTag() throw (...);
@@ -66,6 +68,8 @@ namespace usds
 		uint8_t majorVersion;
 		uint8_t minorVersion;
 		uint32_t dictionaryID;
+		char* dictName;
+		size_t nameBufferSize;
 
 		DictionaryBaseType* firstTag;
 		DictionaryBaseType* lastTag;

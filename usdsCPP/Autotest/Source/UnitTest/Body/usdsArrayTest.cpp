@@ -12,7 +12,7 @@
 void UsdsArrayTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -71,7 +71,7 @@ void UsdsArrayTest::test_1()
 void UsdsArrayTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -99,7 +99,7 @@ void UsdsArrayTest::test_2()
 void UsdsArrayTest::test_3()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -393,7 +393,7 @@ void UsdsArrayTest::test_3()
 void UsdsArrayTest::test_4()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -503,7 +503,7 @@ void UsdsArrayTest::test_4()
 void UsdsArrayTest::test_5()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -618,7 +618,7 @@ void UsdsArrayTest::test_5()
 void UsdsArrayTest::test_6()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -741,7 +741,7 @@ void UsdsArrayTest::test_6()
 void UsdsArrayTest::test_7()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -848,7 +848,7 @@ void UsdsArrayTest::test_7()
 void UsdsArrayTest::test_8()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -1143,7 +1143,7 @@ void UsdsArrayTest::test_8()
 void UsdsArrayTest::test_9()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -1437,7 +1437,7 @@ void UsdsArrayTest::test_9()
 void UsdsArrayTest::test_10()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -1731,7 +1731,7 @@ void UsdsArrayTest::test_10()
 void UsdsArrayTest::test_11()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -2025,7 +2025,7 @@ void UsdsArrayTest::test_11()
 void UsdsArrayTest::test_12()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -2193,7 +2193,7 @@ void UsdsArrayTest::test_12()
 void UsdsArrayTest::test_13()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -2328,7 +2328,7 @@ void UsdsArrayTest::test_13()
 void UsdsArrayTest::test_14()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -2622,7 +2622,7 @@ void UsdsArrayTest::test_14()
 void UsdsArrayTest::test_15()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -2790,7 +2790,7 @@ void UsdsArrayTest::test_15()
 void UsdsArrayTest::test_16()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -3084,7 +3084,7 @@ void UsdsArrayTest::test_16()
 void UsdsArrayTest::test_17()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -3378,7 +3378,7 @@ void UsdsArrayTest::test_17()
 void UsdsArrayTest::test_18()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;
@@ -3672,7 +3672,7 @@ void UsdsArrayTest::test_18()
 void UsdsArrayTest::test_19()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryArray* dict_array = 0;
 	usds::UsdsArray* body_array = 0;

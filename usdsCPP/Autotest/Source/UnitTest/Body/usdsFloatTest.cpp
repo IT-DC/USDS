@@ -8,7 +8,7 @@
 void UsdsFloatTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryFloat* dict_float = 0;
 	usds::UsdsFloat* body_float = 0;
@@ -80,7 +80,7 @@ void UsdsFloatTest::test_1()
 void UsdsFloatTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryFloat* dict_float = 0;
 	usds::UsdsFloat* body_float = 0;
@@ -143,7 +143,7 @@ void UsdsFloatTest::test_2()
 void UsdsFloatTest::test_3()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryFloat* dict_little = 0;
 	usds::DictionaryFloat* dict_big = 0;

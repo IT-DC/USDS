@@ -20,14 +20,9 @@ try
 	input << text_dict;
 	FlexDictionaryTextScanner scanner(&input, &output);
 	
-	std::stringstream errors;
 	BisonDictionaryTextParser textParser(text_dict, dict, &scanner, 0, 0);
-
 	// Parse!
-	int32_t ret = textParser.parse();
-	if (ret != 0)
-		throw ErrorMessage(DICTIONARY_TEXT_PARSER__ERROR, errors.str().c_str());
-
+	textParser.parse();
 }
 catch (ErrorMessage& msg)
 {

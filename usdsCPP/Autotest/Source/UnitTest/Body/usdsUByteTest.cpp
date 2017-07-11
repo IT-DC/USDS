@@ -9,7 +9,7 @@
 void UsdsUByteTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryUByte* dict_byte = 0;
 	usds::UsdsUByte* body_byte = 0;
@@ -290,7 +290,7 @@ void UsdsUByteTest::test_1()
 void UsdsUByteTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryUByte* dict_byte = 0;
 	usds::UsdsUByte* body_byte = 0;

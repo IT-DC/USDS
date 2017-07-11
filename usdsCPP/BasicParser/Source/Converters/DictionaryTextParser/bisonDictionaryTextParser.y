@@ -18,7 +18,7 @@
 	
 %}
 
-%require "2.4.3"
+%require "3.0.4"
 %skeleton "lalr1.cc"
 %debug
 %defines
@@ -26,7 +26,6 @@
 %define api.namespace {usds}
 %define parser_class_name {BisonDictionaryTextParser}
 %locations
-
 
 %parse-param {const char* input_text}
 %parse-param {class Dictionary* dict}
@@ -46,18 +45,23 @@
 }
 
 // Tokens
-%token USDS_DICTIONARY_ID
+%token USDS
 %token DICTIONARY_VERSION
 
 %token<typeVal> TYPE_BOOLEAN "BOOLEAN"
+%token<typeVal> TYPE_BYTE "BYTE"
+%token<typeVal> TYPE_UBYTE "UBYTE"
+%token<typeVal> TYPE_SHORT "SHORT"
+%token<typeVal> TYPE_USHORT "USHORT"
 %token<typeVal> TYPE_INT "INT"
+%token<typeVal> TYPE_UINT "UINT"
 %token<typeVal> TYPE_LONG "LONG"
+%token<typeVal> TYPE_ULONG "ULONG"
+%token<typeVal> TYPE_FLOAT "FLOAT"
 %token<typeVal> TYPE_DOUBLE "DOUBLE"
 %token<typeVal> TYPE_VARINT "VARINT"
 %token<typeVal> TYPE_UVARINT "UVARINT"
 %token<typeVal> TYPE_STRING "STRING"
-%token<typeVal> TYPE_STRUCT "STRUCT"
-%token<typeVal> TYPE_ARRAY "ARRAY"
 
 %token<encodeVal> STRING_ENCODE "<Text encode>"
 
@@ -85,9 +89,9 @@
 // Rules
 %%
 dictionary: 
-	USDS_DICTIONARY_ID '=' UNSIGNED_INTEGER_NUMBER DICTIONARY_VERSION UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER 
+	USDS TEXT_NAME UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER
 	{
-		dict->setID($3, $5, $7);
+		dict->setID(input_text + $2[0], $2[1], $3, $5, $7);
 	}
 	'{' tags '}'
 	{
@@ -96,28 +100,136 @@ dictionary:
 	}
 	;
 
+	
+//=================================================================================================
+// Simple types
+
 tags: tag | tag tags;
 	
 tag: 
-	struct_tag '{' fields '}'
-	| struct_tag '{' fields '}' USDS_RESTRICT '{' struct_restricts '}'
+	boolean_tag
+	| byte_tag
+	| ubyte_tag
+	| short_tag
+	| ushort_tag
+	| int_tag
+	| uint_tag
+	| long_tag
+	| ulong_tag
+	| float_tag
+	| double_tag
+	| varint_tag
+	| uvarint_tag
+	| string_tag
+	| struct_tag
 	;
 
-struct_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_STRUCT TEXT_NAME 
+boolean_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_BOOLEAN TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+	
+byte_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_BYTE TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+	
+ubyte_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_UBYTE TEXT_NAME ';'
 	{
 		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
 	}
 	;
 
-struct_restricts: struct_restrict | struct_restrict struct_restricts;
-
-struct_restrict:
-	NOT_ROOT_TAG ';'
+short_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_SHORT TEXT_NAME ';'
 	{
-		tag->setRoot(false);
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
 	}
 	;
 	
+ushort_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_USHORT TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+
+int_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_INT TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+	
+uint_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_UINT TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+
+long_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_LONG TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+	
+ulong_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_ULONG TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+
+float_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_FLOAT TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+
+double_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+
+varint_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_VARINT TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+	
+uvarint_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_UVARINT TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+
+//=================================================================================================
+// String
+
+string_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
+	}
+	;
+
+string_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
+	{
+		tag = dict->addTag($3, $1, input_text + $7[0], $7[1]);
+		((DictionaryString*)tag)->setDefaultEncode($5);
+	}
+	;
+	
+//=================================================================================================
+// Struct
+
+struct_tag: UNSIGNED_INTEGER_NUMBER ':' TEXT_NAME '{'
+	{
+		tag = dict->addTag(USDS_STRUCT, $1, input_text + $3[0], $3[1]);
+	}
+	fields '}' ';'
+	{
+	
+	}
+	;
 	
 //=================================================================================================
 // Struct fields
@@ -129,7 +241,27 @@ field:
 	{
 		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_BYTE TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UBYTE TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_SHORT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_USHORT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
+	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_INT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UINT TEXT_NAME ';'
 	{
 		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
@@ -137,7 +269,19 @@ field:
 	{
 		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_ULONG TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_FLOAT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
+	}
 	|UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
+	}
+	|UNSIGNED_INTEGER_NUMBER ':' TYPE_VARINT TEXT_NAME ';'
 	{
 		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
@@ -153,12 +297,6 @@ field:
 	{
 		field = ((DictionaryStruct*)tag)->addField($3, $1, input_text + $7[0], $7[1]);
 		((DictionaryString*)field)->setDefaultEncode($5);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_ARRAY '<' TEXT_NAME '>' TEXT_NAME ';'
-	{
-		field = ((DictionaryStruct*)tag)->addField($3, $1, input_text + $7[0], $7[1]);
-		DictionaryTagLink* element = (DictionaryTagLink*)(((DictionaryArray*)field)->setElementType(USDS_TAG));
-		element->setTag(input_text + $5[0], $5[1]);
 	}
 	;
 

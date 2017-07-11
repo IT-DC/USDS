@@ -8,7 +8,7 @@
 void UsdsBooleanTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryBoolean* dict_boolean = 0;
 	usds::UsdsBoolean* body_boolean = 0;
@@ -70,7 +70,7 @@ void UsdsBooleanTest::test_1()
 void UsdsBooleanTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryBoolean* dict_boolean = 0;
 	usds::UsdsBoolean* body_boolean = 0;

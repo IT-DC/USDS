@@ -563,7 +563,7 @@ void ObjectPoolTest::test_9()
 void ObjectPoolTest::test_10()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 
 	// step 1
@@ -581,7 +581,7 @@ void ObjectPoolTest::test_10()
 	}
 	// step 3
 	dict.clear();
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	if (dic_object != (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "Array", 0))
 	{
 		throw "Failed at the step 3\n";
@@ -608,7 +608,7 @@ void ObjectPoolTest::test_10()
 void ObjectPoolTest::test_11()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 
 	// step 1
@@ -627,7 +627,7 @@ void ObjectPoolTest::test_11()
 	}
 	// step 3
 	dict.clear();
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	if (dic_object != (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 6, "Struct", 0))
 	{
 		throw "Failed at the step 3\n";

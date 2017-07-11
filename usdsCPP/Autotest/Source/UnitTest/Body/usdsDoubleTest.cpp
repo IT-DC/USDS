@@ -8,7 +8,7 @@
 void UsdsDoubleTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryDouble* dict_double = 0;
 	usds::UsdsDouble* body_double = 0;
@@ -73,7 +73,7 @@ void UsdsDoubleTest::test_1()
 void UsdsDoubleTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryDouble* dict_double = 0;
 	usds::UsdsDouble* body_double = 0;
@@ -144,7 +144,7 @@ void UsdsDoubleTest::test_2()
 void UsdsDoubleTest::test_3()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryDouble* dict_double_little = 0;
 	usds::DictionaryDouble* dict_double_big = 0;

@@ -9,7 +9,7 @@
 void UsdsUVarintTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryUVarint* dict_uvarint = 0;
 	usds::UsdsUVarint* body_uvarint = 0;
@@ -198,7 +198,7 @@ void UsdsUVarintTest::test_1()
 void UsdsUVarintTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryUVarint* dict_uvarint = 0;
 	usds::UsdsUVarint* body_uvarint = 0;

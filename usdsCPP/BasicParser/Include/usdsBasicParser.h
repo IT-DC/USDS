@@ -33,7 +33,8 @@ namespace usds
 		void addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncodes encode) throw(...);
 		void CurrentDictionaryToText(usdsEncodes encode, std::string* text) throw(...);
 		// add clean dictionary
-		Dictionary* addNewDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...);
+		Dictionary* addNewDictionary(const char* name, int32_t id, uint8_t major, uint8_t minor) throw(...);
+		Dictionary* addNewDictionary() throw(...);
 
 		// Working with several dictionaries
 		void selectDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...);

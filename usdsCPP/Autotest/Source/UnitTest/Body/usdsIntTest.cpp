@@ -9,7 +9,7 @@
 void UsdsIntTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryInt* dict_int = 0;
 	usds::UsdsInt* body_int = 0;
@@ -191,7 +191,7 @@ void UsdsIntTest::test_1()
 void UsdsIntTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryInt* dict_int = 0;
 	usds::UsdsInt* body_int = 0;
@@ -379,7 +379,7 @@ void UsdsIntTest::test_2()
 void UsdsIntTest::test_3()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryInt* dict_little = 0;
 	usds::DictionaryInt* dict_big = 0;

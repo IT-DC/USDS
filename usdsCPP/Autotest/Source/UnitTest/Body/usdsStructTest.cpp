@@ -26,7 +26,7 @@
 void UsdsStructTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryStruct* dict_struct = 0;
 	usds::UsdsStruct* body_struct = 0;
@@ -235,7 +235,7 @@ void UsdsStructTest::test_1()
 void UsdsStructTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryStruct* dict_struct = 0;
 	usds::UsdsStruct* body_struct = 0;
@@ -528,7 +528,7 @@ void UsdsStructTest::test_2()
 void UsdsStructTest::test_3()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::Body body;
 	usds::DictionaryStruct* dict_struct = 0;
 	usds::UsdsStruct* body_struct = 0;

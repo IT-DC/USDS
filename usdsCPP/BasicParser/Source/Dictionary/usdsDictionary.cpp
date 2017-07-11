@@ -9,19 +9,46 @@ Dictionary::Dictionary(BasicParser* parent) : objectPool(this), binary(64)
 	dictionaryID = 0;
 	majorVersion = 0;
 	minorVersion = 0;
+	nameBufferSize = 128;
+	dictName = new char[nameBufferSize];
 };
 
 Dictionary::~Dictionary()
 {
-
+	delete[] dictName;
 };
 
 //====================================================================================================================
 // Dictionary construction
 //====================================================================================================================
-void Dictionary::setID(uint32_t id, uint8_t major, uint8_t minor) throw (...)
+void Dictionary::setID(const char* name, uint32_t id, uint8_t major, uint8_t minor) throw (...)
 {
+	size_t name_size = strlen(name) + 1;
+	if (name_size > nameBufferSize)
+	{
+		delete[] dictName;
+		nameBufferSize = name_size;
+		dictName = new char[nameBufferSize];
+	}
+#pragma warning(disable:4996)
+	strcpy(dictName, name);
+	dictionaryID = id;
+	majorVersion = major;
+	minorVersion = minor;
+};
 
+void Dictionary::setID(const char* name, size_t name_size, uint32_t id, uint8_t major, uint8_t minor) throw (...)
+{
+	if (name[name_size - 1] != 0)
+		name_size++;
+	if (name_size > nameBufferSize)
+	{
+		delete[] dictName;
+		nameBufferSize = name_size;
+		dictName = new char[nameBufferSize];
+	}
+	memcpy(dictName, name, name_size-1);
+	dictName[name_size - 1] = 0;
 	dictionaryID = id;
 	majorVersion = major;
 	minorVersion = minor;
@@ -148,15 +175,20 @@ catch (ErrorStack& err)
 //====================================================================================================================
 // Dictionary information
 //====================================================================================================================
-uint32_t Dictionary::getDictionaryID()  throw (...)
+const char* Dictionary::getDictionaryName()
+{
+	return dictName;
+};
+
+uint32_t Dictionary::getDictionaryID()
 {
 	return dictionaryID;
 };
-uint8_t Dictionary::getMajorVersion() throw (...)
+uint8_t Dictionary::getMajorVersion()
 {
 	return majorVersion;
 };
-uint8_t Dictionary::getMinorVersion() throw (...)
+uint8_t Dictionary::getMinorVersion()
 {
 	return minorVersion;
 };

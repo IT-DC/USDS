@@ -127,6 +127,8 @@ private:
 
 public:
 
+  size_t offset;
+
   virtual ~yyFlexLexer();
 
   void yy_switch_to_buffer( yy_buffer_state* new_buffer );

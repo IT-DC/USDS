@@ -6,7 +6,7 @@
 void DictionaryTagLinkTest::test_1()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryTagLink* object = (usds::DictionaryTagLink*)dict.addField(usds::USDS_TAG, 0, 1, "tag_link", 0);
 
 	// step 1
@@ -72,7 +72,7 @@ void DictionaryTagLinkTest::test_1()
 void DictionaryTagLinkTest::test_2()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryTagLink* object = (usds::DictionaryTagLink*)dict.addField(usds::USDS_TAG, 0, 1, "tag_link", 0);
 	dict.addTag(usds::USDS_INT, 1, "int", 0);
 	dict.finalizeDictionary();
@@ -126,7 +126,7 @@ void DictionaryTagLinkTest::test_2()
 void DictionaryTagLinkTest::test_3()
 {
 	usds::Dictionary dict(0);
-	dict.setID(1, 0, 0);
+	dict.setID("name", 1, 0, 0);
 	usds::DictionaryTagLink* object = (usds::DictionaryTagLink*)dict.addField(usds::USDS_TAG, 0, 1, "tag_link", 0);
 	dict.addTag(usds::USDS_INT, 1, "int", 0);
 	dict.finalizeDictionary();
