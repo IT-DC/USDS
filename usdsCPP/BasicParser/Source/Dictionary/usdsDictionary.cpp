@@ -70,7 +70,7 @@ try
 	int32_t tag_id;
 	tag_id = findTagID(name, name_size);
 	if (tag_id != 0)
-		throw ErrorMessage(DICTIONARY__TAG_ALREADY_EXISTS) << "Tag with name '" << name << "' already exists in dictionary.";
+		throw (ErrorMessage(DICTIONARY__TAG_ALREADY_EXISTS) << "Tag with name '").addString(name, name_size) << "' already exists in dictionary.";
 	
 	// Create object
 	DictionaryBaseType* tag = objectPool.addObject(tag_type, 0, id, name, name_size);
@@ -85,11 +85,11 @@ try
 }
 catch (ErrorMessage& err)
 {
-	throw ErrorStack("Dictionary::addTag") << tag_type << id << name << name_size << err;
+	throw (ErrorStack("Dictionary::addTag") << tag_type << id).addStringAndSize(name, name_size) << err;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("Dictionary::addTag") << tag_type << id << name << name_size;
+	(err.addLevel("Dictionary::addTag") << tag_type << id).addStringAndSize(name, name_size);
 	throw;
 };
 

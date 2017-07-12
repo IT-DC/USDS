@@ -38,77 +38,73 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::USDS);
 						}
 
-"v."					{
-							return (token::DICTIONARY_VERSION);
-						}
-
 %{
 /* =============================================================================== */
 /* Data types */ 
 %}
 "BOOLEAN"				{
 							yylval->typeVal = USDS_BOOLEAN;
-							return (token::TYPE_BOOLEAN);
+							return (token::SIMPLE_TYPE);
 						}
 
 "BYTE"					{
 							yylval->typeVal = USDS_BYTE;
-							return (token::TYPE_BYTE);
+							return (token::SIMPLE_TYPE);
 						}
 
 "UBYTE"					{
 							yylval->typeVal = USDS_UBYTE;
-							return (token::TYPE_UBYTE);
+							return (token::SIMPLE_TYPE);
 						}
 
 "SHORT"					{
 							yylval->typeVal = USDS_SHORT;
-							return (token::TYPE_SHORT);
+							return (token::SIMPLE_TYPE);
 						}
 
 "USHORT"				{
 							yylval->typeVal = USDS_USHORT;
-							return (token::TYPE_USHORT);
+							return (token::SIMPLE_TYPE);
 						}
 						
 "INT"					{
 							yylval->typeVal = USDS_INT;
-							return (token::TYPE_INT);
+							return (token::SIMPLE_TYPE);
 						}
 
 "UINT"					{
 							yylval->typeVal = USDS_UINT;
-							return (token::TYPE_UINT);
+							return (token::SIMPLE_TYPE);
 						}
 						
 "LONG"					{
 							yylval->typeVal = USDS_LONG;
-							return (token::TYPE_LONG);
+							return (token::SIMPLE_TYPE);
 						}
 
 "ULONG"					{
 							yylval->typeVal = USDS_ULONG;
-							return (token::TYPE_ULONG);
+							return (token::SIMPLE_TYPE);
 						}
 
 "FLOAT"				{
 							yylval->typeVal = USDS_FLOAT;
-							return (token::TYPE_FLOAT);
+							return (token::SIMPLE_TYPE);
 						}
 						
 "DOUBLE"				{
 							yylval->typeVal = USDS_DOUBLE;
-							return (token::TYPE_DOUBLE);
+							return (token::SIMPLE_TYPE);
 						}
 
 "VARINT"				{
 							yylval->typeVal = USDS_VARINT;
-							return (token::TYPE_VARINT);
+							return (token::SIMPLE_TYPE);
 						}
 
 "UVARINT" {
 							yylval->typeVal = USDS_UVARINT;
-							return (token::TYPE_UVARINT);
+							return (token::SIMPLE_TYPE);
 						}
 
 "STRING"				{
@@ -167,13 +163,61 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* =============================================================================== */
 /* Numbers */
 %}
-
-[0-9]+					{
-							yylval->intVal = atoi(yytext);
-							return token::UNSIGNED_INTEGER_NUMBER;
+"0"						{
+							yylval->intVal = 0;
+							return token::POSITIVE_INT32_NUMBER;
 						}
-		
+
+"1"						{
+							yylval->intVal = 1;
+							return token::POSITIVE_INT32_NUMBER;
+						}
 						
+"2"						{
+							yylval->intVal = 2;
+							return token::POSITIVE_INT32_NUMBER;
+						}
+
+"3"						{
+							yylval->intVal = 3;
+							return token::POSITIVE_INT32_NUMBER;
+						}
+
+"4"						{
+							yylval->intVal = 4;
+							return token::POSITIVE_INT32_NUMBER;
+						}
+
+"5"						{
+							yylval->intVal = 5;
+							return token::POSITIVE_INT32_NUMBER;
+						}
+						
+"6"						{
+							yylval->intVal = 6;
+							return token::POSITIVE_INT32_NUMBER;
+						}
+						
+"7"						{
+							yylval->intVal = 7;
+							return token::POSITIVE_INT32_NUMBER;
+						}
+						
+"8"						{
+							yylval->intVal = 8;
+							return token::POSITIVE_INT32_NUMBER;
+						}
+						
+"9"						{
+							yylval->intVal = 9;
+							return token::POSITIVE_INT32_NUMBER;
+						}
+
+[0-9]{2,9}				{
+							yylval->intVal = atoi(yytext);
+							return token::POSITIVE_INT32_NUMBER;
+						}
+
 %{ 
 /* =============================================================================== */
 /* Punctuation */ 

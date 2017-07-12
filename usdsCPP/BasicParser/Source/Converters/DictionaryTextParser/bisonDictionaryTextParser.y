@@ -48,30 +48,24 @@
 %token USDS
 %token DICTIONARY_VERSION
 
-%token<typeVal> TYPE_BOOLEAN "BOOLEAN"
-%token<typeVal> TYPE_BYTE "BYTE"
-%token<typeVal> TYPE_UBYTE "UBYTE"
-%token<typeVal> TYPE_SHORT "SHORT"
-%token<typeVal> TYPE_USHORT "USHORT"
-%token<typeVal> TYPE_INT "INT"
-%token<typeVal> TYPE_UINT "UINT"
-%token<typeVal> TYPE_LONG "LONG"
-%token<typeVal> TYPE_ULONG "ULONG"
-%token<typeVal> TYPE_FLOAT "FLOAT"
-%token<typeVal> TYPE_DOUBLE "DOUBLE"
-%token<typeVal> TYPE_VARINT "VARINT"
-%token<typeVal> TYPE_UVARINT "UVARINT"
+%token<typeVal> SIMPLE_TYPE "Simple type"
 %token<typeVal> TYPE_STRING "STRING"
 
 %token<encodeVal> STRING_ENCODE "<Text encode>"
 
+%token<boolVal> BOOLEAN_VALUE "true or false"
+%token<intVal> POSITIVE_INT32_NUMBER "positive int32 [0, 2147483647]"
+%token<intVal> NEGATIVE_INT32_NUMBER "negative int32 [-2147483648, -1]"
+%token<intVal> UNSIGNED_INT32_NUMBER "unsigned int32 [0, 4294967295]"
+%token<intVal> POSITIVE_INT64_NUMBER "positive int64 [0, (2^63–1)]"
+%token<intVal> NEGATIVE_INT64_NUMBER "negative int64 [-(2^63), -1]"
+%token<intVal> UNSIGNED_INT64_NUMBER "unsigned int64 [0, (2^64-1)]"
+
+%token<stringVal> TEXT_NAME "object name"
+
 // restrictions
 %token USDS_RESTRICT
 %token NOT_ROOT_TAG "notRoot"
-
-%token<boolVal> BOOLEAN_VALUE "true or false"
-%token<intVal> UNSIGNED_INTEGER_NUMBER "unsigned integer number"
-%token<stringVal> TEXT_NAME "object name"
 
 %token '{'
 %token '}'
@@ -89,7 +83,7 @@
 // Rules
 %%
 dictionary: 
-	USDS TEXT_NAME UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER '.' UNSIGNED_INTEGER_NUMBER
+	USDS TEXT_NAME POSITIVE_INT32_NUMBER '.' POSITIVE_INT32_NUMBER '.' POSITIVE_INT32_NUMBER
 	{
 		dict->setID(input_text + $2[0], $2[1], $3, $5, $7);
 	}
@@ -106,122 +100,20 @@ dictionary:
 
 tags: tag | tag tags;
 	
-tag: 
-	boolean_tag
-	| byte_tag
-	| ubyte_tag
-	| short_tag
-	| ushort_tag
-	| int_tag
-	| uint_tag
-	| long_tag
-	| ulong_tag
-	| float_tag
-	| double_tag
-	| varint_tag
-	| uvarint_tag
-	| string_tag
-	| struct_tag
-	;
-
-boolean_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_BOOLEAN TEXT_NAME ';'
+tag: POSITIVE_INT32_NUMBER ':' SIMPLE_TYPE TEXT_NAME ';'
 	{
 		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
 	}
-	;
-	
-byte_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_BYTE TEXT_NAME ';'
+	|POSITIVE_INT32_NUMBER ':' TYPE_STRING TEXT_NAME ';'
 	{
 		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
 	}
-	;
-	
-ubyte_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_UBYTE TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-
-short_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_SHORT TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-	
-ushort_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_USHORT TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-
-int_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_INT TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-	
-uint_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_UINT TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-
-long_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_LONG TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-	
-ulong_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_ULONG TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-
-float_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_FLOAT TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-
-double_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-
-varint_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_VARINT TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-	
-uvarint_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_UVARINT TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-
-//=================================================================================================
-// String
-
-string_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING TEXT_NAME ';'
-	{
-		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
-	}
-	;
-
-string_tag: UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
+	|POSITIVE_INT32_NUMBER ':' TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
 	{
 		tag = dict->addTag($3, $1, input_text + $7[0], $7[1]);
 		((DictionaryString*)tag)->setDefaultEncode($5);
 	}
-	;
-	
-//=================================================================================================
-// Struct
-
-struct_tag: UNSIGNED_INTEGER_NUMBER ':' TEXT_NAME '{'
+	|POSITIVE_INT32_NUMBER ':' TEXT_NAME '{'
 	{
 		tag = dict->addTag(USDS_STRUCT, $1, input_text + $3[0], $3[1]);
 	}
@@ -237,66 +129,31 @@ struct_tag: UNSIGNED_INTEGER_NUMBER ':' TEXT_NAME '{'
 fields: field | field fields;
 
 field:
-	UNSIGNED_INTEGER_NUMBER ':' TYPE_BOOLEAN TEXT_NAME ';'
+	POSITIVE_INT32_NUMBER ':' SIMPLE_TYPE TEXT_NAME ';'
 	{
 		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_BYTE TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UBYTE TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_SHORT TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_USHORT TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_INT TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UINT TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_LONG TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_ULONG TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_FLOAT TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_DOUBLE TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_VARINT TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_UVARINT TEXT_NAME ';'
-	{
-		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
-	}
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING TEXT_NAME ';'
+	|POSITIVE_INT32_NUMBER ':' TYPE_STRING TEXT_NAME ';'
 	{
 		((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
 	}	
-	|UNSIGNED_INTEGER_NUMBER ':' TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
+	|POSITIVE_INT32_NUMBER ':' TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
 	{
 		field = ((DictionaryStruct*)tag)->addField($3, $1, input_text + $7[0], $7[1]);
 		((DictionaryString*)field)->setDefaultEncode($5);
+	}
+	|POSITIVE_INT32_NUMBER ':' TEXT_NAME TEXT_NAME ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_TAG, $1, input_text + $4[0], $4[1]);
+		((DictionaryTagLink*)field)->setTag(input_text + $3[0], $3[1]);
+	}
+	|POSITIVE_INT32_NUMBER ':' TEXT_NAME '{'
+	{
+		tag = ((DictionaryStruct*)tag)->addField(usds::USDS_STRUCT, $1, input_text + $3[0], $3[1]);
+	}
+	fields '}' ';'
+	{
+		tag = tag->getParent();
 	}
 	;
 

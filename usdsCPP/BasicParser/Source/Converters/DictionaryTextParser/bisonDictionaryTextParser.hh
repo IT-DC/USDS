@@ -109,26 +109,19 @@ namespace usds {
       {
         USDS = 258,
         DICTIONARY_VERSION = 259,
-        TYPE_BOOLEAN = 260,
-        TYPE_BYTE = 261,
-        TYPE_UBYTE = 262,
-        TYPE_SHORT = 263,
-        TYPE_USHORT = 264,
-        TYPE_INT = 265,
-        TYPE_UINT = 266,
-        TYPE_LONG = 267,
-        TYPE_ULONG = 268,
-        TYPE_FLOAT = 269,
-        TYPE_DOUBLE = 270,
-        TYPE_VARINT = 271,
-        TYPE_UVARINT = 272,
-        TYPE_STRING = 273,
-        STRING_ENCODE = 274,
-        USDS_RESTRICT = 275,
-        NOT_ROOT_TAG = 276,
-        BOOLEAN_VALUE = 277,
-        UNSIGNED_INTEGER_NUMBER = 278,
-        TEXT_NAME = 279
+        SIMPLE_TYPE = 260,
+        TYPE_STRING = 261,
+        STRING_ENCODE = 262,
+        BOOLEAN_VALUE = 263,
+        POSITIVE_INT32_NUMBER = 264,
+        NEGATIVE_INT32_NUMBER = 265,
+        UNSIGNED_INT32_NUMBER = 266,
+        POSITIVE_INT64_NUMBER = 267,
+        NEGATIVE_INT64_NUMBER = 268,
+        UNSIGNED_INT64_NUMBER = 269,
+        TEXT_NAME = 270,
+        USDS_RESTRICT = 271,
+        NOT_ROOT_TAG = 272
       };
     };
 
@@ -325,7 +318,7 @@ namespace usds {
     static const char* const yytname_[];
 #if DICTIONARY_TEXTDEBUG
   // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-  static const unsigned short int yyrline_[];
+  static const unsigned char yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r);
     /// Print the state stack on the debug stream.
@@ -419,13 +412,13 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 120,           //< Last index in yytable_.
-      yynnts_ = 23,  //< Number of nonterminal symbols.
+      yylast_ = 55,           //< Last index in yytable_.
+      yynnts_ = 9,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 4, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 33    //< Number of tokens.
+      yyntokens_ = 26    //< Number of tokens.
     };
 
 
@@ -440,7 +433,7 @@ namespace usds {
 
 #line 26 "bisonDictionaryTextParser.y" // lalr1.cc:371
 } // usds
-#line 444 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 437 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 
 
 
