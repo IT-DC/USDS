@@ -62,7 +62,7 @@
 # endif /* ! defined YYDEBUG */
 #endif  /* ! defined DICTIONARY_TEXTDEBUG */
 
-#line 26 "bisonDictionaryTextParser.y" // lalr1.cc:371
+#line 28 "bisonDictionaryTextParser.y" // lalr1.cc:371
 namespace usds {
 #line 68 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 
@@ -78,16 +78,19 @@ namespace usds {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 38 "bisonDictionaryTextParser.y" // lalr1.cc:371
+    #line 40 "bisonDictionaryTextParser.y" // lalr1.cc:371
 
     bool  			boolVal;
-	int  			intVal;
+	int8_t  		Int8Val;
+	uint8_t  		UInt8Val;
+	int32_t  		Int32Val;
+	uint32_t  		UInt32Val;
     double 			doubleVal;
     size_t			stringVal[2];
 	usdsEncodes		encodeVal;
 	usdsTypes		typeVal;
 
-#line 91 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 94 "bisonDictionaryTextParser.hh" // lalr1.cc:371
     };
 #else
     typedef DICTIONARY_TEXTSTYPE semantic_type;
@@ -113,15 +116,12 @@ namespace usds {
         TYPE_STRING = 261,
         STRING_ENCODE = 262,
         BOOLEAN_VALUE = 263,
-        POSITIVE_INT32_NUMBER = 264,
-        NEGATIVE_INT32_NUMBER = 265,
-        UNSIGNED_INT32_NUMBER = 266,
-        POSITIVE_INT64_NUMBER = 267,
-        NEGATIVE_INT64_NUMBER = 268,
-        UNSIGNED_INT64_NUMBER = 269,
-        TEXT_NAME = 270,
-        USDS_RESTRICT = 271,
-        NOT_ROOT_TAG = 272
+        POSITIVE_NUMBER = 264,
+        NEGATIVE_NUMBER = 265,
+        NULL_VALUE = 266,
+        TEXT_NAME = 267,
+        USDS_RESTRICT = 268,
+        NOT_ROOT_TAG = 269
       };
     };
 
@@ -318,7 +318,7 @@ namespace usds {
     static const char* const yytname_[];
 #if DICTIONARY_TEXTDEBUG
   // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-  static const unsigned char yyrline_[];
+  static const unsigned short int yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r);
     /// Print the state stack on the debug stream.
@@ -412,8 +412,8 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 55,           //< Last index in yytable_.
-      yynnts_ = 9,  //< Number of nonterminal symbols.
+      yylast_ = 104,           //< Last index in yytable_.
+      yynnts_ = 13,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 4, //< Termination state number.
       yyterror_ = 1,
@@ -431,7 +431,7 @@ namespace usds {
   };
 
 
-#line 26 "bisonDictionaryTextParser.y" // lalr1.cc:371
+#line 28 "bisonDictionaryTextParser.y" // lalr1.cc:371
 } // usds
 #line 437 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 

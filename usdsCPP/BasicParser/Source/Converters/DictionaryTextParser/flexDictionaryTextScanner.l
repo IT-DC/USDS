@@ -130,7 +130,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::USDS_RESTRICT);
 						}
 						
-"notRoot"					{
+"notRoot"				{
 							return (token::NOT_ROOT_TAG);
 						}
 
@@ -148,6 +148,15 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							yylval->boolVal = false;
 							return (token::BOOLEAN_VALUE);
 						}
+
+%{
+/* =============================================================================== */
+/* Null value */
+%}
+
+"NULL"					{
+							return (token::NULL_VALUE);
+						}
 						
 %{ 
 /* =============================================================================== */
@@ -164,58 +173,53 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* Numbers */
 %}
 "0"						{
-							yylval->intVal = 0;
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 0;
+							return token::POSITIVE_NUMBER;
 						}
 
 "1"						{
-							yylval->intVal = 1;
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 1;
+							return token::POSITIVE_NUMBER;
 						}
 						
 "2"						{
-							yylval->intVal = 2;
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 2;
+							return token::POSITIVE_NUMBER;
 						}
 
 "3"						{
-							yylval->intVal = 3;
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 3;
+							return token::POSITIVE_NUMBER;
 						}
 
 "4"						{
-							yylval->intVal = 4;
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 4;
+							return token::POSITIVE_NUMBER;
 						}
 
 "5"						{
-							yylval->intVal = 5;
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 5;
+							return token::POSITIVE_NUMBER;
 						}
 						
 "6"						{
-							yylval->intVal = 6;
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 6;
+							return token::POSITIVE_NUMBER;
 						}
 						
 "7"						{
-							yylval->intVal = 7;
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 7;
+							return token::POSITIVE_NUMBER;
 						}
 						
 "8"						{
-							yylval->intVal = 8;
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 8;
+							return token::POSITIVE_NUMBER;
 						}
 						
 "9"						{
-							yylval->intVal = 9;
-							return token::POSITIVE_INT32_NUMBER;
-						}
-
-[0-9]{2,9}				{
-							yylval->intVal = atoi(yytext);
-							return token::POSITIVE_INT32_NUMBER;
+							yylval->Int8Val = 9;
+							return token::POSITIVE_NUMBER;
 						}
 
 %{ 

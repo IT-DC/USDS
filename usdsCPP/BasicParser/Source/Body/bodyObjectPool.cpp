@@ -69,6 +69,7 @@ try
 	
 	usdsTypes object_type = dict_parent->getType();
 
+	// TODO add TAG
 	// TODO: remove it when all type is ready
 	if (pools[object_type] == 0)
 		throw ErrorMessage(BODY_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << usdsTypeName(object_type);

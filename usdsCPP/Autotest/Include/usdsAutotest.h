@@ -261,6 +261,8 @@ public:
 	static void test_3();
 	static void test_4();
 	static void test_5();
+	static void test_6();
+	static void test_7();
 };
 
 class UsdsUIntTest
