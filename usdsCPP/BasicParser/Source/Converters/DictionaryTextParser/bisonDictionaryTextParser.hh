@@ -62,7 +62,7 @@
 # endif /* ! defined YYDEBUG */
 #endif  /* ! defined DICTIONARY_TEXTDEBUG */
 
-#line 28 "bisonDictionaryTextParser.y" // lalr1.cc:371
+#line 36 "bisonDictionaryTextParser.y" // lalr1.cc:371
 namespace usds {
 #line 68 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 
@@ -78,19 +78,24 @@ namespace usds {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 40 "bisonDictionaryTextParser.y" // lalr1.cc:371
+    #line 48 "bisonDictionaryTextParser.y" // lalr1.cc:371
 
     bool  			boolVal;
 	int8_t  		Int8Val;
 	uint8_t  		UInt8Val;
+	int16_t  		Int16Val;
+	uint16_t  		UInt16Val;
 	int32_t  		Int32Val;
 	uint32_t  		UInt32Val;
+	int64_t  		Int64Val;
+	uint64_t  		UInt64Val;
+	float 			floatVal;
     double 			doubleVal;
     size_t			stringVal[2];
 	usdsEncodes		encodeVal;
 	usdsTypes		typeVal;
 
-#line 94 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 99 "bisonDictionaryTextParser.hh" // lalr1.cc:371
     };
 #else
     typedef DICTIONARY_TEXTSTYPE semantic_type;
@@ -112,16 +117,31 @@ namespace usds {
       {
         USDS = 258,
         DICTIONARY_VERSION = 259,
-        SIMPLE_TYPE = 260,
-        TYPE_STRING = 261,
-        STRING_ENCODE = 262,
-        BOOLEAN_VALUE = 263,
-        POSITIVE_NUMBER = 264,
-        NEGATIVE_NUMBER = 265,
-        NULL_VALUE = 266,
-        TEXT_NAME = 267,
-        USDS_RESTRICT = 268,
-        NOT_ROOT_TAG = 269
+        TYPE_BOOLEAN = 260,
+        TYPE_BYTE = 261,
+        TYPE_UBYTE = 262,
+        TYPE_SHORT = 263,
+        TYPE_USHORT = 264,
+        TYPE_INT = 265,
+        TYPE_UINT = 266,
+        TYPE_LONG = 267,
+        TYPE_ULONG = 268,
+        TYPE_INT128 = 269,
+        TYPE_UINT128 = 270,
+        TYPE_FLOAT = 271,
+        TYPE_DOUBLE = 272,
+        DOUBLE = 273,
+        TYPE_VARINT = 274,
+        TYPE_UVARINT = 275,
+        TYPE_STRING = 276,
+        STRING_ENCODE = 277,
+        BOOLEAN_VALUE = 278,
+        POSITIVE_NUMBER = 279,
+        NEGATIVE_NUMBER = 280,
+        NULL_VALUE = 281,
+        TEXT_NAME = 282,
+        USDS_RESTRICT = 283,
+        NOT_ROOT_TAG = 284
       };
     };
 
@@ -279,7 +299,7 @@ namespace usds {
     // Tables.
   // YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
   // STATE-NUM.
-  static const signed char yypact_[];
+  static const short int yypact_[];
 
   // YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
   // Performed when YYTABLE does not specify something else to do.  Zero
@@ -287,17 +307,17 @@ namespace usds {
   static const unsigned char yydefact_[];
 
   // YYPGOTO[NTERM-NUM].
-  static const signed char yypgoto_[];
+  static const short int yypgoto_[];
 
   // YYDEFGOTO[NTERM-NUM].
-  static const signed char yydefgoto_[];
+  static const short int yydefgoto_[];
 
   // YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
   // positive, shift that token.  If negative, reduce the rule whose
   // number is the opposite.  If YYTABLE_NINF, syntax error.
-  static const unsigned char yytable_[];
+  static const unsigned short int yytable_[];
 
-  static const signed char yycheck_[];
+  static const short int yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -412,13 +432,13 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 104,           //< Last index in yytable_.
-      yynnts_ = 13,  //< Number of nonterminal symbols.
+      yylast_ = 344,           //< Last index in yytable_.
+      yynnts_ = 18,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 4, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 26    //< Number of tokens.
+      yyntokens_ = 46    //< Number of tokens.
     };
 
 
@@ -431,9 +451,9 @@ namespace usds {
   };
 
 
-#line 28 "bisonDictionaryTextParser.y" // lalr1.cc:371
+#line 36 "bisonDictionaryTextParser.y" // lalr1.cc:371
 } // usds
-#line 437 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 457 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 
 
 

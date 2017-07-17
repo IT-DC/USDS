@@ -50,7 +50,7 @@
 #  endif
 # endif
 
-#line 28 "bisonDictionaryTextParser.y" // location.cc:291
+#line 36 "bisonDictionaryTextParser.y" // location.cc:291
 namespace usds {
 #line 56 "position.hh" // location.cc:291
   /// Abstract a position.
@@ -175,7 +175,7 @@ namespace usds {
     return ostr << pos.line << '.' << pos.column;
   }
 
-#line 28 "bisonDictionaryTextParser.y" // location.cc:291
+#line 36 "bisonDictionaryTextParser.y" // location.cc:291
 } // usds
 #line 180 "position.hh" // location.cc:291
 #endif // !YY_DICTIONARY_TEXT_POSITION_HH_INCLUDED

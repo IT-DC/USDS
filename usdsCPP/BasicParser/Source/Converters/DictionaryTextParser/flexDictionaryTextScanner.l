@@ -44,67 +44,78 @@ typedef BisonDictionaryTextParser::token_type token_type;
 %}
 "BOOLEAN"				{
 							yylval->typeVal = USDS_BOOLEAN;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_BOOLEAN);
 						}
 
 "BYTE"					{
 							yylval->typeVal = USDS_BYTE;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_BYTE);
 						}
 
 "UBYTE"					{
 							yylval->typeVal = USDS_UBYTE;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_UBYTE);
 						}
 
 "SHORT"					{
 							yylval->typeVal = USDS_SHORT;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_SHORT);
 						}
 
 "USHORT"				{
 							yylval->typeVal = USDS_USHORT;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_USHORT);
 						}
 						
 "INT"					{
 							yylval->typeVal = USDS_INT;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_INT);
 						}
 
 "UINT"					{
 							yylval->typeVal = USDS_UINT;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_UINT);
 						}
 						
 "LONG"					{
 							yylval->typeVal = USDS_LONG;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_LONG);
 						}
 
 "ULONG"					{
 							yylval->typeVal = USDS_ULONG;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_ULONG);
 						}
 
-"FLOAT"				{
+"INT128"				{
+							yylval->typeVal = USDS_INT128;
+							return (token::TYPE_INT128);
+						}
+
+"UINT128"				{
+							yylval->typeVal = USDS_UINT128;
+							return (token::TYPE_UINT128);
+						}
+
+						
+"FLOAT"					{
 							yylval->typeVal = USDS_FLOAT;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_FLOAT);
 						}
 						
 "DOUBLE"				{
 							yylval->typeVal = USDS_DOUBLE;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_DOUBLE);
 						}
 
 "VARINT"				{
 							yylval->typeVal = USDS_VARINT;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_VARINT);
 						}
 
 "UVARINT" {
 							yylval->typeVal = USDS_UVARINT;
-							return (token::SIMPLE_TYPE);
+							return (token::TYPE_UVARINT);
 						}
 
 "STRING"				{
@@ -222,6 +233,51 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return token::POSITIVE_NUMBER;
 						}
 
+"-1"					{
+							yylval->Int8Val = -1;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-2"					{
+							yylval->Int8Val = -2;
+							return token::NEGATIVE_NUMBER;
+						}
+
+"-3"					{
+							yylval->Int8Val = -3;
+							return token::NEGATIVE_NUMBER;
+						}
+
+"-4"					{
+							yylval->Int8Val = -4;
+							return token::NEGATIVE_NUMBER;
+						}
+
+"-5"					{
+							yylval->Int8Val = -5;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-6"					{
+							yylval->Int8Val = -6;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-7"					{
+							yylval->Int8Val = -7;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-8"					{
+							yylval->Int8Val = -8;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-9"					{
+							yylval->Int8Val = -9;
+							return token::NEGATIVE_NUMBER;
+						}
+						
 %{ 
 /* =============================================================================== */
 /* Punctuation */ 

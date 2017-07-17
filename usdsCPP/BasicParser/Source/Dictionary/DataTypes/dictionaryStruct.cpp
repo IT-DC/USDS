@@ -30,7 +30,7 @@ try
 	// check name
 	int32_t field_id = findFieldID(name, name_size);
 	if (field_id != 0)
-		throw ErrorMessage(DIC_STRUCT__FIELD_ALREADY_EXISTS) << "Field with name '" << name << "' not unique in the tag " << objectName;
+		throw (ErrorMessage(DIC_STRUCT__FIELD_ALREADY_EXISTS) << "Field with name '").addString(name, name_size) << "' not unique in the tag " << objectName;
 	
 	DictionaryBaseType* field = dictionary->addField(field_type, this, id, name, name_size);
 	connectFieldToTag(field);
@@ -44,11 +44,11 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	throw ErrorStack("DictionaryStruct::addField") << field_type << id << name << name_size << msg;
+	throw (ErrorStack("DictionaryStruct::addField") << field_type << id).addStringAndSize(name, name_size) << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("DictionaryStruct::addField") << field_type << id << name << name_size;
+	(err.addLevel("DictionaryStruct::addField") << field_type << id).addStringAndSize(name, name_size);
 	throw;
 };
 

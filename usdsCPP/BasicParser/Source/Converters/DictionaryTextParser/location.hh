@@ -40,7 +40,7 @@
 
 # include "position.hh"
 
-#line 28 "bisonDictionaryTextParser.y" // location.cc:291
+#line 36 "bisonDictionaryTextParser.y" // location.cc:291
 namespace usds {
 #line 46 "location.hh" // location.cc:291
   /// Abstract a location.
@@ -181,7 +181,7 @@ namespace usds {
     return ostr;
   }
 
-#line 28 "bisonDictionaryTextParser.y" // location.cc:291
+#line 36 "bisonDictionaryTextParser.y" // location.cc:291
 } // usds
 #line 187 "location.hh" // location.cc:291
 #endif // !YY_DICTIONARY_TEXT_LOCATION_HH_INCLUDED

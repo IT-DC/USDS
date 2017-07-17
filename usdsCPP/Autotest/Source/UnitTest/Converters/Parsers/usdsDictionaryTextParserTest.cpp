@@ -648,6 +648,8 @@ void DictionaryTextParserTest::test_6()
 
 }
 
+// TODO autotests for all integers in text dictionary
+
 void DictionaryTextParserTest::test_7()
 {
 	usds::DictionaryTextParser* pareser = new usds::DictionaryTextParser();
@@ -655,31 +657,31 @@ void DictionaryTextParserTest::test_7()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 4294967295.55.255 {\
-			1: struct\
-			{\
-				1: BOOLEAN bool = true;\
-				2: BOOLEAN bool = false;\
-				3: BYTE byte = 127;\
-				4: BYTE byte = -128;\
-				5: UBYTE ubyte = 255;\
-				6: SHORT short = 32767;\
-				7: SHORT short = -32768;\
-				8: USHORT ushort = 65535;\
-				9: INT int = 2147483647;\
-				10: INT int = -2147483648;\
-				11: UINT uint = 4294967295;\
-				12: LONG long = 9223372036854775807;\
-				13: LONG long = -9223372036854775808;\
-				14: ULONG ulong = 18446744073709551615;\
-				15: FLOAT float = 0;\
-				16: DOUBLE double = 0;\
-				17: VARINT varint = 9223372036854775807;\
-				18: VARINT varint = -9223372036854775808;\
-				19: UVARINT uvarint = 18446744073709551615;\
-				20: STRING string = \"Hello\";\
-				21: STRING<UTF-8> string2 = \"\";\
-			};\
+		"USDS MyLittleAPI 4294967295.55.255 {\n\
+			1: struct\n\
+			{\n\
+				1: BOOLEAN bool = true;\n\
+				2: BOOLEAN bool2 = false;\n\
+				3: BYTE byte = 127;\n\
+				4: BYTE byte2 = -128;\n\
+				5: UBYTE ubyte = 255;\n\
+				6: SHORT short = 32767;\n\
+				7: SHORT short2 = -32768;\n\
+				8: USHORT ushort = 65535;\n\
+				9: INT int = 2147483647;\n\
+				10: INT int2 = -2147483648;\n\
+				11: UINT uint = 4294967295;\n\
+				12: LONG long = 9223372036854775807;\n\
+				13: LONG long2 = -9223372036854775808;\n\
+				14: ULONG ulong = 18446744073709551615;\n\
+				15: FLOAT float = 0;\n\
+				16: DOUBLE double = 0;\n\
+				17: VARINT varint = 9223372036854775807;\n\
+				18: VARINT varint2 = -9223372036854775808;\n\
+				19: UVARINT uvarint = 18446744073709551615;\n\
+				20: STRING string = \"Hello\";\n\
+				21: STRING<UTF-8> string2 = \"\";\n\
+			};\n\
 		}";
 	pareser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 1 || dict.getDictionaryID() != 4294967295 || dict.getMajorVersion() != 55 || dict.getMinorVersion() != 255)
