@@ -169,6 +169,211 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::NULL_VALUE);
 						}
 						
+%{
+/* =============================================================================== */
+/* Numbers */
+%}
+"0"						{
+							yylval->int8Val = 0;
+							return token::POSITIVE_NUMBER;
+						}
+
+"1"						{
+							yylval->int8Val = 1;
+							return token::POSITIVE_NUMBER;
+						}
+						
+"2"						{
+							yylval->int8Val = 2;
+							return token::POSITIVE_NUMBER;
+						}
+
+"3"						{
+							yylval->int8Val = 3;
+							return token::POSITIVE_NUMBER;
+						}
+
+"4"						{
+							yylval->int8Val = 4;
+							return token::POSITIVE_NUMBER;
+						}
+
+"5"						{
+							yylval->int8Val = 5;
+							return token::POSITIVE_NUMBER;
+						}
+						
+"6"						{
+							yylval->int8Val = 6;
+							return token::POSITIVE_NUMBER;
+						}
+						
+"7"						{
+							yylval->int8Val = 7;
+							return token::POSITIVE_NUMBER;
+						}
+						
+"8"						{
+							yylval->int8Val = 8;
+							return token::POSITIVE_NUMBER;
+						}
+						
+"9"						{
+							yylval->int8Val = 9;
+							return token::POSITIVE_NUMBER;
+						}
+
+"-0"					{
+							yylval->int8Val = 0;
+							return token::NEGATIVE_NUMBER;
+						}
+
+"-1"					{
+							yylval->int8Val = -1;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-2"					{
+							yylval->int8Val = -2;
+							return token::NEGATIVE_NUMBER;
+						}
+
+"-3"					{
+							yylval->int8Val = -3;
+							return token::NEGATIVE_NUMBER;
+						}
+
+"-4"					{
+							yylval->int8Val = -4;
+							return token::NEGATIVE_NUMBER;
+						}
+
+"-5"					{
+							yylval->int8Val = -5;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-6"					{
+							yylval->int8Val = -6;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-7"					{
+							yylval->int8Val = -7;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-8"					{
+							yylval->int8Val = -8;
+							return token::NEGATIVE_NUMBER;
+						}
+						
+"-9"					{
+							yylval->int8Val = -9;
+							return token::NEGATIVE_NUMBER;
+						}
+
+[eE][+]?"1"				{
+							yylval->int8Val = 1;
+							return token::POSITIVE_EXPONENT_NUMBER;
+						}
+
+[eE][+]?"2"				{
+							yylval->int8Val = 2;
+							return token::POSITIVE_EXPONENT_NUMBER;
+						}
+
+[eE][+]?"3"				{
+							yylval->int8Val = 3;
+							return token::POSITIVE_EXPONENT_NUMBER;
+						}
+
+[eE][+]?"4"				{
+							yylval->int8Val = 4;
+							return token::POSITIVE_EXPONENT_NUMBER;
+						}
+
+[eE][+]?"5"				{
+							yylval->int8Val = 5;
+							return token::POSITIVE_EXPONENT_NUMBER;
+						}
+
+[eE][+]?"6"				{
+							yylval->int8Val = 6;
+							return token::POSITIVE_EXPONENT_NUMBER;
+						}
+						
+[eE][+]?"7"				{
+							yylval->int8Val = 7;
+							return token::POSITIVE_EXPONENT_NUMBER;
+						}
+						
+[eE][+]?"8"				{
+							yylval->int8Val = 8;
+							return token::POSITIVE_EXPONENT_NUMBER;
+						}
+						
+[eE][+]?"9"				{
+							yylval->int8Val = 9;
+							return token::POSITIVE_EXPONENT_NUMBER;
+						}
+
+[eE]"-1"				{
+							yylval->int8Val = -1;
+							return token::NEGATIVE_EXPONENT_NUMBER;
+						}
+
+[eE]"-2"				{
+							yylval->int8Val = -2;
+							return token::NEGATIVE_EXPONENT_NUMBER;
+						}
+
+[eE]"-3"				{
+							yylval->int8Val = -3;
+							return token::NEGATIVE_EXPONENT_NUMBER;
+						}
+
+[eE]"-4"				{
+							yylval->int8Val = -4;
+							return token::NEGATIVE_EXPONENT_NUMBER;
+						}
+
+[eE]"-5"				{
+							yylval->int8Val = -5;
+							return token::NEGATIVE_EXPONENT_NUMBER;
+						}
+
+[eE]"-6"				{
+							yylval->int8Val = -6;
+							return token::NEGATIVE_EXPONENT_NUMBER;
+						}
+						
+[eE]"-7"				{
+							yylval->int8Val = -7;
+							return token::NEGATIVE_EXPONENT_NUMBER;
+						}
+						
+[eE]"-8"				{
+							yylval->int8Val = -8;
+							return token::NEGATIVE_EXPONENT_NUMBER;
+						}
+						
+[eE]"-9"				{
+							yylval->int8Val = -9;
+							return token::NEGATIVE_EXPONENT_NUMBER;
+						}
+
+%{ 
+/* =============================================================================== */
+/* Text string with UTF-8 */ 
+%}
+
+\"([\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf][\x80-\xbf]|[\xf0-\xf4][\x80-\xbf][\x80-\xbf][\x80-\xbf]|[\\\"]|[^\"])*\"	{
+							yylval->stringVal[0] = offset - yyleng + 1;
+							yylval->stringVal[1] = yyleng - 2;
+							return (token::TEXT_STRING);
+						}
+
 %{ 
 /* =============================================================================== */
 /* Field and tag names */ 
@@ -179,105 +384,6 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::TEXT_NAME);
 						}
 
-%{
-/* =============================================================================== */
-/* Numbers */
-%}
-"0"						{
-							yylval->Int8Val = 0;
-							return token::POSITIVE_NUMBER;
-						}
-
-"1"						{
-							yylval->Int8Val = 1;
-							return token::POSITIVE_NUMBER;
-						}
-						
-"2"						{
-							yylval->Int8Val = 2;
-							return token::POSITIVE_NUMBER;
-						}
-
-"3"						{
-							yylval->Int8Val = 3;
-							return token::POSITIVE_NUMBER;
-						}
-
-"4"						{
-							yylval->Int8Val = 4;
-							return token::POSITIVE_NUMBER;
-						}
-
-"5"						{
-							yylval->Int8Val = 5;
-							return token::POSITIVE_NUMBER;
-						}
-						
-"6"						{
-							yylval->Int8Val = 6;
-							return token::POSITIVE_NUMBER;
-						}
-						
-"7"						{
-							yylval->Int8Val = 7;
-							return token::POSITIVE_NUMBER;
-						}
-						
-"8"						{
-							yylval->Int8Val = 8;
-							return token::POSITIVE_NUMBER;
-						}
-						
-"9"						{
-							yylval->Int8Val = 9;
-							return token::POSITIVE_NUMBER;
-						}
-
-"-1"					{
-							yylval->Int8Val = -1;
-							return token::NEGATIVE_NUMBER;
-						}
-						
-"-2"					{
-							yylval->Int8Val = -2;
-							return token::NEGATIVE_NUMBER;
-						}
-
-"-3"					{
-							yylval->Int8Val = -3;
-							return token::NEGATIVE_NUMBER;
-						}
-
-"-4"					{
-							yylval->Int8Val = -4;
-							return token::NEGATIVE_NUMBER;
-						}
-
-"-5"					{
-							yylval->Int8Val = -5;
-							return token::NEGATIVE_NUMBER;
-						}
-						
-"-6"					{
-							yylval->Int8Val = -6;
-							return token::NEGATIVE_NUMBER;
-						}
-						
-"-7"					{
-							yylval->Int8Val = -7;
-							return token::NEGATIVE_NUMBER;
-						}
-						
-"-8"					{
-							yylval->Int8Val = -8;
-							return token::NEGATIVE_NUMBER;
-						}
-						
-"-9"					{
-							yylval->Int8Val = -9;
-							return token::NEGATIVE_NUMBER;
-						}
-						
 %{ 
 /* =============================================================================== */
 /* Punctuation */ 
@@ -330,6 +436,11 @@ typedef BisonDictionaryTextParser::token_type token_type;
 ">"						{
 							return '>';
 						}
+
+"-"						{
+							return '-';
+						}
+						
 %{ 
 /* =============================================================================== */
 /* Spaces */ 

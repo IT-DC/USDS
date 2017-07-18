@@ -4,6 +4,19 @@
 
 #include "dictionary\usdsDictionary.h"
 #include "dictionary/dictionaryBaseType.h"
+#include "dictionary/dataTypes/dictionaryBoolean.h"
+#include "dictionary/dataTypes/dictionaryByte.h"
+#include "dictionary/dataTypes/dictionaryUByte.h"
+#include "dictionary/dataTypes/dictionaryShort.h"
+#include "dictionary/dataTypes/dictionaryUShort.h"
+#include "dictionary/dataTypes/dictionaryInt.h"
+#include "dictionary/dataTypes/dictionaryUInt.h"
+#include "dictionary/dataTypes/dictionaryLong.h"
+#include "dictionary/dataTypes/dictionaryULong.h"
+#include "dictionary/dataTypes/dictionaryFloat.h"
+#include "dictionary/dataTypes/dictionaryDouble.h"
+#include "dictionary/dataTypes/dictionaryVarint.h"
+#include "dictionary/dataTypes/dictionaryUvarint.h"
 #include "dictionary/dataTypes/dictionaryString.h"
 #include "dictionary/dataTypes/dictionaryStruct.h"
 #include "dictionary/dataTypes/dictionaryTagLink.h"
@@ -674,8 +687,8 @@ void DictionaryTextParserTest::test_7()
 				12: LONG long = 9223372036854775807;\n\
 				13: LONG long2 = -9223372036854775808;\n\
 				14: ULONG ulong = 18446744073709551615;\n\
-				15: FLOAT float = 0;\n\
-				16: DOUBLE double = 0;\n\
+				15: FLOAT float = 1.125e1;\n\
+				16: DOUBLE double = 0.125;\n\
 				17: VARINT varint = 9223372036854775807;\n\
 				18: VARINT varint2 = -9223372036854775808;\n\
 				19: UVARINT uvarint = 18446744073709551615;\n\
@@ -696,14 +709,92 @@ void DictionaryTextParserTest::test_7()
 	// step 3
 	usds::DictionaryBaseType* field = tag->getField(1);
 	name = field->getName();
-	if (strcmp(name, "bool") != 0 || field->getType() != usds::USDS_BOOLEAN || field->isNullable() != true)
+	if (strcmp(name, "bool") != 0 || field->getType() != usds::USDS_BOOLEAN || field->isNullable() != false || ((usds::DictionaryBoolean*)field)->getDefaultValue() != true)
 		throw "Failed at the step 3\n";
 
 	// step 4
 	field = tag->getField(2);
 	name = field->getName();
-	if (strcmp(name, "byte") != 0 || field->getType() != usds::USDS_BYTE || field->isNullable() != true)
+	if (strcmp(name, "bool2") != 0 || field->getType() != usds::USDS_BOOLEAN || field->isNullable() != false || ((usds::DictionaryBoolean*)field)->getDefaultValue() != false)
 		throw "Failed at the step 4\n";
+	
+	// step 5
+	field = tag->getField(3);
+	name = field->getName();
+	if (strcmp(name, "byte") != 0 || field->getType() != usds::USDS_BYTE || field->isNullable() != false || ((usds::DictionaryByte*)field)->getDefaultValue() != 127)
+		throw "Failed at the step 5\n";
+
+	// step 6
+	field = tag->getField(4);
+	name = field->getName();
+	if (strcmp(name, "byte2") != 0 || field->getType() != usds::USDS_BYTE || field->isNullable() != false || ((usds::DictionaryByte*)field)->getDefaultValue() != -128)
+		throw "Failed at the step 6\n";
+
+	// step 7
+	field = tag->getField(5);
+	name = field->getName();
+	if (strcmp(name, "ubyte") != 0 || field->getType() != usds::USDS_UBYTE || field->isNullable() != false || ((usds::DictionaryUByte*)field)->getDefaultValue() != 255)
+		throw "Failed at the step 7\n";
+
+	// step 8
+	field = tag->getField(6);
+	name = field->getName();
+	if (strcmp(name, "short") != 0 || field->getType() != usds::USDS_SHORT || field->isNullable() != false || ((usds::DictionaryShort*)field)->getDefaultValue() != 32767)
+		throw "Failed at the step 8\n";
+
+	// step 9
+	field = tag->getField(7);
+	name = field->getName();
+	if (strcmp(name, "short2") != 0 || field->getType() != usds::USDS_SHORT || field->isNullable() != false || ((usds::DictionaryShort*)field)->getDefaultValue() != -32768)
+		throw "Failed at the step 9\n";
+
+	// step 10
+	field = tag->getField(8);
+	name = field->getName();
+	if (strcmp(name, "ushort") != 0 || field->getType() != usds::USDS_USHORT || field->isNullable() != false || ((usds::DictionaryUShort*)field)->getDefaultValue() != 65535)
+		throw "Failed at the step 10\n";
+
+	// step 11
+	field = tag->getField(9);
+	name = field->getName();
+	if (strcmp(name, "int") != 0 || field->getType() != usds::USDS_INT || field->isNullable() != false || ((usds::DictionaryInt*)field)->getDefaultValue() != 2147483647)
+		throw "Failed at the step 11\n";
+
+	// step 12
+	field = tag->getField(10);
+	name = field->getName();
+	if (strcmp(name, "int2") != 0 || field->getType() != usds::USDS_INT || field->isNullable() != false || ((usds::DictionaryInt*)field)->getDefaultValue() != INT32_MIN)
+		throw "Failed at the step 12\n";
+
+	// step 13
+	field = tag->getField(11);
+	name = field->getName();
+	if (strcmp(name, "uint") != 0 || field->getType() != usds::USDS_UINT || field->isNullable() != false || ((usds::DictionaryUInt*)field)->getDefaultValue() != 4294967295)
+		throw "Failed at the step 13\n";
+
+	// step 14
+	field = tag->getField(12);
+	name = field->getName();
+	if (strcmp(name, "long") != 0 || field->getType() != usds::USDS_LONG || field->isNullable() != false || ((usds::DictionaryLong*)field)->getDefaultValue() != 9223372036854775807)
+		throw "Failed at the step 14\n";
+
+	// step 15
+	field = tag->getField(13);
+	name = field->getName();
+	if (strcmp(name, "long2") != 0 || field->getType() != usds::USDS_LONG || field->isNullable() != false || ((usds::DictionaryLong*)field)->getDefaultValue() != INT64_MIN)
+		throw "Failed at the step 15\n";
+
+	// step 16
+	field = tag->getField(14);
+	name = field->getName();
+	if (strcmp(name, "ulong") != 0 || field->getType() != usds::USDS_ULONG || field->isNullable() != false || ((usds::DictionaryULong*)field)->getDefaultValue() != UINT64_MAX)
+		throw "Failed at the step 16\n";
+
+	// step 17
+	field = tag->getField(15);
+	name = field->getName();
+	if (strcmp(name, "float") != 0 || field->getType() != usds::USDS_FLOAT || field->isNullable() != false || ((usds::DictionaryFloat*)field)->getDefaultValue() != 11.25F)
+		throw "Failed at the step 17\n";
 
 
 

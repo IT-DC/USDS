@@ -47,19 +47,20 @@
 
 %union {
     bool  			boolVal;
-	int8_t  		Int8Val;
-	uint8_t  		UInt8Val;
-	int16_t  		Int16Val;
-	uint16_t  		UInt16Val;
-	int32_t  		Int32Val;
-	uint32_t  		UInt32Val;
-	int64_t  		Int64Val;
-	uint64_t  		UInt64Val;
+	int8_t  		int8Val;
+	uint8_t  		uInt8Val;
+	int16_t  		int16Val;
+	uint16_t  		uInt16Val;
+	int32_t  		int32Val;
+	uint32_t  		uInt32Val;
+	int64_t  		int64Val;
+	uint64_t  		uInt64Val;
 	float 			floatVal;
     double 			doubleVal;
     size_t			stringVal[2];
 	usdsEncodes		encodeVal;
 	usdsTypes		typeVal;
+	struct			floatDigits { int64_t value; float digits; } floatDigits;
 }
 
 // Tokens
@@ -78,7 +79,7 @@
 %token<typeVal> TYPE_INT128 "INT128"
 %token<typeVal> TYPE_UINT128 "UINT128"
 %token<typeVal> TYPE_FLOAT "FLOAT"
-%token<typeVal> TYPE_DOUBLE ""DOUBLE
+%token<typeVal> TYPE_DOUBLE "DOUBLE"
 %token<typeVal> TYPE_VARINT "VARINT"
 %token<typeVal> TYPE_UVARINT "UVARINT"
 %token<typeVal> TYPE_STRING "STRING"
@@ -86,11 +87,14 @@
 %token<encodeVal> STRING_ENCODE "<Text encode>"
 
 %token<boolVal> BOOLEAN_VALUE "true or false"
-%token<Int8Val> POSITIVE_NUMBER "Digit"
-%token<Int8Val> NEGATIVE_NUMBER "-Digit"
+%token<int8Val> POSITIVE_NUMBER "Digit"
+%token<int8Val> NEGATIVE_NUMBER "-Digit"
+%token<int8Val> POSITIVE_EXPONENT_NUMBER "Positive float exponent digit"
+%token<int8Val> NEGATIVE_EXPONENT_NUMBER "Negative float exponent digit"
 %token NULL_VALUE "NULL"
+%token<stringVal> TEXT_STRING "Text string"
 
-%token<stringVal> TEXT_NAME "object name"
+%token<stringVal> TEXT_NAME "Object name"
 
 // restrictions
 %token USDS_RESTRICT
@@ -103,14 +107,19 @@
 %token '='
 %token '.'
 
-%type<UInt8Val> INT8_T "int8_t"
-%type<UInt8Val> UINT8_T "uint8_t"
-%type<Int16Val> INT16_T "int16_t"
-%type<UInt16Val> UINT16_T "uint16_t"
-%type<Int32Val> INT32_T "int32_t"
-%type<UInt32Val> UINT32_T "uint32_t"
-%type<Int64Val> INT64_T "int64_t"
-%type<UInt64Val> UINT64_T "uint64_t"
+%type<int8Val> INT8_T "int8_t"
+%type<uInt8Val> UINT8_T "uint8_t"
+%type<int16Val> INT16_T "int16_t"
+%type<uInt16Val> UINT16_T "uint16_t"
+%type<int32Val> INT32_T "int32_t"
+%type<uInt32Val> UINT32_T "uint32_t"
+%type<int64Val> INT64_T "int64_t"
+%type<uInt64Val> UINT64_T "uint64_t"
+
+%type<floatVal> FLOAT_T "float"
+%type<floatDigits> major_float_digits "Major float value"
+%type<floatDigits> minor_float_digits "Minor float value"
+%type<floatVal> float_exponent "Float exponent"
 
 %{
 #undef yylex
@@ -448,6 +457,37 @@ field:
 		usds::DictionaryULong* dict_field = (usds::DictionaryULong*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]));
 		dict_field->setDefaultValue($6);
 	}
+	|INT32_T ':' TYPE_FLOAT TEXT_NAME '=' FLOAT_T ';'
+	{
+		usds::DictionaryFloat* dict_field = (usds::DictionaryFloat*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]));
+		dict_field->setDefaultValue($6);
+	}
+	|INT32_T ':' TYPE_DOUBLE TEXT_NAME '=' FLOAT_T ';'
+	{
+		usds::DictionaryDouble* dict_field = (usds::DictionaryDouble*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]));
+		dict_field->setDefaultValue($6);
+	}
+	|INT32_T ':' TYPE_VARINT TEXT_NAME '=' INT64_T ';'
+	{
+		usds::DictionaryVarint* dict_field = (usds::DictionaryVarint*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]));
+		dict_field->setDefaultValue($6);
+	}
+	|INT32_T ':' TYPE_UVARINT TEXT_NAME '=' UINT64_T ';'
+	{
+		usds::DictionaryVarint* dict_field = (usds::DictionaryVarint*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]));
+		dict_field->setDefaultValue($6);
+	}
+	|INT32_T ':' TYPE_STRING TEXT_NAME '=' TEXT_STRING ';'
+	{
+		usds::DictionaryString* dict_field = (usds::DictionaryString*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]));
+		dict_field->setDefaultValueFromUTF8(input_text + $6[0], $6[1]);
+	}	
+	|INT32_T ':' TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME '=' TEXT_STRING ';'
+	{
+		usds::DictionaryString* dict_field = (usds::DictionaryString*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $7[0], $7[1]));
+		dict_field->setDefaultEncode($5);
+		dict_field->setDefaultValueFromUTF8(input_text + $9[0], $9[1]);
+	}
 	;
 	
 struct_begin:
@@ -475,7 +515,7 @@ INT8_T:
 	}
 	|NEGATIVE_NUMBER POSITIVE_NUMBER
 	{
-		$$ = (int8_t)$1 * (int8_t)10 + (int8_t)$2;
+		$$ = (int8_t)$1 * (int8_t)10 - (int8_t)$2;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
@@ -500,7 +540,7 @@ INT8_T:
 		if ($1 == (int8_t)-1 && $$ > (int8_t)28)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << $1 << $2 << $3 << " to int8_t: too big value";
 		
-		$$ = (int8_t)$1 * (int8_t)100 + $$;
+		$$ = (int8_t)$1 * (int8_t)100 - $$;
 		
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER digits
@@ -562,7 +602,7 @@ INT16_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int16_t)$1 * (int16_t)10 + 
+		(int16_t)$1 * (int16_t)10 - 
 		(int16_t)$2;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -575,8 +615,8 @@ INT16_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int16_t)$1 * (int16_t)100 + 
-		(int16_t)$2 * (int16_t)10 + 
+		(int16_t)$1 * (int16_t)100 - 
+		(int16_t)$2 * (int16_t)10 - 
 		(int16_t)$3;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -590,9 +630,9 @@ INT16_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int16_t)$1 * (int16_t)1000 + 
-		(int16_t)$2 * (int16_t)100 + 
-		(int16_t)$3 * (int16_t)10 + 
+		(int16_t)$1 * (int16_t)1000 - 
+		(int16_t)$2 * (int16_t)100 - 
+		(int16_t)$3 * (int16_t)10 - 
 		(int16_t)$4;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -625,7 +665,7 @@ INT16_T:
 		if ($1 == (int8_t)-3 && $$ > (int16_t)2768)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << $1 << $2 << $3 << $4 << $5 << " to int16_t: too big value";
 			
-		$$ = $$ + (int16_t)$1 * (int16_t)10000;
+		$$ = (int16_t)$1 * (int16_t)10000 - $$;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER digits
 	{
@@ -706,7 +746,7 @@ INT32_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int32_t)$1 * (int32_t)10 + 
+		(int32_t)$1 * (int32_t)10 - 
 		(int32_t)$2;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -719,8 +759,8 @@ INT32_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int32_t)$1 * (int32_t)100 + 
-		(int32_t)$2 * (int32_t)10 + 
+		(int32_t)$1 * (int32_t)100 - 
+		(int32_t)$2 * (int32_t)10 - 
 		(int32_t)$3;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -734,9 +774,9 @@ INT32_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int32_t)$1 * (int32_t)1000 + 
-		(int32_t)$2 * (int32_t)100 + 
-		(int32_t)$3 * (int32_t)10 + 
+		(int32_t)$1 * (int32_t)1000 - 
+		(int32_t)$2 * (int32_t)100 - 
+		(int32_t)$3 * (int32_t)10 - 
 		(int32_t)$4;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -751,10 +791,10 @@ INT32_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int32_t)$1 * (int32_t)10000 + 
-		(int32_t)$2 * (int32_t)1000 + 
-		(int32_t)$3 * (int32_t)100 + 
-		(int32_t)$4 * (int32_t)10 + 
+		(int32_t)$1 * (int32_t)10000 - 
+		(int32_t)$2 * (int32_t)1000 - 
+		(int32_t)$3 * (int32_t)100 - 
+		(int32_t)$4 * (int32_t)10 - 
 		(int32_t)$5;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -770,11 +810,11 @@ INT32_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int32_t)$1 * (int32_t)100000 + 
-		(int32_t)$2 * (int32_t)10000 + 
-		(int32_t)$3 * (int32_t)1000 + 
-		(int32_t)$4 * (int32_t)100 + 
-		(int32_t)$5 * (int32_t)10 + 
+		(int32_t)$1 * (int32_t)100000 - 
+		(int32_t)$2 * (int32_t)10000 - 
+		(int32_t)$3 * (int32_t)1000 - 
+		(int32_t)$4 * (int32_t)100 - 
+		(int32_t)$5 * (int32_t)10 - 
 		(int32_t)$6;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -791,12 +831,12 @@ INT32_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int32_t)$1 * (int32_t)1000000 + 
-		(int32_t)$2 * (int32_t)100000 + 
-		(int32_t)$3 * (int32_t)10000 + 
-		(int32_t)$4 * (int32_t)1000 + 
-		(int32_t)$5 * (int32_t)100 + 
-		(int32_t)$6 * (int32_t)10 + 
+		(int32_t)$1 * (int32_t)1000000 - 
+		(int32_t)$2 * (int32_t)100000 - 
+		(int32_t)$3 * (int32_t)10000 - 
+		(int32_t)$4 * (int32_t)1000 - 
+		(int32_t)$5 * (int32_t)100 - 
+		(int32_t)$6 * (int32_t)10 - 
 		(int32_t)$7;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -814,13 +854,13 @@ INT32_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int32_t)$1 * (int32_t)10000000 + 
-		(int32_t)$2 * (int32_t)1000000 + 
-		(int32_t)$3 * (int32_t)100000 + 
-		(int32_t)$4 * (int32_t)10000 + 
-		(int32_t)$5 * (int32_t)1000 + 
-		(int32_t)$6 * (int32_t)100 + 
-		(int32_t)$7 * (int32_t)10 + 
+		(int32_t)$1 * (int32_t)10000000 - 
+		(int32_t)$2 * (int32_t)1000000 - 
+		(int32_t)$3 * (int32_t)100000 - 
+		(int32_t)$4 * (int32_t)10000 - 
+		(int32_t)$5 * (int32_t)1000 - 
+		(int32_t)$6 * (int32_t)100 - 
+		(int32_t)$7 * (int32_t)10 - 
 		(int32_t)$8;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -839,14 +879,14 @@ INT32_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int32_t)$1 * (int32_t)100000000 + 
-		(int32_t)$2 * (int32_t)10000000 + 
-		(int32_t)$3 * (int32_t)1000000 + 
-		(int32_t)$4 * (int32_t)100000 + 
-		(int32_t)$5 * (int32_t)10000 + 
-		(int32_t)$6 * (int32_t)1000 + 
-		(int32_t)$7 * (int32_t)100 + 
-		(int32_t)$8 * (int32_t)10 + 
+		(int32_t)$1 * (int32_t)100000000 - 
+		(int32_t)$2 * (int32_t)10000000 - 
+		(int32_t)$3 * (int32_t)1000000 - 
+		(int32_t)$4 * (int32_t)100000 - 
+		(int32_t)$5 * (int32_t)10000 - 
+		(int32_t)$6 * (int32_t)1000 - 
+		(int32_t)$7 * (int32_t)100 - 
+		(int32_t)$8 * (int32_t)10 - 
 		(int32_t)$9;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -889,7 +929,7 @@ INT32_T:
 		if ($1 == (int8_t)-2 && $$ > (int32_t)147483648)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << $1 << $2 << $3 << $4 << $5 << $6 << $7 << $8 << $9 << $10 << " to int32_t: too big value";
 			
-		$$ = $$ + (int32_t)$1 * (int32_t)1000000000;
+		$$ = (int32_t)$1 * (int32_t)1000000000 - $$;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER digits
 	{
@@ -1030,7 +1070,7 @@ INT64_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)10 - 
 		(int64_t)$2;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1043,8 +1083,8 @@ INT64_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)100 + 
-		(int64_t)$2 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)100 - 
+		(int64_t)$2 * (int64_t)10 - 
 		(int64_t)$3;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1058,9 +1098,9 @@ INT64_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)1000 + 
-		(int64_t)$2 * (int64_t)100 + 
-		(int64_t)$3 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)1000 - 
+		(int64_t)$2 * (int64_t)100 - 
+		(int64_t)$3 * (int64_t)10 - 
 		(int64_t)$4;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1075,10 +1115,10 @@ INT64_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)10000 + 
-		(int64_t)$2 * (int64_t)1000 + 
-		(int64_t)$3 * (int64_t)100 + 
-		(int64_t)$4 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)10000 - 
+		(int64_t)$2 * (int64_t)1000 - 
+		(int64_t)$3 * (int64_t)100 - 
+		(int64_t)$4 * (int64_t)10 - 
 		(int64_t)$5;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1094,11 +1134,11 @@ INT64_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)100000 + 
-		(int64_t)$2 * (int64_t)10000 + 
-		(int64_t)$3 * (int64_t)1000 + 
-		(int64_t)$4 * (int64_t)100 + 
-		(int64_t)$5 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)100000 - 
+		(int64_t)$2 * (int64_t)10000 - 
+		(int64_t)$3 * (int64_t)1000 - 
+		(int64_t)$4 * (int64_t)100 - 
+		(int64_t)$5 * (int64_t)10 - 
 		(int64_t)$6;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1115,12 +1155,12 @@ INT64_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)1000000 + 
-		(int64_t)$2 * (int64_t)100000 + 
-		(int64_t)$3 * (int64_t)10000 + 
-		(int64_t)$4 * (int64_t)1000 + 
-		(int64_t)$5 * (int64_t)100 + 
-		(int64_t)$6 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)1000000 - 
+		(int64_t)$2 * (int64_t)100000 - 
+		(int64_t)$3 * (int64_t)10000 - 
+		(int64_t)$4 * (int64_t)1000 - 
+		(int64_t)$5 * (int64_t)100 - 
+		(int64_t)$6 * (int64_t)10 - 
 		(int64_t)$7;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1138,13 +1178,13 @@ INT64_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)10000000 + 
-		(int64_t)$2 * (int64_t)1000000 + 
-		(int64_t)$3 * (int64_t)100000 + 
-		(int64_t)$4 * (int64_t)10000 + 
-		(int64_t)$5 * (int64_t)1000 + 
-		(int64_t)$6 * (int64_t)100 + 
-		(int64_t)$7 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)10000000 - 
+		(int64_t)$2 * (int64_t)1000000 - 
+		(int64_t)$3 * (int64_t)100000 - 
+		(int64_t)$4 * (int64_t)10000 - 
+		(int64_t)$5 * (int64_t)1000 - 
+		(int64_t)$6 * (int64_t)100 - 
+		(int64_t)$7 * (int64_t)10 - 
 		(int64_t)$8;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1163,14 +1203,14 @@ INT64_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)100000000 + 
-		(int64_t)$2 * (int64_t)10000000 + 
-		(int64_t)$3 * (int64_t)1000000 + 
-		(int64_t)$4 * (int64_t)100000 + 
-		(int64_t)$5 * (int64_t)10000 + 
-		(int64_t)$6 * (int64_t)1000 + 
-		(int64_t)$7 * (int64_t)100 + 
-		(int64_t)$8 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)100000000 - 
+		(int64_t)$2 * (int64_t)10000000 - 
+		(int64_t)$3 * (int64_t)1000000 - 
+		(int64_t)$4 * (int64_t)100000 - 
+		(int64_t)$5 * (int64_t)10000 - 
+		(int64_t)$6 * (int64_t)1000 - 
+		(int64_t)$7 * (int64_t)100 - 
+		(int64_t)$8 * (int64_t)10 - 
 		(int64_t)$9;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1190,15 +1230,15 @@ INT64_T:
 	|NEGATIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)1000000000 + 
-		(int64_t)$2 * (int64_t)100000000 + 
-		(int64_t)$3 * (int64_t)10000000 + 
-		(int64_t)$4 * (int64_t)1000000 + 
-		(int64_t)$5 * (int64_t)100000 + 
-		(int64_t)$6 * (int64_t)10000 + 
-		(int64_t)$7 * (int64_t)1000 + 
-		(int64_t)$8 * (int64_t)100 + 
-		(int64_t)$9 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)1000000000 - 
+		(int64_t)$2 * (int64_t)100000000 - 
+		(int64_t)$3 * (int64_t)10000000 - 
+		(int64_t)$4 * (int64_t)1000000 - 
+		(int64_t)$5 * (int64_t)100000 - 
+		(int64_t)$6 * (int64_t)10000 - 
+		(int64_t)$7 * (int64_t)1000 - 
+		(int64_t)$8 * (int64_t)100 - 
+		(int64_t)$9 * (int64_t)10 - 
 		(int64_t)$10;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1221,16 +1261,16 @@ INT64_T:
 		POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)10000000000 + 
-		(int64_t)$2 * (int64_t)1000000000 + 
-		(int64_t)$3 * (int64_t)100000000 + 
-		(int64_t)$4 * (int64_t)10000000 + 
-		(int64_t)$5 * (int64_t)1000000 + 
-		(int64_t)$6 * (int64_t)100000 + 
-		(int64_t)$7 * (int64_t)10000 + 
-		(int64_t)$8 * (int64_t)1000 + 
-		(int64_t)$9 * (int64_t)100 + 
-		(int64_t)$10 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)10000000000 - 
+		(int64_t)$2 * (int64_t)1000000000 - 
+		(int64_t)$3 * (int64_t)100000000 - 
+		(int64_t)$4 * (int64_t)10000000 - 
+		(int64_t)$5 * (int64_t)1000000 - 
+		(int64_t)$6 * (int64_t)100000 - 
+		(int64_t)$7 * (int64_t)10000 - 
+		(int64_t)$8 * (int64_t)1000 - 
+		(int64_t)$9 * (int64_t)100 - 
+		(int64_t)$10 * (int64_t)10 - 
 		(int64_t)$11;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1254,17 +1294,17 @@ INT64_T:
 		POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)100000000000 + 
-		(int64_t)$2 * (int64_t)10000000000 + 
-		(int64_t)$3 * (int64_t)1000000000 + 
-		(int64_t)$4 * (int64_t)100000000 + 
-		(int64_t)$5 * (int64_t)10000000 + 
-		(int64_t)$6 * (int64_t)1000000 + 
-		(int64_t)$7 * (int64_t)100000 + 
-		(int64_t)$8 * (int64_t)10000 + 
-		(int64_t)$9 * (int64_t)1000 + 
-		(int64_t)$10 * (int64_t)100 + 
-		(int64_t)$11 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)100000000000 - 
+		(int64_t)$2 * (int64_t)10000000000 - 
+		(int64_t)$3 * (int64_t)1000000000 - 
+		(int64_t)$4 * (int64_t)100000000 - 
+		(int64_t)$5 * (int64_t)10000000 - 
+		(int64_t)$6 * (int64_t)1000000 - 
+		(int64_t)$7 * (int64_t)100000 - 
+		(int64_t)$8 * (int64_t)10000 - 
+		(int64_t)$9 * (int64_t)1000 - 
+		(int64_t)$10 * (int64_t)100 - 
+		(int64_t)$11 * (int64_t)10 - 
 		(int64_t)$12;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1289,18 +1329,18 @@ INT64_T:
 		POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)1000000000000 + 
-		(int64_t)$2 * (int64_t)100000000000 + 
-		(int64_t)$3 * (int64_t)10000000000 + 
-		(int64_t)$4 * (int64_t)1000000000 + 
-		(int64_t)$5 * (int64_t)100000000 + 
-		(int64_t)$6 * (int64_t)10000000 + 
-		(int64_t)$7 * (int64_t)1000000 + 
-		(int64_t)$8 * (int64_t)100000 + 
-		(int64_t)$9 * (int64_t)10000 + 
-		(int64_t)$10 * (int64_t)1000 + 
-		(int64_t)$11 * (int64_t)100 + 
-		(int64_t)$12 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)1000000000000 - 
+		(int64_t)$2 * (int64_t)100000000000 - 
+		(int64_t)$3 * (int64_t)10000000000 - 
+		(int64_t)$4 * (int64_t)1000000000 - 
+		(int64_t)$5 * (int64_t)100000000 - 
+		(int64_t)$6 * (int64_t)10000000 - 
+		(int64_t)$7 * (int64_t)1000000 - 
+		(int64_t)$8 * (int64_t)100000 - 
+		(int64_t)$9 * (int64_t)10000 - 
+		(int64_t)$10 * (int64_t)1000 - 
+		(int64_t)$11 * (int64_t)100 - 
+		(int64_t)$12 * (int64_t)10 - 
 		(int64_t)$13;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1326,19 +1366,19 @@ INT64_T:
 		POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)10000000000000 + 
-		(int64_t)$2 * (int64_t)1000000000000 + 
-		(int64_t)$3 * (int64_t)100000000000 + 
-		(int64_t)$4 * (int64_t)10000000000 + 
-		(int64_t)$5 * (int64_t)1000000000 + 
-		(int64_t)$6 * (int64_t)100000000 + 
-		(int64_t)$7 * (int64_t)10000000 + 
-		(int64_t)$8 * (int64_t)1000000 + 
-		(int64_t)$9 * (int64_t)100000 + 
-		(int64_t)$10 * (int64_t)10000 + 
-		(int64_t)$11 * (int64_t)1000 + 
-		(int64_t)$12 * (int64_t)100 + 
-		(int64_t)$13 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)10000000000000 - 
+		(int64_t)$2 * (int64_t)1000000000000 - 
+		(int64_t)$3 * (int64_t)100000000000 - 
+		(int64_t)$4 * (int64_t)10000000000 - 
+		(int64_t)$5 * (int64_t)1000000000 - 
+		(int64_t)$6 * (int64_t)100000000 - 
+		(int64_t)$7 * (int64_t)10000000 - 
+		(int64_t)$8 * (int64_t)1000000 - 
+		(int64_t)$9 * (int64_t)100000 - 
+		(int64_t)$10 * (int64_t)10000 - 
+		(int64_t)$11 * (int64_t)1000 - 
+		(int64_t)$12 * (int64_t)100 - 
+		(int64_t)$13 * (int64_t)10 - 
 		(int64_t)$14;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1365,20 +1405,20 @@ INT64_T:
 		POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)100000000000000 + 
-		(int64_t)$2 * (int64_t)10000000000000 + 
-		(int64_t)$3 * (int64_t)1000000000000 + 
-		(int64_t)$4 * (int64_t)100000000000 + 
-		(int64_t)$5 * (int64_t)10000000000 + 
-		(int64_t)$6 * (int64_t)1000000000 + 
-		(int64_t)$7 * (int64_t)100000000 + 
-		(int64_t)$8 * (int64_t)10000000 + 
-		(int64_t)$9 * (int64_t)1000000 + 
-		(int64_t)$10 * (int64_t)100000 + 
-		(int64_t)$11 * (int64_t)10000 + 
-		(int64_t)$12 * (int64_t)1000 + 
-		(int64_t)$13 * (int64_t)100 + 
-		(int64_t)$14 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)100000000000000 - 
+		(int64_t)$2 * (int64_t)10000000000000 - 
+		(int64_t)$3 * (int64_t)1000000000000 - 
+		(int64_t)$4 * (int64_t)100000000000 - 
+		(int64_t)$5 * (int64_t)10000000000 - 
+		(int64_t)$6 * (int64_t)1000000000 - 
+		(int64_t)$7 * (int64_t)100000000 - 
+		(int64_t)$8 * (int64_t)10000000 - 
+		(int64_t)$9 * (int64_t)1000000 - 
+		(int64_t)$10 * (int64_t)100000 - 
+		(int64_t)$11 * (int64_t)10000 - 
+		(int64_t)$12 * (int64_t)1000 - 
+		(int64_t)$13 * (int64_t)100 - 
+		(int64_t)$14 * (int64_t)10 - 
 		(int64_t)$15;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1406,21 +1446,21 @@ INT64_T:
 		POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)1000000000000000 + 
-		(int64_t)$2 * (int64_t)100000000000000 + 
-		(int64_t)$3 * (int64_t)10000000000000 + 
-		(int64_t)$4 * (int64_t)1000000000000 + 
-		(int64_t)$5 * (int64_t)100000000000 + 
-		(int64_t)$6 * (int64_t)10000000000 + 
-		(int64_t)$7 * (int64_t)1000000000 + 
-		(int64_t)$8 * (int64_t)100000000 + 
-		(int64_t)$9 * (int64_t)10000000 + 
-		(int64_t)$10 * (int64_t)1000000 + 
-		(int64_t)$11 * (int64_t)100000 + 
-		(int64_t)$12 * (int64_t)10000 + 
-		(int64_t)$13 * (int64_t)1000 + 
-		(int64_t)$14 * (int64_t)100 + 
-		(int64_t)$15 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)1000000000000000 - 
+		(int64_t)$2 * (int64_t)100000000000000 - 
+		(int64_t)$3 * (int64_t)10000000000000 - 
+		(int64_t)$4 * (int64_t)1000000000000 - 
+		(int64_t)$5 * (int64_t)100000000000 - 
+		(int64_t)$6 * (int64_t)10000000000 - 
+		(int64_t)$7 * (int64_t)1000000000 - 
+		(int64_t)$8 * (int64_t)100000000 - 
+		(int64_t)$9 * (int64_t)10000000 - 
+		(int64_t)$10 * (int64_t)1000000 - 
+		(int64_t)$11 * (int64_t)100000 - 
+		(int64_t)$12 * (int64_t)10000 - 
+		(int64_t)$13 * (int64_t)1000 - 
+		(int64_t)$14 * (int64_t)100 - 
+		(int64_t)$15 * (int64_t)10 - 
 		(int64_t)$16;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1449,22 +1489,22 @@ INT64_T:
 		POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)10000000000000000 + 
-		(int64_t)$2 * (int64_t)1000000000000000 + 
-		(int64_t)$3 * (int64_t)100000000000000 + 
-		(int64_t)$4 * (int64_t)10000000000000 + 
-		(int64_t)$5 * (int64_t)1000000000000 + 
-		(int64_t)$6 * (int64_t)100000000000 + 
-		(int64_t)$7 * (int64_t)10000000000 + 
-		(int64_t)$8 * (int64_t)1000000000 + 
-		(int64_t)$9 * (int64_t)100000000 + 
-		(int64_t)$10 * (int64_t)10000000 + 
-		(int64_t)$11 * (int64_t)1000000 + 
-		(int64_t)$12 * (int64_t)100000 + 
-		(int64_t)$13 * (int64_t)10000 + 
-		(int64_t)$14 * (int64_t)1000 + 
-		(int64_t)$15 * (int64_t)100 + 
-		(int64_t)$16 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)10000000000000000 - 
+		(int64_t)$2 * (int64_t)1000000000000000 - 
+		(int64_t)$3 * (int64_t)100000000000000 - 
+		(int64_t)$4 * (int64_t)10000000000000 - 
+		(int64_t)$5 * (int64_t)1000000000000 - 
+		(int64_t)$6 * (int64_t)100000000000 - 
+		(int64_t)$7 * (int64_t)10000000000 - 
+		(int64_t)$8 * (int64_t)1000000000 - 
+		(int64_t)$9 * (int64_t)100000000 - 
+		(int64_t)$10 * (int64_t)10000000 - 
+		(int64_t)$11 * (int64_t)1000000 - 
+		(int64_t)$12 * (int64_t)100000 - 
+		(int64_t)$13 * (int64_t)10000 - 
+		(int64_t)$14 * (int64_t)1000 - 
+		(int64_t)$15 * (int64_t)100 - 
+		(int64_t)$16 * (int64_t)10 - 
 		(int64_t)$17;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1494,23 +1534,23 @@ INT64_T:
 		POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
 		$$ = 
-		(int64_t)$1 * (int64_t)100000000000000000 + 
-		(int64_t)$2 * (int64_t)10000000000000000 + 
-		(int64_t)$3 * (int64_t)1000000000000000 + 
-		(int64_t)$4 * (int64_t)100000000000000 + 
-		(int64_t)$5 * (int64_t)10000000000000 + 
-		(int64_t)$6 * (int64_t)1000000000000 + 
-		(int64_t)$7 * (int64_t)100000000000 + 
-		(int64_t)$8 * (int64_t)10000000000 + 
-		(int64_t)$9 * (int64_t)1000000000 + 
-		(int64_t)$10 * (int64_t)100000000 + 
-		(int64_t)$11 * (int64_t)10000000 + 
-		(int64_t)$12 * (int64_t)1000000 + 
-		(int64_t)$13 * (int64_t)100000 + 
-		(int64_t)$14 * (int64_t)10000 + 
-		(int64_t)$15 * (int64_t)1000 + 
-		(int64_t)$16 * (int64_t)100 + 
-		(int64_t)$17 * (int64_t)10 + 
+		(int64_t)$1 * (int64_t)100000000000000000 - 
+		(int64_t)$2 * (int64_t)10000000000000000 - 
+		(int64_t)$3 * (int64_t)1000000000000000 - 
+		(int64_t)$4 * (int64_t)100000000000000 - 
+		(int64_t)$5 * (int64_t)10000000000000 - 
+		(int64_t)$6 * (int64_t)1000000000000 - 
+		(int64_t)$7 * (int64_t)100000000000 - 
+		(int64_t)$8 * (int64_t)10000000000 - 
+		(int64_t)$9 * (int64_t)1000000000 - 
+		(int64_t)$10 * (int64_t)100000000 - 
+		(int64_t)$11 * (int64_t)10000000 - 
+		(int64_t)$12 * (int64_t)1000000 - 
+		(int64_t)$13 * (int64_t)100000 - 
+		(int64_t)$14 * (int64_t)10000 - 
+		(int64_t)$15 * (int64_t)1000 - 
+		(int64_t)$16 * (int64_t)100 - 
+		(int64_t)$17 * (int64_t)10 - 
 		(int64_t)$18;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
@@ -1569,7 +1609,7 @@ INT64_T:
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << 
 				$1 << $2 << $3 << $4 << $5 << $6 << $7 << $8 << $9 << $10 << $11 << $12 << $13 << $14 << $15 << $16 << $17 << $18 << $19 << " to int64_t: too big value";
 			
-		$$ = $$ + (int64_t)$1 * (int64_t)1000000000000000000;
+		$$ = (int64_t)$1 * (int64_t)1000000000000000000 - $$;
 	}
 	|POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 		POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER digits
@@ -1901,8 +1941,90 @@ UINT64_T:
 				$1 << $2 << $3 << $4 << $5 << $6 << $7 << $8 << $9 << $10 << $11 << $12 << $13 << $14 << $15 << $16 << $17 << $18 << $19 << $20 << "... to uint64_t: too big value";
 	}
 	;
-	
+
 digits: POSITIVE_NUMBER |digits POSITIVE_NUMBER
+	
+	
+//=================================================================================================
+// Float types
+
+FLOAT_T:
+	major_float_digits '.' minor_float_digits
+	{
+		$$ = (float)$1.value + ((float)$3.value)/$3.digits;
+	}
+	|NEGATIVE_NUMBER major_float_digits '.' minor_float_digits
+	{
+		$$ = (float)$1 * $2.digits * 10.0F - (float)$2.value - ((float)$4.value)/$4.digits;	
+	}
+	|NEGATIVE_NUMBER '.' minor_float_digits
+	{
+		$$ = (float)$1 - ((float)$3.value)/$3.digits;	
+	}
+	|'-' '.' minor_float_digits
+	{
+		$$ = - ((float)$3.value)/$3.digits;	
+	}
+	
+	|major_float_digits '.' minor_float_digits float_exponent
+	{
+		$$ = ((float)$1.value + ((float)$3.value)/$3.digits) * pow(10.0, $4);
+	}
+	;
+
+major_float_digits: 
+	POSITIVE_NUMBER
+	{
+		$$.value = (int64_t)$1;
+		$$.digits = 1.0F;
+	}
+	|major_float_digits POSITIVE_NUMBER
+	{
+		$$.value = $$.value * (int64_t)10 + (int64_t)$2;
+		$$.digits = $$.digits * 10.0F;
+	}
+	;
+	
+minor_float_digits: 
+	POSITIVE_NUMBER
+	{
+		$$.value = (int64_t)$1;
+		$$.digits = 10.0F;
+	}
+	|minor_float_digits POSITIVE_NUMBER
+	{
+		$$.value = $$.value * (int64_t)10 + (int64_t)$2;
+		$$.digits = $$.digits * 10.0F;
+	}
+	;
+
+float_exponent: 
+	POSITIVE_EXPONENT_NUMBER
+	{
+		$$ = (float)$1;
+	}
+	|NEGATIVE_EXPONENT_NUMBER
+	{
+		$$ = (float)$1;
+	}
+	|POSITIVE_EXPONENT_NUMBER POSITIVE_NUMBER
+	{
+		$$ = (float)$1 * (float)10.0F + (float)$2;
+	}
+	|NEGATIVE_EXPONENT_NUMBER POSITIVE_NUMBER
+	{
+		$$ = (float)$1 * (float)10.0F - (float)$2;
+	}
+	|POSITIVE_EXPONENT_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
+	{
+		$$ = (float)$1 * (float)100.0F + (float)$2 * (float)10.0F + (float)$3;
+	}
+	|NEGATIVE_EXPONENT_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
+	{
+		$$ = (float)$1 * (float)100.0F - (float)$2 * (float)10.0F - (float)$3;
+	}
+	;
+
 
 %%
 //=================================================================================================

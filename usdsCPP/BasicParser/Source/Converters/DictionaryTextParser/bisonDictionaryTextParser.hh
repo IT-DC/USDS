@@ -81,21 +81,22 @@ namespace usds {
     #line 48 "bisonDictionaryTextParser.y" // lalr1.cc:371
 
     bool  			boolVal;
-	int8_t  		Int8Val;
-	uint8_t  		UInt8Val;
-	int16_t  		Int16Val;
-	uint16_t  		UInt16Val;
-	int32_t  		Int32Val;
-	uint32_t  		UInt32Val;
-	int64_t  		Int64Val;
-	uint64_t  		UInt64Val;
+	int8_t  		int8Val;
+	uint8_t  		uInt8Val;
+	int16_t  		int16Val;
+	uint16_t  		uInt16Val;
+	int32_t  		int32Val;
+	uint32_t  		uInt32Val;
+	int64_t  		int64Val;
+	uint64_t  		uInt64Val;
 	float 			floatVal;
     double 			doubleVal;
     size_t			stringVal[2];
 	usdsEncodes		encodeVal;
 	usdsTypes		typeVal;
+	struct			floatDigits { int64_t value; float digits; } floatDigits;
 
-#line 99 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 100 "bisonDictionaryTextParser.hh" // lalr1.cc:371
     };
 #else
     typedef DICTIONARY_TEXTSTYPE semantic_type;
@@ -130,18 +131,20 @@ namespace usds {
         TYPE_UINT128 = 270,
         TYPE_FLOAT = 271,
         TYPE_DOUBLE = 272,
-        DOUBLE = 273,
-        TYPE_VARINT = 274,
-        TYPE_UVARINT = 275,
-        TYPE_STRING = 276,
-        STRING_ENCODE = 277,
-        BOOLEAN_VALUE = 278,
-        POSITIVE_NUMBER = 279,
-        NEGATIVE_NUMBER = 280,
-        NULL_VALUE = 281,
-        TEXT_NAME = 282,
-        USDS_RESTRICT = 283,
-        NOT_ROOT_TAG = 284
+        TYPE_VARINT = 273,
+        TYPE_UVARINT = 274,
+        TYPE_STRING = 275,
+        STRING_ENCODE = 276,
+        BOOLEAN_VALUE = 277,
+        POSITIVE_NUMBER = 278,
+        NEGATIVE_NUMBER = 279,
+        POSITIVE_EXPONENT_NUMBER = 280,
+        NEGATIVE_EXPONENT_NUMBER = 281,
+        NULL_VALUE = 282,
+        TEXT_STRING = 283,
+        TEXT_NAME = 284,
+        USDS_RESTRICT = 285,
+        NOT_ROOT_TAG = 286
       };
     };
 
@@ -290,7 +293,7 @@ namespace usds {
     /// \param yyvalue   the value to check
     static bool yy_table_value_is_error_ (int yyvalue);
 
-    static const signed char yypact_ninf_;
+    static const short int yypact_ninf_;
     static const signed char yytable_ninf_;
 
     /// Convert a scanner token number \a t to a symbol number.
@@ -432,13 +435,13 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 344,           //< Last index in yytable_.
-      yynnts_ = 18,  //< Number of nonterminal symbols.
+      yylast_ = 383,           //< Last index in yytable_.
+      yynnts_ = 22,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 4, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 46    //< Number of tokens.
+      yyntokens_ = 53    //< Number of tokens.
     };
 
 
@@ -453,7 +456,7 @@ namespace usds {
 
 #line 36 "bisonDictionaryTextParser.y" // lalr1.cc:371
 } // usds
-#line 457 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 460 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 
 
 
