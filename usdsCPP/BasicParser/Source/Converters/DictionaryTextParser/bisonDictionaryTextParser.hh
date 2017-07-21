@@ -307,7 +307,7 @@ namespace usds {
   // YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
   // Performed when YYTABLE does not specify something else to do.  Zero
   // means the default is an error.
-  static const unsigned char yydefact_[];
+  static const unsigned short int yydefact_[];
 
   // YYPGOTO[NTERM-NUM].
   static const short int yypgoto_[];
@@ -435,7 +435,7 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 383,           //< Last index in yytable_.
+      yylast_ = 424,           //< Last index in yytable_.
       yynnts_ = 22,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 4, //< Termination state number.

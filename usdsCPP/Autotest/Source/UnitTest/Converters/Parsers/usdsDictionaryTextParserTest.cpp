@@ -21,10 +21,14 @@
 #include "dictionary/dataTypes/dictionaryStruct.h"
 #include "dictionary/dataTypes/dictionaryTagLink.h"
 
+#include <sstream>
+#include <iostream>
+
+
 // Test simple types for array's element
 void DictionaryTextParserTest::test_1()
 {
-	usds::DictionaryTextParser* pareser = new usds::DictionaryTextParser();
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
 	
 	// step 1
@@ -44,7 +48,7 @@ void DictionaryTextParserTest::test_1()
 			12: VARINT varint;\
 			13: UVARINT uvarint;\
 			}";
-	pareser->parse(text_dict, usds::USDS_UTF8, &dict);
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	const char* dict_name = dict.getDictionaryName();
 	if (dict.getTagNumber() != 13 || dict.getDictionaryID() != 888 || dict.getMajorVersion() != 1 || dict.getMinorVersion() != 0 || strcmp(dict_name, "MyLittleAPI") != 0)
 		throw "Failed at the step 1\n";
@@ -146,7 +150,7 @@ void DictionaryTextParserTest::test_1()
 
 void DictionaryTextParserTest::test_2()
 {
-	usds::DictionaryTextParser* pareser = new usds::DictionaryTextParser();
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
 
 	// step 1
@@ -155,7 +159,7 @@ void DictionaryTextParserTest::test_2()
 			1: STRING str1;\
 			2: STRING<UTF-8> str2;\
 		}";
-	pareser->parse(text_dict, usds::USDS_UTF8, &dict);
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 2 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 1)
 		throw "Failed at the step 1\n";
 
@@ -181,7 +185,7 @@ void DictionaryTextParserTest::test_2()
 
 void DictionaryTextParserTest::test_3()
 {
-	usds::DictionaryTextParser* pareser = new usds::DictionaryTextParser();
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
 
 	// step 1
@@ -210,7 +214,7 @@ void DictionaryTextParserTest::test_3()
 				1: struct internal_struct;\
 			};\
 		}";
-	pareser->parse(text_dict, usds::USDS_UTF8, &dict);
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 2 || dict.getDictionaryID() != 1 || dict.getMajorVersion() != 1 || dict.getMinorVersion() != 1)
 		throw "Failed at the step 1\n";
 
@@ -336,7 +340,7 @@ void DictionaryTextParserTest::test_3()
 
 void DictionaryTextParserTest::test_4()
 {
-	usds::DictionaryTextParser* pareser = new usds::DictionaryTextParser();
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
 
 	// step 1
@@ -368,7 +372,7 @@ void DictionaryTextParserTest::test_4()
 				1: BOOLEAN bool;\
 			};\
 		}";
-	pareser->parse(text_dict, usds::USDS_UTF8, &dict);
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 3 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 0)
 		throw "Failed at the step 1\n";
 
@@ -478,7 +482,7 @@ void DictionaryTextParserTest::test_4()
 
 void DictionaryTextParserTest::test_5()
 {
-	usds::DictionaryTextParser* pareser = new usds::DictionaryTextParser();
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
 
 	// step 1
@@ -503,7 +507,7 @@ void DictionaryTextParserTest::test_5()
 				15: STRING<UTF-8> string2 = NULL;\
 			};\
 		}";
-	pareser->parse(text_dict, usds::USDS_UTF8, &dict);
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 1 || dict.getDictionaryID() != 4294967295 || dict.getMajorVersion() != 55 || dict.getMinorVersion() != 255)
 		throw "Failed at the step 1\n";
 	
@@ -608,7 +612,7 @@ void DictionaryTextParserTest::test_5()
 
 void DictionaryTextParserTest::test_6()
 {
-	usds::DictionaryTextParser* pareser = new usds::DictionaryTextParser();
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
 
 	// step 1
@@ -625,7 +629,7 @@ void DictionaryTextParserTest::test_6()
 			};\
 			2: BYTE byte;\
 		}";
-	pareser->parse(text_dict, usds::USDS_UTF8, &dict);
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 2 || dict.getDictionaryID() != 3000000000 || dict.getMajorVersion() != 254 || dict.getMinorVersion() != 125)
 		throw "Failed at the step 1\n";
 
@@ -661,11 +665,368 @@ void DictionaryTextParserTest::test_6()
 
 }
 
-// TODO autotests for all integers in text dictionary
-
 void DictionaryTextParserTest::test_7()
 {
-	usds::DictionaryTextParser* pareser = new usds::DictionaryTextParser();
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+	std::string text_dictionary;
+	std::stringstream buffer;
+
+	// step 1
+	int64_t digit64 = 1;
+	int64_t first_value64 = 0;
+	for (size_t i = 1; i < 20; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			buffer.str("");
+			buffer << "USDS U 0.0.0 { 1: struct { 1: VARINT varint = " << first_value64 << "; }; }\n";
+			text_dictionary = buffer.str();
+			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+			int64_t value = ((usds::DictionaryVarint*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+			if (first_value64 != value)
+				throw "Failed at the step 1\n";
+			dict.clear();
+			first_value64 = first_value64 + digit64;
+		}
+		first_value64 = first_value64 - digit64;
+		digit64 = digit64 * 10;
+	}
+
+	// step 2
+	digit64 = 1;
+	first_value64 = 0;
+	for (size_t i = 1; i < 20; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			buffer.str("");
+			buffer << "USDS U 0.0.0 { 1: struct { 1: VARINT varint = " << first_value64 << "; }; }\n";
+			text_dictionary = buffer.str();
+			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+			int64_t value = ((usds::DictionaryVarint*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+			if (first_value64 != value)
+				throw "Failed at the step 1\n";
+			dict.clear();
+			first_value64 = first_value64 - digit64;
+		}
+		first_value64 = first_value64 + digit64;
+		digit64 = digit64 * 10;
+	}
+
+	// step 3
+	int32_t digit32 = 1;
+	int32_t first_value32 = 0;
+	for (size_t i = 1; i < 11; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			buffer.str("");
+			buffer << "USDS U 0.0.0 { 1: struct { 1: INT int = " << first_value32 << "; }; }\n";
+			text_dictionary = buffer.str();
+			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+			int64_t value = ((usds::DictionaryInt*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+			if (first_value32 != value)
+				throw "Failed at the step 3\n";
+			dict.clear();
+			first_value32 = first_value32 + digit32;
+		}
+		first_value32 = first_value32 - digit32;
+		digit32 = digit32 * 10;
+	}
+
+	// step 4
+	digit32 = 1;
+	first_value32 = 0;
+	for (size_t i = 1; i < 11; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			buffer.str("");
+			buffer << "USDS U 0.0.0 { 1: struct { 1: INT int = " << first_value32 << "; }; }\n";
+			text_dictionary = buffer.str();
+			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+			int64_t value = ((usds::DictionaryInt*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+			if (first_value32 != value)
+				throw "Failed at the step 4\n";
+			dict.clear();
+			first_value32 = first_value32 - digit32;
+		}
+		first_value32 = first_value32 + digit32;
+		digit32 = digit32 * 10;
+	}
+
+	// step 5
+	int16_t digit16 = 1;
+	int16_t first_value16 = 0;
+	for (size_t i = 1; i < 6; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			buffer.str("");
+			buffer << "USDS U 0.0.0 { 1: struct { 1: SHORT short = " << first_value16 << "; }; }\n";
+			text_dictionary = buffer.str();
+			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+			int64_t value = ((usds::DictionaryShort*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+			if (first_value16 != value)
+				throw "Failed at the step 5\n";
+			dict.clear();
+			first_value16 = first_value16 + digit16;
+		}
+		first_value16 = first_value16 - digit16;
+		digit16 = digit16 * 10;
+	}
+
+	// step 6
+	digit16 = 1;
+	first_value16 = 0;
+	for (size_t i = 1; i < 6; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			buffer.str("");
+			buffer << "USDS U 0.0.0 { 1: struct { 1: SHORT short = " << first_value16 << "; }; }\n";
+			text_dictionary = buffer.str();
+			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+			int64_t value = ((usds::DictionaryShort*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+			if (first_value16 != value)
+				throw "Failed at the step 6\n";
+			dict.clear();
+			first_value16 = first_value16 - digit16;
+		}
+		first_value16 = first_value16 + digit16;
+		digit16 = digit16 * 10;
+	}
+
+	// step 7
+	for (int32_t i = -127; i <= 127; i++)
+	{
+		buffer.str("");
+		buffer << "USDS U 0.0.0 { 1: struct { 1: BYTE byte = " << i << "; }; }\n";
+		text_dictionary = buffer.str();
+		parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+		int32_t value = ((usds::DictionaryByte*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+		if (i != value)
+			throw "Failed at the step 7\n";
+		dict.clear();
+	}
+
+	// step 8
+	for (int32_t i = 0; i <= 255; i++)
+	{
+		buffer.str("");
+		buffer << "USDS U 0.0.0 { 1: struct { 1: UBYTE ubyte = " << i << "; }; }\n";
+		text_dictionary = buffer.str();
+		parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+		int32_t value = ((usds::DictionaryUByte*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+		if (i != value)
+			throw "Failed at the step 8\n";
+		dict.clear();
+	}
+
+	// step 9
+	uint64_t digitu64 = 1;
+	uint64_t first_valueu64 = 0;
+	for (size_t i = 1; i < 21; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			buffer.str("");
+			buffer << "USDS U 0.0.0 { 1: struct { 1: UVARINT uvarint = " << first_valueu64 << "; }; }\n";
+			text_dictionary = buffer.str();
+			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+			uint64_t value = ((usds::DictionaryUVarint*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+			if (first_valueu64 != value)
+				throw "Failed at the step 9\n";
+			dict.clear();
+			first_valueu64 = first_valueu64 + digitu64;
+		}
+		first_valueu64 = first_valueu64 - digitu64;
+		digitu64 = digitu64 * 10;
+	}
+
+	// step 10
+	uint32_t digitu32 = 1;
+	uint32_t first_valueu32 = 0;
+	for (size_t i = 1; i < 11; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			buffer.str("");
+			buffer << "USDS U 0.0.0 { 1: struct { 1: UINT uint = " << first_valueu32 << "; }; }\n";
+			text_dictionary = buffer.str();
+			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+			uint32_t value = ((usds::DictionaryUInt*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+			if (first_valueu32 != value)
+				throw "Failed at the step 10\n";
+			dict.clear();
+			first_valueu32 = first_valueu32 + digitu32;
+		}
+		first_valueu32 = first_valueu32 - digitu32;
+		digitu32 = digitu32 * 10;
+	}
+
+	// step 11
+	uint16_t digitu16 = 1;
+	uint16_t first_valueu16 = 0;
+	for (size_t i = 1; i < 6; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			buffer.str("");
+			buffer << "USDS U 0.0.0 { 1: struct { 1: USHORT ushort = " << first_valueu16 << "; }; }\n";
+			text_dictionary = buffer.str();
+			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
+			uint16_t value = ((usds::DictionaryShort*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+			if (first_valueu16 != value)
+				throw "Failed at the step 5\n";
+			dict.clear();
+			first_valueu16 = first_valueu16 + digitu16;
+		}
+		first_valueu16 = first_valueu16 - digitu16;
+		digitu16 = digitu16 * 10;
+	}
+
+}
+
+
+void DictionaryTextParserTest::test_8()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	const size_t size = 77;
+	const char* dicts[size] = {
+		"USDS U 0.0.0 { 1: struct { 1: BYTE value = 128;};}",
+		"USDS U 0.0.0 { 1: struct { 1: BYTE value = -129;};}",
+		"USDS U 0.0.0 { 1: struct { 1: BYTE value = 200;};}",
+		"USDS U 0.0.0 { 1: struct { 1: BYTE value = -200;};}",
+		"USDS U 0.0.0 { 1: struct { 1: BYTE value = 1000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: BYTE value = -1000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = 256;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = 300;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = 1000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = -1;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = -10;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = -255;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = -1000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: SHORT value = 32768;};}",
+		"USDS U 0.0.0 { 1: struct { 1: SHORT value = -32769;};}",
+		"USDS U 0.0.0 { 1: struct { 1: SHORT value = 40000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: SHORT value = -40000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: SHORT value = 100000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: SHORT value = -100000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: USHORT value = 65536;};}",
+
+		"USDS U 0.0.0 { 1: struct { 1: USHORT value = 70000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: USHORT value = 100000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -1;};}",
+		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -10;};}",
+		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -100;};}",
+		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -1000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -10000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -100000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: INT value = 2147483648;};}",
+		"USDS U 0.0.0 { 1: struct { 1: INT value = 3000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: INT value = 10000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: INT value = -2147483649;};}",
+		"USDS U 0.0.0 { 1: struct { 1: INT value = -3000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: INT value = -10000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = 4294967296;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = 5000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = 10000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -1;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -10;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -100;};}",
+
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -1000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -10000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -100000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -1000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -10000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -100000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -1000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: UINT value = -10000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: LONG value = 9223372036854775808;};}",
+		"USDS U 0.0.0 { 1: struct { 1: LONG value = 10000000000000000000};}",
+		"USDS U 0.0.0 { 1: struct { 1: LONG value = -9223372036854775809;};}",
+		"USDS U 0.0.0 { 1: struct { 1: LONG value = -10000000000000000000};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = 18446744073709551616;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = 28446744073709551616;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = 108446744073709551616;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000;};}",
+
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000000000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000000000000000;};}",
+		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000000000000000;};}",
+	};
+
+	// step 1
+	for (size_t i = 0; i < size; i++)
+	{
+		try
+		{
+			parser->parse(dicts[i], usds::USDS_UTF8, &dict);
+			throw "Failed at the step 1\n";
+		}
+		catch (usds::ErrorStack& err)
+		{
+			if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+			{
+				throw "Failed at the step 2\n";
+			}
+		}
+		dict.clear();
+	}
+
+}
+
+void DictionaryTextParserTest::test_9()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	const size_t size = 1;
+	struct dicts { const char* text; float value;} dicts[size];
+
+	dicts[0].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 125;};}";
+	dicts[0].value = 125.0F;
+
+	// step 1
+	for (size_t i = 0; i < size; i++)
+	{
+		parser->parse(dicts[i].text, usds::USDS_UTF8, &dict);
+		float value = ((usds::DictionaryFloat*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
+		if (value != dicts[i].value)
+			throw "Failed at the step 1\n";
+	}
+
+
+
+}
+
+
+void DictionaryTextParserTest::test_10()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
 
 	// step 1
@@ -687,8 +1048,8 @@ void DictionaryTextParserTest::test_7()
 				12: LONG long = 9223372036854775807;\n\
 				13: LONG long2 = -9223372036854775808;\n\
 				14: ULONG ulong = 18446744073709551615;\n\
-				15: FLOAT float = 1.125e1;\n\
-				16: DOUBLE double = 0.125;\n\
+				15: FLOAT float = 1.125e2;\n\
+				16: DOUBLE double = -.125;\n\
 				17: VARINT varint = 9223372036854775807;\n\
 				18: VARINT varint2 = -9223372036854775808;\n\
 				19: UVARINT uvarint = 18446744073709551615;\n\
@@ -696,7 +1057,7 @@ void DictionaryTextParserTest::test_7()
 				21: STRING<UTF-8> string2 = \"\";\n\
 			};\n\
 		}";
-	pareser->parse(text_dict, usds::USDS_UTF8, &dict);
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 1 || dict.getDictionaryID() != 4294967295 || dict.getMajorVersion() != 55 || dict.getMinorVersion() != 255)
 		throw "Failed at the step 1\n";
 
@@ -793,9 +1154,14 @@ void DictionaryTextParserTest::test_7()
 	// step 17
 	field = tag->getField(15);
 	name = field->getName();
-	if (strcmp(name, "float") != 0 || field->getType() != usds::USDS_FLOAT || field->isNullable() != false || ((usds::DictionaryFloat*)field)->getDefaultValue() != 11.25F)
+	if (strcmp(name, "float") != 0 || field->getType() != usds::USDS_FLOAT || field->isNullable() != false || ((usds::DictionaryFloat*)field)->getDefaultValue() != 112.5F)
 		throw "Failed at the step 17\n";
 
+	// step 18
+	field = tag->getField(16);
+	name = field->getName();
+	if (strcmp(name, "double") != 0 || field->getType() != usds::USDS_DOUBLE || field->isNullable() != false || ((usds::DictionaryDouble*)field)->getDefaultValue() != -0.125)
+		throw "Failed at the step 18\n";
 
 
 }

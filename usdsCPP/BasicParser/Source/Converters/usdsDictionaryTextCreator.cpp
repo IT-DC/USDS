@@ -49,7 +49,7 @@ try
 	if (encode != USDS_UTF8)
 		throw ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_ENCODE) << "Unsupported encode, use USDS_UTF8. Your value: " << encode;
 
-	textBuff.clear();
+	textBuff.str("");
 
 	textBuff << "USDS DICTIONARY ID=" << dict->getDictionaryID() << " v." << int(dict->getMajorVersion()) << "." << int(dict->getMinorVersion()) << "\n";
 	textBuff << "{\n";
