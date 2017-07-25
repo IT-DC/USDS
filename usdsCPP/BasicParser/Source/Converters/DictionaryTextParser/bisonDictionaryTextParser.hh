@@ -94,7 +94,7 @@ namespace usds {
     size_t			stringVal[2];
 	usdsEncodes		encodeVal;
 	usdsTypes		typeVal;
-	struct			floatDigits { int64_t value; float digits; } floatDigits;
+	struct			floatDigits { double value; double digits; } floatDigits;
 
 #line 100 "bisonDictionaryTextParser.hh" // lalr1.cc:371
     };
@@ -138,13 +138,13 @@ namespace usds {
         BOOLEAN_VALUE = 277,
         POSITIVE_NUMBER = 278,
         NEGATIVE_NUMBER = 279,
-        POSITIVE_EXPONENT_NUMBER = 280,
-        NEGATIVE_EXPONENT_NUMBER = 281,
-        NULL_VALUE = 282,
-        TEXT_STRING = 283,
-        TEXT_NAME = 284,
-        USDS_RESTRICT = 285,
-        NOT_ROOT_TAG = 286
+        NULL_VALUE = 280,
+        TEXT_STRING = 281,
+        TEXT_NAME = 282,
+        USDS_RESTRICT = 283,
+        NOT_ROOT_TAG = 284,
+        POSITIVE_EXPONENT_NUMBER = 297,
+        NEGATIVE_EXPONENT_NUMBER = 298
       };
     };
 
@@ -435,13 +435,13 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 424,           //< Last index in yytable_.
-      yynnts_ = 22,  //< Number of nonterminal symbols.
+      yylast_ = 427,           //< Last index in yytable_.
+      yynnts_ = 23,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 4, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 53    //< Number of tokens.
+      yyntokens_ = 54    //< Number of tokens.
     };
 
 

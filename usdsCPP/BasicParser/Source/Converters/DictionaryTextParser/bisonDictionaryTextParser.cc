@@ -77,7 +77,7 @@
 #include "bisonDictionaryTextParser.hh"
 
 // User implementation prologue.
-#line 124 "bisonDictionaryTextParser.y" // lalr1.cc:406
+#line 125 "bisonDictionaryTextParser.y" // lalr1.cc:406
 
 #undef yylex
 #define yylex scanner->scan
@@ -619,7 +619,7 @@ namespace usds {
         switch (yyn)
           {
   case 2:
-#line 134 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 135 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		dict->setID(input_text + (yystack_[5].value.stringVal)[0], (yystack_[5].value.stringVal)[1], (yystack_[4].value.uInt32Val), (yystack_[2].value.uInt8Val), (yystack_[0].value.uInt8Val));
 	}
@@ -627,7 +627,7 @@ namespace usds {
     break;
 
   case 3:
-#line 138 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 139 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		// Finilize dictionary
 		dict->finalizeDictionary();
@@ -636,7 +636,7 @@ namespace usds {
     break;
 
   case 6:
-#line 151 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 152 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -644,7 +644,7 @@ namespace usds {
     break;
 
   case 7:
-#line 155 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 156 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -652,7 +652,7 @@ namespace usds {
     break;
 
   case 8:
-#line 159 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 160 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -660,7 +660,7 @@ namespace usds {
     break;
 
   case 9:
-#line 163 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 164 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -668,7 +668,7 @@ namespace usds {
     break;
 
   case 10:
-#line 167 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 168 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -676,7 +676,7 @@ namespace usds {
     break;
 
   case 11:
-#line 171 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 172 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -684,7 +684,7 @@ namespace usds {
     break;
 
   case 12:
-#line 175 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 176 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -692,7 +692,7 @@ namespace usds {
     break;
 
   case 13:
-#line 179 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 180 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -700,7 +700,7 @@ namespace usds {
     break;
 
   case 14:
-#line 183 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 184 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -708,7 +708,7 @@ namespace usds {
     break;
 
   case 15:
-#line 187 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 188 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -716,7 +716,7 @@ namespace usds {
     break;
 
   case 16:
-#line 191 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 192 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -724,7 +724,7 @@ namespace usds {
     break;
 
   case 17:
-#line 195 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 196 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -732,7 +732,7 @@ namespace usds {
     break;
 
   case 18:
-#line 199 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 200 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -740,7 +740,7 @@ namespace usds {
     break;
 
   case 19:
-#line 203 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 204 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -748,7 +748,7 @@ namespace usds {
     break;
 
   case 20:
-#line 207 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 208 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -756,7 +756,7 @@ namespace usds {
     break;
 
   case 21:
-#line 211 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 212 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -764,7 +764,7 @@ namespace usds {
     break;
 
   case 22:
-#line 215 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 216 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag((yystack_[5].value.typeVal), (yystack_[7].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 		((DictionaryString*)tag)->setDefaultEncode((yystack_[3].value.encodeVal));
@@ -773,7 +773,7 @@ namespace usds {
     break;
 
   case 23:
-#line 220 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 221 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = dict->addTag(USDS_STRUCT, (yystack_[3].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -781,7 +781,7 @@ namespace usds {
     break;
 
   case 24:
-#line 224 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 225 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 	
 	}
@@ -789,7 +789,7 @@ namespace usds {
     break;
 
   case 27:
-#line 236 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 237 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -797,7 +797,7 @@ namespace usds {
     break;
 
   case 28:
-#line 240 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 241 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -805,7 +805,7 @@ namespace usds {
     break;
 
   case 29:
-#line 244 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 245 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -813,7 +813,7 @@ namespace usds {
     break;
 
   case 30:
-#line 248 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 249 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -821,7 +821,7 @@ namespace usds {
     break;
 
   case 31:
-#line 252 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 253 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -829,7 +829,7 @@ namespace usds {
     break;
 
   case 32:
-#line 256 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 257 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -837,7 +837,7 @@ namespace usds {
     break;
 
   case 33:
-#line 260 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 261 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -845,7 +845,7 @@ namespace usds {
     break;
 
   case 34:
-#line 264 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 265 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -853,7 +853,7 @@ namespace usds {
     break;
 
   case 35:
-#line 268 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 269 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -861,7 +861,7 @@ namespace usds {
     break;
 
   case 36:
-#line 272 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 273 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -869,7 +869,7 @@ namespace usds {
     break;
 
   case 37:
-#line 276 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 277 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -877,7 +877,7 @@ namespace usds {
     break;
 
   case 38:
-#line 280 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 281 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -885,7 +885,7 @@ namespace usds {
     break;
 
   case 39:
-#line 284 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 285 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -893,7 +893,7 @@ namespace usds {
     break;
 
   case 40:
-#line 288 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 289 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -901,7 +901,7 @@ namespace usds {
     break;
 
   case 41:
-#line 292 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 293 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -909,7 +909,7 @@ namespace usds {
     break;
 
   case 42:
-#line 296 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 297 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		((DictionaryStruct*)tag)->addField((yystack_[2].value.typeVal), (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -917,7 +917,7 @@ namespace usds {
     break;
 
   case 43:
-#line 300 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 301 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		field = ((DictionaryStruct*)tag)->addField((yystack_[5].value.typeVal), (yystack_[7].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 		((DictionaryString*)field)->setDefaultEncode((yystack_[3].value.encodeVal));
@@ -926,7 +926,7 @@ namespace usds {
     break;
 
   case 44:
-#line 305 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 306 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		field = ((DictionaryStruct*)tag)->addField(usds::USDS_TAG, (yystack_[4].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 		((DictionaryTagLink*)field)->setTag(input_text + (yystack_[2].value.stringVal)[0], (yystack_[2].value.stringVal)[1]);
@@ -935,7 +935,7 @@ namespace usds {
     break;
 
   case 45:
-#line 310 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 311 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = tag->getParent();
 	}
@@ -943,7 +943,7 @@ namespace usds {
     break;
 
   case 46:
-#line 317 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 318 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -952,7 +952,7 @@ namespace usds {
     break;
 
   case 47:
-#line 322 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 323 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -961,7 +961,7 @@ namespace usds {
     break;
 
   case 48:
-#line 327 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 328 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -970,7 +970,7 @@ namespace usds {
     break;
 
   case 49:
-#line 332 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 333 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -979,7 +979,7 @@ namespace usds {
     break;
 
   case 50:
-#line 337 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 338 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -988,7 +988,7 @@ namespace usds {
     break;
 
   case 51:
-#line 342 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 343 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -997,7 +997,7 @@ namespace usds {
     break;
 
   case 52:
-#line 347 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 348 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1006,7 +1006,7 @@ namespace usds {
     break;
 
   case 53:
-#line 352 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 353 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1015,7 +1015,7 @@ namespace usds {
     break;
 
   case 54:
-#line 357 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 358 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1024,7 +1024,7 @@ namespace usds {
     break;
 
   case 55:
-#line 362 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 363 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1033,7 +1033,7 @@ namespace usds {
     break;
 
   case 56:
-#line 367 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 368 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1042,7 +1042,7 @@ namespace usds {
     break;
 
   case 57:
-#line 372 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 373 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1051,7 +1051,7 @@ namespace usds {
     break;
 
   case 58:
-#line 377 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 378 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1060,7 +1060,7 @@ namespace usds {
     break;
 
   case 59:
-#line 382 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 383 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1069,7 +1069,7 @@ namespace usds {
     break;
 
   case 60:
-#line 387 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 388 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1078,7 +1078,7 @@ namespace usds {
     break;
 
   case 61:
-#line 392 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 393 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		dict_field->setNullable(true);
@@ -1087,7 +1087,7 @@ namespace usds {
     break;
 
   case 62:
-#line 397 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 398 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField((yystack_[7].value.typeVal), (yystack_[9].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		((DictionaryString*)dict_field)->setDefaultEncode((yystack_[5].value.encodeVal));
@@ -1097,7 +1097,7 @@ namespace usds {
     break;
 
   case 63:
-#line 403 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 404 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		field = ((DictionaryStruct*)tag)->addField(usds::USDS_TAG, (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]);
 		((DictionaryTagLink*)field)->setTag(input_text + (yystack_[4].value.stringVal)[0], (yystack_[4].value.stringVal)[1]);
@@ -1107,7 +1107,7 @@ namespace usds {
     break;
 
   case 64:
-#line 409 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 410 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag->setNullable(true);
 		tag = tag->getParent();
@@ -1116,7 +1116,7 @@ namespace usds {
     break;
 
   case 65:
-#line 416 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 417 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryBoolean* dict_field = (usds::DictionaryBoolean*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.boolVal));
@@ -1125,7 +1125,7 @@ namespace usds {
     break;
 
   case 66:
-#line 421 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 422 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryByte* dict_field = (usds::DictionaryByte*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.int8Val));
@@ -1134,7 +1134,7 @@ namespace usds {
     break;
 
   case 67:
-#line 426 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 427 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryUByte* dict_field = (usds::DictionaryUByte*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.uInt8Val));
@@ -1143,7 +1143,7 @@ namespace usds {
     break;
 
   case 68:
-#line 431 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 432 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryShort* dict_field = (usds::DictionaryShort*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.int16Val));
@@ -1152,7 +1152,7 @@ namespace usds {
     break;
 
   case 69:
-#line 436 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 437 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryUShort* dict_field = (usds::DictionaryUShort*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.uInt16Val));
@@ -1161,7 +1161,7 @@ namespace usds {
     break;
 
   case 70:
-#line 441 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 442 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryInt* dict_field = (usds::DictionaryInt*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.int32Val));
@@ -1170,7 +1170,7 @@ namespace usds {
     break;
 
   case 71:
-#line 446 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 447 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryUInt* dict_field = (usds::DictionaryUInt*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.uInt32Val));
@@ -1179,7 +1179,7 @@ namespace usds {
     break;
 
   case 72:
-#line 451 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 452 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryLong* dict_field = (usds::DictionaryLong*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.int64Val));
@@ -1188,7 +1188,7 @@ namespace usds {
     break;
 
   case 73:
-#line 456 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 457 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryULong* dict_field = (usds::DictionaryULong*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.uInt64Val));
@@ -1197,25 +1197,25 @@ namespace usds {
     break;
 
   case 74:
-#line 461 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 462 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryFloat* dict_field = (usds::DictionaryFloat*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
-		dict_field->setDefaultValue((yystack_[1].value.floatVal));
+		dict_field->setDefaultValue((float)(yystack_[1].value.doubleVal));
 	}
 #line 1206 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 75:
-#line 466 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 467 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryDouble* dict_field = (usds::DictionaryDouble*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
-		dict_field->setDefaultValue((yystack_[1].value.floatVal));
+		dict_field->setDefaultValue((yystack_[1].value.doubleVal));
 	}
 #line 1215 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 76:
-#line 471 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 472 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryVarint* dict_field = (usds::DictionaryVarint*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.int64Val));
@@ -1224,7 +1224,7 @@ namespace usds {
     break;
 
   case 77:
-#line 476 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 477 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryVarint* dict_field = (usds::DictionaryVarint*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValue((yystack_[1].value.uInt64Val));
@@ -1233,7 +1233,7 @@ namespace usds {
     break;
 
   case 78:
-#line 481 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 482 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryString* dict_field = (usds::DictionaryString*)(((DictionaryStruct*)tag)->addField((yystack_[4].value.typeVal), (yystack_[6].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultValueFromUTF8(input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
@@ -1242,7 +1242,7 @@ namespace usds {
     break;
 
   case 79:
-#line 486 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 487 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		usds::DictionaryString* dict_field = (usds::DictionaryString*)(((DictionaryStruct*)tag)->addField((yystack_[7].value.typeVal), (yystack_[9].value.int32Val), input_text + (yystack_[3].value.stringVal)[0], (yystack_[3].value.stringVal)[1]));
 		dict_field->setDefaultEncode((yystack_[5].value.encodeVal));
@@ -1252,7 +1252,7 @@ namespace usds {
     break;
 
   case 80:
-#line 495 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 496 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		tag = ((DictionaryStruct*)tag)->addField(usds::USDS_STRUCT, (yystack_[3].value.int32Val), input_text + (yystack_[1].value.stringVal)[0], (yystack_[1].value.stringVal)[1]);
 	}
@@ -1260,7 +1260,7 @@ namespace usds {
     break;
 
   case 81:
-#line 505 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 506 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int8Val) = (int8_t)(yystack_[0].value.int8Val);
 	}
@@ -1268,7 +1268,7 @@ namespace usds {
     break;
 
   case 82:
-#line 509 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 510 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int8Val) = (int8_t)(yystack_[0].value.int8Val);
 	}
@@ -1276,7 +1276,7 @@ namespace usds {
     break;
 
   case 83:
-#line 513 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 514 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int8Val) = (int8_t)(yystack_[1].value.int8Val) * (int8_t)10 + (int8_t)(yystack_[0].value.int8Val);
 	}
@@ -1284,7 +1284,7 @@ namespace usds {
     break;
 
   case 84:
-#line 517 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 518 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int8Val) = (int8_t)(yystack_[1].value.int8Val) * (int8_t)10 - (int8_t)(yystack_[0].value.int8Val);
 	}
@@ -1292,7 +1292,7 @@ namespace usds {
     break;
 
   case 85:
-#line 521 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 522 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[2].value.int8Val) > (int8_t)1)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to int8_t: too big value";
@@ -1309,7 +1309,7 @@ namespace usds {
     break;
 
   case 86:
-#line 534 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 535 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[2].value.int8Val) < (int8_t)-1)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to int8_t: too big value";
@@ -1326,7 +1326,7 @@ namespace usds {
     break;
 
   case 87:
-#line 547 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 548 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to int8_t: too big value";
 	}
@@ -1334,7 +1334,7 @@ namespace usds {
     break;
 
   case 88:
-#line 551 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 552 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to int8_t: too big value";
 	}
@@ -1342,7 +1342,7 @@ namespace usds {
     break;
 
   case 89:
-#line 558 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 559 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt8Val) = (uint8_t)(yystack_[0].value.int8Val);
 	}
@@ -1350,7 +1350,7 @@ namespace usds {
     break;
 
   case 90:
-#line 562 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 563 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[0].value.int8Val) << " to uint8_t: negative value";
 	}
@@ -1358,7 +1358,7 @@ namespace usds {
     break;
 
   case 91:
-#line 566 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 567 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt8Val) = (uint8_t)(yystack_[1].value.int8Val) * (uint8_t)10 + (uint8_t)(yystack_[0].value.int8Val);
 	}
@@ -1366,7 +1366,7 @@ namespace usds {
     break;
 
   case 92:
-#line 570 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 571 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint8_t: negative value";
 	}
@@ -1374,7 +1374,7 @@ namespace usds {
     break;
 
   case 93:
-#line 574 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 575 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[2].value.int8Val) > (int8_t)2)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint8_t: too big value";
@@ -1391,7 +1391,7 @@ namespace usds {
     break;
 
   case 94:
-#line 587 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 588 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint8_t: negative value";
 	}
@@ -1399,7 +1399,7 @@ namespace usds {
     break;
 
   case 95:
-#line 591 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 592 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint8_t: too big value";
 	}
@@ -1407,7 +1407,7 @@ namespace usds {
     break;
 
   case 96:
-#line 595 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 596 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint8_t: too big value";
 	}
@@ -1415,7 +1415,7 @@ namespace usds {
     break;
 
   case 97:
-#line 605 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 606 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int16Val) = (int16_t)(yystack_[0].value.int8Val);
 	}
@@ -1423,7 +1423,7 @@ namespace usds {
     break;
 
   case 98:
-#line 609 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 610 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int16Val) = (int16_t)(yystack_[0].value.int8Val);
 	}
@@ -1431,7 +1431,7 @@ namespace usds {
     break;
 
   case 99:
-#line 613 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 614 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int16Val) = 
 		(int16_t)(yystack_[1].value.int8Val) * (int16_t)10 + 
@@ -1441,7 +1441,7 @@ namespace usds {
     break;
 
   case 100:
-#line 619 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 620 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int16Val) = 
 		(int16_t)(yystack_[1].value.int8Val) * (int16_t)10 - 
@@ -1451,7 +1451,7 @@ namespace usds {
     break;
 
   case 101:
-#line 625 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 626 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int16Val) = 
 		(int16_t)(yystack_[2].value.int8Val) * (int16_t)100 + 
@@ -1462,7 +1462,7 @@ namespace usds {
     break;
 
   case 102:
-#line 632 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 633 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int16Val) = 
 		(int16_t)(yystack_[2].value.int8Val) * (int16_t)100 - 
@@ -1473,7 +1473,7 @@ namespace usds {
     break;
 
   case 103:
-#line 639 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 640 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int16Val) = 
 		(int16_t)(yystack_[3].value.int8Val) * (int16_t)1000 + 
@@ -1485,7 +1485,7 @@ namespace usds {
     break;
 
   case 104:
-#line 647 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 648 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int16Val) = 
 		(int16_t)(yystack_[3].value.int8Val) * (int16_t)1000 - 
@@ -1497,7 +1497,7 @@ namespace usds {
     break;
 
   case 105:
-#line 655 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 656 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[4].value.int8Val) > (int8_t)3)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to int16_t: too big value";
@@ -1517,7 +1517,7 @@ namespace usds {
     break;
 
   case 106:
-#line 671 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 672 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[4].value.int8Val) < (int8_t)-3)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to int16_t: too big value";
@@ -1537,7 +1537,7 @@ namespace usds {
     break;
 
   case 107:
-#line 687 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 688 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to int16_t: too big value";
 	}
@@ -1545,7 +1545,7 @@ namespace usds {
     break;
 
   case 108:
-#line 691 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 692 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to int16_t: too big value";
 	}
@@ -1553,7 +1553,7 @@ namespace usds {
     break;
 
   case 109:
-#line 698 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 699 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt16Val) = (uint16_t)(yystack_[0].value.int8Val);
 	}
@@ -1561,7 +1561,7 @@ namespace usds {
     break;
 
   case 110:
-#line 702 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 703 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[0].value.int8Val) << " to uint16_t: negative value";
 	}
@@ -1569,7 +1569,7 @@ namespace usds {
     break;
 
   case 111:
-#line 706 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 707 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt16Val) = 
 		(uint16_t)(yystack_[1].value.int8Val) * (uint16_t)10 + 
@@ -1579,7 +1579,7 @@ namespace usds {
     break;
 
   case 112:
-#line 712 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 713 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint16_t: negative value";
 	}
@@ -1587,7 +1587,7 @@ namespace usds {
     break;
 
   case 113:
-#line 716 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 717 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt16Val) = 
 		(uint16_t)(yystack_[2].value.int8Val) * (uint16_t)100 + 
@@ -1598,7 +1598,7 @@ namespace usds {
     break;
 
   case 114:
-#line 723 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 724 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint16_t: negative value";
 	}
@@ -1606,7 +1606,7 @@ namespace usds {
     break;
 
   case 115:
-#line 727 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 728 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt16Val) = 
 		(uint16_t)(yystack_[3].value.int8Val) * (uint16_t)1000 + 
@@ -1618,7 +1618,7 @@ namespace usds {
     break;
 
   case 116:
-#line 735 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 736 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint16_t: negative value";
 	}
@@ -1626,7 +1626,7 @@ namespace usds {
     break;
 
   case 117:
-#line 739 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 740 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[4].value.int8Val) > (int8_t)6)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint16_t: too big value";
@@ -1646,7 +1646,7 @@ namespace usds {
     break;
 
   case 118:
-#line 755 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 756 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint16_t: negative value";
 	}
@@ -1654,7 +1654,7 @@ namespace usds {
     break;
 
   case 119:
-#line 759 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 760 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint16_t: too big value";
 	}
@@ -1662,7 +1662,7 @@ namespace usds {
     break;
 
   case 120:
-#line 763 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 764 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint16_t: too big value";
 	}
@@ -1670,7 +1670,7 @@ namespace usds {
     break;
 
   case 121:
-#line 773 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 774 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = (int32_t)(yystack_[0].value.int8Val);
 	}
@@ -1678,7 +1678,7 @@ namespace usds {
     break;
 
   case 122:
-#line 777 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 778 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = (int32_t)(yystack_[0].value.int8Val);
 	}
@@ -1686,7 +1686,7 @@ namespace usds {
     break;
 
   case 123:
-#line 781 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 782 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[1].value.int8Val) * (int32_t)10 + 
@@ -1696,7 +1696,7 @@ namespace usds {
     break;
 
   case 124:
-#line 787 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 788 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[1].value.int8Val) * (int32_t)10 - 
@@ -1706,7 +1706,7 @@ namespace usds {
     break;
 
   case 125:
-#line 793 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 794 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[2].value.int8Val) * (int32_t)100 + 
@@ -1717,7 +1717,7 @@ namespace usds {
     break;
 
   case 126:
-#line 800 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 801 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[2].value.int8Val) * (int32_t)100 - 
@@ -1728,7 +1728,7 @@ namespace usds {
     break;
 
   case 127:
-#line 807 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 808 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[3].value.int8Val) * (int32_t)1000 + 
@@ -1740,7 +1740,7 @@ namespace usds {
     break;
 
   case 128:
-#line 815 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 816 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[3].value.int8Val) * (int32_t)1000 - 
@@ -1752,7 +1752,7 @@ namespace usds {
     break;
 
   case 129:
-#line 823 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 824 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[4].value.int8Val) * (int32_t)10000 + 
@@ -1765,7 +1765,7 @@ namespace usds {
     break;
 
   case 130:
-#line 832 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 833 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[4].value.int8Val) * (int32_t)10000 - 
@@ -1778,7 +1778,7 @@ namespace usds {
     break;
 
   case 131:
-#line 841 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 842 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[5].value.int8Val) * (int32_t)100000 + 
@@ -1792,7 +1792,7 @@ namespace usds {
     break;
 
   case 132:
-#line 851 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 852 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[5].value.int8Val) * (int32_t)100000 - 
@@ -1806,7 +1806,7 @@ namespace usds {
     break;
 
   case 133:
-#line 861 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 862 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[6].value.int8Val) * (int32_t)1000000 + 
@@ -1821,7 +1821,7 @@ namespace usds {
     break;
 
   case 134:
-#line 872 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 873 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[6].value.int8Val) * (int32_t)1000000 - 
@@ -1836,7 +1836,7 @@ namespace usds {
     break;
 
   case 135:
-#line 883 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 884 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[7].value.int8Val) * (int32_t)10000000 + 
@@ -1852,7 +1852,7 @@ namespace usds {
     break;
 
   case 136:
-#line 895 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 896 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[7].value.int8Val) * (int32_t)10000000 - 
@@ -1868,7 +1868,7 @@ namespace usds {
     break;
 
   case 137:
-#line 907 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 908 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[8].value.int8Val) * (int32_t)100000000 + 
@@ -1885,7 +1885,7 @@ namespace usds {
     break;
 
   case 138:
-#line 920 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 921 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int32Val) = 
 		(int32_t)(yystack_[8].value.int8Val) * (int32_t)100000000 - 
@@ -1902,7 +1902,7 @@ namespace usds {
     break;
 
   case 139:
-#line 933 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 934 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[9].value.int8Val) > (int8_t)2)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to int32_t: too big value";
@@ -1927,7 +1927,7 @@ namespace usds {
     break;
 
   case 140:
-#line 954 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 955 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[9].value.int8Val) < (int8_t)-2)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to int32_t: too big value";
@@ -1952,7 +1952,7 @@ namespace usds {
     break;
 
   case 141:
-#line 975 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 976 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to int32_t: too big value";
 	}
@@ -1960,7 +1960,7 @@ namespace usds {
     break;
 
   case 142:
-#line 979 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 980 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to int32_t: too big value";
 	}
@@ -1968,7 +1968,7 @@ namespace usds {
     break;
 
   case 143:
-#line 986 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 987 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt32Val) = (uint32_t)(yystack_[0].value.int8Val);
 	}
@@ -1976,7 +1976,7 @@ namespace usds {
     break;
 
   case 144:
-#line 990 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 991 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -1984,7 +1984,7 @@ namespace usds {
     break;
 
   case 145:
-#line 994 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 995 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt32Val) = 
 		(uint32_t)(yystack_[1].value.int8Val) * (uint32_t)10 + 
@@ -1994,7 +1994,7 @@ namespace usds {
     break;
 
   case 146:
-#line 1000 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1001 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -2002,7 +2002,7 @@ namespace usds {
     break;
 
   case 147:
-#line 1004 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1005 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt32Val) = 
 		(uint32_t)(yystack_[2].value.int8Val) * (uint32_t)100 + 
@@ -2013,7 +2013,7 @@ namespace usds {
     break;
 
   case 148:
-#line 1011 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1012 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -2021,7 +2021,7 @@ namespace usds {
     break;
 
   case 149:
-#line 1015 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1016 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt32Val) = 
 		(uint32_t)(yystack_[3].value.int8Val) * (uint32_t)1000 + 
@@ -2033,7 +2033,7 @@ namespace usds {
     break;
 
   case 150:
-#line 1023 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1024 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -2041,7 +2041,7 @@ namespace usds {
     break;
 
   case 151:
-#line 1027 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1028 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt32Val) = 
 		(uint32_t)(yystack_[4].value.int8Val) * (uint32_t)10000 + 
@@ -2054,7 +2054,7 @@ namespace usds {
     break;
 
   case 152:
-#line 1036 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1037 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -2062,7 +2062,7 @@ namespace usds {
     break;
 
   case 153:
-#line 1040 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1041 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt32Val) = 
 		(uint32_t)(yystack_[5].value.int8Val) * (uint32_t)100000 + 
@@ -2076,7 +2076,7 @@ namespace usds {
     break;
 
   case 154:
-#line 1050 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1051 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -2084,7 +2084,7 @@ namespace usds {
     break;
 
   case 155:
-#line 1054 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1055 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt32Val) = 
 		(uint32_t)(yystack_[6].value.int8Val) * (uint32_t)1000000 + 
@@ -2099,7 +2099,7 @@ namespace usds {
     break;
 
   case 156:
-#line 1065 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1066 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -2107,7 +2107,7 @@ namespace usds {
     break;
 
   case 157:
-#line 1069 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1070 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt32Val) = 
 		(uint32_t)(yystack_[7].value.int8Val) * (uint32_t)10000000 + 
@@ -2123,7 +2123,7 @@ namespace usds {
     break;
 
   case 158:
-#line 1081 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1082 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -2131,7 +2131,7 @@ namespace usds {
     break;
 
   case 159:
-#line 1085 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1086 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt32Val) = 
 		(uint32_t)(yystack_[8].value.int8Val) * (uint32_t)100000000 + 
@@ -2148,7 +2148,7 @@ namespace usds {
     break;
 
   case 160:
-#line 1098 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1099 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -2156,7 +2156,7 @@ namespace usds {
     break;
 
   case 161:
-#line 1102 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1103 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[9].value.int8Val) > (int8_t)4)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: too big value";
@@ -2181,7 +2181,7 @@ namespace usds {
     break;
 
   case 162:
-#line 1123 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1124 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint32_t: negative value";
 	}
@@ -2189,7 +2189,7 @@ namespace usds {
     break;
 
   case 163:
-#line 1127 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1128 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint32_t: too big value";
 	}
@@ -2197,7 +2197,7 @@ namespace usds {
     break;
 
   case 164:
-#line 1131 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1132 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint32_t: negative value";
 	}
@@ -2205,7 +2205,7 @@ namespace usds {
     break;
 
   case 165:
-#line 1141 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1142 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = (int64_t)(yystack_[0].value.int8Val);
 	}
@@ -2213,7 +2213,7 @@ namespace usds {
     break;
 
   case 166:
-#line 1145 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1146 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = (int64_t)(yystack_[0].value.int8Val);
 	}
@@ -2221,7 +2221,7 @@ namespace usds {
     break;
 
   case 167:
-#line 1149 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1150 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[1].value.int8Val) * (int64_t)10 + 
@@ -2231,7 +2231,7 @@ namespace usds {
     break;
 
   case 168:
-#line 1155 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1156 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[1].value.int8Val) * (int64_t)10 - 
@@ -2241,7 +2241,7 @@ namespace usds {
     break;
 
   case 169:
-#line 1161 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1162 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[2].value.int8Val) * (int64_t)100 + 
@@ -2252,7 +2252,7 @@ namespace usds {
     break;
 
   case 170:
-#line 1168 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1169 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[2].value.int8Val) * (int64_t)100 - 
@@ -2263,7 +2263,7 @@ namespace usds {
     break;
 
   case 171:
-#line 1175 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1176 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[3].value.int8Val) * (int64_t)1000 + 
@@ -2275,7 +2275,7 @@ namespace usds {
     break;
 
   case 172:
-#line 1183 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1184 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[3].value.int8Val) * (int64_t)1000 - 
@@ -2287,7 +2287,7 @@ namespace usds {
     break;
 
   case 173:
-#line 1191 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1192 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[4].value.int8Val) * (int64_t)10000 + 
@@ -2300,7 +2300,7 @@ namespace usds {
     break;
 
   case 174:
-#line 1200 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1201 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[4].value.int8Val) * (int64_t)10000 - 
@@ -2313,7 +2313,7 @@ namespace usds {
     break;
 
   case 175:
-#line 1209 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1210 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[5].value.int8Val) * (int64_t)100000 + 
@@ -2327,7 +2327,7 @@ namespace usds {
     break;
 
   case 176:
-#line 1219 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1220 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[5].value.int8Val) * (int64_t)100000 - 
@@ -2341,7 +2341,7 @@ namespace usds {
     break;
 
   case 177:
-#line 1229 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1230 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[6].value.int8Val) * (int64_t)1000000 + 
@@ -2356,7 +2356,7 @@ namespace usds {
     break;
 
   case 178:
-#line 1240 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1241 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[6].value.int8Val) * (int64_t)1000000 - 
@@ -2371,7 +2371,7 @@ namespace usds {
     break;
 
   case 179:
-#line 1251 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1252 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[7].value.int8Val) * (int64_t)10000000 + 
@@ -2387,7 +2387,7 @@ namespace usds {
     break;
 
   case 180:
-#line 1263 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1264 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[7].value.int8Val) * (int64_t)10000000 - 
@@ -2403,7 +2403,7 @@ namespace usds {
     break;
 
   case 181:
-#line 1275 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1276 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[8].value.int8Val) * (int64_t)100000000 + 
@@ -2420,7 +2420,7 @@ namespace usds {
     break;
 
   case 182:
-#line 1288 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1289 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[8].value.int8Val) * (int64_t)100000000 - 
@@ -2437,7 +2437,7 @@ namespace usds {
     break;
 
   case 183:
-#line 1301 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1302 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[9].value.int8Val) * (int64_t)1000000000 + 
@@ -2455,7 +2455,7 @@ namespace usds {
     break;
 
   case 184:
-#line 1315 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1316 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[9].value.int8Val) * (int64_t)1000000000 - 
@@ -2473,7 +2473,7 @@ namespace usds {
     break;
 
   case 185:
-#line 1330 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1331 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[10].value.int8Val) * (int64_t)10000000000 + 
@@ -2492,7 +2492,7 @@ namespace usds {
     break;
 
   case 186:
-#line 1346 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1347 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[10].value.int8Val) * (int64_t)10000000000 - 
@@ -2511,7 +2511,7 @@ namespace usds {
     break;
 
   case 187:
-#line 1362 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1363 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[11].value.int8Val) * (int64_t)100000000000 + 
@@ -2531,7 +2531,7 @@ namespace usds {
     break;
 
   case 188:
-#line 1379 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1380 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[11].value.int8Val) * (int64_t)100000000000 - 
@@ -2551,7 +2551,7 @@ namespace usds {
     break;
 
   case 189:
-#line 1396 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1397 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[12].value.int8Val) * (int64_t)1000000000000 + 
@@ -2572,7 +2572,7 @@ namespace usds {
     break;
 
   case 190:
-#line 1414 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1415 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[12].value.int8Val) * (int64_t)1000000000000 - 
@@ -2593,7 +2593,7 @@ namespace usds {
     break;
 
   case 191:
-#line 1432 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1433 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[13].value.int8Val) * (int64_t)10000000000000 + 
@@ -2615,7 +2615,7 @@ namespace usds {
     break;
 
   case 192:
-#line 1451 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1452 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[13].value.int8Val) * (int64_t)10000000000000 - 
@@ -2637,7 +2637,7 @@ namespace usds {
     break;
 
   case 193:
-#line 1470 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1471 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[14].value.int8Val) * (int64_t)100000000000000 + 
@@ -2660,7 +2660,7 @@ namespace usds {
     break;
 
   case 194:
-#line 1490 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1491 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[14].value.int8Val) * (int64_t)100000000000000 - 
@@ -2683,7 +2683,7 @@ namespace usds {
     break;
 
   case 195:
-#line 1510 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1511 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[15].value.int8Val) * (int64_t)1000000000000000 + 
@@ -2707,7 +2707,7 @@ namespace usds {
     break;
 
   case 196:
-#line 1531 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1532 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[15].value.int8Val) * (int64_t)1000000000000000 - 
@@ -2731,7 +2731,7 @@ namespace usds {
     break;
 
   case 197:
-#line 1552 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1553 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[16].value.int8Val) * (int64_t)10000000000000000 + 
@@ -2756,7 +2756,7 @@ namespace usds {
     break;
 
   case 198:
-#line 1574 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1575 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[16].value.int8Val) * (int64_t)10000000000000000 - 
@@ -2781,7 +2781,7 @@ namespace usds {
     break;
 
   case 199:
-#line 1596 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1597 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[17].value.int8Val) * (int64_t)100000000000000000 + 
@@ -2807,7 +2807,7 @@ namespace usds {
     break;
 
   case 200:
-#line 1619 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1620 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[17].value.int8Val) * (int64_t)100000000000000000 - 
@@ -2833,7 +2833,7 @@ namespace usds {
     break;
 
   case 201:
-#line 1642 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1643 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[17].value.int8Val) * (int64_t)100000000000000000 + 
@@ -2865,7 +2865,7 @@ namespace usds {
     break;
 
   case 202:
-#line 1671 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1672 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.int64Val) = 
 		(int64_t)(yystack_[17].value.int8Val) * (int64_t)100000000000000000 + 
@@ -2897,7 +2897,7 @@ namespace usds {
     break;
 
   case 203:
-#line 1700 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1701 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << 
 				(yystack_[19].value.int8Val) << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to int64_t: too big value";
@@ -2906,7 +2906,7 @@ namespace usds {
     break;
 
   case 204:
-#line 1706 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1707 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << 
 				(yystack_[19].value.int8Val) << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to int64_t: too big value";
@@ -2915,7 +2915,7 @@ namespace usds {
     break;
 
   case 205:
-#line 1714 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1715 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = (uint64_t)(yystack_[0].value.int8Val);
 	}
@@ -2923,7 +2923,7 @@ namespace usds {
     break;
 
   case 206:
-#line 1718 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1719 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -2931,7 +2931,7 @@ namespace usds {
     break;
 
   case 207:
-#line 1722 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1723 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
@@ -2941,7 +2941,7 @@ namespace usds {
     break;
 
   case 208:
-#line 1728 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1729 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -2949,7 +2949,7 @@ namespace usds {
     break;
 
   case 209:
-#line 1732 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1733 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[2].value.int8Val) * (uint64_t)100 + 
@@ -2960,7 +2960,7 @@ namespace usds {
     break;
 
   case 210:
-#line 1739 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1740 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -2968,7 +2968,7 @@ namespace usds {
     break;
 
   case 211:
-#line 1743 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1744 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[3].value.int8Val) * (uint64_t)1000 + 
@@ -2980,7 +2980,7 @@ namespace usds {
     break;
 
   case 212:
-#line 1751 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1752 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -2988,7 +2988,7 @@ namespace usds {
     break;
 
   case 213:
-#line 1755 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1756 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[4].value.int8Val) * (uint64_t)10000 + 
@@ -3001,7 +3001,7 @@ namespace usds {
     break;
 
   case 214:
-#line 1764 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1765 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -3009,7 +3009,7 @@ namespace usds {
     break;
 
   case 215:
-#line 1768 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1769 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[5].value.int8Val) * (uint64_t)100000 + 
@@ -3023,7 +3023,7 @@ namespace usds {
     break;
 
   case 216:
-#line 1778 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1779 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -3031,7 +3031,7 @@ namespace usds {
     break;
 
   case 217:
-#line 1782 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1783 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[6].value.int8Val) * (uint64_t)1000000 + 
@@ -3046,7 +3046,7 @@ namespace usds {
     break;
 
   case 218:
-#line 1793 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1794 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -3054,7 +3054,7 @@ namespace usds {
     break;
 
   case 219:
-#line 1797 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1798 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[7].value.int8Val) * (uint64_t)10000000 + 
@@ -3070,7 +3070,7 @@ namespace usds {
     break;
 
   case 220:
-#line 1809 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1810 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -3078,7 +3078,7 @@ namespace usds {
     break;
 
   case 221:
-#line 1813 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1814 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[8].value.int8Val) * (uint64_t)100000000 + 
@@ -3095,7 +3095,7 @@ namespace usds {
     break;
 
   case 222:
-#line 1826 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1827 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -3103,7 +3103,7 @@ namespace usds {
     break;
 
   case 223:
-#line 1830 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1831 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[9].value.int8Val) * (uint64_t)1000000000 + 
@@ -3121,7 +3121,7 @@ namespace usds {
     break;
 
   case 224:
-#line 1844 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1845 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
@@ -3129,7 +3129,7 @@ namespace usds {
     break;
 
   case 225:
-#line 1849 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1850 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[10].value.int8Val) * (uint64_t)10000000000 + 
@@ -3148,7 +3148,7 @@ namespace usds {
     break;
 
   case 226:
-#line 1865 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1866 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) 
 			<< (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3157,7 +3157,7 @@ namespace usds {
     break;
 
   case 227:
-#line 1871 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1872 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[11].value.int8Val) * (uint64_t)100000000000 + 
@@ -3177,7 +3177,7 @@ namespace usds {
     break;
 
   case 228:
-#line 1888 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1889 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) 
 			<< (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3186,7 +3186,7 @@ namespace usds {
     break;
 
   case 229:
-#line 1894 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1895 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[12].value.int8Val) * (uint64_t)1000000000000 + 
@@ -3207,7 +3207,7 @@ namespace usds {
     break;
 
   case 230:
-#line 1912 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1913 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) 
 			<< (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3216,7 +3216,7 @@ namespace usds {
     break;
 
   case 231:
-#line 1918 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1919 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[13].value.int8Val) * (uint64_t)10000000000000 + 
@@ -3238,7 +3238,7 @@ namespace usds {
     break;
 
   case 232:
-#line 1937 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1938 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) 
 			<< (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3247,7 +3247,7 @@ namespace usds {
     break;
 
   case 233:
-#line 1943 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1944 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[14].value.int8Val) * (uint64_t)100000000000000 + 
@@ -3270,7 +3270,7 @@ namespace usds {
     break;
 
   case 234:
-#line 1963 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1964 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) 
 			<< (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3279,7 +3279,7 @@ namespace usds {
     break;
 
   case 235:
-#line 1969 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1970 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[15].value.int8Val) * (uint64_t)1000000000000000 + 
@@ -3303,7 +3303,7 @@ namespace usds {
     break;
 
   case 236:
-#line 1990 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1991 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) 
 			<< (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3312,7 +3312,7 @@ namespace usds {
     break;
 
   case 237:
-#line 1996 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 1997 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[16].value.int8Val) * (uint64_t)10000000000000000 + 
@@ -3337,7 +3337,7 @@ namespace usds {
     break;
 
   case 238:
-#line 2018 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2019 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) 
 			<< (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3346,7 +3346,7 @@ namespace usds {
     break;
 
   case 239:
-#line 2024 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2025 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[17].value.int8Val) * (uint64_t)100000000000000000 + 
@@ -3372,7 +3372,7 @@ namespace usds {
     break;
 
   case 240:
-#line 2047 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2048 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) 
 			<< (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3381,7 +3381,7 @@ namespace usds {
     break;
 
   case 241:
-#line 2053 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2054 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[18].value.int8Val) * (uint64_t)1000000000000000000 + 
@@ -3408,7 +3408,7 @@ namespace usds {
     break;
 
   case 242:
-#line 2077 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2078 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) 
 			<< (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3417,7 +3417,7 @@ namespace usds {
     break;
 
   case 243:
-#line 2083 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2084 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		if ((yystack_[19].value.int8Val) > (int8_t)1)
 			throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << 
@@ -3454,7 +3454,7 @@ namespace usds {
     break;
 
   case 244:
-#line 2117 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2118 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[19].value.int8Val) << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) 
 			<< (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
@@ -3463,7 +3463,7 @@ namespace usds {
     break;
 
   case 245:
-#line 2123 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2124 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << 
 				(yystack_[20].value.int8Val) << (yystack_[19].value.int8Val) << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint64_t: too big value";
@@ -3472,7 +3472,7 @@ namespace usds {
     break;
 
   case 246:
-#line 2129 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2130 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
 		throw ErrorMessage(usds::ERROR_VALUE_CONVERSION) << "Can not convert the number " << (yystack_[20].value.int8Val) << (yystack_[19].value.int8Val) << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) 
 			<< (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint64_t: negative value";
@@ -3481,33 +3481,33 @@ namespace usds {
     break;
 
   case 249:
-#line 2143 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2144 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = (float)(yystack_[2].value.floatDigits).value + ((float)(yystack_[0].value.floatDigits).value)/(yystack_[0].value.floatDigits).digits;
+		(yylhs.value.doubleVal) = (yystack_[0].value.doubleVal);
 	}
 #line 3489 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 250:
-#line 2147 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2148 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = (float)(yystack_[3].value.int8Val) * (yystack_[2].value.floatDigits).digits * 10.0F - (float)(yystack_[2].value.floatDigits).value - ((float)(yystack_[0].value.floatDigits).value)/(yystack_[0].value.floatDigits).digits;	
+		(yylhs.value.doubleVal) = (yystack_[0].value.doubleVal);
 	}
 #line 3497 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 251:
-#line 2151 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2152 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = (float)(yystack_[2].value.int8Val) - ((float)(yystack_[0].value.floatDigits).value)/(yystack_[0].value.floatDigits).digits;	
+		(yylhs.value.doubleVal) = (yystack_[2].value.doubleVal) + (yystack_[0].value.floatDigits).value/(yystack_[0].value.floatDigits).digits;
 	}
 #line 3505 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 252:
-#line 2155 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2156 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = - ((float)(yystack_[0].value.floatDigits).value)/(yystack_[0].value.floatDigits).digits;	
+		(yylhs.value.doubleVal) = (yystack_[2].value.doubleVal) - (yystack_[0].value.floatDigits).value/(yystack_[0].value.floatDigits).digits;
 	}
 #line 3513 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
@@ -3515,97 +3515,151 @@ namespace usds {
   case 253:
 #line 2160 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = ((float)(yystack_[3].value.floatDigits).value + ((float)(yystack_[1].value.floatDigits).value)/(yystack_[1].value.floatDigits).digits) * pow(10.0, (yystack_[0].value.floatVal));
+		(yylhs.value.doubleVal) = - (yystack_[0].value.floatDigits).value/(yystack_[0].value.floatDigits).digits;	
 	}
 #line 3521 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 254:
-#line 2167 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2164 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatDigits).value = (int64_t)(yystack_[0].value.int8Val);
-		(yylhs.value.floatDigits).digits = 1.0F;
+		(yylhs.value.doubleVal) = (yystack_[0].value.floatDigits).value/(yystack_[0].value.floatDigits).digits;
 	}
-#line 3530 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3529 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 255:
-#line 2172 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2168 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatDigits).value = (yylhs.value.floatDigits).value * (int64_t)10 + (int64_t)(yystack_[0].value.int8Val);
-		(yylhs.value.floatDigits).digits = (yylhs.value.floatDigits).digits * 10.0F;
+		(yylhs.value.doubleVal) = ((yystack_[3].value.doubleVal) + (yystack_[1].value.floatDigits).value/(yystack_[1].value.floatDigits).digits) * pow(10.0, (yystack_[0].value.doubleVal));
 	}
-#line 3539 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3537 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 256:
-#line 2180 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2172 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatDigits).value = (int64_t)(yystack_[0].value.int8Val);
-		(yylhs.value.floatDigits).digits = 10.0F;
+		(yylhs.value.doubleVal) = ((yystack_[3].value.doubleVal) - (yystack_[1].value.floatDigits).value/(yystack_[1].value.floatDigits).digits) * pow(10.0, (yystack_[0].value.doubleVal));
 	}
-#line 3548 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3545 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 257:
-#line 2185 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2176 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatDigits).value = (yylhs.value.floatDigits).value * (int64_t)10 + (int64_t)(yystack_[0].value.int8Val);
-		(yylhs.value.floatDigits).digits = (yylhs.value.floatDigits).digits * 10.0F;
+		(yylhs.value.doubleVal) = (- (yystack_[1].value.floatDigits).value/(yystack_[1].value.floatDigits).digits) * pow(10.0, (yystack_[0].value.doubleVal));	
 	}
-#line 3557 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3553 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 258:
-#line 2193 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2180 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = (float)(yystack_[0].value.int8Val);
+		(yylhs.value.doubleVal) = ((yystack_[1].value.floatDigits).value/(yystack_[1].value.floatDigits).digits) * pow(10.0, (yystack_[0].value.doubleVal));
 	}
-#line 3565 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3561 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 259:
-#line 2197 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2187 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = (float)(yystack_[0].value.int8Val);
+		(yylhs.value.doubleVal) = (double)(yystack_[0].value.int8Val);
 	}
-#line 3573 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3569 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 260:
-#line 2201 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2191 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = (float)(yystack_[1].value.int8Val) * (float)10.0F + (float)(yystack_[0].value.int8Val);
+		(yylhs.value.doubleVal) = (yylhs.value.doubleVal) * 10.0 + (double)(yystack_[0].value.int8Val);
 	}
-#line 3581 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3577 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 261:
-#line 2205 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2198 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = (float)(yystack_[1].value.int8Val) * (float)10.0F - (float)(yystack_[0].value.int8Val);
+		(yylhs.value.doubleVal) = (double)(yystack_[0].value.int8Val);
 	}
-#line 3589 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3585 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 262:
-#line 2209 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2202 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = (float)(yystack_[2].value.int8Val) * (float)100.0F + (float)(yystack_[1].value.int8Val) * (float)10.0F + (float)(yystack_[0].value.int8Val);
+		(yylhs.value.doubleVal) = (yylhs.value.doubleVal) * 10.0 - (double)(yystack_[0].value.int8Val);
 	}
-#line 3597 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3593 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
   case 263:
-#line 2213 "bisonDictionaryTextParser.y" // lalr1.cc:846
+#line 2209 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-		(yylhs.value.floatVal) = (float)(yystack_[2].value.int8Val) * (float)100.0F - (float)(yystack_[1].value.int8Val) * (float)10.0F - (float)(yystack_[0].value.int8Val);
+		(yylhs.value.floatDigits).value = (double)(yystack_[0].value.int8Val);
+		(yylhs.value.floatDigits).digits = 10.0;
 	}
-#line 3605 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3602 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+    break;
+
+  case 264:
+#line 2214 "bisonDictionaryTextParser.y" // lalr1.cc:846
+    {
+		(yylhs.value.floatDigits).value = (yylhs.value.floatDigits).value * 10.0 + (double)(yystack_[0].value.int8Val);
+		(yylhs.value.floatDigits).digits = (yylhs.value.floatDigits).digits * 10.0;
+	}
+#line 3611 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+    break;
+
+  case 265:
+#line 2222 "bisonDictionaryTextParser.y" // lalr1.cc:846
+    {
+		(yylhs.value.doubleVal) = (double)(yystack_[0].value.int8Val);
+	}
+#line 3619 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+    break;
+
+  case 266:
+#line 2226 "bisonDictionaryTextParser.y" // lalr1.cc:846
+    {
+		(yylhs.value.doubleVal) = (double)(yystack_[0].value.int8Val);
+	}
+#line 3627 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+    break;
+
+  case 267:
+#line 2230 "bisonDictionaryTextParser.y" // lalr1.cc:846
+    {
+		(yylhs.value.doubleVal) = (double)(yystack_[1].value.int8Val) * (double)10.0 + (double)(yystack_[0].value.int8Val);
+	}
+#line 3635 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+    break;
+
+  case 268:
+#line 2234 "bisonDictionaryTextParser.y" // lalr1.cc:846
+    {
+		(yylhs.value.doubleVal) = (double)(yystack_[1].value.int8Val) * (double)10.0 - (double)(yystack_[0].value.int8Val);
+	}
+#line 3643 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+    break;
+
+  case 269:
+#line 2238 "bisonDictionaryTextParser.y" // lalr1.cc:846
+    {
+		(yylhs.value.doubleVal) = (double)(yystack_[2].value.int8Val) * (double)100.0 + (double)(yystack_[1].value.int8Val) * (double)10.0 + (double)(yystack_[0].value.int8Val);
+	}
+#line 3651 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+    break;
+
+  case 270:
+#line 2242 "bisonDictionaryTextParser.y" // lalr1.cc:846
+    {
+		(yylhs.value.doubleVal) = (double)(yystack_[2].value.int8Val) * (double)100.0 - (double)(yystack_[1].value.int8Val) * (double)10.0 - (double)(yystack_[0].value.int8Val);
+	}
+#line 3659 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
 
 
-#line 3609 "bisonDictionaryTextParser.cc" // lalr1.cc:846
+#line 3663 "bisonDictionaryTextParser.cc" // lalr1.cc:846
           default:
             break;
           }
@@ -3859,55 +3913,56 @@ namespace usds {
   }
 
 
-  const short int BisonDictionaryTextParser::yypact_ninf_ = -283;
+  const short int BisonDictionaryTextParser::yypact_ninf_ = -278;
 
   const signed char BisonDictionaryTextParser::yytable_ninf_ = -1;
 
   const short int
   BisonDictionaryTextParser::yypact_[] =
   {
-      21,    -1,    31,    86,  -283,    37,    62,    18,    70,    77,
-      88,    98,   129,   137,   139,   128,   143,   144,   145,   146,
-      88,   147,   148,   149,   149,  -283,   150,   151,  -283,   152,
-     152,    75,   153,   154,  -283,    90,   155,   156,   157,   158,
-     159,    90,   160,   161,   162,   163,   164,  -283,  -283,    32,
-     149,   149,   165,   166,   167,   168,   169,   170,   171,   172,
-     173,   174,   175,   176,   177,   178,   179,   180,   181,   -17,
-     182,   152,   152,   188,   189,   183,   184,   185,   186,   187,
-     190,   191,   192,   193,   194,   195,   196,   197,   198,   199,
-     200,   202,  -283,   201,   213,  -283,  -283,  -283,  -283,  -283,
-    -283,  -283,  -283,  -283,  -283,  -283,  -283,  -283,  -283,  -283,
-    -283,   132,    90,   214,   215,   210,   207,    90,    90,   208,
-     218,   220,   209,   211,  -283,   212,    57,   224,   225,  -283,
-    -283,    45,   221,   222,   223,   226,   227,   228,   229,   230,
-     231,   232,   233,   234,   235,   236,   237,   -15,   -11,   244,
-     245,  -283,   242,    80,    82,    84,    87,    89,    91,    93,
-      95,    97,    99,   101,   103,   105,   107,   109,   111,   249,
-     115,  -283,   149,   149,   219,  -283,    -5,  -283,    -4,  -283,
-      30,  -283,    55,  -283,    60,  -283,    65,  -283,    67,  -283,
-      72,  -283,    74,  -283,   246,  -283,   247,  -283,   -20,  -283,
-     -18,  -283,    79,  -283,    81,  -283,   127,   140,  -283,   248,
-     152,   152,  -283,   241,   243,   254,   256,   250,   251,   252,
-     253,   257,   258,   255,   259,   261,   266,   260,   262,   263,
-     264,   265,   267,   268,   269,   270,   271,   273,   278,   272,
-     274,   275,   276,  -283,   -12,   277,   216,   279,    -8,   280,
-     285,   286,   287,   288,   289,   290,   291,   284,   292,  -283,
-    -283,   281,   305,  -283,  -283,  -283,  -283,   306,   307,  -283,
-    -283,   308,   309,  -283,  -283,  -283,  -283,  -283,  -283,   310,
-     311,  -283,  -283,   312,   313,  -283,  -283,  -283,  -283,   314,
-      -7,  -283,   314,  -283,  -283,   314,  -283,  -283,  -283,  -283,
-    -283,  -283,  -283,  -283,   121,  -283,   149,   149,   315,   316,
-     317,   318,   319,   320,   321,   322,  -283,   323,   314,   323,
-      33,  -283,   131,   152,   152,   324,   325,   326,   327,   328,
-     329,   330,   331,  -283,   323,   332,   333,  -283,   334,   335,
-     149,   149,   149,   149,   336,   337,   338,   339,   340,   341,
-    -283,  -283,   152,   152,   152,   152,   342,   343,   344,   345,
-    -283,  -283,   348,   349,   350,   351,   352,   353,   354,   355,
-     356,   357,   358,   359,   360,   361,   362,   365,   366,   367,
-     368,   371,   372,   373,   374,   375,   376,   377,   378,   379,
-     380,   381,   382,   383,   384,   385,   386,   387,   388,   389,
-     390,   391,   392,   393,   394,   395,   396,   397,   398,   399,
-     149,   149,   400,   401,   152,   152,   149,   149,   152,   152
+      13,    -9,   114,     0,  -278,    12,   124,   117,   137,   139,
+      37,   140,   141,   142,   143,   132,   145,   146,   147,   148,
+      37,   149,   150,   151,   151,  -278,   152,   153,  -278,   154,
+     154,   155,   156,   157,  -278,    87,   158,   159,   160,   161,
+     162,    87,   163,   164,   165,   166,   167,  -278,  -278,    35,
+     151,   151,   168,   169,   170,   171,   172,   173,   174,   175,
+     176,   177,   178,   179,   180,   181,   182,   183,   184,   -15,
+     185,   154,   154,   189,   190,   186,   187,   188,   191,   192,
+     193,   194,   195,   196,   197,   198,   199,   200,   201,   202,
+     203,   216,  -278,   215,   217,  -278,  -278,  -278,  -278,  -278,
+    -278,  -278,  -278,  -278,  -278,  -278,  -278,  -278,  -278,  -278,
+    -278,   126,    87,   218,   219,   212,   213,    87,    87,   211,
+     222,   223,   214,   220,  -278,   221,    58,   225,   226,  -278,
+    -278,    24,   224,   227,   228,   229,   230,   231,   232,   233,
+     234,   235,   236,   237,   238,   239,   240,   -13,     7,   245,
+     246,  -278,   247,    79,    82,    84,    86,    88,    90,    92,
+      94,    96,    98,   100,   102,   104,   106,   108,   110,   249,
+     112,  -278,   151,   151,   241,  -278,    34,  -278,     5,  -278,
+      56,  -278,    59,  -278,    63,  -278,    66,  -278,    69,  -278,
+      72,  -278,    75,  -278,   248,  -278,   250,  -278,   -20,  -278,
+     -14,  -278,    78,  -278,    81,  -278,   125,   134,  -278,   251,
+     154,   154,  -278,   244,   252,   255,   256,   257,   258,   259,
+     260,   261,   265,   262,   263,   266,   271,   264,   267,   268,
+     269,   270,   272,   275,   276,   273,   274,   281,   285,   277,
+     278,   279,   280,  -278,  -278,   282,   286,   283,   284,   -16,
+     -10,   287,   288,   293,   294,   295,   296,   297,   298,   253,
+     299,  -278,  -278,   291,   310,  -278,  -278,  -278,  -278,   311,
+     312,  -278,  -278,   313,   314,  -278,  -278,  -278,  -278,  -278,
+    -278,   315,   316,  -278,  -278,   317,   318,  -278,  -278,  -278,
+    -278,  -278,  -278,   -17,   286,  -278,  -278,   286,  -278,   286,
+    -278,  -278,  -278,  -278,  -278,  -278,  -278,  -278,   121,  -278,
+     151,   151,   319,   320,   321,   322,   323,   324,   325,   326,
+    -278,   327,   328,  -278,   -17,   -17,   -17,  -278,   131,   154,
+     154,   329,   330,   331,   332,   333,   334,   335,   336,   337,
+     338,  -278,  -278,  -278,   339,   340,   151,   151,   151,   151,
+     341,   342,   343,   344,  -278,  -278,  -278,  -278,   154,   154,
+     154,   154,   345,   346,   347,   348,   351,   352,   353,   354,
+     355,   356,   357,   358,   359,   360,   361,   362,   363,   364,
+     365,   366,   369,   370,   371,   372,   375,   376,   377,   378,
+     379,   380,   381,   382,   383,   384,   385,   386,   387,   388,
+     389,   390,   391,   392,   393,   394,   395,   396,   397,   398,
+     399,   400,   401,   402,   151,   151,   403,   404,   154,   154,
+     151,   151,   154,   154
   };
 
   const unsigned short int
@@ -3937,215 +3992,218 @@ namespace usds {
      141,   142,    64,     0,     0,    81,    82,     0,     0,     0,
        0,    97,    98,     0,     0,   109,   110,     0,     0,     0,
        0,     0,     0,   165,   166,     0,     0,   205,   206,     0,
-       0,     0,     0,   254,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    65,
-      46,    83,    84,    47,    66,    48,    67,    99,   100,    49,
-      68,   111,   112,    50,    69,    51,    70,    52,    71,   167,
-     168,    53,    72,   207,   208,    54,    73,    55,    56,     0,
-       0,    57,     0,    74,   255,     0,    58,    75,    59,    76,
-      60,    77,    61,    78,     0,    63,    85,    86,   101,   102,
-     113,   114,   169,   170,   209,   210,   256,   251,     0,   252,
-     249,    43,     0,    87,    88,   103,   104,   115,   116,   171,
-     172,   211,   212,   257,   250,   258,   259,   253,     0,     0,
-     105,   106,   117,   118,   173,   174,   213,   214,   260,   261,
-      62,    79,   107,   108,   119,   120,   175,   176,   215,   216,
-     262,   263,   177,   178,   217,   218,   179,   180,   219,   220,
-     181,   182,   221,   222,   183,   184,   223,   224,   185,   186,
-     225,   226,   187,   188,   227,   228,   189,   190,   229,   230,
-     191,   192,   231,   232,   193,   194,   233,   234,   195,   196,
-     235,   236,   197,   198,   237,   238,   199,   200,   239,   240,
-     201,   202,   241,   242,   203,   204,   243,   244,   245,   246
+       0,     0,     0,   259,   261,     0,     0,     0,     0,   249,
+     250,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,    65,    46,    83,    84,    47,    66,    48,    67,    99,
+     100,    49,    68,   111,   112,    50,    69,    51,    70,    52,
+      71,   167,   168,    53,    72,   207,   208,    54,    73,    55,
+      56,    57,   263,   254,     0,    74,   260,     0,   262,     0,
+      58,    75,    59,    76,    60,    77,    61,    78,     0,    63,
+      85,    86,   101,   102,   113,   114,   169,   170,   209,   210,
+     264,   265,   266,   258,   253,   251,   252,    43,     0,    87,
+      88,   103,   104,   115,   116,   171,   172,   211,   212,   267,
+     268,   257,   255,   256,     0,     0,   105,   106,   117,   118,
+     173,   174,   213,   214,   269,   270,    62,    79,   107,   108,
+     119,   120,   175,   176,   215,   216,   177,   178,   217,   218,
+     179,   180,   219,   220,   181,   182,   221,   222,   183,   184,
+     223,   224,   185,   186,   225,   226,   187,   188,   227,   228,
+     189,   190,   229,   230,   191,   192,   231,   232,   193,   194,
+     233,   234,   195,   196,   235,   236,   197,   198,   237,   238,
+     199,   200,   239,   240,   201,   202,   241,   242,   203,   204,
+     243,   244,   245,   246
   };
 
   const short int
   BisonDictionaryTextParser::yypgoto_[] =
   {
-    -283,  -283,  -283,   141,  -283,  -283,    46,  -283,  -283,  -283,
-     -19,  -283,  -283,   -33,     2,    -9,     9,   -24,    15,   -49,
-    -282,  -283
+    -278,  -278,  -278,   209,  -278,  -278,    41,  -278,  -278,  -278,
+     -19,  -278,  -278,   -33,     6,    -6,    10,   -24,    16,  -278,
+    -278,  -277,  -217
   };
 
   const short int
   BisonDictionaryTextParser::yydefgoto_[] =
   {
       -1,     2,    31,    40,    41,   112,   116,   117,   118,   218,
-      15,   224,   228,   119,     7,   236,   240,    29,   247,   248,
-     317,   337
+      15,   224,   228,   119,     7,   236,   240,    29,   248,   249,
+     250,   293,   323
   };
 
   const unsigned short int
   BisonDictionaryTextParser::yytable_[] =
   {
-      30,    25,    42,   243,   244,   243,   244,   245,    42,   249,
-     319,   243,    90,   320,   168,   294,   294,   213,   170,   215,
-     216,   171,   214,   217,     1,   289,    71,    72,     3,   295,
-     318,     4,   246,    91,   246,   169,   334,    54,    55,    56,
-      57,    58,    59,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    13,    14,    10,   333,   219,   335,   336,
-       8,    70,   132,   133,   134,   135,   136,   137,   138,   139,
-     140,   141,   142,   143,   144,   145,   146,   147,   221,   222,
-     151,   152,   223,   225,   226,     9,   148,   227,    38,    39,
-       5,     6,   229,    11,   231,   233,   234,   237,   238,   235,
-      12,   239,   233,   234,   237,   238,   251,    35,   253,     5,
-       6,    13,    14,    38,    39,   175,   176,   177,   178,   179,
-     180,    16,   181,   182,   183,   184,   185,   186,   187,   188,
-     189,   190,   191,   192,   193,   194,   195,   196,   197,   198,
-     199,   200,   201,   202,   203,   204,   205,   206,   210,   211,
-     208,   209,    17,   230,   255,   256,   321,   322,   338,   339,
-      18,   220,    19,   124,   125,    20,    21,    22,    23,    24,
-      26,    27,    28,    32,    33,    34,    36,    37,    43,    44,
-      45,    46,    48,   115,    50,    51,    52,    53,    73,    74,
-     232,   257,    47,   252,    49,   290,    75,    76,    77,    78,
-      79,    80,    81,    82,    83,    84,    85,    86,    87,    88,
-      89,    93,    94,   254,    92,   250,     0,     0,    95,    96,
-      97,    98,    99,   111,   113,   100,   101,   102,   103,   104,
-     105,   106,   107,   108,   109,   110,   114,   120,   121,   122,
-     123,   127,   126,   128,   129,   131,   130,   149,   150,     0,
-     153,   154,   155,   292,   212,   156,   157,   158,   159,   160,
-     161,   162,   163,   164,   165,   166,   167,   172,   173,   174,
-     207,     0,     0,   241,   242,   258,   259,   261,   260,   262,
-     267,   268,   323,   324,   271,   263,   264,   265,   266,   272,
-     269,   279,   280,     0,   270,   273,   283,   274,   275,   276,
-     277,   284,   278,     0,   306,   281,   282,   285,     0,   286,
-     287,   288,   291,   304,   293,   296,   352,   353,   354,   355,
-     297,   298,   299,   300,   301,   302,   303,   305,   307,   308,
-     309,   310,   311,   312,   313,   314,   315,   316,   325,   326,
-     327,   328,   329,   330,   331,   332,   333,   340,   341,   342,
-     343,   344,   345,   346,   347,   348,   349,     0,     0,   356,
-     357,   358,   359,   360,   361,   362,   363,   364,   365,   350,
-     351,   366,   367,   368,   369,   370,   371,   372,   373,   374,
-     375,   376,   377,   378,   379,   380,   414,   415,   381,   382,
-     383,   384,   418,   419,   385,   386,   387,   388,   389,   390,
-     391,   392,   393,   394,   395,   396,   397,   398,   399,   400,
-     401,   402,   403,   404,   405,   406,   407,   408,   409,   410,
-     411,   412,   413,   416,   417
+      30,    25,    42,   243,   244,   245,   320,   296,    42,   243,
+     244,   251,    90,   298,   168,   246,     1,   324,     3,   297,
+     325,   246,   326,     5,     6,   299,    71,    72,   215,   216,
+     217,   321,   322,   247,   170,     8,    91,   171,   169,   247,
+      54,    55,    56,    57,    58,    59,    60,    61,    62,    63,
+      64,    65,    66,    67,    68,    69,   213,   151,   152,   214,
+      13,    14,    70,   132,   133,   134,   135,   136,   137,   138,
+     139,   140,   141,   142,   143,   144,   145,   146,   147,    13,
+      14,   219,   221,   222,   223,   148,   225,   226,   227,    38,
+      39,   229,     5,     6,   231,   233,   234,   235,   237,   238,
+     239,   233,   234,   253,   237,   238,   255,   341,   342,   343,
+      38,    39,   175,   176,     4,   177,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,   188,   189,   190,   191,
+     192,   193,   194,   195,   196,   197,   198,   199,   200,   201,
+     202,   203,   204,   205,   206,   208,   209,     9,   210,   211,
+     257,   258,    10,   230,   327,   328,   344,   345,   124,   125,
+      11,   220,    12,    16,    17,    18,    19,    20,    21,    22,
+      23,    24,    26,    27,    28,    32,    33,    34,   115,    36,
+      37,    43,    44,    45,    46,    35,   259,    50,    51,    52,
+      53,    73,    74,    47,   232,    49,   254,    75,    76,    77,
+      78,    79,    80,    81,    82,    83,    84,    85,    86,    87,
+      88,    89,    93,    94,   256,    92,   252,     0,     0,    95,
+      96,    97,     0,     0,    98,    99,   100,   101,   102,   103,
+     104,   105,   106,   107,   108,   109,   110,   111,   113,   122,
+     114,   120,   121,   126,   123,   127,   128,   129,   149,   150,
+      48,   153,   131,   130,   154,   155,   156,   157,   158,   159,
+     160,   161,   162,   163,   164,   165,   166,   167,   172,   173,
+     207,     0,   174,   241,   212,   242,   260,   261,   263,   264,
+     308,     0,     0,     0,   269,   262,   329,   330,   270,   273,
+     265,   266,   267,   268,   274,   271,   272,   275,   281,   282,
+     276,   277,   278,   279,   285,   280,   283,   284,   286,   292,
+     287,   288,   289,   290,   310,   291,     0,   295,   294,     0,
+     300,   301,   358,   359,   360,   361,   302,   303,   304,   305,
+     306,   307,   309,   311,   312,   313,   314,   315,   316,   317,
+     318,   319,   331,   332,   333,   334,   335,   336,   337,   338,
+     339,   340,   346,   347,   348,   349,   350,   351,   352,   353,
+     354,   355,     0,     0,   362,   363,   364,   365,   366,   367,
+     368,   369,   356,   357,   370,   371,   372,   373,   374,   375,
+     376,   377,   378,   379,   380,   381,   382,   383,   384,   385,
+     418,   419,   386,   387,   388,   389,   422,   423,   390,   391,
+     392,   393,   394,   395,   396,   397,   398,   399,   400,   401,
+     402,   403,   404,   405,   406,   407,   408,   409,   410,   411,
+     412,   413,   414,   415,   416,   417,   420,   421
   };
 
   const short int
   BisonDictionaryTextParser::yycheck_[] =
   {
-      24,    20,    35,    23,    24,    23,    24,    27,    41,    27,
-     292,    23,    29,   295,    29,    23,    23,    22,    29,    23,
-      24,    32,    27,    27,     3,    37,    50,    51,    29,    37,
-      37,     0,    52,    50,    52,    50,   318,     5,     6,     7,
-       8,     9,    10,    11,    12,    13,    14,    15,    16,    17,
-      18,    19,    20,    23,    24,    37,    23,    27,    25,    26,
-      23,    29,     5,     6,     7,     8,     9,    10,    11,    12,
-      13,    14,    15,    16,    17,    18,    19,    20,    23,    24,
-      35,    36,    27,    23,    24,    23,    29,    27,    23,    24,
-      23,    24,    27,    23,    27,    23,    24,    23,    24,    27,
-      23,    27,    23,    24,    23,    24,    27,    32,    27,    23,
-      24,    23,    24,    23,    24,    35,    36,    35,    36,    35,
-      36,    23,    35,    36,    35,    36,    35,    36,    35,    36,
-      35,    36,    35,    36,    35,    36,    35,    36,    35,    36,
-      35,    36,    35,    36,    35,    36,    35,    36,   172,   173,
-      35,    36,    23,   186,    27,    28,    35,    36,    27,    28,
-      23,   180,    23,   117,   118,    37,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    41,    51,    23,    23,    23,    23,    23,    23,
-     188,    51,    33,   202,    34,   244,    29,    29,    29,    29,
-      29,    29,    29,    29,    29,    29,    29,    29,    29,    29,
-      29,    23,    23,   204,    32,   200,    -1,    -1,    35,    35,
-      35,    35,    35,    21,    23,    35,    35,    35,    35,    35,
-      35,    35,    35,    35,    35,    35,    23,    23,    23,    29,
-      33,    23,    34,    23,    35,    33,    35,    23,    23,    -1,
-      29,    29,    29,    37,    35,    29,    29,    29,    29,    29,
-      29,    29,    29,    29,    29,    29,    29,    23,    23,    27,
-      21,    -1,    -1,    27,    27,    27,    35,    23,    35,    23,
-      23,    23,   306,   307,    23,    35,    35,    35,    35,    23,
-      35,    23,    23,    -1,    35,    35,    23,    35,    35,    35,
-      35,    23,    35,    -1,    23,    35,    35,    35,    -1,    35,
-      35,    35,    35,    29,    35,    35,   340,   341,   342,   343,
-      35,    35,    35,    35,    35,    35,    35,    35,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    -1,    -1,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    35,
-      35,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,   410,   411,    23,    23,
-      23,    23,   416,   417,    23,    23,    23,    23,    23,    23,
+      24,    20,    35,    23,    24,    25,    23,    23,    41,    23,
+      24,    25,    27,    23,    27,    35,     3,   294,    27,    35,
+     297,    35,   299,    23,    24,    35,    50,    51,    23,    24,
+      25,    48,    49,    53,    27,    23,    51,    30,    51,    53,
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    22,    33,    34,    25,
+      23,    24,    27,     5,     6,     7,     8,     9,    10,    11,
+      12,    13,    14,    15,    16,    17,    18,    19,    20,    23,
+      24,    25,    23,    24,    25,    27,    23,    24,    25,    23,
+      24,    25,    23,    24,    25,    23,    24,    25,    23,    24,
+      25,    23,    24,    25,    23,    24,    25,   324,   325,   326,
+      23,    24,    33,    34,     0,    33,    34,    33,    34,    33,
+      34,    33,    34,    33,    34,    33,    34,    33,    34,    33,
+      34,    33,    34,    33,    34,    33,    34,    33,    34,    33,
+      34,    33,    34,    33,    34,    33,    34,    23,   172,   173,
+      25,    26,    35,   186,    33,    34,    25,    26,   117,   118,
+      23,   180,    23,    23,    23,    23,    23,    35,    23,    23,
+      23,    23,    23,    23,    23,    23,    23,    23,    52,    23,
+      23,    23,    23,    23,    23,    30,    52,    23,    23,    23,
+      23,    23,    23,    31,   188,    32,   202,    27,    27,    27,
+      27,    27,    27,    27,    27,    27,    27,    27,    27,    27,
+      27,    27,    23,    23,   204,    30,   200,    -1,    -1,    33,
+      33,    33,    -1,    -1,    33,    33,    33,    33,    33,    33,
+      33,    33,    33,    33,    33,    33,    33,    21,    23,    27,
+      23,    23,    23,    32,    31,    23,    23,    33,    23,    23,
+      41,    27,    31,    33,    27,    27,    27,    27,    27,    27,
+      27,    27,    27,    27,    27,    27,    27,    27,    23,    23,
+      21,    -1,    25,    25,    33,    25,    25,    33,    23,    23,
+      27,    -1,    -1,    -1,    23,    33,   310,   311,    23,    23,
+      33,    33,    33,    33,    23,    33,    33,    33,    23,    23,
+      33,    33,    33,    33,    23,    33,    33,    33,    23,    23,
+      33,    33,    33,    33,    23,    33,    -1,    33,    35,    -1,
+      33,    33,   346,   347,   348,   349,    33,    33,    33,    33,
+      33,    33,    33,    23,    23,    23,    23,    23,    23,    23,
       23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
       23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23
+      23,    23,    -1,    -1,    23,    23,    23,    23,    23,    23,
+      23,    23,    33,    33,    23,    23,    23,    23,    23,    23,
+      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
+     414,   415,    23,    23,    23,    23,   420,   421,    23,    23,
+      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
+      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
+      23,    23,    23,    23,    23,    23,    23,    23
   };
 
   const unsigned char
   BisonDictionaryTextParser::yystos_[] =
   {
-       0,     3,    54,    29,     0,    23,    24,    67,    23,    23,
-      37,    23,    23,    23,    24,    63,    23,    23,    23,    23,
-      37,    23,    23,    23,    23,    63,    23,    23,    23,    70,
-      70,    55,    23,    23,    23,    32,    23,    23,    23,    24,
-      56,    57,    66,    23,    23,    23,    23,    33,    56,    34,
+       0,     3,    55,    27,     0,    23,    24,    68,    23,    23,
+      35,    23,    23,    23,    24,    64,    23,    23,    23,    23,
+      35,    23,    23,    23,    23,    64,    23,    23,    23,    71,
+      71,    56,    23,    23,    23,    30,    23,    23,    23,    24,
+      57,    58,    67,    23,    23,    23,    23,    31,    57,    32,
       23,    23,    23,    23,     5,     6,     7,     8,     9,    10,
       11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
-      29,    70,    70,    23,    23,    29,    29,    29,    29,    29,
-      29,    29,    29,    29,    29,    29,    29,    29,    29,    29,
-      29,    50,    32,    23,    23,    35,    35,    35,    35,    35,
-      35,    35,    35,    35,    35,    35,    35,    35,    35,    35,
-      35,    21,    58,    23,    23,    51,    59,    60,    61,    66,
-      23,    23,    29,    33,    59,    59,    34,    23,    23,    35,
-      35,    33,     5,     6,     7,     8,     9,    10,    11,    12,
-      13,    14,    15,    16,    17,    18,    19,    20,    29,    23,
-      23,    35,    36,    29,    29,    29,    29,    29,    29,    29,
-      29,    29,    29,    29,    29,    29,    29,    29,    29,    50,
-      29,    32,    23,    23,    27,    35,    36,    35,    36,    35,
-      36,    35,    36,    35,    36,    35,    36,    35,    36,    35,
-      36,    35,    36,    35,    36,    35,    36,    35,    36,    35,
-      36,    35,    36,    35,    36,    35,    36,    21,    35,    36,
-      70,    70,    35,    22,    27,    23,    24,    27,    62,    27,
-      63,    23,    24,    27,    64,    23,    24,    27,    65,    27,
-      66,    27,    67,    23,    24,    27,    68,    23,    24,    27,
-      69,    27,    27,    23,    24,    27,    52,    71,    72,    27,
-      71,    27,    68,    27,    69,    27,    28,    51,    27,    35,
-      35,    23,    23,    35,    35,    35,    35,    23,    23,    35,
-      35,    23,    23,    35,    35,    35,    35,    35,    35,    23,
-      23,    35,    35,    23,    23,    35,    35,    35,    35,    37,
-      72,    35,    37,    35,    23,    37,    35,    35,    35,    35,
-      35,    35,    35,    35,    29,    35,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    73,    37,    73,
-      73,    35,    36,    70,    70,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    73,    25,    26,    74,    27,    28,
+      27,    71,    71,    23,    23,    27,    27,    27,    27,    27,
+      27,    27,    27,    27,    27,    27,    27,    27,    27,    27,
+      27,    51,    30,    23,    23,    33,    33,    33,    33,    33,
+      33,    33,    33,    33,    33,    33,    33,    33,    33,    33,
+      33,    21,    59,    23,    23,    52,    60,    61,    62,    67,
+      23,    23,    27,    31,    60,    60,    32,    23,    23,    33,
+      33,    31,     5,     6,     7,     8,     9,    10,    11,    12,
+      13,    14,    15,    16,    17,    18,    19,    20,    27,    23,
+      23,    33,    34,    27,    27,    27,    27,    27,    27,    27,
+      27,    27,    27,    27,    27,    27,    27,    27,    27,    51,
+      27,    30,    23,    23,    25,    33,    34,    33,    34,    33,
+      34,    33,    34,    33,    34,    33,    34,    33,    34,    33,
+      34,    33,    34,    33,    34,    33,    34,    33,    34,    33,
+      34,    33,    34,    33,    34,    33,    34,    21,    33,    34,
+      71,    71,    33,    22,    25,    23,    24,    25,    63,    25,
+      64,    23,    24,    25,    65,    23,    24,    25,    66,    25,
+      67,    25,    68,    23,    24,    25,    69,    23,    24,    25,
+      70,    25,    25,    23,    24,    25,    35,    53,    72,    73,
+      74,    25,    72,    25,    69,    25,    70,    25,    26,    52,
+      25,    33,    33,    23,    23,    33,    33,    33,    33,    23,
+      23,    33,    33,    23,    23,    33,    33,    33,    33,    33,
+      33,    23,    23,    33,    33,    23,    23,    33,    33,    33,
+      33,    33,    23,    75,    35,    33,    23,    35,    23,    35,
+      33,    33,    33,    33,    33,    33,    33,    33,    27,    33,
       23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      35,    35,    70,    70,    70,    70,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
+      23,    48,    49,    76,    75,    75,    75,    33,    34,    71,
+      71,    23,    23,    23,    23,    23,    23,    23,    23,    23,
+      23,    76,    76,    76,    25,    26,    23,    23,    23,    23,
+      23,    23,    23,    23,    23,    23,    33,    33,    71,    71,
+      71,    71,    23,    23,    23,    23,    23,    23,    23,    23,
       23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
       23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    70,    70,    23,    23,    70,    70
+      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
+      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
+      23,    23,    23,    23,    23,    23,    23,    23,    71,    71,
+      23,    23,    71,    71
   };
 
   const unsigned char
   BisonDictionaryTextParser::yyr1_[] =
   {
-       0,    53,    55,    54,    56,    56,    57,    57,    57,    57,
-      57,    57,    57,    57,    57,    57,    57,    57,    57,    57,
-      57,    57,    57,    58,    57,    59,    59,    60,    60,    60,
-      60,    60,    60,    60,    60,    60,    60,    60,    60,    60,
-      60,    60,    60,    60,    60,    60,    60,    60,    60,    60,
-      60,    60,    60,    60,    60,    60,    60,    60,    60,    60,
-      60,    60,    60,    60,    60,    60,    60,    60,    60,    60,
-      60,    60,    60,    60,    60,    60,    60,    60,    60,    60,
-      61,    62,    62,    62,    62,    62,    62,    62,    62,    63,
-      63,    63,    63,    63,    63,    63,    63,    64,    64,    64,
-      64,    64,    64,    64,    64,    64,    64,    64,    64,    65,
-      65,    65,    65,    65,    65,    65,    65,    65,    65,    65,
-      65,    66,    66,    66,    66,    66,    66,    66,    66,    66,
+       0,    54,    56,    55,    57,    57,    58,    58,    58,    58,
+      58,    58,    58,    58,    58,    58,    58,    58,    58,    58,
+      58,    58,    58,    59,    58,    60,    60,    61,    61,    61,
+      61,    61,    61,    61,    61,    61,    61,    61,    61,    61,
+      61,    61,    61,    61,    61,    61,    61,    61,    61,    61,
+      61,    61,    61,    61,    61,    61,    61,    61,    61,    61,
+      61,    61,    61,    61,    61,    61,    61,    61,    61,    61,
+      61,    61,    61,    61,    61,    61,    61,    61,    61,    61,
+      62,    63,    63,    63,    63,    63,    63,    63,    63,    64,
+      64,    64,    64,    64,    64,    64,    64,    65,    65,    65,
+      65,    65,    65,    65,    65,    65,    65,    65,    65,    66,
       66,    66,    66,    66,    66,    66,    66,    66,    66,    66,
-      66,    66,    66,    67,    67,    67,    67,    67,    67,    67,
+      66,    67,    67,    67,    67,    67,    67,    67,    67,    67,
       67,    67,    67,    67,    67,    67,    67,    67,    67,    67,
-      67,    67,    67,    67,    67,    68,    68,    68,    68,    68,
-      68,    68,    68,    68,    68,    68,    68,    68,    68,    68,
-      68,    68,    68,    68,    68,    68,    68,    68,    68,    68,
+      67,    67,    67,    68,    68,    68,    68,    68,    68,    68,
       68,    68,    68,    68,    68,    68,    68,    68,    68,    68,
       68,    68,    68,    68,    68,    69,    69,    69,    69,    69,
       69,    69,    69,    69,    69,    69,    69,    69,    69,    69,
       69,    69,    69,    69,    69,    69,    69,    69,    69,    69,
       69,    69,    69,    69,    69,    69,    69,    69,    69,    69,
-      69,    69,    69,    69,    69,    69,    69,    70,    70,    71,
-      71,    71,    71,    71,    72,    72,    73,    73,    74,    74,
-      74,    74,    74,    74
+      69,    69,    69,    69,    69,    70,    70,    70,    70,    70,
+      70,    70,    70,    70,    70,    70,    70,    70,    70,    70,
+      70,    70,    70,    70,    70,    70,    70,    70,    70,    70,
+      70,    70,    70,    70,    70,    70,    70,    70,    70,    70,
+      70,    70,    70,    70,    70,    70,    70,    71,    71,    72,
+      72,    72,    72,    72,    72,    72,    72,    72,    72,    73,
+      73,    74,    74,    75,    75,    76,    76,    76,    76,    76,
+      76
   };
 
   const unsigned char
@@ -4175,9 +4233,10 @@ namespace usds {
        3,     4,     4,     5,     5,     6,     6,     7,     7,     8,
        8,     9,     9,    10,    10,    11,    11,    12,    12,    13,
       13,    14,    14,    15,    15,    16,    16,    17,    17,    18,
-      18,    19,    19,    20,    20,    21,    21,     1,     2,     3,
-       4,     3,     3,     4,     1,     2,     1,     2,     1,     1,
-       2,     2,     3,     3
+      18,    19,    19,    20,    20,    21,    21,     1,     2,     1,
+       1,     3,     3,     3,     2,     4,     4,     4,     3,     1,
+       2,     1,     2,     1,     2,     1,     1,     2,     2,     3,
+       3
   };
 
 
@@ -4192,50 +4251,52 @@ namespace usds {
   "\"INT\"", "\"UINT\"", "\"LONG\"", "\"ULONG\"", "\"INT128\"",
   "\"UINT128\"", "\"FLOAT\"", "\"DOUBLE\"", "\"VARINT\"", "\"UVARINT\"",
   "\"STRING\"", "\"<Text encode>\"", "\"true or false\"", "\"Digit\"",
-  "\"-Digit\"", "\"Positive float exponent digit\"",
-  "\"Negative float exponent digit\"", "\"NULL\"", "\"Text string\"",
-  "\"Object name\"", "USDS_RESTRICT", "\"notRoot\"", "'{'", "'}'", "':'",
-  "';'", "'='", "'.'", "\"int8_t\"", "\"uint8_t\"", "\"int16_t\"",
-  "\"uint16_t\"", "\"int32_t\"", "\"uint32_t\"", "\"int64_t\"",
-  "\"uint64_t\"", "\"float\"", "\"Major float value\"",
-  "\"Minor float value\"", "\"Float exponent\"", "'<'", "'>'", "'-'",
-  "$accept", "dictionary", "$@1", "tags", "tag", "$@2", "fields", "field",
-  "struct_begin", "INT8_T", "UINT8_T", "INT16_T", "UINT16_T", "INT32_T",
-  "UINT32_T", "INT64_T", "UINT64_T", "digits", "FLOAT_T",
-  "major_float_digits", "minor_float_digits", "float_exponent", YY_NULL
+  "\"-Digit\"", "\"NULL\"", "\"Text string\"", "\"Object name\"",
+  "USDS_RESTRICT", "\"notRoot\"", "'{'", "'}'", "':'", "';'", "'='", "'.'",
+  "\"int8_t\"", "\"uint8_t\"", "\"int16_t\"", "\"uint16_t\"",
+  "\"int32_t\"", "\"uint32_t\"", "\"int64_t\"", "\"uint64_t\"",
+  "\"Float value\"", "\"Positive major float value\"",
+  "\"Negative major float value\"", "\"Minor float value\"",
+  "\"Positive float exponent digit\"", "\"Negative float exponent digit\"",
+  "\"Float exponent\"", "'<'", "'>'", "'-'", "$accept", "dictionary",
+  "$@1", "tags", "tag", "$@2", "fields", "field", "struct_begin", "INT8_T",
+  "UINT8_T", "INT16_T", "UINT16_T", "INT32_T", "UINT32_T", "INT64_T",
+  "UINT64_T", "digits", "FLOAT_VALUE", "positive_major_float_digits",
+  "negative_major_float_digits", "minor_float_digits", "float_exponent", YY_NULL
   };
 
 #if DICTIONARY_TEXTDEBUG
   const unsigned short int
   BisonDictionaryTextParser::yyrline_[] =
   {
-       0,   134,   134,   133,   148,   148,   150,   154,   158,   162,
-     166,   170,   174,   178,   182,   186,   190,   194,   198,   202,
-     206,   210,   214,   220,   219,   232,   232,   235,   239,   243,
-     247,   251,   255,   259,   263,   267,   271,   275,   279,   283,
-     287,   291,   295,   299,   304,   309,   316,   321,   326,   331,
-     336,   341,   346,   351,   356,   361,   366,   371,   376,   381,
-     386,   391,   396,   402,   408,   415,   420,   425,   430,   435,
-     440,   445,   450,   455,   460,   465,   470,   475,   480,   485,
-     494,   504,   508,   512,   516,   520,   533,   546,   550,   557,
-     561,   565,   569,   573,   586,   590,   594,   604,   608,   612,
-     618,   624,   631,   638,   646,   654,   670,   686,   690,   697,
-     701,   705,   711,   715,   722,   726,   734,   738,   754,   758,
-     762,   772,   776,   780,   786,   792,   799,   806,   814,   822,
-     831,   840,   850,   860,   871,   882,   894,   906,   919,   932,
-     953,   974,   978,   985,   989,   993,   999,  1003,  1010,  1014,
-    1022,  1026,  1035,  1039,  1049,  1053,  1064,  1068,  1080,  1084,
-    1097,  1101,  1122,  1126,  1130,  1140,  1144,  1148,  1154,  1160,
-    1167,  1174,  1182,  1190,  1199,  1208,  1218,  1228,  1239,  1250,
-    1262,  1274,  1287,  1300,  1314,  1328,  1344,  1360,  1377,  1394,
-    1412,  1430,  1449,  1468,  1488,  1508,  1529,  1550,  1572,  1594,
-    1617,  1640,  1669,  1698,  1704,  1713,  1717,  1721,  1727,  1731,
-    1738,  1742,  1750,  1754,  1763,  1767,  1777,  1781,  1792,  1796,
-    1808,  1812,  1825,  1829,  1843,  1847,  1863,  1869,  1886,  1892,
-    1910,  1916,  1935,  1941,  1961,  1967,  1988,  1994,  2016,  2022,
-    2045,  2051,  2075,  2081,  2115,  2121,  2127,  2135,  2135,  2142,
-    2146,  2150,  2154,  2159,  2166,  2171,  2179,  2184,  2192,  2196,
-    2200,  2204,  2208,  2212
+       0,   135,   135,   134,   149,   149,   151,   155,   159,   163,
+     167,   171,   175,   179,   183,   187,   191,   195,   199,   203,
+     207,   211,   215,   221,   220,   233,   233,   236,   240,   244,
+     248,   252,   256,   260,   264,   268,   272,   276,   280,   284,
+     288,   292,   296,   300,   305,   310,   317,   322,   327,   332,
+     337,   342,   347,   352,   357,   362,   367,   372,   377,   382,
+     387,   392,   397,   403,   409,   416,   421,   426,   431,   436,
+     441,   446,   451,   456,   461,   466,   471,   476,   481,   486,
+     495,   505,   509,   513,   517,   521,   534,   547,   551,   558,
+     562,   566,   570,   574,   587,   591,   595,   605,   609,   613,
+     619,   625,   632,   639,   647,   655,   671,   687,   691,   698,
+     702,   706,   712,   716,   723,   727,   735,   739,   755,   759,
+     763,   773,   777,   781,   787,   793,   800,   807,   815,   823,
+     832,   841,   851,   861,   872,   883,   895,   907,   920,   933,
+     954,   975,   979,   986,   990,   994,  1000,  1004,  1011,  1015,
+    1023,  1027,  1036,  1040,  1050,  1054,  1065,  1069,  1081,  1085,
+    1098,  1102,  1123,  1127,  1131,  1141,  1145,  1149,  1155,  1161,
+    1168,  1175,  1183,  1191,  1200,  1209,  1219,  1229,  1240,  1251,
+    1263,  1275,  1288,  1301,  1315,  1329,  1345,  1361,  1378,  1395,
+    1413,  1431,  1450,  1469,  1489,  1509,  1530,  1551,  1573,  1595,
+    1618,  1641,  1670,  1699,  1705,  1714,  1718,  1722,  1728,  1732,
+    1739,  1743,  1751,  1755,  1764,  1768,  1778,  1782,  1793,  1797,
+    1809,  1813,  1826,  1830,  1844,  1848,  1864,  1870,  1887,  1893,
+    1911,  1917,  1936,  1942,  1962,  1968,  1989,  1995,  2017,  2023,
+    2046,  2052,  2076,  2082,  2116,  2122,  2128,  2136,  2136,  2143,
+    2147,  2151,  2155,  2159,  2163,  2167,  2171,  2175,  2179,  2186,
+    2190,  2197,  2201,  2208,  2213,  2221,  2225,  2229,  2233,  2237,
+    2241
   };
 
   // Print the state stack on the debug stream.
@@ -4280,15 +4341,15 @@ namespace usds {
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,    52,    37,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    34,    35,
-      50,    36,    51,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,    53,    35,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    32,    33,
+      51,    34,    52,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    32,     2,    33,     2,     2,     2,     2,
+       2,     2,     2,    30,     2,    31,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -4304,10 +4365,10 @@ namespace usds {
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    38,    39,    40,
-      41,    42,    43,    44,    45,    46,    47,    48,    49
+      25,    26,    27,    28,    29,    36,    37,    38,    39,    40,
+      41,    42,    43,    44,    45,    46,    47,    48,    49,    50
     };
-    const unsigned int user_token_number_max_ = 298;
+    const unsigned int user_token_number_max_ = 299;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int>(t) <= yyeof_)
@@ -4320,8 +4381,8 @@ namespace usds {
 
 #line 36 "bisonDictionaryTextParser.y" // lalr1.cc:1156
 } // usds
-#line 4324 "bisonDictionaryTextParser.cc" // lalr1.cc:1156
-#line 2219 "bisonDictionaryTextParser.y" // lalr1.cc:1157
+#line 4385 "bisonDictionaryTextParser.cc" // lalr1.cc:1156
+#line 2248 "bisonDictionaryTextParser.y" // lalr1.cc:1157
 
 //=================================================================================================
 

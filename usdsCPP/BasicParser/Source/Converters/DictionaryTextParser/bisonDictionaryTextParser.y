@@ -60,7 +60,7 @@
     size_t			stringVal[2];
 	usdsEncodes		encodeVal;
 	usdsTypes		typeVal;
-	struct			floatDigits { int64_t value; float digits; } floatDigits;
+	struct			floatDigits { double value; double digits; } floatDigits;
 }
 
 // Tokens
@@ -89,8 +89,6 @@
 %token<boolVal> BOOLEAN_VALUE "true or false"
 %token<int8Val> POSITIVE_NUMBER "Digit"
 %token<int8Val> NEGATIVE_NUMBER "-Digit"
-%token<int8Val> POSITIVE_EXPONENT_NUMBER "Positive float exponent digit"
-%token<int8Val> NEGATIVE_EXPONENT_NUMBER "Negative float exponent digit"
 %token NULL_VALUE "NULL"
 %token<stringVal> TEXT_STRING "Text string"
 
@@ -116,10 +114,13 @@
 %type<int64Val> INT64_T "int64_t"
 %type<uInt64Val> UINT64_T "uint64_t"
 
-%type<floatVal> FLOAT_T "float"
-%type<floatDigits> major_float_digits "Major float value"
+%type<doubleVal> FLOAT_VALUE "Float value"
+%type<doubleVal> positive_major_float_digits "Positive major float value"
+%type<doubleVal> negative_major_float_digits "Negative major float value"
 %type<floatDigits> minor_float_digits "Minor float value"
-%type<floatVal> float_exponent "Float exponent"
+%token<int8Val> POSITIVE_EXPONENT_NUMBER "Positive float exponent digit"
+%token<int8Val> NEGATIVE_EXPONENT_NUMBER "Negative float exponent digit"
+%type<doubleVal> float_exponent "Float exponent"
 
 %{
 #undef yylex
@@ -143,7 +144,7 @@ dictionary:
 
 	
 //=================================================================================================
-// Simple types
+// Tags
 
 tags: tag |tag tags;
 	
@@ -457,12 +458,12 @@ field:
 		usds::DictionaryULong* dict_field = (usds::DictionaryULong*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]));
 		dict_field->setDefaultValue($6);
 	}
-	|INT32_T ':' TYPE_FLOAT TEXT_NAME '=' FLOAT_T ';'
+	|INT32_T ':' TYPE_FLOAT TEXT_NAME '=' FLOAT_VALUE ';'
 	{
 		usds::DictionaryFloat* dict_field = (usds::DictionaryFloat*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]));
-		dict_field->setDefaultValue($6);
+		dict_field->setDefaultValue((float)$6);
 	}
-	|INT32_T ':' TYPE_DOUBLE TEXT_NAME '=' FLOAT_T ';'
+	|INT32_T ':' TYPE_DOUBLE TEXT_NAME '=' FLOAT_VALUE ';'
 	{
 		usds::DictionaryDouble* dict_field = (usds::DictionaryDouble*)(((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]));
 		dict_field->setDefaultValue($6);
@@ -2138,80 +2139,108 @@ digits: POSITIVE_NUMBER |digits POSITIVE_NUMBER
 //=================================================================================================
 // Float types
 
-FLOAT_T:
-	major_float_digits '.' minor_float_digits
+FLOAT_VALUE:
+	positive_major_float_digits
 	{
-		$$ = (float)$1.value + ((float)$3.value)/$3.digits;
+		$$ = $1;
 	}
-	|NEGATIVE_NUMBER major_float_digits '.' minor_float_digits
+	|negative_major_float_digits
 	{
-		$$ = (float)$1 * $2.digits * 10.0F - (float)$2.value - ((float)$4.value)/$4.digits;	
+		$$ = $1;
 	}
-	|NEGATIVE_NUMBER '.' minor_float_digits
+	|positive_major_float_digits '.' minor_float_digits
 	{
-		$$ = (float)$1 - ((float)$3.value)/$3.digits;	
+		$$ = $1 + $3.value/$3.digits;
+	}
+	|negative_major_float_digits '.' minor_float_digits
+	{
+		$$ = $1 - $3.value/$3.digits;
 	}
 	|'-' '.' minor_float_digits
 	{
-		$$ = - ((float)$3.value)/$3.digits;	
+		$$ = - $3.value/$3.digits;	
 	}
-	
-	|major_float_digits '.' minor_float_digits float_exponent
+	|'.' minor_float_digits
 	{
-		$$ = ((float)$1.value + ((float)$3.value)/$3.digits) * pow(10.0, $4);
+		$$ = $2.value/$2.digits;
+	}
+	|positive_major_float_digits '.' minor_float_digits float_exponent
+	{
+		$$ = ($1 + $3.value/$3.digits) * pow(10.0, $4);
+	}
+	|negative_major_float_digits '.' minor_float_digits float_exponent
+	{
+		$$ = ($1 - $3.value/$3.digits) * pow(10.0, $4);
+	}
+	|'-' '.' minor_float_digits float_exponent
+	{
+		$$ = (- $3.value/$3.digits) * pow(10.0, $4);	
+	}
+	|'.' minor_float_digits float_exponent
+	{
+		$$ = ($2.value/$2.digits) * pow(10.0, $3);
 	}
 	;
 
-major_float_digits: 
+positive_major_float_digits: 
 	POSITIVE_NUMBER
 	{
-		$$.value = (int64_t)$1;
-		$$.digits = 1.0F;
+		$$ = (double)$1;
 	}
-	|major_float_digits POSITIVE_NUMBER
+	|positive_major_float_digits POSITIVE_NUMBER
 	{
-		$$.value = $$.value * (int64_t)10 + (int64_t)$2;
-		$$.digits = $$.digits * 10.0F;
+		$$ = $$ * 10.0 + (double)$2;
+	}
+	;
+	
+negative_major_float_digits: 
+	NEGATIVE_NUMBER
+	{
+		$$ = (double)$1;
+	}
+	|negative_major_float_digits POSITIVE_NUMBER
+	{
+		$$ = $$ * 10.0 - (double)$2;
 	}
 	;
 	
 minor_float_digits: 
 	POSITIVE_NUMBER
 	{
-		$$.value = (int64_t)$1;
-		$$.digits = 10.0F;
+		$$.value = (double)$1;
+		$$.digits = 10.0;
 	}
 	|minor_float_digits POSITIVE_NUMBER
 	{
-		$$.value = $$.value * (int64_t)10 + (int64_t)$2;
-		$$.digits = $$.digits * 10.0F;
+		$$.value = $$.value * 10.0 + (double)$2;
+		$$.digits = $$.digits * 10.0;
 	}
 	;
 
 float_exponent: 
 	POSITIVE_EXPONENT_NUMBER
 	{
-		$$ = (float)$1;
+		$$ = (double)$1;
 	}
 	|NEGATIVE_EXPONENT_NUMBER
 	{
-		$$ = (float)$1;
+		$$ = (double)$1;
 	}
 	|POSITIVE_EXPONENT_NUMBER POSITIVE_NUMBER
 	{
-		$$ = (float)$1 * (float)10.0F + (float)$2;
+		$$ = (double)$1 * (double)10.0 + (double)$2;
 	}
 	|NEGATIVE_EXPONENT_NUMBER POSITIVE_NUMBER
 	{
-		$$ = (float)$1 * (float)10.0F - (float)$2;
+		$$ = (double)$1 * (double)10.0 - (double)$2;
 	}
 	|POSITIVE_EXPONENT_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
-		$$ = (float)$1 * (float)100.0F + (float)$2 * (float)10.0F + (float)$3;
+		$$ = (double)$1 * (double)100.0 + (double)$2 * (double)10.0 + (double)$3;
 	}
 	|NEGATIVE_EXPONENT_NUMBER POSITIVE_NUMBER POSITIVE_NUMBER
 	{
-		$$ = (float)$1 * (float)100.0F - (float)$2 * (float)10.0F - (float)$3;
+		$$ = (double)$1 * (double)100.0 - (double)$2 * (double)10.0 - (double)$3;
 	}
 	;
 

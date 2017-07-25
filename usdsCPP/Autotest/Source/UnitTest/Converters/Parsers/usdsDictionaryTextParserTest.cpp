@@ -1,5 +1,7 @@
 #include "usdsAutotest.h"
 
+#pragma execution_character_set("utf-8")
+
 #include "converters/usdsDictionaryTextParser.h"
 
 #include "dictionary\usdsDictionary.h"
@@ -1004,12 +1006,49 @@ void DictionaryTextParserTest::test_9()
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
 
-	const size_t size = 1;
+	const size_t size = 20;
 	struct dicts { const char* text; float value;} dicts[size];
 
 	dicts[0].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 125;};}";
 	dicts[0].value = 125.0F;
-
+	dicts[1].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -125;};}";
+	dicts[1].value = -125.0F;
+	dicts[2].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 1000000000000000000000000000000;};}";
+	dicts[2].value = 1000000000000000000000000000000.0F;
+	dicts[3].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -1000000000000000000000000000000;};}";
+	dicts[3].value = -1000000000000000000000000000000.0F;
+	dicts[4].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 125.0;};}";
+	dicts[4].value = 125.0F;
+	dicts[5].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -125.0;};}";
+	dicts[5].value = -125.0F;
+	dicts[6].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 1000000000000000000000000000000.0;};}";
+	dicts[6].value = 1000000000000000000000000000000.0F;
+	dicts[7].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -1000000000000000000000000000000.0;};}";
+	dicts[7].value = -1000000000000000000000000000000.0F;
+	dicts[8].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 125.125;};}";
+	dicts[8].value = 125.125F;
+	dicts[9].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -125.125;};}";
+	dicts[9].value = -125.125F;
+	dicts[10].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = .125;};}";
+	dicts[10].value = 0.125F;
+	dicts[11].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -.125;};}";
+	dicts[11].value = -0.125F;
+	dicts[12].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 1.125e3;};}";
+	dicts[12].value = 1125.0F;
+	dicts[13].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -1.125e3;};}";
+	dicts[13].value = -1125.0F;
+	dicts[14].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 112.5e-2;};}";
+	dicts[14].value = 1.125F;
+	dicts[15].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -112.5e-2;};}";
+	dicts[15].value = -1.125F;
+	dicts[16].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = .125e3;};}";
+	dicts[16].value = 125.0F;
+	dicts[17].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -.125e3;};}";
+	dicts[17].value = -125.0F;
+	dicts[18].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = .125e-3;};}";
+	dicts[18].value = 0.000125F;
+	dicts[19].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -.125e-3;};}";
+	dicts[19].value = -0.000125F;
 	// step 1
 	for (size_t i = 0; i < size; i++)
 	{
@@ -1017,9 +1056,8 @@ void DictionaryTextParserTest::test_9()
 		float value = ((usds::DictionaryFloat*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
 		if (value != dicts[i].value)
 			throw "Failed at the step 1\n";
+		dict.clear();
 	}
-
-
 
 }
 
@@ -1053,10 +1091,11 @@ void DictionaryTextParserTest::test_10()
 				17: VARINT varint = 9223372036854775807;\n\
 				18: VARINT varint2 = -9223372036854775808;\n\
 				19: UVARINT uvarint = 18446744073709551615;\n\
-				20: STRING string = \"Hello\";\n\
+				20: STRING string = \"Привет\\\"!\\\"\";\n\
 				21: STRING<UTF-8> string2 = \"\";\n\
 			};\n\
 		}";
+
 	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 1 || dict.getDictionaryID() != 4294967295 || dict.getMajorVersion() != 55 || dict.getMinorVersion() != 255)
 		throw "Failed at the step 1\n";
@@ -1163,7 +1202,38 @@ void DictionaryTextParserTest::test_10()
 	if (strcmp(name, "double") != 0 || field->getType() != usds::USDS_DOUBLE || field->isNullable() != false || ((usds::DictionaryDouble*)field)->getDefaultValue() != -0.125)
 		throw "Failed at the step 18\n";
 
+	// step 19
+	field = tag->getField(17);
+	name = field->getName();
+	if (strcmp(name, "varint") != 0 || field->getType() != usds::USDS_VARINT || field->isNullable() != false || ((usds::DictionaryVarint*)field)->getDefaultValue() != INT64_MAX)
+		throw "Failed at the step 19\n";
 
+	// step 20
+	field = tag->getField(18);
+	name = field->getName();
+	if (strcmp(name, "varint2") != 0 || field->getType() != usds::USDS_VARINT || field->isNullable() != false || ((usds::DictionaryVarint*)field)->getDefaultValue() != INT64_MIN)
+		throw "Failed at the step 20\n";
+
+	// step 21
+	field = tag->getField(19);
+	name = field->getName();
+	if (strcmp(name, "uvarint") != 0 || field->getType() != usds::USDS_UVARINT || field->isNullable() != false || ((usds::DictionaryUVarint*)field)->getDefaultValue() != UINT64_MAX)
+		throw "Failed at the step 21\n";
+
+	// step 22
+	field = tag->getField(20);
+	name = field->getName();
+	const char* string_value = ((usds::DictionaryString*)field)->getUTF8DefaultValue();
+	if (strcmp(name, "string") != 0 || field->getType() != usds::USDS_STRING || field->isNullable() != false || strcmp(string_value, "Привет\\\"!\\\""))
+		throw "Failed at the step 22\n";
+
+	// step 23
+	field = tag->getField(21);
+	name = field->getName();
+	string_value = ((usds::DictionaryString*)field)->getUTF8DefaultValue();
+	if (strcmp(name, "string2") != 0 || field->getType() != usds::USDS_STRING || field->isNullable() != false || strcmp(string_value, ""))
+		throw "Failed at the step 23\n";
+	
 }
 
 

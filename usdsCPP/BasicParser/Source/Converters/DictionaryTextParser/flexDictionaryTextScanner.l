@@ -368,7 +368,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 /* Text string with UTF-8 */ 
 %}
 
-\"([\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf][\x80-\xbf]|[\xf0-\xf4][\x80-\xbf][\x80-\xbf][\x80-\xbf]|[\\\"]|[^\"])*\"	{
+\"([\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf][\x80-\xbf]|[\xf0-\xf4][\x80-\xbf][\x80-\xbf][\x80-\xbf]|[\\][\"]|[^\"])*\"	{
 							yylval->stringVal[0] = offset - yyleng + 1;
 							yylval->stringVal[1] = yyleng - 2;
 							return (token::TEXT_STRING);
