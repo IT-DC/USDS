@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*- 
+﻿# -*- coding: utf-8 -*-
 
 import io
 import os
@@ -10,7 +10,7 @@ test_classes = {}
 
 for root, dirs, files in os.walk("UnitTest"):
 	for name in files:
-		test_code_file = io.open(os.path.join(root, name), 'r', encoding='utf8')
+		test_code_file = io.open(os.path.join(root, name), 'r', encoding='UTF-8')
 		for line in test_code_file:
 			if re.search("void [A-Za-z0-9_]+::[A-Za-z0-9_]+\(\)", line):
 				class_name = re.sub("void ", "", line)
@@ -30,7 +30,7 @@ for root, dirs, files in os.walk("UnitTest"):
 		test_code_file.close()
 	
 #Generate head file
-main_head_file = io.open("../Include/usdsAutotest.h", 'w', encoding='utf8')
+main_head_file = io.open("../Include/usdsAutotest.h", 'w', encoding='UTF-8')
 
 main_head_file.write(u"#ifndef USDS_AUTOTEST_H\n")
 main_head_file.write(u"#define USDS_AUTOTEST_H\n\n")
@@ -45,7 +45,7 @@ main_head_file.write(u"#endif")
 main_head_file.close()
 
 #Generate code file
-main_code_file = io.open("usdsAutotest.cpp", 'r', encoding='utf8')
+main_code_file = io.open("usdsAutotest.cpp", 'r', encoding='UTF-8')
 
 output_lines = []
 block_started = False
@@ -146,7 +146,7 @@ for line in main_code_file:
 
 main_code_file.close()			
 
-main_code_out_file = io.open("usdsAutotest.cpp", 'w', encoding='utf8')
+main_code_out_file = io.open("usdsAutotest.cpp", 'w', encoding='UTF-8')
 for line in output_lines:
 	main_code_out_file.write(line)
 main_code_out_file.close()

@@ -1,4 +1,4 @@
-#include "usdsAutotest.h"
+ï»¿#include "usdsAutotest.h"
 
 #pragma execution_character_set("utf-8")
 
@@ -21,6 +21,7 @@
 #include "dictionary/dataTypes/dictionaryUvarint.h"
 #include "dictionary/dataTypes/dictionaryString.h"
 #include "dictionary/dataTypes/dictionaryStruct.h"
+#include "dictionary/dataTypes/dictionaryArray.h"
 #include "dictionary/dataTypes/dictionaryTagLink.h"
 
 #include <sstream>
@@ -55,8 +56,6 @@ void DictionaryTextParserTest::test_1()
 	if (dict.getTagNumber() != 13 || dict.getDictionaryID() != 888 || dict.getMajorVersion() != 1 || dict.getMinorVersion() != 0 || strcmp(dict_name, "MyLittleAPI") != 0)
 		throw "Failed at the step 1\n";
 	
-	
-
 	// step 2
 	const char* name = dict.getTag(1)->getName();
 	if (strcmp(name, "bool") != 0)
@@ -1091,7 +1090,7 @@ void DictionaryTextParserTest::test_10()
 				17: VARINT varint = 9223372036854775807;\n\
 				18: VARINT varint2 = -9223372036854775808;\n\
 				19: UVARINT uvarint = 18446744073709551615;\n\
-				20: STRING string = \"Ïðèâåò\\\"!\\\"\";\n\
+				20: STRING string = \"ÐŸÑ€Ð¸Ð²ÐµÑ‚\\\"!\\\"\";\n\
 				21: STRING<UTF-8> string2 = \"\";\n\
 			};\n\
 		}";
@@ -1224,7 +1223,7 @@ void DictionaryTextParserTest::test_10()
 	field = tag->getField(20);
 	name = field->getName();
 	const char* string_value = ((usds::DictionaryString*)field)->getUTF8DefaultValue();
-	if (strcmp(name, "string") != 0 || field->getType() != usds::USDS_STRING || field->isNullable() != false || strcmp(string_value, "Ïðèâåò\\\"!\\\""))
+	if (strcmp(name, "string") != 0 || field->getType() != usds::USDS_STRING || field->isNullable() != false || strcmp(string_value, "ÐŸÑ€Ð¸Ð²ÐµÑ‚\\\"!\\\""))
 		throw "Failed at the step 22\n";
 
 	// step 23
@@ -1236,5 +1235,369 @@ void DictionaryTextParserTest::test_10()
 	
 }
 
+void DictionaryTextParserTest::test_11()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+	
+	// step 1
+	const char* text_dict =
+		"USDS MyLittleAPI 0.0.0 {\n\
+			1: BOOLEAN[] bool;\n\
+			2: BYTE[] byte;\n\
+			3: UBYTE[] ubyte;\n\
+			4: SHORT[] short;\n\
+			5: USHORT[] ushort;\n\
+			6: INT[] int;\n\
+			7: UINT[] uint;\n\
+			8: LONG[] long;\n\
+			9: ULONG[] ulong;\n\
+			10: FLOAT[] float;\n\
+			11: DOUBLE[] double;\n\
+			12: VARINT[] varint;\n\
+			13: UVARINT[] uvarint;\n\
+			14: STRING[] string;\n\
+			15: STRING<UTF-8>[] string2;\n\
+			16: struct[]\n\
+			{\n\
+				1: BOOLEAN bool;\n\
+				2: BYTE byte;\n\
+			};\n\
+		}";
 
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
+	if (dict.getTagNumber() != 16 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 0)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	usds::DictionaryArray* tag = (usds::DictionaryArray*)dict.getTag(1);
+	if (strcmp(tag->getName(), "bool") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 2\n";
+
+	// step 3
+	tag = (usds::DictionaryArray*)dict.getTag(2);
+	if (strcmp(tag->getName(), "byte") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 3\n";
+
+	// step 4
+	tag = (usds::DictionaryArray*)dict.getTag(3);
+	if (strcmp(tag->getName(), "ubyte") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_UBYTE)
+		throw "Failed at the step 4\n";
+
+	// step 5
+	tag = (usds::DictionaryArray*)dict.getTag(4);
+	if (strcmp(tag->getName(), "short") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_SHORT)
+		throw "Failed at the step 5\n";
+
+	// step 6
+	tag = (usds::DictionaryArray*)dict.getTag(5);
+	if (strcmp(tag->getName(), "ushort") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_USHORT)
+		throw "Failed at the step 6\n";
+
+	// step 7
+	tag = (usds::DictionaryArray*)dict.getTag(6);
+	if (strcmp(tag->getName(), "int") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_INT)
+		throw "Failed at the step 7\n";
+
+	// step 8
+	tag = (usds::DictionaryArray*)dict.getTag(7);
+	if (strcmp(tag->getName(), "uint") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_UINT)
+		throw "Failed at the step 8\n";
+
+	// step 9
+	tag = (usds::DictionaryArray*)dict.getTag(8);
+	if (strcmp(tag->getName(), "long") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_LONG)
+		throw "Failed at the step 9\n";
+
+	// step 10
+	tag = (usds::DictionaryArray*)dict.getTag(9);
+	if (strcmp(tag->getName(), "ulong") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ULONG)
+		throw "Failed at the step 10\n";
+
+	// step 11
+	tag = (usds::DictionaryArray*)dict.getTag(10);
+	if (strcmp(tag->getName(), "float") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_FLOAT)
+		throw "Failed at the step 11\n";
+
+	// step 12
+	tag = (usds::DictionaryArray*)dict.getTag(11);
+	if (strcmp(tag->getName(), "double") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_DOUBLE)
+		throw "Failed at the step 12\n";
+
+	// step 13
+	tag = (usds::DictionaryArray*)dict.getTag(12);
+	if (strcmp(tag->getName(), "varint") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_VARINT)
+		throw "Failed at the step 13\n";
+
+	// step 14
+	tag = (usds::DictionaryArray*)dict.getTag(13);
+	if (strcmp(tag->getName(), "uvarint") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_UVARINT)
+		throw "Failed at the step 14\n";
+
+	// step 15
+	tag = (usds::DictionaryArray*)dict.getTag(14);
+	if (strcmp(tag->getName(), "string") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_STRING
+		|| ((usds::DictionaryString*)tag->getElement())->getDefaultEncode() != usds::USDS_NO_DEFAULT_ENCODE)
+		throw "Failed at the step 15\n";
+
+	// step 16
+	tag = (usds::DictionaryArray*)dict.getTag(15);
+	if (strcmp(tag->getName(), "string2") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_STRING
+		|| ((usds::DictionaryString*)tag->getElement())->getDefaultEncode() != usds::USDS_UTF8)
+		throw "Failed at the step 16\n";
+
+	// step 17
+	tag = (usds::DictionaryArray*)dict.getTag(16);
+	if (strcmp(tag->getName(), "struct") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 17\n";
+
+	// step 18
+	usds::DictionaryStruct* element = (usds::DictionaryStruct*)tag->getElement();
+	usds::DictionaryBaseType* field = element->getField(1);
+	if (strcmp(field->getName(), "bool") != 0 || field->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 18\n";
+
+	// step 19
+	field = element->getField(2);
+	if (strcmp(field->getName(), "byte") != 0 || field->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 19\n";
+
+}
+
+void DictionaryTextParserTest::test_12()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	// step 1
+	const char* text_dict =
+		"USDS MyLittleAPI 0.0.0 {\n\
+			1: BOOLEAN[][] bool;\n\
+			2: BYTE[][][] byte;\n\
+			3: UBYTE[][][][] ubyte;\n\
+			4: struct[][][]\n\
+			{\n\
+				1: BOOLEAN bool;\n\
+				2: BYTE byte;\n\
+			};\n\
+		}";
+
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
+	if (dict.getTagNumber() != 4 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 0)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	usds::DictionaryArray* tag = (usds::DictionaryArray*)dict.getTag(1);
+	if (strcmp(tag->getName(), "bool") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY ||
+		((usds::DictionaryArray*)tag->getElement())->getElement()->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 2\n";
+
+	// step 3
+	tag = (usds::DictionaryArray*)dict.getTag(2);
+	if (strcmp(tag->getName(), "byte") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)tag->getElement())->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)((usds::DictionaryArray*)tag->getElement())->getElement())->getElement()->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 3\n";
+
+	// step 4
+	tag = (usds::DictionaryArray*)dict.getTag(3);
+	if (strcmp(tag->getName(), "ubyte") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)tag->getElement())->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)((usds::DictionaryArray*)tag->getElement())->getElement())->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)((usds::DictionaryArray*)((usds::DictionaryArray*)tag->getElement())->getElement())->getElement())->getElement()->getType() != usds::USDS_UBYTE)
+		throw "Failed at the step 4\n";
+
+	// step 5
+	tag = (usds::DictionaryArray*)dict.getTag(4);
+	if (strcmp(tag->getName(), "struct") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)tag->getElement())->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)((usds::DictionaryArray*)tag->getElement())->getElement())->getElement()->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 5\n";
+
+	// step 6
+	usds::DictionaryStruct* element = (usds::DictionaryStruct*)((usds::DictionaryArray*)((usds::DictionaryArray*)tag->getElement())->getElement())->getElement();
+	usds::DictionaryBaseType* field = element->getField(1);
+	if (strcmp(field->getName(), "bool") != 0 || field->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 6\n";
+
+	// step 7
+	field = element->getField(2);
+	if (strcmp(field->getName(), "byte") != 0 || field->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 7\n";
+
+}
+
+void DictionaryTextParserTest::test_13()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	// step 1
+	const char* text_dict =
+		"USDS MyLittleAPI 0.0.0 {\n\
+			1: struct[]\n\
+			{\n\
+				1: BOOLEAN[] bool;\n\
+				2: BYTE[] byte;\n\
+				3: UBYTE[] ubyte;\n\
+				4: SHORT[] short;\n\
+				5: USHORT[] ushort;\n\
+				6: INT[] int;\n\
+				7: UINT[] uint;\n\
+				8: LONG[] long;\n\
+				9: ULONG[] ulong;\n\
+				10: FLOAT[] float;\n\
+				11: DOUBLE[] double;\n\
+				12: VARINT[] varint;\n\
+				13: UVARINT[] uvarint;\n\
+				16: struct[]\n\
+				{\n\
+					1: bool[] bool_tag_link;\n\
+					2: BYTE byte;\n\
+				};\n\
+				14: STRING[] string;\n\
+				15: STRING<UTF-8>[] string2;\n\
+				17: bool bool2;\n\
+				18: struct2[] struct_field;\n\
+			};\n\
+			2: BOOLEAN[] bool;\n\
+			3: struct2\n\
+			{\n\
+				1: BOOLEAN bool = NULL;\n\
+				2: BYTE byte = 0;\n\
+			};\n\
+			4: struct3\n\
+			{\n\
+				1: BOOLEAN bool;\n\
+				2: struct2[] struct_field;\n\
+				3: struct2 struct_field2;\n\
+			};\n\
+		}";
+
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
+	if (dict.getTagNumber() != 4 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 0)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	usds::DictionaryArray* tag = (usds::DictionaryArray*)dict.getTag(1);
+	if (strcmp(tag->getName(), "struct") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 2\n";
+
+	// step 3
+	usds::DictionaryArray* field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(1);
+	if (strcmp(field->getName(), "bool") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 3\n";
+
+	// step 4
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(2);
+	if (strcmp(field->getName(), "byte") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 4\n";
+
+	// step 5
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(3);
+	if (strcmp(field->getName(), "ubyte") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_UBYTE)
+		throw "Failed at the step 5\n";
+
+	// step 6
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(4);
+	if (strcmp(field->getName(), "short") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_SHORT)
+		throw "Failed at the step 6\n";
+
+	// step 7
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(5);
+	if (strcmp(field->getName(), "ushort") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_USHORT)
+		throw "Failed at the step 7\n";
+
+	// step 8
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(6);
+	if (strcmp(field->getName(), "int") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_INT)
+		throw "Failed at the step 8\n";
+
+	// step 9
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(7);
+	if (strcmp(field->getName(), "uint") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_UINT)
+		throw "Failed at the step 9\n";
+
+	// step 10
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(8);
+	if (strcmp(field->getName(), "long") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_LONG)
+		throw "Failed at the step 10\n";
+
+	// step 11
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(9);
+	if (strcmp(field->getName(), "ulong") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_ULONG)
+		throw "Failed at the step 11\n";
+
+	// step 12
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(10);
+	if (strcmp(field->getName(), "float") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_FLOAT)
+		throw "Failed at the step 12\n";
+
+	// step 13
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(11);
+	if (strcmp(field->getName(), "double") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_DOUBLE)
+		throw "Failed at the step 13\n";
+
+	// step 14
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(12);
+	if (strcmp(field->getName(), "varint") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_VARINT)
+		throw "Failed at the step 14\n";
+
+	// step 15
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(13);
+	if (strcmp(field->getName(), "uvarint") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_UVARINT)
+		throw "Failed at the step 15\n";
+
+	// step 16
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(14);
+	if (strcmp(field->getName(), "string") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_STRING
+		|| ((usds::DictionaryString*)field->getElement())->getDefaultEncode() != usds::USDS_NO_DEFAULT_ENCODE)
+		throw "Failed at the step 16\n";
+
+	// step 17
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(15);
+	if (strcmp(field->getName(), "string2") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_STRING
+		|| ((usds::DictionaryString*)field->getElement())->getDefaultEncode() != usds::USDS_UTF8)
+		throw "Failed at the step 17\n";
+
+	// step 18
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(16);
+	if (strcmp(field->getName(), "struct") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_STRUCT
+		|| ((usds::DictionaryStruct*)field->getElement())->getFieldNumber() != 2)
+		throw "Failed at the step 18\n";
+
+	// step 19
+	usds::DictionaryBaseType* internal_field = ((usds::DictionaryStruct*)field->getElement())->getField(1);
+	if (strcmp(internal_field->getName(), "bool_tag_link") != 0 || internal_field->getType() != usds::USDS_ARRAY)
+		throw "Failed at the step 19\n";
+
+	// step 20
+	usds::DictionaryBaseType* internal_element = ((usds::DictionaryArray*)internal_field)->getElement();
+	if (internal_element->getType() != usds::USDS_TAG)
+		throw "Failed at the step 20\n";
+
+	// step 21
+	usds::DictionaryBaseType* internal_element_tag = ((usds::DictionaryTagLink*)internal_element)->getTag();
+	if (strcmp(internal_element_tag->getName(), "bool") || internal_element_tag->getType() != usds::USDS_ARRAY || ((usds::DictionaryArray*)internal_element_tag)->getElement()->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 21\n";
+
+	// step 22
+	internal_field = ((usds::DictionaryStruct*)field->getElement())->getField(2);
+	if (strcmp(internal_field->getName(), "byte") != 0 || internal_field->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 22\n";
+
+	// step 23
+	usds::DictionaryTagLink* tag_field = (usds::DictionaryTagLink*)((usds::DictionaryStruct*)tag->getElement())->getField(17);
+	if (strcmp(tag_field->getName(), "bool2") != 0 || tag_field->getType() != usds::USDS_TAG)
+		throw "Failed at the step 23\n";
+
+	// step 24
+	usds::DictionaryArray* array_tag_field = (usds::DictionaryArray*)tag_field->getTag();
+	if (strcmp(array_tag_field->getName(), "bool") != 0 || array_tag_field->getType() != usds::USDS_ARRAY || array_tag_field->getElement()->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 24\n";
+
+
+
+
+}
 
