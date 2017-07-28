@@ -229,8 +229,8 @@ try
 		field->finalize();
 		if (field->getType() == USDS_TAG)
 		{
-			if (((DictionaryTagLink*)field)->getTag()->getID() == objectID)
-				throw ErrorMessage(DIC_STRUCT__RECURSION_ERROR, "Recursion links must be OPTIONAL.");
+			if (((DictionaryTagLink*)field)->getTag()->getID() == objectID && field->isNullable() != true)
+				throw ErrorMessage(DIC_STRUCT__RECURSION_ERROR, "Recursion links must be Nullable.");
 		}
 	}
 }

@@ -12435,6 +12435,406 @@ int32_t main(int32_t argc, char* argv[])
 	test_number++;
 	if(execute_only != 0)
 	{
+		if(strcmp(execute_only, "DictionaryTextParserTest") == 0 || strcmp(execute_only, "DictionaryTextParserTest::test_14") == 0)
+		{
+			try
+			{
+				DictionaryTextParserTest::test_14();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserTest") == 0 || strcmp(*it, "DictionaryTextParserTest::test_14") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserTest::test_14();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_14' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserTest") == 0 || strcmp(execute_only, "DictionaryTextParserTest::test_15") == 0)
+		{
+			try
+			{
+				DictionaryTextParserTest::test_15();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserTest") == 0 || strcmp(*it, "DictionaryTextParserTest::test_15") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserTest::test_15();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_15' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserTest") == 0 || strcmp(execute_only, "DictionaryTextParserTest::test_16") == 0)
+		{
+			try
+			{
+				DictionaryTextParserTest::test_16();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserTest") == 0 || strcmp(*it, "DictionaryTextParserTest::test_16") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserTest::test_16();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_16' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserTest") == 0 || strcmp(execute_only, "DictionaryTextParserTest::test_17") == 0)
+		{
+			try
+			{
+				DictionaryTextParserTest::test_17();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserTest") == 0 || strcmp(*it, "DictionaryTextParserTest::test_17") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserTest::test_17();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_17' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserTest") == 0 || strcmp(execute_only, "DictionaryTextParserTest::test_18") == 0)
+		{
+			try
+			{
+				DictionaryTextParserTest::test_18();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserTest") == 0 || strcmp(*it, "DictionaryTextParserTest::test_18") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserTest::test_18();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserTest::test_18' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
 		if(strcmp(execute_only, "UsdsUIntTest") == 0 || strcmp(execute_only, "UsdsUIntTest::test_1") == 0)
 		{
 			try

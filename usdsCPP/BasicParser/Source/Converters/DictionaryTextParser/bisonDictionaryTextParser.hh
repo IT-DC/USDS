@@ -435,7 +435,7 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 612,           //< Last index in yytable_.
+      yylast_ = 675,           //< Last index in yytable_.
       yynnts_ = 26,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 4, //< Termination state number.

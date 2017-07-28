@@ -1464,11 +1464,11 @@ void DictionaryTextParserTest::test_13()
 			3: struct2\n\
 			{\n\
 				1: BOOLEAN bool = NULL;\n\
-				2: BYTE byte = 0;\n\
+				2: BYTE byte = 110;\n\
 			};\n\
 			4: struct3\n\
 			{\n\
-				1: BOOLEAN bool;\n\
+				1: INT int;\n\
 				2: struct2[] struct_field;\n\
 				3: struct2 struct_field2;\n\
 			};\n\
@@ -1596,8 +1596,801 @@ void DictionaryTextParserTest::test_13()
 	if (strcmp(array_tag_field->getName(), "bool") != 0 || array_tag_field->getType() != usds::USDS_ARRAY || array_tag_field->getElement()->getType() != usds::USDS_BOOLEAN)
 		throw "Failed at the step 24\n";
 
+	// step 25
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(18);
+	if (strcmp(field->getName(), "struct_field") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_TAG)
+		throw "Failed at the step 25\n";
 
+	// step 26
+	usds::DictionaryStruct* tag_struct = (usds::DictionaryStruct*)((usds::DictionaryTagLink*)(usds::DictionaryTagLink*)field->getElement())->getTag();
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2)
+		throw "Failed at the step 26\n";
+
+	// step 27
+	usds::DictionaryBoolean* boolean_struct_filed = (usds::DictionaryBoolean*)tag_struct->getField(1);
+	if (strcmp(boolean_struct_filed->getName(), "bool") != 0 || boolean_struct_filed->getType() != usds::USDS_BOOLEAN || boolean_struct_filed->isNullable() != true)
+		throw "Failed at the step 27\n";
+
+	// step 28
+	usds::DictionaryByte* byte_struct_filed = (usds::DictionaryByte*)tag_struct->getField(2);
+	if (strcmp(byte_struct_filed->getName(), "byte") != 0 || byte_struct_filed->getType() != usds::USDS_BYTE || byte_struct_filed->hasDefaultValue()!= true || byte_struct_filed->getDefaultValue() != 110)
+		throw "Failed at the step 28\n";
+
+	// step 29
+	tag = (usds::DictionaryArray*)dict.getTag(2);
+	if (strcmp(tag->getName(), "bool") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 29\n";
+
+	// step 30
+	tag_struct = (usds::DictionaryStruct*)dict.getTag(3);
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2)
+		throw "Failed at the step 30\n";
+
+	// step 31
+	boolean_struct_filed = (usds::DictionaryBoolean*)tag_struct->getField(1);
+	if (strcmp(boolean_struct_filed->getName(), "bool") != 0 || boolean_struct_filed->getType() != usds::USDS_BOOLEAN || boolean_struct_filed->isNullable() != true)
+		throw "Failed at the step 31\n";
+
+	// step 32
+	byte_struct_filed = (usds::DictionaryByte*)tag_struct->getField(2);
+	if (strcmp(byte_struct_filed->getName(), "byte") != 0 || byte_struct_filed->getType() != usds::USDS_BYTE || byte_struct_filed->hasDefaultValue() != true || byte_struct_filed->getDefaultValue() != 110)
+		throw "Failed at the step 32\n";
+
+	// step 33
+	tag_struct = (usds::DictionaryStruct*)dict.getTag(4);
+	if (strcmp(tag_struct->getName(), "struct3") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 3)
+		throw "Failed at the step 33\n";
+
+	// step 34
+	usds::DictionaryInt* int_struct_filed = (usds::DictionaryInt*)tag_struct->getField(1);
+	if (strcmp(int_struct_filed->getName(), "int") != 0 || int_struct_filed->getType() != usds::USDS_INT)
+		throw "Failed at the step 34\n";
+
+	// step 35
+	field = (usds::DictionaryArray*)tag_struct->getField(2);
+	if (strcmp(field->getName(), "struct_field") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_TAG)
+		throw "Failed at the step 35\n";
+
+	// step 36
+	usds::DictionaryStruct* internal_tag_struct = (usds::DictionaryStruct*)((usds::DictionaryTagLink*)field->getElement())->getTag();
+	if (strcmp(internal_tag_struct->getName(), "struct2") != 0 || internal_tag_struct->getType() != usds::USDS_STRUCT || internal_tag_struct->getFieldNumber() != 2)
+		throw "Failed at the step 36\n";
+
+	// step 37
+	boolean_struct_filed = (usds::DictionaryBoolean*)internal_tag_struct->getField(1);
+	if (strcmp(boolean_struct_filed->getName(), "bool") != 0 || boolean_struct_filed->getType() != usds::USDS_BOOLEAN || boolean_struct_filed->isNullable() != true)
+		throw "Failed at the step 37\n";
+
+	// step 38
+	byte_struct_filed = (usds::DictionaryByte*)internal_tag_struct->getField(2);
+	if (strcmp(byte_struct_filed->getName(), "byte") != 0 || byte_struct_filed->getType() != usds::USDS_BYTE || byte_struct_filed->hasDefaultValue() != true || byte_struct_filed->getDefaultValue() != 110)
+		throw "Failed at the step 38\n";
+
+	// step 39
+	tag_field = (usds::DictionaryTagLink*)tag_struct->getField(3);
+	if (strcmp(tag_field->getName(), "struct_field2") != 0 || tag_field->getType() != usds::USDS_TAG || tag_field->getTag()->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 39\n";
+
+	// step 40
+	tag_struct = (usds::DictionaryStruct*)tag_field->getTag();
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2)
+		throw "Failed at the step 40\n";
+
+	// step 41
+	boolean_struct_filed = (usds::DictionaryBoolean*)tag_struct->getField(1);
+	if (strcmp(boolean_struct_filed->getName(), "bool") != 0 || boolean_struct_filed->getType() != usds::USDS_BOOLEAN || boolean_struct_filed->isNullable() != true)
+		throw "Failed at the step 41\n";
+
+	// step 42
+	byte_struct_filed = (usds::DictionaryByte*)tag_struct->getField(2);
+	if (strcmp(byte_struct_filed->getName(), "byte") != 0 || byte_struct_filed->getType() != usds::USDS_BYTE || byte_struct_filed->hasDefaultValue() != true || byte_struct_filed->getDefaultValue() != 110)
+		throw "Failed at the step 42\n";
 
 
 }
 
+void DictionaryTextParserTest::test_14()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	// step 1
+	const char* text_dict =
+		"USDS MyLittleAPI 0.0.0 {\n\
+			1: struct[][]\n\
+			{\n\
+				1: BOOLEAN[][] bool;\n\
+				2: BYTE[][][] byte;\n\
+				3: struct[][][]\n\
+				{\n\
+					1: bool[] bool_tag_link;\n\
+					2: BYTE byte;\n\
+				};\n\
+				4: STRING<UTF-8>[][] string;\n\
+				5: bool bool2;\n\
+				6: struct2[] struct_field;\n\
+			};\n\
+			2: BOOLEAN[][][] bool;\n\
+			3: struct2[][]\n\
+			{\n\
+				1: BOOLEAN bool = NULL;\n\
+				2: BYTE byte = 110;\n\
+			};\n\
+		}";
+
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
+	if (dict.getTagNumber() != 3 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 0)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	usds::DictionaryArray* tag = (usds::DictionaryArray*)dict.getTag(1);
+	if (strcmp(tag->getName(), "struct") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY)
+		throw "Failed at the step 2\n";
+	{
+		// step 3
+		usds::DictionaryStruct* struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)tag->getElement())->getElement();
+		if (struct_tag->getType() != usds::USDS_STRUCT || struct_tag->getFieldNumber() != 6)
+			throw "Failed at the step 3\n";
+
+		// step 4
+		usds::DictionaryArray* array_field = (usds::DictionaryArray*)struct_tag->getField(1);
+		if (strcmp(array_field->getName(), "bool") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->getType() != usds::USDS_BOOLEAN)
+			throw "Failed at the step 4\n";
+
+		// step 5
+		array_field = (usds::DictionaryArray*)struct_tag->getField(2);
+		if (strcmp(array_field->getName(), "byte") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement()->getType() != usds::USDS_BYTE)
+			throw "Failed at the step 5\n";
+
+		// step 6
+		array_field = (usds::DictionaryArray*)struct_tag->getField(3);
+		if (strcmp(array_field->getName(), "struct") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement()->getType() != usds::USDS_STRUCT)
+			throw "Failed at the step 6\n";
+
+		// step 7
+		usds::DictionaryStruct* internal_struct = (usds::DictionaryStruct*)((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement();
+		if (internal_struct->getType() != usds::USDS_STRUCT || internal_struct->getFieldNumber() != 2)
+			throw "Failed at the step 7\n";
+		{
+			// step 8
+			usds::DictionaryArray* internal_array_field = (usds::DictionaryArray*)internal_struct->getField(1);
+			if (strcmp(internal_array_field->getName(), "bool_tag_link") != 0 || internal_array_field->getType() != usds::USDS_ARRAY || internal_array_field->getElement()->getType() != usds::USDS_TAG)
+				throw "Failed at the step 8\n";
+
+			// step 9
+			usds::DictionaryArray* internal_tag_link = (usds::DictionaryArray*)((usds::DictionaryTagLink*)internal_array_field->getElement())->getTag();
+			if (strcmp(internal_tag_link->getName(), "bool") != 0 || internal_tag_link->getType() != usds::USDS_ARRAY || internal_tag_link->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)internal_tag_link->getElement())->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)((usds::DictionaryArray*)internal_tag_link->getElement())->getElement())->getElement()->getType() != usds::USDS_BOOLEAN)
+				throw "Failed at the step 9\n";
+
+			// step 10
+			usds::DictionaryByte* internal_byte_field = (usds::DictionaryByte*)internal_struct->getField(2);
+			if (strcmp(internal_byte_field->getName(), "byte") != 0 || internal_byte_field->getType() != usds::USDS_BYTE)
+				throw "Failed at the step 10\n";
+		}
+
+		// step 11
+		array_field = (usds::DictionaryArray*)struct_tag->getField(4);
+		if (strcmp(array_field->getName(), "string") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->getType() != usds::USDS_STRING
+			|| ((usds::DictionaryString*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getDefaultEncode() != usds::USDS_UTF8)
+			throw "Failed at the step 11\n";
+
+		// step 12
+		usds::DictionaryTagLink* tag_field = (usds::DictionaryTagLink*)struct_tag->getField(5);
+		if (strcmp(tag_field->getName(), "bool2") != 0 || tag_field->getType() != usds::USDS_TAG)
+			throw "Failed at the step 12\n";
+
+		{
+			// step 13
+			usds::DictionaryArray* internal_tag_link = (usds::DictionaryArray*)tag_field->getTag();
+			if (strcmp(internal_tag_link->getName(), "bool") != 0 || internal_tag_link->getType() != usds::USDS_ARRAY || internal_tag_link->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)internal_tag_link->getElement())->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)((usds::DictionaryArray*)internal_tag_link->getElement())->getElement())->getElement()->getType() != usds::USDS_BOOLEAN)
+				throw "Failed at the step 13\n";
+		}
+
+		// step 14
+		array_field = (usds::DictionaryArray*)struct_tag->getField(6);
+		if (strcmp(array_field->getName(), "struct_field") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_TAG)
+			throw "Failed at the step 14\n";
+		{
+			// step 15
+			usds::DictionaryArray* internal_array_struct = (usds::DictionaryArray*)((usds::DictionaryTagLink*)array_field->getElement())->getTag();
+			if (strcmp(internal_array_struct->getName(), "struct2") != 0 || internal_array_struct->getType() != usds::USDS_ARRAY || internal_array_struct->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)internal_array_struct->getElement())->getElement()->getType() != usds::USDS_STRUCT)
+				throw "Failed at the step 15\n";
+			
+			{
+				// step 16
+				usds::DictionaryStruct* internal_struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)internal_array_struct->getElement())->getElement();
+				if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumber() != 2)
+					throw "Failed at the step 16\n";
+
+				// step 17
+				usds::DictionaryBoolean* internal_boolean_filed = (usds::DictionaryBoolean*)internal_struct_tag->getField(1);
+				if (strcmp(internal_boolean_filed->getName(), "bool") != 0 || internal_boolean_filed->getType() != usds::USDS_BOOLEAN || internal_boolean_filed->isNullable() != true)
+					throw "Failed at the step 17\n";
+
+				// step 18
+				usds::DictionaryByte* internal_byte_filed = (usds::DictionaryByte*)internal_struct_tag->getField(2);
+				if (strcmp(internal_byte_filed->getName(), "byte") != 0 || internal_byte_filed->getType() != usds::USDS_BYTE || internal_byte_filed->hasDefaultValue() != true || internal_byte_filed->getDefaultValue() != 110)
+					throw "Failed at the step 18\n";
+			}
+		}
+	}
+
+	// step 19
+	tag = (usds::DictionaryArray*)dict.getTag(2);
+	if (strcmp(tag->getName(), "bool") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)tag->getElement())->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)((usds::DictionaryArray*)tag->getElement())->getElement())->getElement()->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 19\n";
+
+	// step 20
+	tag = (usds::DictionaryArray*)dict.getTag(3);
+	if (strcmp(tag->getName(), "struct2") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)tag->getElement())->getElement()->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 20\n";
+
+	{
+		// step 21
+		usds::DictionaryStruct* internal_struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)tag->getElement())->getElement();
+		if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumber() != 2)
+			throw "Failed at the step 21\n";
+
+		// step 22
+		usds::DictionaryBoolean* internal_boolean_filed = (usds::DictionaryBoolean*)internal_struct_tag->getField(1);
+		if (strcmp(internal_boolean_filed->getName(), "bool") != 0 || internal_boolean_filed->getType() != usds::USDS_BOOLEAN || internal_boolean_filed->isNullable() != true)
+			throw "Failed at the step 22\n";
+
+		// step 23
+		usds::DictionaryByte* internal_byte_filed = (usds::DictionaryByte*)internal_struct_tag->getField(2);
+		if (strcmp(internal_byte_filed->getName(), "byte") != 0 || internal_byte_filed->getType() != usds::USDS_BYTE || internal_byte_filed->hasDefaultValue() != true || internal_byte_filed->getDefaultValue() != 110)
+			throw "Failed at the step 23\n";
+	}
+}
+
+void DictionaryTextParserTest::test_15()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	// step 1
+	const char* text_dict =
+		"USDS MyLittleAPI 0.0.0 {\n\
+			1: struct[]\n\
+			{\n\
+				1: BOOLEAN[] bool = NULL;\n\
+				2: BYTE[] byte = NULL;\n\
+				3: UBYTE[] ubyte = NULL;\n\
+				4: SHORT[] short = NULL;\n\
+				5: USHORT[] ushort = NULL;\n\
+				6: INT[] int = NULL;\n\
+				7: UINT[] uint = NULL;\n\
+				8: LONG[] long = NULL;\n\
+				9: ULONG[] ulong = NULL;\n\
+				10: FLOAT[] float = NULL;\n\
+				11: DOUBLE[] double = NULL;\n\
+				12: VARINT[] varint = NULL;\n\
+				13: UVARINT[] uvarint = NULL;\n\
+				16: struct[]\n\
+				{\n\
+					1: bool[] bool_tag_link = NULL;\n\
+					2: BYTE byte;\n\
+				} = NULL;\n\
+				14: STRING[] string = NULL;\n\
+				15: STRING<UTF-8>[] string2 = NULL;\n\
+				17: bool bool2 = NULL;\n\
+				18: struct2[] struct_field = NULL;\n\
+			};\n\
+			2: BOOLEAN[] bool;\n\
+			3: struct2\n\
+			{\n\
+				1: BOOLEAN bool = NULL;\n\
+				2: BYTE byte = 110;\n\
+			};\n\
+			4: struct3\n\
+			{\n\
+				1: INT int;\n\
+				2: struct2[] struct_field = NULL;\n\
+				3: struct2 struct_field2 = NULL;\n\
+			};\n\
+		}";
+
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
+	if (dict.getTagNumber() != 4 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 0)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	usds::DictionaryArray* tag = (usds::DictionaryArray*)dict.getTag(1);
+	if (strcmp(tag->getName(), "struct") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 2\n";
+
+	// step 3
+	usds::DictionaryArray* field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(1);
+	if (strcmp(field->getName(), "bool") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_BOOLEAN || field->isNullable() != true)
+		throw "Failed at the step 3\n";
+
+	// step 4
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(2);
+	if (strcmp(field->getName(), "byte") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_BYTE || field->isNullable() != true)
+		throw "Failed at the step 4\n";
+
+	// step 5
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(3);
+	if (strcmp(field->getName(), "ubyte") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_UBYTE || field->isNullable() != true)
+		throw "Failed at the step 5\n";
+
+	// step 6
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(4);
+	if (strcmp(field->getName(), "short") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_SHORT || field->isNullable() != true)
+		throw "Failed at the step 6\n";
+
+	// step 7
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(5);
+	if (strcmp(field->getName(), "ushort") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_USHORT || field->isNullable() != true)
+		throw "Failed at the step 7\n";
+
+	// step 8
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(6);
+	if (strcmp(field->getName(), "int") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_INT || field->isNullable() != true)
+		throw "Failed at the step 8\n";
+
+	// step 9
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(7);
+	if (strcmp(field->getName(), "uint") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_UINT || field->isNullable() != true)
+		throw "Failed at the step 9\n";
+
+	// step 10
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(8);
+	if (strcmp(field->getName(), "long") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_LONG || field->isNullable() != true)
+		throw "Failed at the step 10\n";
+
+	// step 11
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(9);
+	if (strcmp(field->getName(), "ulong") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_ULONG || field->isNullable() != true)
+		throw "Failed at the step 11\n";
+
+	// step 12
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(10);
+	if (strcmp(field->getName(), "float") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_FLOAT || field->isNullable() != true)
+		throw "Failed at the step 12\n";
+
+	// step 13
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(11);
+	if (strcmp(field->getName(), "double") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_DOUBLE || field->isNullable() != true)
+		throw "Failed at the step 13\n";
+
+	// step 14
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(12);
+	if (strcmp(field->getName(), "varint") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_VARINT || field->isNullable() != true)
+		throw "Failed at the step 14\n";
+
+	// step 15
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(13);
+	if (strcmp(field->getName(), "uvarint") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_UVARINT || field->isNullable() != true)
+		throw "Failed at the step 15\n";
+
+	// step 16
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(14);
+	if (strcmp(field->getName(), "string") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_STRING || field->isNullable() != true
+		|| ((usds::DictionaryString*)field->getElement())->getDefaultEncode() != usds::USDS_NO_DEFAULT_ENCODE)
+		throw "Failed at the step 16\n";
+
+	// step 17
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(15);
+	if (strcmp(field->getName(), "string2") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_STRING || field->isNullable() != true
+		|| ((usds::DictionaryString*)field->getElement())->getDefaultEncode() != usds::USDS_UTF8)
+		throw "Failed at the step 17\n";
+
+	// step 18
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(16);
+	if (strcmp(field->getName(), "struct") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_STRUCT || field->isNullable() != true
+		|| ((usds::DictionaryStruct*)field->getElement())->getFieldNumber() != 2)
+		throw "Failed at the step 18\n";
+
+	// step 19
+	usds::DictionaryBaseType* internal_field = ((usds::DictionaryStruct*)field->getElement())->getField(1);
+	if (strcmp(internal_field->getName(), "bool_tag_link") != 0 || internal_field->getType() != usds::USDS_ARRAY || internal_field->isNullable() != true)
+		throw "Failed at the step 19\n";
+
+	// step 20
+	usds::DictionaryBaseType* internal_element = ((usds::DictionaryArray*)internal_field)->getElement();
+	if (internal_element->getType() != usds::USDS_TAG || internal_element->isNullable() != false)
+		throw "Failed at the step 20\n";
+
+	// step 21
+	usds::DictionaryBaseType* internal_element_tag = ((usds::DictionaryTagLink*)internal_element)->getTag();
+	if (strcmp(internal_element_tag->getName(), "bool") || internal_element_tag->getType() != usds::USDS_ARRAY || internal_element_tag->isNullable() != false
+		|| ((usds::DictionaryArray*)internal_element_tag)->getElement()->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 21\n";
+
+	// step 22
+	internal_field = ((usds::DictionaryStruct*)field->getElement())->getField(2);
+	if (strcmp(internal_field->getName(), "byte") != 0 || internal_field->getType() != usds::USDS_BYTE || internal_field->isNullable() != false)
+		throw "Failed at the step 22\n";
+
+	// step 23
+	usds::DictionaryTagLink* tag_field = (usds::DictionaryTagLink*)((usds::DictionaryStruct*)tag->getElement())->getField(17);
+	if (strcmp(tag_field->getName(), "bool2") != 0 || tag_field->getType() != usds::USDS_TAG || tag_field->isNullable() != true)
+		throw "Failed at the step 23\n";
+
+	// step 24
+	usds::DictionaryArray* array_tag_field = (usds::DictionaryArray*)tag_field->getTag();
+	if (strcmp(array_tag_field->getName(), "bool") != 0 || array_tag_field->getType() != usds::USDS_ARRAY || array_tag_field->getElement()->getType() != usds::USDS_BOOLEAN || array_tag_field->isNullable() != false)
+		throw "Failed at the step 24\n";
+
+	// step 25
+	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(18);
+	if (strcmp(field->getName(), "struct_field") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_TAG || field->isNullable() != true)
+		throw "Failed at the step 25\n";
+
+	// step 26
+	usds::DictionaryStruct* tag_struct = (usds::DictionaryStruct*)((usds::DictionaryTagLink*)(usds::DictionaryTagLink*)field->getElement())->getTag();
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2 || tag_struct->isNullable() != false)
+		throw "Failed at the step 26\n";
+
+	// step 27
+	usds::DictionaryBoolean* boolean_struct_filed = (usds::DictionaryBoolean*)tag_struct->getField(1);
+	if (strcmp(boolean_struct_filed->getName(), "bool") != 0 || boolean_struct_filed->getType() != usds::USDS_BOOLEAN || boolean_struct_filed->isNullable() != true)
+		throw "Failed at the step 27\n";
+
+	// step 28
+	usds::DictionaryByte* byte_struct_filed = (usds::DictionaryByte*)tag_struct->getField(2);
+	if (strcmp(byte_struct_filed->getName(), "byte") != 0 || byte_struct_filed->getType() != usds::USDS_BYTE || byte_struct_filed->hasDefaultValue() != true || byte_struct_filed->getDefaultValue() != 110)
+		throw "Failed at the step 28\n";
+
+	// step 29
+	tag = (usds::DictionaryArray*)dict.getTag(2);
+	if (strcmp(tag->getName(), "bool") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_BOOLEAN || tag->isNullable() != false)
+		throw "Failed at the step 29\n";
+
+	// step 30
+	tag_struct = (usds::DictionaryStruct*)dict.getTag(3);
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2 || tag_struct->isNullable() != false)
+		throw "Failed at the step 30\n";
+
+	// step 31
+	boolean_struct_filed = (usds::DictionaryBoolean*)tag_struct->getField(1);
+	if (strcmp(boolean_struct_filed->getName(), "bool") != 0 || boolean_struct_filed->getType() != usds::USDS_BOOLEAN || boolean_struct_filed->isNullable() != true)
+		throw "Failed at the step 31\n";
+
+	// step 32
+	byte_struct_filed = (usds::DictionaryByte*)tag_struct->getField(2);
+	if (strcmp(byte_struct_filed->getName(), "byte") != 0 || byte_struct_filed->getType() != usds::USDS_BYTE || byte_struct_filed->hasDefaultValue() != true || byte_struct_filed->getDefaultValue() != 110)
+		throw "Failed at the step 32\n";
+
+	// step 33
+	tag_struct = (usds::DictionaryStruct*)dict.getTag(4);
+	if (strcmp(tag_struct->getName(), "struct3") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 3 || tag_struct->isNullable() != false)
+		throw "Failed at the step 33\n";
+
+	// step 34
+	usds::DictionaryInt* int_struct_filed = (usds::DictionaryInt*)tag_struct->getField(1);
+	if (strcmp(int_struct_filed->getName(), "int") != 0 || int_struct_filed->getType() != usds::USDS_INT || int_struct_filed->isNullable() != false)
+		throw "Failed at the step 34\n";
+
+	// step 35
+	field = (usds::DictionaryArray*)tag_struct->getField(2);
+	if (strcmp(field->getName(), "struct_field") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_TAG || field->isNullable() != true)
+		throw "Failed at the step 35\n";
+
+	// step 36
+	usds::DictionaryStruct* internal_tag_struct = (usds::DictionaryStruct*)((usds::DictionaryTagLink*)field->getElement())->getTag();
+	if (strcmp(internal_tag_struct->getName(), "struct2") != 0 || internal_tag_struct->getType() != usds::USDS_STRUCT || internal_tag_struct->getFieldNumber() != 2 || internal_tag_struct->isNullable() != false)
+		throw "Failed at the step 36\n";
+
+	// step 37
+	boolean_struct_filed = (usds::DictionaryBoolean*)internal_tag_struct->getField(1);
+	if (strcmp(boolean_struct_filed->getName(), "bool") != 0 || boolean_struct_filed->getType() != usds::USDS_BOOLEAN || boolean_struct_filed->isNullable() != true)
+		throw "Failed at the step 37\n";
+
+	// step 38
+	byte_struct_filed = (usds::DictionaryByte*)internal_tag_struct->getField(2);
+	if (strcmp(byte_struct_filed->getName(), "byte") != 0 || byte_struct_filed->getType() != usds::USDS_BYTE || byte_struct_filed->hasDefaultValue() != true || byte_struct_filed->getDefaultValue() != 110)
+		throw "Failed at the step 38\n";
+
+	// step 39
+	tag_field = (usds::DictionaryTagLink*)tag_struct->getField(3);
+	if (strcmp(tag_field->getName(), "struct_field2") != 0 || tag_field->getType() != usds::USDS_TAG || tag_field->getTag()->getType() != usds::USDS_STRUCT || tag_field->isNullable() != true)
+		throw "Failed at the step 39\n";
+
+	// step 40
+	tag_struct = (usds::DictionaryStruct*)tag_field->getTag();
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2 || tag_struct->isNullable() != false)
+		throw "Failed at the step 40\n";
+
+	// step 41
+	boolean_struct_filed = (usds::DictionaryBoolean*)tag_struct->getField(1);
+	if (strcmp(boolean_struct_filed->getName(), "bool") != 0 || boolean_struct_filed->getType() != usds::USDS_BOOLEAN || boolean_struct_filed->isNullable() != true)
+		throw "Failed at the step 41\n";
+
+	// step 42
+	byte_struct_filed = (usds::DictionaryByte*)tag_struct->getField(2);
+	if (strcmp(byte_struct_filed->getName(), "byte") != 0 || byte_struct_filed->getType() != usds::USDS_BYTE || byte_struct_filed->hasDefaultValue() != true || byte_struct_filed->getDefaultValue() != 110)
+		throw "Failed at the step 42\n";
+
+}
+
+void DictionaryTextParserTest::test_16()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	// step 1
+	const char* text_dict =
+		"USDS MyLittleAPI 0.0.0 {\n\
+			1: struct[][]\n\
+			{\n\
+				1: BOOLEAN[][] bool = NULL;\n\
+				2: BYTE[][][] byte = NULL;\n\
+				3: struct[][][]\n\
+				{\n\
+					1: bool[] bool_tag_link = NULL;\n\
+					2: BYTE byte;\n\
+				} = NULL;\n\
+				4: STRING<UTF-8>[][] string = NULL;\n\
+				5: bool bool2 = NULL;\n\
+				6: struct2[] struct_field = NULL;\n\
+			};\n\
+			2: BOOLEAN[][][] bool;\n\
+			3: struct2[][]\n\
+			{\n\
+				1: BOOLEAN bool = NULL;\n\
+				2: BYTE byte = 110;\n\
+			};\n\
+		}";
+
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
+	if (dict.getTagNumber() != 3 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 0)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	usds::DictionaryArray* tag = (usds::DictionaryArray*)dict.getTag(1);
+	if (strcmp(tag->getName(), "struct") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY || tag->isNullable() != false || tag->getElement()->isNullable() != false)
+		throw "Failed at the step 2\n";
+	{
+		// step 3
+		usds::DictionaryStruct* struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)tag->getElement())->getElement();
+		if (struct_tag->getType() != usds::USDS_STRUCT || struct_tag->getFieldNumber() != 6 || struct_tag->isNullable() != false)
+			throw "Failed at the step 3\n";
+
+		// step 4
+		usds::DictionaryArray* array_field = (usds::DictionaryArray*)struct_tag->getField(1);
+		if (strcmp(array_field->getName(), "bool") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->getType() != usds::USDS_BOOLEAN
+			|| array_field->isNullable() != true
+			|| array_field->getElement()->isNullable() != false
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->isNullable() != false)
+			throw "Failed at the step 4\n";
+
+		// step 5
+		array_field = (usds::DictionaryArray*)struct_tag->getField(2);
+		if (strcmp(array_field->getName(), "byte") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement()->getType() != usds::USDS_BYTE
+			|| array_field->isNullable() != true
+			|| array_field->getElement()->isNullable() != false
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->isNullable() != false
+			|| ((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement()->isNullable() != false
+		)
+			throw "Failed at the step 5\n";
+
+		// step 6
+		array_field = (usds::DictionaryArray*)struct_tag->getField(3);
+		if (strcmp(array_field->getName(), "struct") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement()->getType() != usds::USDS_STRUCT
+			|| array_field->isNullable() != true
+			|| array_field->getElement()->isNullable() != false
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->isNullable() != false
+			|| ((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement()->isNullable() != false
+		)
+			throw "Failed at the step 6\n";
+
+		// step 7
+		usds::DictionaryStruct* internal_struct = (usds::DictionaryStruct*)((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement();
+		if (internal_struct->getType() != usds::USDS_STRUCT || internal_struct->getFieldNumber() != 2 || internal_struct->isNullable() != false)
+			throw "Failed at the step 7\n";
+		{
+			// step 8
+			usds::DictionaryArray* internal_array_field = (usds::DictionaryArray*)internal_struct->getField(1);
+			if (strcmp(internal_array_field->getName(), "bool_tag_link") != 0 || internal_array_field->getType() != usds::USDS_ARRAY || internal_array_field->getElement()->getType() != usds::USDS_TAG
+				|| internal_array_field->isNullable() != true
+				|| internal_array_field->getElement()->isNullable() != false
+			)
+				throw "Failed at the step 8\n";
+
+			// step 9
+			usds::DictionaryArray* internal_tag_link = (usds::DictionaryArray*)((usds::DictionaryTagLink*)internal_array_field->getElement())->getTag();
+			if (strcmp(internal_tag_link->getName(), "bool") != 0 || internal_tag_link->getType() != usds::USDS_ARRAY || internal_tag_link->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)internal_tag_link->getElement())->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)((usds::DictionaryArray*)internal_tag_link->getElement())->getElement())->getElement()->getType() != usds::USDS_BOOLEAN
+				|| internal_tag_link->isNullable() != false
+				|| internal_tag_link->getElement()->isNullable() != false
+				|| ((usds::DictionaryArray*)internal_tag_link->getElement())->getElement()->isNullable() != false
+				|| ((usds::DictionaryArray*)((usds::DictionaryArray*)internal_tag_link->getElement())->getElement())->getElement()->isNullable() != false
+			)
+				throw "Failed at the step 9\n";
+
+			// step 10
+			usds::DictionaryByte* internal_byte_field = (usds::DictionaryByte*)internal_struct->getField(2);
+			if (strcmp(internal_byte_field->getName(), "byte") != 0 || internal_byte_field->getType() != usds::USDS_BYTE || internal_byte_field->isNullable() != false)
+				throw "Failed at the step 10\n";
+		}
+
+		// step 11
+		array_field = (usds::DictionaryArray*)struct_tag->getField(4);
+		if (strcmp(array_field->getName(), "string") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_ARRAY
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->getType() != usds::USDS_STRING
+			|| ((usds::DictionaryString*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getDefaultEncode() != usds::USDS_UTF8
+			|| array_field->isNullable() != true
+			|| array_field->getElement()->isNullable() != false
+			|| ((usds::DictionaryArray*)array_field->getElement())->getElement()->isNullable() != false
+		)
+			throw "Failed at the step 11\n";
+
+		// step 12
+		usds::DictionaryTagLink* tag_field = (usds::DictionaryTagLink*)struct_tag->getField(5);
+		if (strcmp(tag_field->getName(), "bool2") != 0 || tag_field->getType() != usds::USDS_TAG || tag_field->isNullable() != true)
+			throw "Failed at the step 12\n";
+
+		{
+			// step 13
+			usds::DictionaryArray* internal_tag_link = (usds::DictionaryArray*)tag_field->getTag();
+			if (strcmp(internal_tag_link->getName(), "bool") != 0 || internal_tag_link->getType() != usds::USDS_ARRAY || internal_tag_link->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)internal_tag_link->getElement())->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)((usds::DictionaryArray*)internal_tag_link->getElement())->getElement())->getElement()->getType() != usds::USDS_BOOLEAN
+				|| internal_tag_link->isNullable() != false
+				|| internal_tag_link->getElement()->isNullable() != false
+				|| ((usds::DictionaryArray*)internal_tag_link->getElement())->getElement()->isNullable() != false
+				|| ((usds::DictionaryArray*)((usds::DictionaryArray*)internal_tag_link->getElement())->getElement())->getElement()->isNullable() != false
+				)
+				throw "Failed at the step 13\n";
+		}
+
+		// step 14
+		array_field = (usds::DictionaryArray*)struct_tag->getField(6);
+		if (strcmp(array_field->getName(), "struct_field") != 0 || array_field->getType() != usds::USDS_ARRAY || array_field->getElement()->getType() != usds::USDS_TAG
+			|| array_field->isNullable() != true
+			|| array_field->getElement()->isNullable() != false
+		)
+			throw "Failed at the step 14\n";
+		{
+			// step 15
+			usds::DictionaryArray* internal_array_struct = (usds::DictionaryArray*)((usds::DictionaryTagLink*)array_field->getElement())->getTag();
+			if (strcmp(internal_array_struct->getName(), "struct2") != 0 || internal_array_struct->getType() != usds::USDS_ARRAY || internal_array_struct->getElement()->getType() != usds::USDS_ARRAY
+				|| ((usds::DictionaryArray*)internal_array_struct->getElement())->getElement()->getType() != usds::USDS_STRUCT
+				|| internal_array_struct->isNullable() != false
+				|| internal_array_struct->getElement()->isNullable() != false
+				|| ((usds::DictionaryArray*)internal_array_struct->getElement())->getElement()->isNullable() != false
+			)
+				throw "Failed at the step 15\n";
+
+			{
+				// step 16
+				usds::DictionaryStruct* internal_struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)internal_array_struct->getElement())->getElement();
+				if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumber() != 2 || internal_struct_tag->isNullable() != false)
+					throw "Failed at the step 16\n";
+
+				// step 17
+				usds::DictionaryBoolean* internal_boolean_filed = (usds::DictionaryBoolean*)internal_struct_tag->getField(1);
+				if (strcmp(internal_boolean_filed->getName(), "bool") != 0 || internal_boolean_filed->getType() != usds::USDS_BOOLEAN || internal_boolean_filed->isNullable() != true)
+					throw "Failed at the step 17\n";
+
+				// step 18
+				usds::DictionaryByte* internal_byte_filed = (usds::DictionaryByte*)internal_struct_tag->getField(2);
+				if (strcmp(internal_byte_filed->getName(), "byte") != 0 || internal_byte_filed->getType() != usds::USDS_BYTE || internal_byte_filed->hasDefaultValue() != true || internal_byte_filed->getDefaultValue() != 110)
+					throw "Failed at the step 18\n";
+			}
+		}
+	}
+
+	// step 19
+	tag = (usds::DictionaryArray*)dict.getTag(2);
+	if (strcmp(tag->getName(), "bool") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)tag->getElement())->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)((usds::DictionaryArray*)tag->getElement())->getElement())->getElement()->getType() != usds::USDS_BOOLEAN
+		|| tag->isNullable() != false
+		|| tag->getElement()->isNullable() != false
+		|| ((usds::DictionaryArray*)tag->getElement())->getElement()->isNullable() != false
+		|| ((usds::DictionaryArray*)((usds::DictionaryArray*)tag->getElement())->getElement())->getElement()->isNullable() != false
+		)
+		throw "Failed at the step 19\n";
+
+	// step 20
+	tag = (usds::DictionaryArray*)dict.getTag(3);
+	if (strcmp(tag->getName(), "struct2") != 0 || tag->getType() != usds::USDS_ARRAY || tag->getElement()->getType() != usds::USDS_ARRAY
+		|| ((usds::DictionaryArray*)tag->getElement())->getElement()->getType() != usds::USDS_STRUCT
+		|| tag->isNullable() != false
+		|| tag->getElement()->isNullable() != false
+		|| ((usds::DictionaryArray*)tag->getElement())->getElement()->isNullable() != false
+	)
+		throw "Failed at the step 20\n";
+
+	{
+		// step 21
+		usds::DictionaryStruct* internal_struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)tag->getElement())->getElement();
+		if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumber() != 2 || internal_struct_tag->isNullable() != false)
+			throw "Failed at the step 21\n";
+
+		// step 22
+		usds::DictionaryBoolean* internal_boolean_filed = (usds::DictionaryBoolean*)internal_struct_tag->getField(1);
+		if (strcmp(internal_boolean_filed->getName(), "bool") != 0 || internal_boolean_filed->getType() != usds::USDS_BOOLEAN || internal_boolean_filed->isNullable() != true)
+			throw "Failed at the step 22\n";
+
+		// step 23
+		usds::DictionaryByte* internal_byte_filed = (usds::DictionaryByte*)internal_struct_tag->getField(2);
+		if (strcmp(internal_byte_filed->getName(), "byte") != 0 || internal_byte_filed->getType() != usds::USDS_BYTE || internal_byte_filed->hasDefaultValue() != true || internal_byte_filed->getDefaultValue() != 110)
+			throw "Failed at the step 23\n";
+	}
+}
+
+void DictionaryTextParserTest::test_17()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	// step 1
+	const char* text_dict =
+		"USDS MyLittleAPI 1.1.1 {\
+			1: struct_recursion\
+			{\
+				1: BOOLEAN bool;\
+				2: BYTE byte;\
+				3: struct_recursion recursion;\
+			};\
+		}";
+	try
+	{
+		parser->parse(text_dict, usds::USDS_UTF8, &dict);
+		throw "Failed at the step 1\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_STRUCT__RECURSION_ERROR)
+		{
+			throw "Failed at the step 1\n";
+		}
+	}
+
+}
+
+void DictionaryTextParserTest::test_18()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	// step 1
+	const char* text_dict =
+		"USDS MyLittleAPI 1.1.1 {\
+			1: struct_recursion\
+			{\
+				1: BOOLEAN bool;\
+				2: BYTE byte;\
+				3: struct_recursion recursion = NULL;\
+			};\
+		}";
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
+	if (dict.getTagNumber() != 1 || dict.getDictionaryID() != 1 || dict.getMajorVersion() != 1 || dict.getMinorVersion() != 1)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	usds::DictionaryStruct* tag = (usds::DictionaryStruct*)dict.getTag(1);
+	if (strcmp(tag->getName(), "struct_recursion") != 0 || tag->getType() != usds::USDS_STRUCT || tag->getFieldNumber() != 3)
+		throw "Failed at the step 2\n";
+
+	// step 3
+	usds::DictionaryTagLink* field = (usds::DictionaryTagLink*)tag->getField(3);
+	if (field->getTag() != tag)
+		throw "Failed at the step 3\n";
+
+
+}
