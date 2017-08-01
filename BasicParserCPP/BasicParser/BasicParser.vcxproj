@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C76E2685-841D-4035-B689-10ADE30AB060}</ProjectGuid>
+    <RootNamespace>BasicParser</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)tmp\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)32_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)tmp\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)32</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;$(ProjectDir)Source\Converters\FlexLexer</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <BuildLog>
+      <Path>$(ProjectDir)log\$(Configuration)\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <Lib>
+      <AdditionalDependencies>%(AdditionalLibraryDirectories)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>f:\Source\icu\icu-59.1-vs2015\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Develop\iconv\include;$(ProjectDir)Include;$(ProjectDir)Source\Converters\FlexLexer</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <BuildLog>
+      <Path>$(ProjectDir)log\$(Configuration)\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\binary\usdsBinaryInput.h" />
+    <ClInclude Include="Include\binary\usdsBinaryOutput.h" />
+    <ClInclude Include="Include\binary\usdsTypeConverter.h" />
+    <ClInclude Include="Include\body\bodyObjectPool.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsArray.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsBoolean.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsByte.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsDouble.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsFloat.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsInt.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsLong.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsShort.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsString.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsStruct.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsUByte.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsUInt.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsULong.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsUShort.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsUVarint.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsVarint.h" />
+    <ClInclude Include="Include\body\usdsBaseType.h" />
+    <ClInclude Include="Include\body\usdsBody.h" />
+    <ClInclude Include="Include\common\errorMessage.h" />
+    <ClInclude Include="Include\common\objectPool.h" />
+    <ClInclude Include="Include\converters\usdsBinaryCreator.h" />
+    <ClInclude Include="Include\converters\usdsBinaryParser.h" />
+    <ClInclude Include="Include\converters\usdsBodyBinaryCreator.h" />
+    <ClInclude Include="Include\converters\usdsBodyBinaryParser.h" />
+    <ClInclude Include="Include\converters\usdsBodyJsonCreator.h" />
+    <ClInclude Include="Include\converters\usdsDictionaryBinaryCreator.h" />
+    <ClInclude Include="Include\converters\usdsDictionaryBinaryParser.h" />
+    <ClInclude Include="Include\converters\usdsDictionaryTextCreator.h" />
+    <ClInclude Include="Include\converters\usdsDictionaryTextParser.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryArray.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryBoolean.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryByte.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryDouble.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryFloat.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryInt.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryLong.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryShort.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryString.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryStruct.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryTagLink.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryUByte.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryUInt.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryULong.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryUShort.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryUVarint.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryVarint.h" />
+    <ClInclude Include="Include\dictionary\dicObjectPool.h" />
+    <ClInclude Include="Include\dictionary\dictionaryBaseType.h" />
+    <ClInclude Include="Include\dictionary\usdsDictionary.h" />
+    <ClInclude Include="Include\usdsBasicParser.h" />
+    <ClInclude Include="Include\usdsErrors.h" />
+    <ClInclude Include="Include\usdsTypes.h" />
+    <ClInclude Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.hh" />
+    <ClInclude Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.h" />
+    <ClInclude Include="Source\Converters\DictionaryTextParser\location.hh" />
+    <ClInclude Include="Source\Converters\DictionaryTextParser\position.hh" />
+    <ClInclude Include="Source\Converters\DictionaryTextParser\stack.hh" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Include\body\dataTypes\usdsUShort.cpp" />
+    <ClCompile Include="Source\Binary\usdsBinaryInput.cpp" />
+    <ClCompile Include="Source\Binary\usdsBinaryOutput.cpp" />
+    <ClCompile Include="Source\Binary\usdsTypeConverter.cpp" />
+    <ClCompile Include="Source\Body\bodyObjectPool.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsArray.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsBoolean.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsByte.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsDouble.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsFloat.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsInt.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsLong.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsShort.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsString.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsStruct.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsUByte.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsUInt.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsULong.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsUVarint.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsVarint.cpp" />
+    <ClCompile Include="Source\Body\usdsBaseType.cpp" />
+    <ClCompile Include="Source\Body\usdsBody.cpp" />
+    <ClCompile Include="Source\Common\errorMessage.cpp" />
+    <ClCompile Include="Source\Common\objectPool.cpp" />
+    <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc" />
+    <ClCompile Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.cpp" />
+    <ClCompile Include="Source\Converters\DictionaryTextParser\usdsDictionaryTextParser.cpp" />
+    <ClCompile Include="Source\Converters\usdsBinaryCreator.cpp" />
+    <ClCompile Include="Source\Converters\usdsBinaryParser.cpp" />
+    <ClCompile Include="Source\Converters\usdsBodyBinaryCreator.cpp" />
+    <ClCompile Include="Source\Converters\usdsBodyBinaryParser.cpp" />
+    <ClCompile Include="Source\Converters\usdsBodyJsonCreator.cpp" />
+    <ClCompile Include="Source\Converters\usdsDictionaryBinaryCreator.cpp" />
+    <ClCompile Include="Source\Converters\usdsDictionaryBinaryParser.cpp" />
+    <ClCompile Include="Source\Converters\usdsDictionaryTextCreator.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryArray.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryBoolean.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryByte.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryDouble.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryFloat.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryInt.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryLong.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryShort.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryString.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryStruct.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryTagLink.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUByte.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUInt.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryULong.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUShort.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryUVarint.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryVarint.cpp" />
+    <ClCompile Include="Source\Dictionary\dicObjectPool.cpp" />
+    <ClCompile Include="Source\Dictionary\dictionaryBaseType.cpp" />
+    <ClCompile Include="Source\Dictionary\usdsDictionary.cpp" />
+    <ClCompile Include="Source\usdsBasicParser.cpp" />
+    <ClCompile Include="Source\usdsTypes.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.y">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="Source\Converters\DictionaryTextParser\flexDictionaryTextScanner.l">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
