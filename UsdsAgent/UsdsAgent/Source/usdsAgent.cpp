@@ -1,17 +1,38 @@
 #include "usdsAgent.h"
 
-#include "usdsTypes.h"
-#include "usdsBasicParser.h"
+#include "BasicParser/Include/common/errorMessage.h"
 
-using namespace usds;
+#include "Configuration/agentConfig.h"
+#include "DictionaryReader/dictionaryReader.h"
+
+#include <iostream>
+
+using namespace usdsAgent;
+using namespace std;
 
 int main(int argc, char* argv[])
+try
 {
-	DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	AgentConfig config(argc, argv);
+	
+	cout << "Read usds-dictionary files:\n";
+	
+	DictionatyReader dictionaries(&config);
 
 
 
-	delete parser;
 
+
+	cout << "Press any key\n";
+	cin.get();
 
 }
+catch (usds::ErrorStack msg)
+{
+	if (msg.getCode() != 0)
+		cerr << msg.getMessage();
+	cout << "Press any key\n";
+	cin.get();
+}
+
+

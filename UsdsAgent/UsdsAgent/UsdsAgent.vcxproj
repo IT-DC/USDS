@@ -91,12 +91,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;..\..\BasicParserCPP\BasicParser\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;..\..\BasicParserCPP;F:\Source\boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\..\BasicParserCPP\BasicParser\bin\BasicParser32_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\..\BasicParserCPP\BasicParser\bin\BasicParser32_d.lib;libboost_filesystem-vc140-mt-sgd-1_64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\Source\boost_1_64_0\lib32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -147,9 +149,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Configuration\agentConfig.cpp" />
+    <ClCompile Include="Source\DictionaryReader\dictionaryReader.cpp" />
     <ClCompile Include="Source\usdsAgent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Configuration\agentConfig.h" />
+    <ClInclude Include="Include\DictionaryReader\dictionaryReader.h" />
     <ClInclude Include="Include\usdsAgent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

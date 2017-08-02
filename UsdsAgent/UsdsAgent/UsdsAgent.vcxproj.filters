@@ -2,8 +2,28 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Source\usdsAgent.cpp" />
+    <ClCompile Include="Source\Configuration\agentConfig.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DictionaryReader\dictionaryReader.cpp">
+      <Filter>Dictionary Reader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAgent.h" />
+    <ClInclude Include="Include\Configuration\agentConfig.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DictionaryReader\dictionaryReader.h">
+      <Filter>Dictionary Reader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{3396a6b8-27c7-45fe-a8a9-2fceda10f943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dictionary Reader">
+      <UniqueIdentifier>{f39fdd59-c057-4248-9171-75eaefbb03ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

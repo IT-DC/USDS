@@ -15,3 +15,7 @@ usdsCPP/BasicParser/Release/BasicParser.tlog/unsuccessfulbuild
 *.opensdf
 *.vsp
 usdsCPP/usdsCPP.VC.db
+UsdsAgent/UsdsAgent.VC.db
+UsdsAgent/UsdsAgent/bin/1.txt
+UsdsAgent/UsdsAgent/bin/config.ini
+UsdsAgent/UsdsAgent/config.ini
