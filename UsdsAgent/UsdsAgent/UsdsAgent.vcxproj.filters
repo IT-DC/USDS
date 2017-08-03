@@ -8,6 +8,9 @@
     <ClCompile Include="Source\DictionaryReader\dictionaryReader.cpp">
       <Filter>Dictionary Reader</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Common\fileSearcher.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAgent.h" />
@@ -17,6 +20,9 @@
     <ClInclude Include="Include\DictionaryReader\dictionaryReader.h">
       <Filter>Dictionary Reader</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Common\fileSearcher.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Configuration">
@@ -24,6 +30,9 @@
     </Filter>
     <Filter Include="Dictionary Reader">
       <UniqueIdentifier>{f39fdd59-c057-4248-9171-75eaefbb03ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{45387221-3653-4069-8aa9-2a2ed77b65d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,42 +1,36 @@
 #include "DictionaryReader/dictionaryReader.h"
 
 #include "Configuration/agentConfig.h"
-
-#include "boost/filesystem.hpp"
+#include "Common/fileSearcher.h"
 
 #include "BasicParser/Include/common/errorMessage.h"
 
 #include <iostream>
+#include <list>
+#include <string>
+#include <algorithm>
 
 using namespace usdsAgent;
-using namespace boost::filesystem;
 
-
-DictionatyReader::DictionatyReader(AgentConfig* config)
+usds::BasicParser* DictionatyReader::parse(AgentConfig* config)
 try
 {
-	path p(config->solutionDirectory);
-	directory_iterator end_itr;
+	if (config->action == command::help || config->action == command::clean)
+		return nullptr;
 
-	for (directory_iterator itr(p); itr != end_itr; ++itr)
+	cout << "Read usds-dictionary files:\n";
+	list<string>* dictFiles = FileSearcher::findDictFiles(config->codePath, config->dictFileExt);
+
+	usds::BasicParser* dicts = new usds::BasicParser();
+	for(auto it = dictFiles->begin(); it != dictFiles->end(); ++it)
 	{
-		std::string current_file = itr->path().string();
-		std::cout << current_file << std::endl;
-
-
+		dicts->addDictionaryFromText((*it).c_str(), 0, usds::USDS_UTF8);
 	}
 
-
-
 }
-catch(filesystem_error err)
+catch (usds::ErrorStack err)
 {
-	
-	throw usds::ErrorStack("AgentConfig::AgentConfig") << (void*)config << usds::ErrorMessage(3, err.what());
-}
+	throw err.addLevel("DictionatyReader::parse");
 
-DictionatyReader::~DictionatyReader()
-{
-	
 }
 

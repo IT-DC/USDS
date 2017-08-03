@@ -14,25 +14,28 @@ int main(int argc, char* argv[])
 try
 {
 	AgentConfig config(argc, argv);
-	
-	cout << "Read usds-dictionary files:\n";
-	
-	DictionatyReader dictionaries(&config);
+
+	usds::BasicParser* usdsDictionaries = DictionatyReader::parse(&config);
 
 
 
 
 
+
+
+#ifdef _DEBUG
 	cout << "Press any key\n";
 	cin.get();
-
+#endif
+	return 0;
 }
 catch (usds::ErrorStack msg)
 {
-	if (msg.getCode() != 0)
-		cerr << msg.getMessage();
+	cerr << "Error: " << msg.getMessage() << "\n";
+#ifdef _DEBUG
 	cout << "Press any key\n";
 	cin.get();
+#endif
 }
 
 

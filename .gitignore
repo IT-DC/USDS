@@ -19,3 +19,5 @@ UsdsAgent/UsdsAgent.VC.db
 UsdsAgent/UsdsAgent/bin/1.txt
 UsdsAgent/UsdsAgent/bin/config.ini
 UsdsAgent/UsdsAgent/config.ini
+*.db
+*.db

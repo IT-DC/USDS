@@ -19,14 +19,21 @@ AgentConfig::AgentConfig(int argc, char* argv[])
 try
 {
 	// initial values
-	solutionDirectory = ".";
+	action = command::build;
+	
+	codePath = ".";
 	iniFile = "config.ini";
+
+	dictFileExt = ".dict";
 
 	// analize command line
 	options_description command_line_options{ "Options" };
 	command_line_options.add_options()
 		("help,h", "Help screen")
-		("solutionDirectory,s", value<std::string>(), "Solution directory to analize")
+		("build", "Build parser")
+		("clean", "Clean")
+		("rebuild", "Rebuild")
+		("codePath,c", value<std::string>(), "Source code directory to analize")
 		("iniFile,i", value<std::string>(), "Configuration file");
 	variables_map command_line_parameters;
 	store(parse_command_line(argc, argv, command_line_options), command_line_parameters);
@@ -43,12 +50,16 @@ try
 	if (command_line_parameters.count("help"))
 	{
 		cout << command_line_options << '\n';
-		throw usds::ErrorStack("AgentConfig::AgentConfig") << argc << argv << usds::ErrorMessage(0, "");	// do nothing if Help is needed only
+		action = command::help;
 	}
-	if (command_line_parameters.count("solutionDirectory"))
-		solutionDirectory = command_line_parameters["solutionDirectory"].as<string>().c_str();
+	else
+	{
+		if (command_line_parameters.count("codePath"))
+			codePath = command_line_parameters["codePath"].as<string>().c_str();
 
 
+
+	}
 }
 catch (boost::property_tree::ptree_bad_path config_error)
 {
