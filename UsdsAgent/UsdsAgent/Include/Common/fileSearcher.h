@@ -15,7 +15,7 @@ namespace usdsAgent
 		~FileSearcher();
 		virtual void f() = 0;
 
-		static list<string>* findDictFiles(string& rootPath, string& ext);
+		static list<pair<string, string>>* findDictFiles(string& rootPath, string& ext);
 
 	};
 

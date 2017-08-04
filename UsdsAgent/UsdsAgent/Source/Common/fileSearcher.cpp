@@ -10,7 +10,7 @@
 using namespace usdsAgent;
 using namespace boost::filesystem;
 
-list<string>* FileSearcher::findDictFiles(string& rootPath, string& ext)
+list<pair<string, string>>* FileSearcher::findDictFiles(string& rootPath, string& ext)
 try
 {
 	path p(rootPath.c_str());
@@ -23,7 +23,7 @@ try
 	recursive_directory_iterator it(p);
 	recursive_directory_iterator endit;
 
-	list<string>* outList = new list<string>;
+	list<pair<string, string>>* outList = new list<pair<string, string>>;
 
 	while (it != endit)
 	{
@@ -36,7 +36,7 @@ try
 				(std::istreambuf_iterator<char>(file)),
 				(std::istreambuf_iterator<char>())
 			);
-			outList->push_back(content);
+			outList->push_back(make_pair(it->path().string(), content));
 		}
 		it++;
 	}

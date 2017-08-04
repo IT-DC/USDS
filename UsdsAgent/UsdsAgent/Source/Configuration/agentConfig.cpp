@@ -26,6 +26,8 @@ try
 
 	dictFileExt = ".dict";
 
+	programLang = language::cpp;
+
 	// analize command line
 	options_description command_line_options{ "Options" };
 	command_line_options.add_options()

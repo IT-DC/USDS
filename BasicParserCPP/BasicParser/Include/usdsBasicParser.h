@@ -32,9 +32,6 @@ namespace usds
 		// Dictionary constructors
 		void addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncodes encode) throw(...);
 		void CurrentDictionaryToText(usdsEncodes encode, std::string* text) throw(...);
-		// add clean dictionary
-		Dictionary* addNewDictionary(const char* name, int32_t id, uint8_t major, uint8_t minor) throw(...);
-		Dictionary* addNewDictionary() throw(...);
 
 		// Working with several dictionaries
 		void selectDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...);
@@ -43,6 +40,7 @@ namespace usds
 		int32_t getDictionaryID() throw(...);
 		uint8_t getDictionaryMajor() throw(...);
 		uint8_t getDictionaryMinor() throw(...);
+		const char* getDictionaryName() throw(...);
 
 		// Find id by names
 		int32_t getTagID(const char* name) throw(...);

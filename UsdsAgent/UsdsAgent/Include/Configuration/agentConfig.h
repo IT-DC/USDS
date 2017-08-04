@@ -8,6 +8,7 @@ using namespace std;
 namespace usdsAgent
 {
 	enum class command {help, clean, build, rebuild};
+	enum class language { cpp };
 	
 	class AgentConfig
 	{
@@ -21,6 +22,10 @@ namespace usdsAgent
 		string iniFile;
 
 		string dictFileExt;
+
+		language programLang;
+
+
 
 	};
 

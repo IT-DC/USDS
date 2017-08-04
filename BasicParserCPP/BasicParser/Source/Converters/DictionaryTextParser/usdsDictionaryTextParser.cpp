@@ -14,6 +14,10 @@ try
 	if (encode != USDS_UTF8)
 		throw ErrorMessage(DICTIONARY_TEXT_PARSER__UNSUPPORTABLE_ENCODE, "Unsupportable encode for text dictionary: ") << encode;
 
+	// remove UTF-8 BOM
+	if (text_dict[0] == '\xEF' && text_dict[1] == '\xBB' && text_dict[2] == '\xBF')
+		text_dict = text_dict + 3;
+
 	// Creating scanner and parser
 	std::stringstream input;
 	std::stringstream output;

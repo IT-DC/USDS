@@ -20,11 +20,34 @@ BasicParser::~BasicParser()
 void BasicParser::addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncodes encode) throw(...)
 try 
 {
-	dictionaryTextParser.parse(text_dictionary, encode, addNewDictionary());
+	Dictionary* dict = (Dictionary*)dictionaryPool.addObject();
+	dict->clear();
+	try
+	{
+		dictionaryTextParser.parse(text_dictionary, encode, dict);
+	}
+	catch(ErrorStack)
+	{
+		dict->remove();
+		throw;
+	}
+	uint32_t id = dict->getDictionaryID();
+	uint8_t major = dict->getMajorVersion();
+	uint8_t minor = dict->getMinorVersion();
+
+	if (findDictionary(id, major, minor) != 0)
+		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary " << id << "." << uint32_t(major) << "." << uint32_t(minor) << " already exists";
+	
+	dictionaries.push_back(dict);
+	currentDictionary = dict;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::addDictionaryFromText") << (void*)text_dictionary << size << encode << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("BasicParser::initDictionaryFromText") << (void*)text_dictionary << size << encode;
+	err.addLevel("BasicParser::addDictionaryFromText") << (void*)text_dictionary << size << encode;
 	throw;
 };
 
@@ -42,51 +65,6 @@ catch (ErrorMessage& msg)
 catch (ErrorStack& err)
 {
 	err.addLevel("BasicParser::CurrentDictionaryToText") << encode << text;
-	throw;
-}
-
-Dictionary* BasicParser::addNewDictionary(const char* name, int32_t id, uint8_t major, uint8_t minor) throw(...)
-try
-{
-	Dictionary* object = findDictionary(id, major, minor);
-	if (object != 0)
-		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary ID=" << id << " v." << int(major) << "." << int(minor) << " already exists";
-	
-	object = (Dictionary*)dictionaryPool.addObject();
-	dictionaries.push_back(object);
-	object->clear();
-	object->setID(name, id, major, minor);
-	currentDictionary = object;
-
-	return object;
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("BasicParser::addNewDictionary") << name << id << major << minor << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BasicParser::addNewDictionary") << name<< id << major << minor;
-	throw;
-}
-
-Dictionary* BasicParser::addNewDictionary() throw(...)
-try
-{
-	Dictionary* object = (Dictionary*)dictionaryPool.addObject();
-	dictionaries.push_back(object);
-	object->clear();
-	currentDictionary = object;
-
-	return object;
-}
-catch (ErrorMessage& msg)
-{
-	throw ErrorStack("BasicParser::addNewDictionary") << msg;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BasicParser::addNewDictionary");
 	throw;
 }
 
@@ -145,6 +123,17 @@ try
 catch (ErrorStack& err)
 {
 	err.addLevel("BasicParser::getDictionaryMinor");
+	throw;
+}
+
+const char* BasicParser::getDictionaryName() throw(...)
+try
+{
+	return currentDictionary->getDictionaryName();
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::getDictionaryName");
 	throw;
 }
 
@@ -299,26 +288,48 @@ try
 
 	if (binaryParser.isHeadIncluded())
 	{
-		int32_t dict_id = binaryParser.getDictionaryID();
-		uint8_t dict_major = binaryParser.getDictionaryMajor();
-		uint8_t dict_minor = binaryParser.getDictionaryMinor();
 		if (currentDictionary == 0)
 		{
-			addNewDictionary();
-			binaryParser.initDictionaryFromBinary(currentDictionary);
+			Dictionary* dict = (Dictionary*)dictionaryPool.addObject();
+			dict->clear();
+			try
+			{
+				binaryParser.initDictionaryFromBinary(currentDictionary);
+			}
+			catch (ErrorStack)
+			{
+				dict->remove();
+				throw;
+			}
+			dictionaries.push_back(dict);
+			currentDictionary = dict;
 		}
 		else
 		{
+			int32_t dict_id = binaryParser.getDictionaryID();
+			uint8_t dict_major = binaryParser.getDictionaryMajor();
+			uint8_t dict_minor = binaryParser.getDictionaryMinor();
 			if (currentDictionary->getDictionaryID() != dict_id || currentDictionary->getMajorVersion() != dict_major || currentDictionary->getMinorVersion() != dict_minor)
 			{
 				Dictionary* dict = findDictionary(dict_id, dict_major, dict_minor);
 				if (dict == 0)
 				{
 					if (!binaryParser.isDictionaryIncluded())
-						throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary ID=" << dict_id << " v." << int(dict_major) << "." << int(dict_minor) << " not found";
+						throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary " << dict_id << "." << int(dict_major) << "." << int(dict_minor) << " not found";
 
-					addNewDictionary();
-					binaryParser.initDictionaryFromBinary(currentDictionary);
+					Dictionary* dict = (Dictionary*)dictionaryPool.addObject();
+					dict->clear();
+					try
+					{
+						binaryParser.initDictionaryFromBinary(currentDictionary);
+					}
+					catch (ErrorStack)
+					{
+						dict->remove();
+						throw;
+					}
+					dictionaries.push_back(dict);
+					currentDictionary = dict;
 				}
 				else
 				{

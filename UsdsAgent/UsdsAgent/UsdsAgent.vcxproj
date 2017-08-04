@@ -149,12 +149,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\CodeReaders\codeReader.cpp" />
     <ClCompile Include="Source\Common\fileSearcher.cpp" />
     <ClCompile Include="Source\Configuration\agentConfig.cpp" />
     <ClCompile Include="Source\DictionaryReader\dictionaryReader.cpp" />
     <ClCompile Include="Source\usdsAgent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\CodeReaders\codeReader.h" />
     <ClInclude Include="Include\Common\fileSearcher.h" />
     <ClInclude Include="Include\Configuration\agentConfig.h" />
     <ClInclude Include="Include\DictionaryReader\dictionaryReader.h" />

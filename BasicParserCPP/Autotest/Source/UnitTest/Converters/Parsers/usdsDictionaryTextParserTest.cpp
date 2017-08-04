@@ -2394,3 +2394,146 @@ void DictionaryTextParserTest::test_18()
 
 
 }
+
+void DictionaryTextParserTest::test_19()
+{
+	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
+	usds::Dictionary dict(0);
+
+	// step 1
+	const char* text_dict =
+		"\xEF\xBB\xBFUSDS MyLittleAPI 0.0.0 {\
+			1: struct\
+			{\
+				1: BOOLEAN bool;\
+				2: internal_struct\
+				{\
+					1: BOOLEAN bool;\
+					2: BYTE byte;\
+				};\
+				3: BYTE byte;\
+				4: internal_struct2\
+				{\
+					1: BYTE byte;\
+					2: internal_internal_struct\
+					{\
+						1: BYTE byte;\
+						2: BOOLEAN bool;\
+					};\
+					3: BOOLEAN bool;\
+				};\
+			};\
+			2: BYTE byte;\
+			3: struct2\
+			{\
+				1: BOOLEAN bool;\
+			};\
+		}";
+	parser->parse(text_dict, usds::USDS_UTF8, &dict);
+	if (dict.getTagNumber() != 3 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 0)
+		throw "Failed at the step 1\n";
+
+	// step 2
+	usds::DictionaryBaseType* tag = dict.getTag(1);
+	const char* name = tag->getName();
+	if (strcmp(name, "struct") != 0 || tag->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 2\n";
+
+	// step 3
+	tag = dict.getTag(2);
+	name = tag->getName();
+	if (strcmp(name, "byte") != 0 || tag->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 3\n";
+
+	// step 4
+	tag = dict.getTag(3);
+	name = tag->getName();
+	if (strcmp(name, "struct2") != 0 || tag->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 4\n";
+
+	// step 5
+	usds::DictionaryStruct* struct_tag = (usds::DictionaryStruct*)dict.getTag(1);
+	if (struct_tag->getFieldNumber() != 4)
+		throw "Failed at the step 5\n";
+
+	// step 6
+	usds::DictionaryBaseType* field = struct_tag->getField(1);
+	name = field->getName();
+	if (strcmp(name, "bool") != 0 || field->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 6\n";
+
+	// step 7
+	field = struct_tag->getField(2);
+	name = field->getName();
+	if (strcmp(name, "internal_struct") != 0 || field->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 7\n";
+
+	// step 8
+	if (((usds::DictionaryStruct*)field)->getFieldNumber() != 2)
+		throw "Failed at the step 8\n";
+
+	// step 9
+	usds::DictionaryBaseType* field_int = ((usds::DictionaryStruct*)field)->getField(1);
+	name = field_int->getName();
+	if (strcmp(name, "bool") != 0 || field_int->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 9\n";
+
+	// step 10
+	field_int = ((usds::DictionaryStruct*)field)->getField(2);
+	name = field_int->getName();
+	if (strcmp(name, "byte") != 0 || field_int->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 10\n";
+
+	// step 11
+	field = struct_tag->getField(3);
+	name = field->getName();
+	if (strcmp(name, "byte") != 0 || field->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 11\n";
+
+	// step 12
+	field = struct_tag->getField(4);
+	name = field->getName();
+	if (strcmp(name, "internal_struct2") != 0 || field->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 12\n";
+
+	// step 13
+	if (((usds::DictionaryStruct*)field)->getFieldNumber() != 3)
+		throw "Failed at the step 13\n";
+
+	// step 14
+	field_int = ((usds::DictionaryStruct*)field)->getField(1);
+	name = field_int->getName();
+	if (strcmp(name, "byte") != 0 || field_int->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 14\n";
+
+	// step 15
+	field_int = ((usds::DictionaryStruct*)field)->getField(2);
+	name = field_int->getName();
+	if (strcmp(name, "internal_internal_struct") != 0 || field_int->getType() != usds::USDS_STRUCT)
+		throw "Failed at the step 15\n";
+
+	// step 16
+	field_int = ((usds::DictionaryStruct*)field)->getField(3);
+	name = field_int->getName();
+	if (strcmp(name, "bool") != 0 || field_int->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 16\n";
+
+	// step 17
+	field_int = ((usds::DictionaryStruct*)field)->getField(2);
+	if (((usds::DictionaryStruct*)field_int)->getFieldNumber() != 2)
+		throw "Failed at the step 17\n";
+
+	// step 18
+	usds::DictionaryBaseType* field_int_int = ((usds::DictionaryStruct*)field_int)->getField(1);
+	name = field_int_int->getName();
+	if (strcmp(name, "byte") != 0 || field_int_int->getType() != usds::USDS_BYTE)
+		throw "Failed at the step 18\n";
+
+	// step 19
+	field_int_int = ((usds::DictionaryStruct*)field_int)->getField(2);
+	name = field_int_int->getName();
+	if (strcmp(name, "bool") != 0 || field_int_int->getType() != usds::USDS_BOOLEAN)
+		throw "Failed at the step 19\n";
+
+}
+

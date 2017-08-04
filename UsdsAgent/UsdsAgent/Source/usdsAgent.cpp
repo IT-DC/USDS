@@ -4,6 +4,7 @@
 
 #include "Configuration/agentConfig.h"
 #include "DictionaryReader/dictionaryReader.h"
+#include "CodeReaders/codeReader.h"
 
 #include <iostream>
 

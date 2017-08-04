@@ -19,13 +19,17 @@ try
 		return nullptr;
 
 	cout << "Read usds-dictionary files:\n";
-	list<string>* dictFiles = FileSearcher::findDictFiles(config->codePath, config->dictFileExt);
+	list<pair<string, string>>* dictFiles = FileSearcher::findDictFiles(config->codePath, config->dictFileExt);
 
 	usds::BasicParser* dicts = new usds::BasicParser();
 	for(auto it = dictFiles->begin(); it != dictFiles->end(); ++it)
 	{
-		dicts->addDictionaryFromText((*it).c_str(), 0, usds::USDS_UTF8);
+		cout << (*it).first << "\n";
+		dicts->addDictionaryFromText((*it).second.c_str(), 0, usds::USDS_UTF8);
+		cout << dicts->getDictionaryName() << " " << dicts->getDictionaryID() << "." << (uint32_t)dicts->getDictionaryMajor() << "." << (uint32_t)dicts->getDictionaryMinor() << " success\n";
 	}
+
+	return dicts;
 
 }
 catch (usds::ErrorStack err)

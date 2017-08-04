@@ -11,6 +11,9 @@
     <ClCompile Include="Source\Common\fileSearcher.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CodeReaders\codeReader.cpp">
+      <Filter>Code Readers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAgent.h" />
@@ -23,6 +26,9 @@
     <ClInclude Include="Include\Common\fileSearcher.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="Include\CodeReaders\codeReader.h">
+      <Filter>Code Readers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Configuration">
@@ -33,6 +39,12 @@
     </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{45387221-3653-4069-8aa9-2a2ed77b65d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Readers">
+      <UniqueIdentifier>{d0a21cf0-5260-4ef1-b495-6e621f91360e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Readers\CPP Code reader">
+      <UniqueIdentifier>{009addb9-8ee4-484f-8b5f-a047cb873b4a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
