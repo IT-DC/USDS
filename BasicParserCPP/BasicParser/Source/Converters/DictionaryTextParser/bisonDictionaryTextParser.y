@@ -65,7 +65,9 @@
 
 // Tokens
 %token USDS
-%token DICTIONARY_VERSION
+%token ID
+%token NAME
+%token V
 
 %token<typeVal> TYPE_BOOLEAN "BOOLEAN"
 %token<typeVal> TYPE_BYTE "BYTE"
@@ -134,9 +136,27 @@
 // Rules
 %%
 dictionary: 
-	USDS TEXT_NAME UINT32_T '.' UINT8_T '.' UINT8_T
+	USDS ID UINT32_T NAME TEXT_NAME V UINT8_T '.' UINT8_T
 	{
-		dict->setID(input_text + $2[0], $2[1], $3, $5, $7);
+		dict->setID(input_text + $5[0], $5[1], $3, $7, $9);
+	}
+	'{' tags '}'
+	{
+		// Finilize dictionary
+		dict->finalizeDictionary();
+	}
+	|USDS NAME TEXT_NAME ID UINT32_T V UINT8_T '.' UINT8_T
+	{
+		dict->setID(input_text + $3[0], $3[1], $5, $7, $9);
+	}
+	'{' tags '}'
+	{
+		// Finilize dictionary
+		dict->finalizeDictionary();
+	}
+	|USDS ID UINT32_T V UINT8_T '.' UINT8_T NAME TEXT_NAME 
+	{
+		dict->setID(input_text + $9[0], $9[1], $3, $5, $7);
 	}
 	'{' tags '}'
 	{

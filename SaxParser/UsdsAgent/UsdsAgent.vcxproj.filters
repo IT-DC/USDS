@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source\usdsAgent.cpp" />
+    <ClCompile Include="Source\Configuration\agentConfig.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DictionaryReader\dictionaryReader.cpp">
+      <Filter>Dictionary Reader</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\fileSearcher.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CodeReaders\codeReader.cpp">
+      <Filter>Code Readers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Communication\packer.cpp">
+      <Filter>Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Communication\sender.cpp">
+      <Filter>Communication</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\usdsAgent.h" />
+    <ClInclude Include="Include\Configuration\agentConfig.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DictionaryReader\dictionaryReader.h">
+      <Filter>Dictionary Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Common\fileSearcher.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\CodeReaders\codeReader.h">
+      <Filter>Code Readers</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Communication\packer.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Communication\sender.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{3396a6b8-27c7-45fe-a8a9-2fceda10f943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dictionary Reader">
+      <UniqueIdentifier>{f39fdd59-c057-4248-9171-75eaefbb03ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{45387221-3653-4069-8aa9-2a2ed77b65d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Readers">
+      <UniqueIdentifier>{d0a21cf0-5260-4ef1-b495-6e621f91360e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Readers\CPP Code reader">
+      <UniqueIdentifier>{009addb9-8ee4-484f-8b5f-a047cb873b4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Communication">
+      <UniqueIdentifier>{16d6ee63-5e1e-44c5-ae9e-84501264b5a8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

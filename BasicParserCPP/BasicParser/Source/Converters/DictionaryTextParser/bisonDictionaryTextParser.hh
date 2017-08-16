@@ -117,34 +117,36 @@ namespace usds {
       enum yytokentype
       {
         USDS = 258,
-        DICTIONARY_VERSION = 259,
-        TYPE_BOOLEAN = 260,
-        TYPE_BYTE = 261,
-        TYPE_UBYTE = 262,
-        TYPE_SHORT = 263,
-        TYPE_USHORT = 264,
-        TYPE_INT = 265,
-        TYPE_UINT = 266,
-        TYPE_LONG = 267,
-        TYPE_ULONG = 268,
-        TYPE_INT128 = 269,
-        TYPE_UINT128 = 270,
-        TYPE_FLOAT = 271,
-        TYPE_DOUBLE = 272,
-        TYPE_VARINT = 273,
-        TYPE_UVARINT = 274,
-        TYPE_STRING = 275,
-        STRING_ENCODE = 276,
-        BOOLEAN_VALUE = 277,
-        POSITIVE_NUMBER = 278,
-        NEGATIVE_NUMBER = 279,
-        NULL_VALUE = 280,
-        TEXT_STRING = 281,
-        TEXT_NAME = 282,
-        USDS_RESTRICT = 283,
-        NOT_ROOT_TAG = 284,
-        POSITIVE_EXPONENT_NUMBER = 297,
-        NEGATIVE_EXPONENT_NUMBER = 298
+        ID = 259,
+        NAME = 260,
+        V = 261,
+        TYPE_BOOLEAN = 262,
+        TYPE_BYTE = 263,
+        TYPE_UBYTE = 264,
+        TYPE_SHORT = 265,
+        TYPE_USHORT = 266,
+        TYPE_INT = 267,
+        TYPE_UINT = 268,
+        TYPE_LONG = 269,
+        TYPE_ULONG = 270,
+        TYPE_INT128 = 271,
+        TYPE_UINT128 = 272,
+        TYPE_FLOAT = 273,
+        TYPE_DOUBLE = 274,
+        TYPE_VARINT = 275,
+        TYPE_UVARINT = 276,
+        TYPE_STRING = 277,
+        STRING_ENCODE = 278,
+        BOOLEAN_VALUE = 279,
+        POSITIVE_NUMBER = 280,
+        NEGATIVE_NUMBER = 281,
+        NULL_VALUE = 282,
+        TEXT_STRING = 283,
+        TEXT_NAME = 284,
+        USDS_RESTRICT = 285,
+        NOT_ROOT_TAG = 286,
+        POSITIVE_EXPONENT_NUMBER = 299,
+        NEGATIVE_EXPONENT_NUMBER = 300
       };
     };
 
@@ -435,13 +437,13 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 675,           //< Last index in yytable_.
-      yynnts_ = 26,  //< Number of nonterminal symbols.
+      yylast_ = 694,           //< Last index in yytable_.
+      yynnts_ = 28,  //< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 4, //< Termination state number.
+      yyfinal_ = 5, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 58    //< Number of tokens.
+      yyntokens_ = 60    //< Number of tokens.
     };
 
 
@@ -456,7 +458,7 @@ namespace usds {
 
 #line 36 "bisonDictionaryTextParser.y" // lalr1.cc:371
 } // usds
-#line 460 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 462 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 
 
 

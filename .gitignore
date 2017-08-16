@@ -21,3 +21,4 @@ UsdsAgent/UsdsAgent/bin/config.ini
 UsdsAgent/UsdsAgent/config.ini
 *.db
 *.db
+SaxParser/UsdsAgent/bin/usdsAgent.ini

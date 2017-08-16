@@ -36,7 +36,7 @@ void DictionaryTextParserTest::test_1()
 	
 	// step 1
 	const char* text_dict = 
-		"USDS MyLittleAPI 888.1.0 {\
+		"USDS ID:888 NAME:MyLittleAPI V:1.0 {\
 			1: BOOLEAN bool;\
 			2: BYTE byte;\
 			3: UBYTE ubyte;\
@@ -156,7 +156,7 @@ void DictionaryTextParserTest::test_2()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 0.0.1 {\
+		"USDS NAME:MyLittleAPI ID:0 V:0.1 {\
 			1: STRING str1;\
 			2: STRING<UTF-8> str2;\
 		}";
@@ -191,7 +191,7 @@ void DictionaryTextParserTest::test_3()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 1.1.1 {\
+		"USDS ID:1 V:1.1 NAME:MyLittleAPI {\
 			1: struct\
 			{\
 				1: BOOLEAN bool;\
@@ -346,7 +346,7 @@ void DictionaryTextParserTest::test_4()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 0.0.0 {\
+		"USDS NAME:MyLittleAPI ID:0 V:0.0 {\
 			1: struct\
 			{\
 				1: BOOLEAN bool;\
@@ -488,7 +488,7 @@ void DictionaryTextParserTest::test_5()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 4294967295.55.255 {\
+		"USDS NAME:MyLittleAPI ID:4294967295 V:55.255 {\
 			1: struct\
 			{\
 				1: BOOLEAN bool = NULL;\
@@ -618,7 +618,7 @@ void DictionaryTextParserTest::test_6()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 3000000000.254.125\
+		"USDS NAME:MyLittleAPI ID:3000000000 V:254.125\
 		{\
 			1: struct\
 			{\
@@ -681,7 +681,7 @@ void DictionaryTextParserTest::test_7()
 		for (size_t j = 0; j < 10; j++)
 		{
 			buffer.str("");
-			buffer << "USDS U 0.0.0 { 1: struct { 1: VARINT varint = " << first_value64 << "; }; }\n";
+			buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: VARINT varint = " << first_value64 << "; }; }\n";
 			text_dictionary = buffer.str();
 			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 			int64_t value = ((usds::DictionaryVarint*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -702,7 +702,7 @@ void DictionaryTextParserTest::test_7()
 		for (size_t j = 0; j < 10; j++)
 		{
 			buffer.str("");
-			buffer << "USDS U 0.0.0 { 1: struct { 1: VARINT varint = " << first_value64 << "; }; }\n";
+			buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: VARINT varint = " << first_value64 << "; }; }\n";
 			text_dictionary = buffer.str();
 			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 			int64_t value = ((usds::DictionaryVarint*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -723,7 +723,7 @@ void DictionaryTextParserTest::test_7()
 		for (size_t j = 0; j < 10; j++)
 		{
 			buffer.str("");
-			buffer << "USDS U 0.0.0 { 1: struct { 1: INT int = " << first_value32 << "; }; }\n";
+			buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: INT int = " << first_value32 << "; }; }\n";
 			text_dictionary = buffer.str();
 			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 			int64_t value = ((usds::DictionaryInt*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -744,7 +744,7 @@ void DictionaryTextParserTest::test_7()
 		for (size_t j = 0; j < 10; j++)
 		{
 			buffer.str("");
-			buffer << "USDS U 0.0.0 { 1: struct { 1: INT int = " << first_value32 << "; }; }\n";
+			buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: INT int = " << first_value32 << "; }; }\n";
 			text_dictionary = buffer.str();
 			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 			int64_t value = ((usds::DictionaryInt*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -765,7 +765,7 @@ void DictionaryTextParserTest::test_7()
 		for (size_t j = 0; j < 10; j++)
 		{
 			buffer.str("");
-			buffer << "USDS U 0.0.0 { 1: struct { 1: SHORT short = " << first_value16 << "; }; }\n";
+			buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: SHORT short = " << first_value16 << "; }; }\n";
 			text_dictionary = buffer.str();
 			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 			int64_t value = ((usds::DictionaryShort*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -786,7 +786,7 @@ void DictionaryTextParserTest::test_7()
 		for (size_t j = 0; j < 10; j++)
 		{
 			buffer.str("");
-			buffer << "USDS U 0.0.0 { 1: struct { 1: SHORT short = " << first_value16 << "; }; }\n";
+			buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: SHORT short = " << first_value16 << "; }; }\n";
 			text_dictionary = buffer.str();
 			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 			int64_t value = ((usds::DictionaryShort*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -803,7 +803,7 @@ void DictionaryTextParserTest::test_7()
 	for (int32_t i = -127; i <= 127; i++)
 	{
 		buffer.str("");
-		buffer << "USDS U 0.0.0 { 1: struct { 1: BYTE byte = " << i << "; }; }\n";
+		buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: BYTE byte = " << i << "; }; }\n";
 		text_dictionary = buffer.str();
 		parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 		int32_t value = ((usds::DictionaryByte*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -816,7 +816,7 @@ void DictionaryTextParserTest::test_7()
 	for (int32_t i = 0; i <= 255; i++)
 	{
 		buffer.str("");
-		buffer << "USDS U 0.0.0 { 1: struct { 1: UBYTE ubyte = " << i << "; }; }\n";
+		buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UBYTE ubyte = " << i << "; }; }\n";
 		text_dictionary = buffer.str();
 		parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 		int32_t value = ((usds::DictionaryUByte*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -833,7 +833,7 @@ void DictionaryTextParserTest::test_7()
 		for (size_t j = 0; j < 10; j++)
 		{
 			buffer.str("");
-			buffer << "USDS U 0.0.0 { 1: struct { 1: UVARINT uvarint = " << first_valueu64 << "; }; }\n";
+			buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UVARINT uvarint = " << first_valueu64 << "; }; }\n";
 			text_dictionary = buffer.str();
 			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 			uint64_t value = ((usds::DictionaryUVarint*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -854,7 +854,7 @@ void DictionaryTextParserTest::test_7()
 		for (size_t j = 0; j < 10; j++)
 		{
 			buffer.str("");
-			buffer << "USDS U 0.0.0 { 1: struct { 1: UINT uint = " << first_valueu32 << "; }; }\n";
+			buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT uint = " << first_valueu32 << "; }; }\n";
 			text_dictionary = buffer.str();
 			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 			uint32_t value = ((usds::DictionaryUInt*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -875,7 +875,7 @@ void DictionaryTextParserTest::test_7()
 		for (size_t j = 0; j < 10; j++)
 		{
 			buffer.str("");
-			buffer << "USDS U 0.0.0 { 1: struct { 1: USHORT ushort = " << first_valueu16 << "; }; }\n";
+			buffer << "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT ushort = " << first_valueu16 << "; }; }\n";
 			text_dictionary = buffer.str();
 			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
 			uint16_t value = ((usds::DictionaryShort*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
@@ -898,86 +898,86 @@ void DictionaryTextParserTest::test_8()
 
 	const size_t size = 77;
 	const char* dicts[size] = {
-		"USDS U 0.0.0 { 1: struct { 1: BYTE value = 128;};}",
-		"USDS U 0.0.0 { 1: struct { 1: BYTE value = -129;};}",
-		"USDS U 0.0.0 { 1: struct { 1: BYTE value = 200;};}",
-		"USDS U 0.0.0 { 1: struct { 1: BYTE value = -200;};}",
-		"USDS U 0.0.0 { 1: struct { 1: BYTE value = 1000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: BYTE value = -1000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = 256;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = 300;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = 1000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = -1;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = -10;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = -255;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UBYTE value = -1000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: SHORT value = 32768;};}",
-		"USDS U 0.0.0 { 1: struct { 1: SHORT value = -32769;};}",
-		"USDS U 0.0.0 { 1: struct { 1: SHORT value = 40000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: SHORT value = -40000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: SHORT value = 100000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: SHORT value = -100000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: USHORT value = 65536;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: BYTE value = 128;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: BYTE value = -129;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: BYTE value = 200;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: BYTE value = -200;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: BYTE value = 1000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: BYTE value = -1000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UBYTE value = 256;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UBYTE value = 300;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UBYTE value = 1000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UBYTE value = -1;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UBYTE value = -10;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UBYTE value = -255;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UBYTE value = -1000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: SHORT value = 32768;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: SHORT value = -32769;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: SHORT value = 40000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: SHORT value = -40000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: SHORT value = 100000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: SHORT value = -100000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT value = 65536;};}",
 
-		"USDS U 0.0.0 { 1: struct { 1: USHORT value = 70000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: USHORT value = 100000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -1;};}",
-		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -10;};}",
-		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -100;};}",
-		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -1000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -10000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: USHORT value = -100000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: INT value = 2147483648;};}",
-		"USDS U 0.0.0 { 1: struct { 1: INT value = 3000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: INT value = 10000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: INT value = -2147483649;};}",
-		"USDS U 0.0.0 { 1: struct { 1: INT value = -3000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: INT value = -10000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = 4294967296;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = 5000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = 10000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -1;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -10;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -100;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT value = 70000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT value = 100000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT value = -1;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT value = -10;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT value = -100;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT value = -1000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT value = -10000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: USHORT value = -100000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: INT value = 2147483648;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: INT value = 3000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: INT value = 10000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: INT value = -2147483649;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: INT value = -3000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: INT value = -10000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = 4294967296;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = 5000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = 10000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -1;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -10;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -100;};}",
 
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -1000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -10000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -100000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -1000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -10000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -100000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -1000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: UINT value = -10000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: LONG value = 9223372036854775808;};}",
-		"USDS U 0.0.0 { 1: struct { 1: LONG value = 10000000000000000000};}",
-		"USDS U 0.0.0 { 1: struct { 1: LONG value = -9223372036854775809;};}",
-		"USDS U 0.0.0 { 1: struct { 1: LONG value = -10000000000000000000};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = 18446744073709551616;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = 28446744073709551616;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = 108446744073709551616;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -1000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -10000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -100000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -1000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -10000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -100000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -1000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: UINT value = -10000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: LONG value = 9223372036854775808;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: LONG value = 10000000000000000000};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: LONG value = -9223372036854775809;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: LONG value = -10000000000000000000};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = 18446744073709551616;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = 28446744073709551616;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = 108446744073709551616;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -1;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -10;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -100;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -1000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -10000;};}",
 
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -10000000000000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -100000000000000000000;};}",
-		"USDS U 0.0.0 { 1: struct { 1: ULONG value = -1000000000000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -100000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -1000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -10000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -100000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -1000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -10000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -100000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -1000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -10000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -100000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -1000000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -10000000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -100000000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -1000000000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -10000000000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -100000000000000000000;};}",
+		"USDS NAME:U ID:0 V:0.0 { 1: struct { 1: ULONG value = -1000000000000000000000;};}",
 	};
 
 	// step 1
@@ -1008,45 +1008,45 @@ void DictionaryTextParserTest::test_9()
 	const size_t size = 20;
 	struct dicts { const char* text; float value;} dicts[size];
 
-	dicts[0].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 125;};}";
+	dicts[0].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = 125;};}";
 	dicts[0].value = 125.0F;
-	dicts[1].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -125;};}";
+	dicts[1].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -125;};}";
 	dicts[1].value = -125.0F;
-	dicts[2].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 1000000000000000000000000000000;};}";
+	dicts[2].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = 1000000000000000000000000000000;};}";
 	dicts[2].value = 1000000000000000000000000000000.0F;
-	dicts[3].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -1000000000000000000000000000000;};}";
+	dicts[3].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -1000000000000000000000000000000;};}";
 	dicts[3].value = -1000000000000000000000000000000.0F;
-	dicts[4].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 125.0;};}";
+	dicts[4].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = 125.0;};}";
 	dicts[4].value = 125.0F;
-	dicts[5].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -125.0;};}";
+	dicts[5].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -125.0;};}";
 	dicts[5].value = -125.0F;
-	dicts[6].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 1000000000000000000000000000000.0;};}";
+	dicts[6].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = 1000000000000000000000000000000.0;};}";
 	dicts[6].value = 1000000000000000000000000000000.0F;
-	dicts[7].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -1000000000000000000000000000000.0;};}";
+	dicts[7].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -1000000000000000000000000000000.0;};}";
 	dicts[7].value = -1000000000000000000000000000000.0F;
-	dicts[8].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 125.125;};}";
+	dicts[8].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = 125.125;};}";
 	dicts[8].value = 125.125F;
-	dicts[9].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -125.125;};}";
+	dicts[9].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -125.125;};}";
 	dicts[9].value = -125.125F;
-	dicts[10].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = .125;};}";
+	dicts[10].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = .125;};}";
 	dicts[10].value = 0.125F;
-	dicts[11].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -.125;};}";
+	dicts[11].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -.125;};}";
 	dicts[11].value = -0.125F;
-	dicts[12].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 1.125e3;};}";
+	dicts[12].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = 1.125e3;};}";
 	dicts[12].value = 1125.0F;
-	dicts[13].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -1.125e3;};}";
+	dicts[13].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -1.125e3;};}";
 	dicts[13].value = -1125.0F;
-	dicts[14].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = 112.5e-2;};}";
+	dicts[14].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = 112.5e-2;};}";
 	dicts[14].value = 1.125F;
-	dicts[15].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -112.5e-2;};}";
+	dicts[15].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -112.5e-2;};}";
 	dicts[15].value = -1.125F;
-	dicts[16].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = .125e3;};}";
+	dicts[16].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = .125e3;};}";
 	dicts[16].value = 125.0F;
-	dicts[17].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -.125e3;};}";
+	dicts[17].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -.125e3;};}";
 	dicts[17].value = -125.0F;
-	dicts[18].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = .125e-3;};}";
+	dicts[18].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = .125e-3;};}";
 	dicts[18].value = 0.000125F;
-	dicts[19].text = "USDS U 0.0.0 { 1: struct { 1: FLOAT value = -.125e-3;};}";
+	dicts[19].text = "USDS NAME:U ID:0 V:0.0 { 1: struct { 1: FLOAT value = -.125e-3;};}";
 	dicts[19].value = -0.000125F;
 	// step 1
 	for (size_t i = 0; i < size; i++)
@@ -1068,7 +1068,7 @@ void DictionaryTextParserTest::test_10()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 4294967295.55.255 {\n\
+		"USDS NAME:MyLittleAPI ID:4294967295 V:55.255 {\n\
 			1: struct\n\
 			{\n\
 				1: BOOLEAN bool = true;\n\
@@ -1242,7 +1242,7 @@ void DictionaryTextParserTest::test_11()
 	
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 0.0.0 {\n\
+		"USDS NAME:MyLittleAPI ID:0 V:0.0 {\n\
 			1: BOOLEAN[] bool;\n\
 			2: BYTE[] byte;\n\
 			3: UBYTE[] ubyte;\n\
@@ -1371,7 +1371,7 @@ void DictionaryTextParserTest::test_12()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 0.0.0 {\n\
+		"USDS NAME:MyLittleAPI ID:0 V:0.0 {\n\
 			1: BOOLEAN[][] bool;\n\
 			2: BYTE[][][] byte;\n\
 			3: UBYTE[][][][] ubyte;\n\
@@ -1434,7 +1434,7 @@ void DictionaryTextParserTest::test_13()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 0.0.0 {\n\
+		"USDS NAME:MyLittleAPI ID:0 V:0.0 {\n\
 			1: struct[]\n\
 			{\n\
 				1: BOOLEAN[] bool;\n\
@@ -1696,7 +1696,7 @@ void DictionaryTextParserTest::test_14()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 0.0.0 {\n\
+		"USDS NAME:MyLittleAPI ID:0 V:0.0 {\n\
 			1: struct[][]\n\
 			{\n\
 				1: BOOLEAN[][] bool;\n\
@@ -1864,7 +1864,7 @@ void DictionaryTextParserTest::test_15()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 0.0.0 {\n\
+		"USDS NAME:MyLittleAPI ID:0 V:0.0 {\n\
 			1: struct[]\n\
 			{\n\
 				1: BOOLEAN[] bool = NULL;\n\
@@ -2126,7 +2126,7 @@ void DictionaryTextParserTest::test_16()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 0.0.0 {\n\
+		"USDS NAME:MyLittleAPI ID:0 V:0.0 {\n\
 			1: struct[][]\n\
 			{\n\
 				1: BOOLEAN[][] bool = NULL;\n\
@@ -2340,7 +2340,7 @@ void DictionaryTextParserTest::test_17()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 1.1.1 {\
+		"USDS NAME:MyLittleAPI ID:1 V:1.1 {\
 			1: struct_recursion\
 			{\
 				1: BOOLEAN bool;\
@@ -2370,7 +2370,7 @@ void DictionaryTextParserTest::test_18()
 
 	// step 1
 	const char* text_dict =
-		"USDS MyLittleAPI 1.1.1 {\
+		"USDS NAME:MyLittleAPI ID:1 V:1.1 {\
 			1: struct_recursion\
 			{\
 				1: BOOLEAN bool;\
@@ -2402,7 +2402,7 @@ void DictionaryTextParserTest::test_19()
 
 	// step 1
 	const char* text_dict =
-		"\xEF\xBB\xBFUSDS MyLittleAPI 0.0.0 {\
+		"\xEF\xBB\xBFUSDS NAME:MyLittleAPI ID:0 V:0.0 {\
 			1: struct\
 			{\
 				1: BOOLEAN bool;\
