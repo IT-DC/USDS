@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source\testSaxParser.cpp" />
+    <ClCompile Include="Source\TestSimpleStruct\Source\testSimpleStruct.cpp">
+      <Filter>1.Test Simple Struct</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="1.Test Simple Struct">
+      <UniqueIdentifier>{95a57fe8-cf7b-4e31-a48c-243648434a06}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\baseTestClass.h" />
+    <ClInclude Include="Source\testSaxParser.h" />
+    <ClInclude Include="Source\TestSimpleStruct\Include\testSimpleStruct.h">
+      <Filter>1.Test Simple Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TestSimpleStruct\Include\testStruct.h">
+      <Filter>1.Test Simple Struct</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

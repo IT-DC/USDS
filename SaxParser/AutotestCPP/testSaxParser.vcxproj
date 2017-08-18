@@ -91,7 +91,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,10 +146,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Include\testSaxParser.h" />
+    <ClCompile Include="Source\testSaxParser.cpp" />
+    <ClCompile Include="Source\TestSimpleStruct\Source\testSimpleStruct.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\testSaxParser.cpp" />
+    <ClInclude Include="Source\baseTestClass.h" />
+    <ClInclude Include="Source\testSaxParser.h" />
+    <ClInclude Include="Source\TestSimpleStruct\Include\testSimpleStruct.h" />
+    <ClInclude Include="Source\TestSimpleStruct\Include\testStruct.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

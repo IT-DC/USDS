@@ -1,0 +1,21 @@
+USDS ID:888 NAME:MyLittleAPI V:1.0
+{
+	1: simpleStruct
+	{
+		1: BOOLEAN boolParameter;
+		2: BYTE byteParameter;
+		3: UBYTE ubyteParameter;
+		4: SHORT shortParameter;
+		5: USHORT ushortParameter;
+		6: INT intParameter;
+		7: UINT uintParameter;
+		8: LONG longParameter;
+		9: ULONG ulongParameter;
+		10: FLOAT floatParameter;
+		11: DOUBLE doubleParameter;
+		12: VARINT varintParameter;
+		13: UVARINT uvarintParameter;
+		14: STRING stringParameter;
+		15: STRING<UTF-8> string2Parameter;
+	}
+}
