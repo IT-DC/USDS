@@ -19,10 +19,6 @@ namespace testSaxParser
 		virtual Package SaxGetXml() = 0;
 		virtual Package SaxGetJson() = 0;
 
-		virtual Package BasicGetBinary() = 0;
-		virtual Package BasicGetXml() = 0;
-		virtual Package BasicGetJson() = 0;
-
 		virtual bool SaxSetBinary(Package input) = 0;
 		virtual bool SaxSetXml(Package input) = 0;
 		virtual bool SaxSetJson(Package input) = 0;

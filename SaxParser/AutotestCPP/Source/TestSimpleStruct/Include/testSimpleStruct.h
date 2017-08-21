@@ -17,10 +17,6 @@ namespace testSaxParser
 		Package SaxGetXml();
 		Package SaxGetJson();
 
-		Package BasicGetBinary();
-		Package BasicGetXml();
-		Package BasicGetJson();
-
 		bool SaxSetBinary(Package input);
 		bool SaxSetXml(Package input);
 		bool SaxSetJson(Package input);

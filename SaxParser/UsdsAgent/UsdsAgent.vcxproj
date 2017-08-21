@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\CodeReaders\codeReader.cpp" />
+    <ClCompile Include="Source\CodeReaders\CppCodeReader\cppCodeReader.cpp" />
     <ClCompile Include="Source\Common\fileSearcher.cpp" />
     <ClCompile Include="Source\Communication\packer.cpp" />
     <ClCompile Include="Source\Communication\sender.cpp" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\CodeReaders\codeReader.h" />
+    <ClInclude Include="Include\CodeReaders\CPPCodeReader\cppCodeReader.h" />
     <ClInclude Include="Include\Common\fileSearcher.h" />
     <ClInclude Include="Include\Communication\packer.h" />
     <ClInclude Include="Include\Communication\sender.h" />

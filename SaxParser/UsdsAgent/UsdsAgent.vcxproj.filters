@@ -20,6 +20,9 @@
     <ClCompile Include="Source\Communication\sender.cpp">
       <Filter>Communication</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CodeReaders\CppCodeReader\cppCodeReader.cpp">
+      <Filter>Code Readers\CPP Code reader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAgent.h" />
@@ -40,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="Include\Communication\sender.h">
       <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\CodeReaders\CPPCodeReader\cppCodeReader.h">
+      <Filter>Code Readers\CPP Code reader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

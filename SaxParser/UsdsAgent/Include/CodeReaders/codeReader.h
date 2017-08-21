@@ -5,8 +5,6 @@
 
 namespace usdsAgent
 {
-	class AgentConfig;
-
 	class CodeReader
 	{
 	public:
@@ -15,6 +13,8 @@ namespace usdsAgent
 		virtual void f() = 0;
 
 		static usds::BasicParser* findAllAnnotations(usds::BasicParser* dicts);
+
+		static const char* codeDictionary;
 
 	};
 

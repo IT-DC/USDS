@@ -25,7 +25,7 @@ try
 	Sender::wait(session_id);
 
 #ifdef _DEBUG
-	cout << "Press any key\n";
+	cout << "Press any key";
 	cin.get();
 #endif
 
@@ -33,9 +33,9 @@ try
 }
 catch (usds::ErrorStack msg)
 {
-	cerr << "Error: " << msg.getMessage() << "\n";
+	BOOST_LOG_TRIVIAL(fatal) << msg.getMessage();
 #ifdef _DEBUG
-	cout << "Press any key\n";
+	cout << "Press any key";
 	cin.get();
 #endif
 	return -1;

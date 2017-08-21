@@ -8,7 +8,6 @@
 #include <iostream>
 #include <list>
 #include <string>
-#include <algorithm>
 
 using namespace usdsAgent;
 
@@ -18,15 +17,15 @@ try
 	if (AgentConfig::action == command::help || AgentConfig::action == command::clean)
 		return nullptr;
 
-	cout << "Read usds-dictionary files:\n";
+	BOOST_LOG_TRIVIAL(info) << "Read usds-dictionary files";
 	list<pair<string, string>>* dictFiles = FileSearcher::findDictFiles(AgentConfig::codePath, AgentConfig::dictFileExt);
 
 	usds::BasicParser* dicts = new usds::BasicParser();
 	for(auto it = dictFiles->begin(); it != dictFiles->end(); ++it)
 	{
-		cout << (*it).first << "\n";
+		BOOST_LOG_TRIVIAL(debug) << (*it).first;
 		dicts->addDictionaryFromText((*it).second.c_str(), 0, usds::USDS_UTF8);
-		cout << dicts->getDictionaryName() << " " << dicts->getDictionaryID() << "." << (uint32_t)dicts->getDictionaryMajor() << "." << (uint32_t)dicts->getDictionaryMinor() << " success\n";
+		BOOST_LOG_TRIVIAL(debug) << dicts->getDictionaryName() << " " << dicts->getDictionaryID() << "." << (uint32_t)dicts->getDictionaryMajor() << "." << (uint32_t)dicts->getDictionaryMinor() << " success";
 	}
 
 	return dicts;

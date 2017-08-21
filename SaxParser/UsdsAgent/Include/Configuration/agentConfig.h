@@ -2,6 +2,11 @@
 #define AGENT_CONFIG_H
 
 #include <string>
+#include <vector>
+
+#include <boost/log/core.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/expressions.hpp>
 
 using namespace std;
 
@@ -19,6 +24,7 @@ namespace usdsAgent
 
 		static void parse(int argc, char* argv[]);
 
+		static boost::log::trivial::severity_level severityLevel;
 
 		static command action;
 		
@@ -26,10 +32,9 @@ namespace usdsAgent
 		static string iniFile;
 
 		static string dictFileExt;
-
+		
 		static language programLang;
-
-
+		static vector<string> codeFileExt;
 
 	};
 

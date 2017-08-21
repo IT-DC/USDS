@@ -13,7 +13,6 @@ int32_t main(int32_t argc, char* argv[])
 	tests = new TestSimpleStruct();
 	std::cout << "USDS Binary: ";
 	sax_result = tests->SaxGetBinary();
-	basic_result = tests->BasicGetBinary();
 	if (sax_result.size != basic_result.size)
 	{
 		std::cout << "error! Sizes of Binary are not equal\n";

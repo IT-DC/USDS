@@ -3,6 +3,7 @@
 
 #include <list>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ namespace usdsAgent
 		virtual void f() = 0;
 
 		static list<pair<string, string>>* findDictFiles(string& rootPath, string& ext);
+		static list<pair<string, string>>* findDictFiles(string& rootPath, vector<string>& ext);
 
 	};
 

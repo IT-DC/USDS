@@ -17,5 +17,5 @@ USDS ID:888 NAME:MyLittleAPI V:1.0
 		13: UVARINT uvarintParameter;
 		14: STRING stringParameter;
 		15: STRING<UTF-8> string2Parameter;
-	}
+	};
 }

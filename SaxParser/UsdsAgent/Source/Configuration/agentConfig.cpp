@@ -16,11 +16,17 @@ using namespace std;
 using namespace usdsAgent;
 
 // initial values
+#ifdef _DEBUG
+	boost::log::trivial::severity_level AgentConfig::severityLevel = boost::log::trivial::debug;
+#else
+	boost::log::trivial::severity_level AgentConfig::severityLevel = boost::log::trivial::info;
+#endif
 command AgentConfig::action = command::build;
 string AgentConfig::codePath = ".";
 string AgentConfig::iniFile = "usdsAgent.ini";
 string AgentConfig::dictFileExt = ".udic";
 language AgentConfig::programLang = language::cpp;
+vector<string> AgentConfig::codeFileExt = {".cpp", ".h"};
 
 void AgentConfig::parse(int argc, char* argv[])
 try
@@ -48,19 +54,23 @@ try
 	// Parameters from command line
 	if (command_line_parameters.count("help"))
 	{
-		cout << command_line_options << '\n';
+		BOOST_LOG_TRIVIAL(info) << command_line_options;
 		action = command::help;
 	}
 	else
 	{
 		if (command_line_parameters.count("codePath"))
 			codePath = command_line_parameters["codePath"].as<string>().c_str();
-
-
-
 	}
+
+	// Logger initialization
+	boost::log::core::get()->set_filter
+	(
+		boost::log::trivial::severity >= severityLevel
+	);
+
 }
-catch (boost::property_tree::ptree_bad_path config_error)
+catch (boost::property_tree::ptree_error config_error)
 {
 	throw usds::ErrorStack("AgentConfig::AgentConfig") << argc << argv << usds::ErrorMessage(1, config_error.what());
 }

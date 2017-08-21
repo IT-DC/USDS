@@ -61,36 +61,6 @@ Package TestSimpleStruct::SaxGetJson()
 	return out;
 };
 
-Package TestSimpleStruct::BasicGetBinary()
-{
-	Package out;
-	out.body = 0;
-	out.size = 0;
-
-
-	return out;
-};
-
-Package TestSimpleStruct::BasicGetXml()
-{
-	Package out;
-	out.body = 0;
-	out.size = 0;
-
-
-	return out;
-};
-
-Package TestSimpleStruct::BasicGetJson()
-{
-	Package out;
-	out.body = 0;
-	out.size = 0;
-
-
-	return out;
-};
-
 bool TestSimpleStruct::SaxSetBinary(Package input)
 {
 	
