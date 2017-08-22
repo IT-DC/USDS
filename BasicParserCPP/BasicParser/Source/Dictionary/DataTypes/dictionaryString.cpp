@@ -22,12 +22,12 @@ void DictionaryString::additionalInitType()
 	isDefault = false;
 };
 
-void DictionaryString::setDefaultEncode(usdsEncodes value) throw(...)
+void DictionaryString::setDefaultEncode(usdsEncode value) throw(...)
 {
 	defaultEncode = value;
 };
 
-usdsEncodes DictionaryString::getDefaultEncode() throw(...)
+usdsEncode DictionaryString::getDefaultEncode() throw(...)
 {
 	return defaultEncode;
 };

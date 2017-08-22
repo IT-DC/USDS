@@ -11,7 +11,7 @@ namespace usds
 		UsdsFloat(Body* parent_body);
 		virtual ~UsdsFloat();
 
-		usdsTypes getType() { return USDS_FLOAT; };
+		usdsType getType() { return USDS_FLOAT; };
 		const char* getTypeName() { return "FLOAT"; };
 
 		// Slow methods (virtual)

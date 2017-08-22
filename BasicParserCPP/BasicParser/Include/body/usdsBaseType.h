@@ -23,7 +23,7 @@ namespace usds
 		size_t getNameSize() throw(...);
 		int32_t getID() throw(...);
 		
-		virtual usdsTypes getType() = 0;
+		virtual usdsType getType() = 0;
 		virtual const char* getTypeName() = 0;
 
 		virtual void setValue(bool value) throw (...);

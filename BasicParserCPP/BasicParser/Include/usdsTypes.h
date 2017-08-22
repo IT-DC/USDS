@@ -5,13 +5,7 @@
 
 namespace usds
 {
-	enum usdsTypesErrorCodes
-	{
-		USDS_TYPES__ERROR_TYPE_CODE = 1,
-		USDS_TYPES__ERROR_ENCODE = 2
-	};
-	
-	enum usdsTypes
+	enum usdsType
 	{
 		USDS_TAG = 0,
 		USDS_BOOLEAN = 1,
@@ -32,16 +26,12 @@ namespace usds
 		USDS_STRING = 16,
 		USDS_ARRAY = 17,
 		USDS_STRUCT = 18,
-		USDS_GUID = 19,
-		USDS_MAP = 20,
-		USDS_DATE = 21,
-		USDS_TIME = 22,
-		USDS_DATETIME = 23,
-		USDS_FUNCTION = 24,
-		USDS_LAST_TYPE = 25
+		USDS_ENUM = 19,
+		USDS_POLYMORPH = 20,
+		USDS_LAST_TYPE = 21
 	};
 
-	enum usdsTypeSizes
+	enum usdsTypeSize
 	{
 		USDS_TAG_SIZE = 0,
 		USDS_BOOLEAN_SIZE = 1,
@@ -62,16 +52,11 @@ namespace usds
 		USDS_STRING_SIZE = 0,
 		USDS_ARRAY_SIZE = 0,
 		USDS_STRUCT_SIZE = 0,
-		USDS_GUID_SIZE = 16,
-		USDS_MAP_SIZE = 0,
-		USDS_DATE_SIZE = 8,
-		USDS_TIME_SIZE = 8,
-		USDS_DATETIME_SIZE = 8,
-		USDS_FUNCTION_SIZE = 0,
-		USDS_LAST_TYPE_SIZE = -1
+		USDS_ENUM_SIZE = 0,
+		USDS_POLYMORPH_SIZE = 0
 	};
 
-	enum usdsEncodes
+	enum usdsEncode
 	{
 		USDS_NO_DEFAULT_ENCODE = 0,
 		USDS_UTF8 = 1,
@@ -81,13 +66,6 @@ namespace usds
 		USDS_UTF32BE = 5,
 		USDS_LAST_ENCODE = 6
 	};
-
-	extern const char* usdsTypeName(usdsTypes code) throw(...);
-	
-	// returns 0 if unfixed
-	extern int32_t usdsTypeSize(usdsTypes code) throw(...);
-	
-	extern const char* usdsEncodeName(usdsEncodes code) throw(...);
 
 	enum usdsSignature
 	{
@@ -103,6 +81,21 @@ namespace usds
 		USDS_TAG_RESTRICTION_NOT_ROOT_SIGNATURE = 'r',
 		USDS_BODY_SIGNATURE = 'b',
 		USDS_BODY_SIGNATURE_WITH_SIZE = 'B'
+	};
+
+	class UsdsTypes
+	{
+	public:
+		// abstract class
+		virtual void f() = 0;
+
+
+		static const char* typeName(usdsType code) throw(...);
+
+		// returns 0 if unfixed
+		static int32_t typeSize(usdsType code) throw(...);
+
+		static const char* encodeName(usdsEncode code) throw(...);
 	};
 
 };

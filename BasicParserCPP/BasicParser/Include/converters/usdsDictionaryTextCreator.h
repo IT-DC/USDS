@@ -17,7 +17,7 @@ namespace usds
 		DictionaryTextCreator();
 		~DictionaryTextCreator() { };
 
-		void generate(usdsEncodes encode, std::string* text, Dictionary* dict) throw (...);
+		void generate(usdsEncode encode, std::string* text, Dictionary* dict) throw (...);
 
 	private:
 		std::stringstream textBuff;
@@ -43,12 +43,7 @@ namespace usds
 		void writeString(DictionaryBaseType* object) throw (...);
 		void writeArray(DictionaryBaseType* object) throw (...);
 		void writeStruct(DictionaryBaseType* object) throw (...);
-		void writeGuid(DictionaryBaseType* object) throw (...);
-		void writeMap(DictionaryBaseType* object) throw (...);
-		void writeDate(DictionaryBaseType* object) throw (...);
-		void writeTime(DictionaryBaseType* object) throw (...);
-		void writeDateTime(DictionaryBaseType* object) throw (...);
-		void writeFunction(DictionaryBaseType* object) throw (...);
+
 
 	};
 

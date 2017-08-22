@@ -126,6 +126,7 @@
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryBoolean.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryByte.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryDouble.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryEnum.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryFloat.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryInt.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryLong.h" />

@@ -15,7 +15,7 @@ void DictionaryArray::additionalInitType()
 
 };
 
-DictionaryBaseType* DictionaryArray::setElementType(usdsTypes type_id) throw (...)
+DictionaryBaseType* DictionaryArray::setElementType(usdsType type_id) throw (...)
 try
 {
 	if (element != 0)
@@ -36,7 +36,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-usdsTypes DictionaryArray::getElementType() throw (...)
+usdsType DictionaryArray::getElementType() throw (...)
 {
 	if (element == 0)
 		throw ErrorStack("DictionaryArray::getElementType") << ErrorMessage(DIC_ARRAY__NOT_INITIALIZED, "Dictionary Array field not initialized");

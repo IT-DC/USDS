@@ -93,7 +93,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::setFieldValue(const char* field_name, usdsEncodes encode, const char* value) throw (...)
+void UsdsStruct::setFieldValue(const char* field_name, usdsEncode encode, const char* value) throw (...)
 try
 {
 	int32_t field_id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(field_name);
@@ -219,7 +219,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::setFieldValue(int32_t field_id, usdsEncodes encode, const char* value) throw (...)
+void UsdsStruct::setFieldValue(int32_t field_id, usdsEncode encode, const char* value) throw (...)
 try
 {
 	if (field_id < 1 || field_id > fieldNumber)
@@ -346,7 +346,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::getFieldValue(const char* field_name, usdsEncodes encode, const char** value) throw (...)
+void UsdsStruct::getFieldValue(const char* field_name, usdsEncode encode, const char** value) throw (...)
 try
 {
 	int32_t field_id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(field_name);
@@ -473,7 +473,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsStruct::getFieldValue(int32_t field_id, usdsEncodes encode, const char** value) throw (...)
+void UsdsStruct::getFieldValue(int32_t field_id, usdsEncode encode, const char** value) throw (...)
 try
 {
 	if (field_id < 1 || field_id > fieldNumber)
@@ -582,7 +582,7 @@ int32_t UsdsStruct::getFieldsNumber() throw (...)
 
 void UsdsStruct::additionalInitObject()
 {
-	fieldNumber = ((DictionaryStruct*)parentDictionaryObject)->getFieldNumber();
+	fieldNumber = ((DictionaryStruct*)parentDictionaryObject)->getFieldNumbers();
 	
 	if (fieldNumber > fieldsBuffSize)
 	{

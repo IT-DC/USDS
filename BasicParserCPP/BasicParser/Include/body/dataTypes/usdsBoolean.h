@@ -11,7 +11,7 @@ namespace usds
 		UsdsBoolean(Body* parent_body);
 		virtual ~UsdsBoolean();
 
-		usdsTypes getType() { return USDS_BOOLEAN; };
+		usdsType getType() { return USDS_BOOLEAN; };
 		const char* getTypeName() { return "BOOLEAN"; };
 
 		// Slow methods (virtual)

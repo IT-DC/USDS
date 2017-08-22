@@ -35,15 +35,9 @@ DictionaryTextCreator::DictionaryTextCreator()
 	writeIndex[USDS_STRING] = &DictionaryTextCreator::writeString;
 	writeIndex[USDS_ARRAY] = &DictionaryTextCreator::writeArray;
 	writeIndex[USDS_STRUCT] = &DictionaryTextCreator::writeStruct;
-	writeIndex[USDS_GUID] = &DictionaryTextCreator::writeGuid;
-	writeIndex[USDS_MAP] = &DictionaryTextCreator::writeMap;
-	writeIndex[USDS_DATE] = &DictionaryTextCreator::writeDate;
-	writeIndex[USDS_TIME] = &DictionaryTextCreator::writeTime;
-	writeIndex[USDS_DATETIME] = &DictionaryTextCreator::writeDateTime;
-	writeIndex[USDS_FUNCTION] = &DictionaryTextCreator::writeFunction;
 };
 
-void DictionaryTextCreator::generate(usdsEncodes encode, std::string* text, Dictionary* dict) throw (...)
+void DictionaryTextCreator::generate(usdsEncode encode, std::string* text, Dictionary* dict) throw (...)
 try
 {
 	if (encode != USDS_UTF8)
@@ -167,7 +161,7 @@ void DictionaryTextCreator::writeUVarint(DictionaryBaseType* object) throw (...)
 void DictionaryTextCreator::writeString(DictionaryBaseType* object)
 try
 {
-		textBuff << "STRING<" << usdsEncodeName(((DictionaryString*)object)->getDefaultEncode()) << "> " << object->getName();
+		textBuff << "STRING<" << UsdsTypes::encodeName(((DictionaryString*)object)->getDefaultEncode()) << "> " << object->getName();
 	
 }
 catch (ErrorStack& err)
@@ -180,14 +174,14 @@ void DictionaryTextCreator::writeArray(DictionaryBaseType* object)
 try
 {
 	textBuff << "ARRAY<";
-	usdsTypes element_type = ((DictionaryArray*)object)->getElementType();
+	usdsType element_type = ((DictionaryArray*)object)->getElementType();
 	if (element_type == USDS_TAG)
 	{
 		textBuff << ((DictionaryTagLink*)object)->getTag()->getName();
 	}
 	else
 	{
-		textBuff << usdsTypeName(element_type);
+		textBuff << UsdsTypes::typeName(element_type);
 	}
 	textBuff << "> " << object->getName();
 }
@@ -197,16 +191,11 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void DictionaryTextCreator::writeMap(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryTextCreator::writeMap") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type MAP for Dictionary Text Creator");
-};
-
 void DictionaryTextCreator::writeStruct(DictionaryBaseType* object)
 try
 {
 	textBuff << " " << object->getName() << "\n\t{\n";
-	int32_t fieldNumber = ((DictionaryStruct*)object)->getFieldNumber();
+	int32_t fieldNumber = ((DictionaryStruct*)object)->getFieldNumbers();
 	for (int32_t i = 1; i <= fieldNumber; i++)
 	{
 		DictionaryBaseType* field = ((DictionaryStruct*)object)->getField(i);
@@ -226,29 +215,5 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void DictionaryTextCreator::writeFunction(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryTextCreator::writeFunction") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type FUNCTION for Dictionary Text Creator");
-};
-
-void DictionaryTextCreator::writeGuid(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryTextCreator::writeGuid") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type GUID for Dictionary Text Creator");
-};
-
-void DictionaryTextCreator::writeDate(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryTextCreator::writeDate") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type DATE for Dictionary Text Creator");
-};
-
-void DictionaryTextCreator::writeTime(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryTextCreator::writeTime") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type TIME for Dictionary Text Creator");
-};
-
-void DictionaryTextCreator::writeDateTime(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryTextCreator::writeDateTime") << (void*)object << ErrorMessage(DIC_TEXT_CREATOR__UNSUPPORTED_TYPE, "Unsupported type DATETIME for Dictionary Text Creator");
-};
 
 

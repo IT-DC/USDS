@@ -17,7 +17,7 @@ BasicParser::~BasicParser()
 
 //====================================================================================================================
 // Dictionary constructors
-void BasicParser::addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncodes encode) throw(...)
+void BasicParser::addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncode encode) throw(...)
 try 
 {
 	Dictionary* dict = (Dictionary*)dictionaryPool.addObject();
@@ -51,7 +51,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BasicParser::CurrentDictionaryToText(usdsEncodes encode, std::string* text) throw(...)
+void BasicParser::CurrentDictionaryToText(usdsEncode encode, std::string* text) throw(...)
 try
 {
 	if (currentDictionary == 0)
@@ -259,7 +259,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BasicParser::getJSON(usdsEncodes encode, std::string* text) throw(...)
+void BasicParser::getJSON(usdsEncode encode, std::string* text) throw(...)
 try
 {
 	if (currentDictionary == 0)

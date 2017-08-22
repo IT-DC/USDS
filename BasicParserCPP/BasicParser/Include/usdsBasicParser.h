@@ -30,8 +30,8 @@ namespace usds
 		const uint8_t usdsMinor;
 
 		// Dictionary constructors
-		void addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncodes encode) throw(...);
-		void CurrentDictionaryToText(usdsEncodes encode, std::string* text) throw(...);
+		void addDictionaryFromText(const char* text_dictionary, size_t size, usdsEncode encode) throw(...);
+		void CurrentDictionaryToText(usdsEncode encode, std::string* text) throw(...);
 
 		// Working with several dictionaries
 		void selectDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...);
@@ -55,7 +55,7 @@ namespace usds
 
 		// encode
 		void encode(BinaryOutput* buff, bool with_head, bool with_dictionary, bool with_body) throw(...);
-		void getJSON(usdsEncodes encode, std::string* text) throw(...);
+		void getJSON(usdsEncode encode, std::string* text) throw(...);
 
 		// decode
 		void decode(const uint8_t* data, size_t data_size) throw(...);

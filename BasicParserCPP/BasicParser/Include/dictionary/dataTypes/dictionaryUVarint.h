@@ -16,7 +16,7 @@ namespace usds
 
 		virtual void finalize() throw (...) { };
 
-		usdsTypes getType() { return USDS_UVARINT; };
+		usdsType getType() { return USDS_UVARINT; };
 		const char* getTypeName() { return "UVARINT"; };
 
 		void setDefaultValue(uint64_t value);

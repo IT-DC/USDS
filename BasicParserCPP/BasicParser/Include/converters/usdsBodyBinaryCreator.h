@@ -44,12 +44,6 @@ namespace usds
 		void writeString(UsdsBaseType* object) throw (...);
 		void writeArray(UsdsBaseType* object) throw (...);
 		void writeStruct(UsdsBaseType* object) throw (...);
-		void writeGuid(UsdsBaseType* object) throw (...);
-		void writeMap(UsdsBaseType* object) throw (...);
-		void writeDate(UsdsBaseType* object) throw (...);
-		void writeTime(UsdsBaseType* object) throw (...);
-		void writeDateTime(UsdsBaseType* object) throw (...);
-		void writeFunction(UsdsBaseType* object) throw (...);
 
 	};
 

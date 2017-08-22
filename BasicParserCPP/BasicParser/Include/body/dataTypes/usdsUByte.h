@@ -11,7 +11,7 @@ namespace usds
 		UsdsUByte(Body* parent_body);
 		virtual ~UsdsUByte();
 
-		usdsTypes getType() { return USDS_UBYTE; };
+		usdsType getType() { return USDS_UBYTE; };
 		const char* getTypeName() { return "UBYTE"; };
 
 		// Slow methods (virtual)

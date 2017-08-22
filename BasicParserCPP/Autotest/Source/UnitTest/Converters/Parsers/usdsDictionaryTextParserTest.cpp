@@ -397,7 +397,7 @@ void DictionaryTextParserTest::test_4()
 
 	// step 5
 	usds::DictionaryStruct* struct_tag = (usds::DictionaryStruct*)dict.getTag(1);
-	if (struct_tag->getFieldNumber() != 4)
+	if (struct_tag->getFieldNumbers() != 4)
 		throw "Failed at the step 5\n";
 
 	// step 6
@@ -413,7 +413,7 @@ void DictionaryTextParserTest::test_4()
 		throw "Failed at the step 7\n";
 
 	// step 8
-	if (((usds::DictionaryStruct*)field)->getFieldNumber() != 2)
+	if (((usds::DictionaryStruct*)field)->getFieldNumbers() != 2)
 		throw "Failed at the step 8\n";
 
 	// step 9
@@ -441,7 +441,7 @@ void DictionaryTextParserTest::test_4()
 		throw "Failed at the step 12\n";
 
 	// step 13
-	if (((usds::DictionaryStruct*)field)->getFieldNumber() != 3)
+	if (((usds::DictionaryStruct*)field)->getFieldNumbers() != 3)
 		throw "Failed at the step 13\n";
 
 	// step 14
@@ -464,7 +464,7 @@ void DictionaryTextParserTest::test_4()
 
 	// step 17
 	field_int = ((usds::DictionaryStruct*)field)->getField(2);
-	if (((usds::DictionaryStruct*)field_int)->getFieldNumber() != 2)
+	if (((usds::DictionaryStruct*)field_int)->getFieldNumbers() != 2)
 		throw "Failed at the step 17\n";
 
 	// step 18
@@ -1563,7 +1563,7 @@ void DictionaryTextParserTest::test_13()
 	// step 18
 	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(16);
 	if (strcmp(field->getName(), "struct") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_STRUCT
-		|| ((usds::DictionaryStruct*)field->getElement())->getFieldNumber() != 2)
+		|| ((usds::DictionaryStruct*)field->getElement())->getFieldNumbers() != 2)
 		throw "Failed at the step 18\n";
 
 	// step 19
@@ -1603,7 +1603,7 @@ void DictionaryTextParserTest::test_13()
 
 	// step 26
 	usds::DictionaryStruct* tag_struct = (usds::DictionaryStruct*)((usds::DictionaryTagLink*)(usds::DictionaryTagLink*)field->getElement())->getTag();
-	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2)
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumbers() != 2)
 		throw "Failed at the step 26\n";
 
 	// step 27
@@ -1623,7 +1623,7 @@ void DictionaryTextParserTest::test_13()
 
 	// step 30
 	tag_struct = (usds::DictionaryStruct*)dict.getTag(3);
-	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2)
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumbers() != 2)
 		throw "Failed at the step 30\n";
 
 	// step 31
@@ -1638,7 +1638,7 @@ void DictionaryTextParserTest::test_13()
 
 	// step 33
 	tag_struct = (usds::DictionaryStruct*)dict.getTag(4);
-	if (strcmp(tag_struct->getName(), "struct3") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 3)
+	if (strcmp(tag_struct->getName(), "struct3") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumbers() != 3)
 		throw "Failed at the step 33\n";
 
 	// step 34
@@ -1653,7 +1653,7 @@ void DictionaryTextParserTest::test_13()
 
 	// step 36
 	usds::DictionaryStruct* internal_tag_struct = (usds::DictionaryStruct*)((usds::DictionaryTagLink*)field->getElement())->getTag();
-	if (strcmp(internal_tag_struct->getName(), "struct2") != 0 || internal_tag_struct->getType() != usds::USDS_STRUCT || internal_tag_struct->getFieldNumber() != 2)
+	if (strcmp(internal_tag_struct->getName(), "struct2") != 0 || internal_tag_struct->getType() != usds::USDS_STRUCT || internal_tag_struct->getFieldNumbers() != 2)
 		throw "Failed at the step 36\n";
 
 	// step 37
@@ -1673,7 +1673,7 @@ void DictionaryTextParserTest::test_13()
 
 	// step 40
 	tag_struct = (usds::DictionaryStruct*)tag_field->getTag();
-	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2)
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumbers() != 2)
 		throw "Failed at the step 40\n";
 
 	// step 41
@@ -1729,7 +1729,7 @@ void DictionaryTextParserTest::test_14()
 	{
 		// step 3
 		usds::DictionaryStruct* struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)tag->getElement())->getElement();
-		if (struct_tag->getType() != usds::USDS_STRUCT || struct_tag->getFieldNumber() != 6)
+		if (struct_tag->getType() != usds::USDS_STRUCT || struct_tag->getFieldNumbers() != 6)
 			throw "Failed at the step 3\n";
 
 		// step 4
@@ -1754,7 +1754,7 @@ void DictionaryTextParserTest::test_14()
 
 		// step 7
 		usds::DictionaryStruct* internal_struct = (usds::DictionaryStruct*)((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement();
-		if (internal_struct->getType() != usds::USDS_STRUCT || internal_struct->getFieldNumber() != 2)
+		if (internal_struct->getType() != usds::USDS_STRUCT || internal_struct->getFieldNumbers() != 2)
 			throw "Failed at the step 7\n";
 		{
 			// step 8
@@ -1810,7 +1810,7 @@ void DictionaryTextParserTest::test_14()
 			{
 				// step 16
 				usds::DictionaryStruct* internal_struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)internal_array_struct->getElement())->getElement();
-				if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumber() != 2)
+				if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumbers() != 2)
 					throw "Failed at the step 16\n";
 
 				// step 17
@@ -1842,7 +1842,7 @@ void DictionaryTextParserTest::test_14()
 	{
 		// step 21
 		usds::DictionaryStruct* internal_struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)tag->getElement())->getElement();
-		if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumber() != 2)
+		if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumbers() != 2)
 			throw "Failed at the step 21\n";
 
 		// step 22
@@ -1993,7 +1993,7 @@ void DictionaryTextParserTest::test_15()
 	// step 18
 	field = (usds::DictionaryArray*)((usds::DictionaryStruct*)tag->getElement())->getField(16);
 	if (strcmp(field->getName(), "struct") != 0 || field->getType() != usds::USDS_ARRAY || field->getElement()->getType() != usds::USDS_STRUCT || field->isNullable() != true
-		|| ((usds::DictionaryStruct*)field->getElement())->getFieldNumber() != 2)
+		|| ((usds::DictionaryStruct*)field->getElement())->getFieldNumbers() != 2)
 		throw "Failed at the step 18\n";
 
 	// step 19
@@ -2034,7 +2034,7 @@ void DictionaryTextParserTest::test_15()
 
 	// step 26
 	usds::DictionaryStruct* tag_struct = (usds::DictionaryStruct*)((usds::DictionaryTagLink*)(usds::DictionaryTagLink*)field->getElement())->getTag();
-	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2 || tag_struct->isNullable() != false)
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumbers() != 2 || tag_struct->isNullable() != false)
 		throw "Failed at the step 26\n";
 
 	// step 27
@@ -2054,7 +2054,7 @@ void DictionaryTextParserTest::test_15()
 
 	// step 30
 	tag_struct = (usds::DictionaryStruct*)dict.getTag(3);
-	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2 || tag_struct->isNullable() != false)
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumbers() != 2 || tag_struct->isNullable() != false)
 		throw "Failed at the step 30\n";
 
 	// step 31
@@ -2069,7 +2069,7 @@ void DictionaryTextParserTest::test_15()
 
 	// step 33
 	tag_struct = (usds::DictionaryStruct*)dict.getTag(4);
-	if (strcmp(tag_struct->getName(), "struct3") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 3 || tag_struct->isNullable() != false)
+	if (strcmp(tag_struct->getName(), "struct3") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumbers() != 3 || tag_struct->isNullable() != false)
 		throw "Failed at the step 33\n";
 
 	// step 34
@@ -2084,7 +2084,7 @@ void DictionaryTextParserTest::test_15()
 
 	// step 36
 	usds::DictionaryStruct* internal_tag_struct = (usds::DictionaryStruct*)((usds::DictionaryTagLink*)field->getElement())->getTag();
-	if (strcmp(internal_tag_struct->getName(), "struct2") != 0 || internal_tag_struct->getType() != usds::USDS_STRUCT || internal_tag_struct->getFieldNumber() != 2 || internal_tag_struct->isNullable() != false)
+	if (strcmp(internal_tag_struct->getName(), "struct2") != 0 || internal_tag_struct->getType() != usds::USDS_STRUCT || internal_tag_struct->getFieldNumbers() != 2 || internal_tag_struct->isNullable() != false)
 		throw "Failed at the step 36\n";
 
 	// step 37
@@ -2104,7 +2104,7 @@ void DictionaryTextParserTest::test_15()
 
 	// step 40
 	tag_struct = (usds::DictionaryStruct*)tag_field->getTag();
-	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumber() != 2 || tag_struct->isNullable() != false)
+	if (strcmp(tag_struct->getName(), "struct2") != 0 || tag_struct->getType() != usds::USDS_STRUCT || tag_struct->getFieldNumbers() != 2 || tag_struct->isNullable() != false)
 		throw "Failed at the step 40\n";
 
 	// step 41
@@ -2159,7 +2159,7 @@ void DictionaryTextParserTest::test_16()
 	{
 		// step 3
 		usds::DictionaryStruct* struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)tag->getElement())->getElement();
-		if (struct_tag->getType() != usds::USDS_STRUCT || struct_tag->getFieldNumber() != 6 || struct_tag->isNullable() != false)
+		if (struct_tag->getType() != usds::USDS_STRUCT || struct_tag->getFieldNumbers() != 6 || struct_tag->isNullable() != false)
 			throw "Failed at the step 3\n";
 
 		// step 4
@@ -2197,7 +2197,7 @@ void DictionaryTextParserTest::test_16()
 
 		// step 7
 		usds::DictionaryStruct* internal_struct = (usds::DictionaryStruct*)((usds::DictionaryArray*)((usds::DictionaryArray*)array_field->getElement())->getElement())->getElement();
-		if (internal_struct->getType() != usds::USDS_STRUCT || internal_struct->getFieldNumber() != 2 || internal_struct->isNullable() != false)
+		if (internal_struct->getType() != usds::USDS_STRUCT || internal_struct->getFieldNumbers() != 2 || internal_struct->isNullable() != false)
 			throw "Failed at the step 7\n";
 		{
 			// step 8
@@ -2277,7 +2277,7 @@ void DictionaryTextParserTest::test_16()
 			{
 				// step 16
 				usds::DictionaryStruct* internal_struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)internal_array_struct->getElement())->getElement();
-				if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumber() != 2 || internal_struct_tag->isNullable() != false)
+				if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumbers() != 2 || internal_struct_tag->isNullable() != false)
 					throw "Failed at the step 16\n";
 
 				// step 17
@@ -2318,7 +2318,7 @@ void DictionaryTextParserTest::test_16()
 	{
 		// step 21
 		usds::DictionaryStruct* internal_struct_tag = (usds::DictionaryStruct*)((usds::DictionaryArray*)tag->getElement())->getElement();
-		if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumber() != 2 || internal_struct_tag->isNullable() != false)
+		if (internal_struct_tag->getType() != usds::USDS_STRUCT || internal_struct_tag->getFieldNumbers() != 2 || internal_struct_tag->isNullable() != false)
 			throw "Failed at the step 21\n";
 
 		// step 22
@@ -2384,7 +2384,7 @@ void DictionaryTextParserTest::test_18()
 
 	// step 2
 	usds::DictionaryStruct* tag = (usds::DictionaryStruct*)dict.getTag(1);
-	if (strcmp(tag->getName(), "struct_recursion") != 0 || tag->getType() != usds::USDS_STRUCT || tag->getFieldNumber() != 3)
+	if (strcmp(tag->getName(), "struct_recursion") != 0 || tag->getType() != usds::USDS_STRUCT || tag->getFieldNumbers() != 3)
 		throw "Failed at the step 2\n";
 
 	// step 3
@@ -2453,7 +2453,7 @@ void DictionaryTextParserTest::test_19()
 
 	// step 5
 	usds::DictionaryStruct* struct_tag = (usds::DictionaryStruct*)dict.getTag(1);
-	if (struct_tag->getFieldNumber() != 4)
+	if (struct_tag->getFieldNumbers() != 4)
 		throw "Failed at the step 5\n";
 
 	// step 6
@@ -2469,7 +2469,7 @@ void DictionaryTextParserTest::test_19()
 		throw "Failed at the step 7\n";
 
 	// step 8
-	if (((usds::DictionaryStruct*)field)->getFieldNumber() != 2)
+	if (((usds::DictionaryStruct*)field)->getFieldNumbers() != 2)
 		throw "Failed at the step 8\n";
 
 	// step 9
@@ -2497,7 +2497,7 @@ void DictionaryTextParserTest::test_19()
 		throw "Failed at the step 12\n";
 
 	// step 13
-	if (((usds::DictionaryStruct*)field)->getFieldNumber() != 3)
+	if (((usds::DictionaryStruct*)field)->getFieldNumbers() != 3)
 		throw "Failed at the step 13\n";
 
 	// step 14
@@ -2520,7 +2520,7 @@ void DictionaryTextParserTest::test_19()
 
 	// step 17
 	field_int = ((usds::DictionaryStruct*)field)->getField(2);
-	if (((usds::DictionaryStruct*)field_int)->getFieldNumber() != 2)
+	if (((usds::DictionaryStruct*)field_int)->getFieldNumbers() != 2)
 		throw "Failed at the step 17\n";
 
 	// step 18

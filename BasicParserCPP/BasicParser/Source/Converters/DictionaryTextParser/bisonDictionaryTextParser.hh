@@ -92,8 +92,8 @@ namespace usds {
 	float 			floatVal;
     double 			doubleVal;
     size_t			stringVal[2];
-	usdsEncodes		encodeVal;
-	usdsTypes		typeVal;
+	usdsEncode		encodeVal;
+	usdsType		typeVal;
 	struct			floatDigits { double value; double digits; } floatDigits;
 
 #line 100 "bisonDictionaryTextParser.hh" // lalr1.cc:371

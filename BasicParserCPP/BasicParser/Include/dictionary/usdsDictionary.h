@@ -26,8 +26,8 @@ namespace usds
 		void setID(const char* name, size_t name_size, uint32_t id, uint8_t major, uint8_t minor) throw (...);
 		
 		// construction
-		DictionaryBaseType* addTag(usdsTypes tag_type, int32_t id, const char* name, size_t name_size) throw (...);
-		DictionaryBaseType* addField(usdsTypes field_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw (...);
+		DictionaryBaseType* addTag(usdsType tag_type, int32_t id, const char* name, size_t name_size) throw (...);
+		DictionaryBaseType* addField(usdsType field_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw (...);
 
 		// Replace Tag names to tag ID, check errors
 		void finalizeDictionary() throw(...);

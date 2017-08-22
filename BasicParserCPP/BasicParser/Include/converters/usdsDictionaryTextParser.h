@@ -14,7 +14,7 @@ namespace usds
 		DictionaryTextParser() {};
 		~DictionaryTextParser() {};
 
-		void parse(const char* text_dict, usdsEncodes encode, Dictionary* dict) throw (...);
+		void parse(const char* text_dict, usdsEncode encode, Dictionary* dict) throw (...);
 
 	};
 	

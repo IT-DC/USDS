@@ -18,11 +18,11 @@ namespace usds
 
 		void finalize() throw (...);
 
-		usdsTypes getType() { return USDS_STRING; };
+		usdsType getType() { return USDS_STRING; };
 		const char* getTypeName() { return "STRING"; };
 
-		void setDefaultEncode(usdsEncodes value) throw(...);
-		usdsEncodes getDefaultEncode() throw(...);
+		void setDefaultEncode(usdsEncode value) throw(...);
+		usdsEncode getDefaultEncode() throw(...);
 
 		void setDefaultValueFromUTF8(const char* value);
 		void setDefaultValueFromUTF8(const char* value, size_t byte_size);
@@ -32,7 +32,7 @@ namespace usds
 	private:
 		void additionalInitType();
 
-		usdsEncodes defaultEncode;
+		usdsEncode defaultEncode;
 
 		bool isDefault;
 		char* defaultValue;

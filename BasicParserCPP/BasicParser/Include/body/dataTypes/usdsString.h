@@ -11,11 +11,11 @@ namespace usds
 		UsdsString(Body* parent_body);
 		virtual ~UsdsString();
 
-		usdsTypes getType() { return USDS_STRING; };
+		usdsType getType() { return USDS_STRING; };
 		const char* getTypeName() { return "STRING"; };
 
-		void setEncode(usdsEncodes encode) throw(...);
-		usdsEncodes getEncode() throw(...);
+		void setEncode(usdsEncode encode) throw(...);
+		usdsEncode getEncode() throw(...);
 
 		void setFromUTF8(const char* value) throw (...);
 		void setFromUTF8(const char* value, size_t byte_size) throw (...);
@@ -33,7 +33,7 @@ namespace usds
 
 		void additionalInitObject() throw (...);
 
-		usdsEncodes textEncode;
+		usdsEncode textEncode;
 
 		uint8_t* objectValue;
 		size_t valueSize;

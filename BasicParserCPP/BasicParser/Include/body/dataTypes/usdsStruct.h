@@ -13,7 +13,7 @@ namespace usds
 		UsdsStruct(Body* parent_body);
 		virtual ~UsdsStruct();
 
-		usdsTypes getType() { return USDS_STRUCT; };
+		usdsType getType() { return USDS_STRUCT; };
 		const char* getTypeName() { return "STRUCT"; };
 
 		void setFieldValue(const char* field_name, bool value) throw (...);
@@ -27,7 +27,7 @@ namespace usds
 		void setFieldValue(const char* field_name, uint64_t value) throw (...);
 		void setFieldValue(const char* field_name, float value) throw (...);
 		void setFieldValue(const char* field_name, double value) throw (...);
-		void setFieldValue(const char* field_name, usdsEncodes encode, const char* value) throw (...);
+		void setFieldValue(const char* field_name, usdsEncode encode, const char* value) throw (...);
 
 		void setFieldValue(int32_t field_id, bool value) throw (...);
 		void setFieldValue(int32_t field_id, int8_t value) throw (...);
@@ -40,7 +40,7 @@ namespace usds
 		void setFieldValue(int32_t field_id, uint64_t value) throw (...);
 		void setFieldValue(int32_t field_id, float value) throw (...);
 		void setFieldValue(int32_t field_id, double value) throw (...);
-		void setFieldValue(int32_t field_id, usdsEncodes encode, const char* value) throw (...);
+		void setFieldValue(int32_t field_id, usdsEncode encode, const char* value) throw (...);
 		
 		void getFieldValue(const char* field_name, bool* value) throw (...);
 		void getFieldValue(const char* field_name, int8_t* value) throw (...);
@@ -53,7 +53,7 @@ namespace usds
 		void getFieldValue(const char* field_name, uint64_t* value) throw (...);
 		void getFieldValue(const char* field_name, float* value) throw (...);
 		void getFieldValue(const char* field_name, double* value) throw (...);
-		void getFieldValue(const char* field_name, usdsEncodes encode, const char** value) throw (...);
+		void getFieldValue(const char* field_name, usdsEncode encode, const char** value) throw (...);
 
 		template <typename out_type> out_type getFieldValue(const char* field_name) throw (...);
 
@@ -68,7 +68,7 @@ namespace usds
 		void getFieldValue(int32_t field_id, uint64_t* value) throw (...);
 		void getFieldValue(int32_t field_id, float* value) throw (...);
 		void getFieldValue(int32_t field_id, double* value) throw (...);
-		void getFieldValue(int32_t field_id, usdsEncodes encode, const char** value) throw (...);
+		void getFieldValue(int32_t field_id, usdsEncode encode, const char** value) throw (...);
 
 		template <typename out_type> out_type getFieldValue(int32_t field_id) throw (...);
 

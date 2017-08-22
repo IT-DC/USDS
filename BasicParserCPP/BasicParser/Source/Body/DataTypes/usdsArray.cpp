@@ -67,7 +67,7 @@ size_t UsdsArray::getBufferSize()
 	}
 }
 
-usdsTypes UsdsArray::getElementType()
+usdsType UsdsArray::getElementType()
 {
 
 	return elementType;
@@ -127,7 +127,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -151,7 +151,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -175,7 +175,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -199,7 +199,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -223,7 +223,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -247,7 +247,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -271,7 +271,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -295,7 +295,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -319,7 +319,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -343,7 +343,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -367,7 +367,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.write(USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -397,7 +397,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -422,7 +422,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -447,7 +447,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -472,7 +472,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -497,7 +497,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -522,7 +522,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -547,7 +547,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -572,7 +572,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -597,7 +597,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -622,7 +622,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -647,7 +647,7 @@ try
 	else if (elementType == USDS_VARINT)
 		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -665,7 +665,7 @@ UsdsBaseType* UsdsArray::pushElementBack() throw(...)
 try
 {
 	if (elementSize != 0 || elementType == USDS_UVARINT || elementType == USDS_VARINT)
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use methods PushBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use methods PushBack.";
 
 	UsdsBaseType* element = parentBody->addField(arrayDictionaryElement, this);
 	elementValues.writePointer(element);
@@ -687,7 +687,7 @@ UsdsBaseType* UsdsArray::getElement(size_t position) throw(...)
 try
 {
 	if (elementSize != 0 || elementType == USDS_UVARINT || elementType == USDS_VARINT)
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple type or UVARINT or VARINT, current value " << usdsTypeName(elementType) << ". Use methods getValue.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple type or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use methods getValue.";
 	
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
@@ -722,7 +722,7 @@ try
 	{
 		arrayDictionaryElement = ((DictionaryArray*)parentDictionaryObject)->getElement();
 	}
-	elementSize = usdsTypeSize(elementType);
+	elementSize = UsdsTypes::typeSize(elementType);
 	
 	elementNumber = 0;
 	elementValues.clear();

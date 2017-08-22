@@ -51,8 +51,8 @@ namespace usds
 		size_t writeUVarint(uint32_t value) throw(...);
 		size_t writeUVarint(int32_t value) throw(...);
 
-		void writeType(usdsTypes value) throw(...);
-		void writeEncode(usdsEncodes value) throw(...);
+		void writeType(usdsType value) throw(...);
+		void writeEncode(usdsEncode value) throw(...);
 		void writeSignature(usdsSignature value) throw(...);
 
 		void writeByteArray(const void* value, size_t size) throw(...);
@@ -66,29 +66,29 @@ namespace usds
 		void pushFrontSignature(usdsSignature value) throw(...);
 
 		// For USDS arrays
-		void write(usdsTypes usds_type, bool value) throw(...);
-		void write(usdsTypes usds_type, int8_t value) throw(...);
-		void write(usdsTypes usds_type, int16_t value) throw(...);
-		void write(usdsTypes usds_type, int32_t value) throw(...);
-		void write(usdsTypes usds_type, int64_t value) throw(...);
-		void write(usdsTypes usds_type, uint8_t value) throw(...);
-		void write(usdsTypes usds_type, uint16_t value) throw(...);
-		void write(usdsTypes usds_type, uint32_t value) throw(...);
-		void write(usdsTypes usds_type, uint64_t value) throw(...);
-		void write(usdsTypes usds_type, float value) throw(...);
-		void write(usdsTypes usds_type, double value) throw(...);
+		void write(usdsType usds_type, bool value) throw(...);
+		void write(usdsType usds_type, int8_t value) throw(...);
+		void write(usdsType usds_type, int16_t value) throw(...);
+		void write(usdsType usds_type, int32_t value) throw(...);
+		void write(usdsType usds_type, int64_t value) throw(...);
+		void write(usdsType usds_type, uint8_t value) throw(...);
+		void write(usdsType usds_type, uint16_t value) throw(...);
+		void write(usdsType usds_type, uint32_t value) throw(...);
+		void write(usdsType usds_type, uint64_t value) throw(...);
+		void write(usdsType usds_type, float value) throw(...);
+		void write(usdsType usds_type, double value) throw(...);
 
-		void read(size_t position, usdsTypes usds_type, bool* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, int8_t* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, int16_t* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, int32_t* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, int64_t* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, uint8_t* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, uint16_t* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, uint32_t* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, uint64_t* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, float* value) throw(...);
-		void read(size_t position, usdsTypes usds_type, double* value) throw(...);
+		void read(size_t position, usdsType usds_type, bool* value) throw(...);
+		void read(size_t position, usdsType usds_type, int8_t* value) throw(...);
+		void read(size_t position, usdsType usds_type, int16_t* value) throw(...);
+		void read(size_t position, usdsType usds_type, int32_t* value) throw(...);
+		void read(size_t position, usdsType usds_type, int64_t* value) throw(...);
+		void read(size_t position, usdsType usds_type, uint8_t* value) throw(...);
+		void read(size_t position, usdsType usds_type, uint16_t* value) throw(...);
+		void read(size_t position, usdsType usds_type, uint32_t* value) throw(...);
+		void read(size_t position, usdsType usds_type, uint64_t* value) throw(...);
+		void read(size_t position, usdsType usds_type, float* value) throw(...);
+		void read(size_t position, usdsType usds_type, double* value) throw(...);
 
 		void writePointer(void* value) throw(...);
 		void readPointer(size_t position, void** value) throw(...);

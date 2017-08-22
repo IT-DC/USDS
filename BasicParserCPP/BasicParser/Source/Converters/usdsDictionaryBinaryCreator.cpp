@@ -38,13 +38,6 @@ DictionaryBinaryCreator::DictionaryBinaryCreator()
 	writeIndex[USDS_STRING] = &DictionaryBinaryCreator::writeString;
 	writeIndex[USDS_ARRAY] = &DictionaryBinaryCreator::writeArray;
 	writeIndex[USDS_STRUCT] = &DictionaryBinaryCreator::writeStruct;
-	writeIndex[USDS_GUID] = &DictionaryBinaryCreator::writeGuid;
-	writeIndex[USDS_MAP] = &DictionaryBinaryCreator::writeMap;
-	writeIndex[USDS_DATE] = &DictionaryBinaryCreator::writeDate;
-	writeIndex[USDS_TIME] = &DictionaryBinaryCreator::writeTime;
-	writeIndex[USDS_DATETIME] = &DictionaryBinaryCreator::writeDateTime;
-	writeIndex[USDS_FUNCTION] = &DictionaryBinaryCreator::writeFunction;
-
 };
 
 DictionaryBinaryCreator::~DictionaryBinaryCreator() { };
@@ -177,7 +170,7 @@ void DictionaryBinaryCreator::writeArray(DictionaryBaseType* object) throw (...)
 try
 {
 	DictionaryBaseType* element = ((DictionaryArray*)object)->getElement();
-	usdsTypes element_type = element->getType();
+	usdsType element_type = element->getType();
 	
 	outBuffer->writeType(element_type);
 	(this->*(writeIndex[element_type]))(element);
@@ -193,16 +186,11 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void DictionaryBinaryCreator::writeMap(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeMap") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type MAP for Dictionary Binary Creator");
-};
-
 void DictionaryBinaryCreator::writeStruct(DictionaryBaseType* object) throw (...)
 try
 {
 	//write fields
-	int32_t fieldNumber = ((DictionaryStruct*)object)->getFieldNumber();
+	int32_t fieldNumber = ((DictionaryStruct*)object)->getFieldNumbers();
 	for (int32_t id = 1; id <= fieldNumber; id++)
 	{
 		DictionaryBaseType* field = ((DictionaryStruct*)object)->getField(id);
@@ -230,28 +218,4 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void DictionaryBinaryCreator::writeFunction(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeFunction") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type FUNCTION for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeGuid(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeGuid") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type GUID for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeDate(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeDate") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type DATE for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeTime(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeTime") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type TIME for Dictionary Binary Creator");
-};
-
-void DictionaryBinaryCreator::writeDateTime(DictionaryBaseType* object) throw (...)
-{
-	throw ErrorStack("DictionaryBinaryCreator::writeDateTime") << (void*)object << ErrorMessage(DIC_BINARY_CREATOR__UNSUPPORTED_TYPE, "Unsupported type DATETIME for Dictionary Binary Creator");
-};
 

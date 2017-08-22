@@ -12,11 +12,11 @@ namespace usds
 		UsdsArray(Body* parent_body);
 		virtual ~UsdsArray();
 
-		usdsTypes getType() { return USDS_ARRAY; };
+		usdsType getType() { return USDS_ARRAY; };
 		const char* getTypeName() { return "ARRAY"; };
 
 		size_t getSize();
-		usdsTypes getElementType();
+		usdsType getElementType();
 		const char* getElementName();
 		size_t getElementNameSize();
 		int32_t getElementId();
@@ -91,7 +91,7 @@ namespace usds
 
 		void additionalInitObject();
 
-		usdsTypes elementType;
+		usdsType elementType;
 		DictionaryBaseType* arrayDictionaryElement;
 
 		BinaryOutput elementValues;

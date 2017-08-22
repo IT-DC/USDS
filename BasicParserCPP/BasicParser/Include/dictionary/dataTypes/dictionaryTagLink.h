@@ -16,7 +16,7 @@ namespace usds
 
 		void finalize() throw (...);
 
-		usdsTypes getType() { return USDS_TAG; };
+		usdsType getType() { return USDS_TAG; };
 		const char* getTypeName() { return "TAG"; };
 
 		void setTag(const char* tag_name, size_t name_size) throw (...);

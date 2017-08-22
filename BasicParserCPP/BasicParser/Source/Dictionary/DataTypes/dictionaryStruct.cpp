@@ -21,7 +21,7 @@ DictionaryStruct::~DictionaryStruct()
 		delete[] fieldIndex;
 }
 
-DictionaryBaseType* DictionaryStruct::addField(usdsTypes field_type, int32_t id, const char* name, size_t name_size) throw(...)
+DictionaryBaseType* DictionaryStruct::addField(usdsType field_type, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	if (indexed)
@@ -64,7 +64,7 @@ DictionaryBaseType* DictionaryStruct::getLastField()
 	return lastField;
 };
 
-int32_t DictionaryStruct::getFieldNumber() throw (...)
+int32_t DictionaryStruct::getFieldNumbers() throw (...)
 {
 
 	return fieldNumber;

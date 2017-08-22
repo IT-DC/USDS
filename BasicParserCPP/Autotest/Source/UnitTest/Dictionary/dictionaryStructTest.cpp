@@ -26,7 +26,7 @@ void DictionaryStructTest::test_1()
 
 	// step 2
 
-	if (object->getFirstField() != 0 || object->getLastField() != 0 || object->getFieldNumber() != 0)
+	if (object->getFirstField() != 0 || object->getLastField() != 0 || object->getFieldNumbers() != 0)
 	{
 		throw "Failed at the step 2\n";
 		
@@ -260,7 +260,7 @@ void DictionaryStructTest::test_2()
 	}
 
 	// step 5
-	if (object->getFirstField() != (usds::DictionaryBaseType*)field_boolean || object->getLastField() != (usds::DictionaryBaseType*)field_string || object->getFieldNumber() != 4)
+	if (object->getFirstField() != (usds::DictionaryBaseType*)field_boolean || object->getLastField() != (usds::DictionaryBaseType*)field_string || object->getFieldNumbers() != 4)
 	{
 		throw "Failed at the step 5\n";
 		

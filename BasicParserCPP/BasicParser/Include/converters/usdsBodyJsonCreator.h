@@ -17,14 +17,13 @@ namespace usds
 		BodyJsonCreator();
 		~BodyJsonCreator();
 
-		void generate(usdsEncodes encode, std::string* text, Body* body) throw (...);
+		void generate(usdsEncode encode, std::string* text, Body* body) throw (...);
 
 	private:
 		std::string* textBuff;
 
 		void (BodyJsonCreator::*writeIndex[USDS_LAST_TYPE])(UsdsBaseType*);
 
-		void writeTag(UsdsBaseType* object) throw (...);
 		void writeBoolean(UsdsBaseType* object) throw (...);
 		void writeByte(UsdsBaseType* object) throw (...);
 		void writeUByte(UsdsBaseType* object) throw (...);
@@ -43,12 +42,6 @@ namespace usds
 		void writeString(UsdsBaseType* object) throw (...);
 		void writeArray(UsdsBaseType* object) throw (...);
 		void writeStruct(UsdsBaseType* object) throw (...);
-		void writeGuid(UsdsBaseType* object) throw (...);
-		void writeMap(UsdsBaseType* object) throw (...);
-		void writeDate(UsdsBaseType* object) throw (...);
-		void writeTime(UsdsBaseType* object) throw (...);
-		void writeDateTime(UsdsBaseType* object) throw (...);
-		void writeFunction(UsdsBaseType* object) throw (...);
 
 		int32_t shiftLevel;
 

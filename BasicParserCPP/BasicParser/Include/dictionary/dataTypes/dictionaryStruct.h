@@ -6,8 +6,6 @@
 
 #include "dictionary\dictionaryBaseType.h"
 
-#include <vector>
-
 namespace usds
 {
 	class DictionaryStruct : public DictionaryBaseType
@@ -16,13 +14,12 @@ namespace usds
 		DictionaryStruct(Dictionary* dict);
 		virtual ~DictionaryStruct();
 
-		// add existing fields
-		DictionaryBaseType* addField(usdsTypes field_type, int32_t id, const char* name, size_t name_size) throw(...);
+		DictionaryBaseType* addField(usdsType field_type, int32_t id, const char* name, size_t name_size) throw(...);
 
 		DictionaryBaseType* getFirstField();
 		DictionaryBaseType* getLastField();
 
-		int32_t getFieldNumber() throw (...);
+		int32_t getFieldNumbers() throw (...);
 		
 		DictionaryBaseType* getField(int32_t id) throw (...);
 		DictionaryBaseType* getField(const char* name) throw (...);
@@ -36,7 +33,7 @@ namespace usds
 		// Dictionary finalization
 		void finalize() throw (...);
 
-		usdsTypes getType() { return USDS_STRUCT; };
+		usdsType getType() { return USDS_STRUCT; };
 		const char* getTypeName() { return "STRUCT"; };
 
 	private:

@@ -17,7 +17,7 @@ namespace usds
 		DictionaryObjectPool(Dictionary* dict);
 		~DictionaryObjectPool();
 
-		DictionaryBaseType* addObject(usdsTypes object_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...);
+		DictionaryBaseType* addObject(usdsType object_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...);
 
 		// Clear pool, it does not release memory
 		void clear();

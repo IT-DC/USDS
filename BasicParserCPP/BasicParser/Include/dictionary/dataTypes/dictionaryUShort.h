@@ -16,7 +16,7 @@ namespace usds
 
 		void finalize() throw (...) { };
 
-		usdsTypes getType() { return USDS_USHORT; };
+		usdsType getType() { return USDS_USHORT; };
 		const char* getTypeName() { return "USHORT"; };
 
 		void setBigendian(bool is_bigendian) { isBigendian = is_bigendian; };

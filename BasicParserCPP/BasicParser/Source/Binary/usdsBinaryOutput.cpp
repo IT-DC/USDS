@@ -435,7 +435,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::writeType(usdsTypes value) throw(...)
+void BinaryOutput::writeType(usdsType value) throw(...)
 try
 {
 	checkSize(1);
@@ -449,7 +449,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::writeEncode(usdsEncodes value) throw(...)
+void BinaryOutput::writeEncode(usdsEncode value) throw(...)
 try
 {
 	checkSize(1);
@@ -636,7 +636,7 @@ catch (ErrorStack& err)
 };
 
 //===================================================================================================================
-void BinaryOutput::write(usdsTypes usds_type, bool value) throw(...)
+void BinaryOutput::write(usdsType usds_type, bool value) throw(...)
 try
 {
 	switch (usds_type)
@@ -645,7 +645,7 @@ try
 		writeBoolean(value);
 		break;
 	default:
-		throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from bool to " << usdsTypeName(usds_type);
+		throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from bool to " << UsdsTypes::typeName(usds_type);
 	}
 }
 catch (ErrorMessage& msg)
@@ -658,10 +658,10 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::write(usdsTypes usds_type, int8_t value) throw(...)
+void BinaryOutput::write(usdsType usds_type, int8_t value) throw(...)
 try
 {
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	checkSize(type_size);
 	usdsTypeWrite(value, usds_type, buffCurrentPos);
 	buffCurrentPos += type_size;
@@ -672,10 +672,10 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::write(usdsTypes usds_type, uint8_t value) throw(...)
+void BinaryOutput::write(usdsType usds_type, uint8_t value) throw(...)
 try
 {
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	checkSize(type_size);
 	usdsTypeWrite(value, usds_type, buffCurrentPos);
 	buffCurrentPos += type_size;
@@ -686,10 +686,10 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::write(usdsTypes usds_type, int16_t value) throw(...)
+void BinaryOutput::write(usdsType usds_type, int16_t value) throw(...)
 try
 {
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	checkSize(type_size);
 	usdsTypeWrite(value, usds_type, buffCurrentPos);
 	buffCurrentPos += type_size;
@@ -700,39 +700,10 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::write(usdsTypes usds_type, uint16_t value) throw(...)
+void BinaryOutput::write(usdsType usds_type, uint16_t value) throw(...)
 try
 {
-	size_t type_size = usdsTypeSize(usds_type);
-	checkSize(type_size);
-	usdsTypeWrite(value, usds_type, buffCurrentPos);
-	buffCurrentPos += type_size;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BinaryOutput::write") << usds_type << value;
-	throw;
-};
-
-
-void BinaryOutput::write(usdsTypes usds_type, int32_t value) throw(...)
-try
-{
-	size_t type_size = usdsTypeSize(usds_type);
-	checkSize(type_size);
-	usdsTypeWrite(value, usds_type, buffCurrentPos);
-	buffCurrentPos += type_size;
-}
-catch (ErrorStack& err)
-{
-	err.addLevel("BinaryOutput::write") << usds_type << value;
-	throw;
-};
-
-void BinaryOutput::write(usdsTypes usds_type, uint32_t value) throw(...)
-try
-{
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	checkSize(type_size);
 	usdsTypeWrite(value, usds_type, buffCurrentPos);
 	buffCurrentPos += type_size;
@@ -744,10 +715,10 @@ catch (ErrorStack& err)
 };
 
 
-void BinaryOutput::write(usdsTypes usds_type, int64_t value) throw(...)
+void BinaryOutput::write(usdsType usds_type, int32_t value) throw(...)
 try
 {
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	checkSize(type_size);
 	usdsTypeWrite(value, usds_type, buffCurrentPos);
 	buffCurrentPos += type_size;
@@ -758,10 +729,10 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::write(usdsTypes usds_type, uint64_t value) throw(...)
+void BinaryOutput::write(usdsType usds_type, uint32_t value) throw(...)
 try
 {
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	checkSize(type_size);
 	usdsTypeWrite(value, usds_type, buffCurrentPos);
 	buffCurrentPos += type_size;
@@ -772,10 +743,11 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::write(usdsTypes usds_type, float value) throw(...)
+
+void BinaryOutput::write(usdsType usds_type, int64_t value) throw(...)
 try
 {
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	checkSize(type_size);
 	usdsTypeWrite(value, usds_type, buffCurrentPos);
 	buffCurrentPos += type_size;
@@ -786,10 +758,38 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::write(usdsTypes usds_type, double value) throw(...)
+void BinaryOutput::write(usdsType usds_type, uint64_t value) throw(...)
 try
 {
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
+	checkSize(type_size);
+	usdsTypeWrite(value, usds_type, buffCurrentPos);
+	buffCurrentPos += type_size;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::write") << usds_type << value;
+	throw;
+};
+
+void BinaryOutput::write(usdsType usds_type, float value) throw(...)
+try
+{
+	size_t type_size = UsdsTypes::typeSize(usds_type);
+	checkSize(type_size);
+	usdsTypeWrite(value, usds_type, buffCurrentPos);
+	buffCurrentPos += type_size;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BinaryOutput::write") << usds_type << value;
+	throw;
+};
+
+void BinaryOutput::write(usdsType usds_type, double value) throw(...)
+try
+{
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	checkSize(type_size);
 	usdsTypeWrite(value, usds_type, buffCurrentPos);
 	buffCurrentPos += type_size;
@@ -802,14 +802,14 @@ catch (ErrorStack& err)
 
 //===================================================================================================================
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, bool* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, bool* value) throw(...)
 try
 {
 	if (value == 0)
 		throw ErrorMessage(BIN_OUT__NULL_POINTER, "Pointer of the output value can not be null");
 
 	if (usds_type != USDS_BOOLEAN)
-		throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to bool";
+		throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to bool";
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
@@ -831,7 +831,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, int8_t* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, int8_t* value) throw(...)
 try
 {
 	if (value == 0)
@@ -839,7 +839,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
@@ -855,7 +855,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, uint8_t* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, uint8_t* value) throw(...)
 try
 {
 	if (value == 0)
@@ -863,7 +863,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
@@ -879,7 +879,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, int16_t* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, int16_t* value) throw(...)
 try
 {
 	if (value == 0)
@@ -887,7 +887,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
@@ -903,7 +903,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, uint16_t* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, uint16_t* value) throw(...)
 try
 {
 	if (value == 0)
@@ -911,7 +911,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
@@ -927,7 +927,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, int32_t* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, int32_t* value) throw(...)
 try
 {
 	if (value == 0)
@@ -935,7 +935,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
@@ -951,7 +951,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, uint32_t* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, uint32_t* value) throw(...)
 try
 {
 	if (value == 0)
@@ -959,7 +959,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
@@ -975,7 +975,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, int64_t* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, int64_t* value) throw(...)
 try
 {
 	if (value == 0)
@@ -983,7 +983,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
@@ -999,7 +999,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, uint64_t* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, uint64_t* value) throw(...)
 try
 {
 	if (value == 0)
@@ -1007,7 +1007,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
@@ -1023,7 +1023,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, float* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, float* value) throw(...)
 try
 {
 	if (value == 0)
@@ -1031,7 +1031,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 
@@ -1047,7 +1047,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void BinaryOutput::read(size_t position, usdsTypes usds_type, double* value) throw(...)
+void BinaryOutput::read(size_t position, usdsType usds_type, double* value) throw(...)
 try
 {
 	if (value == 0)
@@ -1055,7 +1055,7 @@ try
 
 	// check buff size
 	size_t doc_size = buffCurrentPos - buffFirstPos;
-	size_t type_size = usdsTypeSize(usds_type);
+	size_t type_size = UsdsTypes::typeSize(usds_type);
 	if ((position + type_size) > (doc_size))
 		throw ErrorMessage(BIN_OUT__BUFFER_OVERFLOW) << "Can not read " << type_size << " bytes from position" << position << " , document's size is less: " << (buffCurrentPos - buffFirstPos) << " bytes";
 

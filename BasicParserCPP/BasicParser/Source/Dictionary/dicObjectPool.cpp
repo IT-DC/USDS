@@ -43,12 +43,6 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_STRING] = new TemplateObjectPool<DictionaryString, Dictionary>(dict);
 	pools[USDS_ARRAY] = new TemplateObjectPool<DictionaryArray, Dictionary>(dict);
 	pools[USDS_STRUCT] = new TemplateObjectPool<DictionaryStruct, Dictionary>(dict);
-	pools[USDS_GUID] = 0;
-	pools[USDS_MAP] = 0;
-	pools[USDS_DATE] = 0;
-	pools[USDS_TIME] = 0;
-	pools[USDS_DATETIME] = 0;
-	pools[USDS_FUNCTION] = 0;
 };
 
 DictionaryObjectPool::~DictionaryObjectPool()
@@ -61,14 +55,14 @@ DictionaryObjectPool::~DictionaryObjectPool()
 
 };
 
-DictionaryBaseType* DictionaryObjectPool::addObject(usdsTypes object_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
+DictionaryBaseType* DictionaryObjectPool::addObject(usdsType object_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw(...)
 try
 {
 	if (object_type < USDS_TAG || object_type >= USDS_LAST_TYPE)
 		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << object_type;
 	// TODO: remove it when all type is ready
 	if (pools[object_type] == 0)
-		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << usdsTypeName(object_type);
+		throw ErrorMessage(DIC_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << UsdsTypes::typeName(object_type);
 
 	DictionaryBaseType* object = (DictionaryBaseType*)(pools[object_type])->addObject();
 	try

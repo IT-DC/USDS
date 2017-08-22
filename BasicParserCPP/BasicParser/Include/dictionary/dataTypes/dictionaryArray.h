@@ -20,13 +20,13 @@ namespace usds
 
 		void finalize() throw (...);
 
-		usdsTypes getType() {return USDS_ARRAY;};
+		usdsType getType() {return USDS_ARRAY;};
 		const char* getTypeName() {return "ARRAY";};
 
-		usdsTypes getElementType() throw (...);
+		usdsType getElementType() throw (...);
 		DictionaryBaseType* getElement() throw (...);
 
-		DictionaryBaseType* setElementType(usdsTypes type_id) throw (...);
+		DictionaryBaseType* setElementType(usdsType type_id) throw (...);
 
 	private:
 		virtual void additionalInitType();

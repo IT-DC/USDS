@@ -8,7 +8,7 @@
 
 using namespace usds;
 
-void DictionaryTextParser::parse(const char* text_dict, usdsEncodes encode, Dictionary* dict) throw (...)
+void DictionaryTextParser::parse(const char* text_dict, usdsEncode encode, Dictionary* dict) throw (...)
 try
 {
 	if (encode != USDS_UTF8)

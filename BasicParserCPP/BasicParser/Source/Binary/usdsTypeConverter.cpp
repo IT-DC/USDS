@@ -4,7 +4,7 @@
 
 namespace usds
 {
-	void usdsTypeWrite(uint8_t value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(uint8_t value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -12,7 +12,7 @@ namespace usds
 		case USDS_BYTE:
 		{
 			if (value > 127)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			destination[0] = value;
 			break;
 		}
@@ -58,7 +58,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from uint8_t to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from uint8_t to " << UsdsTypes::typeName(usds_type);
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -66,7 +66,7 @@ namespace usds
 		throw ErrorStack("usdsTypeWrite") << value << usds_type << destination << msg;
 	};
 
-	void usdsTypeWrite(int8_t value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(int8_t value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -79,7 +79,7 @@ namespace usds
 		case USDS_UBYTE:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			destination[0] = value;
 			break;
 		}
@@ -92,7 +92,7 @@ namespace usds
 		case USDS_USHORT:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint16_t proxy_value = (uint16_t)value;
 			memcpy(destination, &proxy_value, USDS_USHORT_SIZE);
 			break;
@@ -106,7 +106,7 @@ namespace usds
 		case USDS_UINT:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^32-1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint32_t proxy_value = (uint32_t)value;
 			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
 			break;
@@ -120,13 +120,13 @@ namespace usds
 		case USDS_ULONG:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint64_t proxy_value = (uint64_t)value;
 			memcpy(destination, &proxy_value, USDS_ULONG_SIZE);
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from int8_t to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from int8_t to " << UsdsTypes::typeName(usds_type);
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -134,7 +134,7 @@ namespace usds
 		throw ErrorStack("usdsTypeWrite") << value << usds_type << destination << msg;
 	};
 
-	void usdsTypeWrite(int16_t value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(int16_t value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -142,14 +142,14 @@ namespace usds
 		case USDS_BYTE:
 		{
 			if (value > 127 || value < -128)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((int8_t*)destination) = (int8_t)value;
 			break;
 		}
 		case USDS_UBYTE:
 		{
 			if (value < 0 || value > 255)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((uint8_t*)destination) = (uint8_t)value;
 			break;
 		}
@@ -161,7 +161,7 @@ namespace usds
 		case USDS_USHORT:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint16_t proxy_value = (uint16_t)value;
 			memcpy(destination, &proxy_value, USDS_USHORT_SIZE);
 			break;
@@ -175,7 +175,7 @@ namespace usds
 		case USDS_UINT:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^32-1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint32_t proxy_value = (uint32_t)value;
 			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
 			break;
@@ -189,13 +189,13 @@ namespace usds
 		case USDS_ULONG:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint64_t proxy_value = (uint64_t)value;
 			memcpy(destination, &proxy_value, USDS_ULONG_SIZE);
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from int16_t to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from int16_t to " << UsdsTypes::typeName(usds_type);
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -203,7 +203,7 @@ namespace usds
 		throw ErrorStack("usdsTypeWrite") << value << usds_type << destination << msg;
 	};
 
-	void usdsTypeWrite(uint16_t value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(uint16_t value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -211,21 +211,21 @@ namespace usds
 		case USDS_BYTE:
 		{
 			if (value > 127)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((int8_t*)destination) = (int8_t)value;
 			break;
 		}
 		case USDS_UBYTE:
 		{
 			if (value > 255)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((uint8_t*)destination) = (uint8_t)value;
 			break;
 		}
 		case USDS_SHORT:
 		{
 			if (value > 32767)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			int16_t proxy_value = (int16_t)value;
 			memcpy(destination, &proxy_value, USDS_SHORT_SIZE);
 			break;
@@ -260,7 +260,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from uint16_t to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from uint16_t to " << UsdsTypes::typeName(usds_type);
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -268,7 +268,7 @@ namespace usds
 		throw ErrorStack("usdsTypeWrite") << value << usds_type << destination << msg;
 	};
 	
-	void usdsTypeWrite(int32_t value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(int32_t value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -276,21 +276,21 @@ namespace usds
 		case USDS_BYTE:
 		{
 			if (value > 127 || value < -128)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((int8_t*)destination) = (int8_t)value;
 			break;
 		}
 		case USDS_UBYTE:
 		{
 			if (value < 0 || value > 255)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((uint8_t*)destination) = (uint8_t)value;
 			break;
 		}
 		case USDS_SHORT:
 		{
 			if (value < -32768 || value > 32767)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			int16_t proxy_value = (int16_t)value;
 			memcpy(destination, &proxy_value, USDS_SHORT_SIZE);
 			break;
@@ -298,7 +298,7 @@ namespace usds
 		case USDS_USHORT:
 		{
 			if (value < 0 || value > 65535)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint16_t proxy_value = (uint16_t)value;
 			memcpy(destination, &proxy_value, USDS_USHORT_SIZE);
 			break;
@@ -311,7 +311,7 @@ namespace usds
 		case USDS_UINT:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^32-1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint32_t proxy_value = (uint32_t)value;
 			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
 			break;
@@ -325,13 +325,13 @@ namespace usds
 		case USDS_ULONG:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint64_t proxy_value = (uint64_t)value;
 			memcpy(destination, &proxy_value, USDS_ULONG_SIZE);
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from int32_t to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from int32_t to " << UsdsTypes::typeName(usds_type);
 		}
 
 	}
@@ -341,7 +341,7 @@ namespace usds
 	};
 
 
-	void usdsTypeWrite(uint32_t value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(uint32_t value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -349,21 +349,21 @@ namespace usds
 		case USDS_BYTE:
 		{
 			if (value > 127)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-128, 127] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((int8_t*)destination) = (int8_t)value;
 			break;
 		}
 		case USDS_UBYTE:
 		{
 			if (value > 255)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 255] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((uint8_t*)destination) = (uint8_t)value;
 			break;
 		}
 		case USDS_SHORT:
 		{
 			if (value > 32767)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			int16_t proxy_value = (int16_t)value;
 			memcpy(destination, &proxy_value, USDS_SHORT_SIZE);
 			break;
@@ -371,7 +371,7 @@ namespace usds
 		case USDS_USHORT:
 		{
 			if (value > 65535)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint16_t proxy_value = (uint16_t)value;
 			memcpy(destination, &proxy_value, USDS_USHORT_SIZE);
 			break;
@@ -379,7 +379,7 @@ namespace usds
 		case USDS_INT:
 		{
 			if (value > INT32_MAX)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			int32_t proxy_value = (int32_t)value;
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
@@ -402,7 +402,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from uint32_t to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from uint32_t to " << UsdsTypes::typeName(usds_type);
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -410,7 +410,7 @@ namespace usds
 		throw ErrorStack("usdsTypeWrite") << value << usds_type << destination << msg;
 	};
 
-	void usdsTypeWrite(int64_t value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(int64_t value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -418,21 +418,21 @@ namespace usds
 		case USDS_BYTE:
 		{
 			if (value > 127 || value < -128)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-128, 127] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((int8_t*)destination) = (int8_t)value;
 			break;
 		}
 		case USDS_UBYTE:
 		{
 			if (value < 0 || value > 255)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, 255] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((uint8_t*)destination) = (uint8_t)value;
 			break;
 		}
 		case USDS_SHORT:
 		{
 			if (value < -32768 || value > 32767)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			int16_t proxy_value = (int16_t)value;
 			memcpy(destination, &proxy_value, USDS_SHORT_SIZE);
 			break;
@@ -440,7 +440,7 @@ namespace usds
 		case USDS_USHORT:
 		{
 			if (value < 0 || value > 65535)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint16_t proxy_value = (uint16_t)value;
 			memcpy(destination, &proxy_value, USDS_USHORT_SIZE);
 			break;
@@ -448,7 +448,7 @@ namespace usds
 		case USDS_INT:
 		{
 			if (value < INT32_MIN || value > INT32_MAX)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			int32_t proxy_value = (int32_t)value;
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
@@ -456,7 +456,7 @@ namespace usds
 		case USDS_UINT:
 		{
 			if (value < 0 || value > UINT32_MAX)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, (2^32-1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint32_t proxy_value = (uint32_t)value;
 			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
 			break;
@@ -469,13 +469,13 @@ namespace usds
 		case USDS_ULONG:
 		{
 			if (value < 0)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, (2^64-1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint64_t proxy_value = (uint64_t)value;
 			memcpy(destination, &proxy_value, USDS_ULONG_SIZE);
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from int64_t to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from int64_t to " << UsdsTypes::typeName(usds_type);
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -483,7 +483,7 @@ namespace usds
 		throw ErrorStack("usdsTypeWrite") << value << usds_type << destination << msg;
 	};
 
-	void usdsTypeWrite(uint64_t value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(uint64_t value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -491,21 +491,21 @@ namespace usds
 		case USDS_BYTE:
 		{
 			if (value > 127)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-128, 127] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-128, 127] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((int8_t*)destination) = (int8_t)value;
 			break;
 		}
 		case USDS_UBYTE:
 		{
 			if (value > 255)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, 255] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, 255] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			*((uint8_t*)destination) = (uint8_t)value;
 			break;
 		}
 		case USDS_SHORT:
 		{
 			if (value > 32767)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[-32768, 32767] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			int16_t proxy_value = (int16_t)value;
 			memcpy(destination, &proxy_value, USDS_SHORT_SIZE);
 			break;
@@ -513,7 +513,7 @@ namespace usds
 		case USDS_USHORT:
 		{
 			if (value > 65535)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range[0, 65535] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint16_t proxy_value = (uint16_t)value;
 			memcpy(destination, &proxy_value, USDS_USHORT_SIZE);
 			break;
@@ -521,7 +521,7 @@ namespace usds
 		case USDS_INT:
 		{
 			if (value > INT32_MAX)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-2147483648, 2147483647] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			int32_t proxy_value = (int32_t)value;
 			memcpy(destination, &proxy_value, USDS_INT_SIZE);
 			break;
@@ -529,7 +529,7 @@ namespace usds
 		case USDS_UINT:
 		{
 			if (value > UINT32_MAX)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, (2^32-1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [0, (2^32-1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			uint32_t proxy_value = (uint32_t)value;
 			memcpy(destination, &proxy_value, USDS_UINT_SIZE);
 			break;
@@ -537,7 +537,7 @@ namespace usds
 		case USDS_LONG:
 		{
 			if (value > INT64_MAX)
-				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-(2^63), (2^63–1)] for type " << usdsTypeName(usds_type) << ". Current value: " << value;
+				throw ErrorMessage(ERROR_VALUE_CONVERSION) << "Value must be in range [-(2^63), (2^63–1)] for type " << UsdsTypes::typeName(usds_type) << ". Current value: " << value;
 			int64_t proxy_value = value;
 			memcpy(destination, &proxy_value, USDS_LONG_SIZE);
 			break;
@@ -548,7 +548,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from uint64_t to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from uint64_t to " << UsdsTypes::typeName(usds_type);
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -556,7 +556,7 @@ namespace usds
 		throw ErrorStack("usdsTypeWrite") << value << usds_type << destination << msg;
 	};
 
-	void usdsTypeWrite(float value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(float value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -573,7 +573,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from float to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from float to " << UsdsTypes::typeName(usds_type);
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -581,7 +581,7 @@ namespace usds
 		throw ErrorStack("usdsTypeWrite") << value << usds_type << destination << msg;
 	};
 
-	void usdsTypeWrite(double value, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeWrite(double value, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -592,7 +592,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from double to " << usdsTypeName(usds_type);
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from double to " << UsdsTypes::typeName(usds_type);
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -600,7 +600,7 @@ namespace usds
 		throw ErrorStack("usdsTypeWrite") << value << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, int8_t* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, int8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -660,7 +660,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to int8_t";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to int8_t";
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -668,7 +668,7 @@ namespace usds
 		throw ErrorStack("usdsTypeRead") << source << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, uint8_t* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, uint8_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -728,7 +728,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to uint8_t";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to uint8_t";
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -736,7 +736,7 @@ namespace usds
 		throw ErrorStack("usdsTypeRead") << source << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, int16_t* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, int16_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -792,7 +792,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to int16_t";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to int16_t";
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -800,7 +800,7 @@ namespace usds
 		throw ErrorStack("usdsTypeRead") << source << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, uint16_t* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, uint16_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -858,7 +858,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to uint16_t";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to uint16_t";
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -866,7 +866,7 @@ namespace usds
 		throw ErrorStack("usdsTypeRead") << source << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, int32_t* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, int32_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -918,7 +918,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to int32_t";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to int32_t";
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -926,7 +926,7 @@ namespace usds
 		throw ErrorStack("usdsTypeRead") << source << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, uint32_t* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, uint32_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -982,7 +982,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to uint32_t";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to uint32_t";
 
 		}
 	}
@@ -991,7 +991,7 @@ namespace usds
 		throw ErrorStack("usdsTypeRead") << source << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, int64_t* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, int64_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -1039,7 +1039,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to int64_t";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to int64_t";
 
 		}
 	}
@@ -1048,7 +1048,7 @@ namespace usds
 		throw ErrorStack("usdsTypeRead") << source << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, uint64_t* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, uint64_t* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -1102,7 +1102,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to int64_t";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to int64_t";
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -1110,7 +1110,7 @@ namespace usds
 		throw ErrorStack("usdsTypeRead") << source << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, float* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, float* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -1121,7 +1121,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to float";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to float";
 		}
 	}
 	catch (ErrorMessage& msg)
@@ -1129,7 +1129,7 @@ namespace usds
 		throw ErrorStack("usdsTypeRead") << source << usds_type << destination << msg;
 	};
 
-	void usdsTypeRead(uint8_t* source, usdsTypes usds_type, double* destination) throw(...)
+	void usdsTypeRead(uint8_t* source, usdsType usds_type, double* destination) throw(...)
 	try
 	{
 		switch (usds_type)
@@ -1145,7 +1145,7 @@ namespace usds
 			break;
 		}
 		default:
-			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << usdsTypeName(usds_type) << " to double";
+			throw ErrorMessage(UNSUPPORTED_TYPE_CONVERSION) << "Unsupported conversion: from " << UsdsTypes::typeName(usds_type) << " to double";
 
 		}
 	}

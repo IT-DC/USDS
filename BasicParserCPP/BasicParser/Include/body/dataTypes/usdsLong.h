@@ -11,7 +11,7 @@ namespace usds
 		UsdsLong(Body* parent_body);
 		virtual ~UsdsLong();
 
-		usdsTypes getType() { return USDS_LONG; };
+		usdsType getType() { return USDS_LONG; };
 		const char* getTypeName() { return "LONG"; };
 
 		// Slow methods (virtual)

@@ -47,7 +47,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-void UsdsString::setEncode(usdsEncodes encode) throw(...)
+void UsdsString::setEncode(usdsEncode encode) throw(...)
 try
 {
 	if (encode == USDS_NO_DEFAULT_ENCODE)
@@ -78,7 +78,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-usdsEncodes UsdsString::getEncode() throw(...)
+usdsEncode UsdsString::getEncode() throw(...)
 {
 	return textEncode;
 };
@@ -105,7 +105,7 @@ try
 		return;
 	}
 	default:
-		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF-8 to " << usdsEncodeName(textEncode);
+		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF-8 to " << UsdsTypes::encodeName(textEncode);
 	}
 }
 catch (ErrorMessage&msg)
@@ -137,7 +137,7 @@ try
 		return;
 	}
 	default:
-		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF-8 to " << usdsEncodeName(textEncode);
+		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF-8 to " << UsdsTypes::encodeName(textEncode);
 	}
 }
 catch (ErrorMessage&msg)
@@ -159,7 +159,7 @@ try
 		return (const char*)objectValue;
 	}
 	default:
-		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF8 to " << usdsEncodeName(textEncode);
+		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF8 to " << UsdsTypes::encodeName(textEncode);
 	}
 }
 catch (ErrorMessage&msg)
@@ -180,7 +180,7 @@ try
 		return (const char*)objectValue;
 	}
 	default:
-		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF8 to " << usdsEncodeName(textEncode);
+		throw ErrorMessage(BODY_STRING__UNSUPPORTED_CONVERSION) << "Unsupported conversion from UTF8 to " << UsdsTypes::encodeName(textEncode);
 	}
 }
 catch (ErrorMessage&msg)

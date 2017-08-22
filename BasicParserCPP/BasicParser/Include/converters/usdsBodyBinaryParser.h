@@ -45,12 +45,6 @@ namespace usds
 		void readString(UsdsBaseType* object) throw (...);
 		void readArray(UsdsBaseType* object) throw (...);
 		void readStruct(UsdsBaseType* object) throw (...);
-		void readGuid(UsdsBaseType* object) throw (...);
-		void readMap(UsdsBaseType* object) throw (...);
-		void readDate(UsdsBaseType* object) throw (...);
-		void readTime(UsdsBaseType* object) throw (...);
-		void readDateTime(UsdsBaseType* object) throw (...);
-		void readFunction(UsdsBaseType* object) throw (...);
 
 	};
 

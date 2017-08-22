@@ -42,14 +42,6 @@ BodyObjectPool::BodyObjectPool(Body* parent_body)
 	pools[USDS_STRING] = new TemplateObjectPool<UsdsString, Body>(parent_body);
 	pools[USDS_ARRAY] = new TemplateObjectPool<UsdsArray, Body>(parent_body);
 	pools[USDS_STRUCT] = new TemplateObjectPool<UsdsStruct, Body>(parent_body);
-	pools[USDS_GUID] = 0;
-	pools[USDS_MAP] = 0;
-	pools[USDS_DATE] = 0;
-	pools[USDS_TIME] = 0;
-	pools[USDS_DATETIME] = 0;
-	pools[USDS_FUNCTION] = 0;
-
-
 }
 
 BodyObjectPool::~BodyObjectPool()
@@ -67,12 +59,12 @@ try
 	if (dict_parent==0)
 		throw ErrorMessage(BODY_OBJECT_POOL__NULL_DICTIONARY_TAG, "Dictionary parent tag can not be NULL");
 	
-	usdsTypes object_type = dict_parent->getType();
+	usdsType object_type = dict_parent->getType();
 
 	// TODO add TAG
 	// TODO: remove it when all type is ready
 	if (pools[object_type] == 0)
-		throw ErrorMessage(BODY_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << usdsTypeName(object_type);
+		throw ErrorMessage(BODY_OBJECT_POOL__UNSUPPORTED_TYPE) << "Unsupported type " << UsdsTypes::typeName(object_type);
 
 
 	UsdsBaseType*object = (UsdsBaseType*)(pools[object_type])->addObject();

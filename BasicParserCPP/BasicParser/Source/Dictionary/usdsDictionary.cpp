@@ -57,7 +57,7 @@ void Dictionary::setID(const char* name, size_t name_size, uint32_t id, uint8_t 
 
 //====================================================================================================================
 // Tags construction
-DictionaryBaseType* Dictionary::addTag(usdsTypes tag_type, int32_t id, const char* name, size_t name_size) throw (...)
+DictionaryBaseType* Dictionary::addTag(usdsType tag_type, int32_t id, const char* name, size_t name_size) throw (...)
 try
 {
 	if (finalized)
@@ -93,7 +93,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-DictionaryBaseType* Dictionary::addField(usdsTypes field_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw (...)
+DictionaryBaseType* Dictionary::addField(usdsType field_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw (...)
 try
 {
 	if (finalized)

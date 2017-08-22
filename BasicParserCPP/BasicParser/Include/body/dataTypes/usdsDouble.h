@@ -11,7 +11,7 @@ namespace usds
 		UsdsDouble(Body* parent_body);
 		virtual ~UsdsDouble();
 
-		usdsTypes getType() { return USDS_DOUBLE; };
+		usdsType getType() { return USDS_DOUBLE; };
 		const char* getTypeName() { return "DOUBLE"; };
 
 		// Slow methods (virtual)
