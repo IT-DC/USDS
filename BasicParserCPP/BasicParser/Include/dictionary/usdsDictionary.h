@@ -27,6 +27,11 @@ namespace usds
 
 		void setDefaultStringEncode(usdsEncode encode);
 		usdsEncode getDefaultStringEncode();
+
+		void setDefaultEnumSubtype(usdsType subtype, bool bigendian);
+		usdsType getDefaultEnumSubtype();
+		bool isDefaultEnumSubtypeBigendian();
+
 		
 		// construction
 		DictionaryBaseType* addTag(usdsType tag_type, int32_t id, const char* name, size_t name_size) throw (...);
@@ -76,6 +81,8 @@ namespace usds
 		size_t nameBufferSize;
 
 		usdsEncode defaultStringEncode;
+		usdsType defaultEnumSubtype;
+		bool defaultEnumSubtypeBigendian;
 
 		DictionaryBaseType* firstTag;
 		DictionaryBaseType* lastTag;

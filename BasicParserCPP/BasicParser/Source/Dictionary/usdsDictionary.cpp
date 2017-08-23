@@ -11,6 +11,8 @@ Dictionary::Dictionary(BasicParser* parent) : objectPool(this), binary(64)
 	minorVersion = 0;
 
 	defaultStringEncode = USDS_NO_DEFAULT_ENCODE;
+	defaultEnumSubtype = USDS_VARINT;
+	defaultEnumSubtypeBigendian = false;
 
 	nameBufferSize = 128;
 	dictName = new char[nameBufferSize];
@@ -68,6 +70,21 @@ usdsEncode Dictionary::getDefaultStringEncode()
 	return defaultStringEncode;
 };
 
+void Dictionary::setDefaultEnumSubtype(usdsType subtype, bool bigendian)
+{
+	defaultEnumSubtype = subtype;
+	defaultEnumSubtypeBigendian = bigendian;
+};
+
+usdsType Dictionary::getDefaultEnumSubtype()
+{
+	return defaultEnumSubtype;
+};
+
+bool Dictionary::isDefaultEnumSubtypeBigendian()
+{
+	return defaultEnumSubtypeBigendian;
+};
 
 //====================================================================================================================
 // Tags construction

@@ -213,6 +213,9 @@
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryEnum.h">
       <Filter>Dictionary\Data types</Filter>
     </ClInclude>
+    <ClInclude Include="Include\body\dataTypes\usdsEnum.h">
+      <Filter>Body\Data types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -381,6 +384,9 @@
     </ClCompile>
     <ClCompile Include="Source\Common\objectPool.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryEnum.cpp">
+      <Filter>Dictionary\Data types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

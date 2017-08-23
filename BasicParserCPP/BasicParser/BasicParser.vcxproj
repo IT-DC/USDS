@@ -97,6 +97,7 @@
     <ClInclude Include="Include\body\dataTypes\usdsBoolean.h" />
     <ClInclude Include="Include\body\dataTypes\usdsByte.h" />
     <ClInclude Include="Include\body\dataTypes\usdsDouble.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsEnum.h" />
     <ClInclude Include="Include\body\dataTypes\usdsFloat.h" />
     <ClInclude Include="Include\body\dataTypes\usdsInt.h" />
     <ClInclude Include="Include\body\dataTypes\usdsLong.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryBoolean.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryByte.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryDouble.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryEnum.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryFloat.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryInt.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryLong.cpp" />
