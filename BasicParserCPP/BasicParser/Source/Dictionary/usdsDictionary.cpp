@@ -9,6 +9,9 @@ Dictionary::Dictionary(BasicParser* parent) : objectPool(this), binary(64)
 	dictionaryID = 0;
 	majorVersion = 0;
 	minorVersion = 0;
+
+	defaultStringEncode = USDS_NO_DEFAULT_ENCODE;
+
 	nameBufferSize = 128;
 	dictName = new char[nameBufferSize];
 };
@@ -52,6 +55,17 @@ void Dictionary::setID(const char* name, size_t name_size, uint32_t id, uint8_t 
 	dictionaryID = id;
 	majorVersion = major;
 	minorVersion = minor;
+};
+
+
+void Dictionary::setDefaultStringEncode(usdsEncode encode)
+{
+	defaultStringEncode = encode;
+};
+
+usdsEncode Dictionary::getDefaultStringEncode()
+{
+	return defaultStringEncode;
 };
 
 
@@ -371,6 +385,8 @@ catch (ErrorStack& err)
 void Dictionary::clear()
 {
 	dictionaryID = 0;
+
+	defaultStringEncode = USDS_NO_DEFAULT_ENCODE;
 	
 	firstTag = 0;
 	lastTag = 0;

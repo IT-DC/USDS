@@ -97,6 +97,7 @@
     <ClCompile Include="Source\UnitTest\Body\usdsUShortTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsUVarintTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsVarintTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Converters\Parsers\usdsDictionaryTextParserAttributes.cpp" />
     <ClCompile Include="Source\UnitTest\Converters\Parsers\usdsDictionaryTextParserTest.cpp" />
     <ClCompile Include="Source\UnitTest\Converters\Parsers\usdsDictionaryTextParserTestAutoId.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryArrayTest.cpp" />

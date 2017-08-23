@@ -174,7 +174,7 @@ dict_attributes: dict_attribute | dict_attribute dict_attributes;
 dict_attribute:
 	ENCODE STRING_ENCODE
 	{
-	
+		dict->setDefaultStringEncode($2);
 	}
 	;
 	

@@ -1,4 +1,5 @@
 #include "dictionary\dataTypes\dictionaryString.h"
+#include  "dictionary/usdsDictionary.h"
 
 #pragma warning (disable : 4996)
 
@@ -18,7 +19,10 @@ DictionaryString::~DictionaryString()
 
 void DictionaryString::additionalInitType()
 {
-	defaultEncode = USDS_NO_DEFAULT_ENCODE;
+	if (dictionary != 0)
+		defaultEncode = dictionary->getDefaultStringEncode();
+	else
+		defaultEncode = USDS_NO_DEFAULT_ENCODE;
 	isDefault = false;
 };
 

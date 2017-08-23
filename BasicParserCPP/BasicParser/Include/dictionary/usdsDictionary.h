@@ -24,6 +24,9 @@ namespace usds
 		// Dictionary construction
 		void setID(const char* name, uint32_t id, uint8_t major, uint8_t minor) throw (...);
 		void setID(const char* name, size_t name_size, uint32_t id, uint8_t major, uint8_t minor) throw (...);
+
+		void setDefaultStringEncode(usdsEncode encode);
+		usdsEncode getDefaultStringEncode();
 		
 		// construction
 		DictionaryBaseType* addTag(usdsType tag_type, int32_t id, const char* name, size_t name_size) throw (...);
@@ -71,6 +74,8 @@ namespace usds
 		uint32_t dictionaryID;
 		char* dictName;
 		size_t nameBufferSize;
+
+		usdsEncode defaultStringEncode;
 
 		DictionaryBaseType* firstTag;
 		DictionaryBaseType* lastTag;

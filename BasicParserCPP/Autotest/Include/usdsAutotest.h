@@ -175,6 +175,12 @@ public:
 	static void test_16();
 };
 
+class DictionaryTextParserTestAttributes
+{
+public:
+	static void test_1();
+};
+
 class BinaryInputTest
 {
 public:

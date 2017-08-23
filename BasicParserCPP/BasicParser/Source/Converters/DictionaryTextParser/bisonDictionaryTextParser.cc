@@ -677,7 +677,7 @@ namespace usds {
   case 11:
 #line 176 "bisonDictionaryTextParser.y" // lalr1.cc:846
     {
-	
+		dict->setDefaultStringEncode((yystack_[0].value.encodeVal));
 	}
 #line 683 "bisonDictionaryTextParser.cc" // lalr1.cc:846
     break;
