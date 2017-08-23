@@ -29,7 +29,7 @@
 
 
 // Test simple types for array's element
-void DictionaryTextParserTest::test_1()
+void DictionaryTextParserTestAutoId::test_1()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -37,19 +37,19 @@ void DictionaryTextParserTest::test_1()
 	// step 1
 	const char* text_dict = 
 		"USDS 888:MyLittleAPI 1.0 {\
-			1: BOOLEAN bool;\
-			2: BYTE byte;\
-			3: UBYTE ubyte;\
-			4: SHORT short;\
-			5: USHORT ushort;\
-			6: INT int;\
-			7: UINT uint;\
-			8: LONG long;\
-			9: ULONG ulong;\
-			10: FLOAT float;\
-			11: DOUBLE double;\
-			12: VARINT varint;\
-			13: UVARINT uvarint;\
+			BOOLEAN bool;\
+			BYTE byte;\
+			UBYTE ubyte;\
+			SHORT short;\
+			USHORT ushort;\
+			INT int;\
+			UINT uint;\
+			LONG long;\
+			ULONG ulong;\
+			FLOAT float;\
+			DOUBLE double;\
+			VARINT varint;\
+			UVARINT uvarint;\
 			}";
 	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	const char* dict_name = dict.getDictionaryName();
@@ -149,7 +149,7 @@ void DictionaryTextParserTest::test_1()
 
 }
 
-void DictionaryTextParserTest::test_2()
+void DictionaryTextParserTestAutoId::test_2()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -157,8 +157,8 @@ void DictionaryTextParserTest::test_2()
 	// step 1
 	const char* text_dict =
 		"USDS MyLittleAPI 0.1 {\
-			1: STRING str1;\
-			2: STRING<UTF-8> str2;\
+			STRING str1;\
+			STRING<UTF-8> str2;\
 		}";
 	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 2 || dict.getDictionaryID() != 0 || dict.getMajorVersion() != 0 || dict.getMinorVersion() != 1)
@@ -184,7 +184,7 @@ void DictionaryTextParserTest::test_2()
 
 }
 
-void DictionaryTextParserTest::test_3()
+void DictionaryTextParserTestAutoId::test_3()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -192,27 +192,27 @@ void DictionaryTextParserTest::test_3()
 	// step 1
 	const char* text_dict =
 		"USDS 1:MyLittleAPI 1.1 {\
-			1: struct\
+			struct\
 			{\
-				1: BOOLEAN bool;\
-				2: BYTE byte;\
-				3: UBYTE ubyte;\
-				4: SHORT short;\
-				5: USHORT ushort;\
-				6: INT int;\
-				7: UINT uint;\
-				8: LONG long;\
-				9: ULONG ulong;\
-				10: FLOAT float;\
-				11: DOUBLE double;\
-				12: VARINT varint;\
-				13: UVARINT uvarint;\
-				14: STRING string;\
-				15: STRING<UTF-8> string2;\
+				BOOLEAN bool;\
+				BYTE byte;\
+				UBYTE ubyte;\
+				SHORT short;\
+				USHORT ushort;\
+				INT int;\
+				UINT uint;\
+				LONG long;\
+				ULONG ulong;\
+				FLOAT float;\
+				DOUBLE double;\
+				VARINT varint;\
+				UVARINT uvarint;\
+				STRING string;\
+				STRING<UTF-8> string2;\
 			};\
-			2: struct2\
+			struct2\
 			{\
-				1: struct internal_struct;\
+				struct internal_struct;\
 			};\
 		}";
 	parser->parse(text_dict, usds::USDS_UTF8, &dict);
@@ -339,7 +339,7 @@ void DictionaryTextParserTest::test_3()
 
 }
 
-void DictionaryTextParserTest::test_4()
+void DictionaryTextParserTestAutoId::test_4()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -347,30 +347,30 @@ void DictionaryTextParserTest::test_4()
 	// step 1
 	const char* text_dict =
 		"USDS 0:MyLittleAPI 0.0 {\
-			1: struct\
+			struct\
 			{\
-				1: BOOLEAN bool;\
-				2: internal_struct\
+				BOOLEAN bool;\
+				internal_struct\
 				{\
-					1: BOOLEAN bool;\
-					2: BYTE byte;\
+					BOOLEAN bool;\
+					BYTE byte;\
 				};\
-				3: BYTE byte;\
-				4: internal_struct2\
+				BYTE byte;\
+				internal_struct2\
 				{\
-					1: BYTE byte;\
-					2: internal_internal_struct\
+					BYTE byte;\
+					internal_internal_struct\
 					{\
-						1: BYTE byte;\
-						2: BOOLEAN bool;\
+						BYTE byte;\
+						BOOLEAN bool;\
 					};\
-					3: BOOLEAN bool;\
+					BOOLEAN bool;\
 				};\
 			};\
-			2: BYTE byte;\
-			3: struct2\
+			BYTE byte;\
+			struct2\
 			{\
-				1: BOOLEAN bool;\
+				BOOLEAN bool;\
 			};\
 		}";
 	parser->parse(text_dict, usds::USDS_UTF8, &dict);
@@ -481,7 +481,7 @@ void DictionaryTextParserTest::test_4()
 
 }
 
-void DictionaryTextParserTest::test_5()
+void DictionaryTextParserTestAutoId::test_5()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -489,23 +489,23 @@ void DictionaryTextParserTest::test_5()
 	// step 1
 	const char* text_dict =
 		"USDS 4294967295:MyLittleAPI 55.255 {\
-			1: struct\
+			struct\
 			{\
-				1: BOOLEAN bool = NULL;\
-				2: BYTE byte = NULL;\
-				3: UBYTE ubyte = NULL;\
-				4: SHORT short = NULL;\
-				5: USHORT ushort = NULL;\
-				6: INT int = NULL;\
-				7: UINT uint = NULL;\
-				8: LONG long = NULL;\
-				9: ULONG ulong = NULL;\
-				10: FLOAT float = NULL;\
-				11: DOUBLE double = NULL;\
-				12: VARINT varint = NULL;\
-				13: UVARINT uvarint = NULL;\
-				14: STRING string = NULL;\
-				15: STRING<UTF-8> string2 = NULL;\
+				BOOLEAN bool = NULL;\
+				BYTE byte = NULL;\
+				UBYTE ubyte = NULL;\
+				SHORT short = NULL;\
+				USHORT ushort = NULL;\
+				INT int = NULL;\
+				UINT uint = NULL;\
+				LONG long = NULL;\
+				ULONG ulong = NULL;\
+				FLOAT float = NULL;\
+				DOUBLE double = NULL;\
+				VARINT varint = NULL;\
+				UVARINT uvarint = NULL;\
+				STRING string = NULL;\
+				STRING<UTF-8> string2 = NULL;\
 			};\
 		}";
 	parser->parse(text_dict, usds::USDS_UTF8, &dict);
@@ -611,7 +611,7 @@ void DictionaryTextParserTest::test_5()
 }
 
 
-void DictionaryTextParserTest::test_6()
+void DictionaryTextParserTestAutoId::test_6()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -620,15 +620,15 @@ void DictionaryTextParserTest::test_6()
 	const char* text_dict =
 		"USDS 3000000000:MyLittleAPI 254.125\
 		{\
-			1: struct\
+			struct\
 			{\
-				1: int_struct\
+				int_struct\
 				{\
-					1: BYTE byte;\
+					BYTE byte;\
 				} = NULL;\
-				2: byte tag_byte = NULL;\
+				byte tag_byte = NULL;\
 			};\
-			2: BYTE byte;\
+			BYTE byte;\
 		}";
 	parser->parse(text_dict, usds::USDS_UTF8, &dict);
 	if (dict.getTagNumber() != 2 || dict.getDictionaryID() != 3000000000 || dict.getMajorVersion() != 254 || dict.getMinorVersion() != 125)
@@ -666,402 +666,7 @@ void DictionaryTextParserTest::test_6()
 
 }
 
-void DictionaryTextParserTest::test_7()
-{
-	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
-	usds::Dictionary dict(0);
-	std::string text_dictionary;
-	std::stringstream buffer;
-
-	// step 1
-	int64_t digit64 = 1;
-	int64_t first_value64 = 0;
-	for (size_t i = 1; i < 20; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			buffer.str("");
-			buffer << "USDS U 0.0 { 1: struct { 1: VARINT varint = " << first_value64 << "; }; }\n";
-			text_dictionary = buffer.str();
-			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-			int64_t value = ((usds::DictionaryVarint*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-			if (first_value64 != value)
-				throw "Failed at the step 1\n";
-			dict.clear();
-			first_value64 = first_value64 + digit64;
-		}
-		first_value64 = first_value64 - digit64;
-		digit64 = digit64 * 10;
-	}
-
-	// step 2
-	digit64 = 1;
-	first_value64 = 0;
-	for (size_t i = 1; i < 20; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			buffer.str("");
-			buffer << "USDS U 0.0 { 1: struct { 1: VARINT varint = " << first_value64 << "; }; }\n";
-			text_dictionary = buffer.str();
-			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-			int64_t value = ((usds::DictionaryVarint*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-			if (first_value64 != value)
-				throw "Failed at the step 1\n";
-			dict.clear();
-			first_value64 = first_value64 - digit64;
-		}
-		first_value64 = first_value64 + digit64;
-		digit64 = digit64 * 10;
-	}
-
-	// step 3
-	int32_t digit32 = 1;
-	int32_t first_value32 = 0;
-	for (size_t i = 1; i < 11; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			buffer.str("");
-			buffer << "USDS U 0.0 { 1: struct { 1: INT int = " << first_value32 << "; }; }\n";
-			text_dictionary = buffer.str();
-			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-			int64_t value = ((usds::DictionaryInt*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-			if (first_value32 != value)
-				throw "Failed at the step 3\n";
-			dict.clear();
-			first_value32 = first_value32 + digit32;
-		}
-		first_value32 = first_value32 - digit32;
-		digit32 = digit32 * 10;
-	}
-
-	// step 4
-	digit32 = 1;
-	first_value32 = 0;
-	for (size_t i = 1; i < 11; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			buffer.str("");
-			buffer << "USDS U 0.0 { 1: struct { 1: INT int = " << first_value32 << "; }; }\n";
-			text_dictionary = buffer.str();
-			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-			int64_t value = ((usds::DictionaryInt*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-			if (first_value32 != value)
-				throw "Failed at the step 4\n";
-			dict.clear();
-			first_value32 = first_value32 - digit32;
-		}
-		first_value32 = first_value32 + digit32;
-		digit32 = digit32 * 10;
-	}
-
-	// step 5
-	int16_t digit16 = 1;
-	int16_t first_value16 = 0;
-	for (size_t i = 1; i < 6; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			buffer.str("");
-			buffer << "USDS U 0.0 { 1: struct { 1: SHORT short = " << first_value16 << "; }; }\n";
-			text_dictionary = buffer.str();
-			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-			int64_t value = ((usds::DictionaryShort*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-			if (first_value16 != value)
-				throw "Failed at the step 5\n";
-			dict.clear();
-			first_value16 = first_value16 + digit16;
-		}
-		first_value16 = first_value16 - digit16;
-		digit16 = digit16 * 10;
-	}
-
-	// step 6
-	digit16 = 1;
-	first_value16 = 0;
-	for (size_t i = 1; i < 6; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			buffer.str("");
-			buffer << "USDS U 0.0 { 1: struct { 1: SHORT short = " << first_value16 << "; }; }\n";
-			text_dictionary = buffer.str();
-			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-			int64_t value = ((usds::DictionaryShort*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-			if (first_value16 != value)
-				throw "Failed at the step 6\n";
-			dict.clear();
-			first_value16 = first_value16 - digit16;
-		}
-		first_value16 = first_value16 + digit16;
-		digit16 = digit16 * 10;
-	}
-
-	// step 7
-	for (int32_t i = -127; i <= 127; i++)
-	{
-		buffer.str("");
-		buffer << "USDS U 0.0 { 1: struct { 1: BYTE byte = " << i << "; }; }\n";
-		text_dictionary = buffer.str();
-		parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-		int32_t value = ((usds::DictionaryByte*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-		if (i != value)
-			throw "Failed at the step 7\n";
-		dict.clear();
-	}
-
-	// step 8
-	for (int32_t i = 0; i <= 255; i++)
-	{
-		buffer.str("");
-		buffer << "USDS U 0.0 { 1: struct { 1: UBYTE ubyte = " << i << "; }; }\n";
-		text_dictionary = buffer.str();
-		parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-		int32_t value = ((usds::DictionaryUByte*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-		if (i != value)
-			throw "Failed at the step 8\n";
-		dict.clear();
-	}
-
-	// step 9
-	uint64_t digitu64 = 1;
-	uint64_t first_valueu64 = 0;
-	for (size_t i = 1; i < 21; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			buffer.str("");
-			buffer << "USDS U 0.0 { 1: struct { 1: UVARINT uvarint = " << first_valueu64 << "; }; }\n";
-			text_dictionary = buffer.str();
-			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-			uint64_t value = ((usds::DictionaryUVarint*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-			if (first_valueu64 != value)
-				throw "Failed at the step 9\n";
-			dict.clear();
-			first_valueu64 = first_valueu64 + digitu64;
-		}
-		first_valueu64 = first_valueu64 - digitu64;
-		digitu64 = digitu64 * 10;
-	}
-
-	// step 10
-	uint32_t digitu32 = 1;
-	uint32_t first_valueu32 = 0;
-	for (size_t i = 1; i < 11; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			buffer.str("");
-			buffer << "USDS U 0.0 { 1: struct { 1: UINT uint = " << first_valueu32 << "; }; }\n";
-			text_dictionary = buffer.str();
-			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-			uint32_t value = ((usds::DictionaryUInt*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-			if (first_valueu32 != value)
-				throw "Failed at the step 10\n";
-			dict.clear();
-			first_valueu32 = first_valueu32 + digitu32;
-		}
-		first_valueu32 = first_valueu32 - digitu32;
-		digitu32 = digitu32 * 10;
-	}
-
-	// step 11
-	uint16_t digitu16 = 1;
-	uint16_t first_valueu16 = 0;
-	for (size_t i = 1; i < 6; i++)
-	{
-		for (size_t j = 0; j < 10; j++)
-		{
-			buffer.str("");
-			buffer << "USDS U 0.0 { 1: struct { 1: USHORT ushort = " << first_valueu16 << "; }; }\n";
-			text_dictionary = buffer.str();
-			parser->parse(text_dictionary.c_str(), usds::USDS_UTF8, &dict);
-			uint16_t value = ((usds::DictionaryShort*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-			if (first_valueu16 != value)
-				throw "Failed at the step 5\n";
-			dict.clear();
-			first_valueu16 = first_valueu16 + digitu16;
-		}
-		first_valueu16 = first_valueu16 - digitu16;
-		digitu16 = digitu16 * 10;
-	}
-
-}
-
-
-void DictionaryTextParserTest::test_8()
-{
-	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
-	usds::Dictionary dict(0);
-
-	const size_t size = 77;
-	const char* dicts[size] = {
-		"USDS U 0.0 { 1: struct { 1: BYTE value = 128;};}",
-		"USDS U 0.0 { 1: struct { 1: BYTE value = -129;};}",
-		"USDS U 0.0 { 1: struct { 1: BYTE value = 200;};}",
-		"USDS U 0.0 { 1: struct { 1: BYTE value = -200;};}",
-		"USDS U 0.0 { 1: struct { 1: BYTE value = 1000;};}",
-		"USDS U 0.0 { 1: struct { 1: BYTE value = -1000;};}",
-		"USDS U 0.0 { 1: struct { 1: UBYTE value = 256;};}",
-		"USDS U 0.0 { 1: struct { 1: UBYTE value = 300;};}",
-		"USDS U 0.0 { 1: struct { 1: UBYTE value = 1000;};}",
-		"USDS U 0.0 { 1: struct { 1: UBYTE value = -1;};}",
-		"USDS U 0.0 { 1: struct { 1: UBYTE value = -10;};}",
-		"USDS U 0.0 { 1: struct { 1: UBYTE value = -255;};}",
-		"USDS U 0.0 { 1: struct { 1: UBYTE value = -1000;};}",
-		"USDS U 0.0 { 1: struct { 1: SHORT value = 32768;};}",
-		"USDS U 0.0 { 1: struct { 1: SHORT value = -32769;};}",
-		"USDS U 0.0 { 1: struct { 1: SHORT value = 40000;};}",
-		"USDS U 0.0 { 1: struct { 1: SHORT value = -40000;};}",
-		"USDS U 0.0 { 1: struct { 1: SHORT value = 100000;};}",
-		"USDS U 0.0 { 1: struct { 1: SHORT value = -100000;};}",
-		"USDS U 0.0 { 1: struct { 1: USHORT value = 65536;};}",
-
-		"USDS U 0.0 { 1: struct { 1: USHORT value = 70000;};}",
-		"USDS U 0.0 { 1: struct { 1: USHORT value = 100000;};}",
-		"USDS U 0.0 { 1: struct { 1: USHORT value = -1;};}",
-		"USDS U 0.0 { 1: struct { 1: USHORT value = -10;};}",
-		"USDS U 0.0 { 1: struct { 1: USHORT value = -100;};}",
-		"USDS U 0.0 { 1: struct { 1: USHORT value = -1000;};}",
-		"USDS U 0.0 { 1: struct { 1: USHORT value = -10000;};}",
-		"USDS U 0.0 { 1: struct { 1: USHORT value = -100000;};}",
-		"USDS U 0.0 { 1: struct { 1: INT value = 2147483648;};}",
-		"USDS U 0.0 { 1: struct { 1: INT value = 3000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: INT value = 10000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: INT value = -2147483649;};}",
-		"USDS U 0.0 { 1: struct { 1: INT value = -3000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: INT value = -10000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = 4294967296;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = 5000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = 10000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -1;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -10;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -100;};}",
-
-		"USDS U 0.0 { 1: struct { 1: UINT value = -1000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -10000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -100000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -1000000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -10000000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -100000000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -1000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: UINT value = -10000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: LONG value = 9223372036854775808;};}",
-		"USDS U 0.0 { 1: struct { 1: LONG value = 10000000000000000000};}",
-		"USDS U 0.0 { 1: struct { 1: LONG value = -9223372036854775809;};}",
-		"USDS U 0.0 { 1: struct { 1: LONG value = -10000000000000000000};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = 18446744073709551616;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = 28446744073709551616;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = 108446744073709551616;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -1;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -10;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -100;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -1000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -10000;};}",
-
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -100000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -1000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -10000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -100000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -1000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -10000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -100000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -1000000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -10000000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -100000000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -1000000000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -10000000000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -100000000000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -1000000000000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -10000000000000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -100000000000000000000;};}",
-		"USDS U 0.0 { 1: struct { 1: ULONG value = -1000000000000000000000;};}",
-	};
-
-	// step 1
-	for (size_t i = 0; i < size; i++)
-	{
-		try
-		{
-			parser->parse(dicts[i], usds::USDS_UTF8, &dict);
-			throw "Failed at the step 1\n";
-		}
-		catch (usds::ErrorStack& err)
-		{
-			if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
-			{
-				throw "Failed at the step 2\n";
-			}
-		}
-		dict.clear();
-	}
-
-}
-
-void DictionaryTextParserTest::test_9()
-{
-	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
-	usds::Dictionary dict(0);
-
-	const size_t size = 20;
-	struct dicts { const char* text; float value;} dicts[size];
-
-	dicts[0].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = 125;};}";
-	dicts[0].value = 125.0F;
-	dicts[1].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -125;};}";
-	dicts[1].value = -125.0F;
-	dicts[2].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = 1000000000000000000000000000000;};}";
-	dicts[2].value = 1000000000000000000000000000000.0F;
-	dicts[3].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -1000000000000000000000000000000;};}";
-	dicts[3].value = -1000000000000000000000000000000.0F;
-	dicts[4].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = 125.0;};}";
-	dicts[4].value = 125.0F;
-	dicts[5].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -125.0;};}";
-	dicts[5].value = -125.0F;
-	dicts[6].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = 1000000000000000000000000000000.0;};}";
-	dicts[6].value = 1000000000000000000000000000000.0F;
-	dicts[7].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -1000000000000000000000000000000.0;};}";
-	dicts[7].value = -1000000000000000000000000000000.0F;
-	dicts[8].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = 125.125;};}";
-	dicts[8].value = 125.125F;
-	dicts[9].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -125.125;};}";
-	dicts[9].value = -125.125F;
-	dicts[10].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = .125;};}";
-	dicts[10].value = 0.125F;
-	dicts[11].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -.125;};}";
-	dicts[11].value = -0.125F;
-	dicts[12].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = 1.125e3;};}";
-	dicts[12].value = 1125.0F;
-	dicts[13].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -1.125e3;};}";
-	dicts[13].value = -1125.0F;
-	dicts[14].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = 112.5e-2;};}";
-	dicts[14].value = 1.125F;
-	dicts[15].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -112.5e-2;};}";
-	dicts[15].value = -1.125F;
-	dicts[16].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = .125e3;};}";
-	dicts[16].value = 125.0F;
-	dicts[17].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -.125e3;};}";
-	dicts[17].value = -125.0F;
-	dicts[18].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = .125e-3;};}";
-	dicts[18].value = 0.000125F;
-	dicts[19].text = "USDS U 0.0 { 1: struct { 1: FLOAT value = -.125e-3;};}";
-	dicts[19].value = -0.000125F;
-	// step 1
-	for (size_t i = 0; i < size; i++)
-	{
-		parser->parse(dicts[i].text, usds::USDS_UTF8, &dict);
-		float value = ((usds::DictionaryFloat*)((usds::DictionaryStruct*)dict.getTag(1))->getField(1))->getDefaultValue();
-		if (value != dicts[i].value)
-			throw "Failed at the step 1\n";
-		dict.clear();
-	}
-
-}
-
-
-void DictionaryTextParserTest::test_10()
+void DictionaryTextParserTestAutoId::test_7()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -1069,29 +674,29 @@ void DictionaryTextParserTest::test_10()
 	// step 1
 	const char* text_dict =
 		"USDS 4294967295:MyLittleAPI 55.255 {\n\
-			1: struct\n\
+			struct\n\
 			{\n\
-				1: BOOLEAN bool = true;\n\
-				2: BOOLEAN bool2 = false;\n\
-				3: BYTE byte = 127;\n\
-				4: BYTE byte2 = -128;\n\
-				5: UBYTE ubyte = 255;\n\
-				6: SHORT short = 32767;\n\
-				7: SHORT short2 = -32768;\n\
-				8: USHORT ushort = 65535;\n\
-				9: INT int = 2147483647;\n\
-				10: INT int2 = -2147483648;\n\
-				11: UINT uint = 4294967295;\n\
-				12: LONG long = 9223372036854775807;\n\
-				13: LONG long2 = -9223372036854775808;\n\
-				14: ULONG ulong = 18446744073709551615;\n\
-				15: FLOAT float = 1.125e2;\n\
-				16: DOUBLE double = -.125;\n\
-				17: VARINT varint = 9223372036854775807;\n\
-				18: VARINT varint2 = -9223372036854775808;\n\
-				19: UVARINT uvarint = 18446744073709551615;\n\
-				20: STRING string = \"Привет\\\"!\\\"\";\n\
-				21: STRING<UTF-8> string2 = \"\";\n\
+				BOOLEAN bool = true;\n\
+				BOOLEAN bool2 = false;\n\
+				BYTE byte = 127;\n\
+				BYTE byte2 = -128;\n\
+				UBYTE ubyte = 255;\n\
+				SHORT short = 32767;\n\
+				SHORT short2 = -32768;\n\
+				USHORT ushort = 65535;\n\
+				INT int = 2147483647;\n\
+				INT int2 = -2147483648;\n\
+				UINT uint = 4294967295;\n\
+				LONG long = 9223372036854775807;\n\
+				LONG long2 = -9223372036854775808;\n\
+				ULONG ulong = 18446744073709551615;\n\
+				FLOAT float = 1.125e2;\n\
+				DOUBLE double = -.125;\n\
+				VARINT varint = 9223372036854775807;\n\
+				VARINT varint2 = -9223372036854775808;\n\
+				UVARINT uvarint = 18446744073709551615;\n\
+				STRING string = \"Привет\\\"!\\\"\";\n\
+				STRING<UTF-8> string2 = \"\";\n\
 			};\n\
 		}";
 
@@ -1235,7 +840,7 @@ void DictionaryTextParserTest::test_10()
 	
 }
 
-void DictionaryTextParserTest::test_11()
+void DictionaryTextParserTestAutoId::test_8()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -1243,25 +848,25 @@ void DictionaryTextParserTest::test_11()
 	// step 1
 	const char* text_dict =
 		"USDS MyLittleAPI {\n\
-			1: BOOLEAN[] bool;\n\
-			2: BYTE[] byte;\n\
-			3: UBYTE[] ubyte;\n\
-			4: SHORT[] short;\n\
-			5: USHORT[] ushort;\n\
-			6: INT[] int;\n\
-			7: UINT[] uint;\n\
-			8: LONG[] long;\n\
-			9: ULONG[] ulong;\n\
-			10: FLOAT[] float;\n\
-			11: DOUBLE[] double;\n\
-			12: VARINT[] varint;\n\
-			13: UVARINT[] uvarint;\n\
-			14: STRING[] string;\n\
-			15: STRING<UTF-8>[] string2;\n\
-			16: struct[]\n\
+			BOOLEAN[] bool;\n\
+			BYTE[] byte;\n\
+			UBYTE[] ubyte;\n\
+			SHORT[] short;\n\
+			USHORT[] ushort;\n\
+			INT[] int;\n\
+			UINT[] uint;\n\
+			LONG[] long;\n\
+			ULONG[] ulong;\n\
+			FLOAT[] float;\n\
+			DOUBLE[] double;\n\
+			VARINT[] varint;\n\
+			UVARINT[] uvarint;\n\
+			STRING[] string;\n\
+			STRING<UTF-8>[] string2;\n\
+			struct[]\n\
 			{\n\
-				1: BOOLEAN bool;\n\
-				2: BYTE byte;\n\
+				BOOLEAN bool;\n\
+				BYTE byte;\n\
 			};\n\
 		}";
 
@@ -1364,7 +969,7 @@ void DictionaryTextParserTest::test_11()
 
 }
 
-void DictionaryTextParserTest::test_12()
+void DictionaryTextParserTestAutoId::test_9()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -1372,13 +977,13 @@ void DictionaryTextParserTest::test_12()
 	// step 1
 	const char* text_dict =
 		"USDS MyLittleAPI {\n\
-			1: BOOLEAN[][] bool;\n\
-			2: BYTE[][][] byte;\n\
-			3: UBYTE[][][][] ubyte;\n\
-			4: struct[][][]\n\
+			BOOLEAN[][] bool;\n\
+			BYTE[][][] byte;\n\
+			UBYTE[][][][] ubyte;\n\
+			struct[][][]\n\
 			{\n\
-				1: BOOLEAN bool;\n\
-				2: BYTE byte;\n\
+				BOOLEAN bool;\n\
+				BYTE byte;\n\
 			};\n\
 		}";
 
@@ -1427,7 +1032,7 @@ void DictionaryTextParserTest::test_12()
 
 }
 
-void DictionaryTextParserTest::test_13()
+void DictionaryTextParserTestAutoId::test_10()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -1435,42 +1040,42 @@ void DictionaryTextParserTest::test_13()
 	// step 1
 	const char* text_dict =
 		"USDS MyLittleAPI {\n\
-			1: struct[]\n\
+			struct[]\n\
 			{\n\
-				1: BOOLEAN[] bool;\n\
-				2: BYTE[] byte;\n\
-				3: UBYTE[] ubyte;\n\
-				4: SHORT[] short;\n\
-				5: USHORT[] ushort;\n\
-				6: INT[] int;\n\
-				7: UINT[] uint;\n\
-				8: LONG[] long;\n\
-				9: ULONG[] ulong;\n\
-				10: FLOAT[] float;\n\
-				11: DOUBLE[] double;\n\
-				12: VARINT[] varint;\n\
-				13: UVARINT[] uvarint;\n\
-				16: struct[]\n\
+				BOOLEAN[] bool;\n\
+				BYTE[] byte;\n\
+				UBYTE[] ubyte;\n\
+				SHORT[] short;\n\
+				USHORT[] ushort;\n\
+				INT[] int;\n\
+				UINT[] uint;\n\
+				LONG[] long;\n\
+				ULONG[] ulong;\n\
+				FLOAT[] float;\n\
+				DOUBLE[] double;\n\
+				VARINT[] varint;\n\
+				UVARINT[] uvarint;\n\
+				STRING[] string;\n\
+				STRING<UTF-8>[] string2;\n\
+				struct[]\n\
 				{\n\
-					1: bool[] bool_tag_link;\n\
-					2: BYTE byte;\n\
+					bool[] bool_tag_link;\n\
+					BYTE byte;\n\
 				};\n\
-				14: STRING[] string;\n\
-				15: STRING<UTF-8>[] string2;\n\
-				17: bool bool2;\n\
-				18: struct2[] struct_field;\n\
+				bool bool2;\n\
+				struct2[] struct_field;\n\
 			};\n\
-			2: BOOLEAN[] bool;\n\
-			3: struct2\n\
+			BOOLEAN[] bool;\n\
+			struct2\n\
 			{\n\
-				1: BOOLEAN bool = NULL;\n\
-				2: BYTE byte = 110;\n\
+				BOOLEAN bool = NULL;\n\
+				BYTE byte = 110;\n\
 			};\n\
-			4: struct3\n\
+			struct3\n\
 			{\n\
-				1: INT int;\n\
-				2: struct2[] struct_field;\n\
-				3: struct2 struct_field2;\n\
+				INT int;\n\
+				struct2[] struct_field;\n\
+				struct2 struct_field2;\n\
 			};\n\
 		}";
 
@@ -1689,7 +1294,7 @@ void DictionaryTextParserTest::test_13()
 
 }
 
-void DictionaryTextParserTest::test_14()
+void DictionaryTextParserTestAutoId::test_11()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -1697,24 +1302,24 @@ void DictionaryTextParserTest::test_14()
 	// step 1
 	const char* text_dict =
 		"USDS MyLittleAPI {\n\
-			1: struct[][]\n\
+			struct[][]\n\
 			{\n\
-				1: BOOLEAN[][] bool;\n\
-				2: BYTE[][][] byte;\n\
-				3: struct[][][]\n\
+				BOOLEAN[][] bool;\n\
+				BYTE[][][] byte;\n\
+				struct[][][]\n\
 				{\n\
-					1: bool[] bool_tag_link;\n\
-					2: BYTE byte;\n\
+					bool[] bool_tag_link;\n\
+					BYTE byte;\n\
 				};\n\
-				4: STRING<UTF-8>[][] string;\n\
-				5: bool bool2;\n\
-				6: struct2[] struct_field;\n\
+				STRING<UTF-8>[][] string;\n\
+				bool bool2;\n\
+				struct2[] struct_field;\n\
 			};\n\
-			2: BOOLEAN[][][] bool;\n\
-			3: struct2[][]\n\
+			BOOLEAN[][][] bool;\n\
+			struct2[][]\n\
 			{\n\
-				1: BOOLEAN bool = NULL;\n\
-				2: BYTE byte = 110;\n\
+				BOOLEAN bool = NULL;\n\
+				BYTE byte = 110;\n\
 			};\n\
 		}";
 
@@ -1857,7 +1462,7 @@ void DictionaryTextParserTest::test_14()
 	}
 }
 
-void DictionaryTextParserTest::test_15()
+void DictionaryTextParserTestAutoId::test_12()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -1865,42 +1470,42 @@ void DictionaryTextParserTest::test_15()
 	// step 1
 	const char* text_dict =
 		"USDS MyLittleAPI {\n\
-			1: struct[]\n\
+			struct[]\n\
 			{\n\
-				1: BOOLEAN[] bool = NULL;\n\
-				2: BYTE[] byte = NULL;\n\
-				3: UBYTE[] ubyte = NULL;\n\
-				4: SHORT[] short = NULL;\n\
-				5: USHORT[] ushort = NULL;\n\
-				6: INT[] int = NULL;\n\
-				7: UINT[] uint = NULL;\n\
-				8: LONG[] long = NULL;\n\
-				9: ULONG[] ulong = NULL;\n\
-				10: FLOAT[] float = NULL;\n\
-				11: DOUBLE[] double = NULL;\n\
-				12: VARINT[] varint = NULL;\n\
-				13: UVARINT[] uvarint = NULL;\n\
-				16: struct[]\n\
+				BOOLEAN[] bool = NULL;\n\
+				BYTE[] byte = NULL;\n\
+				UBYTE[] ubyte = NULL;\n\
+				SHORT[] short = NULL;\n\
+				USHORT[] ushort = NULL;\n\
+				INT[] int = NULL;\n\
+				UINT[] uint = NULL;\n\
+				LONG[] long = NULL;\n\
+				ULONG[] ulong = NULL;\n\
+				FLOAT[] float = NULL;\n\
+				DOUBLE[] double = NULL;\n\
+				VARINT[] varint = NULL;\n\
+				UVARINT[] uvarint = NULL;\n\
+				STRING[] string = NULL;\n\
+				STRING<UTF-8>[] string2 = NULL;\n\
+				struct[]\n\
 				{\n\
-					1: bool[] bool_tag_link = NULL;\n\
-					2: BYTE byte;\n\
+					bool[] bool_tag_link = NULL;\n\
+					BYTE byte;\n\
 				} = NULL;\n\
-				14: STRING[] string = NULL;\n\
-				15: STRING<UTF-8>[] string2 = NULL;\n\
-				17: bool bool2 = NULL;\n\
-				18: struct2[] struct_field = NULL;\n\
+				bool bool2 = NULL;\n\
+				struct2[] struct_field = NULL;\n\
 			};\n\
-			2: BOOLEAN[] bool;\n\
-			3: struct2\n\
+			BOOLEAN[] bool;\n\
+			struct2\n\
 			{\n\
-				1: BOOLEAN bool = NULL;\n\
-				2: BYTE byte = 110;\n\
+				BOOLEAN bool = NULL;\n\
+				BYTE byte = 110;\n\
 			};\n\
-			4: struct3\n\
+			struct3\n\
 			{\n\
-				1: INT int;\n\
-				2: struct2[] struct_field = NULL;\n\
-				3: struct2 struct_field2 = NULL;\n\
+				INT int;\n\
+				struct2[] struct_field = NULL;\n\
+				struct2 struct_field2 = NULL;\n\
 			};\n\
 		}";
 
@@ -2118,8 +1723,7 @@ void DictionaryTextParserTest::test_15()
 		throw "Failed at the step 42\n";
 
 }
-
-void DictionaryTextParserTest::test_16()
+void DictionaryTextParserTestAutoId::test_13()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -2127,24 +1731,24 @@ void DictionaryTextParserTest::test_16()
 	// step 1
 	const char* text_dict =
 		"USDS MyLittleAPI {\n\
-			1: struct[][]\n\
+			struct[][]\n\
 			{\n\
-				1: BOOLEAN[][] bool = NULL;\n\
-				2: BYTE[][][] byte = NULL;\n\
-				3: struct[][][]\n\
+				BOOLEAN[][] bool = NULL;\n\
+				BYTE[][][] byte = NULL;\n\
+				struct[][][]\n\
 				{\n\
-					1: bool[] bool_tag_link = NULL;\n\
-					2: BYTE byte;\n\
+					bool[] bool_tag_link = NULL;\n\
+					BYTE byte;\n\
 				} = NULL;\n\
-				4: STRING<UTF-8>[][] string = NULL;\n\
-				5: bool bool2 = NULL;\n\
-				6: struct2[] struct_field = NULL;\n\
+				STRING<UTF-8>[][] string = NULL;\n\
+				bool bool2 = NULL;\n\
+				struct2[] struct_field = NULL;\n\
 			};\n\
-			2: BOOLEAN[][][] bool;\n\
-			3: struct2[][]\n\
+			BOOLEAN[][][] bool;\n\
+			struct2[][]\n\
 			{\n\
-				1: BOOLEAN bool = NULL;\n\
-				2: BYTE byte = 110;\n\
+				BOOLEAN bool = NULL;\n\
+				BYTE byte = 110;\n\
 			};\n\
 		}";
 
@@ -2333,7 +1937,7 @@ void DictionaryTextParserTest::test_16()
 	}
 }
 
-void DictionaryTextParserTest::test_17()
+void DictionaryTextParserTestAutoId::test_14()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -2341,11 +1945,11 @@ void DictionaryTextParserTest::test_17()
 	// step 1
 	const char* text_dict =
 		"USDS 1:MyLittleAPI 1.1 {\
-			1: struct_recursion\
+			struct_recursion\
 			{\
-				1: BOOLEAN bool;\
-				2: BYTE byte;\
-				3: struct_recursion recursion;\
+				BOOLEAN bool;\
+				BYTE byte;\
+				struct_recursion recursion;\
 			};\
 		}";
 	try
@@ -2363,7 +1967,7 @@ void DictionaryTextParserTest::test_17()
 
 }
 
-void DictionaryTextParserTest::test_18()
+void DictionaryTextParserTestAutoId::test_15()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -2371,11 +1975,11 @@ void DictionaryTextParserTest::test_18()
 	// step 1
 	const char* text_dict =
 		"USDS 1:MyLittleAPI 1.1 {\
-			1: struct_recursion\
+			struct_recursion\
 			{\
-				1: BOOLEAN bool;\
-				2: BYTE byte;\
-				3: struct_recursion recursion = NULL;\
+				BOOLEAN bool;\
+				BYTE byte;\
+				struct_recursion recursion = NULL;\
 			};\
 		}";
 	parser->parse(text_dict, usds::USDS_UTF8, &dict);
@@ -2395,7 +1999,7 @@ void DictionaryTextParserTest::test_18()
 
 }
 
-void DictionaryTextParserTest::test_19()
+void DictionaryTextParserTestAutoId::test_16()
 {
 	usds::DictionaryTextParser* parser = new usds::DictionaryTextParser();
 	usds::Dictionary dict(0);
@@ -2403,30 +2007,30 @@ void DictionaryTextParserTest::test_19()
 	// step 1
 	const char* text_dict =
 		"\xEF\xBB\xBFUSDS MyLittleAPI {\
-			1: struct\
+			struct\
 			{\
-				1: BOOLEAN bool;\
-				2: internal_struct\
+				BOOLEAN bool;\
+				internal_struct\
 				{\
-					1: BOOLEAN bool;\
-					2: BYTE byte;\
+					BOOLEAN bool;\
+					BYTE byte;\
 				};\
-				3: BYTE byte;\
-				4: internal_struct2\
+				BYTE byte;\
+				internal_struct2\
 				{\
-					1: BYTE byte;\
-					2: internal_internal_struct\
+					BYTE byte;\
+					internal_internal_struct\
 					{\
-						1: BYTE byte;\
-						2: BOOLEAN bool;\
+						BYTE byte;\
+						BOOLEAN bool;\
 					};\
-					3: BOOLEAN bool;\
+					BOOLEAN bool;\
 				};\
 			};\
-			2: BYTE byte;\
-			3: struct2\
+			BYTE byte;\
+			struct2\
 			{\
-				1: BOOLEAN bool;\
+				BOOLEAN bool;\
 			};\
 		}";
 	parser->parse(text_dict, usds::USDS_UTF8, &dict);

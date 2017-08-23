@@ -15,6 +15,7 @@ namespace usds
 		virtual ~DictionaryStruct();
 
 		DictionaryBaseType* addField(usdsType field_type, int32_t id, const char* name, size_t name_size) throw(...);
+		DictionaryBaseType* addField(usdsType field_type, const char* name, size_t name_size) throw(...);
 
 		DictionaryBaseType* getFirstField();
 		DictionaryBaseType* getLastField();

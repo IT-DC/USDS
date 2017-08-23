@@ -43,6 +43,8 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_STRING] = new TemplateObjectPool<DictionaryString, Dictionary>(dict);
 	pools[USDS_ARRAY] = new TemplateObjectPool<DictionaryArray, Dictionary>(dict);
 	pools[USDS_STRUCT] = new TemplateObjectPool<DictionaryStruct, Dictionary>(dict);
+	pools[USDS_ENUM] = 0;
+	pools[USDS_POLYMORPH] = 0;
 };
 
 DictionaryObjectPool::~DictionaryObjectPool()

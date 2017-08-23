@@ -93,6 +93,17 @@ catch (ErrorStack& err)
 	throw;
 };
 
+DictionaryBaseType* Dictionary::addTag(usdsType tag_type, const char* name, size_t name_size) throw (...)
+try
+{
+	return addTag(tag_type, tagNumber + 1, name, name_size);
+}
+catch (ErrorStack& err)
+{
+	(err.addLevel("Dictionary::addTag") << tag_type ).addStringAndSize(name, name_size);
+	throw;
+};
+
 DictionaryBaseType* Dictionary::addField(usdsType field_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw (...)
 try
 {

@@ -27,6 +27,7 @@ namespace usds
 		
 		// construction
 		DictionaryBaseType* addTag(usdsType tag_type, int32_t id, const char* name, size_t name_size) throw (...);
+		DictionaryBaseType* addTag(usdsType tag_type, const char* name, size_t name_size) throw (...);
 		DictionaryBaseType* addField(usdsType field_type, DictionaryBaseType* parent, int32_t id, const char* name, size_t name_size) throw (...);
 
 		// Replace Tag names to tag ID, check errors

@@ -42,6 +42,8 @@ BodyObjectPool::BodyObjectPool(Body* parent_body)
 	pools[USDS_STRING] = new TemplateObjectPool<UsdsString, Body>(parent_body);
 	pools[USDS_ARRAY] = new TemplateObjectPool<UsdsArray, Body>(parent_body);
 	pools[USDS_STRUCT] = new TemplateObjectPool<UsdsStruct, Body>(parent_body);
+	pools[USDS_ENUM] = 0;
+	pools[USDS_POLYMORPH] = 0;
 }
 
 BodyObjectPool::~BodyObjectPool()

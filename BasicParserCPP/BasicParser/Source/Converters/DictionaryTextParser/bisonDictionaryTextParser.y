@@ -58,16 +58,15 @@
 	float 			floatVal;
     double 			doubleVal;
     size_t			stringVal[2];
-	usdsEncodes		encodeVal;
-	usdsTypes		typeVal;
+	usdsEncode		encodeVal;
+	usdsType		typeVal;
 	struct			floatDigits { double value; double digits; } floatDigits;
 }
 
 // Tokens
 %token USDS
-%token ID
-%token NAME
-%token V
+
+%token ENCODE
 
 %token<typeVal> TYPE_BOOLEAN "BOOLEAN"
 %token<typeVal> TYPE_BYTE "BYTE"
@@ -126,6 +125,7 @@
 
 %type<uInt32Val> array_dimension "Array declaration"
 %type<uInt32Val> array_of_struct_begin "Array of struct declaration"
+%type<uInt32Val> array_of_struct_begin_auto_id "Array of struct declaration (auto id)"
 
 %{
 #undef yylex
@@ -135,42 +135,54 @@
 //=================================================================================================
 // Rules
 %%
-dictionary: 
-	USDS ID UINT32_T NAME TEXT_NAME V UINT8_T '.' UINT8_T
+dictionary:
+	head '{' tags '}'
 	{
-		dict->setID(input_text + $5[0], $5[1], $3, $7, $9);
-	}
-	'{' tags '}'
-	{
-		// Finilize dictionary
 		dict->finalizeDictionary();
 	}
-	|USDS NAME TEXT_NAME ID UINT32_T V UINT8_T '.' UINT8_T
+	|head dict_attributes '{' tags '}'
 	{
-		dict->setID(input_text + $3[0], $3[1], $5, $7, $9);
-	}
-	'{' tags '}'
-	{
-		// Finilize dictionary
 		dict->finalizeDictionary();
 	}
-	|USDS ID UINT32_T V UINT8_T '.' UINT8_T NAME TEXT_NAME 
+	|head '{' tags_auto_id '}'
 	{
-		dict->setID(input_text + $9[0], $9[1], $3, $5, $7);
+		dict->finalizeDictionary();
 	}
-	'{' tags '}'
+	|head dict_attributes '{' tags_auto_id '}'
 	{
-		// Finilize dictionary
 		dict->finalizeDictionary();
 	}
 	;
 
+head:
+	USDS UINT32_T ':' TEXT_NAME UINT8_T '.' UINT8_T
+	{
+		dict->setID(input_text + $4[0], $4[1], $2, $5, $7);
+	}
+	|USDS TEXT_NAME UINT8_T '.' UINT8_T
+	{
+		dict->setID(input_text + $2[0], $2[1], 0, $3, $5);
+	}
+	|USDS TEXT_NAME
+	{
+		dict->setID(input_text + $2[0], $2[1], 0, 0, 0);
+	}
+	;
+
+dict_attributes: dict_attribute | dict_attribute dict_attributes;
+
+dict_attribute:
+	ENCODE STRING_ENCODE
+	{
+	
+	}
+	;
 	
 //=================================================================================================
 // Tags
 
 tags: tag |tag tags;
-	
+
 tag: INT32_T ':' TYPE_BOOLEAN TEXT_NAME ';'
 	{
 		tag = dict->addTag($3, $1, input_text + $4[0], $4[1]);
@@ -1087,7 +1099,933 @@ array_of_struct_begin:
 		$$ = $4;
 	}
 	;
+
+//=================================================================================================
+// Tags with auto ID
+
+tags_auto_id: tag_auto_id |tag_auto_id tags_auto_id;
+
+tag_auto_id:
+	TYPE_BOOLEAN TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_BYTE TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_UBYTE TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_SHORT TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_USHORT TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_INT TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_UINT TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_LONG TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_ULONG TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_INT128 TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_UINT128 TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_FLOAT TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_DOUBLE TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_VARINT TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_UVARINT TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_STRING TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
+	{
+		tag = dict->addTag($1, input_text + $5[0], $5[1]);
+		((DictionaryString*)tag)->setDefaultEncode($3);
+	}
+	|TEXT_NAME '{'
+	{
+		tag = dict->addTag(USDS_STRUCT, input_text + $1[0], $1[1]);
+	}
+	fields_auto_id '}' ';'
+	{
 	
+	}
+//=================================================================================================
+// Arrays
+	|TYPE_BOOLEAN array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_BYTE array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_UBYTE array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_SHORT array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_USHORT array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_INT array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_UINT array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_LONG array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_ULONG array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_INT128 array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_UINT128 array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_FLOAT array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_DOUBLE array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_VARINT array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_UVARINT array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_STRING array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		arr_tag->setElementType($1);
+	}
+	|TYPE_STRING '<' STRING_ENCODE '>' array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $6[0], $6[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $5; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		usds::DictionaryString* string_element = (usds::DictionaryString*)arr_tag->setElementType($1);
+		string_element->setDefaultEncode($3);
+	}
+	|TEXT_NAME array_dimension '{'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $1[0], $1[1]);
+		usds::DictionaryArray* arr_tag = (usds::DictionaryArray*)tag;
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_tag = (usds::DictionaryArray*)arr_tag->setElementType(usds::USDS_ARRAY);
+		}
+		// for fields
+		tag = arr_tag->setElementType(USDS_STRUCT);
+	}
+	fields_auto_id '}' ';'
+	{
+	
+	}
+	;
+	
+//=================================================================================================
+// Struct fields
+
+fields_auto_id: field_auto_id |field_auto_id fields_auto_id;
+
+field_auto_id:
+	TYPE_BOOLEAN TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_BYTE TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_UBYTE TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_SHORT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_USHORT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_INT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_UINT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_LONG TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_ULONG TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_INT128 TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_UINT128 TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_FLOAT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_DOUBLE TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_VARINT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_UVARINT TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}
+	|TYPE_STRING TEXT_NAME ';'
+	{
+		((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+	}	
+	|TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField($1, input_text + $5[0], $5[1]);
+		((DictionaryString*)field)->setDefaultEncode($3);
+	}
+	|TEXT_NAME TEXT_NAME ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_TAG, input_text + $2[0], $2[1]);
+		((DictionaryTagLink*)field)->setTag(input_text + $1[0], $1[1]);
+	}
+	|struct_begin_auto_id fields_auto_id '}' ';'
+	{
+		tag = tag->getParent();
+	}
+//=================================================================================================
+// Array fields
+	|TYPE_BOOLEAN array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_BYTE array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_UBYTE array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_SHORT array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_USHORT array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_INT array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_UINT array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_LONG array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_ULONG array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_INT128 array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_UINT128 array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_FLOAT array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_DOUBLE array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_VARINT array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_UVARINT array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_STRING array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}	
+	|TYPE_STRING '<' STRING_ENCODE '>' array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $6[0], $6[1]);
+		for (uint32_t i = 1; i < $5; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		DictionaryString* element = (DictionaryString*)arr_field->setElementType($1);	
+		element->setDefaultEncode($3);
+	}
+	|array_of_struct_begin_auto_id fields_auto_id '}' ';'
+	{
+		for (uint32_t i = 0; i <= $1; i++)
+		{
+			tag = tag->getParent();
+		}
+	}
+	|TEXT_NAME array_dimension TEXT_NAME ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		DictionaryTagLink* element = (DictionaryTagLink*)arr_field->setElementType(usds::USDS_TAG);
+		element->setTag(input_text + $1[0], $1[1]);
+	}
+//=================================================================================================
+// Nullable fields
+
+	|TYPE_BOOLEAN TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_BYTE TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_UBYTE TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_SHORT TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_USHORT TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_INT TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_UINT TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_LONG TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_ULONG TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_INT128 TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_UINT128 TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_FLOAT TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_DOUBLE TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_VARINT TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_UVARINT TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}
+	|TYPE_STRING TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
+		dict_field->setNullable(true);
+	}	
+	|TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $5[0], $5[1]);
+		((DictionaryString*)dict_field)->setDefaultEncode($3);
+		dict_field->setNullable(true);
+	}
+	|TEXT_NAME TEXT_NAME '=' NULL_VALUE ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_TAG, input_text + $2[0], $2[1]);
+		((DictionaryTagLink*)field)->setTag(input_text + $1[0], $1[1]);
+		field->setNullable(true);
+	}
+	|struct_begin_auto_id fields_auto_id '}' '=' NULL_VALUE ';'
+	{
+		tag->setNullable(true);
+		tag = tag->getParent();
+	}
+//=================================================================================================
+// Nullable array fields
+	|TYPE_BOOLEAN array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_BYTE array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_UBYTE array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_SHORT array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_USHORT array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_INT array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_UINT array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_LONG array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_ULONG array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_INT128 array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_UINT128 array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_FLOAT array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_DOUBLE array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_VARINT array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_UVARINT array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}
+	|TYPE_STRING array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		arr_field->setElementType($1);
+	}	
+	|TYPE_STRING '<' STRING_ENCODE '>' array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $6[0], $6[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $5; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		DictionaryString* element = (DictionaryString*)arr_field->setElementType($1);	
+		element->setDefaultEncode($3);
+	}
+	|array_of_struct_begin_auto_id fields_auto_id '}' '=' NULL_VALUE ';'
+	{
+		for (uint32_t i = 0; i < $1; i++)
+		{
+			tag = tag->getParent();
+		}
+		tag->setNullable(true);
+		tag = tag->getParent();
+	}
+	|TEXT_NAME array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		arr_field->setNullable(true);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		DictionaryTagLink* element = (DictionaryTagLink*)arr_field->setElementType(usds::USDS_TAG);
+		element->setTag(input_text + $1[0], $1[1]);
+	}
+//=================================================================================================
+// Fields with default value
+	|TYPE_BOOLEAN TEXT_NAME '=' BOOLEAN_VALUE ';'
+	{
+		usds::DictionaryBoolean* dict_field = (usds::DictionaryBoolean*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_BYTE TEXT_NAME '=' INT8_T ';'
+	{
+		usds::DictionaryByte* dict_field = (usds::DictionaryByte*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_UBYTE TEXT_NAME '=' UINT8_T ';'
+	{
+		usds::DictionaryUByte* dict_field = (usds::DictionaryUByte*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_SHORT TEXT_NAME '=' INT16_T ';'
+	{
+		usds::DictionaryShort* dict_field = (usds::DictionaryShort*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_USHORT TEXT_NAME '=' UINT16_T ';'
+	{
+		usds::DictionaryUShort* dict_field = (usds::DictionaryUShort*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_INT TEXT_NAME '=' INT32_T ';'
+	{
+		usds::DictionaryInt* dict_field = (usds::DictionaryInt*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_UINT TEXT_NAME '=' UINT32_T ';'
+	{
+		usds::DictionaryUInt* dict_field = (usds::DictionaryUInt*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_LONG TEXT_NAME '=' INT64_T ';'
+	{
+		usds::DictionaryLong* dict_field = (usds::DictionaryLong*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_ULONG TEXT_NAME '=' UINT64_T ';'
+	{
+		usds::DictionaryULong* dict_field = (usds::DictionaryULong*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_FLOAT TEXT_NAME '=' FLOAT_VALUE ';'
+	{
+		usds::DictionaryFloat* dict_field = (usds::DictionaryFloat*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue((float)$4);
+	}
+	|TYPE_DOUBLE TEXT_NAME '=' FLOAT_VALUE ';'
+	{
+		usds::DictionaryDouble* dict_field = (usds::DictionaryDouble*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_VARINT TEXT_NAME '=' INT64_T ';'
+	{
+		usds::DictionaryVarint* dict_field = (usds::DictionaryVarint*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_UVARINT TEXT_NAME '=' UINT64_T ';'
+	{
+		usds::DictionaryVarint* dict_field = (usds::DictionaryVarint*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValue($4);
+	}
+	|TYPE_STRING TEXT_NAME '=' TEXT_STRING ';'
+	{
+		usds::DictionaryString* dict_field = (usds::DictionaryString*)(((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]));
+		dict_field->setDefaultValueFromUTF8(input_text + $4[0], $4[1]);
+	}	
+	|TYPE_STRING '<' STRING_ENCODE '>' TEXT_NAME '=' TEXT_STRING ';'
+	{
+		usds::DictionaryString* dict_field = (usds::DictionaryString*)(((DictionaryStruct*)tag)->addField($1, input_text + $5[0], $5[1]));
+		dict_field->setDefaultEncode($3);
+		dict_field->setDefaultValueFromUTF8(input_text + $7[0], $7[1]);
+	}
+	;
+	
+struct_begin_auto_id:
+	TEXT_NAME '{'
+	{
+		tag = ((DictionaryStruct*)tag)->addField(usds::USDS_STRUCT, input_text + $1[0], $1[1]);
+	}
+	;
+	
+array_of_struct_begin_auto_id:
+	TEXT_NAME array_dimension '{'
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $1[0], $1[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		tag = arr_field->setElementType(usds::USDS_STRUCT);
+		$$ = $2;
+	}
+	;
+	
+//=================================================================================================
+// Arrays dimensions
+
 array_dimension:
 	'[' ']'
 	{

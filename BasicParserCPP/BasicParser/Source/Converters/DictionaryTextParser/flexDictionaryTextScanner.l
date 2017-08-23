@@ -38,16 +38,8 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::USDS);
 						}
 
-"ID:"					{
-							return (token::ID);
-						}
-
-"NAME:"					{
-							return (token::NAME);
-						}
-						
-"V:"					{
-							return (token::V);
+"ENCODE:"				{
+							return (token::ENCODE);
 						}
 						
 %{

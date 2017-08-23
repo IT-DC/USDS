@@ -52,6 +52,17 @@ catch (ErrorStack& err)
 	throw;
 };
 
+DictionaryBaseType* DictionaryStruct::addField(usdsType field_type, const char* name, size_t name_size) throw(...)
+try
+{
+	return addField(field_type, fieldNumber + 1, name, name_size);
+}
+catch (ErrorStack& err)
+{
+	(err.addLevel("DictionaryStruct::addField") << field_type ).addStringAndSize(name, name_size);
+	throw;
+};
+
 DictionaryBaseType* DictionaryStruct::getFirstField()
 {
 
