@@ -38,7 +38,7 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::USDS);
 						}
 
-"ENCODE"[ \t\r]+":"		{
+"ENCODE"[ \t\r]*":"		{
 							return (token::ENCODE);
 						}
 						

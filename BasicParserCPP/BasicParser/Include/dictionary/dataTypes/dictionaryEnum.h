@@ -1,5 +1,5 @@
-#ifndef DICTIONARY_STRUCT_H
-#define DICTIONARY_STRUCT_H
+#ifndef DICTIONARY_ENUM_H
+#define DICTIONARY_ENUM_H
 
 #include "usdsTypes.h"
 #include "usdsErrors.h"
@@ -31,6 +31,9 @@ namespace usds
 		// Dictionary finalization
 		void finalize() throw (...);
 
+		// for autotests
+		bool isIndexed();
+
 		usdsType getType() { return USDS_ENUM; };
 		const char* getTypeName() { return "ENUM"; };
 
@@ -61,6 +64,9 @@ namespace usds
 		bool isIndexUsed;	// index is not being used, if size is too big
 		int64_t enumeratorMinValue;
 		int64_t enumeratorMaxValue;
+		int64_t lastAddedEnumerator;
+
+		bool isFinalized;
 
 	};
 }

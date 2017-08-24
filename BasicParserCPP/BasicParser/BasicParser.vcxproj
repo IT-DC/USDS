@@ -163,6 +163,7 @@
     <ClCompile Include="Source\Body\DataTypes\usdsBoolean.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsByte.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsDouble.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsEnum.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsFloat.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsInt.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsLong.cpp" />

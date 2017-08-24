@@ -1,5 +1,4 @@
 #include "dictionary\dataTypes\dictionaryTagLink.h"
-#include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryBoolean.h"
 #include "dictionary\dataTypes\dictionaryByte.h"
 #include "dictionary\dataTypes\dictionaryUByte.h"
@@ -14,7 +13,9 @@
 #include "dictionary\dataTypes\dictionaryString.h"
 #include "dictionary\dataTypes\dictionaryVarint.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
+#include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
+#include "dictionary/dataTypes/dictionaryEnum.h"
 
 #include "dictionary\dicObjectPool.h"
 
@@ -43,7 +44,7 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_STRING] = new TemplateObjectPool<DictionaryString, Dictionary>(dict);
 	pools[USDS_ARRAY] = new TemplateObjectPool<DictionaryArray, Dictionary>(dict);
 	pools[USDS_STRUCT] = new TemplateObjectPool<DictionaryStruct, Dictionary>(dict);
-	pools[USDS_ENUM] = 0;
+	pools[USDS_ENUM] = new TemplateObjectPool<DictionaryEnum, Dictionary>(dict);
 	pools[USDS_POLYMORPH] = 0;
 };
 

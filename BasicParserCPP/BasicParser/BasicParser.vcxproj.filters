@@ -388,6 +388,9 @@
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryEnum.cpp">
       <Filter>Dictionary\Data types</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Body\DataTypes\usdsEnum.cpp">
+      <Filter>Body\Data types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.y">

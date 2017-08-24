@@ -15,7 +15,7 @@ namespace usds
 		const char* getTypeName() { return "ENUM"; };
 
 		usdsType getSubtype();
-		bool isBigendian();
+		bool isSubtypeBigendian();
 
 		// Slow methods (virtual)
 		void setValue(int8_t value) throw (...);
@@ -40,7 +40,6 @@ namespace usds
 
 		using UsdsBaseType::getValue;
 
-
 		// Fast methods (not virtual)
 		int64_t get();
 		void set(int64_t value);
@@ -51,7 +50,7 @@ namespace usds
 
 		int64_t objectValue;
 
-
+		usdsType subType;
 
 	};
 	

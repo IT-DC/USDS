@@ -11,6 +11,7 @@ UsdsLong::UsdsLong(Body* parent_body) : UsdsBaseType(parent_body)
 
 UsdsLong::~UsdsLong()
 {
+
 }
 
 void UsdsLong::additionalInitObject()
