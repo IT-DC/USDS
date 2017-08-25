@@ -20,6 +20,7 @@
 #include "dictionary\dataTypes\dictionaryVarint.h"
 #include "dictionary\dataTypes\dictionaryUVarint.h"
 #include "dictionary\dataTypes\dictionaryString.h"
+#include "dictionary\dataTypes\dictionaryEnum.h"
 
 #include "body\dataTypes\usdsStruct.h"
 
@@ -679,5 +680,71 @@ void UsdsStructTest::test_3()
 
 }
 
+// test Enum default values
+void UsdsStructTest::test_4()
+{
+	usds::Dictionary dict(0);
+	dict.setID("name", 1, 0, 0);
+	usds::Body body;
+	usds::DictionaryStruct* dict_struct = 0;
+	usds::UsdsStruct* body_struct = 0;
+	usds::DictionaryEnum* dict_enum = 0;
 
+	dict_struct = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 1, "struct", 0);
+	
+	dict_enum = (usds::DictionaryEnum*)dict_struct->addField(usds::USDS_ENUM, 1, "enum1", 0);
+	dict_enum->addEnumerator(99999, "p99999", 0);
+	dict_enum->setDefaultValue(99999);
+	
+	dict_enum = (usds::DictionaryEnum*)dict_struct->addField(usds::USDS_ENUM, 2, "enum2", 0);
+	dict_enum->addEnumerator(-99999, "m99999", 0);
+	dict_enum->setDefaultValue(-99999);
+	
+	dict_enum = (usds::DictionaryEnum*)dict_struct->addField(usds::USDS_ENUM, 3, "enum3", 0);
+	dict_enum->setSubtype(usds::USDS_SHORT, false);
+	dict_enum->addEnumerator(10000, "p10000", 0);
+	dict_enum->setDefaultValue(10000);
+	
+	dict_enum = (usds::DictionaryEnum*)dict_struct->addField(usds::USDS_ENUM, 4, "enum4", 0);
+	dict_enum->setSubtype(usds::USDS_SHORT, false);
+	dict_enum->addEnumerator(-10000, "m10000", 0);
+	dict_enum->setDefaultValue(-10000);
 
+	dict_enum = (usds::DictionaryEnum*)dict_struct->addField(usds::USDS_ENUM, 5, "enum5", 0);
+	dict_enum->setSubtype(usds::USDS_SHORT, false);
+	dict_enum->addEnumerator(10000, "p10000", 0);
+	dict_enum->setDefaultFromUTF8("p10000");
+
+	dict_enum = (usds::DictionaryEnum*)dict_struct->addField(usds::USDS_ENUM, 6, "enum6", 0);
+	dict_enum->setSubtype(usds::USDS_SHORT, false);
+	dict_enum->addEnumerator(-10000, "m10000", 0);
+	dict_enum->setDefaultFromUTF8("m10000");
+
+	dict.finalizeDictionary();
+	body_struct = (usds::UsdsStruct*)body.addTag(dict_struct);
+
+	// test 1
+	if (body_struct->getFieldValue<int32_t>("enum1") != 99999)
+		throw "Failed at the step 1\n";
+
+	// test 2
+	if (body_struct->getFieldValue<int32_t>("enum2") != -99999)
+		throw "Failed at the step 2\n";
+
+	// test 3
+	if (body_struct->getFieldValue<int32_t>("enum3") != 10000)
+		throw "Failed at the step 3\n";
+
+	// test 4
+	if (body_struct->getFieldValue<int32_t>("enum4") != -10000)
+		throw "Failed at the step 4\n";
+
+	// test 5
+	if (body_struct->getFieldValue<int32_t>("enum5") != 10000)
+		throw "Failed at the step 5\n";
+
+	// test 6
+	if (body_struct->getFieldValue<int32_t>("enum6") != -10000)
+		throw "Failed at the step 6\n";
+
+}

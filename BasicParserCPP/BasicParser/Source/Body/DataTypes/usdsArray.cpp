@@ -12,6 +12,7 @@
 #include "dictionary\dataTypes\dictionaryULong.h"
 #include "dictionary\dataTypes\dictionaryFloat.h"
 #include "dictionary\dataTypes\dictionaryDouble.h"
+#include "dictionary/dataTypes/dictionaryEnum.h"
 
 using namespace usds;
 
@@ -34,17 +35,10 @@ size_t UsdsArray::getSize()
 void UsdsArray::setBufferSize(size_t buffer_size) throw(...)
 try
 {
-	if (elementType == USDS_UVARINT || elementType == USDS_VARINT)
-	{
-		elementValues.setBufferSize(USDS_ULONG_SIZE * buffer_size);
-	}
+	if (elementInBinarySize == 0)
+		elementValues.setBufferSize(sizeof(void*) * buffer_size);
 	else
-	{
-		if (elementSize == 0)
-			elementValues.setBufferSize(sizeof(void*) * buffer_size);
-		else
-			elementValues.setBufferSize(elementSize * buffer_size);
-	}
+		elementValues.setBufferSize(elementInBinarySize * buffer_size);
 }
 catch (ErrorStack& err)
 {
@@ -54,23 +48,16 @@ catch (ErrorStack& err)
 
 size_t UsdsArray::getBufferSize()
 {
-	if (elementType == USDS_UVARINT || elementType == USDS_VARINT)
-	{
-		return elementValues.getBufferSize() / USDS_ULONG_SIZE;
-	}
+	if (elementInBinarySize == 0)
+		return elementValues.getBufferSize() / sizeof(void*);
 	else
-	{
-		if (elementSize == 0)
-			return elementValues.getBufferSize() / sizeof(void*);
-		else
-			return elementValues.getBufferSize() / elementSize;
-	}
+		return elementValues.getBufferSize() / elementInBinarySize;
 }
 
 usdsType UsdsArray::getElementType()
 {
 
-	return elementType;
+	return arrayDictionaryElement->getType();
 };
 
 const char* UsdsArray::getElementName()
@@ -83,14 +70,9 @@ size_t UsdsArray::getElementNameSize()
 	return arrayDictionaryElement->getNameSize();
 }
 
-int32_t UsdsArray::getElementId()
-{
-	return arrayDictionaryElement->getID();
-}
-
 bool UsdsArray::isBigendianElement()
 {
-	switch (elementType)
+	switch (elementInBinaryType)
 	{
 	case USDS_SHORT:
 		return ((DictionaryShort*)arrayDictionaryElement)->getBigendian();
@@ -108,6 +90,8 @@ bool UsdsArray::isBigendianElement()
 		return ((DictionaryFloat*)arrayDictionaryElement)->getBigendian();
 	case USDS_DOUBLE:
 		return ((DictionaryDouble*)arrayDictionaryElement)->getBigendian();
+	case USDS_ENUM:
+		return ((DictionaryEnum*)arrayDictionaryElement)->isSubtypeBigendian();
 	default:
 		return false;
 	}
@@ -120,14 +104,10 @@ bool UsdsArray::isBigendianElement()
 void UsdsArray::pushBack(bool value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -144,14 +124,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(int8_t value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -168,14 +144,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(uint8_t value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -192,14 +164,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(int16_t value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -216,14 +184,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(uint16_t value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -240,14 +204,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(int32_t value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -264,14 +224,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(uint32_t value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -288,14 +244,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(int64_t value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -312,14 +264,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(uint64_t value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -336,14 +284,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(float value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -360,14 +304,10 @@ catch (ErrorStack& err)
 void UsdsArray::pushBack(double value) throw (...)
 try
 {
-	if (elementSize != 0)
-		elementValues.write(elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.write(USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.write(USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.write(elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Boolean, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 
 	elementNumber++;
 }
@@ -390,14 +330,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple, UVARINT, VARINT or ENUM, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -415,14 +351,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -440,14 +372,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -465,14 +393,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -490,14 +414,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -515,14 +435,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -540,14 +456,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -565,14 +477,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -590,14 +498,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -615,14 +519,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -640,14 +540,10 @@ try
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
 
-	if (elementSize != 0)
-		elementValues.read(position * elementSize, elementType, value);
-	else if (elementType == USDS_UVARINT)
-		elementValues.read(position * USDS_ULONG_SIZE, USDS_ULONG, value);
-	else if (elementType == USDS_VARINT)
-		elementValues.read(position * USDS_LONG_SIZE, USDS_LONG, value);
+	if (elementInBinarySize != 0)
+		elementValues.read(position * elementInBinarySize, elementInBinaryType, value);
 	else
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use method pushElementBack.";
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_SIMPLE) << "Array element must be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use method pushElementBack.";
 }
 catch (ErrorMessage& msg)
 {
@@ -664,8 +560,8 @@ catch (ErrorStack& err)
 UsdsBaseType* UsdsArray::pushElementBack() throw(...)
 try
 {
-	if (elementSize != 0 || elementType == USDS_UVARINT || elementType == USDS_VARINT)
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use methods PushBack.";
+	if (elementInBinarySize != 0)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use methods PushBack.";
 
 	UsdsBaseType* element = parentBody->addField(arrayDictionaryElement, this);
 	elementValues.writePointer(element);
@@ -686,8 +582,8 @@ catch (ErrorStack& err)
 UsdsBaseType* UsdsArray::getElement(size_t position) throw(...)
 try
 {
-	if (elementSize != 0 || elementType == USDS_UVARINT || elementType == USDS_VARINT)
-		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple type or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementType) << ". Use methods getValue.";
+	if (elementInBinarySize != 0)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple type or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use methods getValue.";
 	
 	if (position >= elementNumber)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Can not find element [" << position << "], element number = " << elementNumber;
@@ -712,17 +608,30 @@ catch (ErrorStack& err)
 void UsdsArray::additionalInitObject()
 try
 {
-	elementType = ((DictionaryArray*)parentDictionaryObject)->getElementType();
-	if (elementType == USDS_TAG)
+	arrayDictionaryElement = ((DictionaryArray*)parentDictionaryObject)->getElement();
+	while (arrayDictionaryElement->getType() == USDS_TAG)
+		arrayDictionaryElement = ((DictionaryTagLink*)arrayDictionaryElement)->getTag();
+
+	elementInBinaryType = arrayDictionaryElement->getType();
+
+	switch(elementInBinaryType)
 	{
-		arrayDictionaryElement = ((DictionaryTagLink*)(((DictionaryArray*)parentDictionaryObject)->getElement()))->getTag();
-		elementType = arrayDictionaryElement->getType();
+	case USDS_VARINT:
+		elementInBinaryType = USDS_LONG;
+		break;
+	case USDS_UVARINT:
+		elementInBinaryType = USDS_ULONG;
+		break;
+	case USDS_ENUM:
+		elementInBinaryType = ((DictionaryEnum*)arrayDictionaryElement)->getSubtype();
+		if (elementInBinaryType == USDS_VARINT)
+			elementInBinaryType = USDS_LONG;
+		break;
+	default:
+		break;
 	}
-	else
-	{
-		arrayDictionaryElement = ((DictionaryArray*)parentDictionaryObject)->getElement();
-	}
-	elementSize = UsdsTypes::typeSize(elementType);
+
+	elementInBinarySize = UsdsTypes::typeSize(elementInBinaryType);
 	
 	elementNumber = 0;
 	elementValues.clear();

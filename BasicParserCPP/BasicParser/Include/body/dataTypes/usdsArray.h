@@ -91,12 +91,12 @@ namespace usds
 
 		void additionalInitObject();
 
-		usdsType elementType;
 		DictionaryBaseType* arrayDictionaryElement;
 
 		BinaryOutput elementValues;
 		size_t elementNumber;
-		size_t elementSize;
+		usdsType elementInBinaryType;
+		size_t elementInBinarySize;
 
 	};
 

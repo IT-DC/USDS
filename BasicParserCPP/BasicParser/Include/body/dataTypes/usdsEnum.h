@@ -44,6 +44,12 @@ namespace usds
 		int64_t get();
 		void set(int64_t value);
 
+		void setFromUTF8(const char* name) throw (...);
+		void setFromUTF8(const char* name, size_t byte_size) throw (...);
+
+		const char* getUTF8Value() throw (...);
+		const char* getUTF8Value(size_t* byte_size) throw (...);
+
 	private:
 
 		void additionalInitObject();

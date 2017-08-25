@@ -23,9 +23,19 @@ namespace usds
 
 		// return 0 if not found
 		const char* getEnumerator(int64_t value);
+		
+		int64_t getValue(const char* name);
+		int64_t getValue(const char* name, size_t name_size);
 
 		void setDefaultValue(int64_t value);
+		void setDefaultFromUTF8(const char* name);
+		void setDefaultFromUTF8(const char* name, size_t size);
+
 		int64_t getDefaultValue();
+		// return 0 if not found
+		const char* getDefaultAsUTF8() throw (...);
+		const char* getDefaultAsUTF8(size_t* byte_size) throw (...);
+
 		bool hasDefaultValue();
 
 		// Dictionary finalization

@@ -40,7 +40,7 @@
 
 # include <vector>
 
-#line 36 "bisonDictionaryTextParser.y" // stack.hh:133
+#line 37 "bisonDictionaryTextParser.y" // stack.hh:133
 namespace usds {
 #line 46 "stack.hh" // stack.hh:133
   template <class T, class S = std::vector<T> >
@@ -151,7 +151,7 @@ namespace usds {
     unsigned int range_;
   };
 
-#line 36 "bisonDictionaryTextParser.y" // stack.hh:133
+#line 37 "bisonDictionaryTextParser.y" // stack.hh:133
 } // usds
 #line 157 "stack.hh" // stack.hh:133
 

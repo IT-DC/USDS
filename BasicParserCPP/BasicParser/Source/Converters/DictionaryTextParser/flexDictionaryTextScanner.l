@@ -41,6 +41,11 @@ typedef BisonDictionaryTextParser::token_type token_type;
 "ENCODE"[ \t\r]*":"		{
 							return (token::ENCODE);
 						}
+
+"ENUMERATOR"[ \t\r]*":"		{
+							return (token::ENUMERATOR);
+						}
+
 						
 %{
 /* =============================================================================== */
@@ -127,6 +132,11 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return (token::TYPE_STRING);
 						}
 
+"ENUM"					{
+							yylval->typeVal = USDS_ENUM;
+							return (token::TYPE_ENUM);
+						}
+						
 %{
 /* =============================================================================== */
 /* String encodes */ 
@@ -425,6 +435,11 @@ typedef BisonDictionaryTextParser::token_type token_type;
 							return '.';
 						}
 
+","						{
+							return ',';
+						}
+
+						
 "("						{
 							return '(';
 						}

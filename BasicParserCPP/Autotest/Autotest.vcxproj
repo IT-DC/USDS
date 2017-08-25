@@ -85,6 +85,7 @@
     <ClCompile Include="Source\UnitTest\Body\usdsBooleanTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsByteTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsDoubleTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsEnumTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsFloatTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsIntTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsLongTest.cpp" />

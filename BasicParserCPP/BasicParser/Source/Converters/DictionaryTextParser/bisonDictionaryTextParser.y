@@ -20,6 +20,7 @@
 	#include "dictionary\dataTypes\dictionaryString.h"
 	#include "dictionary\dataTypes\dictionaryArray.h"	
 	#include "dictionary\dataTypes\dictionaryStruct.h"
+	#include "dictionary\dataTypes\dictionaryEnum.h"
 
 	#include "usdsTypes.h"
 	
@@ -67,6 +68,7 @@
 %token USDS
 
 %token ENCODE
+%token ENUMERATOR
 
 %token<typeVal> TYPE_BOOLEAN "BOOLEAN"
 %token<typeVal> TYPE_BYTE "BYTE"
@@ -84,6 +86,9 @@
 %token<typeVal> TYPE_VARINT "VARINT"
 %token<typeVal> TYPE_UVARINT "UVARINT"
 %token<typeVal> TYPE_STRING "STRING"
+%token<typeVal> TYPE_ENUM "ENUM"
+
+%type<typeVal> USDS_TYPE "USDS type"
 
 %token<encodeVal> STRING_ENCODE "<Text encode>"
 
@@ -176,6 +181,30 @@ dict_attribute:
 	{
 		dict->setDefaultStringEncode($2);
 	}
+	|ENUMERATOR USDS_TYPE
+	{
+		dict->setDefaultEnumSubtype($2, false);
+	}
+	;
+
+USDS_TYPE:
+	TYPE_BOOLEAN	{$$ = $1;}
+	|TYPE_BYTE		{$$ = $1;}
+	|TYPE_UBYTE		{$$ = $1;}
+	|TYPE_SHORT		{$$ = $1;}
+	|TYPE_USHORT	{$$ = $1;}
+	|TYPE_INT		{$$ = $1;}
+	|TYPE_UINT		{$$ = $1;}
+	|TYPE_LONG		{$$ = $1;}
+	|TYPE_ULONG		{$$ = $1;}
+	|TYPE_INT128	{$$ = $1;}
+	|TYPE_UINT128	{$$ = $1;}
+	|TYPE_FLOAT		{$$ = $1;}
+	|TYPE_DOUBLE	{$$ = $1;}
+	|TYPE_VARINT	{$$ = $1;}
+	|TYPE_UVARINT	{$$ = $1;}
+	|TYPE_STRING	{$$ = $1;}
+	|TYPE_ENUM		{$$ = $1;}
 	;
 	
 //=================================================================================================
@@ -260,6 +289,18 @@ tag: INT32_T ':' TYPE_BOOLEAN TEXT_NAME ';'
 	{
 	
 	}
+	|INT32_T ':' TYPE_ENUM TEXT_NAME
+	{
+		tag = dict->addTag(USDS_ENUM, $1, input_text + $4[0], $4[1]);
+	}
+	'{' enumerators '}' ';'
+	|INT32_T ':' TYPE_ENUM '<' USDS_TYPE '>' TEXT_NAME
+	{
+		tag = dict->addTag(USDS_ENUM, $1, input_text + $7[0], $7[1]);
+		((DictionaryEnum*)tag)->setSubtype($5, false);
+	}
+	'{' enumerators '}' ';'
+
 //=================================================================================================
 // Arrays
 	|INT32_T ':' TYPE_BOOLEAN array_dimension TEXT_NAME ';'
@@ -2034,6 +2075,18 @@ array_dimension:
 	|array_dimension '[' ']'
 	{
 		$$ = $$ + 1;
+	}
+	;
+
+//=================================================================================================
+// Enumerators
+	
+enumerators: enumerator | enumerator ',' enumerators;
+
+enumerator:
+	TEXT_NAME
+	{
+		((DictionaryEnum*)tag)->addEnumerator(input_text + $1[0], $1[1]);
 	}
 	;
 	

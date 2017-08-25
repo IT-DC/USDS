@@ -7,6 +7,7 @@
 #include "dictionary\dataTypes\dictionaryStruct.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
 #include "dictionary\dataTypes\dictionaryInt.h"
+#include "dictionary\dataTypes\dictionaryEnum.h"
 #include "dictionary\usdsDictionary.h"
 
 void UsdsArrayTest::test_1()
@@ -634,7 +635,7 @@ void UsdsArrayTest::test_6()
 	// step 0.5
 	try
 	{
-		if (body_array->getElementType() != usds::USDS_INT || strcmp(body_array->getElementName(), "int") != 0 || body_array->getElementId() != 1 || body_array->isBigendianElement() == true)
+		if (body_array->getElementType() != usds::USDS_INT || strcmp(body_array->getElementName(), "int") != 0 || body_array->isBigendianElement() == true)
 			throw "Failed at the step 0.5\n";
 	}
 	catch (...)
@@ -3699,5 +3700,598 @@ void UsdsArrayTest::test_19()
 	}
 
 
+}
+
+// Array of enum with SHORT subtype
+void UsdsArrayTest::test_20()
+{
+	usds::Dictionary dict(0);
+	dict.setID("name", 1, 0, 0);
+	usds::Body body;
+	usds::DictionaryArray* dict_array = 0;
+	usds::UsdsArray* body_array = 0;
+	dict_array = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
+	usds::DictionaryEnum* dict_element = (usds::DictionaryEnum*)dict_array->setElementType(usds::USDS_ENUM);
+	dict_element->setSubtype(usds::USDS_SHORT, false);
+	dict_element->addEnumerator(1, "V1", 0);
+	dict.finalizeDictionary();
+	body_array = (usds::UsdsArray*)body.addTag(dict_array);
+
+	// step 1
+	try
+	{
+		int8_t value = 1;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 1)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	}
+
+	// step 2
+	try
+	{
+		uint8_t value = 2;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 2)
+			throw "Failed at the step 2\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 2\n";
+	}
+
+	// step 3
+	try
+	{
+		int16_t value = 3;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 3)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	}
+
+	// step 4
+	try
+	{
+		uint16_t value = 4;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 4)
+			throw "Failed at the step 4\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 4\n";
+	}
+
+	// step 5
+	try
+	{
+		int32_t value = 5;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 5)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	}
+
+	// step 6
+	try
+	{
+		uint32_t value = 6;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 6)
+			throw "Failed at the step 6\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 6\n";
+	}
+
+	// step 7
+	try
+	{
+		int64_t value = 7;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 7)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	}
+
+	// step 8
+	try
+	{
+		uint64_t value = 8;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 8)
+			throw "Failed at the step 8\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 8\n";
+	}
+
+	// step 9
+	try
+	{
+		body_array->pushElementBack();
+		throw "Failed at the step 9\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BODY_ARRAY__ELEMENT_NOT_DIFFICULT)
+		{
+			throw "Failed at the step 9\n";
+		}
+	}
+
+	// step 10
+	try
+	{
+		double value = 1.25;
+		body_array->pushBack(value);
+		throw "Failed at the step 10\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
+		{
+			throw "Failed at the step 10\n";
+		}
+	}
+
+	// step 11
+	try
+	{
+		int8_t value = 0;
+		body_array->getValue(7, &value);
+		if (value != 8)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	}
+
+	// step 12
+	try
+	{
+		uint8_t value = 0;
+		body_array->getValue(6, &value);
+		if (value != 7)
+			throw "Failed at the step 12\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 12\n";
+	}
+
+	// step 13
+	try
+	{
+		int16_t value = 0;
+		body_array->getValue(5, &value);
+		if (value != 6)
+			throw "Failed at the step 13\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 13\n";
+	}
+
+	// step 14
+	try
+	{
+		uint16_t value = 0;
+		body_array->getValue(4, &value);
+		if (value != 5)
+			throw "Failed at the step 14\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 14\n";
+	}
+
+	// step 15
+	try
+	{
+		int32_t value = 0;
+		body_array->getValue(3, &value);
+		if (value != 4)
+			throw "Failed at the step 15\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 15\n";
+	}
+
+	// step 16
+	try
+	{
+		uint32_t value = 0;
+		body_array->getValue(2, &value);
+		if (value != 3)
+			throw "Failed at the step 16\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 16\n";
+	}
+
+	// step 17
+	try
+	{
+		int64_t value = 0;
+		body_array->getValue(1, &value);
+		if (value != 2)
+			throw "Failed at the step 17\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 17\n";
+	}
+
+	// step 18
+	try
+	{
+		uint64_t value = 0;
+		body_array->getValue(0, &value);
+		if (value != 1)
+			throw "Failed at the step 18\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 18\n";
+	}
+
+	// step 19
+	try
+	{
+		body_array->getElement(0);
+		throw "Failed at the step 19\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BODY_ARRAY__ELEMENT_NOT_DIFFICULT)
+		{
+			throw "Failed at the step 19\n";
+		}
+	}
+
+	// step 20
+	try
+	{
+		double value = 0;
+		body_array->getValue(0, &value);
+		throw "Failed at the step 20\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
+		{
+			throw "Failed at the step 20\n";
+		}
+	}
+
+	// step 21
+	try
+	{
+		int64_t value = 0;
+		body_array->getValue(8, &value);
+		throw "Failed at the step 21\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BODY_ARRAY__ELEMENT_NOT_FOUND)
+		{
+			throw "Failed at the step 21\n";
+		}
+	}
+}
+
+// Array of enum with VARINT subtype
+void UsdsArrayTest::test_21()
+{
+	usds::Dictionary dict(0);
+	dict.setID("name", 1, 0, 0);
+	usds::Body body;
+	usds::DictionaryArray* dict_array = 0;
+	usds::UsdsArray* body_array = 0;
+	dict_array = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 1, "array", 0);
+	usds::DictionaryEnum* dict_element = (usds::DictionaryEnum*)dict_array->setElementType(usds::USDS_ENUM);
+	dict_element->addEnumerator(1, "V1", 0);
+	dict.finalizeDictionary();
+	body_array = (usds::UsdsArray*)body.addTag(dict_array);
+
+	// step 1
+	try
+	{
+		int8_t value = 1;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 1)
+			throw "Failed at the step 1\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 1\n";
+	}
+
+	// step 2
+	try
+	{
+		uint8_t value = 2;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 2)
+			throw "Failed at the step 2\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 2\n";
+	}
+
+	// step 3
+	try
+	{
+		int16_t value = 3;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 3)
+			throw "Failed at the step 3\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 3\n";
+	}
+
+	// step 4
+	try
+	{
+		uint16_t value = 4;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 4)
+			throw "Failed at the step 4\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 4\n";
+	}
+
+	// step 5
+	try
+	{
+		int32_t value = 5;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 5)
+			throw "Failed at the step 5\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 5\n";
+	}
+
+	// step 6
+	try
+	{
+		uint32_t value = 6;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 6)
+			throw "Failed at the step 6\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 6\n";
+	}
+
+	// step 7
+	try
+	{
+		int64_t value = 7;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 7)
+			throw "Failed at the step 7\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 7\n";
+	}
+
+	// step 8
+	try
+	{
+		uint64_t value = 8;
+		body_array->pushBack(value);
+		if (body_array->getSize() != 8)
+			throw "Failed at the step 8\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 8\n";
+	}
+
+	// step 9
+	try
+	{
+		body_array->pushElementBack();
+		throw "Failed at the step 9\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BODY_ARRAY__ELEMENT_NOT_DIFFICULT)
+		{
+			throw "Failed at the step 9\n";
+		}
+	}
+
+	// step 10
+	try
+	{
+		double value = 1.25;
+		body_array->pushBack(value);
+		throw "Failed at the step 10\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
+		{
+			throw "Failed at the step 10\n";
+		}
+	}
+
+	// step 11
+	try
+	{
+		int8_t value = 0;
+		body_array->getValue(7, &value);
+		if (value != 8)
+			throw "Failed at the step 11\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 11\n";
+	}
+
+	// step 12
+	try
+	{
+		uint8_t value = 0;
+		body_array->getValue(6, &value);
+		if (value != 7)
+			throw "Failed at the step 12\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 12\n";
+	}
+
+	// step 13
+	try
+	{
+		int16_t value = 0;
+		body_array->getValue(5, &value);
+		if (value != 6)
+			throw "Failed at the step 13\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 13\n";
+	}
+
+	// step 14
+	try
+	{
+		uint16_t value = 0;
+		body_array->getValue(4, &value);
+		if (value != 5)
+			throw "Failed at the step 14\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 14\n";
+	}
+
+	// step 15
+	try
+	{
+		int32_t value = 0;
+		body_array->getValue(3, &value);
+		if (value != 4)
+			throw "Failed at the step 15\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 15\n";
+	}
+
+	// step 16
+	try
+	{
+		uint32_t value = 0;
+		body_array->getValue(2, &value);
+		if (value != 3)
+			throw "Failed at the step 16\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 16\n";
+	}
+
+	// step 17
+	try
+	{
+		int64_t value = 0;
+		body_array->getValue(1, &value);
+		if (value != 2)
+			throw "Failed at the step 17\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 17\n";
+	}
+
+	// step 18
+	try
+	{
+		uint64_t value = 0;
+		body_array->getValue(0, &value);
+		if (value != 1)
+			throw "Failed at the step 18\n";
+	}
+	catch (...)
+	{
+		throw "Failed at the step 18\n";
+	}
+
+	// step 19
+	try
+	{
+		body_array->getElement(0);
+		throw "Failed at the step 19\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BODY_ARRAY__ELEMENT_NOT_DIFFICULT)
+		{
+			throw "Failed at the step 19\n";
+		}
+	}
+
+	// step 20
+	try
+	{
+		double value = 0;
+		body_array->getValue(0, &value);
+		throw "Failed at the step 20\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::UNSUPPORTED_TYPE_CONVERSION)
+		{
+			throw "Failed at the step 20\n";
+		}
+	}
+
+	// step 21
+	try
+	{
+		int64_t value = 0;
+		body_array->getValue(8, &value);
+		throw "Failed at the step 21\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::BODY_ARRAY__ELEMENT_NOT_FOUND)
+		{
+			throw "Failed at the step 21\n";
+		}
+	}
 }
 

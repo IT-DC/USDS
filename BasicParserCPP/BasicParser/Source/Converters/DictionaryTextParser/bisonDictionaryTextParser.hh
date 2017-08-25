@@ -62,7 +62,7 @@
 # endif /* ! defined YYDEBUG */
 #endif  /* ! defined DICTIONARY_TEXTDEBUG */
 
-#line 36 "bisonDictionaryTextParser.y" // lalr1.cc:371
+#line 37 "bisonDictionaryTextParser.y" // lalr1.cc:371
 namespace usds {
 #line 68 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 
@@ -78,7 +78,7 @@ namespace usds {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 48 "bisonDictionaryTextParser.y" // lalr1.cc:371
+    #line 49 "bisonDictionaryTextParser.y" // lalr1.cc:371
 
     bool  			boolVal;
 	int8_t  		int8Val;
@@ -118,33 +118,35 @@ namespace usds {
       {
         USDS = 258,
         ENCODE = 259,
-        TYPE_BOOLEAN = 260,
-        TYPE_BYTE = 261,
-        TYPE_UBYTE = 262,
-        TYPE_SHORT = 263,
-        TYPE_USHORT = 264,
-        TYPE_INT = 265,
-        TYPE_UINT = 266,
-        TYPE_LONG = 267,
-        TYPE_ULONG = 268,
-        TYPE_INT128 = 269,
-        TYPE_UINT128 = 270,
-        TYPE_FLOAT = 271,
-        TYPE_DOUBLE = 272,
-        TYPE_VARINT = 273,
-        TYPE_UVARINT = 274,
-        TYPE_STRING = 275,
-        STRING_ENCODE = 276,
-        BOOLEAN_VALUE = 277,
-        POSITIVE_NUMBER = 278,
-        NEGATIVE_NUMBER = 279,
-        NULL_VALUE = 280,
-        TEXT_STRING = 281,
-        TEXT_NAME = 282,
-        USDS_RESTRICT = 283,
-        NOT_ROOT_TAG = 284,
-        POSITIVE_EXPONENT_NUMBER = 297,
-        NEGATIVE_EXPONENT_NUMBER = 298
+        ENUMERATOR = 260,
+        TYPE_BOOLEAN = 261,
+        TYPE_BYTE = 262,
+        TYPE_UBYTE = 263,
+        TYPE_SHORT = 264,
+        TYPE_USHORT = 265,
+        TYPE_INT = 266,
+        TYPE_UINT = 267,
+        TYPE_LONG = 268,
+        TYPE_ULONG = 269,
+        TYPE_INT128 = 270,
+        TYPE_UINT128 = 271,
+        TYPE_FLOAT = 272,
+        TYPE_DOUBLE = 273,
+        TYPE_VARINT = 274,
+        TYPE_UVARINT = 275,
+        TYPE_STRING = 276,
+        TYPE_ENUM = 277,
+        STRING_ENCODE = 279,
+        BOOLEAN_VALUE = 280,
+        POSITIVE_NUMBER = 281,
+        NEGATIVE_NUMBER = 282,
+        NULL_VALUE = 283,
+        TEXT_STRING = 284,
+        TEXT_NAME = 285,
+        USDS_RESTRICT = 286,
+        NOT_ROOT_TAG = 287,
+        POSITIVE_EXPONENT_NUMBER = 300,
+        NEGATIVE_EXPONENT_NUMBER = 301
       };
     };
 
@@ -435,13 +437,13 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 1210,           //< Last index in yytable_.
-      yynnts_ = 36,  //< Number of nonterminal symbols.
+      yylast_ = 1247,           //< Last index in yytable_.
+      yynnts_ = 41,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 8, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 59    //< Number of tokens.
+      yyntokens_ = 63    //< Number of tokens.
     };
 
 
@@ -454,9 +456,9 @@ namespace usds {
   };
 
 
-#line 36 "bisonDictionaryTextParser.y" // lalr1.cc:371
+#line 37 "bisonDictionaryTextParser.y" // lalr1.cc:371
 } // usds
-#line 460 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 462 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 
 
 

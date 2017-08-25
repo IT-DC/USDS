@@ -418,6 +418,61 @@ void DictionaryEnumTest::test_3()
 	)
 		throw "Failed at the step 8\n";
 
+	// step 9
+	if 
+	(
+		object->getValue("V1") != 1 ||
+		object->getValue("V2") != 2 ||
+		object->getValue("V3") != 3 ||
+		object->getValue("V4") != 4 ||
+		object->getValue("V5") != 5 ||
+		object->getValue("V10") != 10 ||
+		object->getValue("V11") != 11
+	)
+		throw "Failed at the step 9\n";
+
+	// step 10
+	if
+		(
+			object->getValue("V1_", 2) != 1 ||
+			object->getValue("V2_", 2) != 2 ||
+			object->getValue("V3_", 2) != 3 ||
+			object->getValue("V4_", 2) != 4 ||
+			object->getValue("V5_", 2) != 5 ||
+			object->getValue("V10_", 3) != 10 ||
+			object->getValue("V11_", 3) != 11
+			)
+		throw "Failed at the step 10\n";
+
+	// step 11
+	try
+	{
+		object->getValue("V6");
+		throw "Failed at the step 11\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_ENUM__ENUMERATOR_NOT_FOUND)
+		{
+			throw "Failed at the step 11\n";
+
+		}
+	}
+
+	// step 12
+	try
+	{
+		object->getValue("V6", 2);
+		throw "Failed at the step 12\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_ENUM__ENUMERATOR_NOT_FOUND)
+		{
+			throw "Failed at the step 12\n";
+
+		}
+	}
 
 }
 
@@ -485,5 +540,74 @@ void DictionaryEnumTest::test_4()
 
 }
 
+void DictionaryEnumTest::test_5()
+{
+	usds::Dictionary dict(0);
+	dict.setID("name", 1, 0, 0);
+	usds::DictionaryEnum* object = (usds::DictionaryEnum*)dict.addTag(usds::USDS_ENUM, "enum", 0);
+	object->setSubtype(usds::USDS_SHORT, false);
 
+	object->addEnumerator(-1, "Cs", 0);
+	object->addEnumerator(-1000, "Cpp", 0);
+	
+	// step 1
+	try
+	{
+		object->setDefaultValue(-100000);
+		throw "Failed at the step 1\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::ERROR_VALUE_CONVERSION)
+		{
+			throw "Failed at the step 1\n";
+
+		}
+	}
+	
+	// step 2
+	object->setDefaultValue(-1000);
+	dict.finalizeDictionary();
+	if (object->isIndexed() != true)
+		throw "Failed at the step 2\n";
+
+	// step 3
+	size_t size = 0;
+	if (object->getDefaultValue() != -1000 || strcmp(object->getDefaultAsUTF8(), "Cpp") != 0 || strcmp(object->getDefaultAsUTF8(&size), "Cpp") != 0 || size != 3)
+		throw "Failed at the step 3\n";
+
+	// step 4
+	if (strcmp(object->getEnumerator(-1), "Cs") != 0 || object->getValue("Cs") != -1)
+		throw "Failed at the step 4\n";
+
+	// step 5
+	if (strcmp(object->getEnumerator(-1000), "Cpp") != 0 || object->getValue("Cpp") != -1000)
+		throw "Failed at the step 5\n";
+
+	// step 6
+	dict.clear();
+	dict.setID("name", 1, 0, 0);
+	object = (usds::DictionaryEnum*)dict.addTag(usds::USDS_ENUM, "enum", 0);
+	object->setSubtype(usds::USDS_SHORT, false);
+	object->addEnumerator(-1, "Cs", 0);
+	object->addEnumerator(-10000, "Cpp", 0);
+	object->setDefaultValue(-10000);
+	dict.finalizeDictionary();
+	if (object->isIndexed() != false)
+		throw "Failed at the step 6\n";
+
+	// step 7
+	size = 0;
+	if (object->getDefaultValue() != -10000 || strcmp(object->getDefaultAsUTF8(), "Cpp") != 0 || strcmp(object->getDefaultAsUTF8(&size), "Cpp") != 0 || size != 3)
+		throw "Failed at the step 7\n";
+
+	// step 8
+	if (strcmp(object->getEnumerator(-1), "Cs") != 0 || object->getValue("Cs") != -1)
+		throw "Failed at the step 8\n";
+
+	// step 9
+	if (strcmp(object->getEnumerator(-10000), "Cpp") != 0 || object->getValue("Cpp") != -10000)
+		throw "Failed at the step 9\n";
+
+}
 

@@ -68,6 +68,14 @@ try
 	if (name == 0)
 		throw ErrorMessage(DIC_ENUM__NULL_NAME, "Name can not be NULL");
 
+	// check value for subtype
+	// It will throw if a value error
+	if (subType != USDS_VARINT && subType != USDS_LONG)
+	{
+		int64_t tmp = 0;
+		usdsTypeWrite(value, subType, (uint8_t*)(&tmp));
+	}
+
 	if (enumeratorNumbers == 0)
 	{
 		enumeratorMinValue = value;
@@ -103,15 +111,7 @@ try
 		enumeratorBufferSize = new_buffer_size;
 	}
 
-	if (subType == USDS_VARINT)
-	{
-		enumerators[enumeratorNumbers].value = value;
-	}
-	else
-	{
-		enumerators[enumeratorNumbers].value = 0;
-		usdsTypeWrite(value, subType, (uint8_t*)(&(enumerators[enumeratorNumbers].value)));
-	}
+	enumerators[enumeratorNumbers].value = value;
 
 	if (name_size != 0)
 	{
@@ -200,6 +200,44 @@ catch (ErrorStack err)
 	throw;
 };
 
+int64_t DictionaryEnum::getValue(const char* name)
+try
+{
+	for (size_t i = 0; i < enumeratorNumbers; i++)
+		if (strcmp(enumerators[i].name, name) == 0)
+			return enumerators[i].value;
+
+	throw ErrorMessage(DIC_ENUM__ENUMERATOR_NOT_FOUND, "Enumerator '") << name << "' not found";
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryEnum::getValue") << name << msg;
+}
+catch (ErrorStack err)
+{
+	err.addLevel("DictionaryEnum::getValue") << name;
+	throw;
+};
+
+int64_t DictionaryEnum::getValue(const char* name, size_t name_size)
+try
+{
+	for (size_t i = 0; i < enumeratorNumbers; i++)
+		if (strncmp(enumerators[i].name, name, name_size) == 0)
+			return enumerators[i].value;
+
+	throw ErrorMessage(DIC_ENUM__ENUMERATOR_NOT_FOUND, "Enumerator '").addString(name, name_size) << "' not found";
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryEnum::getValue").addStringAndSize(name, name_size) << msg;
+}
+catch (ErrorStack err)
+{
+	err.addLevel("DictionaryEnum::getValue").addStringAndSize(name, name_size);
+	throw;
+};
+
 void DictionaryEnum::finalize() throw (...)
 try
 {
@@ -262,14 +300,15 @@ try
 	if (isFinalized)
 		throw ErrorMessage(DIC_ENUM__ALREADY_FINALIZED, "Object is already finalized");
 
-	if (subType != USDS_VARINT)
+	// check value for subtype
+	// It will throw if a value error
+	if (subType != USDS_VARINT && subType != USDS_LONG)
 	{
-		defaultValue = 0;
-		usdsTypeWrite(value, subType, (uint8_t*)(&defaultValue));
+		int64_t tmp = 0;
+		usdsTypeWrite(value, subType, (uint8_t*)(&tmp));
 	}
-	else
-		defaultValue = value;
 
+	defaultValue = value;
 	isDefault = true;
 }
 catch (ErrorMessage& msg)
@@ -282,10 +321,81 @@ catch (ErrorStack err)
 	throw;
 }
 
+void DictionaryEnum::setDefaultFromUTF8(const char* name)
+try
+{
+	if (isFinalized)
+		throw ErrorMessage(DIC_ENUM__ALREADY_FINALIZED, "Object is already finalized");
+
+	defaultValue = getValue(name);
+	isDefault = true;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryEnum::setDefaultFromUTF8") << name << msg;
+}
+catch (ErrorStack err)
+{
+	err.addLevel("DictionaryEnum::setDefaultFromUTF8") << name;
+	throw;
+};
+
+void DictionaryEnum::setDefaultFromUTF8(const char* name, size_t size)
+try
+{
+	if (isFinalized)
+		throw ErrorMessage(DIC_ENUM__ALREADY_FINALIZED, "Object is already finalized");
+
+	defaultValue = getValue(name, size);
+	isDefault = true;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryEnum::setDefaultFromUTF8").addStringAndSize(name, size) << msg;
+}
+catch (ErrorStack err)
+{
+	err.addLevel("DictionaryEnum::setDefaultFromUTF8").addStringAndSize(name, size);
+	throw;
+};
+
+
 int64_t DictionaryEnum::getDefaultValue()
 {
 	return defaultValue;
 }
+
+const char* DictionaryEnum::getDefaultAsUTF8() throw (...)
+try
+{
+	return getEnumerator(defaultValue);
+}
+catch (ErrorStack err)
+{
+	err.addLevel("DictionaryEnum::getDefaultAsUTF8");
+	throw;
+};
+
+const char* DictionaryEnum::getDefaultAsUTF8(size_t* byte_size) throw (...)
+try
+{
+	const char* value = getEnumerator(defaultValue);
+	if (value == 0)
+	{
+		byte_size = 0;
+		return 0;
+	}
+	else
+	{
+		*byte_size = strlen(value);
+		return value;
+	}
+}
+catch (ErrorStack err)
+{
+	err.addLevel("DictionaryEnum::getDefaultAsUTF8");
+	throw;
+};
 
 bool DictionaryEnum::hasDefaultValue()
 {

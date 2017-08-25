@@ -81,6 +81,8 @@ public:
 	static void test_17();
 	static void test_18();
 	static void test_19();
+	static void test_20();
+	static void test_21();
 };
 
 class DictionaryTagLinkTest
@@ -98,6 +100,7 @@ public:
 	static void test_2();
 	static void test_3();
 	static void test_4();
+	static void test_5();
 };
 
 class UsdsTypeConversionTest
@@ -137,6 +140,7 @@ public:
 	static void test_1();
 	static void test_2();
 	static void test_3();
+	static void test_4();
 };
 
 class DictionaryStructTest
@@ -212,6 +216,19 @@ public:
 	static void test_17();
 	static void test_18();
 	static void test_19();
+};
+
+class UsdsEnumTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+	static void test_4();
+	static void test_5();
+	static void test_6();
+	static void test_7();
+	static void test_8();
 };
 
 class UsdsStringTest
