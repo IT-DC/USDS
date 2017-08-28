@@ -300,7 +300,6 @@ tag: INT32_T ':' TYPE_BOOLEAN TEXT_NAME ';'
 		((DictionaryEnum*)tag)->setSubtype($5, false);
 	}
 	'{' enumerators '}' ';'
-
 //=================================================================================================
 // Arrays
 	|INT32_T ':' TYPE_BOOLEAN array_dimension TEXT_NAME ';'
@@ -486,9 +485,29 @@ tag: INT32_T ':' TYPE_BOOLEAN TEXT_NAME ';'
 		tag = arr_tag->setElementType(USDS_STRUCT);
 	}
 	fields '}' ';'
+	|INT32_T ':' TYPE_ENUM array_dimension TEXT_NAME
 	{
-	
+		tag = dict->addTag(usds::USDS_ARRAY, $1, input_text + $5[0], $5[1]);
+		for (uint32_t i = 1; i < $4; i++)
+		{
+			tag = ((usds::DictionaryArray*)tag)->setElementType(usds::USDS_ARRAY);
+		}
+		// for enumerators
+		tag = ((usds::DictionaryArray*)tag)->setElementType(USDS_ENUM);
 	}
+	'{' enumerators '}' ';'
+	|INT32_T ':' TYPE_ENUM '<' USDS_TYPE '>' array_dimension TEXT_NAME
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, $1, input_text + $8[0], $8[1]);
+		for (uint32_t i = 1; i < $7; i++)
+		{
+			tag = ((usds::DictionaryArray*)tag)->setElementType(usds::USDS_ARRAY);
+		}
+		// for enumerators
+		tag = ((usds::DictionaryArray*)tag)->setElementType(USDS_ENUM);
+		((DictionaryEnum*)tag)->setSubtype($5, false);
+	}
+	'{' enumerators '}' ';'
 	;
 	
 //=================================================================================================
@@ -1224,6 +1243,17 @@ tag_auto_id:
 	{
 	
 	}
+	|TYPE_ENUM TEXT_NAME
+	{
+		tag = dict->addTag(USDS_ENUM, input_text + $2[0], $2[1]);
+	}
+	'{' enumerators '}' ';'
+	|TYPE_ENUM '<' USDS_TYPE '>' TEXT_NAME
+	{
+		tag = dict->addTag(USDS_ENUM, input_text + $5[0], $5[1]);
+		((DictionaryEnum*)tag)->setSubtype($3, false);
+	}
+	'{' enumerators '}' ';'
 //=================================================================================================
 // Arrays
 	|TYPE_BOOLEAN array_dimension TEXT_NAME ';'
@@ -1409,9 +1439,29 @@ tag_auto_id:
 		tag = arr_tag->setElementType(USDS_STRUCT);
 	}
 	fields_auto_id '}' ';'
+	|TYPE_ENUM array_dimension TEXT_NAME
 	{
-	
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			tag = ((usds::DictionaryArray*)tag)->setElementType(usds::USDS_ARRAY);
+		}
+		// for enumerators
+		tag = ((usds::DictionaryArray*)tag)->setElementType(USDS_ENUM);
 	}
+	'{' enumerators '}' ';'
+	|TYPE_ENUM '<' USDS_TYPE '>' array_dimension TEXT_NAME
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $6[0], $6[1]);
+		for (uint32_t i = 1; i < $5; i++)
+		{
+			tag = ((usds::DictionaryArray*)tag)->setElementType(usds::USDS_ARRAY);
+		}
+		// for enumerators
+		tag = ((usds::DictionaryArray*)tag)->setElementType(USDS_ENUM);
+		((DictionaryEnum*)tag)->setSubtype($3, false);
+	}
+	'{' enumerators '}' ';'
 	;
 	
 //=================================================================================================
@@ -2087,6 +2137,11 @@ enumerator:
 	TEXT_NAME
 	{
 		((DictionaryEnum*)tag)->addEnumerator(input_text + $1[0], $1[1]);
+	}
+	|
+	TEXT_NAME '=' INT64_T
+	{
+		((DictionaryEnum*)tag)->addEnumerator($3, input_text + $1[0], $1[1]);
 	}
 	;
 	

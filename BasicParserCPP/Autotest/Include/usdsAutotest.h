@@ -59,6 +59,16 @@ public:
 	static void test_3();
 };
 
+class DictionaryTextParserEnumTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+	static void test_4();
+	static void test_5();
+};
+
 class UsdsArrayTest
 {
 public:

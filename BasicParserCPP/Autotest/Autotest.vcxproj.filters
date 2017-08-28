@@ -118,6 +118,9 @@
     <ClCompile Include="Source\UnitTest\Body\usdsEnumTest.cpp">
       <Filter>Unit tests\Body</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTest\Converters\Parsers\usdsDictionaryTextParserEnum.cpp">
+      <Filter>Unit tests\Converters\Parsers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAutotest.h" />
