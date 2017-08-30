@@ -129,8 +129,10 @@
 %type<doubleVal> float_exponent "Float exponent"
 
 %type<uInt32Val> array_dimension "Array declaration"
-%type<uInt32Val> array_of_struct_begin "Array of struct declaration"
-%type<uInt32Val> array_of_struct_begin_auto_id "Array of struct declaration (auto id)"
+%type<uInt32Val> array_of_struct_field_begin "Array of Struct field declaration"
+%type<uInt32Val> array_of_struct_field_begin_auto_id "Array of Struct field declaration (auto id)"
+%type<uInt32Val> array_of_enum_field_begin "Array of Enum field declaration"
+%type<uInt32Val> array_of_enum_field_begin_auto_id "Array of Enum field declaration (auto id)"
 
 %{
 #undef yylex
@@ -590,7 +592,11 @@ field:
 		field = ((DictionaryStruct*)tag)->addField(usds::USDS_TAG, $1, input_text + $4[0], $4[1]);
 		((DictionaryTagLink*)field)->setTag(input_text + $3[0], $3[1]);
 	}
-	|struct_begin fields '}' ';'
+	|struct_field_begin fields '}' ';'
+	{
+		tag = tag->getParent();
+	}
+	|enum_field_begin ';'
 	{
 		tag = tag->getParent();
 	}
@@ -750,7 +756,7 @@ field:
 		DictionaryString* element = (DictionaryString*)arr_field->setElementType($3);	
 		element->setDefaultEncode($5);
 	}
-	|array_of_struct_begin fields '}' ';'
+	|array_of_struct_field_begin fields '}' ';'
 	{
 		for (uint32_t i = 0; i <= $1; i++)
 		{
@@ -767,9 +773,15 @@ field:
 		DictionaryTagLink* element = (DictionaryTagLink*)arr_field->setElementType(usds::USDS_TAG);
 		element->setTag(input_text + $3[0], $3[1]);
 	}
+	|array_of_enum_field_begin ';'
+	{
+		for (uint32_t i = 0; i <= $1; i++)
+		{
+			tag = tag->getParent();
+		}
+	}
 //=================================================================================================
 // Nullable fields
-
 	|INT32_T ':' TYPE_BOOLEAN TEXT_NAME '=' NULL_VALUE ';'
 	{
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($3, $1, input_text + $4[0], $4[1]);
@@ -862,7 +874,12 @@ field:
 		((DictionaryTagLink*)field)->setTag(input_text + $3[0], $3[1]);
 		field->setNullable(true);
 	}
-	|struct_begin fields '}' '=' NULL_VALUE ';'
+	|struct_field_begin fields '}' '=' NULL_VALUE ';'
+	{
+		tag->setNullable(true);
+		tag = tag->getParent();
+	}
+	|enum_field_begin '=' NULL_VALUE ';'
 	{
 		tag->setNullable(true);
 		tag = tag->getParent();
@@ -1040,7 +1057,7 @@ field:
 		DictionaryString* element = (DictionaryString*)arr_field->setElementType($3);	
 		element->setDefaultEncode($5);
 	}
-	|array_of_struct_begin fields '}' '=' NULL_VALUE ';'
+	|array_of_struct_field_begin fields '}' '=' NULL_VALUE ';'
 	{
 		for (uint32_t i = 0; i < $1; i++)
 		{
@@ -1059,6 +1076,15 @@ field:
 		}
 		DictionaryTagLink* element = (DictionaryTagLink*)arr_field->setElementType(usds::USDS_TAG);
 		element->setTag(input_text + $3[0], $3[1]);
+	}
+	|array_of_enum_field_begin '=' NULL_VALUE ';'
+	{
+		for (uint32_t i = 0; i < $1; i++)
+		{
+			tag = tag->getParent();
+		}
+		tag->setNullable(true);
+		tag = tag->getParent();
 	}
 //=================================================================================================
 // Fields with default value
@@ -1138,16 +1164,26 @@ field:
 		dict_field->setDefaultEncode($5);
 		dict_field->setDefaultValueFromUTF8(input_text + $9[0], $9[1]);
 	}
+	|enum_field_begin '=' INT64_T ';'
+	{
+		((usds::DictionaryEnum*)tag)->setDefaultValue($3);
+		tag = tag->getParent();
+	}
+	|enum_field_begin '=' TEXT_NAME ';'
+	{
+		((usds::DictionaryEnum*)tag)->setDefaultFromUTF8(input_text + $3[0], $3[1]);
+		tag = tag->getParent();
+	}
 	;
 	
-struct_begin:
+struct_field_begin:
 	INT32_T ':' TEXT_NAME '{'
 	{
 		tag = ((DictionaryStruct*)tag)->addField(usds::USDS_STRUCT, $1, input_text + $3[0], $3[1]);
 	}
 	;
 	
-array_of_struct_begin:
+array_of_struct_field_begin:
 	INT32_T ':' TEXT_NAME array_dimension '{'
 	{
 		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, $1, input_text + $3[0], $3[1]);
@@ -1157,6 +1193,50 @@ array_of_struct_begin:
 		}
 		tag = arr_field->setElementType(usds::USDS_STRUCT);
 		$$ = $4;
+	}
+	;
+	
+enum_field_begin:
+	INT32_T ':' TYPE_ENUM TEXT_NAME
+	{
+		tag = ((DictionaryStruct*)tag)->addField(usds::USDS_ENUM, $1, input_text + $4[0], $4[1]);
+	}
+	'{' enumerators '}'
+	|INT32_T ':' TYPE_ENUM '<' USDS_TYPE '>' TEXT_NAME
+	{
+		tag = ((DictionaryStruct*)tag)->addField(usds::USDS_ENUM, $1, input_text + $7[0], $7[1]);
+		((DictionaryEnum*)tag)->setSubtype($5, false);
+	}
+	'{' enumerators '}'
+	;
+
+array_of_enum_field_begin:	
+	INT32_T ':' TYPE_ENUM array_dimension TEXT_NAME
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, $1, input_text + $5[0], $5[1]);
+		for (uint32_t i = 1; i < $4; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		tag = arr_field->setElementType(usds::USDS_ENUM);
+	}
+	'{' enumerators '}'
+	{
+		$$ = $4;
+	}
+	|INT32_T ':' TYPE_ENUM '<' USDS_TYPE '>' array_dimension TEXT_NAME
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, $1, input_text + $8[0], $8[1]);
+		for (uint32_t i = 1; i < $7; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		tag = arr_field->setElementType(usds::USDS_ENUM);
+		((DictionaryEnum*)tag)->setSubtype($5, false);
+	}
+	'{' enumerators '}'
+	{
+		$$ = $7;
 	}
 	;
 
@@ -1544,7 +1624,11 @@ field_auto_id:
 		field = ((DictionaryStruct*)tag)->addField(usds::USDS_TAG, input_text + $2[0], $2[1]);
 		((DictionaryTagLink*)field)->setTag(input_text + $1[0], $1[1]);
 	}
-	|struct_begin_auto_id fields_auto_id '}' ';'
+	|struct_field_begin_auto_id fields_auto_id '}' ';'
+	{
+		tag = tag->getParent();
+	}
+	|enum_field_begin_auto_id ';'
 	{
 		tag = tag->getParent();
 	}
@@ -1704,7 +1788,7 @@ field_auto_id:
 		DictionaryString* element = (DictionaryString*)arr_field->setElementType($1);	
 		element->setDefaultEncode($3);
 	}
-	|array_of_struct_begin_auto_id fields_auto_id '}' ';'
+	|array_of_struct_field_begin_auto_id fields_auto_id '}' ';'
 	{
 		for (uint32_t i = 0; i <= $1; i++)
 		{
@@ -1721,9 +1805,15 @@ field_auto_id:
 		DictionaryTagLink* element = (DictionaryTagLink*)arr_field->setElementType(usds::USDS_TAG);
 		element->setTag(input_text + $1[0], $1[1]);
 	}
+	|array_of_enum_field_begin_auto_id ';'
+	{
+		for (uint32_t i = 0; i <= $1; i++)
+		{
+			tag = tag->getParent();
+		}
+	}
 //=================================================================================================
 // Nullable fields
-
 	|TYPE_BOOLEAN TEXT_NAME '=' NULL_VALUE ';'
 	{
 		usds::DictionaryBaseType* dict_field = ((DictionaryStruct*)tag)->addField($1, input_text + $2[0], $2[1]);
@@ -1816,7 +1906,12 @@ field_auto_id:
 		((DictionaryTagLink*)field)->setTag(input_text + $1[0], $1[1]);
 		field->setNullable(true);
 	}
-	|struct_begin_auto_id fields_auto_id '}' '=' NULL_VALUE ';'
+	|struct_field_begin_auto_id fields_auto_id '}' '=' NULL_VALUE ';'
+	{
+		tag->setNullable(true);
+		tag = tag->getParent();
+	}
+	|enum_field_begin_auto_id '=' NULL_VALUE ';'
 	{
 		tag->setNullable(true);
 		tag = tag->getParent();
@@ -1994,7 +2089,7 @@ field_auto_id:
 		DictionaryString* element = (DictionaryString*)arr_field->setElementType($1);	
 		element->setDefaultEncode($3);
 	}
-	|array_of_struct_begin_auto_id fields_auto_id '}' '=' NULL_VALUE ';'
+	|array_of_struct_field_begin_auto_id fields_auto_id '}' '=' NULL_VALUE ';'
 	{
 		for (uint32_t i = 0; i < $1; i++)
 		{
@@ -2013,6 +2108,15 @@ field_auto_id:
 		}
 		DictionaryTagLink* element = (DictionaryTagLink*)arr_field->setElementType(usds::USDS_TAG);
 		element->setTag(input_text + $1[0], $1[1]);
+	}
+	|array_of_enum_field_begin_auto_id '=' NULL_VALUE ';'
+	{
+		for (uint32_t i = 0; i < $1; i++)
+		{
+			tag = tag->getParent();
+		}
+		tag->setNullable(true);
+		tag = tag->getParent();
 	}
 //=================================================================================================
 // Fields with default value
@@ -2092,16 +2196,26 @@ field_auto_id:
 		dict_field->setDefaultEncode($3);
 		dict_field->setDefaultValueFromUTF8(input_text + $7[0], $7[1]);
 	}
+	|enum_field_begin_auto_id '=' INT64_T ';'
+	{
+		((usds::DictionaryEnum*)tag)->setDefaultValue($3);
+		tag = tag->getParent();
+	}
+	|enum_field_begin_auto_id '=' TEXT_NAME ';'
+	{
+		((usds::DictionaryEnum*)tag)->setDefaultFromUTF8(input_text + $3[0], $3[1]);
+		tag = tag->getParent();
+	}
 	;
 	
-struct_begin_auto_id:
+struct_field_begin_auto_id:
 	TEXT_NAME '{'
 	{
 		tag = ((DictionaryStruct*)tag)->addField(usds::USDS_STRUCT, input_text + $1[0], $1[1]);
 	}
 	;
 	
-array_of_struct_begin_auto_id:
+array_of_struct_field_begin_auto_id:
 	TEXT_NAME array_dimension '{'
 	{
 		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $1[0], $1[1]);
@@ -2111,6 +2225,50 @@ array_of_struct_begin_auto_id:
 		}
 		tag = arr_field->setElementType(usds::USDS_STRUCT);
 		$$ = $2;
+	}
+	;
+	
+enum_field_begin_auto_id:
+	TYPE_ENUM TEXT_NAME
+	{
+		tag = ((DictionaryStruct*)tag)->addField(usds::USDS_ENUM, input_text + $2[0], $2[1]);
+	}
+	'{' enumerators '}'
+	|TYPE_ENUM '<' USDS_TYPE '>' TEXT_NAME
+	{
+		tag = ((DictionaryStruct*)tag)->addField(usds::USDS_ENUM, input_text + $5[0], $5[1]);
+		((DictionaryEnum*)tag)->setSubtype($3, false);
+	}
+	'{' enumerators '}'
+	;
+
+array_of_enum_field_begin_auto_id:	
+	TYPE_ENUM array_dimension TEXT_NAME
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $3[0], $3[1]);
+		for (uint32_t i = 1; i < $2; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		tag = arr_field->setElementType(usds::USDS_ENUM);
+	}
+	'{' enumerators '}'
+	{
+		$$ = $2;
+	}
+	|TYPE_ENUM '<' USDS_TYPE '>' array_dimension TEXT_NAME
+	{
+		usds::DictionaryArray* arr_field = (usds::DictionaryArray*)((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $6[0], $6[1]);
+		for (uint32_t i = 1; i < $5; i++)
+		{
+			arr_field = (usds::DictionaryArray*)arr_field->setElementType(usds::USDS_ARRAY);
+		}
+		tag = arr_field->setElementType(usds::USDS_ENUM);
+		((DictionaryEnum*)tag)->setSubtype($3, false);
+	}
+	'{' enumerators '}'
+	{
+		$$ = $5;
 	}
 	;
 	
