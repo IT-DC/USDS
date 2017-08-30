@@ -609,7 +609,7 @@ void UsdsArray::additionalInitObject()
 try
 {
 	arrayDictionaryElement = ((DictionaryArray*)parentDictionaryObject)->getElement();
-	while (arrayDictionaryElement->getType() == USDS_TAG)
+	if (arrayDictionaryElement->getType() == USDS_TAG)
 		arrayDictionaryElement = ((DictionaryTagLink*)arrayDictionaryElement)->getTag();
 
 	elementInBinaryType = arrayDictionaryElement->getType();

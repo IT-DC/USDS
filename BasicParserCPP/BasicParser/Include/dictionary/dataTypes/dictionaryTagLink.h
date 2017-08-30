@@ -15,6 +15,7 @@ namespace usds
 		virtual ~DictionaryTagLink() {  };
 
 		void finalize() throw (...);
+		bool isFinalized();
 
 		usdsType getType() { return USDS_TAG; };
 		const char* getTypeName() { return "TAG"; };

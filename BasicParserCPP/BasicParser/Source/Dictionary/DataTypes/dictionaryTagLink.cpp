@@ -16,9 +16,17 @@ void DictionaryTagLink::additionalInitType()
 
 };
 
+bool DictionaryTagLink::isFinalized()
+{
+	return tag == 0;
+}
+
 void DictionaryTagLink::finalize() throw (...)
 try
 {
+	if (tag != 0)
+		throw ErrorMessage(DIC_TAG__ALREADY_FINALIZED, "Tag is finalized already");
+
 	if (!tagName.empty())
 	{
 		tag = dictionary->findTag(tagName.c_str());
@@ -32,6 +40,8 @@ try
 	else
 		throw ErrorMessage(DIC_TAG_LINK__NOT_INITIALIZED, "Tag's link isn't initialized");
 
+	if (tag->getType() == USDS_TAG)
+		throw ErrorMessage(DIC_TAG_LINK__TAG_OF_TAG, "Tag of Tag is not supported");
 }
 catch (ErrorMessage& msg)
 {

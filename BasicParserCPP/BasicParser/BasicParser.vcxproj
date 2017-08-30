@@ -131,6 +131,7 @@
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryFloat.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryInt.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryLong.h" />
+    <ClInclude Include="Include\dictionary\dataTypes\dictionaryPolymorph.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryShort.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryString.h" />
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryStruct.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryFloat.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryInt.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryLong.cpp" />
+    <ClCompile Include="Source\Dictionary\DataTypes\dictionaryPolymorph.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryShort.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryString.cpp" />
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryStruct.cpp" />
