@@ -174,7 +174,7 @@ void UsdsEnumTest::test_1()
 	}
 	catch (usds::ErrorStack& err)
 	{
-		if (err.getCode() != usds::BODY_ENUM__ENUMERATOR_NOT_FOUND)
+		if (err.getCode() != usds::DIC_ENUM__ENUMERATOR_NOT_FOUND)
 		{
 			throw "Failed at the step 16\n";
 		}

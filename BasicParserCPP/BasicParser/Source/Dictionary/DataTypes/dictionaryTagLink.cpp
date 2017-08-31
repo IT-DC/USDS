@@ -16,11 +16,6 @@ void DictionaryTagLink::additionalInitType()
 
 };
 
-bool DictionaryTagLink::isFinalized()
-{
-	return tag == 0;
-}
-
 void DictionaryTagLink::finalize() throw (...)
 try
 {

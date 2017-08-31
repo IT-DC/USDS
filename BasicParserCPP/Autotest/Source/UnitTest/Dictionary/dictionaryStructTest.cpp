@@ -392,16 +392,17 @@ void DictionaryStructTest::test_3()
 	}
 
 	// step 2
+	dict.clear();
+	dict.setID("name", 1, 0, 0);
+	struct_tag = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 1, "struct", 0);
+	dict.addTag(usds::USDS_INT, 2, "int", 0);
+	array_tag = (usds::DictionaryArray*)dict.addTag(usds::USDS_ARRAY, 3, "array", 0);
+	array_tag->setElementType(usds::USDS_INT);
+	field_1 = (usds::DictionaryTagLink*)struct_tag->addField(usds::USDS_TAG, 1, "int_tag", 0);
+	field_1->setTag(2);
+	field_2 = (usds::DictionaryTagLink*)struct_tag->addField(usds::USDS_TAG, 2, "array_tag", 0);
 	field_2->setTag(3);
-	try
-	{
-		dict.finalizeDictionary();
-	}
-	catch (usds::ErrorStack)
-	{
-		throw "Failed at the step 2\n";
-		
-	}
+	dict.finalizeDictionary();
 
 	// step 3
 

@@ -16,6 +16,7 @@
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryStruct.h"
 #include "dictionary/dataTypes/dictionaryEnum.h"
+#include "dictionary/dataTypes/dictionaryPolymorph.h"
 
 #include "dictionary\dicObjectPool.h"
 
@@ -45,7 +46,7 @@ DictionaryObjectPool::DictionaryObjectPool(Dictionary* dict)
 	pools[USDS_ARRAY] = new TemplateObjectPool<DictionaryArray, Dictionary>(dict);
 	pools[USDS_STRUCT] = new TemplateObjectPool<DictionaryStruct, Dictionary>(dict);
 	pools[USDS_ENUM] = new TemplateObjectPool<DictionaryEnum, Dictionary>(dict);
-	pools[USDS_POLYMORPH] = 0;
+	pools[USDS_POLYMORPH] = new TemplateObjectPool<DictionaryPolymorph, Dictionary>(dict);
 };
 
 DictionaryObjectPool::~DictionaryObjectPool()

@@ -104,6 +104,7 @@
     <ClCompile Include="Source\UnitTest\Converters\Parsers\usdsDictionaryTextParserTestAutoId.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryArrayTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryEnumTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Dictionary\dictionaryPolymorphTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionarySimpleTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryStringTest.cpp" />
     <ClCompile Include="Source\UnitTest\Dictionary\dictionaryStructTest.cpp" />

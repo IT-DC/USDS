@@ -24,15 +24,19 @@ namespace usds
 		void addTag(const char* tag_name, size_t name_size) throw (...);
 		void addTag(int32_t tag_id) throw (...);
 
-		DictionaryStruct* getTag(int32_t tag_id) throw (...);
+		DictionaryStruct* getSubStruct(int32_t tag_id) throw (...);
 
 		void finalize() throw (...);
-		void getTags(DictionaryStruct** index) throw (...);
+		void getSubStructs(DictionaryStruct** index) throw (...);
+		DictionaryTagLink* getFirstTag() throw (...);
 
 	private:
 		void additionalInitType();
 
 		DictionaryTagLink* firstSubTag;
+		DictionaryTagLink* lastSubTag;
+		bool tagsFinalized;
+		bool checkRecursion;
 
 		// field index
 		int32_t subTagMaxID;
