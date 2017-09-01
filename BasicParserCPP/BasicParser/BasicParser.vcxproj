@@ -101,6 +101,7 @@
     <ClInclude Include="Include\body\dataTypes\usdsFloat.h" />
     <ClInclude Include="Include\body\dataTypes\usdsInt.h" />
     <ClInclude Include="Include\body\dataTypes\usdsLong.h" />
+    <ClInclude Include="Include\body\dataTypes\usdsPolymorph.h" />
     <ClInclude Include="Include\body\dataTypes\usdsShort.h" />
     <ClInclude Include="Include\body\dataTypes\usdsString.h" />
     <ClInclude Include="Include\body\dataTypes\usdsStruct.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="Source\Body\DataTypes\usdsFloat.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsInt.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsLong.cpp" />
+    <ClCompile Include="Source\Body\DataTypes\usdsPolymorph.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsShort.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsString.cpp" />
     <ClCompile Include="Source\Body\DataTypes\usdsStruct.cpp" />

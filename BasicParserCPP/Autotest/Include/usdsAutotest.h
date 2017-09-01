@@ -30,6 +30,15 @@ public:
 	static void test_2();
 };
 
+class UsdsPolymorphTest
+{
+public:
+	static void test_1();
+	static void test_2();
+	static void test_3();
+	static void test_4();
+};
+
 class UsdsVarintTest
 {
 public:

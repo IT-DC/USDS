@@ -89,6 +89,7 @@
     <ClCompile Include="Source\UnitTest\Body\usdsFloatTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsIntTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsLongTest.cpp" />
+    <ClCompile Include="Source\UnitTest\Body\usdsPolymorphTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsShortTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsStringTest.cpp" />
     <ClCompile Include="Source\UnitTest\Body\usdsStructTest.cpp" />

@@ -31,6 +31,12 @@ Body::~Body()
 UsdsBaseType* Body::addTag(DictionaryBaseType* dict_tag) throw(...)
 try
 {
+	if (dict_tag == 0)
+		throw ErrorMessage(BODY__NULL_DICTIONARY_TAG, "Tag can not be NULL");
+
+	if (dict_tag->getRootStatus() == false )
+		throw ErrorMessage(BODY__NOT_ROOT_TAG, "Tag '") << dict_tag->getName() << "' is not root";
+
 	UsdsBaseType* tag = objectPool.addObject(dict_tag, 0);
 	connectTagToBody(tag);
 

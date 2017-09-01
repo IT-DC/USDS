@@ -16,8 +16,6 @@ try
 	nextObject = 0;
 	previousObject = 0;
 
-	additionalInitType();
-
 	parentObject = parent;
 
 	if (name_size == 0)
@@ -29,7 +27,9 @@ try
 	isRoot = (parent == 0);
 	
 	nullableValue = false;
-	
+
+	additionalInitType();
+
 }
 catch (ErrorMessage& msg)
 {

@@ -209,6 +209,8 @@ catch (ErrorStack& err)
 
 void DictionaryPolymorph::additionalInitType()
 {
+	isRoot = false;
+	
 	firstSubTag = 0;
 	lastSubTag = 0;
 	subTagMaxID = 0;
