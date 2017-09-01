@@ -15795,6 +15795,1606 @@ int32_t main(int32_t argc, char* argv[])
 	test_number++;
 	if(execute_only != 0)
 	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_1") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_1();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_1") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_1();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_1' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_2") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_2();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_2") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_2();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_2' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_3") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_3();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_3") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_3();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_3' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_4") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_4();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_4") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_4();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_4' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_5") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_5();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_5") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_5();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_5' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_6") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_6();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_6") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_6();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_6' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_7") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_7();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_7") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_7();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_7' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_8") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_8();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_8") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_8();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_8' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_9") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_9();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_9") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_9();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_9' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_10") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_10();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_10") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_10();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_10' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_11") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_11();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_11") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_11();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_11' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_12") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_12();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_12") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_12();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_12' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_13") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_13();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_13") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_13();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_13' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_14") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_14();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_14") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_14();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_14' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_15") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_15();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_15") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_15();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_15' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_16") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_16();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_16") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_16();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_16' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_17") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_17();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_17") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_17();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_17' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_18") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_18();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_18") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_18();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_18' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_19") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_19();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_19") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_19();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_19' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
+		if(strcmp(execute_only, "DictionaryTextParserPolymorphTest") == 0 || strcmp(execute_only, "DictionaryTextParserPolymorphTest::test_20") == 0)
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_20();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+		else
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' ignored\n";
+		}
+	}
+	else
+	{
+		bool need_ignore = false;
+		for(std::list<const char*>::iterator it=ignore_tests.begin(); it != ignore_tests.end(); ++it)
+			if(strcmp(*it, "DictionaryTextParserPolymorphTest") == 0 || strcmp(*it, "DictionaryTextParserPolymorphTest::test_20") == 0)
+				need_ignore = true;
+		if(need_ignore)
+		{
+			ignored_test_number++;
+			std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' ignored\n";
+		}
+		else
+		{
+			try
+			{
+				DictionaryTextParserPolymorphTest::test_20();
+				successful_test_number++;
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' is passed\n";
+			}
+			catch (const char* error_text)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' is failed: " << error_text << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorStack & err)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' failed, unexpected error:\n" << err.getFullMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (usds::ErrorMessage & msg)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' failed, unexpected message:\n" << msg.getMessage() << "\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+			catch (...)
+			{
+				std::cout << "Test #" << test_number << " 'DictionaryTextParserPolymorphTest::test_20' failed: unexpected exception\n";
+				if(stop_after_first_error) return test_number - successful_test_number;
+			}
+		}
+	}
+
+	test_number++;
+	if(execute_only != 0)
+	{
 		if(strcmp(execute_only, "UsdsShortTest") == 0 || strcmp(execute_only, "UsdsShortTest::test_1") == 0)
 		{
 			try

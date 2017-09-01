@@ -23,6 +23,7 @@ namespace usds
 
 		void addTag(const char* tag_name, size_t name_size) throw (...);
 		void addTag(int32_t tag_id) throw (...);
+		void setTags(DictionaryTagLink* tags_chain) throw (...);
 
 		DictionaryStruct* getSubStruct(int32_t tag_id) throw (...);
 

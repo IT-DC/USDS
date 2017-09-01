@@ -75,6 +75,31 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void DictionaryPolymorph::setTags(DictionaryTagLink* tags_chain) throw (...)
+try
+{
+	if (indexed)
+		throw ErrorMessage(DIC_POLYMORPH__ALREADY_FINALIZED, "Can not add a tag: the polymorph is finalized already");
+
+	firstSubTag = tags_chain;
+	DictionaryBaseType* tag = firstSubTag;
+	while (tag != 0)
+	{
+		tag->setParent(this);
+		tag = tag->getNext();
+	}
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryPolymorph::setTags") << (void*)tags_chain << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryPolymorph::setTags") << (void*)tags_chain;
+	throw;
+};
+
+
 DictionaryStruct* DictionaryPolymorph::getSubStruct(int32_t tag_id) throw (...)
 try
 {

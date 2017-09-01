@@ -95,8 +95,9 @@ namespace usds {
 	usdsEncode		encodeVal;
 	usdsType		typeVal;
 	struct			floatDigits { double value; double digits; } floatDigits;
+	class DictionaryTagLink*	tagLink;
 
-#line 100 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 101 "bisonDictionaryTextParser.hh" // lalr1.cc:371
     };
 #else
     typedef DICTIONARY_TEXTSTYPE semantic_type;
@@ -437,13 +438,13 @@ namespace usds {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 1366,           //< Last index in yytable_.
-      yynnts_ = 59,  //< Number of nonterminal symbols.
+      yylast_ = 1423,           //< Last index in yytable_.
+      yynnts_ = 60,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 8, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 65    //< Number of tokens.
+      yyntokens_ = 67    //< Number of tokens.
     };
 
 
@@ -458,7 +459,7 @@ namespace usds {
 
 #line 37 "bisonDictionaryTextParser.y" // lalr1.cc:371
 } // usds
-#line 462 "bisonDictionaryTextParser.hh" // lalr1.cc:371
+#line 463 "bisonDictionaryTextParser.hh" // lalr1.cc:371
 
 
 

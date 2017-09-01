@@ -21,7 +21,7 @@
 	#include "dictionary\dataTypes\dictionaryArray.h"	
 	#include "dictionary\dataTypes\dictionaryStruct.h"
 	#include "dictionary\dataTypes\dictionaryEnum.h"
-
+	#include "dictionary\dataTypes\dictionaryPolymorph.h"
 	#include "usdsTypes.h"
 	
 	#include "flexDictionaryTextScanner.h"
@@ -62,6 +62,7 @@
 	usdsEncode		encodeVal;
 	usdsType		typeVal;
 	struct			floatDigits { double value; double digits; } floatDigits;
+	class DictionaryTagLink*	tagLink;
 }
 
 // Tokens
@@ -133,6 +134,8 @@
 %type<uInt32Val> array_of_struct_field_begin_auto_id "Array of Struct field declaration (auto id)"
 %type<uInt32Val> array_of_enum_field_begin "Array of Enum field declaration"
 %type<uInt32Val> array_of_enum_field_begin_auto_id "Array of Enum field declaration (auto id)"
+
+%type<tagLink> poly_elements "Polymorph elements"
 
 %{
 #undef yylex
@@ -302,6 +305,11 @@ tag: INT32_T ':' TYPE_BOOLEAN TEXT_NAME ';'
 		((DictionaryEnum*)tag)->setSubtype($5, false);
 	}
 	'{' enumerators '}' ';'
+	|INT32_T ':' '<' poly_elements '>' TEXT_NAME ';'
+	{
+		tag = dict->addTag(USDS_POLYMORPH, $1, input_text + $6[0], $6[1]);
+		((DictionaryPolymorph*)tag)->setTags($4);
+	}	
 //=================================================================================================
 // Arrays
 	|INT32_T ':' TYPE_BOOLEAN array_dimension TEXT_NAME ';'
@@ -510,6 +518,15 @@ tag: INT32_T ':' TYPE_BOOLEAN TEXT_NAME ';'
 		((DictionaryEnum*)tag)->setSubtype($5, false);
 	}
 	'{' enumerators '}' ';'
+	|INT32_T ':' '<' poly_elements '>' array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, $1, input_text + $7[0], $7[1]);
+		for (uint32_t i = 1; i < $6; i++)
+		{
+			tag = ((usds::DictionaryArray*)tag)->setElementType(usds::USDS_ARRAY);
+		}
+		((DictionaryPolymorph*)((usds::DictionaryArray*)tag)->setElementType(usds::USDS_POLYMORPH))->setTags($4);
+	}	
 	;
 	
 //=================================================================================================
@@ -599,6 +616,11 @@ field:
 	|enum_field_begin ';'
 	{
 		tag = tag->getParent();
+	}
+	|INT32_T ':' '<' poly_elements '>' TEXT_NAME ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_POLYMORPH, $1, input_text + $6[0], $6[1]);
+		((DictionaryPolymorph*)field)->setTags($4);
 	}
 //=================================================================================================
 // Array fields
@@ -780,6 +802,15 @@ field:
 			tag = tag->getParent();
 		}
 	}
+	|INT32_T ':' '<' poly_elements '>' array_dimension TEXT_NAME ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, $1, input_text + $7[0], $7[1]);
+		for (uint32_t i = 1; i < $6; i++)
+		{
+			field = ((usds::DictionaryArray*)field)->setElementType(usds::USDS_ARRAY);
+		}
+		((DictionaryPolymorph*)((usds::DictionaryArray*)field)->setElementType(usds::USDS_POLYMORPH))->setTags($4);
+	}	
 //=================================================================================================
 // Nullable fields
 	|INT32_T ':' TYPE_BOOLEAN TEXT_NAME '=' NULL_VALUE ';'
@@ -883,6 +914,12 @@ field:
 	{
 		tag->setNullable(true);
 		tag = tag->getParent();
+	}
+	|INT32_T ':' '<' poly_elements '>' TEXT_NAME '=' NULL_VALUE ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_POLYMORPH, $1, input_text + $6[0], $6[1]);
+		((DictionaryPolymorph*)field)->setTags($4);
+		field->setNullable(true);
 	}
 //=================================================================================================
 // Nullable array fields
@@ -1086,6 +1123,16 @@ field:
 		tag->setNullable(true);
 		tag = tag->getParent();
 	}
+	|INT32_T ':' '<' poly_elements '>' array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, $1, input_text + $7[0], $7[1]);
+		field->setNullable(true);
+		for (uint32_t i = 1; i < $6; i++)
+		{
+			field = ((usds::DictionaryArray*)field)->setElementType(usds::USDS_ARRAY);
+		}
+		((DictionaryPolymorph*)((usds::DictionaryArray*)field)->setElementType(usds::USDS_POLYMORPH))->setTags($4);
+	}	
 //=================================================================================================
 // Fields with default value
 	|INT32_T ':' TYPE_BOOLEAN TEXT_NAME '=' BOOLEAN_VALUE ';'
@@ -1239,6 +1286,20 @@ array_of_enum_field_begin:
 		$$ = $7;
 	}
 	;
+	
+poly_elements:
+	TEXT_NAME
+	{
+		$$ = (usds::DictionaryTagLink*)dict->addField(USDS_TAG, 0, 1, "subTag", 6);
+		$$->setTag(input_text + $1[0], $1[1]);
+	}
+	| TEXT_NAME '|' '|' poly_elements
+	{
+		$$ = (usds::DictionaryTagLink*)dict->addField(USDS_TAG, 0, 1, "subTag", 6);
+		$$->setTag(input_text + $1[0], $1[1]);
+		$$->setNext($4);
+	}
+	;	
 
 //=================================================================================================
 // Tags with auto ID
@@ -1334,6 +1395,11 @@ tag_auto_id:
 		((DictionaryEnum*)tag)->setSubtype($3, false);
 	}
 	'{' enumerators '}' ';'
+	|'<' poly_elements '>' TEXT_NAME ';'
+	{
+		tag = dict->addTag(USDS_POLYMORPH, input_text + $4[0], $4[1]);
+		((DictionaryPolymorph*)tag)->setTags($2);
+	}	
 //=================================================================================================
 // Arrays
 	|TYPE_BOOLEAN array_dimension TEXT_NAME ';'
@@ -1542,6 +1608,16 @@ tag_auto_id:
 		((DictionaryEnum*)tag)->setSubtype($3, false);
 	}
 	'{' enumerators '}' ';'
+	|'<' poly_elements '>' array_dimension TEXT_NAME ';'
+	{
+		tag = dict->addTag(usds::USDS_ARRAY, input_text + $5[0], $5[1]);
+		for (uint32_t i = 1; i < $4; i++)
+		{
+			tag = ((usds::DictionaryArray*)tag)->setElementType(usds::USDS_ARRAY);
+		}
+		((DictionaryPolymorph*)((usds::DictionaryArray*)tag)->setElementType(usds::USDS_POLYMORPH))->setTags($2);
+	}	
+
 	;
 	
 //=================================================================================================
@@ -1632,6 +1708,11 @@ field_auto_id:
 	{
 		tag = tag->getParent();
 	}
+	|'<' poly_elements '>' TEXT_NAME ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_POLYMORPH, input_text + $4[0], $4[1]);
+		((DictionaryPolymorph*)field)->setTags($2);
+	}	
 //=================================================================================================
 // Array fields
 	|TYPE_BOOLEAN array_dimension TEXT_NAME ';'
@@ -1812,6 +1893,15 @@ field_auto_id:
 			tag = tag->getParent();
 		}
 	}
+	|'<' poly_elements '>' array_dimension TEXT_NAME ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $5[0], $5[1]);
+		for (uint32_t i = 1; i < $4; i++)
+		{
+			field = ((usds::DictionaryArray*)field)->setElementType(usds::USDS_ARRAY);
+		}
+		((DictionaryPolymorph*)((usds::DictionaryArray*)field)->setElementType(usds::USDS_POLYMORPH))->setTags($2);
+	}	
 //=================================================================================================
 // Nullable fields
 	|TYPE_BOOLEAN TEXT_NAME '=' NULL_VALUE ';'
@@ -1915,6 +2005,12 @@ field_auto_id:
 	{
 		tag->setNullable(true);
 		tag = tag->getParent();
+	}
+	|'<' poly_elements '>' TEXT_NAME '=' NULL_VALUE ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_POLYMORPH, input_text + $4[0], $4[1]);
+		((DictionaryPolymorph*)field)->setTags($2);
+		field->setNullable(true);
 	}
 //=================================================================================================
 // Nullable array fields
@@ -2118,6 +2214,17 @@ field_auto_id:
 		tag->setNullable(true);
 		tag = tag->getParent();
 	}
+	|'<' poly_elements '>' array_dimension TEXT_NAME '=' NULL_VALUE ';'
+	{
+		field = ((DictionaryStruct*)tag)->addField(usds::USDS_ARRAY, input_text + $5[0], $5[1]);
+		field->setNullable(true);
+		for (uint32_t i = 1; i < $4; i++)
+		{
+			field = ((usds::DictionaryArray*)field)->setElementType(usds::USDS_ARRAY);
+		}
+		((DictionaryPolymorph*)((usds::DictionaryArray*)field)->setElementType(usds::USDS_POLYMORPH))->setTags($2);
+	}	
+
 //=================================================================================================
 // Fields with default value
 	|TYPE_BOOLEAN TEXT_NAME '=' BOOLEAN_VALUE ';'
