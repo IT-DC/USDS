@@ -34,7 +34,9 @@ namespace usds
 		void CurrentDictionaryToText(usdsEncode encode, std::string* text) throw(...);
 
 		// Working with several dictionaries
-		void selectDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...);
+		Dictionary* selectDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...);
+		Dictionary* selectFirstDictionary() throw(...);
+		Dictionary* selectNextDictionary() throw(...);
 
 		// Return parameters for current dictionary
 		int32_t getDictionaryID() throw(...);

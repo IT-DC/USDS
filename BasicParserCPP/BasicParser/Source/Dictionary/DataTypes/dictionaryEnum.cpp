@@ -119,8 +119,11 @@ try
 			throw ErrorMessage(DIC_ENUM__TOO_LONG_ENUMERATOR_NAME, "To long enumerator name: ") << name_size << ". Max = " << (512 - sizeof(int64_t) - 1);
 
 		for (size_t i = 0; i < enumeratorNumbers; i++)
-			if (strncmp(name, enumerators[i].name, name_size) == 0)
-				throw ErrorMessage(DIC_ENUM__NOT_UNIQUE_NAME, "Name is not unique: '").addString(name, name_size) << "'";
+		{
+			if (name_size == strlen(enumerators[i].name))
+				if (strncmp(name, enumerators[i].name, name_size) == 0)
+					throw ErrorMessage(DIC_ENUM__NOT_UNIQUE_NAME, "Name is not unique: '").addString(name, name_size) << "'";
+		}
 
 		strncpy(enumerators[enumeratorNumbers].name, name, name_size);
 		enumerators[enumeratorNumbers].name[name_size] = 0;

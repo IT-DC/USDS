@@ -1,0 +1,88 @@
+USDS 1:UsdsCodeDescription 0.1
+ENCODE:UTF-8
+{
+	ParserDescription
+	{
+		ENUM language { Cpp=1, C=2, CS=3, Java=4 };
+		<CppParameters||CParameters||CsParameters> languageParameters;
+		CodeDescription []
+		{
+			STRING dictionaryName;
+			UINT dictionaryID;
+			Versions []
+			{
+				UBYTE majorVersion;
+				UBYTE minorVersion;
+				TagDescriptions []
+				{
+					STRING tagName;
+					INT tagID;
+					STRING codeName;
+					ENUM codeType { struct=1, class=2 };
+					STRING codeCreateMethod = NULL;
+					STRING codeBeforeMethod = NULL;
+					STRING codeAfterMethod = NULL;
+					<StructDescription||ClassDescription> codeTypeDescription = NULL;
+				};
+			};
+		};
+	};
+
+	StructDescription
+	{
+		fieldsDescription []
+		{
+			STRING fieldName;
+			INT fieldID;
+			STRING codeName = NULL;
+			ENUM codeType { bool, int8, int32, float, double };
+			STRING codeSetMethod = NULL;
+			STRING codeGetMethod = NULL;
+			STRING codeCreateMethod = NULL;
+			STRING codeBeforeMethod = NULL;
+			STRING codeAfterMethod = NULL;
+		};
+		StructDescription[] inheritors = NULL;
+		StructDescription[] subStructs = NULL;
+	};
+
+	ClassDescription
+	{
+		fieldsDescription []
+		{
+			STRING fieldName;
+			INT fieldID;
+			STRING codeName = NULL;
+			ENUM codeType { bool, int8, int32, float, double };
+			STRING codeSetMethod = NULL;
+			STRING codeGetMethod = NULL;
+			STRING codeCreateMethod = NULL;
+			STRING codeBeforeMethod = NULL;
+			STRING codeAfterMethod = NULL;
+		};
+		ClassDescription[] inheritors = NULL;
+		ClassDescription[] subClass = NULL;
+	};
+	
+	CppParameters
+	{
+		ENUM platform { x86, ARM };
+		ENUM mode { debug, release, both };
+		ENUM linkMode { static, dynamic };
+		ENUM operationSystem { windows, linux };	
+	};
+	
+	CParameters
+	{
+		ENUM platform { x86, ARM };
+		ENUM mode { debug, release, both };
+		ENUM linkMode { static, dynamic };
+		ENUM operationSystem { windows, linux };	
+	};
+	
+	CsParameters
+	{
+		ENUM mode {debug, release, both };
+	};
+	
+}

@@ -14,6 +14,10 @@ namespace usdsAgent
 
 		static usds::BasicParser* findAllAnnotations(usds::BasicParser* dicts);
 
+	private:
+
+		static usds::BasicParser* initCodeDescriptor(usds::BasicParser* dicts);
+
 		static const char* codeDictionary;
 
 	};

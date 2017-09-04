@@ -71,7 +71,7 @@ catch (ErrorStack& err)
 //====================================================================================================================
 // Working with several dictionaries
 
-void BasicParser::selectDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...)
+Dictionary* BasicParser::selectDictionary(int32_t id, uint8_t major, uint8_t minor) throw(...)
 try
 {
 	Dictionary* object = findDictionary(id, major, minor);
@@ -79,6 +79,8 @@ try
 		throw ErrorMessage(BASIC_PARSER__DICTIONARY_NOT_FOUND) << "Dictionary ID=" << id << " v." << int(major) << "." << int(minor) << " not found";
 
 	currentDictionary = object;
+
+	return currentDictionary;
 }
 catch (ErrorMessage& msg)
 {
@@ -90,7 +92,53 @@ catch (ErrorStack& err)
 	throw;
 }
 
+Dictionary* BasicParser::selectFirstDictionary() throw(...)
+try
+{
+	if (dictionaries.empty())
+		throw ErrorMessage(BASIC_PARSER__NO_DICTIONARIES, "No dictionaries in the parser");
 
+	currentDictionary = *(dictionaries.begin());
+	return currentDictionary;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::selectFirstDictionary") << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::selectFirstDictionary");
+	throw;
+};
+
+Dictionary* BasicParser::selectNextDictionary() throw(...)
+try
+{
+	if (dictionaries.empty())
+		throw ErrorMessage(BASIC_PARSER__NO_DICTIONARIES, "No dictionaries in the parser");
+
+	for (std::list<Dictionary*>::iterator it = dictionaries.begin(); it != dictionaries.end(); ++it)
+	{
+		if (currentDictionary == *it)
+		{
+			it++;
+			if (it == dictionaries.end())
+				return 0;
+			currentDictionary = *it;
+			return currentDictionary;
+		}
+	}
+	return 0;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("BasicParser::selectNextDictionary") << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BasicParser::selectNextDictionary");
+	throw;
+};
 //====================================================================================================================
 // Settings
 int32_t BasicParser::getDictionaryID() throw(...)

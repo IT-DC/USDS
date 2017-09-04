@@ -10,6 +10,8 @@ DictionaryTagLink::DictionaryTagLink(Dictionary* dict) : DictionaryBaseType(dict
 
 void DictionaryTagLink::additionalInitType()
 {
+	isRoot = false;
+	
 	tag = 0;
 	tagID = -1;
 	tagName.clear();
