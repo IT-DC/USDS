@@ -12,12 +12,10 @@ namespace usdsAgent
 	class FileSearcher
 	{
 	public:
-		FileSearcher();
-		~FileSearcher();
 		virtual void f() = 0;
 
 		static list<pair<string, string>>* findDictFiles(string& rootPath, string& ext);
-		static list<pair<string, string>>* findDictFiles(string& rootPath, vector<string>& ext);
+		static list<pair<string, string>>* findCodeFiles(string& rootPath, vector<string>& ext, string& annotation);
 
 	};
 

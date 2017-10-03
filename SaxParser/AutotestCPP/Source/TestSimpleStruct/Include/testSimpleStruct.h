@@ -4,9 +4,10 @@
 #include "baseTestClass.h"
 #include "TestSimpleStruct/Include/testStruct.h"
 
-namespace testSaxParser
+// Test simple structs
+namespace saxParserSimpleStruct
 {
-	// Test simple structs
+	
 	class TestSimpleStruct : public BaseTest
 	{
 	public:

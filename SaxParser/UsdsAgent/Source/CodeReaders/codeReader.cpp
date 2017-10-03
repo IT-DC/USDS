@@ -99,19 +99,19 @@ const char* CodeReader::codeDictionary =
 "\t\n"
 "}";
 
-BasicParser* CodeReader::findAllAnnotations(BasicParser* dicts)
+BasicParser* CodeReader::parseSourceCode(BasicParser* dicts)
 try
 {
 	if (AgentConfig::action == command::help || AgentConfig::action == command::clean)
 		return nullptr;
 
-	BasicParser* codeDescripton = initCodeDescriptor(dicts);
+	BasicParser* codeMapping = initCodeMapping(dicts);
 
 	switch (AgentConfig::programLang)
 	{
 		case language::cpp:
 		{
-			CppCodeReader::findAllAnnotations(dicts, codeDescripton);
+			CppCodeReader::parseSourceCode(dicts, codeMapping);
 			break;
 		}
 		default:
@@ -119,7 +119,7 @@ try
 			throw ErrorMessage(100, "Unsupported programming language.");
 		}
 	}
-	return codeDescripton;
+	return codeMapping;
 }
 catch (ErrorMessage msg)
 {
@@ -131,11 +131,11 @@ catch (ErrorStack err)
 }
 
 
-usds::BasicParser* CodeReader::initCodeDescriptor(usds::BasicParser* dicts)
+usds::BasicParser* CodeReader::initCodeMapping(usds::BasicParser* dicts)
 try
 {
-	BasicParser* codeDescripton = new BasicParser();
-	codeDescripton->addDictionaryFromText(codeDictionary, 0, USDS_UTF8);
+	BasicParser* codeMapping = new BasicParser();
+	codeMapping->addDictionaryFromText(codeDictionary, 0, USDS_UTF8);
 
 	usds::Dictionary* dict = dicts->selectFirstDictionary();
 	while (dict != 0 )
@@ -147,7 +147,7 @@ try
 	}
 
 
-	return codeDescripton;
+	return codeMapping;
 }
 catch (ErrorMessage msg)
 {

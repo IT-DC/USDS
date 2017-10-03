@@ -15,8 +15,6 @@ namespace usdsAgent
 	class Packer
 	{
 	public:
-		Packer();
-		~Packer();
 		virtual void f() = 0;
 
 		static Package packToUsdsBinary(usds::BasicParser* dictdionaries, usds::BasicParser* code_descriptions);

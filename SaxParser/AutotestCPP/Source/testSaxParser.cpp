@@ -1,6 +1,6 @@
 #include "testSaxParser.h"
 
-using namespace testSaxParser;
+using namespace saxParserSimpleStruct;
 
 int32_t main(int32_t argc, char* argv[])
 {

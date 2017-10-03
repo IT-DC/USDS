@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-using namespace testSaxParser;
+using namespace saxParserSimpleStruct;
 
 
 TestSimpleStruct::TestSimpleStruct()

@@ -8,11 +8,16 @@ namespace usdsAgent
 	class CppCodeReader
 	{
 	public:
-		CppCodeReader();
-		~CppCodeReader();
 		virtual void f() = 0;
 
-		static usds::BasicParser* findAllAnnotations(usds::BasicParser* dicts, usds::BasicParser* code_description);
+		static usds::BasicParser* parseSourceCode(usds::BasicParser* dicts, usds::BasicParser* code_mapping);
+
+	private:
+		
+		static const char* cppAnnotation;
+		static const char* codeDictionary;
+
+
 
 	};
 }

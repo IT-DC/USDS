@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace testSaxParser
+namespace saxParserSimpleStruct
 {
 	struct Package
 	{

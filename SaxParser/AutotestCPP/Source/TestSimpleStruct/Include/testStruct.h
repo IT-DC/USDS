@@ -3,9 +3,12 @@
 
 #include <cstdint>
 
-namespace testSaxParser
+//
+//$
+
+namespace saxParserSimpleStruct
 {
-	// @usds MyLittleAPI.1.0 simpleStruct
+	//$S MyLittleAPI
 	struct simpleStruct
 	{
 		bool boolParameter;
@@ -21,12 +24,20 @@ namespace testSaxParser
 		double doubleParameter;
 		int64_t varintParameter;
 		uint64_t uvarintParameter;
-		// @usds encode:utf-8
+		//$S ENCODE:UTF-8
 		char* stringParameter;
 		char string2Parameter[10];
 	};
 
-
+	// testing of commented code
+	/*
+	//$S MyLittleAPI
+	struct simpleStruct2
+	{
+		bool boolParameter;
+		int8_t byteParameter;
+	*/
+	
 }
 #endif
 

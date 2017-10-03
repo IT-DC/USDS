@@ -52,7 +52,7 @@ catch (filesystem_error err)
 	throw usds::ErrorStack("FileSearcher::findDictFiles") << rootPath.c_str() << ext.c_str() << usds::ErrorMessage(3, err.what());
 }
 
-list<pair<string, string>>* FileSearcher::findDictFiles(string& rootPath, vector<string>& ext)
+list<pair<string, string>>* FileSearcher::findCodeFiles(string& rootPath, vector<string>& ext, string& annotation)
 try
 {
 	path p(rootPath.c_str());
@@ -81,7 +81,8 @@ try
 					(std::istreambuf_iterator<char>(file)),
 					(std::istreambuf_iterator<char>())
 				);
-				outList->push_back(make_pair(it->path().string(), content));
+				if (content.find(annotation) != string::npos)
+					outList->push_back(make_pair(it->path().string(), content));
 			}
 		}
 		it++;
@@ -94,11 +95,11 @@ try
 }
 catch(usds::ErrorMessage msg)
 {
-	throw usds::ErrorStack("FileSearcher::findDictFiles") << rootPath.c_str() << (void*)&ext << msg;
+	throw usds::ErrorStack("FileSearcher::findCodeFiles") << rootPath.c_str() << (void*)&ext << msg;
 }
 catch (filesystem_error err)
 {
-	throw usds::ErrorStack("FileSearcher::findDictFiles") << rootPath.c_str() << (void*)&ext << usds::ErrorMessage(3, err.what());
+	throw usds::ErrorStack("FileSearcher::findCodeFiles") << rootPath.c_str() << (void*)&ext << usds::ErrorMessage(3, err.what());
 }
 
 

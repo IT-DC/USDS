@@ -10,8 +10,6 @@ namespace usdsAgent
 	class Sender
 	{
 	public:
-		Sender();
-		~Sender();
 		virtual void f() = 0;
 
 		static string* sent(uint8_t* binary, size_t size);

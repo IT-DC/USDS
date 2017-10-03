@@ -25,8 +25,10 @@ command AgentConfig::action = command::build;
 string AgentConfig::codePath = ".";
 string AgentConfig::iniFile = "usdsAgent.ini";
 string AgentConfig::dictFileExt = ".udic";
+string AgentConfig::sourceCodeEncode = "UTF-8";
 language AgentConfig::programLang = language::cpp;
 vector<string> AgentConfig::codeFileExt = {".cpp", ".h"};
+string AgentConfig::cppAnnotation = "//$S";
 
 void AgentConfig::parse(int argc, char* argv[])
 try
@@ -79,10 +81,5 @@ catch (const error &parameter_error)
 	throw usds::ErrorStack("AgentConfig::AgentConfig") << argc << argv << usds::ErrorMessage(2, parameter_error.what());
 };
 
-AgentConfig::~AgentConfig()
-{
-	
-
-};
 
 

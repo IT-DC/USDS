@@ -91,14 +91,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)Include;..\..\BasicParserCPP;F:\Source\boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Include;..\..\BasicParserCPP;F:\Source\boost_1_64_0;F:\Source\icu\icu-59.1-vs2015\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\..\BasicParserCPP\BasicParser\bin\BasicParser32_d.lib;libboost_filesystem-vc140-mt-sgd-1_64.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>F:\Source\boost_1_64_0\lib32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\BasicParserCPP\BasicParser\bin\BasicParser32_d.lib;libboost_filesystem-vc140-mt-sgd-1_64.lib;sicudtd.lib;sicuind.lib;sicuiod.lib;sicutestd.lib;sicutud.lib;sicuucd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\Source\boost_1_64_0\lib32;F:\Source\icu\icu-59.1-vs2015\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -151,6 +151,8 @@
   <ItemGroup>
     <ClCompile Include="Source\CodeReaders\codeReader.cpp" />
     <ClCompile Include="Source\CodeReaders\CppCodeReader\cppCodeReader.cpp" />
+    <ClCompile Include="Source\CodeReaders\CppCodeReader\CppTextReader\bisonCppTextReader.cc" />
+    <ClCompile Include="Source\CodeReaders\CppCodeReader\CppTextReader\flexCppTextReader.cpp" />
     <ClCompile Include="Source\Common\fileSearcher.cpp" />
     <ClCompile Include="Source\Communication\packer.cpp" />
     <ClCompile Include="Source\Communication\sender.cpp" />
@@ -167,6 +169,12 @@
     <ClInclude Include="Include\Configuration\agentConfig.h" />
     <ClInclude Include="Include\DictionaryReader\dictionaryReader.h" />
     <ClInclude Include="Include\usdsAgent.h" />
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\bisonCppTextReader.hh" />
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\flexCppTextReader.h" />
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\FlexLexer.h" />
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\location.hh" />
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\position.hh" />
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\stack.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,8 +18,6 @@ namespace usdsAgent
 	class AgentConfig
 	{
 	public:
-		AgentConfig();
-		~AgentConfig();
 		virtual void f() = 0;
 
 		static void parse(int argc, char* argv[]);
@@ -33,8 +31,10 @@ namespace usdsAgent
 
 		static string dictFileExt;
 		
+		static string sourceCodeEncode;
 		static language programLang;
 		static vector<string> codeFileExt;
+		static string cppAnnotation;
 
 	};
 

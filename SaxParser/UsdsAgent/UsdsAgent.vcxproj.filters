@@ -23,6 +23,12 @@
     <ClCompile Include="Source\CodeReaders\CppCodeReader\cppCodeReader.cpp">
       <Filter>Code Readers\CPP Code reader</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CodeReaders\CppCodeReader\CppTextReader\bisonCppTextReader.cc">
+      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CodeReaders\CppCodeReader\CppTextReader\flexCppTextReader.cpp">
+      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\usdsAgent.h" />
@@ -47,6 +53,24 @@
     <ClInclude Include="Include\CodeReaders\CPPCodeReader\cppCodeReader.h">
       <Filter>Code Readers\CPP Code reader</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\bisonCppTextReader.hh">
+      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\flexCppTextReader.h">
+      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\FlexLexer.h">
+      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\location.hh">
+      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\position.hh">
+      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\stack.hh">
+      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Configuration">
@@ -66,6 +90,9 @@
     </Filter>
     <Filter Include="Communication">
       <UniqueIdentifier>{16d6ee63-5e1e-44c5-ae9e-84501264b5a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code Readers\CPP Code reader\CPP Text Reader">
+      <UniqueIdentifier>{fa4891eb-e807-4cec-80d7-c62f500bd692}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -19,13 +19,13 @@ try
 {
 	AgentConfig::parse(argc, argv);
 	usds::BasicParser* usdsDictionaries = DictionaryReader::findAllDictionaries();
-	usds::BasicParser* codeDescription = CodeReader::findAllAnnotations(usdsDictionaries);
-	Package package = Packer::packToUsdsBinary(usdsDictionaries, codeDescription);
+	usds::BasicParser* codeMapping = CodeReader::parseSourceCode(usdsDictionaries);
+	Package package = Packer::packToUsdsBinary(usdsDictionaries, codeMapping);
 	string* session_id = Sender::sent(package.binary, package.size);
 	Sender::wait(session_id);
 
 #ifdef _DEBUG
-	cout << "Press any key";
+	cout << "Press enter";
 	cin.get();
 #endif
 
@@ -35,7 +35,7 @@ catch (usds::ErrorStack msg)
 {
 	BOOST_LOG_TRIVIAL(fatal) << msg.getMessage();
 #ifdef _DEBUG
-	cout << "Press any key";
+	cout << "Press enter";
 	cin.get();
 #endif
 	return -1;
