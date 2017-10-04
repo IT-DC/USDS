@@ -27,7 +27,7 @@ usds::BasicParser* CppCodeReader::parseSourceCode(usds::BasicParser* dicts, usds
 		std::stringstream output;
 		input << (*it).second.c_str();
 		cppTextReader::FlexCppTextReader scanner(&input, &output);
-		cppTextReader::BisonCppTextReader textParser(&scanner);
+		cppTextReader::BisonCppTextReader textParser(&scanner, (*it).second.c_str());
 		// Parse!
 		textParser.parse();
 

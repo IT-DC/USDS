@@ -50,7 +50,7 @@
 #  endif
 # endif
 
-#line 12 "bisonCppTextReader.y" // location.cc:291
+#line 15 "bisonCppTextReader.y" // location.cc:291
 namespace cppTextReader {
 #line 56 "position.hh" // location.cc:291
   /// Abstract a position.
@@ -106,6 +106,7 @@ namespace cppTextReader {
 
   private:
     /// Compute max(min, lhs+rhs) (provided min <= lhs).
+#pragma warning(disable:4146)
     static unsigned int add_ (unsigned int lhs, int rhs, unsigned int min)
     {
       return (0 < rhs || -static_cast<unsigned int>(rhs) < lhs
@@ -174,7 +175,7 @@ namespace cppTextReader {
     return ostr << pos.line << '.' << pos.column;
   }
 
-#line 12 "bisonCppTextReader.y" // location.cc:291
+#line 15 "bisonCppTextReader.y" // location.cc:291
 } // cppTextReader
 #line 180 "position.hh" // location.cc:291
 #endif // !YY_CPP_TEXT_POSITION_HH_INCLUDED

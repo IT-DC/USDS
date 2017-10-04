@@ -59,9 +59,6 @@
     <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\flexCppTextReader.h">
       <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\FlexLexer.h">
-      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
-    </ClInclude>
     <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\location.hh">
       <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
     </ClInclude>
@@ -69,6 +66,9 @@
       <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
     </ClInclude>
     <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\stack.hh">
+      <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\flexLexerCppTextReader.h">
       <Filter>Code Readers\CPP Code reader\CPP Text Reader</Filter>
     </ClInclude>
   </ItemGroup>

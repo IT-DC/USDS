@@ -2,7 +2,7 @@
 #define FLEX_CPP_TEXT_READER
 
 #if ! defined(yyFlexLexerOnce)
-#include "FlexLexer.h"
+#include "FlexLexerCppTextReader.h"
 #endif
 #undef YY_DECL
 #define YY_DECL int FlexCppTextReader::scan(BisonCppTextReader::semantic_type * yylval, BisonCppTextReader::location_type* yylloc)
@@ -12,10 +12,10 @@
 
 namespace cppTextReader
 {
-	class FlexCppTextReader : public yyFlexLexer
+	class FlexCppTextReader : public yyFlexLexerCppTextReader
 	{
 	public:
-		FlexCppTextReader(std::stringstream* input, std::stringstream* output) : yyFlexLexer(input, output) { offset = 0; };
+		FlexCppTextReader(std::stringstream* input, std::stringstream* output) : yyFlexLexerCppTextReader(input, output) { offset = 0; };
 		~FlexCppTextReader() {};
 
 		virtual int scan(BisonCppTextReader::semantic_type * yylval, BisonCppTextReader::location_type* yylloc);

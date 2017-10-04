@@ -40,7 +40,7 @@
 
 # include "position.hh"
 
-#line 12 "bisonCppTextReader.y" // location.cc:291
+#line 15 "bisonCppTextReader.y" // location.cc:291
 namespace cppTextReader {
 #line 46 "location.hh" // location.cc:291
   /// Abstract a location.
@@ -181,7 +181,7 @@ namespace cppTextReader {
     return ostr;
   }
 
-#line 12 "bisonCppTextReader.y" // location.cc:291
+#line 15 "bisonCppTextReader.y" // location.cc:291
 } // cppTextReader
 #line 187 "location.hh" // location.cc:291
 #endif // !YY_CPP_TEXT_LOCATION_HH_INCLUDED

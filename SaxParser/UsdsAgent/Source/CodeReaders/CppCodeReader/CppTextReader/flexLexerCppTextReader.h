@@ -55,10 +55,10 @@ extern "C++" {
 struct yy_buffer_state;
 typedef int yy_state_type;
 
-class FlexLexer
+class FlexLexerCppTextReader
 {
 public:
-  virtual ~FlexLexer()        { }
+  virtual ~FlexLexerCppTextReader()        { }
 
   const char* YYText() const  { return yytext; }
   int YYLeng()        const   { return yyleng; }
@@ -116,12 +116,12 @@ protected:
 
 extern "C++" {
 
-class yyFlexLexer : public FlexLexer {
+class yyFlexLexerCppTextReader : public FlexLexerCppTextReader {
 public:
   // arg_yyin and arg_yyout default to the cin and cout, but we
   // only make that assignment when initializing in yylex().
-  yyFlexLexer( std::istream& arg_yyin, std::ostream& arg_yyout );
-  yyFlexLexer( std::istream* arg_yyin = 0, std::ostream* arg_yyout = 0 );
+	yyFlexLexerCppTextReader( std::istream& arg_yyin, std::ostream& arg_yyout );
+	yyFlexLexerCppTextReader( std::istream* arg_yyin = 0, std::ostream* arg_yyout = 0 );
 private:
   void ctor_common();
 
@@ -129,7 +129,7 @@ public:
 
   size_t offset;
 
-  virtual ~yyFlexLexer();
+  virtual ~yyFlexLexerCppTextReader();
 
   void yy_switch_to_buffer( yy_buffer_state* new_buffer );
   yy_buffer_state* yy_create_buffer( std::istream* s, int size );

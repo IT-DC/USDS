@@ -3,8 +3,14 @@
 
 #include <cstdint>
 
+// testing of commented code
+// test Unicode comments: тест русского комментария
 //
+//1
+//12
 //$
+//$1
+//$12
 
 namespace saxParserSimpleStruct
 {

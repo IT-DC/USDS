@@ -171,7 +171,7 @@
     <ClInclude Include="Include\usdsAgent.h" />
     <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\bisonCppTextReader.hh" />
     <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\flexCppTextReader.h" />
-    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\FlexLexer.h" />
+    <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\flexLexerCppTextReader.h" />
     <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\location.hh" />
     <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\position.hh" />
     <ClInclude Include="Source\CodeReaders\CppCodeReader\CppTextReader\stack.hh" />

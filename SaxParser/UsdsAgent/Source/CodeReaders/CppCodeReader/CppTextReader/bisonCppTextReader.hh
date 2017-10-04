@@ -39,6 +39,12 @@
 
 #ifndef YY_CPP_TEXT_BISONCPPTEXTREADER_HH_INCLUDED
 # define YY_CPP_TEXT_BISONCPPTEXTREADER_HH_INCLUDED
+// //                    "%code requires" blocks.
+#line 6 "bisonCppTextReader.y" // lalr1.cc:371
+
+	#include "BasicParser/Include/usdsBasicParser.h"
+
+#line 48 "bisonCppTextReader.hh" // lalr1.cc:371
 
 
 # include <vector>
@@ -62,9 +68,9 @@
 # endif /* ! defined YYDEBUG */
 #endif  /* ! defined CPP_TEXTDEBUG */
 
-#line 12 "bisonCppTextReader.y" // lalr1.cc:371
+#line 15 "bisonCppTextReader.y" // lalr1.cc:371
 namespace cppTextReader {
-#line 68 "bisonCppTextReader.hh" // lalr1.cc:371
+#line 74 "bisonCppTextReader.hh" // lalr1.cc:371
 
 
 
@@ -78,11 +84,24 @@ namespace cppTextReader {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 20 "bisonCppTextReader.y" // lalr1.cc:371
+    #line 24 "bisonCppTextReader.y" // lalr1.cc:371
 
-    size_t			stringVal[2];
+	bool  				boolVal;
+	int8_t  			int8Val;
+	uint8_t  			uInt8Val;
+	int16_t  			int16Val;
+	uint16_t  			uInt16Val;
+	int32_t  			int32Val;
+	uint32_t  			uInt32Val;
+	int64_t  			int64Val;
+	uint64_t  			uInt64Val;
+	float 				floatVal;
+    double 				doubleVal;
+	struct				floatDigits { double value; double digits; } floatDigits;
+    size_t				stringVal[2];
+	usds::usdsEncode	encodeVal;
 
-#line 86 "bisonCppTextReader.hh" // lalr1.cc:371
+#line 105 "bisonCppTextReader.hh" // lalr1.cc:371
     };
 #else
     typedef CPP_TEXTSTYPE semantic_type;
@@ -102,7 +121,19 @@ namespace cppTextReader {
     {
       enum yytokentype
       {
-        DIRECTIVES = 258
+        USDS_ANNOTATION = 258,
+        USDS_ENCODE = 259,
+        STRING_ENCODE = 260,
+        DIRECTIVES = 261,
+        COMMENTS = 262,
+        NAMESPACE = 263,
+        STRUCT = 264,
+        TEXT_NAME = 265,
+        BOOLEAN_VALUE = 266,
+        POSITIVE_NUMBER = 267,
+        NEGATIVE_NUMBER = 268,
+        POSITIVE_EXPONENT_NUMBER = 269,
+        NEGATIVE_EXPONENT_NUMBER = 270
       };
     };
 
@@ -195,7 +226,7 @@ namespace cppTextReader {
 
 
     /// Build a parser object.
-    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg);
+    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg);
     virtual ~BisonCppTextReader ();
 
     /// Parse.
@@ -278,7 +309,7 @@ namespace cppTextReader {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const unsigned char yycheck_[];
+  static const signed char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -299,7 +330,7 @@ namespace cppTextReader {
     static const char* const yytname_[];
 #if CPP_TEXTDEBUG
   // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-  static const unsigned char yyrline_[];
+  static const unsigned short int yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r);
     /// Print the state stack on the debug stream.
@@ -393,24 +424,25 @@ namespace cppTextReader {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 2,           //< Last index in yytable_.
-      yynnts_ = 3,  //< Number of nonterminal symbols.
+      yylast_ = 84,           //< Last index in yytable_.
+      yynnts_ = 7,  //< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 4, //< Termination state number.
+      yyfinal_ = 9, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 4    //< Number of tokens.
+      yyntokens_ = 38    //< Number of tokens.
     };
 
 
     // User arguments.
     class FlexCppTextReader* scanner;
+    const char* input_text;
   };
 
 
-#line 12 "bisonCppTextReader.y" // lalr1.cc:371
+#line 15 "bisonCppTextReader.y" // lalr1.cc:371
 } // cppTextReader
-#line 414 "bisonCppTextReader.hh" // lalr1.cc:371
+#line 446 "bisonCppTextReader.hh" // lalr1.cc:371
 
 
 
