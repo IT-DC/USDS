@@ -15,8 +15,8 @@ using namespace usds;
 
 Body::Body() : objectPool(this)
 {
-
-
+	firstTag = 0;
+	lastTag = 0;
 };
 
 Body::~Body()

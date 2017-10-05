@@ -84,20 +84,20 @@ namespace cppTextReader {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 24 "bisonCppTextReader.y" // lalr1.cc:371
+    #line 25 "bisonCppTextReader.y" // lalr1.cc:371
 
-	bool  				boolVal;
+//	bool  				boolVal;
 	int8_t  			int8Val;
-	uint8_t  			uInt8Val;
-	int16_t  			int16Val;
-	uint16_t  			uInt16Val;
-	int32_t  			int32Val;
-	uint32_t  			uInt32Val;
-	int64_t  			int64Val;
+//	uint8_t  			uInt8Val;
+//	int16_t  			int16Val;
+//	uint16_t  			uInt16Val;
+//	int32_t  			int32Val;
+//	uint32_t  			uInt32Val;
+//	int64_t  			int64Val;
 	uint64_t  			uInt64Val;
-	float 				floatVal;
-    double 				doubleVal;
-	struct				floatDigits { double value; double digits; } floatDigits;
+//	float 				floatVal;
+//    double 				doubleVal;
+//	struct				floatDigits { double value; double digits; } floatDigits;
     size_t				stringVal[2];
 	usds::usdsEncode	encodeVal;
 
@@ -129,11 +129,10 @@ namespace cppTextReader {
         NAMESPACE = 263,
         STRUCT = 264,
         TEXT_NAME = 265,
-        BOOLEAN_VALUE = 266,
-        POSITIVE_NUMBER = 267,
-        NEGATIVE_NUMBER = 268,
-        POSITIVE_EXPONENT_NUMBER = 269,
-        NEGATIVE_EXPONENT_NUMBER = 270
+        POSITIVE_NUMBER = 266,
+        NEGATIVE_NUMBER = 267,
+        POSITIVE_EXPONENT_NUMBER = 268,
+        NEGATIVE_EXPONENT_NUMBER = 269
       };
     };
 
@@ -226,7 +225,7 @@ namespace cppTextReader {
 
 
     /// Build a parser object.
-    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg);
+    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg, usds::BasicParser* output_yyarg);
     virtual ~BisonCppTextReader ();
 
     /// Parse.
@@ -424,19 +423,20 @@ namespace cppTextReader {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 84,           //< Last index in yytable_.
-      yynnts_ = 7,  //< Number of nonterminal symbols.
+      yylast_ = 78,           //< Last index in yytable_.
+      yynnts_ = 8,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 9, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 38    //< Number of tokens.
+      yyntokens_ = 23    //< Number of tokens.
     };
 
 
     // User arguments.
     class FlexCppTextReader* scanner;
     const char* input_text;
+    usds::BasicParser* output;
   };
 
 

@@ -1,8 +1,49 @@
 USDS 2:UsdsCppCodeReader 0.1
 ENCODE:UTF-8
 {
+	CodeDescription
+	{
+		STRING dictionaryName;
+		UBYTE dictionaryMajorVersion = NULL;
+		UBYTE dictionaryMinorVersion = NULL;
+		ENUM cppType { struct=1, class = 2 };
+		STRING cppName;
+		<StructDescription||ClassDescription> typeDescription;
+	};
+
+	StructDescription
+	{
+		StructFields []
+		{
+			STRING fieldName;
+			Annotation[] additionalAnnotations;
+		};
+	};
 	
+	ClassDescription
+	{
+		StructFields []
+		{
+			STRING fieldName;
+			Annotation[] additionalAnnotations;
+		};
+	};
+	
+	<StringEncode||NameMapping> Annotation;
 
-
-
+	StringEncode
+	{
+		STRING dictionaryName = NULL;
+		UBYTE dictionaryMajorVersion = NULL;
+		UBYTE dictionaryMinorVersion = NULL;
+		ENUM encode { noencode = 0, utf8 = 1 };
+	};
+	
+	NameMapping
+	{
+		STRING dictionaryName = NULL;
+		UBYTE dictionaryMajorVersion = NULL;
+		UBYTE dictionaryMinorVersion = NULL;	
+		STRING mappedName;
+	};
 }

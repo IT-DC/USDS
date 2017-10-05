@@ -15,7 +15,7 @@ namespace usdsAgent
 	private:
 		
 		static const char* cppAnnotation;
-		static const char* codeDictionary;
+		static const char* cppCodeDictionary;
 
 
 

@@ -39,12 +39,12 @@ void UsdsPolymorphTest::test_1()
 		throw "Failed at the step 1\n";
 
 	// test 2
-	poly_field->setSubtagId(2);
+	poly_field->setSubtagType(2);
 	if (poly_field->getSubtagId() != 2 || poly_field->getSubtag()->getType() != usds::USDS_STRUCT || poly_field->getSubtag()->getID() != 2 || strcmp(poly_field->getSubtag()->getName(), "struct_2")!= 0)
 		throw "Failed at the step 2\n";
 
 	// test 3
-	poly_field->setSubtagId(3);
+	poly_field->setSubtagType(3);
 	if (poly_field->getSubtagId() != 3 || poly_field->getSubtag()->getType() != usds::USDS_STRUCT || poly_field->getSubtag()->getID() != 3 || strcmp(poly_field->getSubtag()->getName(), "struct_3") != 0)
 		throw "Failed at the step 3\n";
 	
@@ -105,7 +105,7 @@ void UsdsPolymorphTest::test_2()
 	// test 3
 	try
 	{
-		poly_field->setSubtagId(1);
+		poly_field->setSubtagType(1);
 		throw "Failed at the step 3\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -119,7 +119,7 @@ void UsdsPolymorphTest::test_2()
 	// test 4
 	try
 	{
-		poly_field->setSubtagId(4);
+		poly_field->setSubtagType(4);
 		throw "Failed at the step 4\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -194,11 +194,11 @@ void UsdsPolymorphTest::test_4()
 
 	// test 2
 	usds::UsdsPolymorph* poly_element = (usds::UsdsPolymorph*)arr_tag->pushElementBack();
-	poly_element->setSubtagId(2);
+	poly_element->setSubtagType(2);
 	poly_element = (usds::UsdsPolymorph*)arr_tag->pushElementBack();
-	poly_element->setSubtagId(3);
+	poly_element->setSubtagType(3);
 	poly_element = (usds::UsdsPolymorph*)arr_tag->pushElementBack();
-	poly_element->setSubtagId(2);
+	poly_element->setSubtagType(2);
 
 	poly_element = (usds::UsdsPolymorph*)arr_tag->getElement(0);
 	if (poly_element->getType() != usds::USDS_POLYMORPH || poly_element->getSubtag()->getID() != 2 || strcmp(poly_element->getSubtag()->getName(), "struct_2")!=0)

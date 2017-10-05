@@ -3,6 +3,9 @@
 #include "dictionary\dataTypes\dictionaryStruct.h"
 #include "body\usdsBody.h"
 
+#include "body/dataTypes/usdsEnum.h"
+#include "body/dataTypes/usdsPolymorph.h"
+
 using namespace usds;
 
 UsdsStruct::UsdsStruct(Body* parent_body) : UsdsBaseType(parent_body)
@@ -127,6 +130,89 @@ catch (ErrorStack& err)
 	err.addLevel("UsdsStruct::setFieldValue") << field_name << encode << value;
 	throw;
 };
+
+void UsdsStruct::setFieldFromUTF8(const char* field_name, const char* value) throw (...)
+try
+{
+	int32_t field_id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(field_name);
+	if (field_id == 0)
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << field_name << "' is not found in the tag '" << getName() << "'";
+
+	switch (((DictionaryStruct*)parentDictionaryObject)->getField(field_id)->getType())
+	{
+	case USDS_STRING:
+		// for nullable fields
+		if (fields[field_id] == 0)
+			fields[field_id] = parentBody->addField(((DictionaryStruct*)parentDictionaryObject)->getField(field_id), this);
+
+		((UsdsString*)fields[field_id])->setFromUTF8(value);
+		break;
+
+	case USDS_ENUM:
+		// for nullable fields
+		if (fields[field_id] == 0)
+			fields[field_id] = parentBody->addField(((DictionaryStruct*)parentDictionaryObject)->getField(field_id), this);
+
+		((UsdsEnum*)fields[field_id])->setFromUTF8(value);
+		break;
+
+	default:
+		throw ErrorMessage(BODY_STRUCT__ERROR_FIELD_TYPE) << "Field '" << field_name << "' is not STRING or ENUM";
+	};
+
+	return;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsStruct::setFieldFromUTF8") << field_name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldFromUTF8") << field_name << value;
+	throw;
+};
+
+void UsdsStruct::setFieldFromUTF8(const char* field_name, const char* value, size_t byte_size) throw (...)
+try
+{
+	int32_t field_id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(field_name);
+	if (field_id == 0)
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << field_name << "' is not found in the tag '" << getName() << "'";
+
+	switch (((DictionaryStruct*)parentDictionaryObject)->getField(field_id)->getType())
+	{
+	case USDS_STRING:
+		// for nullable fields
+		if (fields[field_id] == 0)
+			fields[field_id] = parentBody->addField(((DictionaryStruct*)parentDictionaryObject)->getField(field_id), this);
+
+		((UsdsString*)fields[field_id])->setFromUTF8(value, byte_size);
+		break;
+	
+	case USDS_ENUM:
+		// for nullable fields
+		if (fields[field_id] == 0)
+			fields[field_id] = parentBody->addField(((DictionaryStruct*)parentDictionaryObject)->getField(field_id), this);
+
+		((UsdsEnum*)fields[field_id])->setFromUTF8(value, byte_size);
+		break;
+
+	default:
+		throw ErrorMessage(BODY_STRUCT__ERROR_FIELD_TYPE) << "Field '" << field_name << "' is not STRING or ENUM";
+	};
+
+	return;
+}
+catch (ErrorMessage& msg)
+{
+	throw (ErrorStack("UsdsStruct::setFieldFromUTF8") << field_name).addStringAndSize(value, byte_size) << msg;
+}
+catch (ErrorStack& err)
+{
+	(err.addLevel("UsdsStruct::setFieldFromUTF8") << field_name).addStringAndSize(value, byte_size);
+	throw;
+};
+
 
 void UsdsStruct::setFieldValue(const char* field_name, bool value) throw (...)
 try
@@ -690,5 +776,35 @@ catch (ErrorStack& err)
 	err.addLevel("UsdsStruct::isNullValue") << field_id;
 	throw;
 };
+
+UsdsStruct* UsdsStruct::setFieldSubtype(const char* field_name, const char* value) throw (...)
+try
+{
+	int32_t field_id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(field_name);
+	if (field_id == 0)
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << field_name << "' is not found in the tag '" << getName() << "'";
+
+	if (fields[field_id] == 0)
+		fields[field_id] = parentBody->addField(((DictionaryStruct*)parentDictionaryObject)->getField(field_id), this);
+
+	((UsdsPolymorph*)(fields[field_id]))->
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsStruct::setFieldSubtype") << field_name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setFieldSubtype") << field_name << value;
+	throw;
+};
+
+
+
+
+
+
+
 
 

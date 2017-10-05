@@ -16,7 +16,8 @@ namespace usds
 		usdsType getType() { return USDS_POLYMORPH; };
 		const char* getTypeName() { return "POLYMORPH"; };
 
-		UsdsStruct* setSubtagId(int32_t tag_id) throw(...);
+		UsdsStruct* setSubtagType(int32_t tag_id) throw(...);
+		UsdsStruct* setSubtagType(const char* tag_name) throw(...);
 		
 		UsdsStruct* getSubtag() throw(...);
 		int32_t getSubtagId() throw(...);

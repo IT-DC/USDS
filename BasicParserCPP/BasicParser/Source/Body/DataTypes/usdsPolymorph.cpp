@@ -17,7 +17,7 @@ UsdsPolymorph::~UsdsPolymorph()
 	
 };
 
-UsdsStruct* UsdsPolymorph::setSubtagId(int32_t tag_id) throw(...)
+UsdsStruct* UsdsPolymorph::setSubtagType(int32_t tag_id) throw(...)
 try
 {
 	if (subObject != 0)
@@ -30,7 +30,23 @@ try
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("UsdsPolymorph::setSubtagId") << tag_id;
+	err.addLevel("UsdsPolymorph::setSubtagType") << tag_id;
+	throw;
+};
+
+UsdsStruct* UsdsPolymorph::setSubtagType(const char* tag_name) throw(...)
+try
+{
+	
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsPolymorph::setSubtagType") << tag_name << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsPolymorph::setSubtagType") << tag_name;
 	throw;
 };
 

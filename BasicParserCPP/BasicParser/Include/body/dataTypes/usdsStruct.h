@@ -28,6 +28,8 @@ namespace usds
 		void setFieldValue(const char* field_name, float value) throw (...);
 		void setFieldValue(const char* field_name, double value) throw (...);
 		void setFieldValue(const char* field_name, usdsEncode encode, const char* value) throw (...);
+		void setFieldFromUTF8(const char* field_name, const char* value) throw (...);
+		void setFieldFromUTF8(const char* field_name, const char* value, size_t byte_size) throw (...);
 
 		void setFieldValue(int32_t field_id, bool value) throw (...);
 		void setFieldValue(int32_t field_id, int8_t value) throw (...);
@@ -71,6 +73,8 @@ namespace usds
 		void getFieldValue(int32_t field_id, usdsEncode encode, const char** value) throw (...);
 
 		template <typename out_type> out_type getFieldValue(int32_t field_id) throw (...);
+
+		UsdsStruct* setFieldSubtype(const char* field_name, const char* tag_name) throw (...);
 
 		UsdsBaseType* getField(int32_t field_id) throw (...);
 		UsdsBaseType* getField(const char* field_name) throw (...);
