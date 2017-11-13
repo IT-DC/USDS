@@ -64,6 +64,30 @@ void DictionaryPolymorphTest::test_1()
 			throw "Failed at the step 2\n";
 	}
 
+	// test 2.1
+	try
+	{
+		poly_field->getSubStruct("struct_1");
+		throw "Failed at the step 2.1\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+			throw "Failed at the step 2.1\n";
+	}
+
+	// test 2.2
+	try
+	{
+		poly_field->getSubtagId("struct_1");
+		throw "Failed at the step 2.2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+			throw "Failed at the step 2.2\n";
+	}
+
 	// test 3
 	try
 	{
@@ -74,6 +98,30 @@ void DictionaryPolymorphTest::test_1()
 	{
 		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
 			throw "Failed at the step 3\n";
+	}
+
+	// test 3.1
+	try
+	{
+		poly_field->getSubStruct("struct_2");
+		throw "Failed at the step 3.1\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+			throw "Failed at the step 3.1\n";
+	}
+
+	// test 3.2
+	try
+	{
+		poly_field->getSubtagId("struct_2");
+		throw "Failed at the step 3.2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+			throw "Failed at the step 3.2\n";
 	}
 
 	// test 4
@@ -88,6 +136,30 @@ void DictionaryPolymorphTest::test_1()
 			throw "Failed at the step 4\n";
 	}
 
+	// test 4.1
+	try
+	{
+		poly_field->getSubStruct("struct_5");
+		throw "Failed at the step 4.1\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+			throw "Failed at the step 4.1\n";
+	}
+
+	// test 4.2
+	try
+	{
+		poly_field->getSubtagId("struct_5");
+		throw "Failed at the step 4.2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+			throw "Failed at the step 4.2\n";
+	}
+
 	// test 5
 	try
 	{
@@ -100,12 +172,44 @@ void DictionaryPolymorphTest::test_1()
 			throw "Failed at the step 5\n";
 	}
 
+	// test 5.1
+	try
+	{
+		poly_field->getSubStruct("struct_7");
+		throw "Failed at the step 5.1\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+			throw "Failed at the step 5.1\n";
+	}
+
+	// test 5.2
+	try
+	{
+		poly_field->getSubtagId("struct_7");
+		throw "Failed at the step 5.2\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+			throw "Failed at the step 5.2\n";
+	}
+
 	// test 6
 	if (
 		poly_field->getSubStruct(3) != dict.getTag(3) ||
 		poly_field->getSubStruct(4) != dict.getTag(4) ||
 		poly_field->getSubStruct(6) != dict.getTag(6) ||
-		poly_field->getSubStruct(8) != dict.getTag(8)
+		poly_field->getSubStruct(8) != dict.getTag(8) ||
+		poly_field->getSubStruct("struct_3") != dict.getTag(3) ||
+		poly_field->getSubStruct("struct_4") != dict.getTag(4) ||
+		poly_field->getSubStruct("struct_6") != dict.getTag(6) ||
+		poly_field->getSubStruct("struct_8") != dict.getTag(8) ||
+		poly_field->getSubtagId("struct_3") != 3 ||
+		poly_field->getSubtagId("struct_4") != 4 ||
+		poly_field->getSubtagId("struct_6") != 6 ||
+		poly_field->getSubtagId("struct_8") != 8
 		)
 		throw "Failed at the step 6\n";
 

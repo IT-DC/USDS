@@ -106,7 +106,7 @@ block:
 		tag->setFieldFromUTF8("dictionaryName", input_text + $2[0], $2[1]);
 		tag->setFieldFromUTF8("cppType", "struct");
 		tag->setFieldFromUTF8("cppName", input_text + $4[0], $4[1]);
-		
+		tag->setFieldSubtag("typeDescription", "StructDescription");
 	}
 	'{' struct_description '}'
 	{

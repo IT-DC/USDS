@@ -25,11 +25,16 @@ namespace usds
 		void addTag(int32_t tag_id) throw (...);
 		void setTags(DictionaryTagLink* tags_chain) throw (...);
 
+		int32_t getSubtagId(const char* tag_name) throw (...);
+
 		DictionaryStruct* getSubStruct(int32_t tag_id) throw (...);
+		DictionaryStruct* getSubStruct(const char* tag_name) throw (...);
 
 		void finalize() throw (...);
 		void getSubStructs(DictionaryStruct** index) throw (...);
 		DictionaryTagLink* getFirstTag() throw (...);
+
+		bool hasDefaultValue() { return false; };
 
 	private:
 		void additionalInitType();

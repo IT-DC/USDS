@@ -410,7 +410,7 @@ void UsdsArrayTest::test_4()
 		usds::UsdsStruct* element = (usds::UsdsStruct*)body_array->pushElementBack();
 		if (element->getType() != usds::USDS_STRUCT || body_array->getSize() != 1 || body_array->getElementType() != usds::USDS_STRUCT)
 			throw "Failed at the step 1\n";
-		element->setFieldValue(1, 888);
+		element->setValue(1, 888);
 	}
 	catch (...)
 	{
@@ -423,7 +423,7 @@ void UsdsArrayTest::test_4()
 		usds::UsdsStruct* element = (usds::UsdsStruct*)body_array->pushElementBack();
 		if (strcmp(element->getName(), "_array_element") != 0 || body_array->getSize() != 2)
 			throw "Failed at the step 2\n";
-		element->setFieldValue(1, 999);
+		element->setValue(1, 999);
 	}
 	catch (...)
 	{
@@ -435,7 +435,7 @@ void UsdsArrayTest::test_4()
 	{
 		usds::UsdsStruct* element = (usds::UsdsStruct*)body_array->getElement(0);
 		int32_t field_value = 0;
-		element->getFieldValue(1, &field_value);
+		element->getValue(1, &field_value);
 		if (element->getType() != usds::USDS_STRUCT || field_value != 888)
 			throw "Failed at the step 3\n";
 	}
@@ -449,7 +449,7 @@ void UsdsArrayTest::test_4()
 	{
 		usds::UsdsStruct* element = (usds::UsdsStruct*)body_array->getElement(1);
 		int32_t field_value = 0;
-		element->getFieldValue(1, &field_value);
+		element->getValue(1, &field_value);
 		if (strcmp(element->getName(), "_array_element") != 0 || field_value != 999)
 			throw "Failed at the step 4\n";
 	}
@@ -525,7 +525,7 @@ void UsdsArrayTest::test_5()
 		usds::UsdsStruct* element = (usds::UsdsStruct*)body_array->pushElementBack();
 		if (element->getType() != usds::USDS_STRUCT || element->getID() != 1 || body_array->getSize() != 1 || body_array->getElementType() != usds::USDS_STRUCT)
 			throw "Failed at the step 1\n";
-		element->setFieldValue(1, 888);
+		element->setValue(1, 888);
 	}
 	catch (...)
 	{
@@ -538,7 +538,7 @@ void UsdsArrayTest::test_5()
 		usds::UsdsStruct* element = (usds::UsdsStruct*)body_array->pushElementBack();
 		if (strcmp(element->getName(), "struct") != 0 || body_array->getSize() != 2)
 			throw "Failed at the step 2\n";
-		element->setFieldValue(1, 999);
+		element->setValue(1, 999);
 	}
 	catch (...)
 	{
@@ -550,7 +550,7 @@ void UsdsArrayTest::test_5()
 	{
 		usds::UsdsStruct* element = (usds::UsdsStruct*)body_array->getElement(0);
 		int32_t field_value = 0;
-		element->getFieldValue(1, &field_value);
+		element->getValue(1, &field_value);
 		if (element->getType() != usds::USDS_STRUCT || field_value != 888)
 			throw "Failed at the step 3\n";
 	}
@@ -564,7 +564,7 @@ void UsdsArrayTest::test_5()
 	{
 		usds::UsdsStruct* element = (usds::UsdsStruct*)body_array->getElement(1);
 		int32_t field_value = 0;
-		element->getFieldValue(1, &field_value);
+		element->getValue(1, &field_value);
 		if (strcmp(element->getName(), "struct") != 0 || field_value != 999)
 			throw "Failed at the step 4\n";
 	}

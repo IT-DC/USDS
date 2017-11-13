@@ -219,9 +219,6 @@
     <ClInclude Include="Include\dictionary\dataTypes\dictionaryPolymorph.h">
       <Filter>Dictionary\Data types</Filter>
     </ClInclude>
-    <ClInclude Include="Include\body\dataTypes\usdsPolymorph.h">
-      <Filter>Body\Data types</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Converters\DictionaryTextParser\bisonDictionaryTextParser.cc">
@@ -399,9 +396,6 @@
     </ClCompile>
     <ClCompile Include="Source\Dictionary\DataTypes\dictionaryPolymorph.cpp">
       <Filter>Dictionary\Data types</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Body\DataTypes\usdsPolymorph.cpp">
-      <Filter>Body\Data types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

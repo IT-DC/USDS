@@ -28,6 +28,8 @@ namespace usds
 
 		DictionaryBaseType* setElementType(usdsType type_id) throw (...);
 
+		bool hasDefaultValue() { return false; };
+
 	private:
 		virtual void additionalInitType();
 

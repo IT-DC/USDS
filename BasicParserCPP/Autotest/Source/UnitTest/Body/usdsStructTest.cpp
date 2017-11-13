@@ -45,55 +45,56 @@ void UsdsStructTest::test_1()
 	}
 
 	// step 2
-	if (body_struct->getField(1)->getType() != usds::USDS_BOOLEAN || body_struct->getField(2)->getType() != usds::USDS_INT || body_struct->getField(3)->getType() != usds::USDS_STRING)
-		throw "Failed at the step 2\n";
-	
+	body_struct->setValue(1, false);
+	if (body_struct->getField("bool")->getValue<bool>() != false || body_struct->getValue<bool>("bool") != false || body_struct->getValue<bool>(1) != false)
+		throw "Failed at the step 4\n";
+
 	// step 3
-	if (body_struct->getField("bool")->getType() != usds::USDS_BOOLEAN || body_struct->getField("int")->getType() != usds::USDS_INT || body_struct->getField("string")->getType() != usds::USDS_STRING)
-		throw "Failed at the step 3\n";
+	body_struct->setValue("bool", true);
+	if (body_struct->getField("bool")->getValue<bool>() != true || body_struct->getValue<bool>("bool") != true || body_struct->getValue<bool>(1) != true)
+		throw "Failed at the step 4\n";
 
 	// step 4
-	body_struct->setFieldValue(1, false);
-	if (body_struct->getField("bool")->getValue<bool>() != false || body_struct->getFieldValue<bool>("bool") != false || body_struct->getFieldValue<bool>(1) != false)
-		throw "Failed at the step 4\n";
-
-	// step 5
-	body_struct->setFieldValue("bool", true);
-	if (body_struct->getField("bool")->getValue<bool>() != true || body_struct->getFieldValue<bool>("bool") != true || body_struct->getFieldValue<bool>(1) != true)
-		throw "Failed at the step 4\n";
-
-	// step 6
-	body_struct->setFieldValue(2, 98765);
-	if (body_struct->getField("int")->getValue<int32_t>() != 98765 || body_struct->getFieldValue<int32_t>("int") != 98765 || body_struct->getFieldValue<int32_t>(2) != 98765)
+	body_struct->setValue(2, 98765);
+	if (body_struct->getField("int")->getValue<int32_t>() != 98765 || body_struct->getValue<int32_t>("int") != 98765 || body_struct->getValue<int32_t>(2) != 98765)
 		throw "Failed at the step 6\n";
 
-	// step 7
-	body_struct->setFieldValue("int", 56789);
-	if (body_struct->getField("int")->getValue<int32_t>() != 56789 || body_struct->getFieldValue<int32_t>("int") != 56789 || body_struct->getFieldValue<int32_t>(2) != 56789)
+	// step 5
+	body_struct->setValue("int", 56789);
+	if (body_struct->getField("int")->getValue<int32_t>() != 56789 || body_struct->getValue<int32_t>("int") != 56789 || body_struct->getValue<int32_t>(2) != 56789)
 		throw "Failed at the step 7\n";
 
-	// step 8
-	body_struct->setFieldValue(3, usds::USDS_UTF8, "Hell world!");
+	// step 6
+	body_struct->setValue(3, usds::USDS_UTF8, "Hell world!");
 	const char* str_value1 = 0;
 	const char* str_value2 = 0;
-	body_struct->getFieldValue("string", usds::USDS_UTF8, &str_value1);
-	body_struct->getFieldValue(3, usds::USDS_UTF8, &str_value2);
+	body_struct->getValue("string", usds::USDS_UTF8, &str_value1);
+	body_struct->getValue(3, usds::USDS_UTF8, &str_value2);
 	if (strcmp(str_value1, "Hell world!") != 0 || strcmp(str_value2, "Hell world!") != 0)
 		throw "Failed at the step 8\n";
 
-	// step 9
-	body_struct->setFieldValue("string", usds::USDS_UTF8, "Not hell world!");
+	// step 7
+	body_struct->setValue("string", usds::USDS_UTF8, "Not hell world!");
 	str_value1 = 0;
 	str_value2 = 0;
-	body_struct->getFieldValue("string", usds::USDS_UTF8, &str_value1);
-	body_struct->getFieldValue(3, usds::USDS_UTF8, &str_value2);
+	body_struct->getValue("string", usds::USDS_UTF8, &str_value1);
+	body_struct->getValue(3, usds::USDS_UTF8, &str_value2);
 	if (strcmp(str_value1, "Not hell world!") != 0 || strcmp(str_value2, "Not hell world!") != 0)
 		throw "Failed at the step 9\n";
+
+	// step 8
+	if (body_struct->getField(1)->getType() != usds::USDS_BOOLEAN || body_struct->getField(2)->getType() != usds::USDS_INT || body_struct->getField(3)->getType() != usds::USDS_STRING)
+		throw "Failed at the step 2\n";
+
+	// step 9
+	if (body_struct->getField("bool")->getType() != usds::USDS_BOOLEAN || body_struct->getField("int")->getType() != usds::USDS_INT || body_struct->getField("string")->getType() != usds::USDS_STRING)
+		throw "Failed at the step 3\n";
+
 
 	// step 10
 	try
 	{
-		body_struct->setFieldValue(2, usds::USDS_UTF8, "Hell world!");
+		body_struct->setValue(2, usds::USDS_UTF8, "Hell world!");
 		throw "Failed at the step 10\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -107,7 +108,7 @@ void UsdsStructTest::test_1()
 	// step 11
 	try
 	{
-		body_struct->setFieldValue("bool", usds::USDS_UTF8, "Hell world!");
+		body_struct->setValue("bool", usds::USDS_UTF8, "Hell world!");
 		throw "Failed at the step 11\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -122,7 +123,7 @@ void UsdsStructTest::test_1()
 	try
 	{
 		const char* value;
-		body_struct->getFieldValue(2, usds::USDS_UTF8, &value);
+		body_struct->getValue(2, usds::USDS_UTF8, &value);
 		throw "Failed at the step 12\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -137,7 +138,7 @@ void UsdsStructTest::test_1()
 	try
 	{
 		const char* value;
-		body_struct->getFieldValue("bool", usds::USDS_UTF8, &value);
+		body_struct->getValue("bool", usds::USDS_UTF8, &value);
 		throw "Failed at the step 13\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -151,7 +152,7 @@ void UsdsStructTest::test_1()
 	// step 14
 	try
 	{
-		body_struct->setFieldValue(4, usds::USDS_UTF8, "Hell world!");
+		body_struct->setValue(4, usds::USDS_UTF8, "Hell world!");
 		throw "Failed at the step 14\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -165,7 +166,7 @@ void UsdsStructTest::test_1()
 	// step 15
 	try
 	{
-		body_struct->setFieldValue("long", usds::USDS_UTF8, "Hell world!");
+		body_struct->setValue("long", usds::USDS_UTF8, "Hell world!");
 		throw "Failed at the step 15\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -179,7 +180,7 @@ void UsdsStructTest::test_1()
 	// step 16
 	try
 	{
-		body_struct->setFieldValue(4, false);
+		body_struct->setValue(4, false);
 		throw "Failed at the step 16\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -193,7 +194,7 @@ void UsdsStructTest::test_1()
 	// step 17
 	try
 	{
-		body_struct->setFieldValue("long", false);
+		body_struct->setValue("long", false);
 		throw "Failed at the step 17\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -207,7 +208,7 @@ void UsdsStructTest::test_1()
 	// step 18
 	try
 	{
-		body_struct->getFieldValue<int32_t>(4);
+		body_struct->getValue<int32_t>(4);
 		throw "Failed at the step 18\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -221,7 +222,7 @@ void UsdsStructTest::test_1()
 	// step 19
 	try
 	{
-		body_struct->getFieldValue<int32_t>("long");
+		body_struct->getValue<int32_t>("long");
 		throw "Failed at the step 19\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -251,17 +252,17 @@ void UsdsStructTest::test_2()
 	body_struct = (usds::UsdsStruct*)body.addTag(dict_struct);
 
 	// step 1
-	if (body_struct->isNullValue(1) != true || body_struct->isNullValue(2) != false)
+	if (body_struct->isNull(1) != true || body_struct->isNull(2) != true)
 		throw "Failed at the step 1\n";
 
 	// step 2
-	if (body_struct->isNullValue("int") != true || body_struct->isNullValue("int2") != false)
+	if (body_struct->isNull("int") != true || body_struct->isNull("int2") != true)
 		throw "Failed at the step 2\n";
 
 	// step 3
 	try
 	{
-		body_struct->isNullValue(6);
+		body_struct->isNull(6);
 		throw "Failed at the step 3\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -275,7 +276,7 @@ void UsdsStructTest::test_2()
 	// step 4
 	try
 	{
-		body_struct->isNullValue("int3");
+		body_struct->isNull("int3");
 		throw "Failed at the step 4\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -289,7 +290,7 @@ void UsdsStructTest::test_2()
 	// step 5
 	try
 	{
-		body_struct->setFieldAsNull(2);
+		body_struct->setNull(2);
 		throw "Failed at the step 5\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -303,7 +304,7 @@ void UsdsStructTest::test_2()
 	// step 6
 	try
 	{
-		body_struct->setFieldAsNull("int2");
+		body_struct->setNull("int2");
 		throw "Failed at the step 6\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -345,7 +346,7 @@ void UsdsStructTest::test_2()
 	// step 9
 	try
 	{
-		body_struct->getFieldValue<int32_t>("int");
+		body_struct->getValue<int32_t>("int");
 		throw "Failed at the step 9\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -359,7 +360,7 @@ void UsdsStructTest::test_2()
 	// step 10
 	try
 	{
-		body_struct->getFieldValue<int64_t>("int");
+		body_struct->getValue<int64_t>("int");
 		throw "Failed at the step 10\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -373,7 +374,7 @@ void UsdsStructTest::test_2()
 	// step 11
 	try
 	{
-		body_struct->getFieldValue<double>("int");
+		body_struct->getValue<double>("int");
 		throw "Failed at the step 11\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -387,7 +388,7 @@ void UsdsStructTest::test_2()
 	// step 12
 	try
 	{
-		body_struct->getFieldValue<bool>("int");
+		body_struct->getValue<bool>("int");
 		throw "Failed at the step 12\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -402,7 +403,7 @@ void UsdsStructTest::test_2()
 	try
 	{
 		const char* value = 0;
-		body_struct->getFieldValue("int", usds::USDS_UTF8, &value);
+		body_struct->getValue("int", usds::USDS_UTF8, &value);
 		throw "Failed at the step 13\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -417,7 +418,7 @@ void UsdsStructTest::test_2()
 	try
 	{
 		const char* value = 0;
-		body_struct->getFieldValue("string", usds::USDS_UTF8, &value);
+		body_struct->getValue("string", usds::USDS_UTF8, &value);
 		throw "Failed at the step 14\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -430,98 +431,98 @@ void UsdsStructTest::test_2()
 
 	// step 15
 	int32_t int_value = 123;
-	body_struct->setFieldValue("int", int_value);
-	if (body_struct->getFieldValue<int32_t>("int") != 123 || body_struct->isNullValue("int") == true)
+	body_struct->setValue("int", int_value);
+	if (body_struct->getValue<int32_t>("int") != 123 || body_struct->isNull("int") == true)
 		throw "Failed at the step 15\n";
 
 	// step 16
-	body_struct->setFieldAsNull("int");
-	if (body_struct->isNullValue("int") == false)
+	body_struct->setNull("int");
+	if (body_struct->isNull("int") == false)
 		throw "Failed at the step 16\n";
 
 	// step 16
 	int_value = 1234;
-	body_struct->setFieldValue(1, int_value);
-	if (body_struct->getFieldValue<int32_t>(1) != 1234 || body_struct->isNullValue(1) == true)
+	body_struct->setValue(1, int_value);
+	if (body_struct->getValue<int32_t>(1) != 1234 || body_struct->isNull(1) == true)
 		throw "Failed at the step 16\n";
 
 	// step 17
-	body_struct->setFieldAsNull(1);
-	if (body_struct->isNullValue(1) == false)
+	body_struct->setNull(1);
+	if (body_struct->isNull(1) == false)
 		throw "Failed at the step 17\n";
 
 	// step 18
 	int64_t long_value = 12345;
-	body_struct->setFieldValue("int", long_value);
-	if (body_struct->getFieldValue<int64_t>("int") != 12345 || body_struct->isNullValue("int") == true)
+	body_struct->setValue("int", long_value);
+	if (body_struct->getValue<int64_t>("int") != 12345 || body_struct->isNull("int") == true)
 		throw "Failed at the step 18\n";
 
 	// step 19
 	bool bool_value = true;
-	body_struct->setFieldValue("boolean", bool_value);
-	if (body_struct->getFieldValue<bool>("boolean") != true || body_struct->isNullValue("boolean") == true)
+	body_struct->setValue("boolean", bool_value);
+	if (body_struct->getValue<bool>("boolean") != true || body_struct->isNull("boolean") == true)
 		throw "Failed at the step 19\n";
 
 	// step 20
-	body_struct->setFieldAsNull("boolean");
-	if (body_struct->isNullValue("boolean") == false)
+	body_struct->setNull("boolean");
+	if (body_struct->isNull("boolean") == false)
 		throw "Failed at the step 20\n";
 
 	// step 21
 	bool_value = false;
-	body_struct->setFieldValue(3, bool_value);
-	if (body_struct->getFieldValue<bool>(3) != false || body_struct->isNullValue(3) == true)
+	body_struct->setValue(3, bool_value);
+	if (body_struct->getValue<bool>(3) != false || body_struct->isNull(3) == true)
 		throw "Failed at the step 21\n";
 
 	// step 22
-	body_struct->setFieldAsNull(3);
-	if (body_struct->isNullValue(3) == false)
+	body_struct->setNull(3);
+	if (body_struct->isNull(3) == false)
 		throw "Failed at the step 22\n";
 
 	// step 23
 	double double_value = 1.25;
-	body_struct->setFieldValue("double", double_value);
-	if (body_struct->getFieldValue<double>("double") != 1.25 || body_struct->isNullValue("double") == true)
+	body_struct->setValue("double", double_value);
+	if (body_struct->getValue<double>("double") != 1.25 || body_struct->isNull("double") == true)
 		throw "Failed at the step 23\n";
 
 	// step 24
-	body_struct->setFieldAsNull("double");
-	if (body_struct->isNullValue("double") == false)
+	body_struct->setNull("double");
+	if (body_struct->isNull("double") == false)
 		throw "Failed at the step 24\n";
 
 	// step 25
 	double_value = 1.125;
-	body_struct->setFieldValue(4, double_value);
-	if (body_struct->getFieldValue<double>(4) != 1.125 || body_struct->isNullValue(4) == true)
+	body_struct->setValue(4, double_value);
+	if (body_struct->getValue<double>(4) != 1.125 || body_struct->isNull(4) == true)
 		throw "Failed at the step 25\n";
 
 	// step 26
-	body_struct->setFieldAsNull(4);
-	if (body_struct->isNullValue(4) == false)
+	body_struct->setNull(4);
+	if (body_struct->isNull(4) == false)
 		throw "Failed at the step 26\n";
 
 	// step 27
 	const char* string_value = 0;
-	body_struct->setFieldValue("string", usds::USDS_UTF8, "Hell world!");
-	body_struct->getFieldValue("string", usds::USDS_UTF8, &string_value);
-	if (strcmp(string_value, "Hell world!") != 0 || body_struct->isNullValue("string") == true)
+	body_struct->setValue("string", usds::USDS_UTF8, "Hell world!");
+	body_struct->getValue("string", usds::USDS_UTF8, &string_value);
+	if (strcmp(string_value, "Hell world!") != 0 || body_struct->isNull("string") == true)
 		throw "Failed at the step 27\n";
 
 	// step 28
-	body_struct->setFieldAsNull("string");
-	if (body_struct->isNullValue("string") == false)
+	body_struct->setNull("string");
+	if (body_struct->isNull("string") == false)
 		throw "Failed at the step 28\n";
 
 	// step 29
 	string_value = 0;
-	body_struct->setFieldValue(5, usds::USDS_UTF8, "not hell world!");
-	body_struct->getFieldValue(5, usds::USDS_UTF8, &string_value);
-	if (strcmp(string_value, "not hell world!") != 0 || body_struct->isNullValue(5) == true)
+	body_struct->setValue(5, usds::USDS_UTF8, "not hell world!");
+	body_struct->getValue(5, usds::USDS_UTF8, &string_value);
+	if (strcmp(string_value, "not hell world!") != 0 || body_struct->isNull(5) == true)
 		throw "Failed at the step 29\n";
 
 	// step 30
-	body_struct->setFieldAsNull(5);
-	if (body_struct->isNullValue(5) == false)
+	body_struct->setNull(5);
+	if (body_struct->isNull(5) == false)
 		throw "Failed at the step 30\n";
 
 }
@@ -582,76 +583,76 @@ void UsdsStructTest::test_3()
 
 
 	// test 1
-	if (body_struct->getFieldValue<bool>("boolean") != false)
+	if (body_struct->getValue<bool>("boolean") != false)
 		throw "Failed at the step 1\n";
-	if (body_struct->getFieldValue<bool>("boolean2") != true)
+	if (body_struct->getValue<bool>("boolean2") != true)
 		throw "Failed at the step 1\n";
-	if (body_struct->getFieldValue<bool>("boolean3") != false)
+	if (body_struct->getValue<bool>("boolean3") != false)
 		throw "Failed at the step 1\n";
 
 	// test 2
-	if (body_struct->getFieldValue<int32_t>("byte") != -123)
+	if (body_struct->getValue<int32_t>("byte") != -123)
 		throw "Failed at the step 2\n";
 
 	// test 3
-	if (body_struct->getFieldValue<int32_t>("ubyte") != 222)
+	if (body_struct->getValue<int32_t>("ubyte") != 222)
 		throw "Failed at the step 3\n";
 
 	// test 4
-	if (body_struct->getFieldValue<int32_t>("short") != -22222)
+	if (body_struct->getValue<int32_t>("short") != -22222)
 		throw "Failed at the step 4\n";
 
 	// test 5
-	if (body_struct->getFieldValue<int32_t>("ushort") != 44444)
+	if (body_struct->getValue<int32_t>("ushort") != 44444)
 		throw "Failed at the step 5\n";
 
 	// test 6
-	if (body_struct->getFieldValue<int32_t>("int") != 12345678)
+	if (body_struct->getValue<int32_t>("int") != 12345678)
 		throw "Failed at the step 6\n";
 
 	// test 7
-	if (body_struct->getFieldValue<int32_t>("uint") != 87654321)
+	if (body_struct->getValue<int32_t>("uint") != 87654321)
 		throw "Failed at the step 7\n";
 	
 	// test 8
-	if (body_struct->getFieldValue<int64_t>("long") != 1234567890)
+	if (body_struct->getValue<int64_t>("long") != 1234567890)
 		throw "Failed at the step 8\n";
 
 	// test 9
-	if (body_struct->getFieldValue<int64_t>("ulong") != 12345678901)
+	if (body_struct->getValue<int64_t>("ulong") != 12345678901)
 		throw "Failed at the step 9\n";
 
 	// test 10
-	if (body_struct->getFieldValue<double>("float") != 1.125)
+	if (body_struct->getValue<double>("float") != 1.125)
 		throw "Failed at the step 10\n";
 
 	// test 11
-	if (body_struct->getFieldValue<double>("double") != -1.125)
+	if (body_struct->getValue<double>("double") != -1.125)
 		throw "Failed at the step 11\n";
 
 	// test 12
-	if (body_struct->getFieldValue<int64_t>("varint") != 123454321)
+	if (body_struct->getValue<int64_t>("varint") != 123454321)
 		throw "Failed at the step 12\n";
 
 	// test 13
-	if (body_struct->getFieldValue<int64_t>("uvarint") != 1234543210)
+	if (body_struct->getValue<int64_t>("uvarint") != 1234543210)
 		throw "Failed at the step 13\n";
 
 	// test 14
 	const char* string_value = 0;
-	body_struct->getFieldValue("string1", usds::USDS_UTF8, &string_value);
+	body_struct->getValue("string1", usds::USDS_UTF8, &string_value);
 	if (strcmp(string_value, "Hell world") != 0)
 		throw "Failed at the step 14\n";
 
 	// test 15
 	string_value = 0;
-	body_struct->getFieldValue("string2", usds::USDS_UTF8, &string_value);
+	body_struct->getValue("string2", usds::USDS_UTF8, &string_value);
 	if (strcmp(string_value, "Hell wor") != 0)
 		throw "Failed at the step 15\n";
 
 	// test 16
 	string_value = 0;
-	body_struct->getFieldValue("string3", usds::USDS_UTF8, &string_value);
+	body_struct->getValue("string3", usds::USDS_UTF8, &string_value);
 	if (strcmp(string_value, "") != 0)
 		throw "Failed at the step 16\n";
 
@@ -659,7 +660,7 @@ void UsdsStructTest::test_3()
 	string_value = 0;
 	try
 	{
-		body_struct->getFieldValue("string4", usds::USDS_UTF8, &string_value);
+		body_struct->getValue("string4", usds::USDS_UTF8, &string_value);
 		throw "Failed at the step 17\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -673,7 +674,7 @@ void UsdsStructTest::test_3()
 	// test 18
 	string_value = 0;
 	((usds::UsdsString*)body_struct->getField("string4"))->setEncode(usds::USDS_UTF8);
-	body_struct->getFieldValue("string4", usds::USDS_UTF8, &string_value);
+	body_struct->getValue("string4", usds::USDS_UTF8, &string_value);
 	if (strcmp(string_value, "Hell world") != 0)
 		throw "Failed at the step 18\n";
 
@@ -724,27 +725,27 @@ void UsdsStructTest::test_4()
 	body_struct = (usds::UsdsStruct*)body.addTag(dict_struct);
 
 	// test 1
-	if (body_struct->getFieldValue<int32_t>("enum1") != 99999)
+	if (body_struct->getValue<int32_t>("enum1") != 99999)
 		throw "Failed at the step 1\n";
 
 	// test 2
-	if (body_struct->getFieldValue<int32_t>("enum2") != -99999)
+	if (body_struct->getValue<int32_t>("enum2") != -99999)
 		throw "Failed at the step 2\n";
 
 	// test 3
-	if (body_struct->getFieldValue<int32_t>("enum3") != 10000)
+	if (body_struct->getValue<int32_t>("enum3") != 10000)
 		throw "Failed at the step 3\n";
 
 	// test 4
-	if (body_struct->getFieldValue<int32_t>("enum4") != -10000)
+	if (body_struct->getValue<int32_t>("enum4") != -10000)
 		throw "Failed at the step 4\n";
 
 	// test 5
-	if (body_struct->getFieldValue<int32_t>("enum5") != 10000)
+	if (body_struct->getValue<int32_t>("enum5") != 10000)
 		throw "Failed at the step 5\n";
 
 	// test 6
-	if (body_struct->getFieldValue<int32_t>("enum6") != -10000)
+	if (body_struct->getValue<int32_t>("enum6") != -10000)
 		throw "Failed at the step 6\n";
 
 }

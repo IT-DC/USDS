@@ -6,6 +6,8 @@
 
 namespace usds
 {
+	class UsdsStruct;
+
 	class UsdsArray : public UsdsBaseType
 	{
 	public:
@@ -82,6 +84,8 @@ namespace usds
 		template <typename out_type> out_type getValue(size_t number) throw (...);
 
 		UsdsBaseType* pushElementBack() throw(...);
+		UsdsStruct* pushStructBack(int32_t tag_id);
+
 		UsdsBaseType* getElement(size_t position) throw(...);
 
 		void erase(size_t number) throw (...);

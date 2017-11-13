@@ -3,6 +3,8 @@
 #include "body\usdsBody.h"
 #include "dictionary\dataTypes\dictionaryArray.h"
 #include "dictionary\dataTypes\dictionaryTagLink.h"
+#include "dictionary\dataTypes\dictionaryPolymorph.h"
+#include "dictionary\dataTypes\dictionaryStruct.h"
 
 #include "dictionary\dataTypes\dictionaryShort.h"
 #include "dictionary\dataTypes\dictionaryUShort.h"
@@ -563,6 +565,9 @@ try
 	if (elementInBinarySize != 0)
 		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use methods PushBack.";
 
+	if (elementInBinaryType == USDS_POLYMORPH)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be POLYMORPH for this method";
+
 	UsdsBaseType* element = parentBody->addField(arrayDictionaryElement, this);
 	elementValues.writePointer(element);
 	elementNumber++;
@@ -578,6 +583,31 @@ catch (ErrorStack& err)
 	err.addLevel("UsdsArray::pushElementBack");
 	throw;
 };
+
+UsdsStruct* UsdsArray::pushStructBack(int32_t tag_id)
+try
+{
+	if (elementInBinaryType != USDS_POLYMORPH)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must be POLYMORPH for this method";
+
+	DictionaryStruct* dict_element = ((DictionaryPolymorph*)arrayDictionaryElement)->getSubStruct(tag_id);
+
+	UsdsBaseType* element = parentBody->addField(dict_element, this);
+	elementValues.writePointer(element);
+	elementNumber++;
+
+	return (UsdsStruct*)element;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushStructBack") << tag_id << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushStructBack") << tag_id;
+	throw;
+};
+
 
 UsdsBaseType* UsdsArray::getElement(size_t position) throw(...)
 try

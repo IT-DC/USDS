@@ -37,6 +37,8 @@ namespace usds
 		usdsType getType() { return USDS_STRUCT; };
 		const char* getTypeName() { return "STRUCT"; };
 
+		bool hasDefaultValue() { return false; };
+
 	private:
 		// it's executed in DicBaseTag.initType()
 		void additionalInitType();

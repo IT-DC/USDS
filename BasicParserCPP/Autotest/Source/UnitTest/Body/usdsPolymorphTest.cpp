@@ -7,7 +7,6 @@
 #include "dictionary/dataTypes/dictionaryStruct.h"
 #include "dictionary/dataTypes/dictionaryArray.h"
 
-#include "body/dataTypes/usdsPolymorph.h"
 #include "body/dataTypes/usdsStruct.h"
 #include "body/dataTypes/usdsArray.h"
 
@@ -34,20 +33,27 @@ void UsdsPolymorphTest::test_1()
 
 	// test 1
 	usds::UsdsStruct* body_struct = (usds::UsdsStruct*)body.addTag(struct_tag_1);
-	usds::UsdsPolymorph* poly_field = (usds::UsdsPolymorph*)body_struct->getField(2);
-	if (poly_field->getType() != usds::USDS_POLYMORPH || strcmp(poly_field->getName(), "poly_field") != 0)
-		throw "Failed at the step 1\n";
 
 	// test 2
-	poly_field->setSubtagType(2);
-	if (poly_field->getSubtagId() != 2 || poly_field->getSubtag()->getType() != usds::USDS_STRUCT || poly_field->getSubtag()->getID() != 2 || strcmp(poly_field->getSubtag()->getName(), "struct_2")!= 0)
+	usds::UsdsStruct* poly_field = body_struct->addStruct(2, 2);
+	if (poly_field->getID() != 2 || poly_field->getType() != usds::USDS_STRUCT || strcmp(poly_field->getName(), "struct_2")!= 0)
 		throw "Failed at the step 2\n";
 
 	// test 3
-	poly_field->setSubtagType(3);
-	if (poly_field->getSubtagId() != 3 || poly_field->getSubtag()->getType() != usds::USDS_STRUCT || poly_field->getSubtag()->getID() != 3 || strcmp(poly_field->getSubtag()->getName(), "struct_3") != 0)
+	poly_field = body_struct->addStruct(2, 3);
+	if (poly_field->getType() != usds::USDS_STRUCT || poly_field->getID() != 3 || strcmp(poly_field->getName(), "struct_3") != 0)
 		throw "Failed at the step 3\n";
 	
+	// test 4
+	poly_field = body_struct->addStruct(2, 2);
+	if (poly_field->getID() != 2 || poly_field->getType() != usds::USDS_STRUCT || strcmp(poly_field->getName(), "struct_2") != 0)
+		throw "Failed at the step 2\n";
+
+	// test 3
+	poly_field = body_struct->addStruct(2, 3);
+	if (poly_field->getType() != usds::USDS_STRUCT || poly_field->getID() != 3 || strcmp(poly_field->getName(), "struct_3") != 0)
+		throw "Failed at the step 3\n";
+
 }
 
 // Negative tests
@@ -71,41 +77,12 @@ void UsdsPolymorphTest::test_2()
 
 	dict.finalizeDictionary();
 
-	// test 1
 	usds::UsdsStruct* body_struct = (usds::UsdsStruct*)body.addTag(struct_tag_1);
-	usds::UsdsPolymorph* poly_field = (usds::UsdsPolymorph*)body_struct->getField(2);
-	try
-	{
-		poly_field->getSubtagId();
-		throw "Failed at the step 1\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BODY_POLYMORPH__SUBTAG_IS_NOT_INITIALIZED)
-		{
-			throw "Failed at the step 1\n";
-		}
-	}
-
-	// test 2
-	try
-	{
-		poly_field->getSubtag();
-		throw "Failed at the step 2\n";
-	}
-	catch (usds::ErrorStack& err)
-	{
-		if (err.getCode() != usds::BODY_POLYMORPH__SUBTAG_IS_NOT_INITIALIZED)
-		{
-			throw "Failed at the step 2\n";
-		}
-	}
-
 
 	// test 3
 	try
 	{
-		poly_field->setSubtagType(1);
+		usds::UsdsStruct* poly_field = body_struct->addStruct(2, 1);
 		throw "Failed at the step 3\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -119,7 +96,7 @@ void UsdsPolymorphTest::test_2()
 	// test 4
 	try
 	{
-		poly_field->setSubtagType(4);
+		usds::UsdsStruct* poly_field = body_struct->addStruct(2, 4);
 		throw "Failed at the step 4\n";
 	}
 	catch (usds::ErrorStack& err)
@@ -127,6 +104,34 @@ void UsdsPolymorphTest::test_2()
 		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
 		{
 			throw "Failed at the step 4\n";
+		}
+	}
+
+	// test 5
+	try
+	{
+		usds::UsdsStruct* poly_field = body_struct->addStruct("poly_field", "struct_1");
+		throw "Failed at the step 5\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+		{
+			throw "Failed at the step 5\n";
+		}
+	}
+
+	// test 6
+	try
+	{
+		usds::UsdsStruct* poly_field = body_struct->addStruct("poly_field", "struct_4");
+		throw "Failed at the step 6\n";
+	}
+	catch (usds::ErrorStack& err)
+	{
+		if (err.getCode() != usds::DIC_POLYMORPH__TAG_NOT_FOUND)
+		{
+			throw "Failed at the step 6\n";
 		}
 	}
 
@@ -193,25 +198,22 @@ void UsdsPolymorphTest::test_4()
 		throw "Failed at the step 1\n";
 
 	// test 2
-	usds::UsdsPolymorph* poly_element = (usds::UsdsPolymorph*)arr_tag->pushElementBack();
-	poly_element->setSubtagType(2);
-	poly_element = (usds::UsdsPolymorph*)arr_tag->pushElementBack();
-	poly_element->setSubtagType(3);
-	poly_element = (usds::UsdsPolymorph*)arr_tag->pushElementBack();
-	poly_element->setSubtagType(2);
+	arr_tag->pushStructBack(2);
+	arr_tag->pushStructBack(3);
+	arr_tag->pushStructBack(2);
 
-	poly_element = (usds::UsdsPolymorph*)arr_tag->getElement(0);
-	if (poly_element->getType() != usds::USDS_POLYMORPH || poly_element->getSubtag()->getID() != 2 || strcmp(poly_element->getSubtag()->getName(), "struct_2")!=0)
+	usds::UsdsBaseType* poly_element = arr_tag->getElement(0);
+	if (poly_element->getType() != usds::USDS_STRUCT || poly_element->getID() != 2 || strcmp(poly_element->getName(), "struct_2")!=0)
 		throw "Failed at the step 2\n";
 
 	// test 3
-	poly_element = (usds::UsdsPolymorph*)arr_tag->getElement(1);
-	if (poly_element->getType() != usds::USDS_POLYMORPH || poly_element->getSubtag()->getID() != 3 || strcmp(poly_element->getSubtag()->getName(), "struct_3") != 0)
+	poly_element = arr_tag->getElement(1);
+	if (poly_element->getType() != usds::USDS_STRUCT || poly_element->getID() != 3 || strcmp(poly_element->getName(), "struct_3") != 0)
 		throw "Failed at the step 3\n";
 
 	// test 4
-	poly_element = (usds::UsdsPolymorph*)arr_tag->getElement(2);
-	if (poly_element->getType() != usds::USDS_POLYMORPH || poly_element->getSubtag()->getID() != 2 || strcmp(poly_element->getSubtag()->getName(), "struct_2") != 0)
+	poly_element = arr_tag->getElement(2);
+	if (poly_element->getType() != usds::USDS_STRUCT || poly_element->getID() != 2 || strcmp(poly_element->getName(), "struct_2") != 0)
 		throw "Failed at the step 4\n";
 
 }

@@ -3,9 +3,12 @@ ENCODE:UTF-8
 {
 	CodeDescription
 	{
-		STRING dictionaryName;
-		UBYTE dictionaryMajorVersion = NULL;
-		UBYTE dictionaryMinorVersion = NULL;
+		DictionaryLinks []
+		{
+			STRING dictionaryName;
+			UBYTE dictionaryMajorVersion = NULL;
+			UBYTE dictionaryMinorVersion = NULL;
+		}
 		ENUM cppType { struct=1, class = 2 };
 		STRING cppName;
 		<StructDescription||ClassDescription> typeDescription;
@@ -33,17 +36,23 @@ ENCODE:UTF-8
 
 	StringEncode
 	{
-		STRING dictionaryName = NULL;
-		UBYTE dictionaryMajorVersion = NULL;
-		UBYTE dictionaryMinorVersion = NULL;
-		ENUM encode { noencode = 0, utf8 = 1 };
+		DictionaryLinks []
+		{
+			STRING dictionaryName = NULL;
+			UBYTE dictionaryMajorVersion = NULL;
+			UBYTE dictionaryMinorVersion = NULL;
+		}
+		STRING encodeName;
 	};
 	
 	NameMapping
 	{
-		STRING dictionaryName = NULL;
-		UBYTE dictionaryMajorVersion = NULL;
-		UBYTE dictionaryMinorVersion = NULL;	
+		DictionaryLinks []
+		{
+			STRING dictionaryName = NULL;
+			UBYTE dictionaryMajorVersion = NULL;
+			UBYTE dictionaryMinorVersion = NULL;
+		}
 		STRING mappedName;
 	};
 }

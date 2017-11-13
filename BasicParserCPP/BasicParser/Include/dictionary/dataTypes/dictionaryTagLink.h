@@ -24,6 +24,8 @@ namespace usds
 
 		DictionaryBaseType* getTag() throw (...);
 
+		bool hasDefaultValue() { return false; };
+
 	private:
 		void additionalInitType();
 

@@ -18,7 +18,6 @@
 #include "body\dataTypes\usdsArray.h"
 #include "body\dataTypes\usdsStruct.h"
 #include "body\dataTypes\usdsEnum.h"
-#include "body\dataTypes\usdsPolymorph.h"
 
 using namespace usds;
 
@@ -45,7 +44,7 @@ BodyObjectPool::BodyObjectPool(Body* parent_body)
 	pools[USDS_ARRAY] = new TemplateObjectPool<UsdsArray, Body>(parent_body);
 	pools[USDS_STRUCT] = new TemplateObjectPool<UsdsStruct, Body>(parent_body);
 	pools[USDS_ENUM] = new TemplateObjectPool<UsdsEnum, Body>(parent_body);
-	pools[USDS_POLYMORPH] = new TemplateObjectPool<UsdsPolymorph, Body>(parent_body);
+	pools[USDS_POLYMORPH] = 0;
 }
 
 BodyObjectPool::~BodyObjectPool()

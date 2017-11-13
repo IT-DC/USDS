@@ -1,6 +1,8 @@
 #include "dictionary/dataTypes/dictionaryPolymorph.h"
 #include "dictionary/usdsDictionary.h"
+
 #include "dictionary/dataTypes/dictionaryTagLink.h"
+#include "dictionary/dataTypes/dictionaryStruct.h"
 
 using namespace usds;
 
@@ -99,6 +101,30 @@ catch (ErrorStack& err)
 	throw;
 };
 
+int32_t DictionaryPolymorph::getSubtagId(const char* tag_name) throw (...)
+try
+{
+	if (!indexed)
+		throw ErrorMessage(DIC_POLYMORPH__NOT_FINALIZED, "Polymorph is not finalized");
+
+	for (int32_t i = 1; i <= subTagMaxID; i++)
+	{
+		if (subTagIndex[i] != 0)
+			if (strcmp(tag_name, (subTagIndex[i])->getName()) == 0)
+				return (subTagIndex[i])->getID();
+	}
+
+	throw ErrorMessage(DIC_POLYMORPH__TAG_NOT_FOUND, "Tag with name '") << tag_name << "' is not a subtype of Polymorph '" << objectName << "'";
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryPolymorph::getSubtagId") << tag_name << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("DictionaryPolymorph::getSubtagId") << tag_name;
+	throw;
+};
 
 DictionaryStruct* DictionaryPolymorph::getSubStruct(int32_t tag_id) throw (...)
 try
@@ -118,6 +144,28 @@ catch (ErrorMessage& msg)
 {
 	throw ErrorStack("DictionaryPolymorph::getSubStruct") << tag_id << msg;
 }
+
+DictionaryStruct* DictionaryPolymorph::getSubStruct(const char* tag_name) throw (...)
+try
+{
+	if (!indexed)
+		throw ErrorMessage(DIC_POLYMORPH__NOT_FINALIZED, "Polymorph is not finalized");
+
+	for (int32_t i = 1; i <= subTagMaxID; i++)
+	{
+		if (subTagIndex[i] != 0)
+			if (strcmp(tag_name, (subTagIndex[i])->getName()) == 0)
+				return subTagIndex[i];
+	}
+
+	throw ErrorMessage(DIC_POLYMORPH__TAG_NOT_FOUND, "Tag with name '") << tag_name << "' is not a subtype of Polymorph '" << objectName << "'";
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("DictionaryPolymorph::getSubStruct") << tag_name << msg;
+}
+
 
 DictionaryTagLink* DictionaryPolymorph::getFirstTag() throw (...)
 try

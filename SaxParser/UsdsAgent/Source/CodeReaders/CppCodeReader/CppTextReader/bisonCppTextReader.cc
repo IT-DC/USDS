@@ -622,7 +622,7 @@ namespace cppTextReader {
 		tag->setFieldFromUTF8("dictionaryName", input_text + (yystack_[2].value.stringVal)[0], (yystack_[2].value.stringVal)[1]);
 		tag->setFieldFromUTF8("cppType", "struct");
 		tag->setFieldFromUTF8("cppName", input_text + (yystack_[0].value.stringVal)[0], (yystack_[0].value.stringVal)[1]);
-		
+		tag->setFieldSubtag("typeDescription", "StructDescription");
 	}
 #line 628 "bisonCppTextReader.cc" // lalr1.cc:846
     break;

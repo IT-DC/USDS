@@ -47,6 +47,7 @@ namespace usds
 		// for fields
 		DictionaryBaseType* setNullable(bool is_nullable);
 		bool isNullable();
+		virtual bool hasDefaultValue() = 0;
 
 	protected:
 		std::string objectName;
