@@ -38,7 +38,8 @@
 
 	#include "flexCppTextReader.h"
 
-#line 42 "bisonCppTextReader.cc" // lalr1.cc:398
+
+#line 43 "bisonCppTextReader.cc" // lalr1.cc:398
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -51,12 +52,12 @@
 #include "bisonCppTextReader.hh"
 
 // User implementation prologue.
-#line 73 "bisonCppTextReader.y" // lalr1.cc:406
+#line 75 "bisonCppTextReader.y" // lalr1.cc:406
 
 #undef yylex
 #define yylex scanner->scan
 
-#line 60 "bisonCppTextReader.cc" // lalr1.cc:406
+#line 61 "bisonCppTextReader.cc" // lalr1.cc:406
 
 
 #ifndef YY_
@@ -140,9 +141,9 @@
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-#line 15 "bisonCppTextReader.y" // lalr1.cc:473
+#line 17 "bisonCppTextReader.y" // lalr1.cc:473
 namespace cppTextReader {
-#line 146 "bisonCppTextReader.cc" // lalr1.cc:473
+#line 147 "bisonCppTextReader.cc" // lalr1.cc:473
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -183,7 +184,7 @@ namespace cppTextReader {
 
 
   /// Build a parser object.
-  BisonCppTextReader::BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg, usds::BasicParser* output_yyarg)
+  BisonCppTextReader::BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg, std::unique_ptr<usds::BasicParser>& output_yyarg)
     :
 #if CPP_TEXTDEBUG
       yydebug_ (false),
@@ -591,141 +592,141 @@ namespace cppTextReader {
         switch (yyn)
           {
   case 4:
-#line 88 "bisonCppTextReader.y" // lalr1.cc:846
+#line 90 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		
 	}
-#line 599 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 600 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 5:
-#line 92 "bisonCppTextReader.y" // lalr1.cc:846
+#line 94 "bisonCppTextReader.y" // lalr1.cc:846
     {
 
 	}
-#line 607 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 608 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 6:
-#line 96 "bisonCppTextReader.y" // lalr1.cc:846
+#line 98 "bisonCppTextReader.y" // lalr1.cc:846
     {
 	
 	
 	}
-#line 616 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 617 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 7:
-#line 104 "bisonCppTextReader.y" // lalr1.cc:846
+#line 106 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		usds::UsdsStruct* tag = output->addStructTag("CodeDescription");
-		tag->setFieldFromUTF8("dictionaryName", input_text + (yystack_[2].value.stringVal)[0], (yystack_[2].value.stringVal)[1]);
-		tag->setFieldFromUTF8("cppType", "struct");
-		tag->setFieldFromUTF8("cppName", input_text + (yystack_[0].value.stringVal)[0], (yystack_[0].value.stringVal)[1]);
-		tag->setFieldSubtag("typeDescription", "StructDescription");
+		tag->setFromUTF8("dictionaryName", input_text + (yystack_[2].value.stringVal)[0], (yystack_[2].value.stringVal)[1]);
+		tag->setFromUTF8("cppType", "struct");
+		tag->setFromUTF8("cppName", input_text + (yystack_[0].value.stringVal)[0], (yystack_[0].value.stringVal)[1]);
+		tag->addStruct("typeDescription", "StructDescription");
 	}
-#line 628 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 629 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 8:
-#line 112 "bisonCppTextReader.y" // lalr1.cc:846
+#line 114 "bisonCppTextReader.y" // lalr1.cc:846
     {
 	
 	
 	}
-#line 637 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 638 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 12:
-#line 130 "bisonCppTextReader.y" // lalr1.cc:846
+#line 132 "bisonCppTextReader.y" // lalr1.cc:846
     {
 	
 	}
-#line 645 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 646 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 13:
-#line 136 "bisonCppTextReader.y" // lalr1.cc:846
+#line 138 "bisonCppTextReader.y" // lalr1.cc:846
     {
 	
 	
 	}
-#line 654 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 655 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 14:
-#line 143 "bisonCppTextReader.y" // lalr1.cc:846
+#line 145 "bisonCppTextReader.y" // lalr1.cc:846
     {
 	
 	
 	}
-#line 663 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 664 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 15:
-#line 149 "bisonCppTextReader.y" // lalr1.cc:846
+#line 151 "bisonCppTextReader.y" // lalr1.cc:846
     {
 	
 	
 	}
-#line 672 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 673 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 16:
-#line 1370 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1372 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = (uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 680 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 681 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 17:
-#line 1374 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1376 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 688 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 689 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 18:
-#line 1378 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1380 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 698 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 699 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 19:
-#line 1384 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1386 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 706 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 707 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 20:
-#line 1388 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1390 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[2].value.int8Val) * (uint64_t)100 + 
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 717 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 718 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 21:
-#line 1395 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1397 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 725 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 726 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 22:
-#line 1399 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1401 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[3].value.int8Val) * (uint64_t)1000 + 
@@ -733,19 +734,19 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 737 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 738 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 23:
-#line 1407 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1409 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 745 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 746 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 24:
-#line 1411 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1413 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[4].value.int8Val) * (uint64_t)10000 + 
@@ -754,19 +755,19 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 758 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 759 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 25:
-#line 1420 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1422 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 766 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 767 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 26:
-#line 1424 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1426 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[5].value.int8Val) * (uint64_t)100000 + 
@@ -776,19 +777,19 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 780 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 781 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 27:
-#line 1434 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1436 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 788 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 789 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 28:
-#line 1438 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1440 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[6].value.int8Val) * (uint64_t)1000000 + 
@@ -799,19 +800,19 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 803 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 804 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 29:
-#line 1449 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1451 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 811 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 812 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 30:
-#line 1453 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1455 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[7].value.int8Val) * (uint64_t)10000000 + 
@@ -823,19 +824,19 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 827 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 828 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 31:
-#line 1465 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1467 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 835 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 836 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 32:
-#line 1469 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1471 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[8].value.int8Val) * (uint64_t)100000000 + 
@@ -848,19 +849,19 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 852 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 853 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 33:
-#line 1482 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1484 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 860 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 861 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 34:
-#line 1486 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1488 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[9].value.int8Val) * (uint64_t)1000000000 + 
@@ -874,19 +875,19 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 878 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 879 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 35:
-#line 1500 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1502 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 886 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 887 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 36:
-#line 1505 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1507 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[10].value.int8Val) * (uint64_t)10000000000 + 
@@ -901,20 +902,20 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 905 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 906 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 37:
-#line 1521 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1523 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) 
 			<< (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 914 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 915 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 38:
-#line 1527 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1529 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[11].value.int8Val) * (uint64_t)100000000000 + 
@@ -930,20 +931,20 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 934 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 935 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 39:
-#line 1544 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1546 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) 
 			<< (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 943 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 944 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 40:
-#line 1550 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1552 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[12].value.int8Val) * (uint64_t)1000000000000 + 
@@ -960,20 +961,20 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 964 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 965 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 41:
-#line 1568 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1570 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) 
 			<< (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 973 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 974 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 42:
-#line 1574 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1576 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[13].value.int8Val) * (uint64_t)10000000000000 + 
@@ -991,20 +992,20 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 995 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 996 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 43:
-#line 1593 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1595 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) 
 			<< (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 1004 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1005 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 44:
-#line 1599 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1601 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[14].value.int8Val) * (uint64_t)100000000000000 + 
@@ -1023,20 +1024,20 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 1027 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1028 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 45:
-#line 1619 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1621 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) 
 			<< (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 1036 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1037 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 46:
-#line 1625 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1627 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[15].value.int8Val) * (uint64_t)1000000000000000 + 
@@ -1056,20 +1057,20 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 1060 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1061 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 47:
-#line 1646 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1648 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) 
 			<< (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 1069 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1070 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 48:
-#line 1652 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1654 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[16].value.int8Val) * (uint64_t)10000000000000000 + 
@@ -1090,20 +1091,20 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 1094 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1095 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 49:
-#line 1674 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1676 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) 
 			<< (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 1103 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1104 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 50:
-#line 1680 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1682 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[17].value.int8Val) * (uint64_t)100000000000000000 + 
@@ -1125,20 +1126,20 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 1129 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1130 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 51:
-#line 1703 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1705 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) 
 			<< (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 1138 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1139 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 52:
-#line 1709 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1711 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		(yylhs.value.uInt64Val) = 
 		(uint64_t)(yystack_[18].value.int8Val) * (uint64_t)1000000000000000000 + 
@@ -1161,20 +1162,20 @@ namespace cppTextReader {
 		(uint64_t)(yystack_[1].value.int8Val) * (uint64_t)10 + 
 		(uint64_t)(yystack_[0].value.int8Val);
 	}
-#line 1165 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1166 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 53:
-#line 1733 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1735 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) 
 			<< (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 1174 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1175 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 54:
-#line 1739 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1741 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		if ((yystack_[19].value.int8Val) > (int8_t)1)
 			throw usds::ErrorMessage(2) << "Can not convert the number " << 
@@ -1207,38 +1208,38 @@ namespace cppTextReader {
 			
 		(yylhs.value.uInt64Val) = (yylhs.value.uInt64Val) + (uint64_t)(yystack_[19].value.int8Val) * (uint64_t)10000000000000000000;
 	}
-#line 1211 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1212 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 55:
-#line 1773 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1775 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[19].value.int8Val) << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) 
 			<< (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << (yystack_[0].value.int8Val) << " to uint64_t: negative value";
 	}
-#line 1220 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1221 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 56:
-#line 1779 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1781 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << 
 				(yystack_[20].value.int8Val) << (yystack_[19].value.int8Val) << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) << (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint64_t: too big value";
 	}
-#line 1229 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1230 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
   case 57:
-#line 1785 "bisonCppTextReader.y" // lalr1.cc:846
+#line 1787 "bisonCppTextReader.y" // lalr1.cc:846
     {
 		throw usds::ErrorMessage(2) << "Can not convert the number " << (yystack_[20].value.int8Val) << (yystack_[19].value.int8Val) << (yystack_[18].value.int8Val) << (yystack_[17].value.int8Val) << (yystack_[16].value.int8Val) << (yystack_[15].value.int8Val) << (yystack_[14].value.int8Val) << (yystack_[13].value.int8Val) << (yystack_[12].value.int8Val) << (yystack_[11].value.int8Val) 
 			<< (yystack_[10].value.int8Val) << (yystack_[9].value.int8Val) << (yystack_[8].value.int8Val) << (yystack_[7].value.int8Val) << (yystack_[6].value.int8Val) << (yystack_[5].value.int8Val) << (yystack_[4].value.int8Val) << (yystack_[3].value.int8Val) << (yystack_[2].value.int8Val) << (yystack_[1].value.int8Val) << "... to uint64_t: negative value";
 	}
-#line 1238 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1239 "bisonCppTextReader.cc" // lalr1.cc:846
     break;
 
 
-#line 1242 "bisonCppTextReader.cc" // lalr1.cc:846
+#line 1243 "bisonCppTextReader.cc" // lalr1.cc:846
           default:
             break;
           }
@@ -1618,12 +1619,12 @@ namespace cppTextReader {
   const unsigned short int
   BisonCppTextReader::yyrline_[] =
   {
-       0,    82,    82,    82,    87,    91,    95,   104,   102,   123,
-     124,   125,   129,   134,   141,   148,  1369,  1373,  1377,  1383,
-    1387,  1394,  1398,  1406,  1410,  1419,  1423,  1433,  1437,  1448,
-    1452,  1464,  1468,  1481,  1485,  1499,  1503,  1519,  1525,  1542,
-    1548,  1566,  1572,  1591,  1597,  1617,  1623,  1644,  1650,  1672,
-    1678,  1701,  1707,  1731,  1737,  1771,  1777,  1783,  1791,  1791
+       0,    84,    84,    84,    89,    93,    97,   106,   104,   125,
+     126,   127,   131,   136,   143,   150,  1371,  1375,  1379,  1385,
+    1389,  1396,  1400,  1408,  1412,  1421,  1425,  1435,  1439,  1450,
+    1454,  1466,  1470,  1483,  1487,  1501,  1505,  1521,  1527,  1544,
+    1550,  1568,  1574,  1593,  1599,  1619,  1625,  1646,  1652,  1674,
+    1680,  1703,  1709,  1733,  1739,  1773,  1779,  1785,  1793,  1793
   };
 
   // Print the state stack on the debug stream.
@@ -1704,10 +1705,10 @@ namespace cppTextReader {
       return undef_token_;
   }
 
-#line 15 "bisonCppTextReader.y" // lalr1.cc:1156
+#line 17 "bisonCppTextReader.y" // lalr1.cc:1156
 } // cppTextReader
-#line 1710 "bisonCppTextReader.cc" // lalr1.cc:1156
-#line 1902 "bisonCppTextReader.y" // lalr1.cc:1157
+#line 1711 "bisonCppTextReader.cc" // lalr1.cc:1156
+#line 1904 "bisonCppTextReader.y" // lalr1.cc:1157
 
 //=================================================================================================
 

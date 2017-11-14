@@ -3,6 +3,8 @@
 
 #include "BasicParser/Include/usdsBasicParser.h"
 
+#include <memory>
+
 namespace usdsAgent
 {
 	class CppCodeReader
@@ -10,7 +12,7 @@ namespace usdsAgent
 	public:
 		virtual void f() = 0;
 
-		static usds::BasicParser* parseSourceCode(usds::BasicParser* dicts, usds::BasicParser* code_mapping);
+		static std::unique_ptr<usds::BasicParser> parseSourceCode(std::unique_ptr<usds::BasicParser>& dicts, std::unique_ptr<usds::BasicParser>& code_mapping);
 
 	private:
 		

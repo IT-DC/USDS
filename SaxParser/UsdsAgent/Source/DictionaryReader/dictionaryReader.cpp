@@ -11,16 +11,16 @@
 
 using namespace usdsAgent;
 
-usds::BasicParser* DictionaryReader::findAllDictionaries()
+std::unique_ptr<usds::BasicParser> DictionaryReader::findAllDictionaries()
 try
 {
 	if (AgentConfig::action == command::help || AgentConfig::action == command::clean)
 		return nullptr;
 
 	BOOST_LOG_TRIVIAL(info) << "Read usds-dictionary files";
-	list<pair<string, string>>* dictFiles = FileSearcher::findDictFiles(AgentConfig::codePath, AgentConfig::dictFileExt);
+	auto dictFiles = FileSearcher::findDictFiles(AgentConfig::codePath, AgentConfig::dictFileExt);
 
-	usds::BasicParser* dicts = new usds::BasicParser();
+	auto dicts = make_unique<usds::BasicParser>();
 	for(auto it = dictFiles->begin(); it != dictFiles->end(); ++it)
 	{
 		BOOST_LOG_TRIVIAL(debug) << (*it).first;

@@ -99,13 +99,13 @@ const char* CodeReader::codeDictionary =
 "\t\n"
 "}";
 
-BasicParser* CodeReader::parseSourceCode(BasicParser* dicts)
+std::unique_ptr<usds::BasicParser> CodeReader::parseSourceCode(std::unique_ptr<usds::BasicParser>& dicts)
 try
 {
 	if (AgentConfig::action == command::help || AgentConfig::action == command::clean)
 		return nullptr;
 
-	BasicParser* codeMapping = initCodeMapping(dicts);
+	auto codeMapping = initCodeMapping(dicts);
 
 	switch (AgentConfig::programLang)
 	{
@@ -123,18 +123,18 @@ try
 }
 catch (ErrorMessage msg)
 {
-	throw ErrorStack("CodeReader::findAllAnnotations") << (void*)dicts << msg;
+	throw ErrorStack("CodeReader::findAllAnnotations") << (void*)&dicts << msg;
 }
 catch (ErrorStack err)
 {
-	throw err.addLevel("CodeReader::findAllAnnotations") << (void*)dicts;
+	throw err.addLevel("CodeReader::findAllAnnotations") << (void*)&dicts;
 }
 
 
-usds::BasicParser* CodeReader::initCodeMapping(usds::BasicParser* dicts)
+std::unique_ptr<usds::BasicParser> CodeReader::initCodeMapping(std::unique_ptr<usds::BasicParser>& dicts)
 try
 {
-	BasicParser* codeMapping = new BasicParser();
+	auto codeMapping = make_unique<usds::BasicParser>();
 	codeMapping->addDictionaryFromText(codeDictionary, 0, USDS_UTF8);
 
 	usds::Dictionary* dict = dicts->selectFirstDictionary();
@@ -151,11 +151,11 @@ try
 }
 catch (ErrorMessage msg)
 {
-	throw ErrorStack("CodeReader::initCodeDescriptor") << (void*)dicts << msg;
+	throw ErrorStack("CodeReader::initCodeDescriptor") << (void*)&dicts << msg;
 }
 catch (ErrorStack err)
 {
-	throw err.addLevel("CodeReader::initCodeDescriptor") << (void*)dicts;
+	throw err.addLevel("CodeReader::initCodeDescriptor") << (void*)&dicts;
 }
 
 

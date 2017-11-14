@@ -66,12 +66,12 @@ const char* CppCodeReader::cppCodeDictionary =
 "}"
 ;
 
-usds::BasicParser* CppCodeReader::parseSourceCode(usds::BasicParser* dicts, usds::BasicParser* code_mapping)
+std::unique_ptr<usds::BasicParser> CppCodeReader::parseSourceCode(std::unique_ptr<usds::BasicParser>& dicts, std::unique_ptr<usds::BasicParser>& code_mapping)
 {
 	BOOST_LOG_TRIVIAL(info) << "Read code files";
-	list<pair<string, string>>* dictFiles = FileSearcher::findCodeFiles(AgentConfig::codePath, AgentConfig::codeFileExt, AgentConfig::cppAnnotation);
+	auto dictFiles = FileSearcher::findCodeFiles(AgentConfig::codePath, AgentConfig::codeFileExt, AgentConfig::cppAnnotation);
 
-	usds::BasicParser* codeDescription = new usds::BasicParser();
+	auto codeDescription = make_unique<usds::BasicParser>();;
 	codeDescription->addDictionaryFromText(cppCodeDictionary, 0, usds::USDS_UTF8);
 
 	// Parse code files
@@ -88,8 +88,8 @@ usds::BasicParser* CppCodeReader::parseSourceCode(usds::BasicParser* dicts, usds
 
 	}
 
+	return codeDescription;
 
 
-
-	return 0;
+	
 }

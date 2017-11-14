@@ -2,6 +2,7 @@
 #define DICTIONARY_READER_H
 
 #include "BasicParser/Include/usdsBasicParser.h"
+#include <memory>
 
 namespace usdsAgent
 {
@@ -13,7 +14,7 @@ namespace usdsAgent
 	public:
 		virtual void f() = 0;
 
-		static usds::BasicParser* findAllDictionaries();
+		static std::unique_ptr<usds::BasicParser> findAllDictionaries();
 
 
 	};

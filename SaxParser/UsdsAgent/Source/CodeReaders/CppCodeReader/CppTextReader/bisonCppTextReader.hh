@@ -40,11 +40,12 @@
 #ifndef YY_CPP_TEXT_BISONCPPTEXTREADER_HH_INCLUDED
 # define YY_CPP_TEXT_BISONCPPTEXTREADER_HH_INCLUDED
 // //                    "%code requires" blocks.
-#line 6 "bisonCppTextReader.y" // lalr1.cc:371
+#line 7 "bisonCppTextReader.y" // lalr1.cc:371
 
 	#include "BasicParser/Include/usdsBasicParser.h"
+	#include <memory>
 
-#line 48 "bisonCppTextReader.hh" // lalr1.cc:371
+#line 49 "bisonCppTextReader.hh" // lalr1.cc:371
 
 
 # include <vector>
@@ -68,9 +69,9 @@
 # endif /* ! defined YYDEBUG */
 #endif  /* ! defined CPP_TEXTDEBUG */
 
-#line 15 "bisonCppTextReader.y" // lalr1.cc:371
+#line 17 "bisonCppTextReader.y" // lalr1.cc:371
 namespace cppTextReader {
-#line 74 "bisonCppTextReader.hh" // lalr1.cc:371
+#line 75 "bisonCppTextReader.hh" // lalr1.cc:371
 
 
 
@@ -84,7 +85,7 @@ namespace cppTextReader {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 25 "bisonCppTextReader.y" // lalr1.cc:371
+    #line 27 "bisonCppTextReader.y" // lalr1.cc:371
 
 //	bool  				boolVal;
 	int8_t  			int8Val;
@@ -101,7 +102,7 @@ namespace cppTextReader {
     size_t				stringVal[2];
 	usds::usdsEncode	encodeVal;
 
-#line 105 "bisonCppTextReader.hh" // lalr1.cc:371
+#line 106 "bisonCppTextReader.hh" // lalr1.cc:371
     };
 #else
     typedef CPP_TEXTSTYPE semantic_type;
@@ -225,7 +226,7 @@ namespace cppTextReader {
 
 
     /// Build a parser object.
-    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg, usds::BasicParser* output_yyarg);
+    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg, std::unique_ptr<usds::BasicParser>& output_yyarg);
     virtual ~BisonCppTextReader ();
 
     /// Parse.
@@ -436,13 +437,13 @@ namespace cppTextReader {
     // User arguments.
     class FlexCppTextReader* scanner;
     const char* input_text;
-    usds::BasicParser* output;
+    std::unique_ptr<usds::BasicParser>& output;
   };
 
 
-#line 15 "bisonCppTextReader.y" // lalr1.cc:371
+#line 17 "bisonCppTextReader.y" // lalr1.cc:371
 } // cppTextReader
-#line 446 "bisonCppTextReader.hh" // lalr1.cc:371
+#line 447 "bisonCppTextReader.hh" // lalr1.cc:371
 
 
 

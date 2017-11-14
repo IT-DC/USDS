@@ -50,7 +50,7 @@
 #  endif
 # endif
 
-#line 15 "bisonCppTextReader.y" // location.cc:291
+#line 17 "bisonCppTextReader.y" // location.cc:291
 namespace cppTextReader {
 #line 56 "position.hh" // location.cc:291
   /// Abstract a position.
@@ -175,7 +175,7 @@ namespace cppTextReader {
     return ostr << pos.line << '.' << pos.column;
   }
 
-#line 15 "bisonCppTextReader.y" // location.cc:291
+#line 17 "bisonCppTextReader.y" // location.cc:291
 } // cppTextReader
 #line 180 "position.hh" // location.cc:291
 #endif // !YY_CPP_TEXT_POSITION_HH_INCLUDED

@@ -3,14 +3,14 @@
 using namespace usdsAgent;
 
 
-string* Sender::sent(uint8_t* binary, size_t size)
+std::unique_ptr<string> Sender::sent(uint8_t* binary, size_t size)
 {
 	
-	string* output = new string;
+	auto output = make_unique<string>();
 	return output;
 }
 
-void Sender::wait(string* session_id)
+void Sender::wait(std::unique_ptr<string>& session_id)
 {
 	
 

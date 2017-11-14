@@ -2,6 +2,7 @@
 #define SENDER_H
 
 #include <string>
+#include <memory>
 
 using namespace std;
 
@@ -12,8 +13,8 @@ namespace usdsAgent
 	public:
 		virtual void f() = 0;
 
-		static string* sent(uint8_t* binary, size_t size);
-		static void wait(string* session_id);
+		static std::unique_ptr<string> sent(uint8_t* binary, size_t size);
+		static void wait(std::unique_ptr<string>& session_id);
 
 	};
 

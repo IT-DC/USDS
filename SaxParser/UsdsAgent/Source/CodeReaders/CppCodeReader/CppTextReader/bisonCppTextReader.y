@@ -1,10 +1,12 @@
 %{
 	#include "flexCppTextReader.h"
+
 %}
 
 %code requires
 {
 	#include "BasicParser/Include/usdsBasicParser.h"
+	#include <memory>
 }
 
 %require "3.0.4"
@@ -18,7 +20,7 @@
 
 %parse-param {class FlexCppTextReader* scanner}
 %parse-param {const char* input_text}
-%parse-param {usds::BasicParser* output}
+%parse-param {std::unique_ptr<usds::BasicParser>& output}
 
 %error-verbose
 
@@ -103,10 +105,10 @@ block:
 	STRUCT TEXT_NAME
 	{
 		usds::UsdsStruct* tag = output->addStructTag("CodeDescription");
-		tag->setFieldFromUTF8("dictionaryName", input_text + $2[0], $2[1]);
-		tag->setFieldFromUTF8("cppType", "struct");
-		tag->setFieldFromUTF8("cppName", input_text + $4[0], $4[1]);
-		tag->setFieldSubtag("typeDescription", "StructDescription");
+		tag->setFromUTF8("dictionaryName", input_text + $2[0], $2[1]);
+		tag->setFromUTF8("cppType", "struct");
+		tag->setFromUTF8("cppName", input_text + $4[0], $4[1]);
+		tag->addStruct("typeDescription", "StructDescription");
 	}
 	'{' struct_description '}'
 	{

@@ -40,7 +40,7 @@
 
 # include <vector>
 
-#line 15 "bisonCppTextReader.y" // stack.hh:133
+#line 17 "bisonCppTextReader.y" // stack.hh:133
 namespace cppTextReader {
 #line 46 "stack.hh" // stack.hh:133
   template <class T, class S = std::vector<T> >
@@ -151,7 +151,7 @@ namespace cppTextReader {
     unsigned int range_;
   };
 
-#line 15 "bisonCppTextReader.y" // stack.hh:133
+#line 17 "bisonCppTextReader.y" // stack.hh:133
 } // cppTextReader
 #line 157 "stack.hh" // stack.hh:133
 

@@ -10,7 +10,7 @@
 using namespace usdsAgent;
 using namespace boost::filesystem;
 
-list<pair<string, string>>* FileSearcher::findDictFiles(string& rootPath, string& ext)
+unique_ptr<list<pair<string, string>>> FileSearcher::findDictFiles(string& rootPath, string& ext)
 try
 {
 	path p(rootPath.c_str());
@@ -23,7 +23,7 @@ try
 	recursive_directory_iterator it(p);
 	recursive_directory_iterator endit;
 
-	list<pair<string, string>>* outList = new list<pair<string, string>>;
+	auto outList = make_unique<list<pair<string, string>>>();
 
 	while (it != endit)
 	{
@@ -52,7 +52,7 @@ catch (filesystem_error err)
 	throw usds::ErrorStack("FileSearcher::findDictFiles") << rootPath.c_str() << ext.c_str() << usds::ErrorMessage(3, err.what());
 }
 
-list<pair<string, string>>* FileSearcher::findCodeFiles(string& rootPath, vector<string>& ext, string& annotation)
+unique_ptr<list<pair<string, string>>> FileSearcher::findCodeFiles(string& rootPath, vector<string>& ext, string& annotation)
 try
 {
 	path p(rootPath.c_str());
@@ -65,7 +65,7 @@ try
 	recursive_directory_iterator it(p);
 	recursive_directory_iterator endit;
 
-	list<pair<string, string>>* outList = new list<pair<string, string>>;
+	auto outList = make_unique<list<pair<string, string>>>();
 
 	while (it != endit)
 	{

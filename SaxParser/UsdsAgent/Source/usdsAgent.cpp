@@ -18,10 +18,10 @@ int main(int argc, char* argv[])
 try
 {
 	AgentConfig::parse(argc, argv);
-	usds::BasicParser* usdsDictionaries = DictionaryReader::findAllDictionaries();
-	usds::BasicParser* codeMapping = CodeReader::parseSourceCode(usdsDictionaries);
-	Package package = Packer::packToUsdsBinary(usdsDictionaries, codeMapping);
-	string* session_id = Sender::sent(package.binary, package.size);
+	auto usdsDictionaries = DictionaryReader::findAllDictionaries();
+	auto codeMapping = CodeReader::parseSourceCode(usdsDictionaries);
+	auto package = Packer::packToUsdsBinary(usdsDictionaries, codeMapping);
+	auto session_id = Sender::sent(package->binary, package->size);
 	Sender::wait(session_id);
 
 #ifdef _DEBUG

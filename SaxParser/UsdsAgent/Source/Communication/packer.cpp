@@ -2,12 +2,12 @@
 
 using namespace usdsAgent;
 
-Package Packer::packToUsdsBinary(usds::BasicParser* dictdionaries, usds::BasicParser* code_descriptions)
+std::unique_ptr<Package> Packer::packToUsdsBinary(std::unique_ptr<usds::BasicParser>& dictdionaries, std::unique_ptr<usds::BasicParser>& code_descriptions)
 {
-	Package output;
+	auto output = std::make_unique<Package>();
 
-	output.binary = 0;
-	output.size = 0;
+	output->binary = 0;
+	output->size = 0;
 
 
 	return output;

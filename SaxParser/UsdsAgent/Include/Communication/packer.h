@@ -3,6 +3,8 @@
 
 #include "BasicParser/Include/usdsBasicParser.h"
 
+#include <memory>
+
 namespace usdsAgent
 {
 	struct Package
@@ -17,7 +19,7 @@ namespace usdsAgent
 	public:
 		virtual void f() = 0;
 
-		static Package packToUsdsBinary(usds::BasicParser* dictdionaries, usds::BasicParser* code_descriptions);
+		static std::unique_ptr<Package> packToUsdsBinary(std::unique_ptr<usds::BasicParser>& dictdionaries, std::unique_ptr<usds::BasicParser>& code_descriptions);
 
 	};
 }
