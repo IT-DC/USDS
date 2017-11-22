@@ -10,7 +10,7 @@ using namespace usdsAgent;
 
 // take this string from usdsSaxParser.udic in repository
 const char* CodeReader::codeDictionary =
-"USDS 1:UsdsCodeDescription 0.1\n"
+"USDS 100001:UsdsCodeDescription 0.1\n"
 "ENCODE:UTF-8\n"
 "{\n"
 "\tParserDescription\n"

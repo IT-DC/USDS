@@ -22,6 +22,7 @@ void UsdsPolymorphTest::test_1()
 	usds::DictionaryPolymorph* dict_poly_field = (usds::DictionaryPolymorph*)struct_tag_1->addField(usds::USDS_POLYMORPH, 2, "poly_field", 0);
 	dict_poly_field->addTag(2);
 	dict_poly_field->addTag(3);
+	dict_poly_field->setNullable(true);
 
 	usds::DictionaryStruct* struct_tag_2 = (usds::DictionaryStruct*)dict.addTag(usds::USDS_STRUCT, 2, "struct_2", 0);
 	struct_tag_2->addField(usds::USDS_INT, 1, "int_field", 0);
@@ -40,16 +41,19 @@ void UsdsPolymorphTest::test_1()
 		throw "Failed at the step 2\n";
 
 	// test 3
+	body_struct->setNull(2);
 	poly_field = body_struct->addStruct(2, 3);
 	if (poly_field->getType() != usds::USDS_STRUCT || poly_field->getID() != 3 || strcmp(poly_field->getName(), "struct_3") != 0)
 		throw "Failed at the step 3\n";
 	
 	// test 4
+	body_struct->setNull(2);
 	poly_field = body_struct->addStruct(2, 2);
 	if (poly_field->getID() != 2 || poly_field->getType() != usds::USDS_STRUCT || strcmp(poly_field->getName(), "struct_2") != 0)
 		throw "Failed at the step 2\n";
 
 	// test 3
+	body_struct->setNull(2);
 	poly_field = body_struct->addStruct(2, 3);
 	if (poly_field->getType() != usds::USDS_STRUCT || poly_field->getID() != 3 || strcmp(poly_field->getName(), "struct_3") != 0)
 		throw "Failed at the step 3\n";

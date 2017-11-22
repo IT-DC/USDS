@@ -85,6 +85,7 @@ namespace usds
 
 		UsdsBaseType* pushElementBack() throw(...);
 		UsdsStruct* pushStructBack(int32_t tag_id);
+		UsdsStruct* pushStructBack(const char* tag_name);
 
 		UsdsBaseType* getElement(size_t position) throw(...);
 

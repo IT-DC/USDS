@@ -243,7 +243,7 @@ catch (ErrorStack& err)
 	throw;
 };
 
-UsdsStruct* BasicParser::addStructTag(const char* name) throw(...)
+UsdsStruct* BasicParser::addStruct(const char* name) throw(...)
 try
 {
 	DictionaryBaseType* dict_tag = currentDictionary->findTag(name);
@@ -256,15 +256,15 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	throw ErrorStack("BasicParser::addStructTag") << name << msg;
+	throw ErrorStack("BasicParser::addStruct") << name << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("BasicParser::addStructTag") << name;
+	err.addLevel("BasicParser::addStruct") << name;
 	throw;
 };
 
-UsdsStruct* BasicParser::addStructTag(int32_t id) throw(...)
+UsdsStruct* BasicParser::addStruct(int32_t id) throw(...)
 try
 {
 	DictionaryBaseType* dict_tag = currentDictionary->getTag(id);
@@ -276,11 +276,11 @@ try
 }
 catch (ErrorMessage& msg)
 {
-	throw ErrorStack("BasicParser::addStructTag") << id << msg;
+	throw ErrorStack("BasicParser::addStruct") << id << msg;
 }
 catch (ErrorStack& err)
 {
-	err.addLevel("BasicParser::addStructTag") << id;
+	err.addLevel("BasicParser::addStruct") << id;
 	throw;
 };
 

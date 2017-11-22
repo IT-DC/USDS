@@ -21,6 +21,7 @@
 %parse-param {class FlexCppTextReader* scanner}
 %parse-param {const char* input_text}
 %parse-param {std::unique_ptr<usds::BasicParser>& output}
+%parse-param {usds::UsdsStruct* type_description}
 
 %error-verbose
 
@@ -104,11 +105,17 @@ block:
 	|USDS_ANNOTATION TEXT_NAME
 	STRUCT TEXT_NAME
 	{
-		usds::UsdsStruct* tag = output->addStructTag("CodeDescription");
-		tag->setFromUTF8("dictionaryName", input_text + $2[0], $2[1]);
-		tag->setFromUTF8("cppType", "struct");
-		tag->setFromUTF8("cppName", input_text + $4[0], $4[1]);
-		tag->addStruct("typeDescription", "StructDescription");
+		usds::UsdsStruct* code_description = output->addStruct("CodeDescription");
+		
+		usds::UsdsArray* dic_links = code_description->addArray("DictionaryLinks");
+		usds::UsdsStruct* dic_link = (usds::UsdsStruct*)dic_links->pushElementBack();
+		dic_link->setFromUTF8("dictionaryName", input_text + $2[0], $2[1]);
+		
+		code_description->setFromUTF8("cppType", "struct");
+		code_description->setFromUTF8("cppName", input_text + $4[0], $4[1]);
+		type_description = code_description->addStruct("typeDescription", "StructDescription");
+		
+		
 	}
 	'{' struct_description '}'
 	{
@@ -130,21 +137,37 @@ struct_description:
 struct_field:
 	TEXT_NAME TEXT_NAME ';'
 	{
+		usds::UsdsArray* fields = 0;
+		if (type_description->isNull("StructFields"))
+			fields = type_description->addArray("StructFields");
+		else
+			fields = (usds::UsdsArray*)type_description->getField("StructFields");
+		
+		usds::UsdsStruct* field_description = (usds::UsdsStruct*)fields->pushElementBack();
 	
-	}
-	|
-	USDS_ANNOTATION USDS_ENCODE ':' STRING_ENCODE 
-	TEXT_NAME TEXT_NAME ';'
-	{
-	
-	
+		field_description->setFromUTF8("fieldName", input_text + $2[0], $2[1]);
+		field_description->setFromUTF8("typeName", input_text + $1[0], $1[1]);
+		field_description->setFromUTF8("fieldKind", "simple");		
 	}
 	|
 	USDS_ANNOTATION USDS_ENCODE ':' STRING_ENCODE 
 	TEXT_NAME '*' TEXT_NAME ';'
 	{
+		usds::UsdsArray* fields = 0;
+		if (type_description->isNull("StructFields"))
+			fields = type_description->addArray("StructFields");
+		else
+			fields = (usds::UsdsArray*)type_description->getField("StructFields");
+		
+		usds::UsdsStruct* field_description = (usds::UsdsStruct*)fields->pushElementBack();
 	
-	
+		field_description->setFromUTF8("fieldName", input_text + $7[0], $7[1]);
+		field_description->setFromUTF8("typeName", input_text + $5[0], $5[1]);
+		field_description->setFromUTF8("fieldKind", "link");
+
+		usds::UsdsArray* annotations = field_description->addArray("additionalAnnotations");
+		usds::UsdsStruct* annotation = annotations->pushStructBack("StringEncode");
+		annotation->setValue("encodeId", $4);
 	}
 	|
 	TEXT_NAME TEXT_NAME '[' UINT64_T ']' ';'

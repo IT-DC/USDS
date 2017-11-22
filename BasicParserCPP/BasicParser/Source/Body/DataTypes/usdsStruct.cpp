@@ -768,16 +768,15 @@ try
 	if (field_id < 1 || field_id > fieldNumber)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << field_id;
 
+	if (fields[field_id] != 0)
+		throw ErrorMessage(BODY_STRUCT__ALREADY_INITIALIZED) << "Field " << field_id << " is already initialized";
+
 	DictionaryBaseType* dict_field = ((DictionaryStruct*)parentDictionaryObject)->getField(field_id);
 	if (dict_field->getType() == USDS_TAG)
 		dict_field = ((DictionaryTagLink*)dict_field)->getTag();
 
 	if (dict_field->getType() != USDS_ARRAY)
 		throw ErrorMessage(BODY_STRUCT__ERROR_FIELD_TYPE) << "Field type id=" << field_id << " is not ARRAY";
-
-	if (fields[field_id] != 0)
-		// Maybe it also have to remove struct fields, array element ets
-		fields[field_id]->remove();
 
 	fields[field_id] = parentBody->addField(dict_field, this);
 
@@ -800,16 +799,15 @@ try
 	if (field_id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << field_name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";
 
+	if (fields[field_id] != 0)
+		throw ErrorMessage(BODY_STRUCT__ALREADY_INITIALIZED) << "Field '" << field_name << "' is already initialized";
+
 	DictionaryBaseType* dict_field = ((DictionaryStruct*)parentDictionaryObject)->getField(field_id);
 	if (dict_field->getType() == USDS_TAG)
 		dict_field = ((DictionaryTagLink*)dict_field)->getTag();
 	
 	if (dict_field->getType() != USDS_ARRAY)
 		throw ErrorMessage(BODY_STRUCT__ERROR_FIELD_TYPE) << "Field type id=" << field_id << " is not ARRAY";
-
-	if (fields[field_id] != 0)
-		// Maybe it also have to remove struct fields, array element ets
-		fields[field_id]->remove();
 
 	fields[field_id] = parentBody->addField(dict_field, this);
 
@@ -831,14 +829,14 @@ try
 	if (polyfield_id < 1 || polyfield_id > fieldNumber)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id=" << polyfield_id << " is not found in the tag '" << getName() << "'";
 
+	if (fields[polyfield_id] != 0)
+		throw ErrorMessage(BODY_STRUCT__ALREADY_INITIALIZED) << "Field " << polyfield_id << " is already initialized";
+
 	DictionaryBaseType* dict_poly_field = ((DictionaryStruct*)parentDictionaryObject)->getField(polyfield_id);
 	if (dict_poly_field->getType() != USDS_POLYMORPH)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id=" << polyfield_id << " is not POLYMORPH";
 
 	DictionaryBaseType* dict_field = ((DictionaryPolymorph*)dict_poly_field)->getSubStruct(tag_id);
-
-	if (fields[polyfield_id] != 0)
-		fields[polyfield_id]->remove();
 
 	fields[polyfield_id] = parentBody->addField(dict_field, this);
 
@@ -855,8 +853,6 @@ catch (ErrorStack& err)
 	throw;
 };
 
-
-
 UsdsStruct* UsdsStruct::addStruct(const char* polyfield_name, const char* tag_name) throw (...)
 try
 {
@@ -864,15 +860,16 @@ try
 	if (field_id == 0)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << polyfield_name << "' is not found in the tag '" << getName() << "'";
 
+	if (fields[field_id] != 0)
+		throw ErrorMessage(BODY_STRUCT__ALREADY_INITIALIZED) << "Field '" << polyfield_name << "' is already initialized";
+
+
 	DictionaryBaseType* dict_poly_field = ((DictionaryStruct*)parentDictionaryObject)->getField(field_id);
 	if (dict_poly_field->getType() != USDS_POLYMORPH)
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << polyfield_name << "' is not POLYMORPH";
 
 	DictionaryBaseType* dict_field = ((DictionaryPolymorph*)dict_poly_field)->getSubStruct(tag_name);
 	
-	if (fields[field_id] != 0)
-		fields[field_id]->remove();
-		
 	fields[field_id] = parentBody->addField(dict_field, this);
 
 	return (UsdsStruct*)fields[field_id];

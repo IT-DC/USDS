@@ -608,6 +608,30 @@ catch (ErrorStack& err)
 	throw;
 };
 
+UsdsStruct* UsdsArray::pushStructBack(const char* tag_name)
+try
+{
+	if (elementInBinaryType != USDS_POLYMORPH)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must be POLYMORPH for this method";
+
+	DictionaryStruct* dict_element = ((DictionaryPolymorph*)arrayDictionaryElement)->getSubStruct(tag_name);
+
+	UsdsBaseType* element = parentBody->addField(dict_element, this);
+	elementValues.writePointer(element);
+	elementNumber++;
+
+	return (UsdsStruct*)element;
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::pushStructBack") << tag_name << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::pushStructBack") << tag_name;
+	throw;
+};
+
 
 UsdsBaseType* UsdsArray::getElement(size_t position) throw(...)
 try

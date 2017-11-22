@@ -1,4 +1,4 @@
-USDS 2:UsdsCppCodeReader 0.1
+USDS UsdsCppCodeReader
 ENCODE:UTF-8
 {
 	CodeDescription
@@ -8,7 +8,7 @@ ENCODE:UTF-8
 			STRING dictionaryName;
 			UBYTE dictionaryMajorVersion = NULL;
 			UBYTE dictionaryMinorVersion = NULL;
-		}
+		};
 		ENUM cppType { struct=1, class = 2 };
 		STRING cppName;
 		<StructDescription||ClassDescription> typeDescription;
@@ -19,16 +19,19 @@ ENCODE:UTF-8
 		StructFields []
 		{
 			STRING fieldName;
-			Annotation[] additionalAnnotations;
+			STRING typeName;
+			ENUM fieldKind { simple = 1, link = 2, array_of_simple = 3 };
+			UVARINT array_size = NULL;
+			Annotation[] additionalAnnotations = NULL;
 		};
 	};
 	
 	ClassDescription
 	{
-		StructFields []
+		ClassFields []
 		{
 			STRING fieldName;
-			Annotation[] additionalAnnotations;
+			Annotation[] additionalAnnotations = NULL;
 		};
 	};
 	
@@ -41,8 +44,8 @@ ENCODE:UTF-8
 			STRING dictionaryName = NULL;
 			UBYTE dictionaryMajorVersion = NULL;
 			UBYTE dictionaryMinorVersion = NULL;
-		}
-		STRING encodeName;
+		} = NULL;
+		UINT encodeId;
 	};
 	
 	NameMapping
@@ -52,7 +55,7 @@ ENCODE:UTF-8
 			STRING dictionaryName = NULL;
 			UBYTE dictionaryMajorVersion = NULL;
 			UBYTE dictionaryMinorVersion = NULL;
-		}
+		} = NULL;
 		STRING mappedName;
 	};
 }

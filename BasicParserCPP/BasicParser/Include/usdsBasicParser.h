@@ -52,8 +52,8 @@ namespace usds
 
 		// Body constructions
 		UsdsBaseType* addTag(int32_t id) throw(...);
-		UsdsStruct* addStructTag(const char* name) throw(...);
-		UsdsStruct* addStructTag(int32_t id) throw(...);
+		UsdsStruct* addStruct(const char* name) throw(...);
+		UsdsStruct* addStruct(int32_t id) throw(...);
 
 		// encode
 		void encode(BinaryOutput* buff, bool with_head, bool with_dictionary, bool with_body) throw(...);

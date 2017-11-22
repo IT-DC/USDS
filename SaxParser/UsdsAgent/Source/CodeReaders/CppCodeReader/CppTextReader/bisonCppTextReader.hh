@@ -85,7 +85,7 @@ namespace cppTextReader {
     /// Symbol semantic values.
     union semantic_type
     {
-    #line 27 "bisonCppTextReader.y" // lalr1.cc:371
+    #line 28 "bisonCppTextReader.y" // lalr1.cc:371
 
 //	bool  				boolVal;
 	int8_t  			int8Val;
@@ -226,7 +226,7 @@ namespace cppTextReader {
 
 
     /// Build a parser object.
-    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg, std::unique_ptr<usds::BasicParser>& output_yyarg);
+    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg, std::unique_ptr<usds::BasicParser>& output_yyarg, usds::UsdsStruct* type_description_yyarg);
     virtual ~BisonCppTextReader ();
 
     /// Parse.
@@ -424,7 +424,7 @@ namespace cppTextReader {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 78,           //< Last index in yytable_.
+      yylast_ = 76,           //< Last index in yytable_.
       yynnts_ = 8,  //< Number of nonterminal symbols.
       yyempty_ = -2,
       yyfinal_ = 9, //< Termination state number.
@@ -438,12 +438,13 @@ namespace cppTextReader {
     class FlexCppTextReader* scanner;
     const char* input_text;
     std::unique_ptr<usds::BasicParser>& output;
+    usds::UsdsStruct* type_description;
   };
 
 
 #line 17 "bisonCppTextReader.y" // lalr1.cc:371
 } // cppTextReader
-#line 447 "bisonCppTextReader.hh" // lalr1.cc:371
+#line 448 "bisonCppTextReader.hh" // lalr1.cc:371
 
 
 
