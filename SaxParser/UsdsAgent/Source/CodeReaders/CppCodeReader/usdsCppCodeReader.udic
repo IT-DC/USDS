@@ -3,59 +3,61 @@ ENCODE:UTF-8
 {
 	CodeDescription
 	{
-		DictionaryLinks []
-		{
-			STRING dictionaryName;
-			UBYTE dictionaryMajorVersion = NULL;
-			UBYTE dictionaryMinorVersion = NULL;
-		};
-		ENUM cppType { struct=1, class = 2 };
-		STRING cppName;
+		Annotation[] mainAnnotations;
 		<StructDescription||ClassDescription> typeDescription;
 	};
 
-	StructDescription
+	Annotation
 	{
-		StructFields []
-		{
-			STRING fieldName;
-			STRING typeName;
-			ENUM fieldKind { simple = 1, link = 2, array_of_simple = 3 };
-			UVARINT array_size = NULL;
-			Annotation[] additionalAnnotations = NULL;
-		};
+		STRING dictionaryName = NULL;
+		UBYTE dictionaryMajorVersion = NULL;
+		UBYTE dictionaryMinorVersion = NULL;
+		<StringEncode||NameMapping> attribute = NULL;
 	};
 	
-	ClassDescription
-	{
-		ClassFields []
-		{
-			STRING fieldName;
-			Annotation[] additionalAnnotations = NULL;
-		};
-	};
-	
-	<StringEncode||NameMapping> Annotation;
-
 	StringEncode
 	{
-		DictionaryLinks []
-		{
-			STRING dictionaryName = NULL;
-			UBYTE dictionaryMajorVersion = NULL;
-			UBYTE dictionaryMinorVersion = NULL;
-		} = NULL;
 		UINT encodeId;
 	};
 	
 	NameMapping
 	{
-		DictionaryLinks []
-		{
-			STRING dictionaryName = NULL;
-			UBYTE dictionaryMajorVersion = NULL;
-			UBYTE dictionaryMinorVersion = NULL;
-		} = NULL;
 		STRING mappedName;
 	};
+	
+	StructDescription
+	{
+		STRING cppName;
+		Elements []
+		{
+			Annotation[] additionalAnnotations = NULL;
+			<FieldDescription||MethodDescription> ElementDescription;
+		};
+	};
+	
+	ClassDescription
+	{
+		STRING cppName;
+		Elements []
+		{
+			Annotation[] additionalAnnotations = NULL;
+			<FieldDescription||MethodDescription> ElementDescription;
+		};
+	};
+	
+	FieldDescription
+	{
+		STRING fieldName;
+		STRING typeName;
+		ENUM fieldKind { simple = 1, link = 2, reference = 3 };
+		UBYTE linksNumber = NULL;
+		UVARINT[] arraySizes = NULL;
+	};
+	
+	MethodDescription
+	{
+		STRING methodName;
+	
+	};
+
 }

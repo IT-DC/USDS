@@ -71,6 +71,29 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void UsdsStruct::setValue(const char* field_name, uint64_t value) throw (...)
+try
+{
+	int32_t field_id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(field_name);
+	if (field_id == 0)
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << field_name << "' is not found in the tag '" << getName() << "'";
+
+	if (fields[field_id] == 0)
+		fields[field_id] = parentBody->addField(((DictionaryStruct*)parentDictionaryObject)->getField(field_id), this);
+
+	fields[field_id]->setValue(value);
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsStruct::setValue") << field_name << value << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::setValue") << field_name << value;
+	throw;
+};
+
 void UsdsStruct::setValue(const char* field_name, double value) throw (...)
 try
 {
@@ -600,7 +623,7 @@ try
 		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << field_id;
 
 	if (fields[field_id] == 0)
-		throw ErrorMessage(BODY_STRUCT__FIELD_IS_NULL) << "Field " << field_id << " is NULL";
+		throw ErrorMessage(BODY_STRUCT__FIELD_IS_NULL) << "Field '" << this << "." << ((DictionaryStruct*)parentDictionaryObject)->getField(field_id)->getName() << "' is NULL";
 
 	return fields[field_id];
 }
@@ -630,6 +653,25 @@ catch (ErrorStack& err)
 	err.addLevel("UsdsStruct::getField") << field_name;
 	throw;
 };
+
+const char* UsdsStruct::getFieldName(int32_t field_id) throw (...)
+try
+{
+	if (field_id < 1 || field_id > fieldNumber)
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << field_id;
+
+	return ((DictionaryStruct*)parentDictionaryObject)->getField(field_id)->getName();
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsStruct::getFieldName") << field_id << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::getFieldName") << field_id;
+	throw;
+};
+
 
 
 //================================================================================================
@@ -759,6 +801,44 @@ catch (ErrorStack& err)
 	err.addLevel("UsdsStruct::isNull") << field_id;
 	throw;
 };
+
+bool UsdsStruct::isNullable(const char* field_name) throw (...)
+try
+{
+	int32_t field_id = ((DictionaryStruct*)parentDictionaryObject)->findFieldID(field_name);
+	if (field_id == 0)
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field '" << field_name << "' is not found in the tag '" << ((DictionaryStruct*)parentDictionaryObject)->getName() << "'";;
+
+	return ((DictionaryStruct*)parentDictionaryObject)->getField(field_id)->isNullable();
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsStruct::isNullable") << field_name << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::isNullable") << field_name;
+	throw;
+};
+
+bool UsdsStruct::isNullable(int32_t field_id) throw (...)
+try
+{
+	if (field_id < 1 || field_id > fieldNumber)
+		throw ErrorMessage(BODY_STRUCT__FIELD_NOT_FOUND) << "Field id must be in range [1, " << fieldNumber << "], current valu: " << field_id;
+
+	return ((DictionaryStruct*)parentDictionaryObject)->getField(field_id)->isNullable();
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsStruct::isNullable") << field_id << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsStruct::isNullable") << field_id;
+	throw;
+};
+
 
 //================================================================================================
 

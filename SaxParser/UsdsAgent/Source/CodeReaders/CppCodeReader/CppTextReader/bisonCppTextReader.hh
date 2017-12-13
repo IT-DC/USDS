@@ -129,11 +129,12 @@ namespace cppTextReader {
         COMMENTS = 262,
         NAMESPACE = 263,
         STRUCT = 264,
-        TEXT_NAME = 265,
-        POSITIVE_NUMBER = 266,
-        NEGATIVE_NUMBER = 267,
-        POSITIVE_EXPONENT_NUMBER = 268,
-        NEGATIVE_EXPONENT_NUMBER = 269
+        CLASS = 265,
+        TEXT_NAME = 266,
+        POSITIVE_NUMBER = 267,
+        NEGATIVE_NUMBER = 268,
+        POSITIVE_EXPONENT_NUMBER = 269,
+        NEGATIVE_EXPONENT_NUMBER = 270
       };
     };
 
@@ -226,7 +227,7 @@ namespace cppTextReader {
 
 
     /// Build a parser object.
-    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg, std::unique_ptr<usds::BasicParser>& output_yyarg, usds::UsdsStruct* type_description_yyarg);
+    BisonCppTextReader (class FlexCppTextReader* scanner_yyarg, const char* input_text_yyarg, std::unique_ptr<usds::BasicParser>& output_yyarg, usds::UsdsStruct* code_description_yyarg);
     virtual ~BisonCppTextReader ();
 
     /// Parse.
@@ -309,7 +310,7 @@ namespace cppTextReader {
   // number is the opposite.  If YYTABLE_NINF, syntax error.
   static const unsigned char yytable_[];
 
-  static const signed char yycheck_[];
+  static const unsigned char yycheck_[];
 
   // YYSTOS[STATE-NUM] -- The (internal number of the) accessing
   // symbol of state STATE-NUM.
@@ -424,13 +425,13 @@ namespace cppTextReader {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 76,           //< Last index in yytable_.
-      yynnts_ = 8,  //< Number of nonterminal symbols.
+      yylast_ = 82,           //< Last index in yytable_.
+      yynnts_ = 16,  //< Number of nonterminal symbols.
       yyempty_ = -2,
-      yyfinal_ = 9, //< Termination state number.
+      yyfinal_ = 12, //< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 23    //< Number of tokens.
+      yyntokens_ = 24    //< Number of tokens.
     };
 
 
@@ -438,13 +439,13 @@ namespace cppTextReader {
     class FlexCppTextReader* scanner;
     const char* input_text;
     std::unique_ptr<usds::BasicParser>& output;
-    usds::UsdsStruct* type_description;
+    usds::UsdsStruct* code_description;
   };
 
 
 #line 17 "bisonCppTextReader.y" // lalr1.cc:371
 } // cppTextReader
-#line 448 "bisonCppTextReader.hh" // lalr1.cc:371
+#line 449 "bisonCppTextReader.hh" // lalr1.cc:371
 
 
 

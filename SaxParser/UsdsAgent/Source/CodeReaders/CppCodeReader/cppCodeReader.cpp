@@ -20,75 +20,80 @@ const char* CppCodeReader::cppCodeDictionary =
 "{\n"
 "\tCodeDescription\n"
 "\t{\n"
-"\t\tDictionaryLinks []\n"
-"\t\t{\n"
-"\t\t\tSTRING dictionaryName;\n"
-"\t\t\tUBYTE dictionaryMajorVersion = NULL;\n"
-"\t\t\tUBYTE dictionaryMinorVersion = NULL;\n"
-"\t\t};\n"
-"\t\tENUM cppType { struct=1, class = 2 };\n"
-"\t\tSTRING cppName;\n"
+"\t\tAnnotation[] mainAnnotations;\n"
 "\t\t<StructDescription||ClassDescription> typeDescription;\n"
 "\t};\n"
 "\n"
-"\tStructDescription\n"
+"\tAnnotation\n"
 "\t{\n"
-"\t\tStructFields []\n"
-"\t\t{\n"
-"\t\t\tSTRING fieldName;\n"
-"\t\t\tSTRING typeName;\n"
-"\t\t\tENUM fieldKind { simple = 1, link = 2, array_of_simple = 3 };\n"
-"\t\t\tUVARINT array_size = NULL;\n"
-"\t\t\tAnnotation[] additionalAnnotations = NULL;\n"
-"\t\t};\n"
+"\t\tSTRING dictionaryName = NULL;\n"
+"\t\tUBYTE dictionaryMajorVersion = NULL;\n"
+"\t\tUBYTE dictionaryMinorVersion = NULL;\n"
+"\t\t<StringEncode||NameMapping> attribute = NULL;\n"
 "\t};\n"
 "\t\n"
-"\tClassDescription\n"
-"\t{\n"
-"\t\tClassFields []\n"
-"\t\t{\n"
-"\t\t\tSTRING fieldName;\n"
-"\t\t\tAnnotation[] additionalAnnotations = NULL;\n"
-"\t\t};\n"
-"\t};\n"
-"\t\n"
-"\t<StringEncode||NameMapping> Annotation;\n"
-"\n"
 "\tStringEncode\n"
 "\t{\n"
-"\t\tDictionaryLinks []\n"
-"\t\t{\n"
-"\t\t\tSTRING dictionaryName = NULL;\n"
-"\t\t\tUBYTE dictionaryMajorVersion = NULL;\n"
-"\t\t\tUBYTE dictionaryMinorVersion = NULL;\n"
-"\t\t} = NULL;\n"
 "\t\tUINT encodeId;\n"
 "\t};\n"
 "\t\n"
 "\tNameMapping\n"
 "\t{\n"
-"\t\tDictionaryLinks []\n"
-"\t\t{\n"
-"\t\t\tSTRING dictionaryName = NULL;\n"
-"\t\t\tUBYTE dictionaryMajorVersion = NULL;\n"
-"\t\t\tUBYTE dictionaryMinorVersion = NULL;\n"
-"\t\t} = NULL;\n"
 "\t\tSTRING mappedName;\n"
 "\t};\n"
+"\t\n"
+"\tStructDescription\n"
+"\t{\n"
+"\t\tSTRING cppName;\n"
+"\t\tElements []\n"
+"\t\t{\n"
+"\t\t\tAnnotation[] additionalAnnotations = NULL;\n"
+"\t\t\t<FieldDescription||MethodDescription> ElementDescription;\n"
+"\t\t};\n"
+"\t};\n"
+"\t\n"
+"\tClassDescription\n"
+"\t{\n"
+"\t\tSTRING cppName;\n"
+"\t\tElements []\n"
+"\t\t{\n"
+"\t\t\tAnnotation[] additionalAnnotations = NULL;\n"
+"\t\t\t<FieldDescription||MethodDescription> ElementDescription;\n"
+"\t\t};\n"
+"\t};\n"
+"\t\n"
+"\tFieldDescription\n"
+"\t{\n"
+"\t\tSTRING fieldName;\n"
+"\t\tSTRING typeName;\n"
+"\t\tENUM fieldKind { simple = 1, link = 2, reference = 3 };\n"
+"\t\tUBYTE linksNumber = NULL;\n"
+"\t\tUVARINT[] arraySizes = NULL;\n"
+"\t};\n"
+"\t\n"
+"\tMethodDescription\n"
+"\t{\n"
+"\t\tSTRING methodName;\n"
+"\t\n"
+"\t};\n"
+"\n"
 "}"
 ;
 
 std::unique_ptr<usds::BasicParser> CppCodeReader::parseSourceCode(std::unique_ptr<usds::BasicParser>& dicts, std::unique_ptr<usds::BasicParser>& code_mapping)
 {
-	BOOST_LOG_TRIVIAL(info) << "Read code files";
+	
 	auto dictFiles = FileSearcher::findCodeFiles(AgentConfig::codePath, AgentConfig::codeFileExt, AgentConfig::cppAnnotation);
 
+	BOOST_LOG_TRIVIAL(debug) << "Read dictionary 'cppCodeDictionary'";
 	auto codeDescription = make_unique<usds::BasicParser>();;
 	codeDescription->addDictionaryFromText(cppCodeDictionary, 0, usds::USDS_UTF8);
 
+	BOOST_LOG_TRIVIAL(info) << "Read code files:";
 	// Parse code files
 	for (auto it = dictFiles->begin(); it != dictFiles->end(); ++it)
 	{
+		BOOST_LOG_TRIVIAL(info) << (*it).first;
 		// Creating scanner and parser
 		std::stringstream input;
 		std::stringstream output;
@@ -97,8 +102,11 @@ std::unique_ptr<usds::BasicParser> CppCodeReader::parseSourceCode(std::unique_pt
 		cppTextReader::BisonCppTextReader textParser(&scanner, (*it).second.c_str(), codeDescription, 0);
 		// Parse!
 		textParser.parse();
-
 	}
+	
+	std::string json = "";
+	codeDescription->getJSON(usds::USDS_UTF8, &json);
+	BOOST_LOG_TRIVIAL(debug) << "Result:\n" << json;
 
 	return codeDescription;
 

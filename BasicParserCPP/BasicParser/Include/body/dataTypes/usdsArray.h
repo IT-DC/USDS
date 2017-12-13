@@ -88,6 +88,7 @@ namespace usds
 		UsdsStruct* pushStructBack(const char* tag_name);
 
 		UsdsBaseType* getElement(size_t position) throw(...);
+		UsdsBaseType* getLastElement() throw(...);
 
 		void erase(size_t number) throw (...);
 

@@ -2,6 +2,10 @@
 
 #include "body\usdsBody.h"
 
+#include "body/dataTypes/usdsUInt.h"
+#include "body/dataTypes/usdsUByte.h"
+#include "body/dataTypes/usdsEnum.h"
+
 using namespace usds;
 
 BodyJsonCreator::BodyJsonCreator()
@@ -12,7 +16,7 @@ BodyJsonCreator::BodyJsonCreator()
 	writeIndex[USDS_SHORT] = &BodyJsonCreator::writeShort;
 	writeIndex[USDS_USHORT] = &BodyJsonCreator::writeUShort;
 	writeIndex[USDS_INT] = &BodyJsonCreator::writeInt;
-	writeIndex[USDS_INT] = &BodyJsonCreator::writeUInt;
+	writeIndex[USDS_UINT] = &BodyJsonCreator::writeUInt;
 	writeIndex[USDS_LONG] = &BodyJsonCreator::writeLong;
 	writeIndex[USDS_ULONG] = &BodyJsonCreator::writeULong;
 	writeIndex[USDS_INT128] = &BodyJsonCreator::writeInt128;
@@ -24,6 +28,7 @@ BodyJsonCreator::BodyJsonCreator()
 	writeIndex[USDS_STRING] = &BodyJsonCreator::writeString;
 	writeIndex[USDS_ARRAY] = &BodyJsonCreator::writeArray;
 	writeIndex[USDS_STRUCT] = &BodyJsonCreator::writeStruct;
+	writeIndex[USDS_ENUM] = &BodyJsonCreator::writeEnum;
 };
 
 BodyJsonCreator::~BodyJsonCreator()
@@ -36,7 +41,7 @@ void BodyJsonCreator::generate(usdsEncode encode, std::string* text, Body* body)
 try
 {
 	if (encode != USDS_UTF8)
-		throw ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTABLE_ENCODE) << "Unsupported encode, use USDS_UTF8. Your value: " << encode;
+		throw ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTABLE_ENCODE) << "Unsupported encode, use USDS_UTF8. Your value: " << UsdsTypes::encodeName(encode);
 
 	textBuff = text;
 
@@ -92,7 +97,8 @@ void BodyJsonCreator::writeByte(UsdsBaseType* object) throw (...)
 
 void BodyJsonCreator::writeUByte(UsdsBaseType* object) throw (...)
 {
-	throw ErrorStack("BodyJsonCreator::writeUByte") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED BYTE for JSON Creator");
+	uint8_t value = ((UsdsUByte*)object)->get();
+	*textBuff += std::to_string(value);
 };
 
 void BodyJsonCreator::writeShort(UsdsBaseType* object) throw (...)
@@ -119,7 +125,8 @@ catch (ErrorStack& err)
 
 void BodyJsonCreator::writeUInt(UsdsBaseType* object) throw (...)
 {
-	throw ErrorStack("BodyJsonCreator::writeUInt") << (void*)object << ErrorMessage(BODY_JSON_CREATOR__UNSUPPORTED_TYPE, "Unsupported type UNSIGNED INT for JSON Creator");
+	uint32_t value = ((UsdsUInt*)object)->get();
+	*textBuff += std::to_string(value);
 };
 
 void BodyJsonCreator::writeLong(UsdsBaseType* object) throw (...)
@@ -198,20 +205,40 @@ catch (ErrorStack& err)
 };
 
 void BodyJsonCreator::writeArray(UsdsBaseType* object) throw (...)
-
 try
 {
 	int32_t element_number = ((UsdsArray*)object)->getSize();
 	int32_t i = 0;
 	*textBuff += '\n';
 	textBuff->append(shiftLevel, '\t');
-	*textBuff += '[';
-	shiftLevel++;
 
-	switch (((UsdsArray*)object)->getElementType())
+	// JSON does not support polymorph array
+	if (((UsdsArray*)object)->getElementType() == USDS_POLYMORPH)
 	{
-	case USDS_TAG:
-
+		*textBuff += '{';
+		shiftLevel++;
+		while (true)
+		{
+			UsdsBaseType* tag = (((UsdsArray*)object)->getElement(i));
+			*textBuff += '"';
+			*textBuff += tag->getName();
+			*textBuff += "\": ";
+			// write specific Tag parameters
+			(this->*(writeIndex[tag->getType()]))(tag);
+			i++;
+			if (i >= element_number)
+				break;
+			*textBuff += ", ";
+		}
+		shiftLevel--;
+		*textBuff += '\n';
+		textBuff->append(shiftLevel, '\t');
+		*textBuff += '}';
+	}
+	else
+	{
+		*textBuff += '[';
+		shiftLevel++;
 		while (true)
 		{
 			UsdsBaseType* tag = (((UsdsArray*)object)->getElement(i));
@@ -222,13 +249,11 @@ try
 				break;
 			*textBuff += ", ";
 		}
-		break;
-	}
-
-	shiftLevel--;
-	*textBuff += '\n';
-	textBuff->append(shiftLevel, '\t');
-	*textBuff += ']';
+		shiftLevel--;
+		*textBuff += '\n';
+		textBuff->append(shiftLevel, '\t');
+		*textBuff += ']';
+	};
 }
 catch (ErrorStack& err)
 {
@@ -243,10 +268,20 @@ try
 	textBuff->append(shiftLevel, '\t');
 	*textBuff += "{\n";
 	shiftLevel++;
-	int32_t field_number = ((UsdsStruct*)object)->getFieldsNumber();
+	int32_t fields_number = ((UsdsStruct*)object)->getFieldsNumber();
 	int32_t id = 1;
 	while (true)
 	{
+		if (((UsdsStruct*)object)->isNullable(id))
+		{
+			if (((UsdsStruct*)object)->isNull(id))
+			{
+				id++;
+				if (id > fields_number)
+					break;
+				continue;
+			}
+		}
 		UsdsBaseType* field = ((UsdsStruct*)object)->getField(id);
 		textBuff->append(shiftLevel, '\t');
 		*textBuff += '"';
@@ -256,7 +291,7 @@ try
 		(this->*(writeIndex[field->getType()]))(field);
 
 		id++;
-		if (id > field_number)
+		if (id > fields_number)
 			break;
 		*textBuff += ",\n";
 	}
@@ -272,5 +307,18 @@ catch (ErrorStack& err)
 	throw;
 };
 
+void BodyJsonCreator::writeEnum(UsdsBaseType* object) throw (...)
+try
+{
+	const char* value = ((UsdsEnum*)object)->getUTF8Value();
+	*textBuff += "\"";
+	*textBuff += value;
+	*textBuff += "\"";
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("BodyJsonCreator::writeEnum") << (void*)object;
+	throw;
+};
 
 

@@ -42,6 +42,7 @@ namespace usds
 		void writeString(UsdsBaseType* object) throw (...);
 		void writeArray(UsdsBaseType* object) throw (...);
 		void writeStruct(UsdsBaseType* object) throw (...);
+		void writeEnum(UsdsBaseType* object) throw (...);
 
 		int32_t shiftLevel;
 

@@ -657,6 +657,30 @@ catch (ErrorStack& err)
 	throw;
 };
 
+UsdsBaseType* UsdsArray::getLastElement() throw(...)
+try
+{
+	if (elementInBinarySize != 0)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_DIFFICULT) << "Array element must not be Simple type or UVARINT or VARINT, current value " << UsdsTypes::typeName(elementInBinaryType) << ". Use methods getValue.";
+
+	if (elementNumber == 0)
+		throw ErrorMessage(BODY_ARRAY__ELEMENT_NOT_FOUND) << "Array is empty";
+
+	UsdsBaseType* element;
+	elementValues.readPointer((elementNumber - 1) * sizeof(UsdsBaseType*), (void**)(&element));
+	return element;
+
+}
+catch (ErrorMessage& msg)
+{
+	throw ErrorStack("UsdsArray::getLastElement") << msg;
+}
+catch (ErrorStack& err)
+{
+	err.addLevel("UsdsArray::getLastElement");
+	throw;
+};
+
 //====================================================================================================================
 
 void UsdsArray::additionalInitObject()

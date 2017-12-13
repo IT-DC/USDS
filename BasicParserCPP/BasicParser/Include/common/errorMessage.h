@@ -24,6 +24,8 @@ typedef unsigned __int64    uint64_t;
 
 namespace usds
 {
+	class UsdsBaseType;
+
 	class ErrorMessage
 	{
 	public:
@@ -46,6 +48,7 @@ namespace usds
 		ErrorMessage& operator<<(const std::string& utf8_value);
 		ErrorMessage& operator<<(const std::string* utf8_value);
 		ErrorMessage& operator<<(const void* value);
+		ErrorMessage& operator<<(UsdsBaseType* body_value);
 
 		ErrorMessage& addString(const char* utf8_value, size_t size);
 

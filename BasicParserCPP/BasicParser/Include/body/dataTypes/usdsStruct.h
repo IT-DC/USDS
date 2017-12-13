@@ -88,9 +88,14 @@ namespace usds
 		void setNull(int32_t field_id) throw (...);
 		bool isNull(const char* field_name) throw (...);
 		bool isNull(int32_t field_id) throw (...);
+		bool isNullable(const char* field_name) throw (...);
+		bool isNullable(int32_t field_id) throw (...);
+
 
 		UsdsBaseType* getField(int32_t field_id) throw (...);
 		UsdsBaseType* getField(const char* field_name) throw (...);
+
+		const char* getFieldName(int32_t field_id) throw (...);
 
 		int32_t getFieldsNumber() throw (...);
 

@@ -1,7 +1,9 @@
 #include "common\errorMessage.h"
 
-//#include <iconv.h>
 #include <sstream>
+
+#include "body/usdsBaseType.h"
+#include "body/dataTypes/usdsArray.h"
 
 using namespace usds;
 
@@ -150,6 +152,49 @@ ErrorMessage& ErrorMessage::operator << (const void* value)
 	std::stringstream buff;
 	buff << "0x" << value;
 	message += buff.str();
+
+	return *this;
+};
+
+ErrorMessage& ErrorMessage::operator << (UsdsBaseType* body_value)
+{
+	if (body_value == 0)
+	{
+		message += "null";
+		return *this;
+	}
+
+	std::string path = body_value->getName();
+	UsdsBaseType* prev_body_value = body_value;
+	body_value = body_value->getParent();
+
+	while (body_value != 0)
+	{
+		std::string buff = path;
+		path = body_value->getName();
+
+		if (body_value->getType() == USDS_ARRAY)
+		{
+			path += "[";
+			size_t size = ((UsdsArray*)body_value)->getSize();
+			for (size_t i = 0; i<size; i++)
+				if (((UsdsArray*)body_value)->getElement(i) == prev_body_value)
+				{
+					std::stringstream buff;
+					buff << i;
+					path += buff.str();
+					break;
+				}
+			path += "]";
+		}
+
+		path += ".";
+		path += buff;
+		body_value = body_value->getParent();
+		prev_body_value = body_value;
+	}
+
+	message += path;
 
 	return *this;
 };
